@@ -193,6 +193,10 @@ jobs:
             docker push "${ECR_ENDPOINT_PREPROD}:grc-dashboard-latest"
 
   deploy_image_to_dev:
+    <<: *cloud_container
+    parameters:
+      env_name:
+        type: string
     steps:
       - run:
           name: Setup dev build
