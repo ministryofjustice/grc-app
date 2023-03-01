@@ -25,12 +25,6 @@ jobs:
           aws-access-key-id: ${AWS_ACCESS_KEY_ID_PREPROD}
           aws-secret-access-key: ${AWS_SECRET_ACCESS_KEY_PREPROD}
           aws-region: ${AWS_REGION_NAME}
-  build-dev:
-    steps:
-      - run:
-          name: Setup dev build
-          command: |
-            echo "Setting up a build on a development feature branch!"
   build:
     parameters:
       env_name:
@@ -198,7 +192,13 @@ jobs:
             docker tag grc-dashboard "${ECR_ENDPOINT_PREPROD}:grc-dashboard-latest"
             docker push "${ECR_ENDPOINT_PREPROD}:grc-dashboard-latest"
 
-  deploy_image_to_live:
+  deploy_image_to_dev:
+    steps:
+      - run:
+          name: Setup dev build
+          command: |
+            echo "Setting up a build on a development feature branch!"
+  deploy_image_to_preprod:
     <<: *cloud_container 
     parameters:
       env_name:
@@ -223,7 +223,7 @@ jobs:
             sed -i -e s/:latest/:$CIRCLE_SHA1/ deploy/staging/grc-clamav-deployment.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging
                     
-  deploy_image_to_live_prod:
+  deploy_image_to_production:
     <<: *cloud_container
     parameters:
       env_name:
@@ -274,37 +274,45 @@ jobs:
 workflows:
   test-build-deploy:
     jobs:
-      - dev:
+      - build:
+          name: build-containers
+          env_name: preprod
+      - deploy_image_to_dev:
           name: build-dev
           env_name: dev
+          requires:
+            - build-containers
           filters:
             branches:
               only: /RST-*/
-      - build:
-          name: build-staging
-          env_name: preprod
-          filters:
-            branches:
-              only: /staging/
-      - deploy_image_to_live:
+      - deploy_image_to_preprod:
           name: deploy-staging-live
           env_name: preprod
           filters:
             branches:
               only: /staging/
           requires:
-            - build-staging
+            - build-containers
       ### production ###
       #- approve_production:
       #    type: approval
       #    requires:
-      #      - deploy-staging-live
+      #      - build-containers
+      #    filters:
+      #      branches:
+      #        only: /master/
       #- tag_production:
+      #    filters:
+      #      branches:
+      #        only: /master/
       #    requires:
       #      - approve_production
-      #- deploy_image_to_live_prod:
+      #- deploy_image_to_production:
       #    name: deploy-production-live
       #    env_name: prod
+      #    filters:
+      #      branches:
+      #        only: /master/
       #    requires:
       #      - tag_production
 
