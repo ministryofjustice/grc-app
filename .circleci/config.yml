@@ -286,9 +286,6 @@ workflows:
           env_name: dev
           requires:
             - build-containers
-          filters:
-            branches:
-              only: /RST-*/
       - deploy_image_to_preprod:
           name: deploy-staging-live
           env_name: preprod
