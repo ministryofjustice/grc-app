@@ -294,31 +294,31 @@ workflows:
           env_name: preprod
           filters:
             branches:
-              only: /staging/
+              only: /^staging$/
           requires:
             - build-containers
       ### production ###
-      #- approve_production:
-      #    type: approval
-      #    requires:
-      #      - build-containers
-      #    filters:
-      #      branches:
-      #        only: /master/
-      #- tag_production:
-      #    filters:
-      #      branches:
-      #        only: /master/
-      #    requires:
-      #      - approve_production
-      #- deploy_image_to_production:
-      #    name: deploy-production-live
-      #    env_name: prod
-      #    filters:
-      #      branches:
-      #        only: /master/
-      #    requires:
-      #      - tag_production
+      - approve_production:
+          type: approval
+          requires:
+            - build-containers
+          filters:
+            branches:
+              only: /^master$/
+      - tag_production:
+          filters:
+            branches:
+              only: /^master$/
+          requires:
+            - approve_production
+      - deploy_image_to_production:
+          name: deploy-production-live
+          env_name: prod
+          filters:
+            branches:
+              only: /^master$/
+          requires:
+            - tag_production
 
 #  smoke-tests:
 #    jobs:
