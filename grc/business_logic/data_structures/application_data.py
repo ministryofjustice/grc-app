@@ -133,6 +133,10 @@ class ApplicationData:
         return self._upload_section_status(self.uploads_data.statutory_declarations)
 
     @property
+    def section_status_birth_or_adoption_certificate(self) -> ListStatus:
+        return self._upload_section_status(self.uploads_data.birth_or_adoption_certificates)
+
+    @property
     def section_status_submit_and_pay_data(self) -> ListStatus:
         if self.submit_and_pay_data.is_submitted:
             return ListStatus.COMPLETED
@@ -141,9 +145,6 @@ class ApplicationData:
             return ListStatus.CANNOT_START_YET
 
         if self.personal_details_data.section_status != ListStatus.COMPLETED:
-            return ListStatus.CANNOT_START_YET
-
-        if self.birth_registration_data.section_status != ListStatus.COMPLETED:
             return ListStatus.CANNOT_START_YET
 
         if self.partnership_details_data.section_status != ListStatus.COMPLETED:
@@ -165,6 +166,9 @@ class ApplicationData:
             return ListStatus.CANNOT_START_YET
 
         if self.section_status_statutory_declarations != ListStatus.COMPLETED:
+            return ListStatus.CANNOT_START_YET
+
+        if self.section_status_birth_or_adoption_certificate != ListStatus.COMPLETED:
             return ListStatus.CANNOT_START_YET
 
         if self.submit_and_pay_data.applying_for_help_with_fee is None:

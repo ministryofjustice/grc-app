@@ -87,14 +87,6 @@
                         }}
 
                         {{ taskListItem(
-                            "Your birth registration information",
-                            (url_for('birthRegistration.checkYourAnswers')
-                             if application_data.birth_registration_data.section_status == ListStatus.COMPLETED
-                             else url_for('birthRegistration.index')),
-                            application_data.birth_registration_data.section_status)
-                        }}
-
-                        {{ taskListItem(
                             "Marriage or civil partnership details",
                             (url_for('partnershipDetails.checkYourAnswers')
                              if application_data.partnership_details_data.section_status == ListStatus.COMPLETED
@@ -112,6 +104,12 @@
                     </h2>
 
                     <ul class="app-task-list__items">
+                        {{ taskListItem(
+                            "Birth or adoption certificate",
+                            url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
+                            application_data.section_status_birth_or_adoption_certificate)
+                        }}
+
                         {% if application_data.need_medical_reports %}
                             {{ taskListItem(
                                 "Your medical reports",

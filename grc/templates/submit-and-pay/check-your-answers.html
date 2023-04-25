@@ -178,103 +178,6 @@
             </dl>
 
             <h2 class="govuk-heading-m">
-                Birth registration details
-            </h2>
-
-            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                {{ check_your_answers_row(
-                    title='Birth name',
-                    changeLinkHiddenText='birth name',
-                    changeLinkUrlFor='birthRegistration.index',
-                    value=(application_data.birth_registration_data.full_name)
-                ) }}
-
-                {{ check_your_answers_row(
-                    title='Date of birth',
-                    changeLinkHiddenText='date of birth',
-                    changeLinkUrlFor='birthRegistration.dob',
-                    value=(application_data.birth_registration_data.date_of_birth_formatted_DD_MMMM_YYYY)
-                ) }}
-
-                {{ check_your_answers_row(
-                    title='Birth registered in UK',
-                    changeLinkHiddenText='whether your birth was regstered in the UK',
-                    changeLinkUrlFor='birthRegistration.ukCheck',
-                    value=(application_data.birth_registration_data.birth_registered_in_uk_formatted)
-                ) }}
-
-                {% if application_data.birth_registration_data.birth_registered_in_uk %}
-                    {{ check_your_answers_row(
-                        title='Town or city of birth',
-                        changeLinkHiddenText='your town or city of birth',
-                        changeLinkUrlFor='birthRegistration.placeOfBirth',
-                        value=(application_data.birth_registration_data.town_city_of_birth)
-                    ) }}
-
-                    {% macro mothersNameValue() %}
-                        {{ application_data.birth_registration_data.mothers_first_name }}
-                        {{ application_data.birth_registration_data.mothers_last_name }}<br>
-                        (Maiden name: {{ application_data.birth_registration_data.mothers_maiden_name }})
-                    {% endmacro %}
-                    {{ check_your_answers_row(
-                        title="Mother's name",
-                        changeLinkHiddenText="your mother's name",
-                        changeLinkUrlFor='birthRegistration.mothersName',
-                        value=mothersNameValue()
-                    ) }}
-
-                    {{ check_your_answers_row(
-                        title="Father's name listed",
-                        changeLinkHiddenText="whether your father's name is listed on your birth or adoption certificate",
-                        changeLinkUrlFor='birthRegistration.fathersNameCheck',
-                        value=(application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted)
-                    ) }}
-
-                    {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
-                        {{ check_your_answers_row(
-                            title="Father's name",
-                            changeLinkHiddenText="your father's name",
-                            changeLinkUrlFor='birthRegistration.fathersName',
-                            value=(application_data.birth_registration_data.fathers_first_name + ' ' + application_data.birth_registration_data.fathers_last_name)
-                        ) }}
-                    {% endif %}
-
-                    {{ check_your_answers_row(
-                        title="Adopted",
-                        changeLinkHiddenText="whether you were adopted",
-                        changeLinkUrlFor='birthRegistration.adopted',
-                        value=(application_data.birth_registration_data.adopted_formatted)
-                    ) }}
-
-                    {% if application_data.birth_registration_data.adopted %}
-                        {{ check_your_answers_row(
-                            title="Adopted in UK",
-                            changeLinkHiddenText="whether you were adopted in the UK",
-                            changeLinkUrlFor='birthRegistration.adoptedUK',
-                            value=(application_data.birth_registration_data.adopted_in_the_uk_formatted)
-                        ) }}
-                    {% endif %}
-
-                    {{ check_your_answers_row(
-                        title="Forces registering service, British Consul or High Commission, or under
-                               Merchant Shipping or Civil Aviation provisions",
-                        changeLinkHiddenText="whether your birth was registered under the Forces registering service,
-                                              British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions",
-                        changeLinkUrlFor='birthRegistration.forces',
-                        value=(application_data.birth_registration_data.forces_registration_formatted)
-                    ) }}
-
-                {% else %}
-                    {{ check_your_answers_row(
-                        title="Registered birth country",
-                        changeLinkHiddenText="the country you were born in",
-                        changeLinkUrlFor='birthRegistration.country',
-                        value=(application_data.birth_registration_data.country_of_birth)
-                    ) }}
-                {% endif %}
-            </dl>
-
-            <h2 class="govuk-heading-m">
                 Marriage or civil partnership details
             </h2>
 
@@ -364,6 +267,13 @@
             {% endmacro %}
 
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                {{ summary_list_item.render(
+                    title='Birth or adoption certificate',
+                    changeLinkHiddenText='the birth or adoption certificates you have uploaded',
+                    changeLinkUrl=url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
+                    value=(uploadedDocumentsList(application_data.uploads_data.birth_or_adoption_certificates, 'birthOrAdoptionCertificate'))
+                ) }}
+
                 {% if application_data.need_medical_reports %}
                     {{ summary_list_item.render(
                         title='Your medical reports',

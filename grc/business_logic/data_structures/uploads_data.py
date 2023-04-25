@@ -14,6 +14,7 @@ class UploadsData:
     partnership_documents: List[EvidenceFile] = []
     overseas_documents: List[EvidenceFile] = []
     statutory_declarations: List[EvidenceFile] = []
+    birth_or_adoption_certificates: List[EvidenceFile] = []
 
     def __init__(self):
         self.medical_reports = []
@@ -22,3 +23,4 @@ class UploadsData:
         self.partnership_documents = []
         self.overseas_documents = []
         self.statutory_declarations = []
+        self.birth_or_adoption_certificates = []

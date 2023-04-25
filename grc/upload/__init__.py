@@ -30,6 +30,7 @@ class UploadSection:
 
 
 sections = [
+    UploadSection(url='birth-or-adoption-certificate', data_section='birthOrAdoptionCertificate', html_file='birth-or-adoption-certificate.html', file_list=(lambda u: u.birth_or_adoption_certificates)),
     UploadSection(url='medical-reports', data_section='medicalReports', html_file='medical-reports.html', file_list=(lambda u: u.medical_reports)),
     UploadSection(url='gender-evidence', data_section='genderEvidence', html_file='evidence.html', file_list=(lambda u: u.evidence_of_living_in_gender)),
     UploadSection(url='name-change', data_section='nameChange', html_file='name-change.html', file_list=(lambda u: u.name_change_documents)),
