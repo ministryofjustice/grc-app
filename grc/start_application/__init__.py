@@ -100,6 +100,9 @@ def isFirstVisit():
                     return returnToIsFirstVisitPageWithInvalidReferenceError(form)
 
                 else:
+                    print("DEBUGGING", flush=True)
+                    print("application.email => ", application.email, flush=True)
+                    print("application.status => ", application.status, flush=True)
                     if (not application.email) or \
                             application.status == ApplicationStatus.DELETED or \
                             application.status == ApplicationStatus.ABANDONED:
