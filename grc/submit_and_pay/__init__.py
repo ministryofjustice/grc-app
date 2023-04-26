@@ -226,14 +226,14 @@ def confirmation():
         documents_to_be_posted=render_template('documents.html', application_data=application_data)
     )
 
-    # applications_to_anonymise = Application.query.filter(
-    #     Application.status == ApplicationStatus.STARTED,
-    #     Application.email == application_data.email_address,
-    #     Application.reference_number != application_data.reference_number
-    # )
-    #
-    # for application_to_anonymise in applications_to_anonymise:
-    #     anonymise_application(application_to_anonymise)
+    applications_to_anonymise = Application.query.filter(
+        Application.status == ApplicationStatus.STARTED,
+        Application.email == application_data.email_address,
+        Application.reference_number != application_data.reference_number
+    )
+
+    for application_to_anonymise in applications_to_anonymise:
+        anonymise_application(application_to_anonymise)
 
     html = render_template(
         'submit-and-pay/confirmation.html',

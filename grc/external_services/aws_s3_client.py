@@ -43,6 +43,8 @@ class AwsS3Client:
 
         elif ConfigHelper.get_vcap_services() is not None:
             creds = ConfigHelper.get_vcap_services().aws_s3_bucket[0].credentials
+            print("FIRING", flush=True)
+            print(f'{creds.bucket_name}, {creds.aws_secret_access_key}, {creds.aws_region}, {creds.aws_access_key_id}', flush=True)
             return creds.aws_access_key_id, \
                 creds.aws_secret_access_key, \
                 creds.aws_region, \

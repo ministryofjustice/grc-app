@@ -438,6 +438,145 @@
                 </tbody>
             </table>
 
+            {% if application_data.birth_registration_data %}
+                <table class="govuk-table">
+                    {{ table_caption_and_head_rows(caption="Birth registration details") }}
+
+                    <tbody class="govuk-table__body">
+                        {% if application_data.birth_registration_data.first_name %}
+                            {{ summary_list_item(
+                                title="Birth name",
+                                subtitle="First name",
+                                value=(application_data.birth_registration_data.first_name),
+                                rowsWithThisTitle='3'
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.middle_names_or_empty_string %}
+                            {{ summary_list_item(
+                                subtitle="Middle names",
+                                value=(application_data.birth_registration_data.middle_names_or_empty_string)
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.last_name %}
+                            {{ summary_list_item(
+                                subtitle="Last name",
+                                value=(application_data.birth_registration_data.last_name)
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.date_of_birth_formatted_DD_MM_YYYY_dots %}
+                            {{ summary_list_item(
+                                title="Date of birth",
+                                value=(application_data.birth_registration_data.date_of_birth_formatted_DD_MM_YYYY_dots),
+                                noWrap=True
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.birth_registered_in_uk_formatted %}
+                            {{ summary_list_item(
+                                title="Birth registered in UK",
+                                value=(application_data.birth_registration_data.birth_registered_in_uk_formatted)
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.affirmed_gender_formatted %}
+                            {{ summary_list_item(
+                                title="Affirmed gender",
+                                value=(application_data.personal_details_data.affirmed_gender_formatted)
+                            ) }}
+                        {% endif %}
+
+                        {% if application_data.birth_registration_data.birth_registered_in_uk %}
+
+                            {% if application_data.birth_registration_data.mothers_first_name %}
+                                {{ summary_list_item(
+                                    title="Mother's name",
+                                    subtitle="First name",
+                                    value=(application_data.birth_registration_data.mothers_first_name),
+                                    rowsWithThisTitle='3'
+                                ) }}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.mothers_last_name %}
+                                {{ summary_list_item(
+                                    subtitle="Last name",
+                                    value=(application_data.birth_registration_data.mothers_last_name)
+                                ) }}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.mothers_maiden_name %}
+                                {{ summary_list_item(
+                                    subtitle="Maiden name",
+                                    value=(application_data.birth_registration_data.mothers_maiden_name)
+                                ) }}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted %}
+                                {{ summary_list_item(
+                                    title="Father's name listed",
+                                    value=(application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted)
+                                ) }}
+                            {% endif %}
+                            {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
+                                {% if application_data.birth_registration_data.fathers_first_name %}
+                                    {{ summary_list_item(
+                                        title="Father's name",
+                                        subtitle="First name(s)",
+                                        value=(application_data.birth_registration_data.fathers_first_name),
+                                        rowsWithThisTitle='2'
+                                    ) }}
+                                {% endif %}
+
+                                {% if application_data.birth_registration_data.fathers_last_name %}
+                                    {{ summary_list_item(
+                                        subtitle="Last name",
+                                        value=(application_data.birth_registration_data.fathers_last_name)
+                                    ) }}
+                                {% endif %}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.town_city_of_birth %}
+                                {{ summary_list_item(
+                                    title='Town or city of birth',
+                                    value=(application_data.birth_registration_data.town_city_of_birth)
+                                ) }}
+                            {% endif %}
+                            {% if application_data.birth_registration_data.adopted_formatted %}
+                                {{ summary_list_item(
+                                    title="Adopted",
+                                    value=(application_data.birth_registration_data.adopted_formatted)
+                                ) }}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.adopted %}
+                                {{ summary_list_item(
+                                    title="Adopted in UK",
+                                    value=(application_data.birth_registration_data.adopted_in_the_uk_formatted)
+                                ) }}
+                            {% endif %}
+
+                            {% if application_data.birth_registration_data.forces_registration_formatted %}
+                                {{ summary_list_item(
+                                    title="Forces registering service, British Consul or High Commission, or under
+                                           Merchant Shipping or Civil Aviation provisions",
+                                    value=(application_data.birth_registration_data.forces_registration_formatted)
+                                ) }}
+                            {% endif %}
+
+                        {% else %}
+                            {% if application_data.birth_registration_data.country_of_birth %}
+                                {{ summary_list_item(
+                                    title="Registered birth country",
+                                    value=(application_data.birth_registration_data.country_of_birth)
+                                ) }}
+                            {% endif %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            {% endif %}
+
             <table class="govuk-table">
                 {{ table_caption_and_head_rows(caption="Uploaded documents") }}
                 
