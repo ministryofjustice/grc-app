@@ -55,6 +55,9 @@ class AwsS3Client:
 
 
     def upload_fileobj(self, file, object_name):
+        print("uploading file", flush=True)
+        print("file=> ", file)
+        print("object name=> ", object_name)
         try:
             file.seek(0)
             self.s3.upload_fileobj(file, self.bucket_name, object_name)
