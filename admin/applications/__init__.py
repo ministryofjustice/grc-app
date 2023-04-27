@@ -125,10 +125,7 @@ def view(reference_number):
         reference_number=reference_number
     ).first()
     print("Checking if db has file IN ADMIN", flush=True)
-    my_file = my_application.application_data().uploads_data.birth_or_adoption_certificates[0]
-    print(my_file.original_file_name, flush=True)
-    print(my_file.aws_file_name, flush=True)
-    print(my_file.password_required, flush=True)
+    print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}'for i in my_application.application_data().uploads_data.birth_or_adoption_certificates), flush=True)
     return render_template(
         'applications/view-application.html',
         application_data=application_data
