@@ -221,7 +221,8 @@ def uploadInfoPage(section_url: str):
                     files.append(new_evidence_file)
             except Exception as e:
                 logger.log(LogLevel.ERROR, message=f"Error uploading file: {e}")
-
+            print("SAVING APP")
+            print(application_data.uploads_data.birth_or_adoption_certificates)
             DataStore.save_application(application_data)
 
             if has_password:
