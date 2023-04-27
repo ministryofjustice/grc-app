@@ -594,12 +594,6 @@
                 {% endmacro %}
             
                 <tbody class="govuk-table__body">
-                    {{ summary_list_item(
-                        title='Birth or adoption certificate',
-                        value=(uploadedDocumentsList(application_data.uploads_data.birth_or_adoption_certificates)),
-                        noCopyButton=True
-                    ) }}
-
                     {% if application_data.need_medical_reports %}
                         {{ summary_list_item(
                             title='Your medical reports',
@@ -643,6 +637,12 @@
                     {{ summary_list_item(
                         title='Statutory declarations',
                         value=(uploadedDocumentsList(application_data.uploads_data.statutory_declarations)),
+                        noCopyButton=True
+                    ) }}
+
+                    {{ summary_list_item(
+                        title='Birth or adoption certificate',
+                        value=(uploadedDocumentsList(application_data.uploads_data.birth_or_adoption_certificates)),
                         noCopyButton=True
                     ) }}
                 </tbody>
