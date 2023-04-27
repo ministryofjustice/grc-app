@@ -237,6 +237,14 @@ def confirmation():
     print("CONFIRMATION", flush=True)
     print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}' for i in
                   application_data.uploads_data.birth_or_adoption_certificates), flush=True)
+    my_application = Application.query.filter_by(
+        reference_number=application_data.reference_number
+    ).first()
+    print("Checking if db has file IN ADMIN", flush=True)
+    my_file = my_application.application_data().uploads_data.birth_or_adoption_certificates[0]
+    print(my_file.original_file_name, flush=True)
+    print(my_file.aws_file_name, flush=True)
+    print(my_file.password_required, flush=True)
     html = render_template(
         'submit-and-pay/confirmation.html',
         application_data=application_data
