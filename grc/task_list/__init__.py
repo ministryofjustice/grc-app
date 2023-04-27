@@ -11,7 +11,8 @@ taskList = Blueprint('taskList', __name__)
 @LoginRequired
 def index():
     application_data = DataStore.load_application_by_session_reference_number()
-
+    print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}' for i in
+                  application_data.uploads_data.birth_or_adoption_certificates), flush=True)
     return render_template(
         'task-list.html',
         application_data=application_data,

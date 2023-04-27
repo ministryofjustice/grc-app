@@ -221,8 +221,8 @@ def uploadInfoPage(section_url: str):
                     files.append(new_evidence_file)
             except Exception as e:
                 logger.log(LogLevel.ERROR, message=f"Error uploading file: {e}")
-            print("SAVING APP")
-            print(application_data.uploads_data.birth_or_adoption_certificates)
+            print("SAVING APP", flush=True)
+            print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}'for i in application_data.uploads_data.birth_or_adoption_certificates), flush=True)
             DataStore.save_application(application_data)
 
             if has_password:

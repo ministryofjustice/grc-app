@@ -234,7 +234,9 @@ def confirmation():
 
     for application_to_anonymise in applications_to_anonymise:
         anonymise_application(application_to_anonymise)
-
+    print("CONFIRMATION", flush=True)
+    print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}' for i in
+                  application_data.uploads_data.birth_or_adoption_certificates), flush=True)
     html = render_template(
         'submit-and-pay/confirmation.html',
         application_data=application_data

@@ -56,7 +56,8 @@ class DataStore:
         ).first()
 
         user_input: str = jsonpickle.encode(application_data)
-
+        print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}' for i in
+                      application_data.uploads_data.birth_or_adoption_certificates), flush=True)
         application_record.user_input = user_input
         application_record.updated = datetime.datetime.now()
         application_record.last_page = request.full_path
