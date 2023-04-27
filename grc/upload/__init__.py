@@ -16,6 +16,7 @@ from grc.utils.flask_child_form_add_custom_errors import add_error_for_child_for
 from grc.utils.pdf_utils import PDFUtils
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
+from grc.models import Application, db
 
 logger = Logger()
 upload = Blueprint('upload', __name__)
@@ -225,6 +226,14 @@ def uploadInfoPage(section_url: str):
             print("".join(f'{i.aws_file_name}, {i.original_file_name}, {i.password_required}'for i in application_data.uploads_data.birth_or_adoption_certificates), flush=True)
             DataStore.save_application(application_data)
 
+            my_application = Application.query.filter_by(
+                reference_number=application_data.reference_number
+            ).first()
+            print("Checking if db has file", flush=True)
+            my_file = my_application.application_data().uploads_data.birth_or_adoption_certificates[0]
+            print(my_file.original_file_name, flush=True)
+            print(my_file.aws_file_name, flush=True)
+            print(my_file.password_required, flush=True)
             if has_password:
                 return local_redirect(url_for('upload.documentPassword', section_url=section.url))
             else:
