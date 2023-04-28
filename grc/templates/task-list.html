@@ -104,12 +104,6 @@
                     </h2>
 
                     <ul class="app-task-list__items">
-                        {{ taskListItem(
-                            "Birth or adoption certificate",
-                            url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
-                            application_data.section_status_birth_or_adoption_certificate)
-                        }}
-
                         {% if application_data.need_medical_reports %}
                             {{ taskListItem(
                                 "Your medical reports",
@@ -154,6 +148,12 @@
                             "Statutory declarations",
                             url_for('upload.uploadInfoPage', section_url='statutory-declarations'),
                             application_data.section_status_statutory_declarations)
+                        }}
+
+                        {{ taskListItem(
+                            "Birth or adoption certificate",
+                            url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
+                            application_data.section_status_birth_or_adoption_certificate)
                         }}
                     </ul>
                 </li>
