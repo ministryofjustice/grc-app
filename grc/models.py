@@ -41,7 +41,9 @@ class Application(db.Model):
 
     def application_data(self) -> ApplicationData:
         try:
+            print("SELF.USER_INPUT=> ", self.user_input, flush=True)
             application_data: ApplicationData = jsonpickle.decode(self.user_input)
+            print("APP DATA.USER_INPUT=> ", application_data.uploads_data.birth_or_adoption_certificates)
             application_data.updated = self.updated
             return application_data
         except Exception as e:
