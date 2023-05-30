@@ -45,7 +45,7 @@ class DataStore:
 
         if application_record is None:
             raise ValueError('This reference number was not found')
-        print("LOAD APPLICATION=> ", application_record.user_input, flush=True)
+
         return application_record.application_data()
 
 
@@ -54,11 +54,7 @@ class DataStore:
         application_record: Application = Application.query.filter_by(
             reference_number=application_data.reference_number
         ).first()
-        print("application_data.uploads_data=> ", application_data.uploads_data, flush=True)
-        print("application_data.uploads_data.birth_or_adoption_certificates=> ", application_data.uploads_data.birth_or_adoption_certificates, flush=True)
-        # application_data.uploads_data.birth_or_adoption_certificates = application_data.uploads_data.birth_or_adoption_certificates
         user_input: str = jsonpickle.encode(application_data)
-        print("user_input=> ", user_input, flush=True)
         application_record.user_input = user_input
         application_record.updated = datetime.datetime.now()
         application_record.last_page = request.full_path
@@ -99,10 +95,3 @@ class DataStore:
             application_record = Application.query.filter_by(reference_number=possible_reference_number).first()
             if application_record is None:
                 return possible_reference_number
-
-
-def add_any_new_fields_to_application_data(application_data: ApplicationData) -> ApplicationData:
-    if hasattr(application_data.uploads_data, 'birth_or_adoption_certificates'):
-        application_data.uploads_data.birth_or_adoption_certificates = application_data.uploads_data\
-            .birth_or_adoption_certificates
-    return application_data
