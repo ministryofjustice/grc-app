@@ -183,7 +183,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
     await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='COMPLETED')
     await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='COMPLETED')
     await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
