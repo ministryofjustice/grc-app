@@ -171,6 +171,15 @@ def uploadInfoPage(section_url: str):
     if form.validate_on_submit():
         if form.button_clicked.data.startswith('Upload '):
             has_password = False
+
+            if section.data_section == 'birthOrAdoptionCertificate' and \
+                    application_data.uploads_data.birth_or_adoption_certificates:
+                application_data = delete_file(
+                    application_data,
+                    application_data.uploads_data.birth_or_adoption_certificates[0].aws_file_name,
+                    section
+                )
+
             try:
                 for document in request.files.getlist('documents'):
                     original_file_name = document.filename
