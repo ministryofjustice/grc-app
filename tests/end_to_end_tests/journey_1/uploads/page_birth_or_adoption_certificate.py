@@ -19,11 +19,11 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
-    # Click "Statutory declarations" to go to the "Statutory Declarations" page
+    # Click "Birth or adoption certificate" to go to the "Birth or adoption certificate" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Statutory Declarations page
+    # ---- Birth or adoption certificate page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -41,11 +41,11 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
-    # Continue to the "Statutory Declarations" page again
+    # Continue to the "Birth or adoption certificate" page again
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Statutory Declarations page
+    # ---- Birth or adoption certificate page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -132,7 +132,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.documents_uploaded(0)
 
     # Return to Task List page
-    # "Statutory declarations" section should be marked as "NOT STARTED"
+    # "Birth or adoption certificate" section should be marked as "NOT STARTED"
     await helpers.click_button('Return to task list')
 
     # ------------------------------------------------
@@ -143,7 +143,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
-    # Status of "Statutory declarations" section should be "NOT STARTED"
+    # Status of "Birth or adoption certificate" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
     await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
@@ -151,15 +151,15 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
 
-    # Click "Statutory declarations" to go back to the "Statutory Declarations" page
+    # Click "Birth or adoption certificate" to go back to the "Birth or adoption certificate" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Statutory Declarations page
+    # ---- Birth or adoption certificate page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -181,7 +181,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Click "Save and continue"
     # Now that there is a file uploaded, we should be taken to the Task List page
-    # "Statutory declarations" section should be marked as "COMPLETED"
+    # "Birth or adoption certificate" section should be marked as "COMPLETED"
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
@@ -192,7 +192,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
-    # Status of "Statutory declarations" section should be "COMPLETED"
+    # Status of "Birth or adoption certificate" section should be "COMPLETED"
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
     await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
@@ -200,15 +200,15 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='COMPLETED')
     await asserts.task_list_section(section='Birth or adoption certificate', expected_status='COMPLETED')
     await asserts.task_list_section(section='Submit and pay', expected_status='NOT STARTED')
 
-    # Click "Statutory declarations" to go back to the "Statutory Declarations" page
+    # Click "Birth or adoption certificate" to go back to the "Birth or adoption certificate" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Statutory Declarations page
+    # ---- Birth or adoption certificate page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
