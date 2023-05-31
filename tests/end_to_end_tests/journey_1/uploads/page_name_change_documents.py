@@ -189,6 +189,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
+    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
 
     # Click "Name change documents" to go back to the "Name Change Documents" page

@@ -180,7 +180,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(34)
+    await asserts.check_your_answers_rows(24)
     await asserts.check_your_answers_row(row_name='Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of the allowed countries or territories?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you consent to the General Register Office contacting you about your application?', expected_value='Yes')
@@ -194,17 +194,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Contact preferences', expected_value=f"Email: {data.EMAIL_ADDRESS}\nPhone: {data.PHONE_NUMBER}\nPost: {data.ADDRESS_LINE_ONE}, {data.ADDRESS_LINE_TWO}, {data.TOWN}, {data.POSTCODE}")
     await asserts.check_your_answers_row(row_name='Unavailable over the next 6 months', expected_value=f"Yes\n{data.DATES_TO_AVOID}")
     await asserts.check_your_answers_row(row_name='Notify HMRC', expected_value='No')
-
-    await asserts.check_your_answers_row(row_name='Birth name', expected_value=f"{data.BIRTH_FIRST_NAME} {data.BIRTH_MIDDLE_NAME} {data.BIRTH_LAST_NAME}")
-    await asserts.check_your_answers_row(row_name='Date of birth', expected_value=data.DATE_OF_BIRTH_FORMATTED)
-    await asserts.check_your_answers_row(row_name='Birth registered in UK', expected_value='Yes')
-    await asserts.check_your_answers_row(row_name='Town or city of birth', expected_value=data.BIRTH_TOWN)
-    await asserts.check_your_answers_row(row_name="Mother's name", expected_value=f"{data.MOTHERS_FIRST_NAME} {data.MOTHERS_LAST_NAME}\n(Maiden name: {data.MOTHERS_MAIDEN_NAME})")
-    await asserts.check_your_answers_row(row_name="Father's name listed", expected_value='Yes')
-    await asserts.check_your_answers_row(row_name="Father's name", expected_value=f"{data.FATHERS_FIRST_NAME} {data.FATHERS_LAST_NAME}")
-    await asserts.check_your_answers_row(row_name='Adopted', expected_value='Yes')
-    await asserts.check_your_answers_row(row_name='Adopted in UK', expected_value="I don't know")
-    await asserts.check_your_answers_row(row_name='Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions', expected_value='No')
 
     await asserts.check_your_answers_row(row_name='Currently married or in a civil partnership', expected_value='Civil partnership')
     await asserts.check_your_answers_row(row_name='Remain in your civil partnership', expected_value='Yes')
@@ -236,17 +225,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text="Change whether there are any dates you don't want us to contact you by post over the next 6 months", expected_url='/personal-details/contact-dates')
     await asserts.change_links_to_url(link_text='Change whether you want us to notify HMRC after you receive a Gender Recognition Certificate', expected_url='/personal-details/hmrc')
 
-    await asserts.change_links_to_url(link_text='Change birth name', expected_url='/birth-registration')
-    await asserts.change_links_to_url(link_text='Change date of birth', expected_url='/birth-registration/dob')
-    await asserts.change_links_to_url(link_text='Change whether your birth was regstered in the UK', expected_url='/birth-registration/uk-check')
-    await asserts.change_links_to_url(link_text='Change your town or city of birth', expected_url='/birth-registration/place-of-birth')
-    await asserts.change_links_to_url(link_text="Change your mother's name", expected_url='/birth-registration/mothers-name')
-    await asserts.change_links_to_url(link_text="Change whether your father's name is listed on your birth or adoption certificate", expected_url='/birth-registration/fathers-name-check')
-    await asserts.change_links_to_url(link_text="Change your father's name", expected_url='/birth-registration/fathers-name')
-    await asserts.change_links_to_url(link_text='Change whether you were adopted', expected_url='/birth-registration/adopted')
-    await asserts.change_links_to_url(link_text='Change whether you were adopted in the UK', expected_url='/birth-registration/adopted-uk')
-    await asserts.change_links_to_url(link_text='Change whether your birth was registered under the Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions', expected_url='/birth-registration/forces')
-
     await asserts.change_links_to_url(link_text='Change if you are currently married or in a civil partnership', expected_url='/partnership-details')
     await asserts.change_links_to_url(link_text='Change if you plan to remain in your civil partnership after receiving your Gender Recognition Certificate', expected_url='/partnership-details/stay-together')
     await asserts.change_links_to_url(link_text='Change if you can provide a declaration of consent from your civil partner', expected_url='/partnership-details/partner-agrees')
@@ -257,6 +235,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your marriage or civil partnership', expected_url='/upload/marriage-documents', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
     await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your overseas certificate', expected_url='/upload/overseas-certificate', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
     await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
+    await asserts.change_links_to_url(link_text='Change the birth or adoption certificate you have uploaded', expected_url='/upload/birth-or-adoption-certificate', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
 
     await asserts.change_links_to_url(link_text='Change payment method', expected_url='/submit-and-pay')
     await asserts.change_links_to_url(link_text='Change the way your are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')

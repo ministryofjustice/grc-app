@@ -110,7 +110,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.task_list_sections(7)
     await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
     await asserts.task_list_section(section='Your personal details', expected_status='IN PROGRESS')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
@@ -827,11 +826,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.task_list_sections(8)
     await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
     await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Name change documents', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
+    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='NOT STARTED')
     await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
 
     # TODO:
