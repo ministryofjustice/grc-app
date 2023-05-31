@@ -180,7 +180,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(24)
+    await asserts.check_your_answers_rows(25)
     await asserts.check_your_answers_row(row_name='Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of the allowed countries or territories?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you consent to the General Register Office contacting you about your application?', expected_value='Yes')

@@ -200,7 +200,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Birth or adoption certificate', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='COMPLETED')
     await asserts.task_list_section(section='Birth or adoption certificate', expected_status='COMPLETED')
     await asserts.task_list_section(section='Submit and pay', expected_status='NOT STARTED')
 
