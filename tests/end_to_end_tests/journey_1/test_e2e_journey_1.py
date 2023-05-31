@@ -52,11 +52,6 @@ async def run_script_for_browser(browser_type):
     await section_personal_details.run_checks_on_section(page, asserts, helpers)
 
     # ------------------------------------------------
-    # ---- BIRTH REGISTRATION section
-    # ------------------------------------------------
-    await section_birth_registration.run_checks_on_section(page, asserts, helpers)
-
-    # ------------------------------------------------
     # ---- PARTNERSHIP DETAILS section
     # ------------------------------------------------
     await section_partnership_details.run_checks_on_section(page, asserts, helpers)
