@@ -6,7 +6,6 @@ from tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 import tests.end_to_end_tests.journey_1.login_and_confirmation.section as section_login_and_confirmation
 import tests.end_to_end_tests.journey_1.personal_details.section as section_personal_details
-import tests.end_to_end_tests.journey_1.birth_registration.section as section_birth_registration
 import tests.end_to_end_tests.journey_1.partnership_details.section as section_partnership_details
 import tests.end_to_end_tests.journey_1.uploads.section as section_uploads
 import tests.end_to_end_tests.journey_1.submit_and_pay.section as section_submit_and_pay
