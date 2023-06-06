@@ -249,6 +249,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(1)
     await asserts.error(field='transition_date_year', message='Enter a date within the last 100 years')
 
+    # The fields should be pre-populated with the values we just entered
+    await asserts.field_value(field='overseasCheck', expected_value='False')
+
     # Enter a valid date that is not 2 years prior to application created date
     await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH_PLUS_ONE)
     await helpers.fill_textbox(field='transition_date_year', value=data.TRANSITION_DATE_YEAR_MINUS_TWO)
