@@ -2,7 +2,9 @@ from playwright.async_api import Page
 from tests.helpers.e2e_assert_helpers import AssertHelpers
 from tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
+import os
 
+TEST_URL = os.getenv('TEST_URL', 'http://localhost:5000')
 
 async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
 
@@ -249,8 +251,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(1)
     await asserts.error(field='transition_date_year', message='Enter a date within the last 100 years')
 
-    # The fields should be pre-populated with the values we just entered
-    await asserts.field_value(field='overseasCheck', expected_value='False')
+    # Navigate to Overseas check page in Confirmation and change value to 'No' and return
+    await helpers.go_to_page(TEST_URL + '/overseas-check')
+    await asserts.url('/overseas-check')
+    await helpers.check_radio(field='overseasCheck', value=False)
+    await helpers.click_button('Save and continue')
+    await asserts.url('/declaration')
+    await helpers.go_to_page('/personal-details/transition-date')
+    await asserts.url('/personal-details/transition-date')
 
     # Enter a valid date that is not 2 years prior to application created date
     await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH_PLUS_ONE)
