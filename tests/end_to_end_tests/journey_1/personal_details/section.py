@@ -255,7 +255,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.go_to_page(TEST_URL + '/overseas-check')
     await asserts.url('/overseas-check')
     await helpers.check_radio(field='overseasCheck', value=False)
-    await helpers.click_button('Save and continue')
+    await helpers.click_button('Continue')
     await asserts.url('/declaration')
     await helpers.go_to_page('/personal-details/transition-date')
     await asserts.url('/personal-details/transition-date')
