@@ -257,7 +257,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.check_radio(field='overseasCheck', value=False)
     await helpers.click_button('Continue')
     await asserts.url('/declaration')
-    await helpers.go_to_page('/personal-details/transition-date')
+    await helpers.go_to_page(TEST_URL + '/personal-details/transition-date')
     await asserts.url('/personal-details/transition-date')
 
     # Enter a valid date that is not 2 years prior to application created date
