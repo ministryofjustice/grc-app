@@ -325,9 +325,12 @@ class MultiFileAllowed(object):
                 ))
 
 def fileSizeLimit(max_size_in_mb):
+    print("FIRING FILE SIZE LIMIT CHECKER", flush=True)
     max_bytes = max_size_in_mb*1024*1024
 
     def file_length_check(form, field):
+        print("FIRING LENGTH CHECKER", flush=True)
+        print(field.data, flush=True)
         for data in field.data:
             file_size = data.read()
             data.seek(0)
