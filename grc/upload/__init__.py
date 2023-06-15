@@ -158,6 +158,7 @@ def rotate_image_to_match_exif_orientation_flag(image: Image):
 @upload.route('/upload/<section_url>', methods=['GET', 'POST'])
 @LoginRequired
 def uploadInfoPage(section_url: str):
+    print("FIRING UPLOAD INFO PAGE", flush=True)
     section = next(filter(lambda section: section.url == section_url, sections), None)
     if section is None:
         return abort(404)
@@ -167,7 +168,7 @@ def uploadInfoPage(section_url: str):
     deleteAllFilesInSectionForm = DeleteAllFilesInSectionForm()
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
-
+    print(f"FILES => {files}", flush=True)
     if form.validate_on_submit():
         if form.button_clicked.data.startswith('Upload '):
             has_password = False
