@@ -168,6 +168,8 @@ def uploadInfoPage(section_url: str):
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
 
+    only_one_file_required = True if section.data_section == 'birthOrAdoptionCertificate' else False
+
     if form.validate_on_submit():
         if form.button_clicked.data.startswith('Upload '):
             has_password = False
@@ -248,6 +250,7 @@ def uploadInfoPage(section_url: str):
         deleteform=deleteform,
         deleteAllFilesInSectionForm=deleteAllFilesInSectionForm,
         section_url=section.url,
+        only_one_file_required = only_one_file_required,
         currently_uploaded_files=files,
         duplicate_aws_file_names=any_duplicate_aws_file_names(files),
         date_now=datetime.datetime.now(),
