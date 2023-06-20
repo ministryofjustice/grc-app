@@ -1,0 +1,6 @@
+{% macro renderFor(form, dateForOptions) %}
+{% for entry in form.date_range %}
+    {{ loop.index }}
+    {{ entry() }}
+{% endfor %}
+{% endmacro %}

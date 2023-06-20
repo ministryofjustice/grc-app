@@ -9,6 +9,12 @@ class AffirmedGender(GrcEnum):
     FEMALE = auto()
 
 
+class DateRange:
+    index: int = None
+    from_date: datetime.date = None
+    to_date: datetime.date = None
+
+
 class PersonalDetailsData:
     title: str = None
     first_name: str = None
@@ -33,7 +39,8 @@ class PersonalDetailsData:
     contact_by_post: bool = None  # We take the postal address from the address fields above
 
     contact_dates_should_avoid: bool = None
-    contact_dates_to_avoid: str = None
+    contact_date_to_avoid: datetime.date = None
+    contact_dates_to_avoid: [DateRange] = None
 
     tell_hmrc: bool = None
     national_insurance_number: str = None

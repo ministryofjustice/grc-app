@@ -4,11 +4,12 @@ from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender
 from grc.list_status import ListStatus
-from grc.personal_details.forms import NameForm, AffirmedGenderForm, TransitionDateForm, StatutoryDeclarationDateForm, PreviousNamesCheck, AddressForm, ContactPreferencesForm, ContactDatesForm, HmrcForm, CheckYourAnswers
+from grc.personal_details.forms import NameForm, DateRangeForm, AffirmedGenderForm, TransitionDateForm, StatutoryDeclarationDateForm, PreviousNamesCheck, AddressForm, ContactPreferencesForm, ContactDatesForm, HmrcForm, CheckYourAnswers
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
+from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData, DateRange
 
 personalDetails = Blueprint('personalDetails', __name__)
 
@@ -220,18 +221,105 @@ def contactPreferences():
 def contactDates():
     form = ContactDatesForm()
     application_data = DataStore.load_application_by_session_reference_number()
-
+    print(request.data, flush=True)
+    print(request.form, flush=True)
+    print(request.__dict__, flush=True)
     if form.validate_on_submit():
-        application_data.personal_details_data.contact_dates_should_avoid = strtobool(form.contactDatesCheck.data)
-        application_data.personal_details_data.contact_dates_to_avoid = \
-            form.dates.data if application_data.personal_details_data.contact_dates_should_avoid else None
+        print(request.method, flush=True)
+        print(request.data, flush=True)
+        print(request.form, flush=True)
+
+        if form.contactDatesCheck.data == 'SINGLE_DATE':
+            if form.day.data and form.month.data and form.year.data:
+                application_data.personal_details_data.contact_date_to_avoid = datetime.date(
+                    int(form.year.data),
+                    int(form.month.data),
+                    int(form.day.data))
+
+        if form.contactDatesCheck == 'DATE_RANGE':
+            date_range_results = []
+            for i, date_range in enumerate(form.date_ranges):
+                date_range_result = DateRange()
+                date_range_result.index = i
+                date_range_result.from_date = datetime.date(
+                    int(date_range["form_date_year"]),
+                    int(date_range["form_date_month"]),
+                    int(date_range["form_date_day"])
+                )
+                date_range_result.to_date = datetime.date(
+                    int(date_range["to_date_year"]),
+                    int(date_range["to_date_month"]),
+                    int(date_range["to_date_day"])
+                )
+                date_range_results.append(date_range_result)
+            application_data.personal_details_data.contact_dates_to_avoid = date_range_results
+        # application_data.personal_details_data.contact_dates_should_avoid = form.contactDatesCheck.data
+
+        print(application_data.personal_details_data.contact_dates_to_avoid, flush=True)
+
+
+
+        # if form.date_ranges_to_avoid:
+        #     for date_range in form.date_ranges_to_avoid:
+        #         application_data.personal_details_data.contact_dates_to_avoid.append(
+        #
+        #         )
+
+
+
+        # application_data.personal_details_data.contact_dates_should_avoid = strtobool(form.contactDatesCheck.data)
+        # application_data.personal_details_data.contact_dates_to_avoid = \
+        #     form.dates.data if application_data.personal_details_data.contact_dates_should_avoid else None
         DataStore.save_application(application_data)
 
         return get_next_page(application_data, 'personalDetails.contactPreferences')
 
     if request.method == 'GET':
-        form.contactDatesCheck.data = application_data.personal_details_data.contact_dates_should_avoid
-        form.dates.data = application_data.personal_details_data.contact_dates_to_avoid
+        pass
+        # form.contactDatesCheck.data = application_data.personal_details_data.contact_dates_should_avoid
+
+        # if application_data.personal_details_data.contact_date_to_avoid is not None:
+        #     form.day.data = application_data.personal_details_data.contact_date_to_avoid.day
+        #     form.month.data = application_data.personal_details_data.contact_date_to_avoid.month
+        #     form.year.data = application_data.personal_details_data.contact_date_to_avoid.year
+
+        # form.contactDatesCheck.data = 'DATE_RANGE'
+        # personal_details = PersonalDetailsData()
+        # date_range_1 = DateRange()
+        # date_range_1.from_date = datetime.date(2024, 1, 1)
+        #
+        # date_range_1.to_date = datetime.date(2024, 2, 1)
+        #
+        # date_range_2 = DateRange()
+        # date_range_2.from_date = datetime.date(2024, 3, 12)
+        #
+        # date_range_2.to_date = datetime.date(2024, 4, 19)
+        #
+        # personal_details.contact_dates_to_avoid = [date_range_1, date_range_2]
+        #
+        # date_range_form_1 = DateRangeForm()
+        # date_range_form_1.from_date_day = '1'
+        # date_range_form_1.from_date_month = '1'
+        # date_range_form_1.from_date_year = '2024'
+        #
+        # date_range_form_1.to_date_day = '1'
+        # date_range_form_1.to_date_month = '3'
+        # date_range_form_1.to_date_year = '2024'
+        #
+        # date_range_form_2 = DateRangeForm()
+        # date_range_form_2.from_date_day = '12'
+        # date_range_form_2.from_date_month = '5'
+        # date_range_form_2.from_date_year = '2024'
+        #
+        # date_range_form_2.to_date_day = '19'
+        # date_range_form_2.to_date_month = '6'
+        # date_range_form_2.to_date_year = '2024'
+        #
+        # date_ranges_form = [date_range_form_1, date_range_form_2]
+        #
+        # for i, date_range in enumerate(application_data.personal_details_data.contact_dates_to_avoid):
+        #     form.date_ranges.append_entry(date_range)
+        # form.dates.data = application_data.personal_details_data.contact_dates_to_avoid
 
     return render_template(
         'personal-details/contact-dates.html',

@@ -50,6 +50,10 @@ class StrictRequiredIf(DataRequired):
         self.validators = validators
 
     def __call__(self, form, field):
+
+        print(f'FORM =>, {form}', flush=True)
+        print(f'OTHER FIELD =>, {self.other_field_name}', flush=True)
+
         other_field = form[self.other_field_name]
 
         if other_field is None:
