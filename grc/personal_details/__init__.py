@@ -236,15 +236,18 @@ def contactDates():
                     int(form.month.data),
                     int(form.day.data))
 
-        if form.contactDatesCheck == 'DATE_RANGE':
+        if form.contactDatesCheck.data == 'DATE_RANGE':
             date_range_results = []
-            for i, date_range in enumerate(form.date_ranges):
+            print(f"form.date_ranges = {form.date_ranges}", flush=True)
+            print(f"form.date_ranges.data = {form.date_ranges.data}", flush=True)
+            for i, date_range in enumerate(form.date_ranges.data):
+                print("IN LOOP", flush=True)
                 date_range_result = DateRange()
                 date_range_result.index = i
                 date_range_result.from_date = datetime.date(
-                    int(date_range["form_date_year"]),
-                    int(date_range["form_date_month"]),
-                    int(date_range["form_date_day"])
+                    int(date_range["from_date_year"]),
+                    int(date_range["from_date_month"]),
+                    int(date_range["from_date_day"])
                 )
                 date_range_result.to_date = datetime.date(
                     int(date_range["to_date_year"]),
@@ -316,8 +319,8 @@ def contactDates():
         # date_range_form_2.to_date_year = '2024'
         #
         # date_ranges_form = [date_range_form_1, date_range_form_2]
-        #
-        # for i, date_range in enumerate(application_data.personal_details_data.contact_dates_to_avoid):
+        # #
+        # for i, date_range in enumerate(date_ranges_form):
         #     form.date_ranges.append_entry(date_range)
         # form.dates.data = application_data.personal_details_data.contact_dates_to_avoid
 
