@@ -39,6 +39,7 @@ class PersonalDetailsData:
     contact_by_post: bool = None  # We take the postal address from the address fields above
 
     contact_dates_should_avoid: bool = None
+    contact_dates_to_avoid_option: str = None
     contact_date_to_avoid: datetime.date = None
     contact_dates_to_avoid: [DateRange] = None
 

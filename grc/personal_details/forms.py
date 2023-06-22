@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_contact_dates_to_avoid, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender
 
 
@@ -350,10 +350,12 @@ class ContactPreferencesForm(FlaskForm):
 
 
 class DateRangeForm(Form):
+
     """
-    Validation for this form needs to be done in the controller as it's a subform template and doesn't
-    have access to parent form. So can't use Required If validator.
+    Can't use StrictIfRequired on this form as it is used as a subform therefore get errors when validating.
+    Validation needs to be done in the controller and errors manually added to form errors
     """
+
     from_date_day = StringField()
 
     from_date_month = StringField()
@@ -401,9 +403,7 @@ class ContactDatesForm(FlaskForm):
         ]
     )
 
-    # single_date_to_avoid = FormField(DateForm)
-
-    date_ranges = FieldList(FormField(DateRangeForm))
+    date_ranges = FieldList(FormField(DateRangeForm), min_entries=1)
 
 
 class HmrcForm(FlaskForm):

@@ -52,7 +52,7 @@ class StrictRequiredIf(DataRequired):
     def __call__(self, form, field):
 
         print(f'FORM =>, {form}', flush=True)
-        print(f'OTHER FIELD =>, {self.other_field_name}', flush=True)
+        print(f'OTHER FIELD =>, {self.other_field_name}\n', flush=True)
 
         other_field = form[self.other_field_name]
 
@@ -76,6 +76,9 @@ class Integer(DataRequired):
         self.validators = validators
 
     def __call__(self, form, field):
+        print(f'INTEGER FORM =>, {form}', flush=True)
+        print(f'INTEGER FIELD =>, {field}\n', flush=True)
+
         string_value: str = field.data
 
         try:
@@ -301,6 +304,64 @@ def validateHWFReferenceNumber(form, field):
         )
         if match is None:
             raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
+
+
+def validate_date_range_form(date_ranges_form):
+    form_errors = dict()
+    from_date_day_entered = True
+    from_date_month_entered = True
+    from_date_year_entered = True
+    to_date_day_entered = True
+    to_date_month_entered = True
+    to_date_year_entered = True
+
+    if not date_ranges_form.from_date_day.data:
+        form_errors['from_date_day'] = 'Enter a day'
+        from_date_day_entered = False
+
+    if not date_ranges_form.from_date_month.data:
+        form_errors['from_date_month'] = 'Enter a month'
+        from_date_month_entered = False
+
+    if not date_ranges_form.from_date_year.data:
+        form_errors['from_date_year'] = 'Enter a year'
+        from_date_year_entered = False
+
+    if not date_ranges_form.to_date_day.data:
+        form_errors['to_date_day'] = 'Enter a day'
+        to_date_day_entered = False
+
+    if not date_ranges_form.to_date_month.data:
+        form_errors['to_date_month'] = 'Enter a month'
+        to_date_month_entered = False
+
+    if not date_ranges_form.to_date_year.data:
+        form_errors['to_date_year'] = 'Enter a year'
+        to_date_year_entered = False
+
+    if from_date_day_entered and (int(date_ranges_form.from_date_day.data) < 1 or
+                                  int(date_ranges_form.from_date_day.data) > 31):
+        form_errors['from_date_day'] = 'Enter a day as a number between 1 and 31'
+
+    if to_date_day_entered and (int(date_ranges_form.to_date_day.data) < 1 or
+                                int(date_ranges_form.to_date_day.data) > 31):
+        form_errors['to_date_day'] = 'Enter a day as a number between 1 and 31'
+
+    if from_date_month_entered and (int(date_ranges_form.from_date_month.data) < 1 or
+                                    int(date_ranges_form.from_date_month.data) > 12):
+        form_errors['from_date_month'] = 'Enter a month as a number between 1 and 12'
+
+    if to_date_month_entered and (int(date_ranges_form.to_date_month.data) < 1 or
+                                  int(date_ranges_form.to_date_month.data) > 12):
+        form_errors['to_date_month'] = 'Enter a month as a number between 1 and 12'
+
+    if from_date_year_entered and int(date_ranges_form.from_date_year.data) < 1000:
+        form_errors['from_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+
+    if to_date_year_entered and int(date_ranges_form.to_date_year.data) < 1000:
+        form_errors['to_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+
+    return form_errors
 
 
 class MultiFileAllowed(object):
