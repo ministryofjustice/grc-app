@@ -225,6 +225,7 @@ def contactPreferences():
 def contactDates():
     form = ContactDatesForm()
     application_data = DataStore.load_application_by_session_reference_number()
+    new_date_range_requested = False
 
     if form.validate_on_submit():
 
@@ -238,11 +239,16 @@ def contactDates():
                     int(form.month.data),
                     int(form.day.data))
 
-        if form.contactDatesCheck.data == 'DATE_RANGE':
+            DataStore.save_application(application_data)
+            return get_next_page(application_data, 'personalDetails.contactPreferences')
 
+        if form.contactDatesCheck.data == 'DATE_RANGE':
+            date_range_errors = dict()
             application_data.personal_details_data.contact_date_to_avoid = None
             for i, date_range_form in enumerate(form.date_ranges):
-                date_range_errors = validate_date_range_form(date_range_form)
+                date_range_errors[date_range_form.name] = validate_date_range_form(date_range_form)
+
+                print(f'date_range_errors 1 => {date_range_errors}', flush=True)
 
                 if not date_range_errors:
                     date_range_result = DateRange()
@@ -259,15 +265,34 @@ def contactDates():
                     )
                     date_range_results.append(date_range_result)
 
+                print(f'date_range_errors 2 => {date_range_errors}', flush=True)
+
                 if date_range_errors:
-                    for field_name, error_message in date_range_errors.items():
-                        add_error_for_child_form(form.date_ranges, date_range_form, field_name, error_message)
+                    for _, date_range_form_errors in date_range_errors.items():
+                        for field_name, error_message in date_range_form_errors.items():
+                            add_error_for_child_form(form.date_ranges, date_range_form, field_name, error_message)
 
-        application_data.personal_details_data.contact_dates_to_avoid = date_range_results
+                print(f'date_range_errors 3 => {date_range_errors}', flush=True)
+                print(f'add_date_range_button_clicked => {form.add_date_range_button_clicked.data}', flush=True)
 
-        if application_data.personal_details_data.contact_date_to_avoid or date_range_results:
-            DataStore.save_application(application_data)
-            return get_next_page(application_data, 'personalDetails.contactPreferences')
+                if not date_range_errors and form.add_date_range_button_clicked.data:
+                    new_date_range_requested = True
+                    empty_date_range_form = DateRangeForm()
+                    empty_date_range_form.from_date_day = ''
+                    empty_date_range_form.from_date_month = ''
+                    empty_date_range_form.from_date_year = ''
+                    empty_date_range_form.to_date_day = ''
+                    empty_date_range_form.to_date_month = ''
+                    empty_date_range_form.to_date_year = ''
+
+                    form.date_ranges.append_entry(empty_date_range_form)
+
+            application_data.personal_details_data.contact_dates_to_avoid = date_range_results
+
+            print(f'date_range_errors 4 => {date_range_errors}', flush=True)
+            if not date_range_errors:
+                DataStore.save_application(application_data)
+                return get_next_page(application_data, 'personalDetails.contactPreferences')
 
     if request.method == 'GET':
 
@@ -295,6 +320,7 @@ def contactDates():
     return render_template(
         'personal-details/contact-dates.html',
         form=form,
+        new_date_range_requested=new_date_range_requested,
         back=get_previous_page(application_data, 'personalDetails.address')
     )
 

@@ -226,9 +226,12 @@
         </div>
         <br>
         <div class="govuk-button-group">
-            <button class="govuk-button" data-module="govuk-button">
-                Add another date range
-            </button>
+            <input type="submit" name="add_date_range_button_clicked" value="Add another date range"
+                   class="govuk-button" data-module="govuk-button">
+            {% if new_date_range_requested %}
+                <input type="submit" name="remove_date_range_button_clicked" value="Remove date range"
+                       class="govuk-button" data-module="govuk-button">
+            {% endif %}
         </div>
     {% endif %}
 

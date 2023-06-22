@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField
+from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_contact_dates_to_avoid, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender
 
 
@@ -369,7 +369,7 @@ class DateRangeForm(Form):
     to_date_year = StringField()
 
 
-class ContactDatesForm(FlaskForm):
+class  ContactDatesForm(FlaskForm):
     contactDatesCheck = RadioField(
         choices=[
             ('SINGLE_DATE', 'A single date'),
@@ -404,6 +404,8 @@ class ContactDatesForm(FlaskForm):
     )
 
     date_ranges = FieldList(FormField(DateRangeForm), min_entries=1)
+
+    add_date_range_button_clicked = SubmitField()
 
 
 class HmrcForm(FlaskForm):
