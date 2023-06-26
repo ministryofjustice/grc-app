@@ -26,11 +26,7 @@
 
             {{ label.render(dateForOptions.labelOptions) }}
 
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label">
-                    From
-                </label>
-            </div>
+            {{ label.render({ 'htmlOrText': "From" }) }}
 
             {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -76,11 +72,8 @@
                 </div>
             </div>
             <br>
-            <div class="govuk-form-group">
-                <label class="govuk-label govuk-date-input__label">
-                    To
-                </label>
-            </div>
+            <br>
+            {{ label.render({ 'htmlOrText': "To" }) }}
 
             {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -125,17 +118,16 @@
                     </div>
                 </div>
             </div>
+            {% if not loop.index == 1 and loop.last %}
+                <br>
+                <input type="submit" name="remove_date_range_button_clicked" value="Remove date range"
+                       class="govuk-button govuk-button--warning" data-module="govuk-button">
+            {% endif %}
             <br>
-            <div class="govuk-button-group">
-                <button class="govuk-button" data-module="govuk-button">
-                    Add another date range
-                </button>
-            </div>
+            <br>
         {% endfor %}
 
     {% else %}
-
-        {{ form.csrf_token }}
 
         {{ label.render(dateForOptions.labelOptions) }}
 
@@ -181,6 +173,8 @@
                 </div>
             </div>
         </div>
+        <br>
+        <br>
 
         {{ label.render({ 'htmlOrText': "To" }) }}
 
@@ -225,14 +219,11 @@
             </div>
         </div>
         <br>
-        <div class="govuk-button-group">
-            <input type="submit" name="add_date_range_button_clicked" value="Add another date range"
-                   class="govuk-button" data-module="govuk-button">
-            {% if new_date_range_requested %}
-                <input type="submit" name="remove_date_range_button_clicked" value="Remove date range"
-                       class="govuk-button" data-module="govuk-button">
-            {% endif %}
-        </div>
     {% endif %}
+    <br>
+    <div class="govuk-button-group">
+        <input type="submit" name="add_date_range_button_clicked" value="Add another date range"
+               class="govuk-button" data-module="govuk-button">
+    </div>
 
 {% endmacro %}

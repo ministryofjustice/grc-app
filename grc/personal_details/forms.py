@@ -322,38 +322,12 @@ class ContactPreferencesForm(FlaskForm):
     )
 
 
-# class DateForm(Form):
-#
-#     day = StringField(
-#         validators=[
-#             StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a day', validators=[
-#                 Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
-#             ]),
-#         ]
-#     )
-#
-#     month = StringField(
-#         validators=[
-#             StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a month', validators=[
-#                 Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
-#             ])
-#         ]
-#     )
-#
-#     year = StringField(
-#         validators=[
-#             StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a year', validators=[
-#                 Integer(min=1000, message='Enter a year as a 4-digit number, like 2000')
-#             ])
-#         ]
-#     )
-
-
 class DateRangeForm(Form):
 
     """
     Can't use StrictIfRequired on this form as it is used as a subform therefore get errors when validating.
-    Validation needs to be done in the controller and errors manually added to form errors
+    Validation needs to be checked in the controller after Flask validation on submit and errors dynamically
+     added to form errors.
     """
 
     from_date_day = StringField()
@@ -369,7 +343,7 @@ class DateRangeForm(Form):
     to_date_year = StringField()
 
 
-class  ContactDatesForm(FlaskForm):
+class ContactDatesForm(FlaskForm):
     contactDatesCheck = RadioField(
         choices=[
             ('SINGLE_DATE', 'A single date'),
@@ -403,9 +377,11 @@ class  ContactDatesForm(FlaskForm):
         ]
     )
 
-    date_ranges = FieldList(FormField(DateRangeForm), min_entries=1)
+    date_ranges = FieldList(FormField(DateRangeForm))
 
     add_date_range_button_clicked = SubmitField()
+
+    remove_date_range_button_clicked = SubmitField()
 
 
 class HmrcForm(FlaskForm):
