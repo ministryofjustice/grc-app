@@ -364,6 +364,21 @@ def validate_date_range_form(date_ranges_form):
     return form_errors
 
 
+def validate_date_ranges(from_date, to_date):
+    form_errors = dict()
+
+    if from_date < date.today():
+        form_errors['from_date_year'] = '\'From\' date is in the past'
+
+    if to_date < date.today():
+        form_errors['to_date_year'] = '\'To\' date is in the past'
+
+    if from_date > to_date:
+        form_errors['to_date_year'] = '\'From\' date is after the \'To\' date'
+
+    return form_errors
+
+
 class MultiFileAllowed(object):
     def __init__(self, upload_set, message=None):
         self.upload_set = upload_set

@@ -10,9 +10,8 @@ from grc.utils.get_next_page import get_next_page_global, get_previous_page_glob
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 from grc.business_logic.data_structures.personal_details_data import DateRange
-from grc.utils.flask_child_form_add_custom_errors import add_error_for_child_form, add_multiple_errors_for_child_form
-from grc.utils.form_custom_validators import validate_date_range_form
-
+from grc.utils.flask_child_form_add_custom_errors import add_multiple_errors_for_child_form
+from grc.utils.form_custom_validators import validate_date_range_form, validate_date_ranges
 
 
 personalDetails = Blueprint('personalDetails', __name__)
@@ -225,18 +224,17 @@ def contactPreferences():
 def contactDates():
     form = ContactDatesForm()
     application_data = DataStore.load_application_by_session_reference_number()
-    date_range_errors = dict()
 
     if form.validate_on_submit():
 
         application_data.personal_details_data.contact_dates_to_avoid_option = form.contactDatesCheck.data
-        date_range_results = []
-        new_date_range_requested = False
+        new_date_range_requested = True if form.add_date_range_button_clicked.data else False
         remove_date_range_requested = True if form.remove_date_range_button_clicked.data else False
 
         if form.contactDatesCheck.data == 'NO_DATES':
             application_data.personal_details_data.contact_date_to_avoid = None
             application_data.personal_details_data.contact_dates_to_avoid = []
+
             DataStore.save_application(application_data)
             return get_next_page(application_data, 'personalDetails.contactPreferences')
 
@@ -255,7 +253,8 @@ def contactDates():
             form.date_ranges.pop_entry()
 
         elif form.contactDatesCheck.data == 'DATE_RANGE':
-            application_data.personal_details_data.contact_date_to_avoid = None
+            date_range_results = []
+            date_range_errors = dict()
 
             for i, date_range_form in enumerate(form.date_ranges):
                 date_range_errors = validate_date_range_form(date_range_form)
@@ -273,14 +272,15 @@ def contactDates():
                         int(date_range_form.to_date_month.data),
                         int(date_range_form.to_date_day.data)
                     )
-                    date_range_results.append(date_range_result)
+
+                    date_range_errors = validate_date_ranges(date_range_result.from_date, date_range_result.to_date)
+                    if not date_range_errors:
+                        date_range_results.append(date_range_result)
 
                 if date_range_errors:
-                    add_multiple_errors_for_child_form(form.date_ranges, date_range_form,
-                                                       date_range_errors)
+                    add_multiple_errors_for_child_form(form.date_ranges, date_range_form, date_range_errors)
 
-            if not date_range_errors and form.add_date_range_button_clicked.data:
-                new_date_range_requested = True
+            if not date_range_errors and new_date_range_requested:
                 empty_date_range_form = DateRangeForm()
                 empty_date_range_form.from_date_day = ''
                 empty_date_range_form.from_date_month = ''
