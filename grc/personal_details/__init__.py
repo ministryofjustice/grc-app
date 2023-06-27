@@ -257,9 +257,9 @@ def contactDates():
             date_range_errors = dict()
 
             for i, date_range_form in enumerate(form.date_ranges):
-                date_range_errors = validate_date_range_form(date_range_form)
+                date_range_errors[i] = validate_date_range_form(date_range_form)
 
-                if not date_range_errors:
+                if not date_range_errors[i]:
                     date_range_result = DateRange()
                     date_range_result.index = i
                     date_range_result.from_date = datetime.date(
@@ -273,12 +273,14 @@ def contactDates():
                         int(date_range_form.to_date_day.data)
                     )
 
-                    date_range_errors = validate_date_ranges(date_range_result.from_date, date_range_result.to_date)
-                    if not date_range_errors:
+                    date_range_errors[i] = validate_date_ranges(date_range_result.from_date, date_range_result.to_date)
+                    if not date_range_errors[i]:
                         date_range_results.append(date_range_result)
 
-                if date_range_errors:
-                    add_multiple_errors_for_child_form(form.date_ranges, date_range_form, date_range_errors)
+                if date_range_errors[i]:
+                    add_multiple_errors_for_child_form(form.date_ranges, date_range_form, date_range_errors[i])
+
+            date_range_errors = tuple(error for i, error in date_range_errors.items() if error)
 
             if not date_range_errors and new_date_range_requested:
                 empty_date_range_form = DateRangeForm()
