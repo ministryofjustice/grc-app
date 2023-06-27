@@ -9,6 +9,12 @@ class AffirmedGender(GrcEnum):
     FEMALE = auto()
 
 
+class ContactDatesAvoid(GrcEnum):
+    SINGLE_DATE = auto()
+    DATE_RANGE = auto()
+    NO_DATES = auto()
+
+
 class DateRange:
     index: int = None
     from_date: datetime.date = None
@@ -39,9 +45,10 @@ class PersonalDetailsData:
     contact_by_post: bool = None  # We take the postal address from the address fields above
 
     contact_dates_should_avoid: bool = None
-    contact_dates_to_avoid_option: str = None
+    contact_dates_to_avoid: str = None
+    contact_dates_to_avoid_option: ContactDatesAvoid = None
     contact_date_to_avoid: datetime.date = None
-    contact_dates_to_avoid: [DateRange] = None
+    contact_date_ranges_to_avoid: [DateRange] = None
 
     tell_hmrc: bool = None
     national_insurance_number: str = None
@@ -108,6 +115,23 @@ class PersonalDetailsData:
         return 'Yes' if self.contact_dates_should_avoid else 'No'
 
     @property
+    def contact_dates_to_avoid_option_bool(self) -> bool:
+        return False if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else True
+
+    @property
+    def contact_dates_to_avoid_option_formatted(self) -> str:
+        return 'No' if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else 'Yes'
+
+    @property
+    def contact_date_to_avoid_formatted_DD_MM_YYYY(self) -> str:
+        return self.contact_date_to_avoid.strftime('%d/%m/%Y')
+
+    @property
+    def contact_date_ranges_to_avoid_formatted_DD_MM_YYYY(self) -> (str, str):
+        return ((date_range.from_date.strftime('%d/%m/%Y'), date_range.to_date.strftime('%d/%m/%Y'))
+                for date_range in self.contact_date_ranges_to_avoid)
+
+    @property
     def tell_hmrc_formatted(self) -> str:
         return 'Yes' if self.tell_hmrc else 'No'
 
@@ -134,11 +158,15 @@ class PersonalDetailsData:
         if self.contact_email_address is None and self.contact_phone_number is None and self.contact_by_post is None:
             return ListStatus.IN_PROGRESS
 
-        if self.contact_dates_should_avoid is None:
+        if self.contact_dates_should_avoid is None and self.contact_dates_to_avoid_option is None:
             return ListStatus.IN_PROGRESS
 
         if self.contact_dates_should_avoid:
             if self.contact_dates_to_avoid is None:
+                return ListStatus.IN_PROGRESS
+
+        if self.contact_dates_to_avoid_option and self.contact_dates_to_avoid_option != ContactDatesAvoid.NO_DATES:
+            if self.contact_date_to_avoid is None and self.contact_date_ranges_to_avoid is None:
                 return ListStatus.IN_PROGRESS
 
         if self.tell_hmrc is None:
@@ -149,3 +177,7 @@ class PersonalDetailsData:
                 return ListStatus.IN_PROGRESS
 
         return ListStatus.COMPLETED
+
+    def remove_old_contact_dates_to_avoid_data(self):
+        self.contact_dates_should_avoid = None
+        self.contact_dates_to_avoid = None

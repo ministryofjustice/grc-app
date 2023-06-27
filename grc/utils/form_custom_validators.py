@@ -306,6 +306,20 @@ def validateHWFReferenceNumber(form, field):
             raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
 
 
+def validate_single_date(form, field):
+    if not form['day'].errors and not form['month'].errors:
+        try:
+            day = int(form['day'].data)
+            month = int(form['month'].data)
+            year = int(form['year'].data)
+            date_entered = date(year, month, day)
+        except Exception as e:
+            raise ValidationError('Enter a valid year')
+
+        if date_entered < date.today():
+            raise ValidationError('Enter a date in the future')
+
+
 def validate_date_range_form(date_ranges_form):
     form_errors = dict()
     from_date_day_entered = True

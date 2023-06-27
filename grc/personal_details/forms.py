@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, Integer
-from grc.business_logic.data_structures.personal_details_data import AffirmedGender
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
 class NameForm(FlaskForm):
@@ -346,9 +346,9 @@ class DateRangeForm(Form):
 class ContactDatesForm(FlaskForm):
     contactDatesCheck = RadioField(
         choices=[
-            ('SINGLE_DATE', 'A single date'),
-            ('DATE_RANGE', 'A range of dates'),
-            ('NO_DATES', 'No dates')
+            (ContactDatesAvoid.SINGLE_DATE.name, 'A single date'),
+            (ContactDatesAvoid.DATE_RANGE.name, 'A range of dates'),
+            (ContactDatesAvoid.NO_DATES.name, 'No dates')
         ],
         validators=[DataRequired(message="Select if you don't want us to contact you at any point in the next 6 months")]
     )
@@ -372,7 +372,9 @@ class ContactDatesForm(FlaskForm):
     year = StringField(
         validators=[
             StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a year', validators=[
-                Integer(min=1000, message='Enter a year as a 4-digit number, like 2000')
+                Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[
+                    validate_single_date
+                ])
             ])
         ]
     )
