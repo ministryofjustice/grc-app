@@ -51,9 +51,6 @@ class StrictRequiredIf(DataRequired):
 
     def __call__(self, form, field):
 
-        print(f'FORM =>, {form}', flush=True)
-        print(f'OTHER FIELD =>, {self.other_field_name}\n', flush=True)
-
         other_field = form[self.other_field_name]
 
         if other_field is None:
@@ -76,8 +73,6 @@ class Integer(DataRequired):
         self.validators = validators
 
     def __call__(self, form, field):
-        print(f'INTEGER FORM =>, {form}', flush=True)
-        print(f'INTEGER FIELD =>, {field}\n', flush=True)
 
         string_value: str = field.data
 
