@@ -44,7 +44,7 @@ CONTACT_DATE_SINGLE_YEAR = str((date.today() + relativedelta(month=1)).year)
 
 CONTACT_DATE_RANGE_1_FROM_DAY = '5'
 CONTACT_DATE_RANGE_1_FROM_MONTH = '5'
-CONTACT_DATE_RANGE_1_FROM_YEAR = str((date.today() - relativedelta(month=1)).year)
+CONTACT_DATE_RANGE_1_FROM_YEAR = str((date.today() + relativedelta(month=1)).year)
 
 CONTACT_DATE_RANGE_1_TO_DAY = '5'
 CONTACT_DATE_RANGE_1_TO_MONTH = '6'
@@ -52,7 +52,7 @@ CONTACT_DATE_RANGE_1_TO_YEAR = str((date.today() + relativedelta(month=1)).year)
 
 CONTACT_DATE_RANGE_2_FROM_DAY = '6'
 CONTACT_DATE_RANGE_2_FROM_MONTH = '6'
-CONTACT_DATE_RANGE_2_FROM_YEAR = str((date.today() - relativedelta(month=1)).year)
+CONTACT_DATE_RANGE_2_FROM_YEAR = str((date.today() + relativedelta(month=1)).year)
 
 CONTACT_DATE_RANGE_2_TO_DAY = '6'
 CONTACT_DATE_RANGE_2_TO_MONTH = '7'
