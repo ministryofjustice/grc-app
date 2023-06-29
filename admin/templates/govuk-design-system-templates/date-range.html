@@ -9,13 +9,15 @@
             {% for error in form.errors %}
                 {% if form[error] | is_FieldList %}
                     <p class="govuk-error-message govuk-!-margin-top-1 govuk-!-margin-bottom-1">
-                        <span id="{{ error }}-error">
-                            {% for errors in form[error].errors %}
-                                {% for field_id, error_messages in errors.items() %}
-                                    <span class="govuk-visually-hidden">Error:</span>{{ error_messages[0] }}<br>
+                        {% if error != dateForOptions.parentForm %}
+                            <span id="{{ error }}-error">
+                                {% for errors in form[error].errors %}
+                                    {% for field_id, error_messages in errors.items() %}
+                                        <span class="govuk-visually-hidden">Error:</span>{{ error_messages[0] }}<br>
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
-                        </span>
+                            </span>
+                        {% endif %}
                     </p>
                 {% endif %}
             {% endfor %}
