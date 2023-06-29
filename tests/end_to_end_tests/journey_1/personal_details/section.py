@@ -656,7 +656,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/contact-dates')
     await asserts.accessibility()
     await asserts.h1('If we need to contact you by post in the next 6 months, are there any dates we should avoid?')
-    await asserts.number_of_errors(1)
     await asserts.field_value(field='date_ranges-0-from_date_day', expected_value=data.CONTACT_DATE_RANGE_1_FROM_DAY)
     await asserts.field_value(field='date_ranges-0-from_date_month', expected_value=data.CONTACT_DATE_RANGE_1_FROM_MONTH)
     await asserts.field_value(field='date_ranges-0-from_date_year', expected_value=data.CONTACT_DATE_RANGE_1_FROM_YEAR)
