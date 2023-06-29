@@ -571,7 +571,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/contact-dates')
     await asserts.accessibility()
     await asserts.h1('If we need to contact you by post in the next 6 months, are there any dates we should avoid?')
-    await asserts.number_of_errors(2)
+    await asserts.number_of_errors(1)
     await asserts.error(field='contactDatesCheck', message="Select if you don't want us to contact you at any point in the next 6 months")
 
     # Choose "No dates"
