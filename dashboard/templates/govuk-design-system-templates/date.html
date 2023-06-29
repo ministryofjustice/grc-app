@@ -9,7 +9,7 @@
             {% for error in form.errors %}
                 {% if not form[error] | is_FieldList %}
                     <p class="govuk-error-message govuk-!-margin-top-1 govuk-!-margin-bottom-1">
-                        <span id="{{ error }}-error">
+                        <span id="{{ error }}-error-date">
                             {% for e in form[error].errors %}
                                 <span class="govuk-visually-hidden">Error:</span> {{ e }}<br>
                             {% endfor %}
