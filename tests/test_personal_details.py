@@ -5,7 +5,7 @@ from grc.config import TestConfig
 from grc.utils.form_custom_validators import validate_date_range_form, validate_date_ranges
 from grc.personal_details.forms import ContactDatesForm, DateRangeForm
 from grc.business_logic.data_structures.personal_details_data import ContactDatesAvoid
-from tests.helpers.unit_test_helpers import remove_date_ranges
+from tests.helpers.unit_test_helpers import remove_date_ranges, single_date_mock, date_range_mock
 
 
 def create_test_app():
@@ -25,36 +25,28 @@ def test_contact_single_date():
     with flask_app.test_client() as test_client:
         response = test_client.get('/')
         contact_dates_form = ContactDatesForm()
+        contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
 
         # Single date valid
-        contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
         valid_date = date.today() + relativedelta(days=7)
-        contact_dates_form.day.data = str(valid_date.day)
-        contact_dates_form.month.data = str(valid_date.month)
-        contact_dates_form.year.data = str(valid_date.year)
+        single_date_mock(contact_dates_form, valid_date)
         assert contact_dates_form.validate()
 
         # Single date invalid in the past
         invalid_date = date.today() - relativedelta(days=7)
-        contact_dates_form.day.data = str(invalid_date.day)
-        contact_dates_form.month.data = str(invalid_date.month)
-        contact_dates_form.year.data = str(invalid_date.year)
+        single_date_mock(contact_dates_form, invalid_date)
         assert not contact_dates_form.validate()
         assert contact_dates_form.errors['year'][0] == 'Enter a date in the future'
 
         # Single date missing input
-        valid_date = date.today() + relativedelta(days=7)
-        contact_dates_form.day.data = str(valid_date.day)
-        contact_dates_form.month.data = str(valid_date.month)
-        contact_dates_form.year.data = ''
+        invalid_date = date.today() + relativedelta(days=7)
+        single_date_mock(contact_dates_form, invalid_date, **{'year': ''})
         assert not contact_dates_form.validate()
         assert contact_dates_form.errors['year'][0] == 'Enter a year'
 
         # Single date invalid input
-        valid_date = date.today() + relativedelta(days=7)
-        contact_dates_form.day.data = str(valid_date.day)
-        contact_dates_form.month.data = '14'
-        contact_dates_form.year.data = str(valid_date.year)
+        invalid_date = date.today() + relativedelta(days=7)
+        single_date_mock(contact_dates_form, invalid_date, **{'month': '14'})
         assert not contact_dates_form.validate()
         assert contact_dates_form.errors['month'][0] == 'Enter a month as a number between 1 and 12'
 
@@ -65,36 +57,26 @@ def test_contact_single_date_range():
     with flask_app.test_client() as test_client:
         response = test_client.get('/')
         contact_dates_form = ContactDatesForm()
-        date_range_form = DateRangeForm()
         contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
         # SINGLE DATE RANGE VALID
+        date_range_form = DateRangeForm()
         valid_from_date = date.today() + relativedelta(days=7)
         valid_to_date = valid_from_date + relativedelta(days=7)
-        date_range_form.from_date_day.data = str(valid_from_date.day)
-        date_range_form.from_date_month.data = str(valid_from_date.month)
-        date_range_form.from_date_year.data = str(valid_from_date.year)
-
-        date_range_form.to_date_day.data = str(valid_to_date.day)
-        date_range_form.to_date_month.data = str(valid_to_date.month)
-        date_range_form.to_date_year.data = str(valid_to_date.year)
-
+        date_range_mock(date_range_form, valid_from_date, valid_to_date)
         contact_dates_form.date_ranges.append_entry(date_range_form)
         assert contact_dates_form.validate()
         assert validate_date_range_form(date_range_form) == {}
         remove_date_ranges(contact_dates_form)
 
         # SINGLE DATE RANGE INVALID INPUTS
-        valid_from_date = date.today() + relativedelta(days=7)
-        valid_to_date = valid_from_date + relativedelta(days=7)
-        date_range_form.from_date_day.data = ''
-        date_range_form.from_date_month.data = str(valid_from_date.month)
-        date_range_form.from_date_year.data = str(valid_from_date.year)
-
-        date_range_form.to_date_day.data = str(valid_to_date.day)
-        date_range_form.to_date_month.data = str(valid_to_date.month)
-        date_range_form.to_date_year.data = '100'
-
+        invalid_from_date = date.today() + relativedelta(days=7)
+        invalid_to_date = valid_from_date + relativedelta(days=7)
+        erroneous_fields = {
+            'from_day': '',
+            'to_year': '100'
+        }
+        date_range_mock(date_range_form, invalid_from_date, invalid_to_date, **erroneous_fields)
         contact_dates_form.date_ranges.append_entry(date_range_form)
 
         # wtf validation is not used on date ranges. It is conducted in the controller so validate() will return True
@@ -108,46 +90,34 @@ def test_contact_single_date_range():
         remove_date_ranges(contact_dates_form)
 
         # SINGLE DATE RANGE INVALID FROM DATE IN PAST
-        valid_from_date = date.today() - relativedelta(days=7)
+        date_range_form = DateRangeForm()
+        invalid_from_date = date.today() - relativedelta(days=7)
         valid_to_date = valid_from_date + relativedelta(days=14)
-        date_range_form.from_date_day.data = str(valid_from_date.day)
-        date_range_form.from_date_month.data = str(valid_from_date.month)
-        date_range_form.from_date_year.data = str(valid_from_date.year)
-
-        date_range_form.to_date_day.data = str(valid_to_date.day)
-        date_range_form.to_date_month.data = str(valid_to_date.month)
-        date_range_form.to_date_year.data = str(valid_to_date.year)
-
+        date_range_mock(date_range_form, invalid_from_date, valid_to_date)
         contact_dates_form.date_ranges.append_entry(date_range_form)
 
         # wtf validation is not used on date ranges. It is conducted in the controller so validate() will return True
         assert contact_dates_form.validate()
         form_errors = validate_date_range_form(date_range_form)
         assert form_errors == {}
-        form_errors = validate_date_ranges(valid_from_date, valid_to_date)
+        form_errors = validate_date_ranges(invalid_from_date, valid_to_date)
         assert form_errors == {
             'from_date_year': '\'From\' date is in the past'
         }
         remove_date_ranges(contact_dates_form)
 
         # SINGLE DATE RANGE INVALID TO DATE BEFORE FROM DATE
+        date_range_form = DateRangeForm()
         valid_from_date = date.today() + relativedelta(days=14)
-        valid_to_date = valid_from_date - relativedelta(days=7)
-        date_range_form.from_date_day.data = str(valid_from_date.day)
-        date_range_form.from_date_month.data = str(valid_from_date.month)
-        date_range_form.from_date_year.data = str(valid_from_date.year)
-
-        date_range_form.to_date_day.data = str(valid_to_date.day)
-        date_range_form.to_date_month.data = str(valid_to_date.month)
-        date_range_form.to_date_year.data = str(valid_to_date.year)
-
+        invalid_to_date = valid_from_date - relativedelta(days=7)
+        date_range_mock(date_range_form, valid_from_date, invalid_to_date)
         contact_dates_form.date_ranges.append_entry(date_range_form)
 
         # wtf validation is not used on date ranges. It is conducted in the controller so validate() will return True
         assert contact_dates_form.validate()
         form_errors = validate_date_range_form(date_range_form)
         assert form_errors == {}
-        form_errors = validate_date_ranges(valid_from_date, valid_to_date)
+        form_errors = validate_date_ranges(valid_from_date, invalid_to_date)
         assert form_errors == {
             'to_date_year': '\'From\' date is after the \'To\' date'
         }
@@ -158,23 +128,11 @@ def test_contact_single_date_range():
         date_range_form_2 = DateRangeForm()
         valid_from_date_1 = date.today() + relativedelta(days=7)
         valid_to_date_1 = valid_from_date + relativedelta(days=7)
-        date_range_form_1.from_date_day.data = str(valid_from_date_1.day)
-        date_range_form_1.from_date_month.data = str(valid_from_date_1.month)
-        date_range_form_1.from_date_year.data = str(valid_from_date_1.year)
-
-        date_range_form_1.to_date_day.data = str(valid_to_date_1.day)
-        date_range_form_1.to_date_month.data = str(valid_to_date_1.month)
-        date_range_form_1.to_date_year.data = str(valid_to_date_1.year)
+        date_range_mock(date_range_form_1, valid_from_date_1, valid_to_date_1)
 
         valid_from_date_2 = date.today() + relativedelta(months=3)
         valid_to_date_2 = valid_from_date_2 + relativedelta(months=1)
-        date_range_form_2.from_date_day.data = str(valid_from_date_2.day)
-        date_range_form_2.from_date_month.data = str(valid_from_date_2.month)
-        date_range_form_2.from_date_year.data = str(valid_from_date_2.year)
-
-        date_range_form_2.to_date_day.data = str(valid_to_date_2.day)
-        date_range_form_2.to_date_month.data = str(valid_to_date_2.month)
-        date_range_form_2.to_date_year.data = str(valid_to_date_2.year)
+        date_range_mock(date_range_form_2, valid_from_date_2, valid_to_date_2)
 
         contact_dates_form.date_ranges.append_entry(date_range_form_1)
         contact_dates_form.date_ranges.append_entry(date_range_form_2)
@@ -201,33 +159,25 @@ def test_contact_single_date_range():
         # MULTI DATE RANGE INVALID
         date_range_form_1 = DateRangeForm()
         date_range_form_2 = DateRangeForm()
-        valid_from_date_1 = date.today() + relativedelta(days=7)
-        valid_to_date_1 = valid_from_date + relativedelta(days=7)
-        date_range_form_1.from_date_day.data = str(valid_from_date_1.day)
-        date_range_form_1.from_date_month.data = '14'
-        date_range_form_1.from_date_year.data = str(valid_from_date_1.year)
-
-        date_range_form_1.to_date_day.data = ''
-        date_range_form_1.to_date_month.data = str(valid_to_date_1.month)
-        date_range_form_1.to_date_year.data = str(valid_to_date_1.year)
+        invalid_from_date_1 = date.today() + relativedelta(days=7)
+        invalid_to_date_1 = valid_from_date + relativedelta(days=7)
+        erroneous_fields = {
+            'from_month': '14',
+            'to_day': ''
+        }
+        date_range_mock(date_range_form_1, invalid_from_date_1, invalid_to_date_1, **erroneous_fields)
 
         valid_from_date_2 = date.today() + relativedelta(months=3)
-        valid_to_date_2 = valid_from_date_2 - relativedelta(months=1)
-        date_range_form_2.from_date_day.data = str(valid_from_date_2.day)
-        date_range_form_2.from_date_month.data = str(valid_from_date_2.month)
-        date_range_form_2.from_date_year.data = str(valid_from_date_2.year)
-
-        date_range_form_2.to_date_day.data = str(valid_to_date_2.day)
-        date_range_form_2.to_date_month.data = str(valid_to_date_2.month)
-        date_range_form_2.to_date_year.data = str(valid_to_date_2.year)
+        invalid_to_date_2 = valid_from_date_2 - relativedelta(months=1)
+        date_range_mock(date_range_form_2, valid_from_date_2, invalid_to_date_2)
 
         contact_dates_form.date_ranges.append_entry(date_range_form_1)
         contact_dates_form.date_ranges.append_entry(date_range_form_2)
 
         date_range_forms = [date_range_form_1, date_range_form_2]
         date_ranges = {
-            0: {'from_date': valid_from_date_1, 'to_date': valid_to_date_1},
-            1: {'from_date': valid_from_date_2, 'to_date': valid_to_date_2}
+            0: {'from_date': invalid_from_date_1, 'to_date': invalid_to_date_1},
+            1: {'from_date': valid_from_date_2, 'to_date': invalid_to_date_2}
         }
 
         assert contact_dates_form.validate()
