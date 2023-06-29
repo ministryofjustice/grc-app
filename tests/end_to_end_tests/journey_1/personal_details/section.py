@@ -621,7 +621,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Add date range and check values
     await helpers.check_radio(field='contactDatesCheck', value='DATE_RANGE')
-    await helpers.click_button('Add date range')
+    await helpers.click_button('Add another date range')
     await asserts.url('/personal-details/contact-dates')
     await asserts.number_of_errors(0)
     await asserts.field_value(field='date_ranges-0-from_date_day', expected_value=data.CONTACT_DATE_RANGE_1_FROM_DAY)
