@@ -580,7 +580,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
     await asserts.url('/personal-details/contact-preferences')
     await asserts.accessibility()
-    await asserts.h1('If we need to contact you by post in the next 6 months, are there any dates we should avoid?')
+    await asserts.h1('How would you like to be contacted if we have any questions about your application?')
     # "Back" link should take you to the Contact dates page
     await helpers.click_button('Back')
 
