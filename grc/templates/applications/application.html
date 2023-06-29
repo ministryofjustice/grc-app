@@ -114,46 +114,48 @@
         </li>
     </ul>
 
-    <h4 style="font-size: 16px;">Birth registration information</h4>
-    <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
-        <li>Birth name
-            <ul class="govuk-list govuk-list--bullet">
-                <li>First name: <strong>{{ application_data.birth_registration_data.first_name }}</strong></li>
-                <li>Middle name(s): <strong>{{ application_data.birth_registration_data.middle_names_or_empty_string }}</strong></li>
-                <li>Last name: <strong>{{ application_data.birth_registration_data.last_name }}</strong></li>
-            </ul>
-        </li>
-        <li>Date of birth: <strong>{{ application_data.birth_registration_data.date_of_birth_formatted_DD_MMMM_YYYY }}</strong></li>
-        <li>Birth registered in UK: <strong>{{ application_data.birth_registration_data.birth_registered_in_uk_formatted }}</strong></li>
-        <li>Affirmed gender: <strong>{{ application_data.personal_details_data.affirmed_gender_formatted }}</strong></li>
-        {% if application_data.birth_registration_data.birth_registered_in_uk %}
-            <li>Mother's name
+    {% if not application_data.uploads_data.birth_or_adoption_certificates %}
+        <h4 style="font-size: 16px;">Birth registration information</h4>
+        <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
+            <li>Birth name
                 <ul class="govuk-list govuk-list--bullet">
-                    <li>First name: <strong>{{ application_data.birth_registration_data.mothers_first_name }}</strong></li>
-                    <li>Last name: <strong>{{ application_data.birth_registration_data.mothers_last_name }}</strong></li>
-                    <li>Maiden name: <strong>{{ application_data.birth_registration_data.mothers_maiden_name }}</strong></li>
+                    <li>First name: <strong>{{ application_data.birth_registration_data.first_name }}</strong></li>
+                    <li>Middle name(s): <strong>{{ application_data.birth_registration_data.middle_names_or_empty_string }}</strong></li>
+                    <li>Last name: <strong>{{ application_data.birth_registration_data.last_name }}</strong></li>
                 </ul>
             </li>
-            <li>Father's name listed on birth certificate: <strong>{{ application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted }}</strong></li>
-            {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
-                <li>Father's name
+            <li>Date of birth: <strong>{{ application_data.birth_registration_data.date_of_birth_formatted_DD_MMMM_YYYY }}</strong></li>
+            <li>Birth registered in UK: <strong>{{ application_data.birth_registration_data.birth_registered_in_uk_formatted }}</strong></li>
+            <li>Affirmed gender: <strong>{{ application_data.personal_details_data.affirmed_gender_formatted }}</strong></li>
+            {% if application_data.birth_registration_data.birth_registered_in_uk %}
+                <li>Mother's name
                     <ul class="govuk-list govuk-list--bullet">
-                        <li>First name: <strong>{{ application_data.birth_registration_data.fathers_first_name }}</strong></li>
-                        <li>Last name: <strong>{{ application_data.birth_registration_data.fathers_last_name }}</strong></li>
+                        <li>First name: <strong>{{ application_data.birth_registration_data.mothers_first_name }}</strong></li>
+                        <li>Last name: <strong>{{ application_data.birth_registration_data.mothers_last_name }}</strong></li>
+                        <li>Maiden name: <strong>{{ application_data.birth_registration_data.mothers_maiden_name }}</strong></li>
                     </ul>
                 </li>
+                <li>Father's name listed on birth certificate: <strong>{{ application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted }}</strong></li>
+                {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
+                    <li>Father's name
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>First name: <strong>{{ application_data.birth_registration_data.fathers_first_name }}</strong></li>
+                            <li>Last name: <strong>{{ application_data.birth_registration_data.fathers_last_name }}</strong></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                <li>Place of birth: <strong>{{ application_data.birth_registration_data.town_city_of_birth }}</strong></li>
+                <li>Adopted: <strong>{{ application_data.birth_registration_data.adopted_formatted }}</strong></li>
+                {% if application_data.birth_registration_data.adopted %}
+                    <li>Adopted in the UK: <strong>{{ application_data.birth_registration_data.adopted_in_the_uk_formatted }}</strong></li>
+                {% endif %}
+                <li>Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions:
+                    <strong>{{ application_data.birth_registration_data.forces_registration_formatted }}</strong></li>
+            {% else %}
+                <li>Registered birth country: <strong>{{ application_data.birth_registration_data.country_of_birth }}</strong></li>
             {% endif %}
-            <li>Place of birth: <strong>{{ application_data.birth_registration_data.town_city_of_birth }}</strong></li>
-            <li>Adopted: <strong>{{ application_data.birth_registration_data.adopted_formatted }}</strong></li>
-            {% if application_data.birth_registration_data.adopted %}
-                <li>Adopted in the UK: <strong>{{ application_data.birth_registration_data.adopted_in_the_uk_formatted }}</strong></li>
-            {% endif %}
-            <li>Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions:
-                <strong>{{ application_data.birth_registration_data.forces_registration_formatted }}</strong></li>
-        {% else %}
-            <li>Registered birth country: <strong>{{ application_data.birth_registration_data.country_of_birth }}</strong></li>
-        {% endif %}
-    </ul>
+        </ul>
+    {% endif %}
 
     <h4 style="font-size: 16px;">Declaration</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">

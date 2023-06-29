@@ -2,7 +2,7 @@ import datetime
 import io
 from typing import List, Callable
 from dateutil.relativedelta import relativedelta
-from flask import Blueprint, render_template, request, url_for, abort, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, abort, make_response
 from werkzeug.utils import secure_filename
 import uuid
 from PIL import Image
@@ -168,11 +168,16 @@ def uploadInfoPage(section_url: str):
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
 
+    only_one_file_required = True if section.data_section == 'birthOrAdoptionCertificate' else False
+
     if form.validate_on_submit():
-        if form.button_clicked.data.startswith('Upload '):
+        if only_one_file_required and len(request.files.getlist('documents')) > 1:
+            form.documents.errors.append('Please only upload one file')
+
+        elif form.button_clicked.data.startswith('Upload '):
             has_password = False
 
-            if section.data_section == 'birthOrAdoptionCertificate' and \
+            if only_one_file_required and \
                     application_data.uploads_data.birth_or_adoption_certificates:
                 application_data = delete_file(
                     application_data,
@@ -248,6 +253,7 @@ def uploadInfoPage(section_url: str):
         deleteform=deleteform,
         deleteAllFilesInSectionForm=deleteAllFilesInSectionForm,
         section_url=section.url,
+        only_one_file_required=only_one_file_required,
         currently_uploaded_files=files,
         duplicate_aws_file_names=any_duplicate_aws_file_names(files),
         date_now=datetime.datetime.now(),
