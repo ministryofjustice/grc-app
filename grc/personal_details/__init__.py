@@ -302,7 +302,9 @@ def contactDates():
                 return get_next_page(application_data, 'personalDetails.contactPreferences')
 
     if request.method == 'GET':
-        form.contactDatesCheck.data = application_data.personal_details_data.contact_dates_to_avoid_option.name
+
+        if application_data.personal_details_data.contact_dates_to_avoid_option:
+            form.contactDatesCheck.data = application_data.personal_details_data.contact_dates_to_avoid_option.name
 
         if application_data.personal_details_data.contact_date_to_avoid:
             form.day.data = application_data.personal_details_data.contact_date_to_avoid.day
