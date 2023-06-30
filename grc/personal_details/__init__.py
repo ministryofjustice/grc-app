@@ -324,7 +324,6 @@ def contactDates():
 
                 form.date_ranges.append_entry(date_range_form)
 
-    print(f'Length of date ranges => {len(form.date_ranges)}', flush=True)
     return render_template(
         'personal-details/contact-dates.html',
         form=form,
