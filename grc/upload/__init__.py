@@ -2,7 +2,7 @@ import datetime
 import io
 from typing import List, Callable
 from dateutil.relativedelta import relativedelta
-from flask import Blueprint, render_template, request, url_for, abort, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, abort, make_response
 from werkzeug.utils import secure_filename
 import uuid
 from PIL import Image
@@ -35,7 +35,8 @@ sections = [
     UploadSection(url='name-change', data_section='nameChange', html_file='name-change.html', file_list=(lambda u: u.name_change_documents)),
     UploadSection(url='marriage-documents', data_section='marriageDocuments', html_file='marriage-documents.html', file_list=(lambda u: u.partnership_documents)),
     UploadSection(url='overseas-certificate', data_section='overseasCertificate', html_file='overseas-certificate.html', file_list=(lambda u: u.overseas_documents)),
-    UploadSection(url='statutory-declarations', data_section='statutoryDeclarations', html_file='statutory-declarations.html', file_list=(lambda u: u.statutory_declarations))
+    UploadSection(url='statutory-declarations', data_section='statutoryDeclarations', html_file='statutory-declarations.html', file_list=(lambda u: u.statutory_declarations)),
+    UploadSection(url='birth-or-adoption-certificate', data_section='birthOrAdoptionCertificate', html_file='birth-or-adoption-certificate.html', file_list=(lambda u: u.birth_or_adoption_certificates))
 ]
 
 
@@ -167,9 +168,23 @@ def uploadInfoPage(section_url: str):
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
 
+    only_one_file_required = True if section.data_section == 'birthOrAdoptionCertificate' else False
+
     if form.validate_on_submit():
-        if form.button_clicked.data.startswith('Upload '):
+        if only_one_file_required and len(request.files.getlist('documents')) > 1:
+            form.documents.errors.append('Please only upload one file')
+
+        elif form.button_clicked.data.startswith('Upload '):
             has_password = False
+
+            if only_one_file_required and \
+                    application_data.uploads_data.birth_or_adoption_certificates:
+                application_data = delete_file(
+                    application_data,
+                    application_data.uploads_data.birth_or_adoption_certificates[0].aws_file_name,
+                    section
+                )
+
             try:
                 for document in request.files.getlist('documents'):
                     original_file_name = document.filename
@@ -220,9 +235,7 @@ def uploadInfoPage(section_url: str):
                     files.append(new_evidence_file)
             except Exception as e:
                 logger.log(LogLevel.ERROR, message=f"Error uploading file: {e}")
-
             DataStore.save_application(application_data)
-
             if has_password:
                 return local_redirect(url_for('upload.documentPassword', section_url=section.url))
             else:
@@ -240,6 +253,7 @@ def uploadInfoPage(section_url: str):
         deleteform=deleteform,
         deleteAllFilesInSectionForm=deleteAllFilesInSectionForm,
         section_url=section.url,
+        only_one_file_required=only_one_file_required,
         currently_uploaded_files=files,
         duplicate_aws_file_names=any_duplicate_aws_file_names(files),
         date_now=datetime.datetime.now(),

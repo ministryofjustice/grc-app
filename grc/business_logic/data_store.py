@@ -54,9 +54,7 @@ class DataStore:
         application_record: Application = Application.query.filter_by(
             reference_number=application_data.reference_number
         ).first()
-
         user_input: str = jsonpickle.encode(application_data)
-        print(user_input, flush=True)
         application_record.user_input = user_input
         application_record.updated = datetime.datetime.now()
         application_record.last_page = request.full_path

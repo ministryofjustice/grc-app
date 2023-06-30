@@ -6,6 +6,8 @@ import tests.end_to_end_tests.journey_1.uploads.page_name_change_documents as pa
 import tests.end_to_end_tests.journey_1.uploads.page_marriage_documents as page_marriage_documents
 import tests.end_to_end_tests.journey_1.uploads.page_overseas_documents as page_overseas_documents
 import tests.end_to_end_tests.journey_1.uploads.page_statutory_declarations as page_statutory_declarations
+import tests.end_to_end_tests.journey_1.uploads.page_birth_or_adoption_certificate as page_birth_or_adoption_certificate
+
 
 
 async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
@@ -29,3 +31,8 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ---- Statutory Declarations page
     # ------------------------------------------------
     await page_statutory_declarations.run_checks_on_page(page, asserts, helpers)
+
+    # ------------------------------------------------
+    # ---- Birth or adoption certificate page
+    # ------------------------------------------------
+    await page_birth_or_adoption_certificate.run_checks_on_page(page, asserts, helpers)
