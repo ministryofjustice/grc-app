@@ -241,73 +241,6 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
-    # Click "Your birth registration information" to go to the Birth Certificate Name page
-    await helpers.click_button('Your birth registration information')
-
-    # ------------------------------------------------
-    # ---- Birth Certificate Name page
-    # ------------------------------------------------
-    await asserts.url('/birth-registration')
-    await asserts.accessibility()
-    await asserts.h1('What name was originally registered on your birth or adoption certificate?')
-    await asserts.number_of_errors(0)
-
-    # Enter a valid name, click "Save and continue"
-    await helpers.fill_textbox(field='first_name', value=data.BIRTH_FIRST_NAME)
-    await helpers.fill_textbox(field='middle_names', value=data.BIRTH_MIDDLE_NAME)
-    await helpers.fill_textbox(field='last_name', value=data.BIRTH_LAST_NAME)
-    await helpers.click_button('Save and continue')
-
-    # ------------------------------------------------
-    # ---- Date of Birth page
-    # ------------------------------------------------
-    await asserts.url('/birth-registration/dob')
-    await asserts.accessibility()
-    await asserts.h1('What is the date of birth on your birth or adoption certificate?')
-    await asserts.number_of_errors(0)
-
-    # Enter valid values, click "Save and continue"
-    await helpers.fill_textbox(field='day', value=data.DATE_OF_BIRTH_DAY)
-    await helpers.fill_textbox(field='month', value=data.DATE_OF_BIRTH_MONTH)
-    await helpers.fill_textbox(field='year', value=data.DATE_OF_BIRTH_YEAR)
-    await helpers.click_button('Save and continue')
-
-    # ------------------------------------------------
-    # ---- Birth Registered in UK page
-    # ------------------------------------------------
-    await asserts.url('/birth-registration/uk-check')
-    await asserts.accessibility()
-    await asserts.h1('Was your birth registered in the UK?')
-    await asserts.number_of_errors(0)
-
-    # Select "No" to go down the "abroad" route first
-    # Later, we will re-trace our steps, and select "Yes" to go down the "UK" route
-    await helpers.check_radio(field='birth_registered_in_uk', value='False')
-    await helpers.click_button('Save and continue')
-
-    # ------------------------------------------------
-    # ---- What Country page
-    # ------------------------------------------------
-    await asserts.url('/birth-registration/country')
-    await asserts.accessibility()
-    await asserts.h1('What country was your birth registered in?')
-    await asserts.number_of_errors(0)
-
-    # Enter a valid value, click "Save and continue"
-    await helpers.fill_textbox(field='country_of_birth', value=data.BIRTH_COUNTRY)
-    await helpers.click_button('Save and continue')
-
-    # ------------------------------------------------
-    # ---- Birth Registration: Check Your Answers page
-    # ------------------------------------------------
-    await asserts.url('/birth-registration/check-your-answers')
-    await asserts.accessibility()
-    await asserts.h1('Check your answers: Birth registration details')
-    await asserts.number_of_errors(0)
-
-    # Click "Save and continue"
-    await helpers.click_button('Save and continue')
-
     # ------------------------------------------------
     # ---- Task List page
     # ------------------------------------------------
@@ -515,6 +448,41 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     await asserts.h1('Your application')
     await asserts.number_of_errors(0)
 
+    # Click "Birth or adoption certificate" to go to the "Statutory Declarations" page
+    await helpers.click_button('Birth or adoption certificate')
+
+    # ------------------------------------------------
+    # ---- Birth or adoption certificate page
+    # ------------------------------------------------
+    await asserts.url('/upload/birth-or-adoption-certificate')
+    await asserts.accessibility()
+    await asserts.h1('Upload your birth or adoption certificate')
+    await asserts.number_of_errors(0)
+    await asserts.documents_uploaded(0)
+
+    DOCUMENT_ONE_NAME = 'document_1.bmp'
+
+    # Upload a valid document
+    await helpers.upload_file_valid(field='documents', file_name=DOCUMENT_ONE_NAME)
+    page.set_default_timeout(data.TIMEOUT_FOR_SLOW_OPERATIONS)
+    await helpers.click_button('Upload 1 file')
+    await asserts.url('/upload/birth-or-adoption-certificate')
+    page.set_default_timeout(data.DEFAULT_TIMEOUT)
+    await asserts.accessibility()
+    await asserts.h1('Upload your birth or adoption certificate')
+    await asserts.number_of_errors(0)
+    await asserts.documents_uploaded(1)
+
+    await helpers.click_button('Save and continue')
+
+    # ------------------------------------------------
+    # ---- Task List page
+    # ------------------------------------------------
+    await asserts.url('/task-list')
+    await asserts.accessibility()
+    await asserts.h1('Your application')
+    await asserts.number_of_errors(0)
+
     # Click "Submit and pay"
     await helpers.click_button('Submit and pay')
 
@@ -539,7 +507,7 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     await asserts.number_of_errors(0)
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(25)
+    await asserts.check_your_answers_rows(22)
     await asserts.check_your_answers_row(row_name='Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of the allowed countries or territories?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you consent to the General Register Office contacting you about your application?', expected_value='Yes')
@@ -555,11 +523,6 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     await asserts.check_your_answers_row(row_name='Notify HMRC', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='National insurance number', expected_value=data.NATIONAL_INSURANCE_NUMBER)
 
-    await asserts.check_your_answers_row(row_name='Birth name', expected_value=f"{data.BIRTH_FIRST_NAME} {data.BIRTH_MIDDLE_NAME} {data.BIRTH_LAST_NAME}")
-    await asserts.check_your_answers_row(row_name='Date of birth', expected_value=data.DATE_OF_BIRTH_FORMATTED)
-    await asserts.check_your_answers_row(row_name='Birth registered in UK', expected_value='No')
-    await asserts.check_your_answers_row(row_name='Registered birth country', expected_value=data.BIRTH_COUNTRY)
-
     await asserts.check_your_answers_row(row_name='Currently married or in a civil partnership', expected_value='Neither')
     await asserts.check_your_answers_row(row_name='Spouse or partner has died', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Marriage or civil partnership has ended', expected_value='Yes')
@@ -568,5 +531,6 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     await asserts.check_your_answers_row(row_name='Marriage documents', expected_value='document_1.bmp')
     await asserts.check_your_answers_row(row_name='Overseas certificate documents', expected_value='document_1.bmp')
     await asserts.check_your_answers_row(row_name='Statutory declarations', expected_value='document_1.bmp')
+    await asserts.check_your_answers_row(row_name='Birth or adoption certificate', expected_value='document_1.bmp')
 
     await asserts.check_your_answers_row(row_name='Payment method', expected_value='Online')

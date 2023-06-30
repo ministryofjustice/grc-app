@@ -95,10 +95,6 @@ def create_app(test_config=None):
     from grc.personal_details import personalDetails
     app.register_blueprint(personalDetails)
 
-    # Birth registration
-    from grc.birth_registration import birthRegistration
-    app.register_blueprint(birthRegistration)
-
     # Partnership details
     from grc.partnership_details import partnershipDetails
     app.register_blueprint(partnershipDetails)

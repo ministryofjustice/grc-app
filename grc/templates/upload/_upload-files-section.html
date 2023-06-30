@@ -1,4 +1,4 @@
-{% macro render(form, deleteform, deleteAllFilesInSectionForm, currently_uploaded_files, section_url, duplicate_aws_file_names, extra_upload_hint) %}
+{% macro render(form, deleteform, deleteAllFilesInSectionForm, currently_uploaded_files, section_url, duplicate_aws_file_names, extra_upload_hint, only_one_file_required=false) %}
     <div id="file-upload-section" class="govuk-!-margin-top-8">
         {% if duplicate_aws_file_names %}
             <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
@@ -23,7 +23,7 @@
 
         {% if currently_uploaded_files %}
             <h2 class="govuk-heading-m">
-                Uploaded files
+                Uploaded {% if only_one_file_required %}file{% else %}files{% endif %}
             </h2>
 
             <dl class="govuk-summary-list govuk-!-margin-bottom-8">
@@ -77,10 +77,10 @@
 
                 <div class="govuk-form-group {{ 'govuk-form-group--error' if form.errors }} govuk-!-margin-bottom-2">
                     <label for="documents" class="govuk-label govuk-label--m">
-                        Upload files
+                        Upload {% if only_one_file_required %}file{% else %}files{% endif %}
                     </label>
                     <div id="documents-hint" class="govuk-hint">
-                        The files must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB
+                        The {% if only_one_file_required %}file{% else %}files{% endif %} must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB
                     </div>
                     {% if extra_upload_hint %}
                         <div id="extra-upload-hint">
@@ -111,7 +111,13 @@
 
                 {% if currently_uploaded_files != [] %}
                     <p class="govuk-body govuk-!-margin-top-5">
-                        Once you have uploaded all your files, click the "Save and continue" button
+                        Once you have uploaded
+                        {% if only_one_file_required %}
+                        your file
+                        {% else %}
+                        all your files
+                        {% endif %}
+                        , click the "Save and continue" button
                     </p>
                 {% endif %}
 

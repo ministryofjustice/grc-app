@@ -11,7 +11,6 @@ taskList = Blueprint('taskList', __name__)
 @LoginRequired
 def index():
     application_data = DataStore.load_application_by_session_reference_number()
-
     return render_template(
         'task-list.html',
         application_data=application_data,

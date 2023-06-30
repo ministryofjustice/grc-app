@@ -46,16 +46,6 @@
                 at any time and return to your application later.
             </p>
 
-            <div class="govuk-inset-text govuk-!-margin-bottom-8">
-                <p class="govuk-body">
-                    You can upload most documents online, but you will need to post us your birth or adoption certificate.
-                </p>
-
-                <p class="govuk-body">
-                    What you need to upload depends on the information you provide during your application.
-                </p>
-            </div>
-
             <ol class="app-task-list app-task-list--no-numbers">
                 <li>
                     <h2 class="app-task-list__section">
@@ -87,14 +77,6 @@
                         }}
 
                         {{ taskListItem(
-                            "Your birth registration information",
-                            (url_for('birthRegistration.checkYourAnswers')
-                             if application_data.birth_registration_data.section_status == ListStatus.COMPLETED
-                             else url_for('birthRegistration.index')),
-                            application_data.birth_registration_data.section_status)
-                        }}
-
-                        {{ taskListItem(
                             "Marriage or civil partnership details",
                             (url_for('partnershipDetails.checkYourAnswers')
                              if application_data.partnership_details_data.section_status == ListStatus.COMPLETED
@@ -112,6 +94,12 @@
                     </h2>
 
                     <ul class="app-task-list__items">
+                        {{ taskListItem(
+                            "Birth or adoption certificate",
+                            url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
+                            application_data.section_status_birth_or_adoption_certificate)
+                        }}
+
                         {% if application_data.need_medical_reports %}
                             {{ taskListItem(
                                 "Your medical reports",
