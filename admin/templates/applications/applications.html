@@ -184,17 +184,24 @@
                                                 </li>
                                                 {% if 'userType' in session and session['userType'] == 'ADMIN' %}
                                                     <li>
-                                                        <a href="{{ url_for('applications.completed', reference_number=application.reference_number) }}"
-                                                           class="govuk-link">
-                                                            Mark application as complete
-                                                            <span class="govuk-visually-hidden">
-                                                                for
-                                                                {{ application_data.personal_details_data.title }}
-                                                                {{ application_data.personal_details_data.first_name }}
-                                                                {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                                                                {{ application_data.personal_details_data.last_name }}
-                                                            </span>
-                                                        </a>
+                                                        <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                                            <div class="govuk-checkboxes__item">
+                                                                <input class="govuk-checkboxes__input" id="application-{{ loop.index }}" name="application-{{ loop.index }}" type="checkbox">
+                                                                <label class="govuk-label govuk-checkboxes__label" for="application-{{ loop.index }}">
+                                                                    <a href="{{ url_for('applications.completed', reference_number=application.reference_number) }}"
+                                                                       class="govuk-link">
+                                                                        Mark application as complete
+                                                                        <span class="govuk-visually-hidden">
+                                                                            for
+                                                                            {{ application_data.personal_details_data.title }}
+                                                                            {{ application_data.personal_details_data.first_name }}
+                                                                            {{ application_data.personal_details_data.middle_names_or_empty_string }}
+                                                                            {{ application_data.personal_details_data.last_name }}
+                                                                        </span>
+                                                                    </a>
+                                                                </label>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 {% endif %}
                                             </ul>
@@ -207,6 +214,21 @@
                                                 Valid data not found for application {{ application.reference_number }} - {{ application.email }}
                                                 <!--- {{ application.user_input | safe }} -->
                                             </p>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if loop.last %}
+                                    <tr class="govuk-table__row">
+                                        <td colspan="5" class="govuk-table__cell" style="text-align: right">
+                                            <button id="mark-apps-completed-btn" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
+                                                Apply applications completed
+                                            </button>
+                                            <button id="select-all-btn" class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button">
+                                                Select all as completed
+                                            </button>
+                                            <button id="clear-all-btn" class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button">
+                                                Clear all as completed
+                                            </button>
                                         </td>
                                     </tr>
                                     {% endif %}
@@ -289,4 +311,7 @@
 
         </div>
     </div>
+{% endblock %}
+{% block js %}
+    <script src="{{ url_for('static', filename='assets/js/applications.js }}"></script>
 {% endblock %}
