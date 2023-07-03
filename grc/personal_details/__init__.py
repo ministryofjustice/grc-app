@@ -260,8 +260,8 @@ def contactDates():
                 date_range_errors[i] = validate_date_range_form(date_range_form)
 
                 if not date_range_errors[i]:
+                    date_range_result = DateRange()
                     try:
-                        date_range_result = DateRange()
                         date_range_result.index = i
                         date_range_result.from_date = datetime.date(
                             int(date_range_form.from_date_year.data),
