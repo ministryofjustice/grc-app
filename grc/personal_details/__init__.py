@@ -260,20 +260,32 @@ def contactDates():
                 date_range_errors[i] = validate_date_range_form(date_range_form)
 
                 if not date_range_errors[i]:
-                    date_range_result = DateRange()
-                    date_range_result.index = i
-                    date_range_result.from_date = datetime.date(
-                        int(date_range_form.from_date_year.data),
-                        int(date_range_form.from_date_month.data),
-                        int(date_range_form.from_date_day.data)
-                    )
-                    date_range_result.to_date = datetime.date(
-                        int(date_range_form.to_date_year.data),
-                        int(date_range_form.to_date_month.data),
-                        int(date_range_form.to_date_day.data)
-                    )
+                    try:
+                        date_range_result = DateRange()
+                        date_range_result.index = i
+                        date_range_result.from_date = datetime.date(
+                            int(date_range_form.from_date_year.data),
+                            int(date_range_form.from_date_month.data),
+                            int(date_range_form.from_date_day.data)
+                        )
+                    except ValueError as err:
+                        print(f'Error setting from date as datetime, message={err}', flush=True)
+                        date_range_errors[i] = {'from_date_year': 'Enter a valid date'}
 
-                    date_range_errors[i] = validate_date_ranges(date_range_result.from_date, date_range_result.to_date)
+                    try:
+                        date_range_result.to_date = datetime.date(
+                            int(date_range_form.to_date_year.data),
+                            int(date_range_form.to_date_month.data),
+                            int(date_range_form.to_date_day.data)
+                        )
+                    except ValueError as err:
+                        print(f'Error setting to date as datetime, message={err}', flush=True)
+                        date_range_errors[i] = {'to_date_year': 'Enter a valid date'}
+
+                    if not date_range_errors[i]:
+                        date_range_errors[i] = validate_date_ranges(date_range_result.from_date,
+                                                                    date_range_result.to_date)
+
                     if not date_range_errors[i]:
                         date_range_results.append(date_range_result)
 

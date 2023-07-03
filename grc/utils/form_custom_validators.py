@@ -309,7 +309,8 @@ def validate_single_date(form, field):
             year = int(form['year'].data)
             date_entered = date(year, month, day)
         except Exception as e:
-            raise ValidationError('Enter a valid year')
+            print(f"ERROR => {e}", flush=True)
+            raise ValidationError('Enter a valid date')
 
         if date_entered < date.today():
             raise ValidationError('Enter a date in the future')
