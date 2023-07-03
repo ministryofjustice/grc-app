@@ -27,6 +27,8 @@ def index():
         status=ApplicationStatus.DOWNLOADED
     ).order_by(Application.updated.desc())
 
+    downloaded_apps_references = [application.reference_number for application in downloadedApplications]
+
     completedApplications = Application.query.filter_by(
         status=ApplicationStatus.COMPLETED
     ).order_by(Application.updated.desc())
@@ -38,8 +40,19 @@ def index():
         message=message,
         newApplications=newApplications,
         downloadedApplications=downloadedApplications,
+        downloaded_apps_references=downloaded_apps_references,
         completedApplications=completedApplications
     )
+
+
+@applications.route('/applications/mark_applications_as_completed', methods=['POST'])
+@AdminViewerRequired
+def mark_applications_as_completed():
+    references = [reference for reference in request.form]
+    print("FIRING", flush=True)
+    print(references, flush=True)
+
+    return local_redirect(url_for('applications.index'))
 
 
 @applications.route('/applications/search', methods=['GET', 'POST'])

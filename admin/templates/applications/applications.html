@@ -186,8 +186,8 @@
                                                     <li>
                                                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                                                             <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input" id="application-{{ loop.index }}" name="application-{{ loop.index }}" type="checkbox">
-                                                                <label class="govuk-label govuk-checkboxes__label" for="application-{{ loop.index }}">
+                                                                <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
+                                                                <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
                                                                     <a href="{{ url_for('applications.completed', reference_number=application.reference_number) }}"
                                                                        class="govuk-link">
                                                                         Mark application as complete
@@ -217,22 +217,20 @@
                                         </td>
                                     </tr>
                                     {% endif %}
-                                    {% if loop.last %}
-                                    <tr class="govuk-table__row">
-                                        <td colspan="5" class="govuk-table__cell" style="text-align: right">
-                                            <button id="mark-apps-completed-btn" class="govuk-button govuk-!-margin-bottom-0" data-module="govuk-button">
-                                                Apply applications completed
-                                            </button>
-                                            <button id="select-all-btn" class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button">
-                                                Select all as completed
-                                            </button>
-                                            <button id="clear-all-btn" class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button">
-                                                Clear all as completed
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    {% endif %}
                                 {% endfor %}
+                                <tr class="govuk-table__row">
+                                    <td colspan="5" class="govuk-table__cell" style="text-align: right">
+                                        <button id="submit-selected-apps-btn" disabled="disabled" class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" data-module="govuk-button" onclick="submitBulkMarkAsComplete('{{ url_for('applications.mark_applications_as_completed') }}')">
+                                            Apply applications completed
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ downloaded_apps_references }})">
+                                            Select all as completed
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ downloaded_apps_references }})">
+                                            Clear all as completed
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     {% endif %}
@@ -313,5 +311,5 @@
     </div>
 {% endblock %}
 {% block js %}
-    <script src="{{ url_for('static', filename='assets/js/applications.js }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/applications.js') }}"></script>
 {% endblock %}
