@@ -48,11 +48,23 @@ def index():
 @applications.route('/applications/mark_applications_as_completed', methods=['POST'])
 @AdminViewerRequired
 def mark_applications_as_completed():
-    references = [reference for reference in request.form]
-    print("FIRING", flush=True)
-    print(references, flush=True)
+    if request.form:
+        references = [reference for reference in request.form]
+        applications_to_mark_as_completed = db.session.query(Application).filter(
+            Application.reference_number.in_(references)).all()
 
-    return local_redirect(url_for('applications.index'))
+        if applications_to_mark_as_completed:
+            for application in applications_to_mark_as_completed:
+                application.status = ApplicationStatus.COMPLETED
+                application.completed = datetime.now()
+                application.completedBy = session['signedIn']
+                db.session.commit()
+                message = "application updated"
+                logger.log(LogLevel.INFO,
+                           f"{logger.mask_email_address(session['signedIn'])}"
+                           f" completed application {application.reference_number}")
+                session['message'] = message
+    return local_redirect(url_for('applications.index', _anchor='downloaded'))
 
 
 @applications.route('/applications/search', methods=['GET', 'POST'])
