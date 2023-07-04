@@ -9,6 +9,29 @@ class AffirmedGender(GrcEnum):
     FEMALE = auto()
 
 
+class ContactDatesAvoid(GrcEnum):
+    SINGLE_DATE = auto()
+    DATE_RANGE = auto()
+    NO_DATES = auto()
+
+
+class DateRange:
+    def __new__(cls, *args, **kwargs):
+        # This method has been added to address a limitation of jsonpickle.decode
+        # We use the jsonpickle library to convert these python classes to/from JSON to store in the database
+        # The instance-level fields are declared in the __init__ method
+        # When jsonpickle.decode re-creates a class, it calls __new__, but it does not call __init__
+        # We need it to call __init__ to make sure we have set up all the instance-level fields, so we call __init__ here manually
+        new_instance = super().__new__(cls)
+        new_instance.__init__()
+        return new_instance
+
+    def __init__(self):
+        self.index: int = None
+        self.from_date: datetime.date = None
+        self.to_date: datetime.date = None
+
+
 class PersonalDetailsData:
     def __new__(cls, *args, **kwargs):
         # This method has been added to address a limitation of jsonpickle.decode
@@ -45,6 +68,9 @@ class PersonalDetailsData:
 
         self.contact_dates_should_avoid: bool = None
         self.contact_dates_to_avoid: str = None
+        self.contact_dates_to_avoid_option: ContactDatesAvoid = None
+        self.contact_date_to_avoid: datetime.date = None
+        self.contact_date_ranges_to_avoid: [DateRange] = None
 
         self.tell_hmrc: bool = None
         self.national_insurance_number: str = None
@@ -112,6 +138,23 @@ class PersonalDetailsData:
         return 'Yes' if self.contact_dates_should_avoid else 'No'
 
     @property
+    def contact_dates_to_avoid_option_bool(self) -> bool:
+        return False if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else True
+
+    @property
+    def contact_dates_to_avoid_option_formatted(self) -> str:
+        return 'No' if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else 'Yes'
+
+    @property
+    def contact_date_to_avoid_formatted_DD_MM_YYYY(self) -> str:
+        return self.contact_date_to_avoid.strftime('%d/%m/%Y')
+
+    @property
+    def contact_date_ranges_to_avoid_formatted_DD_MM_YYYY(self) -> (str, str):
+        return ((date_range.from_date.strftime('%d/%m/%Y'), date_range.to_date.strftime('%d/%m/%Y'))
+                for date_range in self.contact_date_ranges_to_avoid)
+
+    @property
     def tell_hmrc_formatted(self) -> str:
         return 'Yes' if self.tell_hmrc else 'No'
 
@@ -138,11 +181,15 @@ class PersonalDetailsData:
         if self.contact_email_address is None and self.contact_phone_number is None and self.contact_by_post is None:
             return ListStatus.IN_PROGRESS
 
-        if self.contact_dates_should_avoid is None:
+        if self.contact_dates_should_avoid is None and self.contact_dates_to_avoid_option is None:
             return ListStatus.IN_PROGRESS
 
         if self.contact_dates_should_avoid:
             if self.contact_dates_to_avoid is None:
+                return ListStatus.IN_PROGRESS
+
+        if self.contact_dates_to_avoid_option and self.contact_dates_to_avoid_option != ContactDatesAvoid.NO_DATES:
+            if self.contact_date_to_avoid is None and self.contact_date_ranges_to_avoid is None:
                 return ListStatus.IN_PROGRESS
 
         if self.tell_hmrc is None:
@@ -153,3 +200,7 @@ class PersonalDetailsData:
                 return ListStatus.IN_PROGRESS
 
         return ListStatus.COMPLETED
+
+    def remove_old_contact_dates_to_avoid_data(self):
+        self.contact_dates_should_avoid = None
+        self.contact_dates_to_avoid = None
