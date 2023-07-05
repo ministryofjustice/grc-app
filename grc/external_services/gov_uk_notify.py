@@ -47,7 +47,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id='2460d8ea-5870-4527-b2c3-0801c2f82fbc',
+            template_id='46a95e27-cec1-4b94-a065-4061d38546b6',
             personalisation=personalisation
         )
 
