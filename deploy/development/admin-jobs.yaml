@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name:
+  name: admin-jobs
 spec:
   schedule: '*/2 * * * *'
   concurrencyPolicy: Forbid
@@ -10,7 +10,7 @@ spec:
       template:
         spec:
           containers:
-          - name: jobs
+          - name: admin-jobs
             image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr:grc-admin-latest
             imagePullPolicy: IfNotPresent
             command:
