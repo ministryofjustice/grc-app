@@ -5,14 +5,58 @@ from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus, SecurityCode
 from grc.utils.application_files import ApplicationFiles
 from grc.utils.logger import Logger, LogLevel
+from grc.business_logic.data_store import DataStore
+
+
+def create_test_apps():
+    test_inactive_apps = []
+    for _ in range(3):
+        app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
+        new_app = Application.query.filter(
+            reference_number=app.reference_number,
+            email=app.email_address
+        )
+        new_app.status = ApplicationStatus.STARTED
+        new_app.updated = datetime.now() - relativedelta(days=200)
+        db.session.commit()
+        print(f'Test Inactive App Ref - {new_app.reference_number}')
+        test_inactive_apps.append(new_app)
+
+    test_completed_apps = []
+    for _ in range(3):
+        app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
+        new_app = Application.query.filter(
+            reference_number=app.reference_number,
+            email=app.email_address
+        )
+        new_app.status = ApplicationStatus.COMPLETED
+        new_app.updated = datetime.now() - relativedelta(days=10)
+        db.session.commit()
+        print(f'Test Completed App Ref - {new_app.reference_number}')
+        test_completed_apps.append(new_app)
+
+    return test_inactive_apps, test_completed_apps
+
+
+def delete_test_application(ref):
+    Application.query.filter(
+        reference_number=ref,
+        email='ivan.touloumbadjian@hmcts.net'
+    ).delete()
+    db.session.commit()
 
 
 def application_notifications():
+    test_inactive_apps, test_completed_apps = create_test_apps()
     days_between_last_update_and_deletion = 183  # approximately 6 months
     abandon_application_after_period_of_inactivity(days_between_last_update_and_deletion)
     send_reminder_emails_before_application_deletion(days_between_last_update_and_deletion)
     delete_completed_applications()
     delete_expired_security_codes()
+    for app in test_inactive_apps:
+        delete_test_application(app)
+    for app in test_completed_apps:
+        delete_test_application(app)
 
     return 200
 
