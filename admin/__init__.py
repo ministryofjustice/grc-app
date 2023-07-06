@@ -92,10 +92,6 @@ def create_app(test_config=None):
     from admin.users import users
     app.register_blueprint(users)
 
-    # System jobs
-    from admin.jobs import jobs
-    app.register_blueprint(jobs)
-
     # Tools
     from admin.tools import tools
     app.register_blueprint(tools)

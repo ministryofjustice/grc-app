@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: admin-jobs
+  name: notify-applicants-inactive-applications-dev
+  namespace: grc-dev
 spec:
   schedule: '*/2 * * * *'
   concurrencyPolicy: Forbid
