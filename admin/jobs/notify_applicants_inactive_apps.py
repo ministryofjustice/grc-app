@@ -4,10 +4,7 @@ from sqlalchemy.sql import extract
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus, SecurityCode
 from grc.utils.application_files import ApplicationFiles
-
-
-def main():
-    application_notifications()
+from grc.utils.logger import Logger, LogLevel
 
 
 def application_notifications():
@@ -17,7 +14,7 @@ def application_notifications():
     delete_completed_applications()
     delete_expired_security_codes()
 
-    return '', 200
+    return 200
 
 
 def abandon_application_after_period_of_inactivity(days_between_last_update_and_deletion):
@@ -132,6 +129,15 @@ def delete_expired_security_codes():
 
 def calculate_earliest_allowed_security_code_creation_time(now, hours_between_security_code_creation_and_expiry):
     return now - relativedelta(hours=hours_between_security_code_creation_and_expiry)
+
+
+def main():
+    try:
+        applicants_notified = application_notifications()
+        assert applicants_notified == 200
+    except Exception as e:
+        logger = Logger()
+        logger.log(LogLevel.ERROR, f'Error notifying applicants cron, message = {e}')
 
 
 if __name__ == '__main__':
