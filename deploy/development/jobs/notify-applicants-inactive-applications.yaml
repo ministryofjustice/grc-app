@@ -4,17 +4,18 @@ metadata:
   name: notify-applicants-inactive-applications-dev
   namespace: grc-dev
 spec:
-  schedule: '*/2 * * * *'
+  schedule: '*/5 * * * *'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 60
       template:
         spec:
           restartPolicy: OnFailure
           containers:
           - name: admin-jobs
             image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr:grc-admin-latest
-            imagePullPolicy: IfNotPresent
+            imagePullPolicy: Always
             command:
               - /bin/sh
               - -c

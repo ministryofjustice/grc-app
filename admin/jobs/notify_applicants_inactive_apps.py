@@ -141,6 +141,7 @@ def main():
         print('running notify applicants inactive apps job')
         applicants_notified = application_notifications()
         assert applicants_notified == 200
+        print('finished notify applicants inactive apps job')
     except Exception as e:
         print(f'Error notifying applicants cron, message = {e}')
 
