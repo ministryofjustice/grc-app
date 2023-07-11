@@ -10,6 +10,7 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure
           containers:
           - name: admin-jobs
             image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr:grc-admin-latest
@@ -17,7 +18,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - python ./admin/jobs/notify_applicants_inactive_apps.py
+              - flask jobs.notify_applicants_inactive_apps run
             env:
               - name: AWS_ACCESS_KEY_ID
                 valueFrom:

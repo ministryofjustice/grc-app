@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from datetime import date
+from datetime import date, datetime
 from grc.personal_details.forms import DateRangeForm
 
 

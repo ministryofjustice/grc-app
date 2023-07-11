@@ -1,62 +1,21 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from flask import Blueprint
+from flask.cli import with_appcontext
 from sqlalchemy.sql import extract
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus, SecurityCode
 from grc.utils.application_files import ApplicationFiles
-from grc.utils.logger import Logger, LogLevel
-from grc.business_logic.data_store import DataStore
 
-
-def create_test_apps():
-    test_inactive_apps = []
-    for _ in range(3):
-        app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
-        new_app = Application.query.filter(
-            reference_number=app.reference_number,
-            email=app.email_address
-        )
-        new_app.status = ApplicationStatus.STARTED
-        new_app.updated = datetime.now() - relativedelta(days=200)
-        db.session.commit()
-        print(f'Test Inactive App Ref - {new_app.reference_number}')
-        test_inactive_apps.append(new_app)
-
-    test_completed_apps = []
-    for _ in range(3):
-        app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
-        new_app = Application.query.filter(
-            reference_number=app.reference_number,
-            email=app.email_address
-        )
-        new_app.status = ApplicationStatus.COMPLETED
-        new_app.updated = datetime.now() - relativedelta(days=10)
-        db.session.commit()
-        print(f'Test Completed App Ref - {new_app.reference_number}')
-        test_completed_apps.append(new_app)
-
-    return test_inactive_apps, test_completed_apps
-
-
-def delete_test_application(ref):
-    Application.query.filter(
-        reference_number=ref,
-        email='ivan.touloumbadjian@hmcts.net'
-    ).delete()
-    db.session.commit()
+notify_applicants_inactive_apps = Blueprint('notify_applicants_inactive_apps', __name__)
 
 
 def application_notifications():
-    test_inactive_apps, test_completed_apps = create_test_apps()
     days_between_last_update_and_deletion = 183  # approximately 6 months
     abandon_application_after_period_of_inactivity(days_between_last_update_and_deletion)
     send_reminder_emails_before_application_deletion(days_between_last_update_and_deletion)
     delete_completed_applications()
     delete_expired_security_codes()
-    for app in test_inactive_apps:
-        delete_test_application(app)
-    for app in test_completed_apps:
-        delete_test_application(app)
 
     return 200
 
@@ -99,7 +58,7 @@ def send_reminder_emails_before_application_deletion(days_between_last_update_an
             extract('day', Application.updated) == last_updated_date.day,
             extract('month', Application.updated) == last_updated_date.month,
             extract('year', Application.updated) == last_updated_date.year
-        )
+        ).all()
 
         for application_to_remind in applications_to_remind:
             existing_application = Application.query.filter(
@@ -175,13 +134,15 @@ def calculate_earliest_allowed_security_code_creation_time(now, hours_between_se
     return now - relativedelta(hours=hours_between_security_code_creation_and_expiry)
 
 
+@notify_applicants_inactive_apps.cli.command('run')
+@with_appcontext
 def main():
     try:
+        print('running notify applicants inactive apps job')
         applicants_notified = application_notifications()
         assert applicants_notified == 200
     except Exception as e:
-        logger = Logger()
-        logger.log(LogLevel.ERROR, f'Error notifying applicants cron, message = {e}')
+        print(f'Error notifying applicants cron, message = {e}')
 
 
 if __name__ == '__main__':
