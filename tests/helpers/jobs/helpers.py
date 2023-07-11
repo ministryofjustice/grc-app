@@ -5,7 +5,6 @@ from grc.business_logic.data_store import DataStore
 
 
 def create_test_apps():
-    print('In create_test_apps()', flush=True)
     test_inactive_apps = []
     for _ in range(3):
         app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
