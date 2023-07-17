@@ -1,6 +1,6 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from grc.models import db, Application , ApplicationStatus
+from grc.models import db, Application, ApplicationStatus
 from grc.business_logic.data_store import DataStore
 
 
