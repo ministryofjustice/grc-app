@@ -153,7 +153,7 @@
                         <span style="white-space: pre-line;">{{ application_data.personal_details_data.contact_dates_to_avoid }}</span>
                     {% endif %}
                 {% endmacro %}
-                {% if application_data.personal_details_data.contact_dates_should_avoid %}
+                {% if application_data.personal_details_data.contact_dates_should_avoid is not none %}
                     {{ check_your_answers_row(
                         title='Unavailable over the next 6 months',
                         changeLinkHiddenText="whether there are any dates you don't want us to contact you by post over the next 6 months",

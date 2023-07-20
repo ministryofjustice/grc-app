@@ -408,7 +408,7 @@
                         alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks)
                     ) }}
 
-                    {% if application_data.personal_details_data.contact_dates_should_avoid %}
+                    {% if application_data.personal_details_data.contact_dates_should_avoid is not none %}
                         {{ summary_list_item(
                             title="Unavailable over the next 6 months",
                             value=(application_data.personal_details_data.contact_dates_should_avoid_formatted)
