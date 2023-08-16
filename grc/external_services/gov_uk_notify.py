@@ -134,10 +134,10 @@ class GovUkNotify:
         )
 
 
-    def send_email_admin_forgot_password(self, email_address: str, expires: str, reset_link: str):
+    def send_email_admin_forgot_password(self, email_address: str, expires: str, security_code: str):
         personalisation = {
             'expires': expires,
-            'reset_link': reset_link,
+            'security_code': security_code,
         }
 
         return self.send_email(
