@@ -35,9 +35,9 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-app-service
                 port: 
-                  number: 8080
+                  number: 3000
 
   - host: dev.admin.gender-recognition.service.justice.gov.uk
     http:
@@ -46,9 +46,9 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-admin-service
                 port: 
-                  number: 8080
+                  number: 3001
    
   - host: dev.dashboard.gender-recognition.service.justice.gov.uk
     http:
@@ -57,6 +57,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-dashboard-service
                 port: 
-                  number: 8080
+                  number: 3002
