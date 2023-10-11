@@ -81,6 +81,14 @@ def sign_in_with_security_code():
     form = SecurityCodeForm()
     email_address = session['email']
 
+    # checks if a security code was sent in the last 24 hours
+    last_code_sent_time = session.get('last_code_sent_time')
+    if last_code_sent_time:
+        elapsed_time = datetime.now() - last_code_sent_time
+        if elapsed_time < timedelta(hours=24):
+            return render_template('login/login-security-code-sent.html', email_address=email_address, form=form)
+        # if security code sent in the last 24 hours, security code sent page should render
+
     # 2FA link
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -99,6 +107,7 @@ def sign_in_with_security_code():
 
             session['signedIn'] = email_address
             session['userType'] = user.userType
+            session['last_code_sent_time'] = datetime.now()
 
             logger.log(LogLevel.INFO, f"User {logger.mask_email_address(email_address)} logged in with security code")
 
