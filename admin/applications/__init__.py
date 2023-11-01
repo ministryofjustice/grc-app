@@ -27,11 +27,12 @@ def index():
         status=ApplicationStatus.DOWNLOADED
     ).order_by(Application.updated.desc())
 
-    downloaded_apps_references = [application.reference_number for application in downloadedApplications]
-
     completedApplications = Application.query.filter_by(
         status=ApplicationStatus.COMPLETED
     ).order_by(Application.updated.desc())
+
+    downloaded_apps_references = [application.reference_number for application in downloadedApplications]
+    completed_apps_references = [application.reference_number for application in completedApplications]
 
     logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} accessed all applications")
 
@@ -41,6 +42,7 @@ def index():
         newApplications=newApplications,
         downloadedApplications=downloadedApplications,
         downloaded_apps_references=downloaded_apps_references,
+        completed_apps_references=completed_apps_references,
         completedApplications=completedApplications
     )
 
@@ -258,7 +260,7 @@ def attachments(reference_number):
     return local_redirect(url_for('applications.index', _anchor='completed'))
 
 
-@applications.route('/applications/<reference_number>/delete', methods=['GET'])
+@applications.route('/applications/delete', methods=['GET'])
 @AdminViewerRequired
 def delete(reference_number):
     message = ""
