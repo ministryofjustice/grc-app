@@ -1,5 +1,20 @@
 let applicationsChecked = []
-const submitButton = document.getElementById('submit-selected-apps-btn')
+let submitButton;
+
+function tabClicked(id, applications) {
+    console.log("ID => ", id)
+    console.log("APPS => ", applications)
+    const tabId = document.getElementById(id)
+    if (!tabId.classList.contains('govuk-tabs__list-item--selected')) {
+        applicationsChecked = []
+        if (applications) {
+            clearAllApplications(applications)
+        }
+    }
+
+    submitButton = document.getElementById('submit-selected-apps-btn-' + id)
+    console.log("SUB BTN => ", submitButton)
+}
 
 function submitBulkMarkAsComplete(url) {
     const form = document.createElement('form');
