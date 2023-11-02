@@ -2,8 +2,8 @@ import requests
 
 
 def json_health_check():
-    public_health = "http://localhost:3000/health"
-    admin_health = "http://localhost:3001/health"
+    public_health = "http://localhost:3000/health"  # Access public app health page
+    admin_health = "http://localhost:3001/health"  # Access admin app health pages
 
     try:
         public_response = requests.get(public_health)
