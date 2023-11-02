@@ -80,6 +80,3 @@ function selectOrDeselectApplication(application) {
         }
     }
 
-    console.log('applicationsChecked', applicationsChecked)
-}
-
