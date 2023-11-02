@@ -1,25 +1,33 @@
-let applicationsChecked = []
+let applicationsChecked = [];
 let submitButton;
 
+window.onload = function() {
+    urlAnchor = window.location.hash;
+    id = urlAnchor.substring(urlAnchor.indexOf("#")+1);
+    submitButton = document.getElementById('submit-selected-apps-btn-' + id)
+}
+
 function tabClicked(id, applications) {
-    console.log("ID => ", id)
-    console.log("APPS => ", applications)
-    const tabId = document.getElementById(id)
-    if (!tabId.classList.contains('govuk-tabs__list-item--selected')) {
-        applicationsChecked = []
-        if (applications) {
-            clearAllApplications(applications)
-        }
+    tabId = id
+    if (id) {
+        id = id.replace('tab_', '');
     }
 
     submitButton = document.getElementById('submit-selected-apps-btn-' + id)
-    console.log("SUB BTN => ", submitButton)
+
+    const tab = document.getElementById(tabId)
+    if (!tab.classList.contains('govuk-tabs__list-item--selected')) {
+        applicationsChecked = []
+        if (applications.length > 0) {
+            clearAllApplications(applications);
+        }
+    }
 }
 
 function submitBulkMarkAsComplete(url) {
     const form = document.createElement('form');
     form.action = url;
-    form.method = 'POST'
+    form.method = 'POST';
     if (applicationsChecked.length) {
         for (let i = 0; i < applicationsChecked.length; i++) {
             const hiddenField = document.createElement('input');
@@ -35,11 +43,12 @@ function submitBulkMarkAsComplete(url) {
 }
 
 function selectAllApplications(applications) {
+    applicationsChecked = [];
     for(let i = 0; i < applications.length; i++) {
         document.getElementById(applications[i]).checked = true;
         applicationsChecked.push(applications[i]);
     }
-    submitButton.classList.remove('govuk-button--disabled')
+    submitButton.classList.remove('govuk-button--disabled');
     submitButton.removeAttribute('disabled');
 }
 
@@ -48,7 +57,7 @@ function clearAllApplications(applications) {
         document.getElementById(applications[i]).checked = false;
     }
     applicationsChecked = [];
-    submitButton.classList.add('govuk-button--disabled')
+    submitButton.classList.add('govuk-button--disabled');
     submitButton.setAttribute('disabled', 'disabled');
 }
 
@@ -56,7 +65,6 @@ function selectOrDeselectApplication(application) {
     const applicationReference = document.getElementById(application);
     if (applicationReference.checked) {
         applicationsChecked.push(application);
-        console.log(submitButton)
         submitButton.classList.remove('govuk-button--disabled');
         submitButton.removeAttribute('disabled');
     }
@@ -67,9 +75,11 @@ function selectOrDeselectApplication(application) {
           applicationsChecked.splice(index, 1);
         }
         if (!applicationsChecked.length) {
-            submitButton.classList.add('govuk-button--disabled')
+            submitButton.classList.add('govuk-button--disabled');
             submitButton.setAttribute('disabled', 'disabled');
         }
     }
+
+    console.log('applicationsChecked', applicationsChecked)
 }
 
