@@ -260,24 +260,25 @@ def attachments(reference_number):
     return local_redirect(url_for('applications.index', _anchor='completed'))
 
 
-@applications.route('/applications/delete', methods=['GET'])
+@applications.route('/applications/delete', methods=['POST'])
 @AdminViewerRequired
-def delete(reference_number):
-    message = ""
+def delete():
 
-    application = Application.query.filter_by(
-        reference_number=reference_number
-    ).first()
+    if request.form:
+        references = [reference for reference in request.form]
+        applications_to_mark_as_deleted = db.session.query(Application).filter(
+            Application.reference_number.in_(references)).all()
 
-    if application is None:
-        message = "An application with that reference number cannot be found"
-        logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} attempted to delete application {reference_number} which cannot be found")
-    else:
-        db.session.delete(application)
-        db.session.commit()
-        message = "application deleted"
+        if applications_to_mark_as_deleted:
+            for application in applications_to_mark_as_deleted:
+                application.status = ApplicationStatus.DELETED
+                db.session.commit()
+                message = f"application {application.reference_number} deleted"
+                logger.log(LogLevel.INFO,
+                           f"{logger.mask_email_address(session['signedIn'])}"
+                           f" deleted application {application.reference_number}")
+                session['message'] = message
+            return local_redirect(url_for('applications.index', _anchor='completed'))
 
-        logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} deleted application {reference_number}")
-
-    session['message'] = message
-    return local_redirect(url_for('applications.index', _anchor='new'))
+    print('No applications to mark as deleted', flush=True)
+    return local_redirect(url_for('applications.index', _anchor='completed'))
