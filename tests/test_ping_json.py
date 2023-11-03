@@ -22,23 +22,3 @@ def test_json_health_check():
     assert admin_data['results'][0]['passed'] is True, 'Admin app JSON results has not passed'
     print('Admin app JSON response is healthy')
 
-    # Log for public app
-    if public_response.status_code == 200:
-        if 'status' in public_data and public_data['status'] == 'success':
-            if public_data['results'][0]['passed'] is True:
-                print("Public app JSON response is healthy")
-        else:
-            print("Error - could not access health page, public app JSON response is not healthy")
-            print(f"Public app HTTP request failed with status code: {public_response.status_code}")
-
-    # Log for admin app
-    if admin_response.status_code == 200:
-        if 'status' in admin_data and admin_data['status'] == 'success':
-            if admin_data['results'][0]['passed'] is True:
-                print("Admin app JSON response is healthy")
-        else:
-            print("Error - could not access health page, admin app JSON response is not healthy")
-            print(f"Admin app HTTP request failed with status code: {public_response.status_code}")
-
-
-test_json_health_check()
