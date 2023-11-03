@@ -4,7 +4,7 @@ import requests
 def test_json_health_check():
     # Access health pages
     public_response = requests.get("http://localhost:8080/health")
-    admin_response = requests.get("http://localhost:3031/health")
+    admin_response = requests.get("http://localhost:3001/health")
 
     # Converting into accessible data
     public_data = public_response.json()
