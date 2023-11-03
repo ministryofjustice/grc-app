@@ -2,15 +2,15 @@ let applicationsChecked = [];
 let submitButton;
 
 window.onload = function() {
-    urlAnchor = window.location.hash;
+    const urlAnchor = window.location.hash;
     if (urlAnchor) {
-        id = urlAnchor.substring(urlAnchor.indexOf("#")+1);
+        const id = urlAnchor.substring(urlAnchor.indexOf("#")+1);
         submitButton = document.getElementById('submit-selected-apps-btn-' + id);
     }
 }
 
 function tabClicked(id, applications) {
-    tabId = id
+    const tabId = id
     if (id) {
         id = id.replace('tab_', '');
     }
