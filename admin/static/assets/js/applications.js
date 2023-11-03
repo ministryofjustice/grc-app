@@ -3,8 +3,10 @@ let submitButton;
 
 window.onload = function() {
     urlAnchor = window.location.hash;
-    id = urlAnchor.substring(urlAnchor.indexOf("#")+1);
-    submitButton = document.getElementById('submit-selected-apps-btn-' + id)
+    if (urlAnchor) {
+        id = urlAnchor.substring(urlAnchor.indexOf("#")+1);
+        submitButton = document.getElementById('submit-selected-apps-btn-' + id);
+    }
 }
 
 function tabClicked(id, applications) {
@@ -18,7 +20,7 @@ function tabClicked(id, applications) {
     const tab = document.getElementById(tabId)
     if (!tab.classList.contains('govuk-tabs__list-item--selected')) {
         applicationsChecked = []
-        if (applications.length > 0) {
+        if (applications && applications.length > 0) {
             clearAllApplications(applications);
         }
     }
@@ -79,4 +81,4 @@ function selectOrDeselectApplication(application) {
             submitButton.setAttribute('disabled', 'disabled');
         }
     }
-
+}
