@@ -1,5 +1,11 @@
+import pytest
 from .data import create_test_applications
 from grc.models import ApplicationStatus, Application
+
+
+@pytest.fixture()
+def client(app):
+    return app.test_client()
 
 
 def test_bulk_delete_applications(client):
