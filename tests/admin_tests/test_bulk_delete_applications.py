@@ -1,9 +1,8 @@
 from .data import create_test_applications
-from .fixtures import client
 from grc.models import ApplicationStatus, Application
 
 
-def test_bulk_delete_applications():
+def test_bulk_delete_applications(client):
     app_one, app_two, app_three = create_test_applications(ApplicationStatus.COMPLETED)
     response = client.post("/applications/delete", data={
         f'{app_one.reference_number}': app_one.reference_number,
