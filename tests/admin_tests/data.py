@@ -20,3 +20,11 @@ def create_test_applications(status: ApplicationStatus):
         test_completed_apps.append(new_app)
     return test_completed_apps
 
+
+def delete_test_applications(application_references: [Application.reference_number]):
+    Application.query.filter(
+        Application.reference_number.in_(application_references)
+    ).filter_by(email='ivan.touloumbadjian@hmcts.net').delete()
+    db.session.commit()
+    print(f'applications - {application_references} deleted', flush=True)
+
