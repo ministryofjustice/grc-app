@@ -6,7 +6,7 @@ def test_bulk_delete_applications(app, client):
     with app.app_context():
 
         with client.session_transaction() as session:
-            session['signedIn'] = 'ivan.touloumbadjian@hmcts.net'
+            session['signedIn'] = 'test.email@example.com'
 
         with app.test_request_context():
             app_one, app_two, app_three = create_test_applications(status=ApplicationStatus.COMPLETED)
@@ -23,7 +23,7 @@ def test_bulk_delete_applications(app, client):
         deleted_applications = Application.query.filter(
             Application.reference_number.in_([app_one.reference_number, app_two.reference_number,
                                               app_three.reference_number])
-            ).filter_by(email='ivan.touloumbadjian@hmcts.net')
+            ).filter_by(email='test.email@example.com')
 
         for app in deleted_applications:
             assert app.status == ApplicationStatus.DELETED
