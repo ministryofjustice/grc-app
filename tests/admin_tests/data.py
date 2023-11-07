@@ -4,9 +4,9 @@ from grc.business_logic.data_store import DataStore
 from grc.models import db, Application, ApplicationStatus
 
 
-def create_test_applications(status: ApplicationStatus):
+def create_test_applications(status: ApplicationStatus, number_of_applications: int):
     test_completed_apps = []
-    for _ in range(3):
+    for _ in range(number_of_applications):
         app = DataStore.create_new_application('test.email@example.com')
         db.session.commit()
         new_app = Application.query.filter_by(
@@ -21,10 +21,12 @@ def create_test_applications(status: ApplicationStatus):
     return test_completed_apps
 
 
-def delete_test_applications(application_references: [Application.reference_number]):
-    Application.query.filter(
-        Application.reference_number.in_(application_references)
-    ).filter_by(email='test.email@example.com').delete()
-    db.session.commit()
-    print(f'applications - {application_references} deleted', flush=True)
+def delete_test_applications(*application_references_lists: [Application.reference_number]):
+    if application_references_lists:
+        for app_refs in application_references_lists:
+            Application.query.filter(
+                Application.reference_number.in_(app_refs)
+            ).filter_by(email='test.email@example.com').delete()
+            db.session.commit()
+            print(f'applications - {app_refs} deleted', flush=True)
 
