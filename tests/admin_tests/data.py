@@ -7,7 +7,7 @@ from grc.models import db, Application, ApplicationStatus
 def create_test_applications(status: ApplicationStatus):
     test_completed_apps = []
     for _ in range(3):
-        app = DataStore.create_new_application('ivan.touloumbadjian@hmcts.net')
+        app = DataStore.create_new_application('test.email@example.com')
         db.session.commit()
         new_app = Application.query.filter_by(
             reference_number=app.reference_number,
@@ -24,7 +24,7 @@ def create_test_applications(status: ApplicationStatus):
 def delete_test_applications(application_references: [Application.reference_number]):
     Application.query.filter(
         Application.reference_number.in_(application_references)
-    ).filter_by(email='ivan.touloumbadjian@hmcts.net').delete()
+    ).filter_by(email='test.email@example.com').delete()
     db.session.commit()
     print(f'applications - {application_references} deleted', flush=True)
 
