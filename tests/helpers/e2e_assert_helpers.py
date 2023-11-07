@@ -55,6 +55,11 @@ class AssertHelpers:
         actual_link_text = (await link_element.text_content()).strip()
         assert_equal(actual_link_text, expected_link_text)
 
+    async def find_radio_input(self, field, value):
+        radio_input_locator = await self.page.locator(f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"]").element_handle()
+        actual_radio_input = (await radio_input_locator.text_content()).strip()
+        assert actual_radio_input is not None
+
     async def fieldset_legend(self, expected_fieldset_legend_text: str):
         actual_fieldset_legend_text = clean_string(await self.page.inner_text('.govuk-fieldset__legend'))
         assert_equal(actual_fieldset_legend_text, expected_fieldset_legend_text)
