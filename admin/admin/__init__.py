@@ -19,6 +19,8 @@ logger = Logger()
 
 @admin.route('/', methods=['GET', 'POST'])
 def index():
+    print('Firing up /login page', flush=True)
+
     form = LoginForm()
 
     if 'signedIn' in session:
