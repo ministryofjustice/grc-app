@@ -45,8 +45,6 @@ async def test_admin_login_app_sections(app, client):
                 db.session.commit()
 
                 await page.goto(TEST_URL)
-                # await page.fill('input[name="email_address"]', 'avi.singh@justice.gov.uk')
-                # await page.fill('input[name="password"]', 'Xze-rqw-105!')
                 await page.fill('input[name="email_address"]', data.EMAIL_ADDRESS)
                 await page.fill('input[name="password"]', data.PASSWORD)
                 await helpers.click_button('Login')
