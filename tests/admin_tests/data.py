@@ -2,7 +2,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from grc.business_logic.data_store import DataStore
 from grc.models import db, Application, ApplicationStatus
-
 from werkzeug.security import generate_password_hash
 from grc.utils.date_utils import convert_date_to_local_timezone
 from datetime import datetime

@@ -50,10 +50,27 @@ class AssertHelpers:
         actual_h1_text = clean_string(await self.page.inner_text('h1'))
         assert_equal(actual_h1_text, expected_h1_text)
 
+    async def h2(self, expected_h2_text: str):
+        actual_h2_text = clean_string(await self.page.inner_text('h2'))
+        assert_equal(actual_h2_text, expected_h2_text)
+
     async def a(self, expected_link_text: str):
         link_element = await self.page.locator(f'a:has-text("{expected_link_text}")').element_handle()
         actual_link_text = (await link_element.text_content()).strip()
         assert_equal(actual_link_text, expected_link_text)
+
+    async def govuk_table_header(self, expected_table_header):
+        headers = await self.page.query_selector_all('.govuk-table__header')
+        found_match = False
+
+        for header in headers:
+            header_text = await header.text_content()
+            print(f"Found '{header_text}'")
+            if header_text == expected_table_header:
+                found_match = True
+                break
+
+        assert found_match, f"Expected '{expected_table_header}' but not found"
 
     async def fieldset_legend(self, expected_fieldset_legend_text: str):
         actual_fieldset_legend_text = clean_string(await self.page.inner_text('.govuk-fieldset__legend'))
