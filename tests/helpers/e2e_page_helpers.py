@@ -29,6 +29,16 @@ class PageHelpers:
         assert found_index is not None
         await links_and_buttons.nth(found_index).click()
 
+    async def click_tab_header(self, tab_header_name):
+        tab_headers = await self.page.query_selector_all('.govuk-tabs__tab')
+
+        for tab_header in tab_headers:
+            if tab_header.text_content() == tab_header_name:
+                href_value = await tab_header.evaluate('(el) => el.href')
+                if href_value:
+                    await self.page.goto(href_value)
+                    break
+
     async def check_radio(self, field, value):
         await self.page.check(f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"]")
 

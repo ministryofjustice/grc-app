@@ -65,7 +65,7 @@ class AssertHelpers:
 
         for header in headers:
             header_text = await header.text_content()
-            print(f"Found '{header_text}'")
+            print(f"Found '{header_text.strip()}'")
             if header_text == expected_table_header:
                 found_match = True
                 break
