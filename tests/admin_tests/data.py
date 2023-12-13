@@ -31,7 +31,7 @@ def create_test_applications(status: ApplicationStatus, number_of_applications: 
         new_app.status = status
         new_app.completed = datetime.now() - relativedelta(days=7)
         db.session.commit()
-        print(f'Test ADMIN Completed App Ref - {new_app.reference_number}', flush=True)
+        print(f'Test ADMIN Completed: App Ref - {new_app.reference_number}, App Status - {new_app.status}', flush=True)
         test_completed_apps.append(new_app)
     return test_completed_apps
 

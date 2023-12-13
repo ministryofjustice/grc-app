@@ -37,6 +37,7 @@ class PageHelpers:
                 href_value = await tab_header.evaluate('(el) => el.href')
                 if href_value:
                     await self.page.goto(href_value)
+                    print(f'Clicked {tab_header_name}')
                     break
 
     async def check_radio(self, field, value):

@@ -60,13 +60,13 @@ class AssertHelpers:
         assert_equal(actual_link_text, expected_link_text)
 
     async def govuk_table_header(self, expected_table_header):
-        headers = await self.page.query_selector_all('.govuk-table__header')
+        headers = await self.page.query_selector_all('.govuk-table__header') # change this so it doesn't find hidden
         found_match = False
 
         for header in headers:
             header_text = await header.text_content()
-            print(f"Found '{header_text.strip()}'")
             if header_text == expected_table_header:
+                print(f"Found '{header_text.strip()}'")
                 found_match = True
                 break
 
