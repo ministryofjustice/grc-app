@@ -23,6 +23,9 @@ spec:
   - hosts:
     - preprod.admin.gender-recognition.service.justice.gov.uk
     secretName: gender-recognition-service-admin-secret
+  - hosts:
+    - preprod.dashboard.gender-recognition.service.justice.gov.uk
+    secretName: gender-recognition-dashboard-secret
 
   rules:
   - host: preprod.admin.gender-recognition.service.justice.gov.uk
@@ -35,3 +38,14 @@ spec:
                 name: grc-admin-service
                 port: 
                   number: 3001
+
+  - host: preprod.dashboard.gender-recognition.service.justice.gov.uk
+    http:
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: grc-dashboard-service
+              port:
+                number: 3002
