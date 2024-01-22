@@ -71,16 +71,19 @@
 
     <div class="govuk-width-container">
         <div class="govuk-phase-banner">
-            <p class="govuk-phase-banner__content">
-                <strong class="govuk-tag govuk-phase-banner__content__tag">
-                    beta
-                </strong>
+            <p class="govuk-phase-banner__content govuk-!-width-full">
                 <span class="govuk-phase-banner__text">
+                    <strong class="govuk-tag govuk-phase-banner__content__tag">
+                        beta
+                    </strong>
                     This is a new service - your
-                    <a href="{{ url_for('feedback.feedback_page') }}" class="govuk-link">
+                    <a href="/feedback" class="govuk-link">
                         feedback
                     </a>
                     will help us to improve it.
+                </span>
+                <span class="govuk-phase-banner__text govuk-!-text-align-right">
+                    <a href="{{ url_for('set_language.index') }}" hreflang="cy" class="govuk-link">Cymraeg</a>
                 </span>
             </p>
         </div>
