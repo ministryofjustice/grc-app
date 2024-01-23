@@ -11,26 +11,26 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Email address
+                {{ _('Email address') }}
             </h1>
 
             <p class="govuk-body">
-                You need to provide an email address to apply for a Gender Recognition Certificate using this service.
-                This is so we can save your progress and you can return to your application later.
+                {{ _('You need to provide an email address to apply for a Gender Recognition Certificate using this service.') }}
+                {{ _('This is so we can save your progress and you can return to your application later.') }}
             </p>
             <p class="govuk-body">
-                If this is your first time using this service, we will give you a reference number.
-                You will need this if you return to your application.
+                {{ _('If this is your first time using this service, we will give you a reference number.') }}
+                {{ _('You will need this if you return to your application.') }}
             </p>
             <p class="govuk-body">
-                If you are returning to your application, you will need your application reference number.
-                If you have lost or forgotten it, you can start a new application.
+                {{ _('If you are returning to your application, you will need your application reference number.') }}
+                {{ _('If you have lost or forgotten it, you can start a new application.') }}
             </p>
             
             <div class="govuk-inset-text">
-                Before you start, make sure you have read the guidance on
+                {{ _('Before you start, make sure you have read the guidance on') }}
                 <a href="https://www.gov.uk/apply-gender-recognition-certificate" target="_blank" class="govuk-link">
-                    applying for a Gender Recognition Certificate (opens in a new tab)</a>.
+                    {{ _('applying for a Gender Recognition Certificate (opens in a new tab)') }}</a>.
             </div>
 
 
@@ -49,7 +49,7 @@
                 ) }}
 
                 <button class="govuk-button" data-module="govuk-button">
-                    Continue
+                    {{ _('Continue') }}
                 </button>
             </form>
 
