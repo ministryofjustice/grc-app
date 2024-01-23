@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-01-23 10:02+0000\n"
+"POT-Creation-Date: 2024-01-23 14:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,9 +24,13 @@ msgstr ""
 #: grc/templates/start-application/email-address.html:18
 msgid ""
 "You need to provide an email address to apply for a Gender Recognition "
-"Certificate using this service.\n"
-"                This is so we can save your progress and you can return "
-"to your application later."
+"Certificate using this service."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:19
+msgid ""
+"This is so we can save your progress and you can return to your "
+"application later."
 msgstr ""
 
 #: grc/templates/start-application/email-address.html:22
