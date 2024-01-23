@@ -1,4 +1,4 @@
-from flask import Blueprint, g, request, session, redirect
+from flask import Blueprint, request, session, redirect
 
 set_language = Blueprint('set_language', __name__)
 
