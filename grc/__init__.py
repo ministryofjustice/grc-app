@@ -146,7 +146,6 @@ def create_app(test_config=None):
     app.register_blueprint(set_language)
 
     def get_locale():
-        print(session, flush=True)
         return session.get('lang_code', 'en')
 
     babel = Babel(app)

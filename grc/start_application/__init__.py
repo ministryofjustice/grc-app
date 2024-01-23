@@ -21,8 +21,10 @@ logger = Logger()
 def index():
     form = EmailAddressForm()
     if form.validate_on_submit():
+        lang_code = session.get('lang_code', 'en')
         session.clear()
         session['email'] = form.email.data
+        session['lang_code'] = lang_code
         try:
             send_security_code(form.email.data)
             return local_redirect(url_for('startApplication.securityCode'))
@@ -52,7 +54,7 @@ def securityCode():
             #if existing_application is not None:
             #    form.security_code.errors.append("You have already submitted an application, please contact the admin team if you require an update")
             #else:
-            session.clear()  # Clear out session['email']
+            session.pop('email')
             session['validatedEmail'] = email
             return local_redirect(url_for('startApplication.isFirstVisit'))
         else:
@@ -84,7 +86,7 @@ def isFirstVisit():
             if form.isFirstVisit.data == 'FIRST_VISIT' or form.isFirstVisit.data == 'LOST_REFERENCE':
                 try:
                     application = DataStore.create_new_application(email_address=session['validatedEmail'])
-                    session.clear()  # Clear out session['validatedEmail']
+                    session.pop('validatedEmail')
                     session['reference_number'] = application.reference_number
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('startApplication.reference'))
@@ -119,7 +121,7 @@ def isFirstVisit():
                     elif application.email == session['validatedEmail']:
                         # The reference number is associated with their email address - load the application
                         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])} accessed their application")
-                        session.clear()  # Clear out session['validatedEmail']
+                        session.pop('validatedEmail')
                         session['reference_number'] = application.reference_number
                         DataStore.increment_application_sessions(application.reference_number)
                         return local_redirect(url_for('taskList.index'))
@@ -149,7 +151,7 @@ def returnToIsFirstVisitPageWithInvalidReferenceError(form):
 @LoginRequired
 def backToIsFirstVisit():
     application = loadApplicationFromDatabaseByReferenceNumber(session['reference_number'])
-    session.clear()  # Clear out session['reference_number']
+    session.pop('reference_number')
     session['validatedEmail'] = application.email
     return local_redirect(url_for('startApplication.isFirstVisit'))
 
