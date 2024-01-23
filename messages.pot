@@ -1,0 +1,71 @@
+# Translations template for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-01-23 10:02+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: grc/templates/start-application/email-address.html:14
+msgid "Email address"
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:18
+msgid ""
+"You need to provide an email address to apply for a Gender Recognition "
+"Certificate using this service.\n"
+"                This is so we can save your progress and you can return "
+"to your application later."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:22
+msgid ""
+"If this is your first time using this service, we will give you a "
+"reference number."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:23
+msgid "You will need this if you return to your application."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:26
+msgid ""
+"If you are returning to your application, you will need your application "
+"reference number."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:27
+msgid "If you have lost or forgotten it, you can start a new application."
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:31
+msgid "Before you start, make sure you have read the guidance on"
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:33
+msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/start-application/email-address.html:52
+msgid "Continue"
+msgstr ""
+
+#: grc/utils/form_custom_validators.py:410
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+#: grc/utils/form_custom_validators.py:415
+msgid "File does not have an approved extension."
+msgstr ""
+

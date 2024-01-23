@@ -1,0 +1,86 @@
+# Welsh translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-01-23 09:55+0000\n"
+"PO-Revision-Date: 2024-01-23 09:55+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: cy\n"
+"Language-Team: cy <LL@li.org>\n"
+"Plural-Forms: nplurals=5; plural=(n==1 ? 1 : n==2 ? 2 : n==3 ? 3 : n==6 ?"
+" 4 : 0);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: grc/templates/start-application/email-address.html:14
+msgid "Email address"
+msgstr "Cyfeiriad ebost"
+
+#: grc/templates/start-application/email-address.html:18
+msgid ""
+"You need to provide an email address to apply for a Gender Recognition "
+"Certificate using this service."
+msgstr ""
+"Mae angen i chi ddarparu cyfeiriad e-bost i wneud cais am Gydnabod Rhywedd "
+"Tystysgrif yn defnyddio'r gwasanaeth hwn."
+
+#: grc/templates/start-application/email-address.html:19
+msgid ""
+"This is so we can save your progress and you can return to your "
+"application later."
+msgstr ""
+"Mae hyn er mwyn i ni allu arbed eich cynnydd a gallwch ddychwelyd at eich "
+"cais yn ddiweddarach."
+
+#: grc/templates/start-application/email-address.html:22
+msgid ""
+"If this is your first time using this service, we will give you a "
+"reference number."
+msgstr ""
+"Os mai dyma'r tro cyntaf i chi ddefnyddio'r gwasanaeth hwn, byddwn yn rhoi a "
+"rhif Cyfeirnod."
+
+#: grc/templates/start-application/email-address.html:23
+msgid "You will need this if you return to your application."
+msgstr "Bydd angen hwn arnoch os byddwch yn dychwelyd at eich cais."
+
+#: grc/templates/start-application/email-address.html:26
+msgid ""
+"If you are returning to your application, you will need your application "
+"reference number."
+msgstr ""
+"Os ydych yn dychwelyd at eich cais, bydd angen eich cais arnoch "
+"rhif Cyfeirnod."
+
+
+#: grc/templates/start-application/email-address.html:27
+msgid "If you have lost or forgotten it, you can start a new application."
+msgstr "Os ydych wedi ei golli neu ei anghofio, gallwch ddechrau cais newydd."
+
+#: grc/templates/start-application/email-address.html:31
+msgid "Before you start, make sure you have read the guidance on"
+msgstr "Cyn i chi ddechrau, gwnewch yn siŵr eich bod wedi darllen y canllawiau ar"
+
+#: grc/templates/start-application/email-address.html:33
+msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
+msgstr "gwneud cais am Dystysgrif Cydnabod Rhyw (yn agor mewn tab newydd)"
+
+#: grc/templates/start-application/email-address.html:52
+msgid "Continue"
+msgstr "Parhau"
+
+#: grc/utils/form_custom_validators.py:410
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+#: grc/utils/form_custom_validators.py:415
+msgid "File does not have an approved extension."
+msgstr ""
+
