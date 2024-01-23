@@ -83,7 +83,11 @@
                     will help us to improve it.
                 </span>
                 <span class="govuk-phase-banner__text govuk-!-text-align-right">
-                    <a href="{{ url_for('set_language.index') }}" hreflang="cy" class="govuk-link">Cymraeg</a>
+                    {% if 'lang_code' in session and session['lang_code'] == 'cy' %}
+                    <a href="{{ url_for('set_language.index', lang_code='en') }}" hreflang="en" class="govuk-link">English</a>
+                    {% else %}
+                    <a href="{{ url_for('set_language.index', lang_code='cy') }}" hreflang="cy" class="govuk-link">Cymraeg</a>
+                    {% endif %}
                 </span>
             </p>
         </div>
