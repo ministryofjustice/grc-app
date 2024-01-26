@@ -1,21 +1,24 @@
 from flask_wtf import FlaskForm
+from flask_babel import lazy_gettext as _l, gettext as _
 from wtforms import EmailField, StringField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Email
-from grc.utils.form_custom_validators import validateSecurityCode, validateReferenceNumber, StrictRequiredIf
+from wtforms.validators import DataRequired
+from grc.utils.form_custom_validators import validateSecurityCode, validateReferenceNumber, StrictRequiredIf, LazyDataRequired, LazyEmail
 
 
 class EmailAddressForm(FlaskForm):
+
     email = EmailField(
         validators=[
-            DataRequired(message='Enter your email address'),
-            Email(message='Enter a valid email address')
+            LazyDataRequired(lazy_message=_l('Enter your email address')),
+            LazyEmail(lazy_message=_l('Enter a valid email address'))
         ]
     )
 
 
 class SecurityCodeForm(FlaskForm):
     security_code = StringField(
-        validators=[DataRequired(message='Enter a security code'), validateSecurityCode]
+        validators=[LazyDataRequired(lazy_message=_l('Enter a security code')),
+                    validateSecurityCode]
     )
 
 
@@ -26,11 +29,12 @@ class IsFirstVisitForm(FlaskForm):
             ('HAS_REFERENCE', "Yes, and I have my reference number"),
             ('LOST_REFERENCE', "Yes, but I have lost my reference number")
         ],
-        validators=[DataRequired(message='Select if you have already started an application')]
+        validators=[LazyDataRequired(message='Select if you have already started an application',
+                                     lazy_message=_l('Select if you have already started an application'))]
     )
 
     reference = StringField(
-        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE', message='Enter a reference number', validators=[validateReferenceNumber])]
+        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE', message=_('Enter a reference number'), validators=[validateReferenceNumber])]
     )
 
 
