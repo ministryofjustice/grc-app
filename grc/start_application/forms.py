@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_babel import lazy_gettext as _l, gettext as _, LazyString
+from flask_babel import lazy_gettext as _l, LazyString
 from typing import Tuple, List, Any
 from wtforms import EmailField, StringField, RadioField, BooleanField
 from wtforms.validators import DataRequired
@@ -18,8 +18,7 @@ class EmailAddressForm(FlaskForm):
 
 class SecurityCodeForm(FlaskForm):
     security_code = StringField(
-        validators=[LazyDataRequired(lazy_message=_l('Enter a security code')),
-                    validateSecurityCode]
+        validators=[LazyDataRequired(lazy_message=_l('Enter a security code')), validateSecurityCode]
     )
 
 
@@ -29,8 +28,8 @@ class LazyRadioField(RadioField):
         self.lazy_choices = lazy_choices
         self.choices = choices if choices else self._stringify_lazy_choices()
 
-    def _stringify_lazy_choices(self) -> List[Tuple[str, str]]:
-        return [(choice_id, _(choice_label)) for choice_id, choice_label in self.lazy_choices]
+    def _stringify_lazy_choices(self) -> List[Tuple[Any, str]]:
+        return [(choice_id, str(choice_label)) for choice_id, choice_label in self.lazy_choices]
 
 
 class IsFirstVisitForm(FlaskForm):
