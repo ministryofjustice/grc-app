@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-01-25 14:54+0000\n"
+"POT-Creation-Date: 2024-01-26 16:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: grc/start_application/forms.py:11
+#: grc/start_application/forms.py:13
 msgid "Enter your email address"
 msgstr ""
 
-#: grc/start_application/forms.py:12
+#: grc/start_application/forms.py:14
 msgid "Enter a valid email address"
 msgstr ""
 
-#: grc/start_application/forms.py:26
+#: grc/start_application/forms.py:21
+msgid "Enter a security code"
+msgstr ""
+
+#: grc/start_application/forms.py:39
 msgid "No"
 msgstr ""
 
-#: grc/start_application/forms.py:27
+#: grc/start_application/forms.py:40
 msgid "Yes, and I have my reference number"
 msgstr ""
 
-#: grc/start_application/forms.py:28
+#: grc/start_application/forms.py:41
 msgid "Yes, but I have lost my reference number"
 msgstr ""
 
-#: grc/start_application/forms.py:30
+#: grc/start_application/forms.py:44
 msgid "Select if you have already started an application"
 msgstr ""
 
-#: grc/start_application/forms.py:34
+#: grc/start_application/forms.py:49
 msgid "Enter a reference number"
 msgstr ""
 
@@ -89,15 +93,27 @@ msgstr ""
 msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
 msgstr ""
 
+#: grc/templates/start-application/email-address.html:44
+msgid "What is your email address?"
+msgstr ""
+
 #: grc/templates/start-application/email-address.html:52
 msgid "Continue"
 msgstr ""
 
-#: grc/utils/form_custom_validators.py:410
+#: grc/utils/form_custom_validators.py:45
+msgid "This field is required."
+msgstr ""
+
+#: grc/utils/form_custom_validators.py:81
+msgid "Invalid email address."
+msgstr ""
+
+#: grc/utils/form_custom_validators.py:484
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
-#: grc/utils/form_custom_validators.py:415
+#: grc/utils/form_custom_validators.py:489
 msgid "File does not have an approved extension."
 msgstr ""
 
