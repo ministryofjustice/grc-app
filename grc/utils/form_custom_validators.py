@@ -104,7 +104,7 @@ class RequiredIf(DataRequired):
             super(RequiredIf, self).__call__(form, field)
 
 
-class StrictRequiredIf(DataRequired):
+class StrictRequiredIf(LazyDataRequired):
     """Validator which makes a field required if another field is set and has a specific value.
 
     Sources:
@@ -114,9 +114,12 @@ class StrictRequiredIf(DataRequired):
     """
     field_flags = ('requiredif',)
 
-    def __init__(self, other_field_name, other_field_value, message=None, validators=None, *args, **kwargs):
+    def __init__(self, other_field_name, other_field_value, lazy_message=None, message=None, validators=None,
+                 *args, **kwargs):
+        super().__init__(message)
         self.other_field_name = other_field_name
         self.other_field_value = other_field_value
+        self.lazy_message = lazy_message
         self.message = message
         self.validators = validators
 

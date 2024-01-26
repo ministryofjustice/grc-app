@@ -45,7 +45,8 @@ class IsFirstVisitForm(FlaskForm):
     )
 
     reference = StringField(
-        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE', message=_('Enter a reference number'), validators=[validateReferenceNumber])]
+        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE',
+                                     lazy_message=_l('Enter a reference number'), validators=[validateReferenceNumber])]
     )
 
 
