@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from flask_babel import lazy_gettext as _l, gettext as _
+from flask_babel import lazy_gettext as _l, gettext as _, LazyString
+from typing import Tuple, List, Any
 from wtforms import EmailField, StringField, RadioField, BooleanField
 from wtforms.validators import DataRequired
 from grc.utils.form_custom_validators import validateSecurityCode, validateReferenceNumber, StrictRequiredIf, LazyDataRequired, LazyEmail
@@ -22,12 +23,22 @@ class SecurityCodeForm(FlaskForm):
     )
 
 
+class LazyRadioField(RadioField):
+    def __init__(self, lazy_choices: List[Tuple[Any, LazyString]], choices=None, validators=None, **kwargs):
+        super().__init__(validators=validators, choices=choices, **kwargs)
+        self.lazy_choices = lazy_choices
+        self.choices = choices if choices else self._stringify_lazy_choices()
+
+    def _stringify_lazy_choices(self) -> List[Tuple[str, str]]:
+        return [(choice_id, _(choice_label)) for choice_id, choice_label in self.lazy_choices]
+
+
 class IsFirstVisitForm(FlaskForm):
-    isFirstVisit = RadioField(
-        choices=[
-            ('FIRST_VISIT', "No"),
-            ('HAS_REFERENCE', "Yes, and I have my reference number"),
-            ('LOST_REFERENCE', "Yes, but I have lost my reference number")
+    isFirstVisit = LazyRadioField(
+        lazy_choices=[
+            ('FIRST_VISIT', _l("No")),
+            ('HAS_REFERENCE', _l("Yes, and I have my reference number")),
+            ('LOST_REFERENCE', _l("Yes, but I have lost my reference number"))
         ],
         validators=[LazyDataRequired(message='Select if you have already started an application',
                                      lazy_message=_l('Select if you have already started an application'))]
