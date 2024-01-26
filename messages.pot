@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-01-23 14:08+0000\n"
+"POT-Creation-Date: 2024-01-25 14:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,34 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
+
+#: grc/start_application/forms.py:11
+msgid "Enter your email address"
+msgstr ""
+
+#: grc/start_application/forms.py:12
+msgid "Enter a valid email address"
+msgstr ""
+
+#: grc/start_application/forms.py:26
+msgid "No"
+msgstr ""
+
+#: grc/start_application/forms.py:27
+msgid "Yes, and I have my reference number"
+msgstr ""
+
+#: grc/start_application/forms.py:28
+msgid "Yes, but I have lost my reference number"
+msgstr ""
+
+#: grc/start_application/forms.py:30
+msgid "Select if you have already started an application"
+msgstr ""
+
+#: grc/start_application/forms.py:34
+msgid "Enter a reference number"
+msgstr ""
 
 #: grc/templates/start-application/email-address.html:14
 msgid "Email address"
