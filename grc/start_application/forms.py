@@ -39,8 +39,7 @@ class IsFirstVisitForm(FlaskForm):
             ('HAS_REFERENCE', _l("Yes, and I have my reference number")),
             ('LOST_REFERENCE', _l("Yes, but I have lost my reference number"))
         ],
-        validators=[LazyDataRequired(message='Select if you have already started an application',
-                                     lazy_message=_l('Select if you have already started an application'))]
+        validators=[LazyDataRequired(lazy_message=_l('Select if you have already started an application'))]
     )
 
     reference = StringField(
