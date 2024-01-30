@@ -53,8 +53,6 @@ class LazyEmail(Email):
 
     def __init__(self, message=None, lazy_message: LazyString = None):
         super().__init__(message)
-        if email_validator is None:  # pragma: no cover
-            raise Exception("Install 'email_validator' for email validation support.")
         self.message = message
         self.lazy_message = lazy_message
 
