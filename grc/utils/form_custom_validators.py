@@ -112,12 +112,11 @@ class StrictRequiredIf(LazyDataRequired):
     """
     field_flags = ('requiredif',)
 
-    def __init__(self, other_field_name, other_field_value, lazy_message=None, message=None, validators=None,
+    def __init__(self, other_field_name, other_field_value, message=None, validators=None,
                  *args, **kwargs):
         super().__init__(message)
         self.other_field_name = other_field_name
         self.other_field_value = other_field_value
-        self.lazy_message = lazy_message
         self.message = message
         self.validators = validators
 
