@@ -17,6 +17,8 @@ logger = Logger()
 @applications.route('/applications', methods=['GET'])
 @AdminViewerRequired
 def index():
+    print('Firing up /applications page', flush=True)
+
     message = ""
 
     newApplications = Application.query.filter_by(
