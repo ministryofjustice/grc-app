@@ -445,6 +445,11 @@ workflows:
   test-build-deploy:
     jobs:
       ### DEV ###
+      - swissknife/codeql-analysis:
+          name: "CodeQL Analysis"
+          filters:
+            branches:
+              only: /^RST-.*/
       - build:
           name: build-containers-dev
           env_name: DEV
