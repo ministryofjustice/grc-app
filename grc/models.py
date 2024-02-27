@@ -65,6 +65,7 @@ class AdminUser(db.Model):
     userType = db.Column(db.String, default="VIEWER")
     dateLastLogin = db.Column(db.String(20), nullable=True)
     code = db.Column(db.String(100), nullable=True)
+    print("Admin user accessed")
 
 
 class Feedback(db.Model):
