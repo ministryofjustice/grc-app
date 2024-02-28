@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, RadioField
 from wtforms.validators import DataRequired
 from grc.business_logic.data_structures.birth_registration_data import AdoptedInTheUkEnum
-from grc.utils.form_custom_validators import validateDOB, Integer
+from grc.utils.form_custom_validators import validate_date_of_birth, Integer
 
 
 class NameForm(FlaskForm):
@@ -36,7 +36,8 @@ class DobForm(FlaskForm):
     year = StringField(
         validators=[
             DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validateDOB])
+            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
+                    validators=[validate_date_of_birth])
         ]
     )
 
