@@ -28,7 +28,8 @@ class AssertHelpers:
         assert_matches_regex(actual_url, expected_url_regex)
 
     async def error(self, field: str, message: str):
-        error_summary_message = clean_string(await self.page.inner_text(f".govuk-error-summary__list a[href=\"#{field}\"]"))
+        error_summary_message = clean_string(
+            await self.page.inner_text(f".govuk-error-summary__list a[href=\"#{field}\"]"))
         assert_equal(error_summary_message, message)
 
         field_error_message = clean_string(await self.page.inner_text(f"#{field}-error"))
@@ -60,7 +61,7 @@ class AssertHelpers:
         assert_equal(actual_link_text, expected_link_text)
 
     async def govuk_table_header(self, expected_table_header):
-        headers = await self.page.query_selector_all('.govuk-table__header') # change this so it doesn't find hidden
+        headers = await self.page.query_selector_all('.govuk-table__header')  # change this so it doesn't find hidden
         found_match = False
 
         for header in headers:
@@ -228,7 +229,6 @@ class AssertHelpers:
         assert found_index is None
 
 
-
 def get_url_path(url: str):
     if url.startswith('http://'):
         url = url[7:]
@@ -247,6 +247,7 @@ def get_url_path(url: str):
         url = url[:hash_position]
     return url
 
+
 # This method looks pointless, but helps give informative stack traces
 # The parameter values are shown in the stack trace,
 #   so it's really clear to see what the expected and actual values are
@@ -255,7 +256,10 @@ def assert_equal(actual_value, expected_value):
         print(f"Actual value does not equal expected value\n"
               f"- actual value: ({actual_value})\n"
               f"- expected value: ({expected_value})", flush=True)
+        return False
     assert actual_value == expected_value
+    return True
+
 
 def assert_matches_regex(actual_value, expected_regex):
     pattern = re.compile(expected_regex)
