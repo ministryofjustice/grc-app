@@ -183,8 +183,6 @@ def validate_date_of_birth(form, field):
     transition_date = application_data.personal_details_data.transition_date
     statutory_declaration_date = application_data.personal_details_data.statutory_declaration_date
 
-    print(application_data.personal_details_data)
-    print(transition_date.month)
     if transition_date and date_of_birth > transition_date:
         raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
                               + ' date')

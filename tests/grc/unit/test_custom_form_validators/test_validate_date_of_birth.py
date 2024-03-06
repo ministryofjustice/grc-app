@@ -27,8 +27,66 @@ class TestValidateDateOfBirth:
                 session['reference_number'] = '123ABCD'
 
             with app.test_request_context():
-                mock_data = MagicMock(personal_details=MagicMock(
+                mock_data = MagicMock(personal_details_data=MagicMock(
                     transition_date=date(day=1, month=1, year=1985),
+                ))
+                mock_load_application.return_value = mock_data
+
+                with pytest.raises(ValidationError, match='Your date of birth must be before your transition'
+                                                          + ' date and statutory declaration date'):
+                    validate_date_of_birth(form, form.year)
+
+    @patch('grc.business_logic.data_store.DataStore.load_application')
+    def test_validate_date_of_birth_after_statutory_declaration_date_valid_transition_date(self, mock_load_application,
+                                                                                           app, client):
+        with app.app_context():
+            response = client.get('/')
+            assert response.status_code == 200
+
+            form = DobForm()
+            form.year = None
+            form['day'].data = '1'
+            form['month'].data = '1'
+            form['year'].data = '1990'
+            form['day'].errors = None
+            form['month'].errors = None
+
+            with client.session_transaction() as session:
+                session['reference_number'] = '123ABCD'
+
+            with app.test_request_context():
+                mock_data = MagicMock(personal_details_data=MagicMock(
+                    transition_date=date(day=1, month=1, year=2010),
+                    statutory_declaration_date=date(day=1, month=1, year=1985),
+                ))
+                mock_load_application.return_value = mock_data
+
+                with pytest.raises(ValidationError, match='Your date of birth must be before your transition'
+                                                          + ' date and statutory declaration date'):
+                    validate_date_of_birth(form, form.year)
+
+    @patch('grc.business_logic.data_store.DataStore.load_application')
+    def test_validate_date_of_birth_after_statutory_declaration_date_no_transition_date(self, mock_load_application,
+                                                                                        app, client):
+        with app.app_context():
+            response = client.get('/')
+            assert response.status_code == 200
+
+            form = DobForm()
+            form.year = None
+            form['day'].data = '1'
+            form['month'].data = '1'
+            form['year'].data = '1990'
+            form['day'].errors = None
+            form['month'].errors = None
+
+            with client.session_transaction() as session:
+                session['reference_number'] = '123ABCD'
+
+            with app.test_request_context():
+                mock_data = MagicMock(personal_details_data=MagicMock(
+                    transition_date=None,
+                    statutory_declaration_date=date(day=1, month=1, year=1985),
                 ))
                 mock_load_application.return_value = mock_data
 
