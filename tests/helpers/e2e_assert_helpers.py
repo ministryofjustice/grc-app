@@ -228,6 +228,10 @@ class AssertHelpers:
             print(f"Error: Link/button with text ({link_text}) was found")
         assert found_index is None
 
+    async def a_link_checker(self, expected_link_text: str, expected_href: str):
+        links = await self.page.query_selector_all(f'a[href="{expected_href}"]')
+        assert links, f'Link with href "{expected_href}" not found on the page'
+
 
 def get_url_path(url: str):
     if url.startswith('http://'):

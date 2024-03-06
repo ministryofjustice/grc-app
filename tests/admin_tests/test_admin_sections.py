@@ -58,6 +58,7 @@ async def test_admin_login_app_sections(app, client):
                 # Create test application
                 app_one = create_test_applications(status=ApplicationStatus.SUBMITTED,
                                                    number_of_applications=1)
+                app_one = app_one[0]
                 app_two = create_test_applications(status=ApplicationStatus.DOWNLOADED,
                                                    number_of_applications=1)
                 app_three = create_test_applications(status=ApplicationStatus.COMPLETED,
@@ -106,7 +107,7 @@ async def test_admin_login_app_sections(app, client):
                 await asserts.govuk_table_header('Submitted')
                 # assert reference numbers present
                 # assert view applications links present - modify to show application link
-                # await asserts.a_link_checker('View application', f'/applications/{app_one.reference_number}')
+                await asserts.a_link_checker('View application', f'/applications/{app_one.reference_number}')
 
                 # Click 'Downloaded applications'
                 print('Downloaded applications table:')
