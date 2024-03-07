@@ -231,6 +231,7 @@ class AssertHelpers:
     async def a_link_checker(self, expected_link_text: str, expected_href: str):
         links = await self.page.query_selector_all(f'a[href="{expected_href}"]')
         assert links, f'Link with href "{expected_href}" not found on the page'
+        print(f"Found '{expected_href}'")
 
 
 def get_url_path(url: str):

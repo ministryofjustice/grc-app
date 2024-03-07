@@ -61,8 +61,10 @@ async def test_admin_login_app_sections(app, client):
                 app_one = app_one[0]
                 app_two = create_test_applications(status=ApplicationStatus.DOWNLOADED,
                                                    number_of_applications=1)
+                app_two = app_two[0]
                 app_three = create_test_applications(status=ApplicationStatus.COMPLETED,
                                                      number_of_applications=1)
+                app_three = app_three[0]
 
                 # ------------------------------------------------
                 # ---- Login page
@@ -118,7 +120,7 @@ async def test_admin_login_app_sections(app, client):
                 await asserts.govuk_table_header('Downloaded on')
                 await asserts.govuk_table_header('Downloaded by')
                 # assert view applications link present
-                # await asserts.a_link_checker('View application', f'/applications/{app_two.reference_number}')
+                await asserts.a_link_checker('View application', f'/applications/{app_two.reference_number}')
 
                 # Click 'Completed applications'
                 print('Completed applications table:')
@@ -128,5 +130,4 @@ async def test_admin_login_app_sections(app, client):
                 await asserts.govuk_table_header('Submitted')
                 await asserts.govuk_table_header('Completed on')
                 await asserts.govuk_table_header('Completed by')
-                # for app_instance in app_three:
-                #     await asserts.a_link_checker('View application', f'/applications/{app_instance.reference_number}')
+                await asserts.a_link_checker('View application', f'/applications/{app_three.reference_number}')
