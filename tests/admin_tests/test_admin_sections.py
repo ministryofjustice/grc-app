@@ -1,7 +1,5 @@
-import re
 import os
 import pytest
-from playwright.async_api import Page
 from playwright.async_api import async_playwright
 from tests.helpers.e2e_assert_helpers import AssertHelpers
 from tests.helpers.e2e_page_helpers import PageHelpers
