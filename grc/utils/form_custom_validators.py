@@ -5,7 +5,7 @@ from flask import request, session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
 from werkzeug.datastructures import FileStorage
 from collections.abc import Iterable
-from datetime import datetime, date
+from datetime import date
 from grc.business_logic.data_store import DataStore
 from grc.utils.security_code import validate_security_code
 from grc.utils.reference_number import validate_reference_number
@@ -157,26 +157,39 @@ def validatePostcode(form, field):
             raise ValidationError('Enter a valid postcode')
 
 
-def validateDOB(form, field):
-    if not form['day'].errors and not form['month'].errors:
-        try:
-            d = int(form['day'].data)
-            m = int(form['month'].data)
-            y = int(form['year'].data)
-            dt = datetime(y, m, d, 00, 00)
-        except Exception as e:
-            if field.name == 'year':
-                raise ValidationError('Enter a valid date')
-            return
+def validate_date_of_birth(form, field):
+    if form['day'].errors or form['month'].errors:
+        return
 
-        def age(dt):
-            today = date.today()
-            return today.year - dt.year - ((today.month, today.day) < (dt.month, dt.day))
+    try:
+        d = int(form['day'].data)
+        m = int(form['month'].data)
+        y = int(form['year'].data)
+        date_of_birth = date(day=d, month=m, year=y)
+    except ValueError as error:
+        raise ValidationError('Enter a valid date')
 
-        if age(dt) < 18 and field.name == 'year':
-            raise ValidationError('You need to be at least 18 years old to apply')
-        elif age(dt) > 110 and field.name == 'year':
-            raise ValidationError('You need to be less than 110 years old to apply')
+    today = date.today()
+    age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+
+    if age < 18:
+        raise ValidationError('You need to be at least 18 years old to apply')
+
+    if age > 110:
+        raise ValidationError('You need to be less than 110 years old to apply')
+
+    reference_number = session.get('reference_number')
+    application_data = DataStore.load_application(reference_number)
+    transition_date = application_data.personal_details_data.transition_date
+    statutory_declaration_date = application_data.personal_details_data.statutory_declaration_date
+
+    if transition_date and date_of_birth > transition_date:
+        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
+                              + ' date')
+
+    if statutory_declaration_date and date_of_birth > statutory_declaration_date:
+        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
+                              + ' date')
 
 
 def validateDateOfTransiton(form, field):
@@ -229,11 +242,7 @@ def validateStatutoryDeclarationDate(form, field):
         application_record = db.session.query(Application).filter_by(
             reference_number=session['reference_number']
         ).first()
-        transition_date = date(
-            application_record.application_data().personal_details_data.transition_date.year,
-            application_record.application_data().personal_details_data.transition_date.month,
-            application_record.application_data().personal_details_data.transition_date.day
-        )
+        transition_date = application_record.application_data().personal_details_data.transition_date
         earliest_statutory_declaration_date_years = 100
         earliest_statutory_declaration_date = date.today() - relativedelta(years=earliest_statutory_declaration_date_years)
 
