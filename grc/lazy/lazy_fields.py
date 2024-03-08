@@ -1,6 +1,6 @@
 from flask_babel import LazyString
 from typing import Tuple, List, Any
-from wtforms import EmailField, StringField, RadioField, BooleanField
+from wtforms import RadioField
 
 
 class LazyRadioField(RadioField):
