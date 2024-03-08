@@ -92,7 +92,18 @@ class LazyMultiFileAllowed(MultiFileAllowed):
                 if any(filename.endswith('.' + x) for x in self.upload_set):
                     return
 
-                raise LazyStopValidation(self.lazy_message)
+                if self.lazy_message:
+                    raise LazyStopValidation(self.lazy_message)
+
+                raise StopValidation(self.message or field.gettext(
+                    'File does not have an approved extension: {extensions}'
+                ).format(extensions=', '.join(self.upload_set)))
 
             if not self.upload_set.file_allowed(field.data, filename):
-                raise LazyStopValidation(self.lazy_message)
+
+                if self.lazy_message:
+                    raise LazyStopValidation(self.lazy_message)
+
+                raise StopValidation(self.message or field.gettext(
+                    'File does not have an approved extension.'
+                ))
