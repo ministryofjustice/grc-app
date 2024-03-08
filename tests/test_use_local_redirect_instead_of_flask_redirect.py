@@ -46,7 +46,7 @@ def test_gov_uk_design_system_folders_in_sync():
 
     all_files = get_all_python_files_in_grc_and_admin_apps()
 
-    pattern = re.compile('\Wredirect\(')
+    pattern = re.compile(r'\Wredirect\(')
 
     for full_filename in all_files:
         grc_file = open(full_filename, 'r')
