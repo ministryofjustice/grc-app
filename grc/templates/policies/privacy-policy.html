@@ -1,164 +1,144 @@
 {% extends 'base.html' %}
 
-{% block title %}Privacy Policy{% endblock %}
+{% block title %}{{ _('Privacy Policy') }}{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                Privacy policy
+                {{ _('Privacy policy') }}
             </h1>
             <p class="govuk-body">
-                This page explains what kind of personal information the Government Equalities Office (GEO)
-                holds about you when you apply for a Gender Recognition Certificate (GRC) using this service.
-                It also explains how your personal information is protected and how you can find out about it.
+                {{ _('This page explains what kind of personal information the Government Equalities Office (GEO) holds about you when you apply for a Gender Recognition Certificate (GRC) using this service') }}.
+                 {{ _('It also explains how your personal information is protected and how you can find out about it') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                What personal information we hold about you
+                {{ _('What personal information we hold about you') }}
             </h2>
             <p class="govuk-body">
-                We hold the following information about you:
+                {{ _('We hold the following information about you:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>personal details – name, email address, and telephone number</li>
-                <li>birth or adoption certificate details</li>
-                <li>medical information</li>
-                <li>name change documentation</li>
-                <li>National Insurance number</li>
+                <li>{{ _('personal details – name, email address, and telephone number') }}</li>
+                <li>{{ _('birth or adoption certificate details') }}</li>
+                <li>{{ _('medical information') }}</li>
+                <li>{{ _('name change documentation') }}</li>
+                <li>{{ _('National Insurance number') }}</li>
             </ul>
             <p class="govuk-body">
-                We also hold documents relating to living in your affirmed gender including your:
+                {{ _('We also hold documents relating to living in your affirmed gender including your:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>ID documentation</li>
-                <li>passport</li>
-                <li>driver’s licence</li>
-                <li>utility bills</li>
-                <li>payslips</li>
-                <li>bank statements</li>
-                <li>tax letters</li>
-                <li>academic statements</li>
+                <li>{{ _('ID documentation') }}</li>
+                <li>{{ _('passport') }}</li>
+                <li>{{ _('driver’s licence') }}</li>
+                <li>{{ _('utility bills') }}</li>
+                <li>{{ _('payslips') }}</li>
+                <li>{{ _('bank statements') }}</li>
+                <li>{{ _('tax letters') }}</li>
+                <li>{{ _('academic statements') }}</li>
             </ul>
 
             <h2 class="govuk-heading-m">
-                Purpose
+                {{ _('Purpose') }}
             </h2>
             <p class="govuk-body">
-                We use your personal data to enable the submission of applications to the Gender Recognition team
-                at HMCTS (HM Courts and Tribunals Service).
+                {{ _('We use your personal data to enable the submission of applications to the Gender Recognition team at HMCTS (HM Courts and Tribunals Service)') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                Legal basis of processing
+                {{ _('Legal basis of processing') }}
             </h2>
             <p class="govuk-body">
-                Processing is necessary for the performance of a task carried out in the public interest or in the
-                compliance of legal obligations. In particular:
+                {{ _('Processing is necessary for the performance of a task carried out in the public interest or in the compliance of legal obligations') }}.
+                 {{ _('In particular:') }}
             </p>
             <p class="govuk-body">
-                Allowing the submission of gender recognition certificate applications to the gender recognition panel.
-                This is outlined in the Gender Recognition Act 2004.
+                {{ _('Allowing the submission of gender recognition certificate applications to the gender recognition panel') }}.
+                 {{ _('This is outlined in the Gender Recognition Act 2004') }}.
             </p>
             <p class="govuk-body">
-                Sensitive personal data is personal data about your:
+                {{ _('Sensitive personal data is personal data about your:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>racial or ethnic origin</li>
-                <li>political opinions</li>
-                <li>religious or philosophical beliefs</li>
-                <li>trade union membership</li>
+                <li>{{ _('racial or ethnic origin') }}</li>
+                <li>{{ _('political opinions') }}</li>
+                <li>{{ _('religious or philosophical beliefs') }}</li>
+                <li>{{ _('trade union membership') }}</li>
             </ul>
             <p class="govuk-body">
-                It also includes the processing of:
+                {{ _('It also includes the processing of:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>genetic data, biometric data for the purpose of uniquely identifying a natural person</li>
-                <li>data concerning health</li>
-                <li>data concerning a natural person's sex life or sexual orientation</li>
+                <li>{{ _('genetic data, biometric data for the purpose of uniquely identifying a natural person') }}</li>
+                <li>{{ _('data concerning health') }}</li>
+                <li>{{ _("data concerning a natural person's sex life or sexual orientation") }}</li>
             </ul>
             <p class="govuk-body">
-                The legal basis for processing your sensitive personal data is necessary for the performance of a task
-                carried out in the public interest or in the compliance of legal obligations. As stated above.
+                {{ _('The legal basis for processing your sensitive personal data is necessary for the performance of a task carried out in the public interest or in the compliance of legal obligations') }}.
+                 {{ _('As stated above') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                How long we keep your personal data
+                {{ _('How long we keep your personal data') }}
             </h2>
             <p class="govuk-body">
-                When you begin an application, or return to an existing application you will be sent an email
-                with a pin number.
+                {{ _('When you begin an application, or return to an existing application you will be sent an email with a pin number') }}.
             </p>
             <p class="govuk-body">
-                If you do not use the pin to verify your email within 24 hours, you will need to start either
-                the application or the log-in again and request a new pin.
+                {{ _('If you do not use the pin to verify your email within 24 hours, you will need to start either the application or the log-in again and request a new pin') }}.
             </p>
             <p class="govuk-body">
-                After you have started your application, we will keep your personal data for 6 calendar months from the
-                date you last signed in. If you do not sign in within 6 calendar months we will permanently delete all
-                personal identifiable data. We will warn you 3 months, one month and one week before we delete your data.
+                {{ _('After you have started your application, we will keep your personal data for 6 calendar months from the date you last signed in') }}.
+                 {{ _('If you do not sign in within 6 calendar months we will permanently delete all personal identifiable data') }}.
+                 {{ _('We will warn you 3 months, one month and one week before we delete your data') }}.
             </p>
             <p class="govuk-body">
-                After you have submitted your application, it is shared with the HMCTS Gender Recognition administration team.
+                {{ _('After you have submitted your application, it is shared with the HMCTS Gender Recognition administration team') }}.
             </p>
             <p class="govuk-body">
-                HMCTS will use your data to process your application and put it to the Gender Recognition panel for review.
-                See the
-                <a href="https://www.gov.uk/government/publications/hmcts-privacy-policy"
-                   target="_blank" class="govuk-link">
-                    HMCTS privacy notice (opens in a new tab)</a>
-                for more information about how they process and hold your information. We permanently delete your
-                application from our online system after it has been reviewed by the Gender Recognition panel.
+                {{ _('HMCTS will use your data to process your application and put it to the Gender Recognition panel for review') }}.
+                 {{ _('See the %(a_open)sHMCTS privacy notice (opens in a new tab)%(a_close)s for more information about how they process and hold your information', a_open='<a href="https://www.gov.uk/government/publications/hmcts-privacy-policy" target="_blank" class="govuk-link">', a_close='</a>') | safe }}.
+                 {{ _('We permanently delete your application from our online system after it has been reviewed by the Gender Recognition panel') }}.
             </p>
             <p class="govuk-body">
-                There is a separate
-                <a href="https://www.payments.service.gov.uk/privacy/"
-                   target="_blank" class="govuk-link">
-                    privacy notice for GOV.UK Pay (opens in a new tab)</a>,
-                the government’s online payment service.
-                You will need to use GOV.UK Pay if you pay for your GRC application online.
+                {{ _('There is a separate %(a_open)sprivacy notice for GOV.UK Pay (opens in a new tab)%(a_close)s the government’s online payment service', a_open='<a href="https://www.payments.service.gov.uk/privacy/" target="_blank" class="govuk-link">', a_close='</a>') | safe }}.
+                 {{ _('You will need to use GOV.UK Pay if you pay for your GRC application online') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                Sharing your information
+                {{ _('Sharing your information') }}
             </h2>
             <p class="govuk-body">
-                When you submit your application, your data will be shared with the HMCTS Gender Recognition
-                administration team. They require a secure login to access the data. The data is not shared with any
-                third parties or government departments, agencies or arms-length bodies.
+                {{ _('When you submit your application, your data will be shared with the HMCTS Gender Recognition administration team') }}.
+                 {{ _('They require a secure login to access the data') }}.
+                 {{ _('The data is not shared with any third parties or government departments, agencies or arms-length bodies') }}.
             </p>
             <p class="govuk-body">
-                Throughout the application process, information is shared with our email provider (GOV.UK Notify) and
-                stored in our hosting provider (GOV.UK Platform as a Service) where this is needed to process your
-                application. It is also shared with our hosting suppliers and third-party IT support companies for the
-                purposes of managing the site.
+                {{ _('Throughout the application process, information is shared with our email provider (GOV.UK Notify) and stored in our hosting provider (GOV.UK Platform as a Service) where this is needed to process your application') }}.
+                 {{ _('It is also shared with our hosting suppliers and third-party IT support companies for the purposes of managing the site') }}.
             </p>
             <p class="govuk-body">
-                There are some cases when your information can be shared for other reasons – for example, to prevent
-                crime, respond to legal obligations or cooperate with public inquiries.
+                {{ _('There are some cases when your information can be shared for other reasons – for example, to prevent crime, respond to legal obligations or cooperate with public inquiries') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                Your rights
+                {{ _('Your rights') }}
             </h2>
             <p class="govuk-body">
-                You can ask to see and correct the personal information we hold about you.
-                You can do this by logging into your application.
+                {{ _('You can ask to see and correct the personal information we hold about you') }}.
+                 {{ _('You can do this by logging into your application') }}.
             </p>
             <p class="govuk-body">
-                In certain circumstances, you may also object to or restrict the processing of your data by GEO
-                by making a request to
-                <a href="mailto:grc-requests@cabinetoffice.gov.uk" class="govuk-link">
-                    grc-requests@cabinetoffice.gov.uk
-                </a>
+                {{ _('In certain circumstances, you may also object to or restrict the processing of your data by GEO by making a request to %(a_open)sgrc-requests@cabinetoffice.gov.uk%(a_close)s', a_open='<a href="mailto:grc-requests@cabinetoffice.gov.uk" class="govuk-link">', a_close='</a>') | safe }}
             </p>
             <p class="govuk-body">
-                After you have submitted your application, you will no longer be able to log in to access the
-                ‘apply for a gender recognition certificate’ service.
+                {{ _("After you have submitted your application, you will no longer be able to log in to access the 'apply for a gender recognition certificate' service") }}.
             </p>
             <p class="govuk-body">
-                To ask for your data to be amended or deleted after you have submitted an application, email:
+                {{ _('To ask for your data to be amended or deleted after you have submitted an application, email:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet">
                 <li>
@@ -173,24 +153,24 @@
             </ul>
 
             <h2 class="govuk-heading-m">
-                Preparation of this privacy notice
+                {{ _('Preparation of this privacy notice') }}
             </h2>
             <p class="govuk-body">
-                This privacy notice was first published on 28 June 2022.
+                {{ _('This privacy notice was first published on 28 June 2022') }}.
             </p>
             <p class="govuk-body">
-                We have carried out a data protection impact assessment. We will use the impact assessment to keep track
-                of any changes to the way your personal data is processed, and will update this notice if any changes arise.
+                {{ _('We have carried out a data protection impact assessment') }}.
+                 {{ _('We will use the impact assessment to keep track of any changes to the way your personal data is processed, and will update this notice if any changes arise') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                Contact Details
+                {{ _('Contact Details') }}
             </h2>
             <p class="govuk-body">
-                The data controller for your personal data is HM Courts and Tribunals Service.
+                {{ _('The data controller for your personal data is HM Courts and Tribunals Service') }}.
             </p>
             <p class="govuk-body">
-                The contact details for the data controller are:
+                {{ _('The contact details for the data controller are:') }}
             </p>
             <p class="govuk-body govuk-!-margin-bottom-2">
                 The Data Protection Officer<br>
@@ -205,15 +185,14 @@
             </p>
 
             <h2 class="govuk-heading-m">
-                How to make a complaint
+                {{ _('How to make a complaint') }}
             </h2>
             <p class="govuk-body">
-                When we ask you for information, we will keep to the law. If you consider that your information has
-                been handled incorrectly, you can contact the Information Commissioner for independent advice about
-                data protection.
+                {{ _('When we ask you for information, we will keep to the law') }}.
+                 {{ _('If you consider that your information has been handled incorrectly, you can contact the Information Commissioner for independent advice about data protection') }}.
             </p>
             <p class="govuk-body">
-                You can contact the Information Commissioner at:
+                {{ _('You can contact the Information Commissioner at:') }}
             </p>
             <p class="govuk-body govuk-!-margin-bottom-2">
                 Information Commissioner’s Office<br>
