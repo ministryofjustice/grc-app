@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-08 17:07+0000\n"
+"POT-Creation-Date: 2024-03-08 17:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,10 +253,15 @@ msgid ""
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:103
-#, python-format
-msgid ""
-"See the %(a_open)sHMCTS privacy notice (opens in a new tab)%(a_close)s "
-"for more information about how they process and hold your information"
+msgid "See the"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "HMCTS privacy notice (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "for more information about how they process and hold your information"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:104
@@ -266,10 +271,15 @@ msgid ""
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:107
-#, python-format
-msgid ""
-"There is a separate %(a_open)sprivacy notice for GOV.UK Pay (opens in a "
-"new tab)%(a_close)s the government’s online payment service"
+msgid "There is a separate"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "privacy notice for GOV.UK Pay (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "the government's online payment service"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:108
@@ -329,11 +339,9 @@ msgid "You can do this by logging into your application"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:135
-#, python-format
 msgid ""
 "In certain circumstances, you may also object to or restrict the "
-"processing of your data by GEO by making a request to %(a_open)sgrc-"
-"requests@cabinetoffice.gov.uk%(a_close)s"
+"processing of your data by GEO by making a request to"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:138
