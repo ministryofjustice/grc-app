@@ -98,6 +98,11 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
       - run:
+          name: Compile welsh translations
+          command: |
+            . venv/bin/activate
+            pybabel compile -d grc/translations
+      - run:
           name: Install Playwright and browsers
           command: |
             . venv/bin/activate
