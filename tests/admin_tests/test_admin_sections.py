@@ -105,8 +105,6 @@ async def test_admin_login_app_sections(app, client):
                 await asserts.govuk_table_header('Reference number')
                 await asserts.govuk_table_header('Applicant name')
                 await asserts.govuk_table_header('Submitted')
-                # assert reference numbers present
-                # assert view applications links present - modify to show application link
                 await asserts.a_link_checker('View application', f'/applications/{app_one.reference_number}')
 
                 # Click 'Downloaded applications'
@@ -117,7 +115,6 @@ async def test_admin_login_app_sections(app, client):
                 await asserts.govuk_table_header('Submitted')
                 await asserts.govuk_table_header('Downloaded on')
                 await asserts.govuk_table_header('Downloaded by')
-                # assert view applications link present
                 await asserts.a_link_checker('View application', f'/applications/{app_two.reference_number}')
 
                 # Click 'Completed applications'
