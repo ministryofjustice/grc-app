@@ -1,5 +1,8 @@
 import email_validator
+from collections.abc import Iterable
 from flask_babel import LazyString
+from grc.utils.form_custom_validators import MultiFileAllowed
+from werkzeug.datastructures import FileStorage
 from wtforms.validators import DataRequired, ValidationError, StopValidation, Email
 
 
@@ -69,3 +72,27 @@ class LazyEmail(Email):
                 else:
                     message = field.gettext("Invalid email address.")
             raise ValidationError(message) from e
+
+
+class LazyMultiFileAllowed(MultiFileAllowed):
+    def __init__(self, upload_set, message=None, lazy_message: LazyString = None):
+        super().__init__(upload_set, message)
+        self.upload_set = upload_set
+        self.message = message
+        self.lazy_message = lazy_message
+
+    def __call__(self, form, field):
+        if not (all(isinstance(item, FileStorage) for item in field.data) and field.data):
+            return
+
+        for data in field.data:
+            filename = data.filename.lower()
+
+            if isinstance(self.upload_set, Iterable):
+                if any(filename.endswith('.' + x) for x in self.upload_set):
+                    return
+
+                raise LazyStopValidation(self.lazy_message)
+
+            if not self.upload_set.file_allowed(field.data, filename):
+                raise LazyStopValidation(self.lazy_message)
