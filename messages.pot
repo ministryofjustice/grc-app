@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-08 14:00+0000\n"
+"POT-Creation-Date: 2024-03-08 17:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,394 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
 
-#: grc/lazy/lazy_form_custom_validators.py:36
+#: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:70
+#: grc/lazy/lazy_form_custom_validators.py:73
 msgid "Invalid email address."
 msgstr ""
 
+#: grc/lazy/lazy_form_custom_validators.py:98
 #: grc/utils/form_custom_validators.py:419
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
+#: grc/lazy/lazy_form_custom_validators.py:107
 #: grc/utils/form_custom_validators.py:424
 msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:3
+msgid "Privacy Policy"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:10
+msgid "Privacy policy"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:13
+msgid ""
+"This page explains what kind of personal information the Government "
+"Equalities Office (GEO) holds about you when you apply for a Gender "
+"Recognition Certificate (GRC) using this service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:14
+msgid ""
+"It also explains how your personal information is protected and how you "
+"can find out about it"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:18
+msgid "What personal information we hold about you"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:21
+msgid "We hold the following information about you:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:24
+msgid "personal details – name, email address, and telephone number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:25
+msgid "birth or adoption certificate details"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:26
+msgid "medical information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:27
+msgid "name change documentation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:28
+msgid "National Insurance number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:31
+msgid ""
+"We also hold documents relating to living in your affirmed gender "
+"including your:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:34
+msgid "ID documentation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:35
+msgid "passport"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:36
+msgid "driver’s licence"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:37
+msgid "utility bills"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:38
+msgid "payslips"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:39
+msgid "bank statements"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:40
+msgid "tax letters"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:41
+msgid "academic statements"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:45
+msgid "Purpose"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:48
+msgid ""
+"We use your personal data to enable the submission of applications to the"
+" Gender Recognition team at HMCTS (HM Courts and Tribunals Service)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:52
+msgid "Legal basis of processing"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:55
+msgid ""
+"Processing is necessary for the performance of a task carried out in the "
+"public interest or in the compliance of legal obligations"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:56
+msgid "In particular:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:59
+msgid ""
+"Allowing the submission of gender recognition certificate applications to"
+" the gender recognition panel"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:60
+msgid "This is outlined in the Gender Recognition Act 2004"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:63
+msgid "Sensitive personal data is personal data about your:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:66
+msgid "racial or ethnic origin"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:67
+msgid "political opinions"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:68
+msgid "religious or philosophical beliefs"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:69
+msgid "trade union membership"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:72
+msgid "It also includes the processing of:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:75
+msgid ""
+"genetic data, biometric data for the purpose of uniquely identifying a "
+"natural person"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:76
+msgid "data concerning health"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:77
+msgid "data concerning a natural person's sex life or sexual orientation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:80
+msgid ""
+"The legal basis for processing your sensitive personal data is necessary "
+"for the performance of a task carried out in the public interest or in "
+"the compliance of legal obligations"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:81
+msgid "As stated above"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:85
+msgid "How long we keep your personal data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:88
+msgid ""
+"When you begin an application, or return to an existing application you "
+"will be sent an email with a pin number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:91
+msgid ""
+"If you do not use the pin to verify your email within 24 hours, you will "
+"need to start either the application or the log-in again and request a "
+"new pin"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:94
+msgid ""
+"After you have started your application, we will keep your personal data "
+"for 6 calendar months from the date you last signed in"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:95
+msgid ""
+"If you do not sign in within 6 calendar months we will permanently delete"
+" all personal identifiable data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:96
+msgid ""
+"We will warn you 3 months, one month and one week before we delete your "
+"data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:99
+msgid ""
+"After you have submitted your application, it is shared with the HMCTS "
+"Gender Recognition administration team"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:102
+msgid ""
+"HMCTS will use your data to process your application and put it to the "
+"Gender Recognition panel for review"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "See the"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "HMCTS privacy notice (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "for more information about how they process and hold your information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:104
+msgid ""
+"We permanently delete your application from our online system after it "
+"has been reviewed by the Gender Recognition panel"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "There is a separate"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "privacy notice for GOV.UK Pay (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "the government's online payment service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:108
+msgid "You will need to use GOV.UK Pay if you pay for your GRC application online"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:112
+msgid "Sharing your information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:115
+msgid ""
+"When you submit your application, your data will be shared with the HMCTS"
+" Gender Recognition administration team"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:116
+msgid "They require a secure login to access the data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:117
+msgid ""
+"The data is not shared with any third parties or government departments, "
+"agencies or arms-length bodies"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:120
+msgid ""
+"Throughout the application process, information is shared with our email "
+"provider (GOV.UK Notify) and stored in our hosting provider (GOV.UK "
+"Platform as a Service) where this is needed to process your application"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:121
+msgid ""
+"It is also shared with our hosting suppliers and third-party IT support "
+"companies for the purposes of managing the site"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:124
+msgid ""
+"There are some cases when your information can be shared for other "
+"reasons – for example, to prevent crime, respond to legal obligations or "
+"cooperate with public inquiries"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:128
+msgid "Your rights"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:131
+msgid "You can ask to see and correct the personal information we hold about you"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:132
+msgid "You can do this by logging into your application"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:135
+msgid ""
+"In certain circumstances, you may also object to or restrict the "
+"processing of your data by GEO by making a request to"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:138
+msgid ""
+"After you have submitted your application, you will no longer be able to "
+"log in to access the 'apply for a gender recognition certificate' service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:141
+msgid ""
+"To ask for your data to be amended or deleted after you have submitted an"
+" application, email:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:156
+msgid "Preparation of this privacy notice"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:159
+msgid "This privacy notice was first published on 28 June 2022"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:162
+msgid "We have carried out a data protection impact assessment"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:163
+msgid ""
+"We will use the impact assessment to keep track of any changes to the way"
+" your personal data is processed, and will update this notice if any "
+"changes arise"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:167
+msgid "Contact Details"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:170
+msgid ""
+"The data controller for your personal data is HM Courts and Tribunals "
+"Service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:173
+msgid "The contact details for the data controller are:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:188
+msgid "How to make a complaint"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:191
+msgid "When we ask you for information, we will keep to the law"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:192
+msgid ""
+"If you consider that your information has been handled incorrectly, you "
+"can contact the Information Commissioner for independent advice about "
+"data protection"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:195
+msgid "You can contact the Information Commissioner at:"
 msgstr ""
 
