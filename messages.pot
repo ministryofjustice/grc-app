@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-11 11:20+0000\n"
+"POT-Creation-Date: 2024-03-11 13:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -338,6 +338,194 @@ msgstr ""
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr ""
 
+#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
+msgid "Cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "GOV.UK Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "puts small files (known as ‘cookies’) on your computer"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:22
+msgid ""
+"These cookies are used across the GOV.UK Gender Recognition Certificate "
+"website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:24
+msgid ""
+"We only set cookies when JavaScript is running in your browser and you’ve"
+" accepted them"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:25
+msgid ""
+"If you choose not to run Javascript, the information on this page will "
+"not apply to you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:28
+msgid ""
+"If you use an older browser, such as Internet Explorer 8 or earlier, the "
+"cookies we use will not affect you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "Find out"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "how to manage cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "from the Information Commissioner's Office"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:33
+msgid "Essential cookies (strictly necessary)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:34
+msgid ""
+"We use an essential cookie to remember when you accept or reject cookies "
+"on our website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:37
+msgid "Essential cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:41
+#: grc/templates/policies/cookies.html:82
+#: grc/templates/policies/privacy-policy.html:45
+msgid "Purpose"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:42
+#: grc/templates/policies/cookies.html:83
+msgid "Expires"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:49
+msgid "Saves your progress on the website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:50
+msgid "When you close your browser tab"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:54
+msgid "Saves your cookie consent settings"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:55
+msgid "1 year"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:60
+msgid "Analytics cookies (optional)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:62
+msgid ""
+"We use Google Analytics software to understand how people use the GOV.UK "
+"Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:63
+msgid ""
+"We do this to help make sure the site is meeting the needs of its users "
+"and to help us make improvements"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:65
+msgid ""
+"We do not collect or store your personal information (for example your "
+"name or address) so this information cannot be used to identify who you "
+"are"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:66
+msgid "We do not allow Google to use or share our analytics data"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:67
+msgid "Google Analytics stores information about:"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:70
+msgid "the pages you visit"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:71
+msgid "how long you spend on each page"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:72
+msgid "how you arrived at the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:73
+msgid "what you click on while you visit the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:74
+msgid "the device and browser you use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:78
+msgid "Analytics cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:89
+#: grc/templates/policies/cookies.html:94
+msgid ""
+"Helps us count how many people visit the GOV.UK Gender Recognition "
+"Certificate by telling us if you’ve visited before"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:90
+msgid "2 years"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:95
+msgid "24 hours"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:99
+msgid "Used to reduce the number of requests"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:100
+msgid "1 minute"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:108
+msgid "Do you want to accept analytics cookies?"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:114
+msgid "Yes"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:120
+msgid "No"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:128
+msgid "Save cookie settings"
+msgstr ""
+
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
 msgstr ""
@@ -423,10 +611,6 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:41
 msgid "academic statements"
-msgstr ""
-
-#: grc/templates/policies/privacy-policy.html:45
-msgid "Purpose"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:48
