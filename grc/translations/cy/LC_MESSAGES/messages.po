@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-08 17:37+0000\n"
+"POT-Creation-Date: 2024-03-11 15:35+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -35,6 +35,62 @@ msgstr ""
 #: grc/lazy/lazy_form_custom_validators.py:107
 #: grc/utils/form_custom_validators.py:424
 msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/templates/document-checker/doc-checker-base.html:80
+msgid "Check documents needed to apply for a Gender Recognition Certificate"
+msgstr ""
+"Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
+"Rhywedd"
+
+#: grc/templates/document-checker/start.html:3
+#: grc/templates/document-checker/start.html:10
+msgid "Before you start"
+msgstr "Cyn i chi ddechrau"
+
+#: grc/templates/document-checker/start.html:14
+msgid ""
+"Use this tool to check which documents you need for your Gender "
+"Recognition Certificate application"
+msgstr ""
+"Defnyddiwch yr adnodd hwn i wirio pa ddogfennau sydd eu hangen arnoch ar "
+"gyfer eich cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/document-checker/start.html:17
+msgid ""
+"Answering the questions means we can give you a list of documents based "
+"on your personal circumstances"
+msgstr ""
+"Mae ateb y cwestiynau yn golygu y gallwn roi rhestr o ddogfennau i chi yn"
+" seiliedig ar eich amgylchiadau personol"
+
+#: grc/templates/document-checker/start.html:18
+msgid "You can have the list of documents sent to you by email at the end"
+msgstr "Gellir anfon y rhestr o ddogfennau atoch drwy e-bost ar y diwedd"
+
+#: grc/templates/document-checker/start.html:21
+msgid ""
+"This is not part of the application process and is designed only to help "
+"you prepare the documents you need before you start your application"
+msgstr ""
+"Nid yw hyn yn rhan o'r broses gwneud cais ac fe'i cynlluniwyd i'ch helpu "
+"i baratoi'r dogfennau sydd eu hangen arnoch cyn i chi ddechrau gwneud "
+"eich cais"
+
+#: grc/templates/document-checker/start.html:24
+msgid "We do not store any of the information you enter in this tool"
+msgstr "Nid ydym yn storio unrhyw wybodaeth rydych chi'n ei rhoi yn yr adnodd hwn"
+
+#: grc/templates/document-checker/start.html:27
+msgid "If you already have your documents ready you can"
+msgstr "Os oes gennych eich dogfennau eisoes yn barod, "
+
+#: grc/templates/document-checker/start.html:27
+msgid "start your application"
+msgstr "gallwch ddechrau gwneud eich cais"
+
+#: grc/templates/document-checker/start.html:33
+msgid "Continue"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:3
@@ -96,7 +152,7 @@ msgid ""
 "We also hold documents relating to living in your affirmed gender "
 "including your:"
 msgstr ""
-"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd a
+"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd "
 "gadarnhawyd, gan gynnwys eich:"
 
 #: grc/templates/policies/privacy-policy.html:34
@@ -140,8 +196,8 @@ msgid ""
 "We use your personal data to enable the submission of applications to the"
 " Gender Recognition team at HMCTS (HM Courts and Tribunals Service)"
 msgstr ""
-"Rydym yn defnyddio eich data personol i alluogi cyflwyno ceisiadau i’r tîm "
-"Cydnabod Rhywedd yn GLlTEF (Gwasanaeth Llysoedd a Thribiwnlysoedd EF)"
+"Rydym yn defnyddio eich data personol i alluogi cyflwyno ceisiadau i’r "
+"tîm Cydnabod Rhywedd yn GLlTEF (Gwasanaeth Llysoedd a Thribiwnlysoedd EF)"
 
 #: grc/templates/policies/privacy-policy.html:52
 msgid "Legal basis of processing"
@@ -152,8 +208,8 @@ msgid ""
 "Processing is necessary for the performance of a task carried out in the "
 "public interest or in the compliance of legal obligations"
 msgstr ""
-"Mae prosesu yn angenrheidiol er mwyn cyflawni tasg a gyflawnir er budd y cyhoedd "
-"neu er mwyn cydymffurfio â rhwymedigaethau cyfreithiol"
+"Mae prosesu yn angenrheidiol er mwyn cyflawni tasg a gyflawnir er budd y "
+"cyhoedd neu er mwyn cydymffurfio â rhwymedigaethau cyfreithiol"
 
 #: grc/templates/policies/privacy-policy.html:56
 msgid "In particular:"
@@ -164,7 +220,8 @@ msgid ""
 "Allowing the submission of gender recognition certificate applications to"
 " the gender recognition panel"
 msgstr ""
-"Caniatáu cyflwyno ceisiadau am dystysgrif cydnabod rhywedd i'r panel cydnabod rhywedd"
+"Caniatáu cyflwyno ceisiadau am dystysgrif cydnabod rhywedd i'r panel "
+"cydnabod rhywedd"
 
 #: grc/templates/policies/privacy-policy.html:60
 msgid "This is outlined in the Gender Recognition Act 2004"
@@ -198,7 +255,9 @@ msgstr "Mae hefyd yn cynnwys prosesu:"
 msgid ""
 "genetic data, biometric data for the purpose of uniquely identifying a "
 "natural person"
-msgstr "data genetig a data biometrig at ddibenion adnabod unigolyn naturiol yn unigryw"
+msgstr ""
+"data genetig a data biometrig at ddibenion adnabod unigolyn naturiol yn "
+"unigryw"
 
 #: grc/templates/policies/privacy-policy.html:76
 msgid "data concerning health"
@@ -206,7 +265,9 @@ msgstr "data am iechyd"
 
 #: grc/templates/policies/privacy-policy.html:77
 msgid "data concerning a natural person's sex life or sexual orientation"
-msgstr "data sy’n ymwneud â bywyd rhywiol neu gyfeiriadedd rhywiol unigolyn naturiol "
+msgstr ""
+"data sy’n ymwneud â bywyd rhywiol neu gyfeiriadedd rhywiol unigolyn "
+"naturiol "
 
 #: grc/templates/policies/privacy-policy.html:80
 msgid ""
@@ -214,9 +275,9 @@ msgid ""
 "for the performance of a task carried out in the public interest or in "
 "the compliance of legal obligations"
 msgstr ""
-"Mae'r sail gyfreithiol ar gyfer prosesu eich data personol sensitif yn angenrheidiol "
-"er mwyn cyflawni tasg a gyflawnir er budd y cyhoedd neu wrth gydymffurfio â "
-"rhwymedigaethau cyfreithiol"
+"Mae'r sail gyfreithiol ar gyfer prosesu eich data personol sensitif yn "
+"angenrheidiol er mwyn cyflawni tasg a gyflawnir er budd y cyhoedd neu "
+"wrth gydymffurfio â rhwymedigaethau cyfreithiol"
 
 #: grc/templates/policies/privacy-policy.html:81
 msgid "As stated above"
@@ -241,44 +302,48 @@ msgid ""
 "new pin"
 msgstr ""
 "Os na fyddwch yn defnyddio’r pin i ddilysu eich e-bost o fewn 24 awr, "
-"bydd angen i chi naill ai ddechrau’r cais neu fewngofnodi eto a gofyn am bin newydd"
+"bydd angen i chi naill ai ddechrau’r cais neu fewngofnodi eto a gofyn am "
+"bin newydd"
 
 #: grc/templates/policies/privacy-policy.html:94
 msgid ""
 "After you have started your application, we will keep your personal data "
 "for 6 calendar months from the date you last signed in"
 msgstr ""
-"Ar ôl i chi ddechrau gwneud eich cais, byddwn yn cadw eich data personol am 6 "
-"mis calendr o'r dyddiad y gwnaethoch fewngofnodi ddiwethaf"
+"Ar ôl i chi ddechrau gwneud eich cais, byddwn yn cadw eich data personol "
+"am 6 mis calendr o'r dyddiad y gwnaethoch fewngofnodi ddiwethaf"
 
 #: grc/templates/policies/privacy-policy.html:95
 msgid ""
 "If you do not sign in within 6 calendar months we will permanently delete"
 " all personal identifiable data"
 msgstr ""
-"Os na fyddwch yn mewngofnodi o fewn 6 mis calendr, byddwn yn dileu’r holl "
-"ddata personol all eich adnabod, yn barhaol"
+"Os na fyddwch yn mewngofnodi o fewn 6 mis calendr, byddwn yn dileu’r holl"
+" ddata personol all eich adnabod, yn barhaol"
 
 #: grc/templates/policies/privacy-policy.html:96
 msgid ""
 "We will warn you 3 months, one month and one week before we delete your "
 "data"
 msgstr ""
-"Byddwn yn eich rhybuddio o fewn 3 mis, mis ac wythnos cyn i ni ddileu eich data"
+"Byddwn yn eich rhybuddio o fewn 3 mis, mis ac wythnos cyn i ni ddileu "
+"eich data"
 
 #: grc/templates/policies/privacy-policy.html:99
 msgid ""
 "After you have submitted your application, it is shared with the HMCTS "
 "Gender Recognition administration team"
 msgstr ""
-"Ar ôl i chi gyflwyno eich cais, caiff ei rannu gyda thîm gweinyddol Cydnabod Rhywedd GLlTEF"
+"Ar ôl i chi gyflwyno eich cais, caiff ei rannu gyda thîm gweinyddol "
+"Cydnabod Rhywedd GLlTEF"
 
 #: grc/templates/policies/privacy-policy.html:102
 msgid ""
 "HMCTS will use your data to process your application and put it to the "
 "Gender Recognition panel for review"
 msgstr ""
-"Bydd GLlTEF yn defnyddio'ch data i brosesu eich cais a'i roi i'r panel Cydnabod Rhywedd i'w adolygu"
+"Bydd GLlTEF yn defnyddio'ch data i brosesu eich cais a'i roi i'r panel "
+"Cydnabod Rhywedd i'w adolygu"
 
 #: grc/templates/policies/privacy-policy.html:103
 msgid "See the"
@@ -297,8 +362,8 @@ msgid ""
 "We permanently delete your application from our online system after it "
 "has been reviewed by the Gender Recognition panel"
 msgstr ""
-"Rydym yn dileu eich cais yn barhaol o'n system ar-lein ar ôl iddo gael ei "
-"adolygu gan y panel Cydnabod Rhywedd"
+"Rydym yn dileu eich cais yn barhaol o'n system ar-lein ar ôl iddo gael ei"
+" adolygu gan y panel Cydnabod Rhywedd"
 
 #: grc/templates/policies/privacy-policy.html:107
 msgid "There is a separate"
@@ -306,7 +371,9 @@ msgstr "Mae"
 
 #: grc/templates/policies/privacy-policy.html:107
 msgid "privacy notice for GOV.UK Pay (opens in a new tab)"
-msgstr "hysbysiad preifatrwydd ar wahân ar gyfer GOV.UK Pay (yn agor mewn tab newydd)"
+msgstr ""
+"hysbysiad preifatrwydd ar wahân ar gyfer GOV.UK Pay (yn agor mewn tab "
+"newydd)"
 
 #: grc/templates/policies/privacy-policy.html:107
 msgid "the government's online payment service"
@@ -314,7 +381,9 @@ msgstr "gwasanaeth talu ar-lein y llywodraeth"
 
 #: grc/templates/policies/privacy-policy.html:108
 msgid "You will need to use GOV.UK Pay if you pay for your GRC application online"
-msgstr "Bydd angen i chi ddefnyddio GOV.UK Pay os ydych yn talu am eich cais GRC ar-lein"
+msgstr ""
+"Bydd angen i chi ddefnyddio GOV.UK Pay os ydych yn talu am eich cais GRC "
+"ar-lein"
 
 #: grc/templates/policies/privacy-policy.html:112
 msgid "Sharing your information"
@@ -346,9 +415,9 @@ msgid ""
 "provider (GOV.UK Notify) and stored in our hosting provider (GOV.UK "
 "Platform as a Service) where this is needed to process your application"
 msgstr ""
-"Trwy gydol y broses gwneud cais, rhennir gwybodaeth gyda’n darparwr e-bost "
-"(GOV.UK Notify) a caiff ei storio yn ein darparwr cynnal (GOV.UK Platform as a Service) "
-"lle mae angen hwn i brosesu eich cais"
+"Trwy gydol y broses gwneud cais, rhennir gwybodaeth gyda’n darparwr "
+"e-bost (GOV.UK Notify) a caiff ei storio yn ein darparwr cynnal (GOV.UK "
+"Platform as a Service) lle mae angen hwn i brosesu eich cais"
 
 #: grc/templates/policies/privacy-policy.html:121
 msgid ""
@@ -364,9 +433,9 @@ msgid ""
 "reasons – for example, to prevent crime, respond to legal obligations or "
 "cooperate with public inquiries"
 msgstr ""
-"Mae rhai achosion pan fydd modd rhannu eich gwybodaeth am resymau eraill - er "
-"enghraifft, i atal troseddu, ymateb i rwymedigaethau cyfreithiol neu gydweithredu "
-"ag ymholiadau cyhoeddus"
+"Mae rhai achosion pan fydd modd rhannu eich gwybodaeth am resymau eraill "
+"- er enghraifft, i atal troseddu, ymateb i rwymedigaethau cyfreithiol neu"
+" gydweithredu ag ymholiadau cyhoeddus"
 
 #: grc/templates/policies/privacy-policy.html:128
 msgid "Your rights"
@@ -374,7 +443,9 @@ msgstr "Eich hawliau"
 
 #: grc/templates/policies/privacy-policy.html:131
 msgid "You can ask to see and correct the personal information we hold about you"
-msgstr "Gallwch ofyn i weld a chywiro’r wybodaeth bersonol sydd gennym amdanoch chi"
+msgstr ""
+"Gallwch ofyn i weld a chywiro’r wybodaeth bersonol sydd gennym amdanoch "
+"chi"
 
 #: grc/templates/policies/privacy-policy.html:132
 msgid "You can do this by logging into your application"
@@ -385,23 +456,24 @@ msgid ""
 "In certain circumstances, you may also object to or restrict the "
 "processing of your data by GEO by making a request to"
 msgstr ""
-"Mewn rhai amgylchiadau, efallai y byddwch hefyd yn gwrthwynebu neu'n cyfyngu "
-"ar brosesu eich data gan GEO trwy wneud cais i"
+"Mewn rhai amgylchiadau, efallai y byddwch hefyd yn gwrthwynebu neu'n "
+"cyfyngu ar brosesu eich data gan GEO trwy wneud cais i"
 
 #: grc/templates/policies/privacy-policy.html:138
 msgid ""
 "After you have submitted your application, you will no longer be able to "
 "log in to access the 'apply for a gender recognition certificate' service"
 msgstr ""
-"Ar ôl i chi gyflwyno’ch cais, ni fyddwch bellach yn gallu mewngofnodi i gael "
-"mynediad i’r gwasanaeth ‘gwneud cais am dystysgrif cydnabod rhywedd'"
+"Ar ôl i chi gyflwyno’ch cais, ni fyddwch bellach yn gallu mewngofnodi i "
+"gael mynediad i’r gwasanaeth ‘gwneud cais am dystysgrif cydnabod rhywedd'"
 
 #: grc/templates/policies/privacy-policy.html:141
 msgid ""
 "To ask for your data to be amended or deleted after you have submitted an"
 " application, email:"
 msgstr ""
-"I ofyn i’ch data gael ei ddiwygio neu ei ddileu ar ôl i chi gyflwyno cais, e-bostiwch:"
+"I ofyn i’ch data gael ei ddiwygio neu ei ddileu ar ôl i chi gyflwyno "
+"cais, e-bostiwch:"
 
 #: grc/templates/policies/privacy-policy.html:156
 msgid "Preparation of this privacy notice"
@@ -421,9 +493,9 @@ msgid ""
 " your personal data is processed, and will update this notice if any "
 "changes arise"
 msgstr ""
-"Byddwn yn defnyddio’r asesiad o effaith i gadw llygaid ar unrhyw newidiadau "
-"i'r ffordd y caiff eich data personol ei brosesu, a byddwn yn diweddaru'r "
-"hysbysiad hwn os bydd unrhyw newidiadau'n codi"
+"Byddwn yn defnyddio’r asesiad o effaith i gadw llygaid ar unrhyw "
+"newidiadau i'r ffordd y caiff eich data personol ei brosesu, a byddwn yn "
+"diweddaru'r hysbysiad hwn os bydd unrhyw newidiadau'n codi"
 
 #: grc/templates/policies/privacy-policy.html:167
 msgid "Contact Details"
@@ -433,7 +505,9 @@ msgstr "Manylion Cyswllt"
 msgid ""
 "The data controller for your personal data is HM Courts and Tribunals "
 "Service"
-msgstr "Y rheolydd data ar gyfer eich data personol yw Gwasanaeth Llysoedd a Thribiwnlysoedd EF"
+msgstr ""
+"Y rheolydd data ar gyfer eich data personol yw Gwasanaeth Llysoedd a "
+"Thribiwnlysoedd EF"
 
 #: grc/templates/policies/privacy-policy.html:173
 msgid "The contact details for the data controller are:"
@@ -454,7 +528,8 @@ msgid ""
 "data protection"
 msgstr ""
 "Os ydych yn teimlo bod eich gwybodaeth wedi cael ei thrin yn anghywir, "
-"gallwch gysylltu â’r Comisiynydd Gwybodaeth am gyngor annibynnol ar ddiogelu data"
+"gallwch gysylltu â’r Comisiynydd Gwybodaeth am gyngor annibynnol ar "
+"ddiogelu data"
 
 #: grc/templates/policies/privacy-policy.html:195
 msgid "You can contact the Information Commissioner at:"
