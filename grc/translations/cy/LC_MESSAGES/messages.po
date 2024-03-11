@@ -39,47 +39,52 @@ msgstr ""
 
 #: grc/templates/document-checker/doc-checker-base.html:80
 msgid "Check documents needed to apply for a Gender Recognition Certificate"
-msgstr ""
+msgstr "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/start.html:3
 #: grc/templates/document-checker/start.html:10
 msgid "Before you start"
-msgstr ""
+msgstr "Cyn i chi ddechrau"
 
 #: grc/templates/document-checker/start.html:14
 msgid ""
 "Use this tool to check which documents you need for your Gender "
 "Recognition Certificate application"
 msgstr ""
+"Defnyddiwch yr adnodd hwn i wirio pa ddogfennau sydd eu hangen arnoch "
+"ar gyfer eich cais am Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/start.html:17
 msgid ""
 "Answering the questions means we can give you a list of documents based "
 "on your personal circumstances"
 msgstr ""
+"Mae ateb y cwestiynau yn golygu y gallwn roi rhestr o ddogfennau i chi yn "
+"seiliedig ar eich amgylchiadau personol"
 
 #: grc/templates/document-checker/start.html:18
 msgid "You can have the list of documents sent to you by email at the end"
-msgstr ""
+msgstr "Gellir anfon y rhestr o ddogfennau atoch drwy e-bost ar y diwedd"
 
 #: grc/templates/document-checker/start.html:21
 msgid ""
 "This is not part of the application process and is designed only to help "
 "you prepare the documents you need before you start your application"
 msgstr ""
+"Nid yw hyn yn rhan o'r broses gwneud cais ac fe'i cynlluniwyd i'ch helpu i "
+"baratoi'r dogfennau sydd eu hangen arnoch cyn i chi ddechrau gwneud eich cais"
 
 #: grc/templates/document-checker/start.html:24
 msgid "We do not store any of the information you enter in this tool"
-msgstr ""
+msgstr "Nid ydym yn storio unrhyw wybodaeth rydych chi'n ei rhoi yn yr adnodd hwn"
 
 #: grc/templates/document-checker/start.html:27
 msgid "If you already have your documents ready you can"
-msgstr ""
+msgstr "Os oes gennych eich dogfennau eisoes yn barod, "
 
 #: grc/templates/document-checker/start.html:27
-#, fuzzy
 msgid "start your application"
-msgstr "Rhannu eich gwybodaeth"
+msgstr "gallwch ddechrau gwneud eich cais"
 
 #: grc/templates/document-checker/start.html:33
 msgid "Continue"
