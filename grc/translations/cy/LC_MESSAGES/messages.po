@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-11 13:45+0000\n"
+"POT-Creation-Date: 2024-03-11 14:33+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -403,6 +403,14 @@ msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
 #: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
 msgid "Cookies"
 msgstr "Cwyis"
+
+#: grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:16
+msgid "You’ve set your cookie preferences"
+msgstr ""
 
 #: grc/templates/policies/cookies.html:21
 msgid "GOV.UK Gender Recognition Certificate"
