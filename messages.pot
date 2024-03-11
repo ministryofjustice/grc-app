@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-11 13:45+0000\n"
+"POT-Creation-Date: 2024-03-11 14:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -340,6 +340,14 @@ msgstr ""
 
 #: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
 msgid "Cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:16
+msgid "You’ve set your cookie preferences"
 msgstr ""
 
 #: grc/templates/policies/cookies.html:21
