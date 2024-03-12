@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 10:01+0000\n"
+"POT-Creation-Date: 2024-03-12 10:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,6 +138,10 @@ msgstr ""
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 msgid "Back"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/error-summary.html:6
+msgid "There is a problem"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:3
