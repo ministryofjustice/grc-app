@@ -15,7 +15,7 @@ class PreviousNamesCheck(FlaskForm):
             (False, c.NO)
         ],
         validators=[LazyDataRequired(
-            lazy_message=_l('Select if you have ever changed your name to reflect your gender')
+            lazy_message=c.PREVIOUS_NAME_CHECK_ERROR
         )]
     )
 
