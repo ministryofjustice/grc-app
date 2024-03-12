@@ -14,9 +14,7 @@ class PreviousNamesCheck(FlaskForm):
             (True, c.YES),
             (False, c.NO)
         ],
-        validators=[LazyDataRequired(
-            lazy_message=c.PREVIOUS_NAME_CHECK_ERROR
-        )]
+        validators=[LazyDataRequired(lazy_message=c.PREVIOUS_NAME_CHECK_ERROR)]
     )
 
 
