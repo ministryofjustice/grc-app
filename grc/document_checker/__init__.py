@@ -89,16 +89,16 @@ def planToRemainInAPartnership():
 @documentChecker.route('/check-documents/previous-partnership-partner-died', methods=['GET', 'POST'])
 def previousPartnershipPartnerDied():
     form = PartnerDiedForm()
-    doc_checker_state = DocCheckerDataStore.load_doc_checker_state()
+    doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
 
     if form.validate_on_submit():
-        doc_checker_state.previous_partnership_partner_died = strtobool(form.previous_partnership_partner_died.data)
-        DocCheckerDataStore.save_doc_checker_state(doc_checker_state)
+        doc_checker_state_.previous_partnership_partner_died = strtobool(form.previous_partnership_partner_died.data)
+        DocCheckerDataStore.save_doc_checker_state(doc_checker_state_)
 
         return local_redirect(url_for('documentChecker.previousPartnershipEnded'))
 
     if request.method == 'GET':
-        form.previous_partnership_partner_died.data = doc_checker_state.previous_partnership_partner_died
+        form.previous_partnership_partner_died.data = doc_checker_state_.previous_partnership_partner_died
 
     return render_template(
         'document-checker/partner-died.html',
