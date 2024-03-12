@@ -2,6 +2,7 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
 {% block title %}{{ _('Have you ever changed your name to reflect your gender?') }}{% endblock %}
 
@@ -16,12 +17,12 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                If you have ever changed your name to reflect your gender
+                _('If you have ever changed your name to reflect your gender
             </h1>
 
             <p class="govuk-body">
-                You will need to send us documents that show this.
-                If you have changed your name more than once, we will need to see documents for each instance.
+                _('You will need to send us documents that show this.
+                _('If you have changed your name more than once, we will need to see documents for each instance.
             </p>
             <p class="govuk-body">
                 We ask for this so we can match your birth records after you receive a Gender Recognition Certificate.
@@ -47,11 +48,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Continue
-                    </button>
-                </div>
+                {{ continue.renderFor() }}
             </form>
 
         </div>
