@@ -38,13 +38,13 @@ def previousNamesCheck():
 @documentChecker.route('/check-documents/currently-in-a-partnership', methods=['GET', 'POST'])
 def currentlyInAPartnership():
     form = MarriageCivilPartnershipForm()
-    doc_checker_state = DocCheckerDataStore.load_doc_checker_state()
+    doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
 
     if form.validate_on_submit():
         doc_checker_state.currently_in_a_partnership = CurrentlyInAPartnershipEnum(form.currently_in_a_partnership.data)
-        DocCheckerDataStore.save_doc_checker_state(doc_checker_state)
+        DocCheckerDataStore.save_doc_checker_state(doc_checker_state_)
 
-        if doc_checker_state.is_currently_in_partnership:
+        if doc_checker_state_.is_currently_in_partnership:
             next_step = 'documentChecker.planToRemainInAPartnership'
         else:
             next_step = 'documentChecker.previousPartnershipPartnerDied'
@@ -53,8 +53,8 @@ def currentlyInAPartnership():
 
     if request.method == 'GET':
         form.currently_in_a_partnership.data = (
-            doc_checker_state.currently_in_a_partnership.name
-            if doc_checker_state.currently_in_a_partnership is not None
+            doc_checker_state_.currently_in_a_partnership.name
+            if doc_checker_state_.currently_in_a_partnership is not None
             else None
         )
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 10:20+0000\n"
+"POT-Creation-Date: 2024-03-12 12:45+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -27,8 +27,24 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+#: grc/business_logic/constants.py:6
+msgid "Married"
+msgstr "Wedi priodi"
+
+#: grc/business_logic/constants.py:7
+msgid "Civil partnership"
+msgstr "Mewn partneriaeth sifil"
+
 #: grc/business_logic/constants.py:8
+msgid "Neither"
+msgstr "Ddim un ohonynt"
+
+#: grc/business_logic/constants.py:11
 msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants.py:12
+msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -40,14 +56,31 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:419
+#: grc/utils/form_custom_validators.py:418
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:107
-#: grc/utils/form_custom_validators.py:424
+#: grc/utils/form_custom_validators.py:423
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:7
+#: grc/templates/document-checker/currently_in_a_partnership.html:25
+msgid "Are you currently married or in a civil partnership?"
+msgstr "Ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd?"
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:29
+msgid ""
+"Select your current legal status, even if you are planning to end your "
+"marriage or civil partnership."
+msgstr ""
+"Dewiswch eich statws cyfreithiol cyfredol, hyd yn oed os ydych yn bwriadu "
+"dod â'ch priodas neu bartneriaeth sifil i ben."
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:32
+msgid "or"
+msgstr "neu"
 
 #: grc/templates/document-checker/doc-checker-base.html:80
 msgid "Check documents needed to apply for a Gender Recognition Certificate"
