@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-11 15:35+0000\n"
+"POT-Creation-Date: 2024-03-12 10:20+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -18,6 +18,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
+
+#: grc/business_logic/constants.py:4
+msgid "Yes"
+msgstr ""
+
+#: grc/business_logic/constants.py:5
+msgid "No"
+msgstr ""
+
+#: grc/business_logic/constants.py:8
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
@@ -42,6 +54,53 @@ msgid "Check documents needed to apply for a Gender Recognition Certificate"
 msgstr ""
 "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
 "Rhywedd"
+
+#: grc/templates/document-checker/previous-names-check.html:7
+#: grc/templates/document-checker/previous-names-check.html:45
+msgid "Have you ever changed your name to reflect your gender?"
+msgstr "Ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd?"
+
+#: grc/templates/document-checker/previous-names-check.html:20
+msgid "If you have ever changed your name to reflect your gender"
+msgstr "Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
+
+#: grc/templates/document-checker/previous-names-check.html:24
+msgid "You will need to send us documents that show this"
+msgstr "Bydd angen i chi anfon dogfennau atom sy'n dangos hynny"
+
+#: grc/templates/document-checker/previous-names-check.html:25
+msgid ""
+"If you have changed your name more than once, we will need to see "
+"documents for each instance"
+msgstr ""
+"Os ydych wedi newid eich enw fwy nag unwaith, bydd angen i ni weld "
+"dogfennau ar gyfer pob achos"
+
+#: grc/templates/document-checker/previous-names-check.html:28
+msgid ""
+"We ask for this so we can match your birth records after you receive a "
+"Gender Recognition Certificate"
+msgstr ""
+"Gofynnwn am hyn fel y gallwn eu cyfateb i'ch cofnodion geni ar ôl i chi "
+"gael Tystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/document-checker/previous-names-check.html:31
+msgid "These documents are likely to be:"
+msgstr "Mae'r dogfennau hyn yn debygol o fod yn:"
+
+#: grc/templates/document-checker/previous-names-check.html:34
+msgid "deed poll documents, either enrolled or unenrolled"
+msgstr ""
+"dogfennau gweithred newid enw, naill ai wedi'u cofrestru neu heb eu "
+"cofrestru"
+
+#: grc/templates/document-checker/previous-names-check.html:35
+msgid "change of name documents (Scotland)"
+msgstr "dogfennau newid enw (Yr Alban)"
+
+#: grc/templates/document-checker/previous-names-check.html:36
+msgid "statutory declarations"
+msgstr "datganiadau statudol"
 
 #: grc/templates/document-checker/start.html:3
 #: grc/templates/document-checker/start.html:10
@@ -90,8 +149,18 @@ msgid "start your application"
 msgstr "gallwch ddechrau gwneud eich cais"
 
 #: grc/templates/document-checker/start.html:33
+#: grc/templates/govuk-design-system-templates/continue.html:4
 msgid "Continue"
 msgstr ""
+
+#: grc/templates/govuk-design-system-templates/back_link.html:2
+msgid "Back"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/error-summary.html:6
+#, fuzzy
+msgid "There is a problem"
+msgstr "Mae"
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
