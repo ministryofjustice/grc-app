@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 10:20+0000\n"
+"POT-Creation-Date: 2024-03-12 14:17+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -29,6 +29,12 @@ msgstr ""
 
 #: grc/business_logic/constants.py:8
 msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants.py:9
+msgid ""
+"Select if you ever been married or in a civil partnership where your "
+"spouse or partner died"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -54,6 +60,15 @@ msgid "Check documents needed to apply for a Gender Recognition Certificate"
 msgstr ""
 "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
 "Rhywedd"
+
+#: grc/templates/document-checker/partner-died.html:7
+#: grc/templates/document-checker/partner-died.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership where your spouse "
+"or partner died?"
+msgstr ""
+"Ydych chi erioed wedi bod mewn priodas neu bartneriaeth sifil lle bu farw"
+" eich priod neu'ch partner?"
 
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
