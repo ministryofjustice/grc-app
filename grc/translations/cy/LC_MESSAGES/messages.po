@@ -58,7 +58,7 @@ msgstr ""
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
 msgid "Have you ever changed your name to reflect your gender?"
-msgstr ""
+msgstr "Ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd?"
 
 #: grc/templates/document-checker/previous-names-check.html:20
 msgid "If you have ever changed your name to reflect your gender"
