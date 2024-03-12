@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 14:54+0000\n"
+"POT-Creation-Date: 2024-03-12 16:13+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -51,6 +51,12 @@ msgstr ""
 msgid ""
 "Select if you ever been married or in a civil partnership where your "
 "spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants.py:15
+msgid ""
+"Select if you have ever been married or in a civil partnership that has "
+"ended"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -149,6 +155,15 @@ msgstr "dogfennau newid enw (Yr Alban)"
 #: grc/templates/document-checker/previous-names-check.html:36
 msgid "statutory declarations"
 msgstr "datganiadau statudol"
+
+#: grc/templates/document-checker/previous-partnership-ended.html:7
+#: grc/templates/document-checker/previous-partnership-ended.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership that ended for "
+"another reason?"
+msgstr ""
+"Ydych chi erioed wedi bod mewn partneriaeth sifil neu briodas a ddaeth i "
+"ben am reswm arall?"
 
 #: grc/templates/document-checker/start.html:3
 #: grc/templates/document-checker/start.html:10
