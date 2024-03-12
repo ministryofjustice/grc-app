@@ -1,16 +1,21 @@
 from flask_wtf import FlaskForm
+from flask_babel import lazy_gettext as _l
 from wtforms import EmailField, RadioField
 from wtforms.validators import DataRequired, Email
 from grc.document_checker.doc_checker_state import CurrentlyInAPartnershipEnum
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 
 
 class PreviousNamesCheck(FlaskForm):
-    changed_name_to_reflect_gender = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    changed_name_to_reflect_gender = LazyRadioField(
+        lazy_choices=[
+            (True, _l('Yes')),
+            (False, _l('No'))
         ],
-        validators=[DataRequired(message='Select if you have ever changed your name to reflect your gender')]
+        validators=[LazyDataRequired(
+            lazy_message=_l('Select if you have ever changed your name to reflect your gender')
+        )]
     )
 
 

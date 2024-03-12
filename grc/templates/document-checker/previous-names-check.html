@@ -1,11 +1,12 @@
 {% extends 'document-checker/doc-checker-base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
 
-{% block title %}Have you ever changed your name to reflect your gender?{% endblock %}
+{% block title %}{{ _('Have you ever changed your name to reflect your gender?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('documentChecker.index') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('documentChecker.index') }}
 {% endblock %}
 
 {% block content %}
