@@ -39,12 +39,12 @@ class PlanToRemainInAPartnershipForm(FlaskForm):
 
 
 class PartnerDiedForm(FlaskForm):
-    previous_partnership_partner_died = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    previous_partnership_partner_died = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you ever been married or in a civil partnership where your spouse or partner died')]
+        validators=[LazyDataRequired(lazy_message=c.PREVIOUS_PARTNER_DIED_ERROR)]
     )
 
 

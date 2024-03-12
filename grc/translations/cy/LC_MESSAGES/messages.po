@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 12:45+0000\n"
+"POT-Creation-Date: 2024-03-12 14:54+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -47,6 +47,12 @@ msgstr ""
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
+#: grc/business_logic/constants.py:13
+msgid ""
+"Select if you ever been married or in a civil partnership where your "
+"spouse or partner died"
+msgstr ""
+
 #: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
 msgstr ""
@@ -75,8 +81,8 @@ msgid ""
 "Select your current legal status, even if you are planning to end your "
 "marriage or civil partnership."
 msgstr ""
-"Dewiswch eich statws cyfreithiol cyfredol, hyd yn oed os ydych yn bwriadu "
-"dod â'ch priodas neu bartneriaeth sifil i ben."
+"Dewiswch eich statws cyfreithiol cyfredol, hyd yn oed os ydych yn bwriadu"
+" dod â'ch priodas neu bartneriaeth sifil i ben."
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:32
 msgid "or"
@@ -87,6 +93,15 @@ msgid "Check documents needed to apply for a Gender Recognition Certificate"
 msgstr ""
 "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
 "Rhywedd"
+
+#: grc/templates/document-checker/partner-died.html:7
+#: grc/templates/document-checker/partner-died.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership where your spouse "
+"or partner died?"
+msgstr ""
+"Ydych chi erioed wedi bod mewn priodas neu bartneriaeth sifil lle bu farw"
+" eich priod neu'ch partner?"
 
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
