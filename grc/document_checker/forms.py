@@ -1,27 +1,30 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField, RadioField
 from wtforms.validators import DataRequired, Email
+from grc.business_logic import constants as c
 from grc.document_checker.doc_checker_state import CurrentlyInAPartnershipEnum
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 
 
 class PreviousNamesCheck(FlaskForm):
-    changed_name_to_reflect_gender = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    changed_name_to_reflect_gender = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have ever changed your name to reflect your gender')]
+        validators=[LazyDataRequired(lazy_message=c.PREVIOUS_NAME_CHECK_ERROR)]
     )
 
 
 class MarriageCivilPartnershipForm(FlaskForm):
-    currently_in_a_partnership = RadioField(
-        choices=[
-            (CurrentlyInAPartnershipEnum.MARRIED.name, 'Married'),
-            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, 'Civil partnership'),
-            (CurrentlyInAPartnershipEnum.NEITHER.name, 'Neither')
+    currently_in_a_partnership = LazyRadioField(
+        lazy_choices=[
+            (CurrentlyInAPartnershipEnum.MARRIED.name, c.MARRIED),
+            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, c.CIVIL_PARTNERSHIP),
+            (CurrentlyInAPartnershipEnum.NEITHER.name, c.NEITHER)
         ],
-        validators=[DataRequired(message='Select if you are currently married or in a civil partnership')]
+        validators=[LazyDataRequired(lazy_message=c.CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 
