@@ -109,16 +109,16 @@ def previousPartnershipPartnerDied():
 @documentChecker.route('/check-documents/previous-partnership-ended', methods=['GET', 'POST'])
 def previousPartnershipEnded():
     form = PreviousPartnershipEndedForm()
-    doc_checker_state = DocCheckerDataStore.load_doc_checker_state()
+    doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
 
     if form.validate_on_submit():
-        doc_checker_state.previous_partnership_ended = strtobool(form.previous_partnership_ended.data)
-        DocCheckerDataStore.save_doc_checker_state(doc_checker_state)
+        doc_checker_state_.previous_partnership_ended = strtobool(form.previous_partnership_ended.data)
+        DocCheckerDataStore.save_doc_checker_state(doc_checker_state_)
 
         return local_redirect(url_for('documentChecker.genderRecognitionOutsideUK'))
 
     if request.method == 'GET':
-        form.previous_partnership_ended.data = doc_checker_state.previous_partnership_ended
+        form.previous_partnership_ended.data = doc_checker_state_.previous_partnership_ended
 
     return render_template(
         'document-checker/previous-partnership-ended.html',
