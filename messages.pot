@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-13 09:41+0000\n"
+"POT-Creation-Date: 2024-03-13 11:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,20 +38,32 @@ msgid "Neither"
 msgstr ""
 
 #: grc/business_logic/constants.py:10
-msgid "Select if you have ever changed your name to reflect your gender"
+msgid ""
+"Do you plan to remain married after you receive your Gender Recognition "
+"Certificate?"
 msgstr ""
 
 #: grc/business_logic/constants.py:11
+msgid ""
+"Do you plan to remain in your civil partnership after you receive your "
+"Gender Recognition Certificate?"
+msgstr ""
+
+#: grc/business_logic/constants.py:15
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants.py:16
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:12
+#: grc/business_logic/constants.py:17
 msgid ""
 "Select if you ever been married or in a civil partnership where your "
 "spouse or partner died"
 msgstr ""
 
-#: grc/business_logic/constants.py:14
+#: grc/business_logic/constants.py:19
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
@@ -61,6 +73,18 @@ msgstr ""
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
+msgstr ""
+
+#: grc/business_logic/constants.py:21
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
+#: grc/business_logic/constants.py:23
+msgid ""
+"Select if you plan to remain married after receiving your Gender "
+"Recognition Certificate"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39

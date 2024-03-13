@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for
+from grc.business_logic import constants as c
 from grc.document_checker.doc_checker_data_store import DocCheckerDataStore
 from grc.document_checker.doc_checker_state import DocCheckerState, CurrentlyInAPartnershipEnum
 from grc.document_checker.forms import PreviousNamesCheck, MarriageCivilPartnershipForm, PlanToRemainInAPartnershipForm, \
@@ -76,13 +77,14 @@ def planToRemainInAPartnership():
 
         return local_redirect(url_for('documentChecker.genderRecognitionOutsideUK'))
 
-    if request.method == 'GET':
-        form.plan_to_remain_in_a_partnership.data = doc_checker_state_.plan_to_remain_in_a_partnership
+    form.plan_to_remain_in_a_partnership.data = doc_checker_state_.plan_to_remain_in_a_partnership
+
+    question = c.PLAN_TO_REMAIN_MARRIED if doc_checker_state_.is_married else c.PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP
 
     return render_template(
         'document-checker/plan-to-remain-in-a-partnership.html',
         form=form,
-        doc_checker_state=doc_checker_state_
+        question=question
     )
 
 
