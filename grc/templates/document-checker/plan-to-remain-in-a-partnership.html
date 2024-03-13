@@ -1,14 +1,13 @@
 {% extends 'document-checker/doc-checker-base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% set inYourPartnershipName = 'married'
-       if doc_checker_state.is_married
-       else 'in your civil partnership' %}
-{% block title %}Do you plan to remain {{ inYourPartnershipName }} after you receive your Gender Recognition Certificate?{% endblock %}
+{% block title %}{{ question }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('documentChecker.currentlyInAPartnership') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('documentChecker.currentlyInAPartnership') }}
 {% endblock %}
 
 {% block content %}
@@ -23,17 +22,13 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='plan_to_remain_in_a_partnership',
-                    question="Do you plan to remain " + inYourPartnershipName + " after you receive your Gender Recognition Certificate?",
+                    question={{ question }},
                     radiosOptions={
                         'questionIsPageHeading': true
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Continue
-                    </button>
-                </div>
+                {{ continue.renderFor() }}
             </form>
 
         </div>
