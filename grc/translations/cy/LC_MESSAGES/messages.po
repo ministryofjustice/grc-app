@@ -87,6 +87,12 @@ msgid ""
 "Recognition Certificate"
 msgstr ""
 
+#: grc/business_logic/constants.py:16
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
 #: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
 msgstr ""

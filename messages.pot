@@ -69,6 +69,12 @@ msgid ""
 "ended"
 msgstr ""
 
+#: grc/business_logic/constants.py:16
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
 #: grc/business_logic/constants.py:21
 msgid ""
 "Select if you have received gender recognition in one of these countries "
