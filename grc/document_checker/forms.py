@@ -59,12 +59,12 @@ class PreviousPartnershipEndedForm(FlaskForm):
 
 
 class GenderRecognitionOutsideUKForm(FlaskForm):
-    gender_recognition_outside_uk = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    gender_recognition_outside_uk = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have received gender recognition in one of these countries or territories')]
+        validators=[LazyDataRequired(lazy_message=c.GENDER_RECOGNITION_IN_COUNTRY_ERROR)]
     )
 
 
