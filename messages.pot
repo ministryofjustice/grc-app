@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 15:27+0000\n"
+"POT-Creation-Date: 2024-03-12 16:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,6 +49,12 @@ msgstr ""
 msgid ""
 "Select if you ever been married or in a civil partnership where your "
 "spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants.py:15
+msgid ""
+"Select if you have ever been married or in a civil partnership that has "
+"ended"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -134,6 +140,13 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:36
 msgid "statutory declarations"
+msgstr ""
+
+#: grc/templates/document-checker/previous-partnership-ended.html:7
+#: grc/templates/document-checker/previous-partnership-ended.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership that ended for "
+"another reason?"
 msgstr ""
 
 #: grc/templates/document-checker/start.html:3

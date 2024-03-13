@@ -12,3 +12,5 @@ PREVIOUS_NAME_CHECK_ERROR = _l('Select if you have ever changed your name to ref
 CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR = _l('Select if you are currently married or in a civil partnership')
 PREVIOUS_PARTNER_DIED_ERROR = _l('Select if you ever been married or in a civil partnership where '
                                  'your spouse or partner died')
+MARRIED_OR_CIVIL_PARTNERSHIP_ENDED_ERROR = _l('Select if you have ever been married or in a '
+                                              'civil partnership that has ended')
