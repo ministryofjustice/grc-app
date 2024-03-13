@@ -29,12 +29,12 @@ class MarriageCivilPartnershipForm(FlaskForm):
 
 
 class PlanToRemainInAPartnershipForm(FlaskForm):
-    plan_to_remain_in_a_partnership = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    plan_to_remain_in_a_partnership = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you plan to remain married after receiving your Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.PLAN_TO_REMAIN_MARRIED_ERROR)]
     )
 
 
