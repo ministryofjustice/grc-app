@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 14:54+0000\n"
+"POT-Creation-Date: 2024-03-12 15:27+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -209,6 +209,368 @@ msgstr ""
 #, fuzzy
 msgid "There is a problem"
 msgstr "Mae"
+
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr "Datganiadau academaidd"
+
+#: grc/templates/policies/accessibility-statement.html:10
+msgid ""
+"Accessibility statement for Gender Recognition Certificate application "
+"service"
+msgstr ""
+"Datganiad hygyrchedd ar gyfer y gwasanaeth gwneud cais am Dystysgrif "
+"Cydnabod Rhywedd"
+
+#: grc/templates/policies/accessibility-statement.html:13
+msgid ""
+"We want everyone to be able to do what they need to do with our website, "
+"regardless of any access needs due to a disability or condition"
+msgstr ""
+"Rydym eisiau i bawb allu gwneud yr hyn sydd angen iddynt ei wneud gyda’n "
+"gwefan, boed unrhyw anghenion mynediad oherwydd anabledd neu gyflwr"
+
+#: grc/templates/policies/accessibility-statement.html:17
+msgid ""
+"A detailed accessibility statement about the Gender Recognition "
+"Certificate application service"
+msgstr ""
+"Datganiad hygyrchedd manwl am y gwasanaeth gwneud cais am Dystysgrif "
+"Cydnabod Rhywedd"
+
+#: grc/templates/policies/accessibility-statement.html:20
+msgid "This page describes:"
+msgstr "Mae’r dudalen hon yn disgrifio:"
+
+#: grc/templates/policies/accessibility-statement.html:23
+msgid "how accessible our website is"
+msgstr "pa mor hygyrch yw ein gwefan"
+
+#: grc/templates/policies/accessibility-statement.html:24
+msgid "what to do if you have a problem"
+msgstr "beth i’w wneud os oes gennych broblem"
+
+#: grc/templates/policies/accessibility-statement.html:25
+msgid "what we are doing to meet the regulations"
+msgstr "beth rydym yn ei wneud i fodloni'r rheoliadau"
+
+#: grc/templates/policies/accessibility-statement.html:28
+msgid ""
+"This accessibility statement applies to the Gender Recognition "
+"Certificate application service and document checker"
+msgstr ""
+"Mae’r datganiad hygyrchedd hwn yn berthnasol i’r gwasanaeth gwneud cais "
+"am Dystysgrif Cydnabod Rhywedd a’r gwiriwr dogfennau"
+
+#: grc/templates/policies/accessibility-statement.html:29
+msgid ""
+"It does not apply to the guidance about Gender Recognition Certificates "
+"on GOV.UK"
+msgstr ""
+"Nid yw'n berthnasol i'r canllawiau ynghylch Tystysgrifau Cydnabod Rhywedd"
+" ar GOV.UK"
+
+#: grc/templates/policies/accessibility-statement.html:33
+msgid "Using our website and services"
+msgstr "Defnyddio ein gwefan a'n gwasanaethau"
+
+#: grc/templates/policies/accessibility-statement.html:36
+msgid "This service is run by the Government Equalities Office"
+msgstr ""
+"Mae’r gwasanaeth hwn yn cael ei gynnal gan Swyddfa Cydraddoldeb y "
+"Llywodraeth"
+
+#: grc/templates/policies/accessibility-statement.html:37
+msgid "We want as many people as possible to be able to use this website"
+msgstr "Rydym eisiau i gymaint o bobl â phosibl allu ei defnyddio"
+
+#: grc/templates/policies/accessibility-statement.html:38
+msgid "For example, that means you should be able to:"
+msgstr "Er enghraifft, golyga hyn y dylech allu:"
+
+#: grc/templates/policies/accessibility-statement.html:41
+#, python-format
+msgid "zoom in up to 300%% without problems"
+msgstr "Chwyddo’r dudalen hyd at 300%% heb broblemau"
+
+#: grc/templates/policies/accessibility-statement.html:42
+msgid "navigate most of the website using just a keyboard"
+msgstr "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio bysellfwrdd yn unig"
+
+#: grc/templates/policies/accessibility-statement.html:43
+msgid "navigate most of the website using speech recognition software"
+msgstr "mynd drwy'r rhan fwyaf o'r wefan gan ddefnyddio meddalwedd adnabod llais"
+
+#: grc/templates/policies/accessibility-statement.html:44
+msgid ""
+"use most of the website using a screen reader (including the most recent "
+"versions of JAWS, NVDA and VoiceOver)"
+msgstr ""
+"defnyddio’r rhan fwyaf o’r wefan gan ddefnyddio darllenydd sgrin (gan "
+"gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)"
+
+#: grc/templates/policies/accessibility-statement.html:47
+msgid "We have also made the website text as simple as possible to understand"
+msgstr "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan"
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "AbilityNet (opens in a new tab)"
+msgstr "Mae gan AbilityNet (agor mewn ffenestr newydd)"
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "has advice on making your device easier to use if you have a disability"
+msgstr "gyngor ar wneud eich dyfais yn haws i’w defnyddio os oes gennych anabledd"
+
+#: grc/templates/policies/accessibility-statement.html:54
+msgid "How accessible this website is"
+msgstr "Pa mor hygyrch yw'r wefan hon"
+
+#: grc/templates/policies/accessibility-statement.html:57
+msgid ""
+"We aim to meet international accessibility guidelines, however this may "
+"not always be possible, or we may have missed a problem"
+msgstr ""
+"Ein nod yw bodloni canllawiau hygyrchedd rhyngwladol, ond efallai na fydd"
+" hyn bob amser yn bosibl, neu efallai ein bod wedi methu problem mewn "
+"camgymeriad"
+
+#: grc/templates/policies/accessibility-statement.html:60
+msgid "We know some parts of this website are not fully accessible"
+msgstr "Gwyddwn nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch"
+
+#: grc/templates/policies/accessibility-statement.html:64
+msgid ""
+"most older PDF documents that are linked to from this website are not "
+"fully accessible to screen reader software"
+msgstr ""
+"nid yw’r rhan fwyaf o ddogfennau PDF hŷn a geir o'r wefan hon yn gwbl "
+"hygyrch i feddalwedd darllenydd sgrin"
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid ""
+"some GOV.UK Pay pages are not accessible, but we do not manage these "
+"pages – see the"
+msgstr ""
+"nid yr rhai tudalennau GOV.UK Pay yn hygyrch, ond nid ydym yn rheoli’r "
+"tudalennau hyn –"
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "GOV.UK Pay accessibility statement (opens in a new tab)"
+msgstr "gweler y datganiad hygyrchedd GOV.UK Pay (yn agor mewn tab newydd)"
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "for more information"
+msgstr "am fwy o wybodaeth"
+
+#: grc/templates/policies/accessibility-statement.html:71
+msgid "We are working to fix the issue with inaccessible PDFs"
+msgstr "Rydym yn gweithio i ddatrys y broblem gyda PDFs anhygyrch"
+
+#: grc/templates/policies/accessibility-statement.html:75
+msgid "What to do if you cannot access parts of this website"
+msgstr "Beth i'w wneud os na allwch ddefnyddio rhai rhannau o'r wefan hon"
+
+#: grc/templates/policies/accessibility-statement.html:78
+msgid ""
+"If you need information on this website in a different format like "
+"accessible PDF, large print, easy read, audio recording or braille, "
+"contact"
+msgstr ""
+"Os ydych angen gwybodaeth sydd ar y wefan hon mewn fformat arall megis ar"
+" ffurf PDF hygyrch, print bras, fformat hawdd ei ddeall, recordiad sain "
+"neu braille, cysylltwch â"
+
+#: grc/templates/policies/accessibility-statement.html:82
+msgid "We will consider your request and get back to you within 5 working days"
+msgstr "Byddwn yn ystyried eich cais ac yn ymateb o fewn 5 diwrnod gwaith"
+
+#: grc/templates/policies/accessibility-statement.html:86
+msgid "Reporting accessibility problems with this website"
+msgstr "Riportio problemau hygyrchedd gyda'r wefan hon"
+
+#: grc/templates/policies/accessibility-statement.html:89
+msgid "We are always looking to improve the accessibility of this website"
+msgstr "Rydym o hyd yn ceisio gwella hygyrchedd y wefan hon"
+
+#: grc/templates/policies/accessibility-statement.html:90
+msgid ""
+"If you find any problems not listed on this page, or think we are not "
+"meeting accessibility requirements, contact"
+msgstr ""
+"Os byddwch yn dod ar draws unrhyw broblem sydd heb ei chynnwys ar y "
+"dudalen hon, neu’n credu nad ydym yn bodloni’r gofynion o ran hygyrchedd,"
+" cysylltwch â"
+
+#: grc/templates/policies/accessibility-statement.html:95
+msgid "Enforcement procedure"
+msgstr "Y Weithdrefn Orfodi"
+
+#: grc/templates/policies/accessibility-statement.html:98
+msgid ""
+"The Equality and Human Rights Commission (EHRC) is responsible for "
+"enforcing the Public Sector Bodies (Websites and Mobile Applications) "
+"(No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)"
+msgstr ""
+"Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi "
+"Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni "
+"Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’)"
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "If you’re not happy with how we respond to your complaint, contact the"
+msgstr ""
+"Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, "
+"cysylltwch â’r"
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "Equality Advisory and Support Service (EASS) (opens in a new tab)"
+msgstr "Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (agor mewn tab newydd)"
+
+#: grc/templates/policies/accessibility-statement.html:103
+msgid "Technical information about this website’s accessibility"
+msgstr "Gwybodaeth dechnegol am hygyrchedd y wefan hon"
+
+#: grc/templates/policies/accessibility-statement.html:106
+msgid ""
+"The Government Equalities Office is committed to making its website "
+"accessible, in accordance with the Public Sector Bodies (Websites and "
+"Mobile Applications) (No. 2) Accessibility Regulations 2018"
+msgstr ""
+"Mae Swyddfa Cydraddoldeb y Llywodraeth wedi ymrwymo i sicrhau bod ei "
+"wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y "
+"Sector Gyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018"
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "This website is partially compliant with the"
+msgstr "Mae’r wefan hon yn cydymffurfio’n rhannol â safon"
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
+msgstr ""
+" AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 (yn agor mewn tab "
+"newydd)"
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid " AA standard, due to ‘the non-compliances’, listed below"
+msgstr ""
+", a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir "
+"isod"
+
+#: grc/templates/policies/accessibility-statement.html:113
+msgid "Non-accessible content"
+msgstr "Cynnwys anhygyrch"
+
+#: grc/templates/policies/accessibility-statement.html:116
+msgid "The content listed below is not accessible for the following reasons"
+msgstr "Nid yw’r cynnwys a restrir isod yn hygyrch am y rhesymau canlynol"
+
+#: grc/templates/policies/accessibility-statement.html:120
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions – this makes it difficult for people with screen readers to "
+"use them"
+msgstr ""
+"Nid yw PDFs datganiad statudol wedi’u marcio â thagiau na disgrifiadau "
+"testun – mae hyn yn ei gwneud hi’n anodd i bobl sydd â darllenwyr sgrin "
+"i’w defnyddio"
+
+#: grc/templates/policies/accessibility-statement.html:125
+msgid "Non-compliance with the accessibility regulations"
+msgstr "Diffyg cydymffurfio â’r rheoliadau hygyrchedd"
+
+#: grc/templates/policies/accessibility-statement.html:128
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions"
+msgstr ""
+"Nid yw PDFs datganiad statudol wedi’u marcio â thagiau neu ddisgrifiadau "
+"testun"
+
+#: grc/templates/policies/accessibility-statement.html:129
+msgid "This makes it difficult for people with screen readers to use them"
+msgstr ""
+"Mae hyn yn ei gwneud hi’n anodd i bobl sydd â darllenwyr sgrin i’w "
+"defnyddio"
+
+#: grc/templates/policies/accessibility-statement.html:132
+msgid "We are aware of these issues and are working to fix them"
+msgstr "Rydym yn ymwybodol o’r problemau hyn ac yn gweithio i’w datrys"
+
+#: grc/templates/policies/accessibility-statement.html:136
+msgid "Disproportionate burden"
+msgstr "Baich anghymesur"
+
+#: grc/templates/policies/accessibility-statement.html:139
+msgid ""
+"We have not yet identified a part of the service where it would be a "
+"disproportionate burden on the Government Equalities Office to resolve "
+"the non-compliance"
+msgstr ""
+"Nid ydym eto wedi cydnabod rhan o’r gwasanaeth lle byddai’n faich "
+"anghymesur ar Swyddfa Cydraddoldeb y Llywodraeth i ddatrys yr achosion o "
+"ddiffyg cydymffurfio"
+
+#: grc/templates/policies/accessibility-statement.html:140
+msgid ""
+"If this becomes the case, we will publish full details here explaining "
+"our decision"
+msgstr ""
+"Os daw hyn yn wir, byddwn yn cyhoeddi manylion llawn yma yn egluro ein "
+"penderfyniad"
+
+#: grc/templates/policies/accessibility-statement.html:144
+msgid "How we tested"
+msgstr "Sut wnaethon ni gynnal profion"
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid ""
+"Testing has been conducted internally by Government Equalities Office "
+"staff and externally audited by the"
+msgstr ""
+"Cynhaliwyd profion yn fewnol gan staff Swyddfa Cydraddoldeb y Llywodraeth"
+" a’u harchwilio’n allanol gan y"
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid "Digital Accessibility Centre (opens in a new tab)"
+msgstr "Ganolfan Hygyrchedd Digidol (yn agor mewn tab newydd)"
+
+#: grc/templates/policies/accessibility-statement.html:148
+#: grc/templates/policies/accessibility-statement.html:167
+msgid ""
+"Where they have been checked for compliance, it has been against WCAG 2.1"
+" AA"
+msgstr ""
+"Lle cawsant eu gwirio am gydymffurfiaeth, mae wedi bod yn erbyn WCAG 2.1 "
+"AA"
+
+#: grc/templates/policies/accessibility-statement.html:152
+msgid "What we are doing to improve accessibility"
+msgstr "Beth rydym yn ei wneud i wella hygyrchedd"
+
+#: grc/templates/policies/accessibility-statement.html:155
+msgid "We are working to fix any parts of the service which are not accessible"
+msgstr ""
+"Rydym yn gweithio i fynd i’r afael ag unrhyw rannau o'r gwasanaeth nad "
+"ydynt yn hygyrch"
+
+#: grc/templates/policies/accessibility-statement.html:159
+msgid "Preparation of this accessibility statement"
+msgstr "Paratoi’r datganiad hygyrchedd hwn"
+
+#: grc/templates/policies/accessibility-statement.html:162
+msgid ""
+"This statement was prepared on 7th June 2022. It was last reviewed on 7th"
+" June 2022"
+msgstr ""
+"Paratowyd y datganiad hwn ar 7 Mehefin 2022. Adolygwyd ddiwethaf ar 7 "
+"Mehefin 2022"
+
+#: grc/templates/policies/accessibility-statement.html:165
+msgid "This website was last tested on 26th May 2022"
+msgstr "Profwyd y wefan hon ddiwethaf ar 26 Mai 2022"
+
+#: grc/templates/policies/accessibility-statement.html:166
+msgid "The test was carried out by the Digital Accessibility Centre"
+msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
