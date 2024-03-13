@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-12 16:13+0000\n"
+"POT-Creation-Date: 2024-03-13 09:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
 
-#: grc/business_logic/constants.py:4
+#: grc/business_logic/constants.py:3
 msgid "Yes"
 msgstr ""
 
-#: grc/business_logic/constants.py:5
+#: grc/business_logic/constants.py:4
 msgid "No"
 msgstr ""
 
-#: grc/business_logic/constants.py:6
+#: grc/business_logic/constants.py:5
 msgid "Married"
 msgstr ""
 
-#: grc/business_logic/constants.py:7
+#: grc/business_logic/constants.py:6
 msgid "Civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:8
+#: grc/business_logic/constants.py:7
 msgid "Neither"
 msgstr ""
 
-#: grc/business_logic/constants.py:11
+#: grc/business_logic/constants.py:10
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr ""
 
-#: grc/business_logic/constants.py:12
+#: grc/business_logic/constants.py:11
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:13
+#: grc/business_logic/constants.py:12
 msgid ""
 "Select if you ever been married or in a civil partnership where your "
 "spouse or partner died"
 msgstr ""
 
-#: grc/business_logic/constants.py:15
+#: grc/business_logic/constants.py:14
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
+msgstr ""
+
+#: grc/business_logic/constants.py:16
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -92,6 +98,193 @@ msgstr ""
 
 #: grc/templates/document-checker/doc-checker-base.html:80
 msgid "Check documents needed to apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:7
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:23
+msgid "Gender recognition outside of the UK"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:27
+msgid ""
+"Some people may have already received gender recognition outside of the "
+"UK."
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:30
+msgid ""
+"The documents you need to provide are different if you have received "
+"gender recognition in a country or territory from this list:"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:33
+msgid "Australia – not including the external territories"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:34
+msgid "Austria"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:35
+msgid "Belgium"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:36
+msgid "Bulgaria"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:37
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:38
+msgid "Croatia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:39
+msgid "Cyprus"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:40
+msgid "Czech Republic"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:41
+msgid "Denmark"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:42
+msgid "Estonia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:43
+msgid "Finland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:44
+msgid "France"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:45
+msgid "Germany"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:46
+msgid "Greece"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:47
+msgid "Iceland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:48
+msgid "Italy"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:49
+msgid "Japan"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:50
+msgid "Liechtenstein"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:51
+msgid "Luxembourg"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:52
+msgid "Malta"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:53
+msgid "Federal District of Mexico"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:54
+msgid "Moldova"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:55
+msgid "Netherlands"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:56
+msgid "New Zealand"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:57
+msgid "Norway"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:58
+msgid "Poland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:59
+msgid "Romania"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:60
+msgid "Russian Federation"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:61
+msgid "Serbia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:62
+msgid "Singapore"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:63
+msgid "Slovakia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:64
+msgid "Slovenia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:65
+msgid "South Africa"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:66
+msgid "South Korea"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:67
+msgid "Spain"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:68
+msgid "Sweden"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:69
+msgid "Switzerland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:70
+msgid "Turkey"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:71
+msgid "Ukraine"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:72
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:73
+msgid "Uruguay"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:82
+msgid ""
+"Have you received gender recognition in one of these countries or "
+"territories?"
 msgstr ""
 
 #: grc/templates/document-checker/partner-died.html:7
