@@ -101,7 +101,7 @@ jobs:
           name: Install Playwright and browsers
           command: |
             . venv/bin/activate
-            pip install playwright==1.41.2 pytest-playwright asyncio pytest-html
+            pip install playwright pytest-playwright asyncio pytest-html
             pip install -e .
             python -m playwright install --with-deps
       - run:
