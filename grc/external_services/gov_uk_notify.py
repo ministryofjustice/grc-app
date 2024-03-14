@@ -51,44 +51,11 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
-    def send_email_documents_you_need_for_your_grc_application(
-            self,
-            email_address: str,
-            need_to_send_name_change_documents: bool,
-            need_to_send_medical_reports: bool,
-            need_to_send_evidence_of_living_in_gender: bool,
-            need_to_send_statutory_declaration_for_single_applicant: bool,
-            need_to_send_statutory_declaration_for_married_applicant: bool,
-            need_to_send_statutory_declaration_for_applicant_in_civil_partnership: bool,
-            need_to_send_spouses_statutory_declaration: bool,
-            need_to_send_civil_partners_statutory_declaration: bool,
-            need_to_send_marriage_certificate: bool,
-            need_to_send_civil_partnership_certificate: bool,
-            need_to_send_death_certificate: bool,
-            need_to_send_decree_absolute: bool,
-            need_to_send_proof_gender_recognised_outside_uk: bool
-    ):
-        personalisation = {
-            'need_to_send_name_change_documents': need_to_send_name_change_documents,
-            'need_to_send_medical_reports': need_to_send_medical_reports,
-            'need_to_send_evidence_of_living_in_gender': need_to_send_evidence_of_living_in_gender,
-            'need_to_send_statutory_declaration_for_single_applicant': need_to_send_statutory_declaration_for_single_applicant,
-            'need_to_send_statutory_declaration_for_married_applicant': need_to_send_statutory_declaration_for_married_applicant,
-            'need_to_send_statutory_declaration_for_applicant_in_civil_partnership': need_to_send_statutory_declaration_for_applicant_in_civil_partnership,
-            'need_to_send_spouses_statutory_declaration': need_to_send_spouses_statutory_declaration,
-            'need_to_send_civil_partners_statutory_declaration': need_to_send_civil_partners_statutory_declaration,
-            'need_to_send_marriage_certificate': need_to_send_marriage_certificate,
-            'need_to_send_civil_partnership_certificate': need_to_send_civil_partnership_certificate,
-            'need_to_send_death_certificate': need_to_send_death_certificate,
-            'need_to_send_decree_absolute': need_to_send_decree_absolute,
-            'need_to_send_proof_gender_recognised_outside_uk': need_to_send_proof_gender_recognised_outside_uk,
-        }
-
+    def send_email_documents_you_need_for_your_grc_application(self, email_address: str, documents_required: dict):
         return self.send_email(
             email_address=email_address,
             template_id='a992b8c5-17e6-4dca-820c-5aa4bdd67b58',
-            personalisation=personalisation
+            personalisation=documents_required
         )
 
 
@@ -158,7 +125,6 @@ class GovUkNotify:
             template_id='0ff48a4c-601e-4cc1-b6c6-30bac012c259',
             personalisation=personalisation
         )
-
 
     def send_email(self, email_address: str, template_id: str, personalisation: dict):
         if personalisation is None:
