@@ -1,4 +1,4 @@
-from flask import current_app, render_template_string
+from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
 from grc.utils.config_helper import ConfigHelper
 
@@ -125,7 +125,6 @@ class GovUkNotify:
             template_id='0ff48a4c-601e-4cc1-b6c6-30bac012c259',
             personalisation=personalisation
         )
-
 
     def send_email(self, email_address: str, template_id: str, personalisation: dict):
         if personalisation is None:
