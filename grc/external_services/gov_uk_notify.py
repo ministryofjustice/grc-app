@@ -51,12 +51,7 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-    def send_email_documents_you_need_for_your_grc_application(
-            self,
-            email_address: str,
-            documents_required: dict
-    ):
-
+    def send_email_documents_you_need_for_your_grc_application(self, email_address: str, documents_required: dict):
         return self.send_email(
             email_address=email_address,
             template_id='a992b8c5-17e6-4dca-820c-5aa4bdd67b58',
