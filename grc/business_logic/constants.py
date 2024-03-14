@@ -22,3 +22,5 @@ GENDER_RECOGNITION_IN_COUNTRY_ERROR = _l(
     'Select if you have received gender recognition in one of these countries or territories')
 PLAN_TO_REMAIN_MARRIED_ERROR = _l(
     'Select if you plan to remain married after receiving your Gender Recognition Certificate')
+NO_EMAIL_ADDRESS_ERROR = _l('Enter your email address')
+EMAIL_ADDRESS_INVALID_ERROR = _l('Enter a valid email address')

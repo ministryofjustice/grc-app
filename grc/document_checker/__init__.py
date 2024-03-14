@@ -42,7 +42,8 @@ def currentlyInAPartnership():
     doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
 
     if form.validate_on_submit():
-        doc_checker_state_.currently_in_a_partnership = CurrentlyInAPartnershipEnum(form.currently_in_a_partnership.data)
+        doc_checker_state_.currently_in_a_partnership = CurrentlyInAPartnershipEnum(
+            form.currently_in_a_partnership.data)
         DocCheckerDataStore.save_doc_checker_state(doc_checker_state_)
 
         if doc_checker_state_.is_currently_in_partnership:
@@ -172,41 +173,10 @@ def askForEmailAddress():
 
     if form.validate_on_submit():
         try:
+            docs_required_dict: dict = doc_checker_state_.get_list_of_documents_required_values()
             GovUkNotify().send_email_documents_you_need_for_your_grc_application(
-                email_address=
-                    form.email_address.data,
-                need_to_send_name_change_documents=
-                    doc_checker_state_.need_to_send_name_change_documents,
-                need_to_send_medical_reports=
-                    doc_checker_state_.need_to_send_medical_reports,
-                need_to_send_evidence_of_living_in_gender=
-                    doc_checker_state_.need_to_send_evidence_of_living_in_gender,
-                need_to_send_statutory_declaration_for_single_applicant=
-                    doc_checker_state_.need_to_send_statutory_declaration_for_single_applicant,
-                need_to_send_statutory_declaration_for_married_applicant=
-                    doc_checker_state_.need_to_send_statutory_declaration_for_applicant_in_partnership and
-                    doc_checker_state_.is_married,
-                need_to_send_statutory_declaration_for_applicant_in_civil_partnership=
-                    doc_checker_state_.need_to_send_statutory_declaration_for_applicant_in_partnership and
-                    doc_checker_state_.is_in_civil_partnership,
-                need_to_send_spouses_statutory_declaration=
-                    doc_checker_state_.need_to_send_partners_statutory_declaration and
-                    doc_checker_state_.is_married,
-                need_to_send_civil_partners_statutory_declaration=
-                    doc_checker_state_.need_to_send_partners_statutory_declaration and
-                    doc_checker_state_.is_in_civil_partnership,
-                need_to_send_marriage_certificate=
-                    doc_checker_state_.need_to_send_partnership_certificate and
-                    doc_checker_state_.is_married,
-                need_to_send_civil_partnership_certificate=
-                    doc_checker_state_.need_to_send_partnership_certificate and
-                    doc_checker_state_.is_in_civil_partnership,
-                need_to_send_death_certificate=
-                    doc_checker_state_.need_to_send_death_certificate,
-                need_to_send_decree_absolute=
-                    doc_checker_state_.need_to_send_decree_absolute,
-                need_to_send_proof_gender_recognised_outside_uk=
-                    doc_checker_state_.need_to_send_proof_gender_recognised_outside_uk
+                email_address=form.email_address.data,
+                documents_required=docs_required_dict
             )
 
             return local_redirect(url_for('documentChecker.emailSent'))
