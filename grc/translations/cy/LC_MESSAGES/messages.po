@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-13 11:20+0000\n"
+"POT-Creation-Date: 2024-03-14 12:24+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -87,10 +87,12 @@ msgid ""
 "Recognition Certificate"
 msgstr ""
 
-#: grc/business_logic/constants.py:16
-msgid ""
-"Select if you have received gender recognition in one of these countries "
-"or territories"
+#: grc/business_logic/constants.py:25
+msgid "Enter your email address"
+msgstr ""
+
+#: grc/business_logic/constants.py:26
+msgid "Enter a valid email address"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -133,6 +135,29 @@ msgid "Check documents needed to apply for a Gender Recognition Certificate"
 msgstr ""
 "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
 "Rhywedd"
+
+#: grc/templates/document-checker/email-address.html:7
+#: grc/templates/document-checker/email-address.html:27
+msgid "What is your email address?"
+msgstr "Beth yw eich cyfeiriad e-bost?"
+
+#: grc/templates/document-checker/email-address.html:32
+msgid ""
+"If you would like to receive your list of documents by email, enter your "
+"email address here"
+msgstr ""
+"Os hoffech gael eich rhestr o ddogfennau drwy e-bost, nodwch eich "
+"cyfeiriad e-bost yma"
+
+#: grc/templates/document-checker/email-address.html:42
+#: grc/templates/document-checker/start.html:33
+#: grc/templates/govuk-design-system-templates/continue.html:4
+msgid "Continue"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:45
+msgid "Return to your documents list"
+msgstr "Dychwelyd at eich rhestr o ddogfennau"
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:23
@@ -437,11 +462,6 @@ msgstr "Os oes gennych eich dogfennau eisoes yn barod, "
 #: grc/templates/document-checker/start.html:27
 msgid "start your application"
 msgstr "gallwch ddechrau gwneud eich cais"
-
-#: grc/templates/document-checker/start.html:33
-#: grc/templates/govuk-design-system-templates/continue.html:4
-msgid "Continue"
-msgstr ""
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 msgid "Back"
