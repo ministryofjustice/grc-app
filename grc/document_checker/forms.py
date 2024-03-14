@@ -1,10 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, RadioField
-from wtforms.validators import DataRequired, Email
+from wtforms import EmailField
 from grc.business_logic import constants as c
 from grc.document_checker.doc_checker_state import CurrentlyInAPartnershipEnum
 from grc.lazy.lazy_fields import LazyRadioField
-from grc.lazy.lazy_form_custom_validators import LazyDataRequired
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
 
 
 class PreviousNamesCheck(FlaskForm):
@@ -71,7 +70,7 @@ class GenderRecognitionOutsideUKForm(FlaskForm):
 class EmailForm(FlaskForm):
     email_address = EmailField(
         validators=[
-            DataRequired(message='Enter your email address'),
-            Email(message='Enter a valid email address')
+            LazyDataRequired(lazy_message=c.NO_EMAIL_ADDRESS_ERROR),
+            LazyEmail(lazy_message=c.EMAIL_ADDRESS_INVALID_ERROR)
         ]
     )
