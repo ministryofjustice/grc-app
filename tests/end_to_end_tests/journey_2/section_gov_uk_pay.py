@@ -23,7 +23,7 @@ async def check_gov_uk_pay(page: Page, asserts: AssertHelpers, helpers: PageHelp
     # ------------------------------------------------
     await asserts.url_matches_regex('/card_details/[a-z0-9]*')
     page.set_default_timeout(data.DEFAULT_TIMEOUT)
-    await asserts.h1('Enter card details')
+    await asserts.h1('Enter payment details')
 
     await helpers.fill_textbox(field='cardNo', value=data.TEST_CARD_NUMBER)
     await helpers.fill_textbox(field='expiryMonth', value=data.TEST_CARD_EXPIRY_MONTH)

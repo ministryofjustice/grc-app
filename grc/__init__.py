@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
 from grc.models import db
 from grc.utils import filters, limiter
-from grc.config import Config, DevConfig, TestConfig
+from grc.config import Config
 from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.maintenance_mode import Maintenance
 from grc.utils.custom_error_handlers import CustomErrorHandlers
@@ -21,14 +21,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
-    if os.environ['FLASK_ENV'] == 'production':
-        config_object = Config
-    elif os.environ['FLASK_ENV'] == 'development':
-        config_object = DevConfig
-    else:
-        config_object = TestConfig
-
-    app.config.from_object(config_object)
+    app.config.from_object(Config)
 
     if os.environ['FLASK_ENV'] != 'development':
         app.config['PROPAGATE_EXCEPTIONS'] = True
