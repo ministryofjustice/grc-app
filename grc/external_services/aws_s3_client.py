@@ -2,10 +2,8 @@ import io
 import base64
 import logging
 import boto3
-from botocore.exceptions import ClientError
 from flask import current_app
 from botocore.client import Config
-from grc.utils.config_helper import ConfigHelper
 from grc.utils.logger import LogLevel, Logger
 
 logger = Logger()
@@ -14,43 +12,12 @@ logger = Logger()
 class AwsS3Client:
     def __init__(self, external=False):
         self.external = external
-        aws_access_key_id, aws_secret_access_key, region_name, bucket_name = self.get_creds()
-
-        if aws_access_key_id:
-            self.s3 = boto3.client(
-                's3',
-                aws_access_key_id=aws_access_key_id,
-                aws_secret_access_key=aws_secret_access_key,
-                region_name=region_name,
-                config=Config(signature_version='s3v4')
-            )
-        else:
-            self.s3 = boto3.client(
-                's3',
-                region_name=region_name,
-                config=Config(signature_version='s3v4')
-            )
-
-        self.bucket_name = bucket_name
-
-
-    def get_creds(self):
-        if self.external:
-            return current_app.config['EXTERNAL_S3_AWS_ACCESS_KEY_ID'], \
-                current_app.config['EXTERNAL_S3_AWS_SECRET_ACCESS_KEY'], \
-                current_app.config['EXTERNAL_S3_AWS_REGION'], \
-                current_app.config['EXTERNAL_S3_AWS_BUCKET_NAME']
-
-        elif ConfigHelper.get_vcap_services() is not None:
-            creds = ConfigHelper.get_vcap_services().aws_s3_bucket[0].credentials
-            return creds.aws_access_key_id, \
-                creds.aws_secret_access_key, \
-                creds.aws_region, \
-                creds.bucket_name
-
-        else:
-            return None, None, current_app.config['AWS_REGION'], current_app.config['BUCKET_NAME']
-
+        self.s3 = boto3.client(
+            's3',
+            region_name=current_app.config.get('AWS_REGION'),
+            config=Config(signature_version='s3v4')
+        )
+        self.bucket_name = current_app.config.get('BUCKET_NAME')
 
     def upload_fileobj(self, file, object_name):
         try:
@@ -63,7 +30,6 @@ class AwsS3Client:
             return False
 
         return True
-
 
     def download_object_data(self, object_name):
         data = None
@@ -107,7 +73,6 @@ class AwsS3Client:
 
         return data, width, height
 
-
     def download_object(self, object_name):
         logger.log(LogLevel.INFO, f"Downloading {object_name}")
         data = None
@@ -122,7 +87,6 @@ class AwsS3Client:
             data = None
 
         return data
-
 
     def stream_upload_object(self, file, object_name):
         from smart_open import open
@@ -140,20 +104,17 @@ class AwsS3Client:
 
         return True
 
-
     def stream_download_object(self, object_name):
         try:
             infile_object = self.s3.get_object(Bucket=self.bucket_name, Key=object_name)
-            #data = str(infile_object.get('Body', '').read())
-            yield infile_object.get('Body', '').read() #bytes(data, 'utf-8')
+            yield infile_object.get('Body', '').read()
 
         except Exception as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, e)
+            logger.log(LogLevel.ERROR, message=f'{e}')
             return False
 
         return True
-
 
     def delete_object(self, object_name):
         try:
@@ -161,11 +122,10 @@ class AwsS3Client:
 
         except Exception as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, e)
+            logger.log(LogLevel.ERROR, message=f'{e}')
             return False
 
         return True
-
 
     def list_objects(self):
         try:
@@ -189,5 +149,5 @@ class AwsS3Client:
 
         except Exception as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, e)
+            logger.log(LogLevel.ERROR, message=f'{e}')
             return []

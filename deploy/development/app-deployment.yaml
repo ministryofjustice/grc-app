@@ -48,7 +48,7 @@ spec:
           - name: FLASK_APP
             value: grc
           - name: FLASK_ENV
-            value: production
+            value: development
           - name: GOVUK_PAY_API
             value: "https://publicapi.payments.service.gov.uk/"
           - name: GOVUK_PAY_API_KEY
