@@ -5,7 +5,7 @@ from os.path import dirname
 
 class Config:
     BASE_DIRECTORY = dirname(dirname(os.path.abspath(__file__)))
-    ENVIRONMENT = os.environ.get("ENVIRONMENT", "local")
+    ENVIRONMENT = os.environ.get("FLASK_ENV", "local")
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_KEY = os.environ.get("SQLALCHEMY_KEY")
