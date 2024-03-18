@@ -9,7 +9,7 @@ from grc.models import db, AdminUser, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
-from grc.utils.security_code import security_code_generator, send_security_code_admin,\
+from grc.utils.security_code import security_code_generator, send_security_code_admin, \
     has_last_security_code_been_used, has_security_code_expired
 from grc.start_application.forms import SecurityCodeForm
 
@@ -44,7 +44,7 @@ def index():
                     now_local = convert_date_to_local_timezone(datetime.now())
 
                     security_code = SecurityCode.query.filter_by(email=email_address).first()
-                    if security_code and user.dateLastLogin is not None:
+                    if security_code and user.dateLastLogin:
                         security_code_created_local = convert_date_to_local_timezone(security_code.created)
                         security_code_expiry_date = security_code_created_local + timedelta(hours=24)
 
@@ -100,7 +100,7 @@ def index():
                 logger.log(LogLevel.WARN, f"User {logger.mask_email_address(email_address)} not found")
 
     else:
-        addDefaultAdminUserToDatabaseIfThereAreNoUsers()
+        add_default_admin_user_to_database_if_there_are_no_users()
 
     return render_template(
         'login/login.html',
@@ -151,21 +151,27 @@ def sign_in_with_security_code():
     )
 
 
-def addDefaultAdminUserToDatabaseIfThereAreNoUsers():
+def add_default_admin_user_to_database_if_there_are_no_users():
     users = db.session.query(AdminUser).count()
+    print(users)
     if users == 0:
-        defaultEmailAddress: str = current_app.config['DEFAULT_ADMIN_USER']
-        defaultEmailAddress = defaultEmailAddress.lower()
-        temporary_password = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
-        record = AdminUser(email=defaultEmailAddress, password=generate_password_hash(temporary_password), userType='ADMIN')
+        default_email_address: str = current_app.config['DEFAULT_ADMIN_USER']
+        default_email_address = default_email_address.lower()
+        temporary_password = generate_temporary_password()
+        record = AdminUser(email=default_email_address, password=generate_password_hash(temporary_password),
+                           userType='ADMIN')
         db.session.add(record)
         db.session.commit()
 
         try:
             GovUkNotify().send_email_admin_new_user(
-                email_address=defaultEmailAddress,
+                email_address=default_email_address,
                 temporary_password=temporary_password,
                 application_link=request.base_url
             )
         except Exception as e:
             print(e, flush=True)
+
+
+def generate_temporary_password():
+    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
