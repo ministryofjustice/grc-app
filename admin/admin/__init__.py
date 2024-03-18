@@ -44,7 +44,7 @@ def index():
                     now_local = convert_date_to_local_timezone(datetime.now())
 
                     security_code = SecurityCode.query.filter_by(email=email_address).first()
-                    if security_code:
+                    if security_code and user.dateLastLogin is not None:
                         security_code_created_local = convert_date_to_local_timezone(security_code.created)
                         security_code_expiry_date = security_code_created_local + timedelta(hours=24)
 
@@ -59,11 +59,13 @@ def index():
                         security_code_has_expired = has_security_code_expired(security_code_expiry_date, now_local)
 
                         if not security_code_has_expired and last_security_code_has_been_used:
-                            print(f"Security code hasn't expired and"
-                                  f" user ({logger.mask_email_address(email_address)}) last logged in"
-                                  f" ({last_logged_in_local.date()}, {last_logged_in_local.time()}) and last security"
-                                  f" code created at {security_code_created_local.date()},"
-                                  f" {security_code_created_local.time()} has been used. No security code required")
+                            logger.log(
+                                LogLevel.INFO, f"Security code hasn't expired and" 
+                                               f" user ({logger.mask_email_address(email_address)}) last logged in"
+                                               f" ({last_logged_in_local.date()}, {last_logged_in_local.time()}) "
+                                               f"and last security code created at {security_code_created_local.date()}"
+                                               f", {security_code_created_local.time()} has been used. No security code"
+                                               f" required")
 
                             user.dateLastLogin = datetime.strftime(now_local, '%d/%m/%Y %H:%M:%S')
                             db.session.commit()
