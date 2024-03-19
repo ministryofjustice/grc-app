@@ -7,9 +7,10 @@ from werkzeug.datastructures import FileStorage
 from collections.abc import Iterable
 from datetime import date
 from grc.business_logic.data_store import DataStore
-from grc.utils.security_code import validate_security_code
+from grc.utils.security_code import is_security_code_valid
 from grc.utils.reference_number import validate_reference_number
 from grc.models import db, Application
+
 
 class RequiredIf(DataRequired):
     """Validator which makes a field required if another field is set and has a truthy value.
@@ -99,14 +100,14 @@ class Integer(DataRequired):
                 validator(form, field)
 
 
-def validateSecurityCode(form, field):
+def validate_security_code(form, field):
     is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
 
     if is_test and field.data == '11111':
         return
 
     is_admin = True if 'userType' in session else False
-    if validate_security_code(session['email'], field.data, is_admin) is False:
+    if not is_security_code_valid(session['email'], field.data, is_admin):
         raise ValidationError('Enter the security code that we emailed you')
 
 

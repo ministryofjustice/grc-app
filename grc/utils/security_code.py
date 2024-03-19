@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from dateutil import tz
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, SecurityCode
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
 
 
 def delete_all_user_codes(email):
@@ -22,21 +25,25 @@ def security_code_generator(email):
         return code
 
     except ValueError:
-        print("Oops!  That was no valid code.  Try again...")
+        logger.log(LogLevel.ERROR, message="Oops!  That was no valid code.  Try again...")
 
 
-def validate_security_code(email, code, is_admin):
+def is_security_code_valid(email, code, is_admin):
     code_record = SecurityCode.query.filter_by(code=code, email=email).first()
     valid_past_time = datetime.now() - timedelta(hours=24)
 
-    if code_record is None or valid_past_time > code_record.created:
-        print("The code has expired")
+    if code_record is None:
+        logger.log(LogLevel.INFO, message="Invalid code entered")
         return False
 
-    print("The code is not older than 5 minutes")
+    if valid_past_time > code_record.created:
+        logger.log(LogLevel.INFO, message="The code has expired")
+        return False
+
+    logger.log(LogLevel.INFO, message="The code is not older than 24 hours")
     # If admin security code is still less than 24 hours old, don't remove previous code yet
     if is_admin and code_record.created > valid_past_time:
-        print("Not deleting all user codes", flush=True)
+        logger.log(LogLevel.INFO, message="Not deleting all user codes")
         return True
 
     delete_all_user_codes(email)
