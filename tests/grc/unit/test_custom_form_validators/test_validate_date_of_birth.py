@@ -23,9 +23,6 @@ class TestValidateDateOfBirth:
             form['day'].errors = None
             form['month'].errors = None
 
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
-
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
                     transition_date=date(day=1, month=1, year=1985),
@@ -50,9 +47,6 @@ class TestValidateDateOfBirth:
             form['year'].data = '1990'
             form['day'].errors = None
             form['month'].errors = None
-
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
 
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
@@ -79,9 +73,6 @@ class TestValidateDateOfBirth:
             form['year'].data = '1990'
             form['day'].errors = None
             form['month'].errors = None
-
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
 
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
