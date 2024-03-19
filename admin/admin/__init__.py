@@ -156,7 +156,7 @@ def add_default_admin_user_to_database_if_there_are_no_users():
                 application_link=request.base_url
             )
         except Exception as e:
-            print(e, flush=True)
+            logger.log(LogLevel.ERROR, message=f'{e}')
 
 
 def generate_temporary_password():
