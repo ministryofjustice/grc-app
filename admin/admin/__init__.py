@@ -140,7 +140,6 @@ def sign_in_with_security_code():
 
 def add_default_admin_user_to_database_if_there_are_no_users():
     number_of_admins = db.session.query(AdminUser).count()
-    print(number_of_admins)
     if number_of_admins == 0:
         default_email_address: str = current_app.config['DEFAULT_ADMIN_USER']
         default_email_address = default_email_address.lower()

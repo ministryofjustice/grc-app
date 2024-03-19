@@ -32,10 +32,25 @@ def default_admin(app):
 
 
 @pytest.fixture()
-def admin(app):
+def new_admin(app):
     with app.app_context():
         test_admin = AdminUser(email=app.config['DEFAULT_ADMIN_USER'], password=generate_password_hash('password'),
                                userType='ADMIN', passwordResetRequired=False)
+        db.session.add(test_admin)
+        db.session.commit()
+        yield test_admin
+
+        db.session.delete(test_admin)
+        db.session.commit()
+
+
+@pytest.fixture()
+def admin(app):
+    with app.app_context():
+        twenty_five_hours_ago = datetime.now() - relativedelta(hours=25)
+        last_logged_datetime = datetime.strftime(twenty_five_hours_ago, '%d/%m/%Y %H:%M:%S')
+        test_admin = AdminUser(email=app.config['DEFAULT_ADMIN_USER'], password=generate_password_hash('password'),
+                               userType='ADMIN', passwordResetRequired=False, dateLastLogin=last_logged_datetime)
         db.session.add(test_admin)
         db.session.commit()
         yield test_admin

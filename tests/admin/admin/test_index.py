@@ -1,4 +1,5 @@
-import pytest
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from unittest.mock import patch
 
 
@@ -77,9 +78,8 @@ class TestAdminIndex:
     @patch('admin.admin.generate_security_code')
     def test_index_post_email_valid_password_security_code_required_first_time_login(self, mock_generate_security_code,
                                                                                      mock_send_security_code_email,
-                                                                                     app, client, admin):
+                                                                                     app, client, new_admin):
         with app.app_context():
-            admin.dateLastLogin = None
             mock_generate_security_code.return_value = '12345', 'mocked date'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
@@ -87,16 +87,55 @@ class TestAdminIndex:
             assert response.status_code == 302
             assert response.location == '/sign-in-with-security_code'
 
-    # @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    # @patch('admin.admin.generate_security_code')
-    # def test_index_post_email_valid_password_security_code_expired_and_required(self, mock_generate_security_code,
-    #                                                                             mock_send_security_code_email,
-    #                                                                             app, client, admin,
-    #                                                                             expired_security_code):
-    #     with app.app_context():
-    #         mock_generate_security_code.return_value = '12345', 'mocked date'
-    #         form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
-    #         response = client.post('/', data=form_data)
-    #         mock_send_security_code_email.assert_called_once()
-    #         assert response.status_code == 302
-    #         assert response.location == '/sign-in-with-security_code'
+    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
+    @patch('admin.admin.generate_security_code')
+    def test_index_post_email_valid_password_security_code_expired_and_required(self, mock_generate_security_code,
+                                                                                mock_send_security_code_email,
+                                                                                app, client, admin,
+                                                                                expired_security_code):
+        with app.app_context():
+            mock_generate_security_code.return_value = '12345', 'mocked date'
+            form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
+            response = client.post('/', data=form_data)
+            mock_generate_security_code.assert_called_with('test.email@example.com')
+            mock_send_security_code_email.assert_called_once()
+            assert response.status_code == 302
+            assert response.location == '/sign-in-with-security_code'
+
+    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
+    @patch('admin.admin.generate_security_code')
+    @patch('admin.admin.has_last_security_code_been_used')
+    def test_index_post_email_valid_password_security_code_valid_not_expired_and_previous_code_not_used_code_required(
+            self, mock_last_security_code_been_used, mock_generate_security_code, mock_send_security_code_email, app,
+            client, admin, security_code
+    ):
+        with app.app_context():
+            mock_generate_security_code.return_value = '12345', 'mocked date'
+            mock_last_security_code_been_used.return_value = False
+            form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
+            response = client.post('/', data=form_data)
+            mock_generate_security_code.assert_called_with('test.email@example.com')
+            mock_send_security_code_email.assert_called_once()
+            assert response.status_code == 302
+            assert response.location == '/sign-in-with-security_code'
+
+    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
+    @patch('admin.admin.generate_security_code')
+    @patch('admin.admin.has_last_security_code_been_used')
+    def test_index_post_email_valid_password_security_code_valid_not_expired_and_previous_code_used(
+            self, mock_last_security_code_been_used, mock_generate_security_code, mock_send_security_code_email, app,
+            client, admin, security_code
+    ):
+        with app.app_context():
+            mock_generate_security_code.return_value = '12345', 'mocked date'
+            mock_last_security_code_been_used.return_value = True
+            form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
+            response = client.post('/', data=form_data)
+            mock_generate_security_code.assert_not_called()
+            mock_send_security_code_email.assert_not_called()
+            assert response.status_code == 302
+            assert response.location == '/applications'
+            assert admin.dateLastLogin is not None
+
+            with client.session_transaction() as session:
+                assert session['signedIn'] == 'test.email@example.com'
