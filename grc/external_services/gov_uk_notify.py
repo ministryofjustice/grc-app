@@ -1,18 +1,14 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
-from grc.utils.config_helper import ConfigHelper
 
 
 class GovUkNotify:
     def __init__(self):
         gov_uk_notify_api_key = current_app.config['NOTIFY_API']
-        self.space = (ConfigHelper.get_vcap_application().space_name.lower()
-                      if ConfigHelper.get_vcap_application() is not None
-                      else 'local')
+        self.space = current_app.config.get('ENVIRONMENT', 'local')
         self.is_production = self.space == 'production'
         self.notify_override_email = current_app.config['NOTIFY_OVERRIDE_EMAIL']
         self.gov_uk_notify_client = NotificationsAPIClient(gov_uk_notify_api_key)
-
 
     def send_email_security_code(self, email_address: str, security_code: str, security_code_timeout: str):
         personalisation = {
@@ -26,7 +22,6 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
     def send_email_unfinished_application(self, email_address: str, expiry_days: str, grc_return_link: str):
         personalisation = {
             'expiry_days': expiry_days,
@@ -39,7 +34,6 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
     def send_email_completed_application(self, email_address: str, documents_to_be_posted: str):
         personalisation = {
             'documents_to_be_posted': documents_to_be_posted,
@@ -50,7 +44,6 @@ class GovUkNotify:
             template_id='77007bae-b688-4dbb-bc84-334b0f5d3aef',
             personalisation=personalisation
         )
-
 
     def send_email_documents_you_need_for_your_grc_application(
             self,
@@ -91,7 +84,6 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
     def send_email_feedback(
             self,
             how_easy_to_complete_application: str,
@@ -120,7 +112,6 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
     def send_email_admin_login_security_code(self, email_address: str, expires: str, security_code: str):
         personalisation = {
             'expires': expires,
@@ -132,7 +123,6 @@ class GovUkNotify:
             template_id='fde1def2-bf10-45d2-8c38-2837a0a79399',
             personalisation=personalisation
         )
-
 
     def send_email_admin_forgot_password(self, email_address: str, expires: str, security_code: str):
         personalisation = {
@@ -146,7 +136,6 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-
     def send_email_admin_new_user(self, email_address: str, temporary_password: str, application_link: str):
         personalisation = {
             'temporary_password': temporary_password,
@@ -158,7 +147,6 @@ class GovUkNotify:
             template_id='0ff48a4c-601e-4cc1-b6c6-30bac012c259',
             personalisation=personalisation
         )
-
 
     def send_email(self, email_address: str, template_id: str, personalisation: dict):
         if personalisation is None:
