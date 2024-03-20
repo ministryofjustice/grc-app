@@ -16,11 +16,17 @@ def client(app):
 
 
 @pytest.fixture()
-def security_code(app) -> SecurityCode:
+def public_user_email(app):
+    return app.config['TEST_PUBLIC_USER']
+
+
+@pytest.fixture()
+def security_code_(app, public_user_email) -> SecurityCode:
     with app.app_context():
-        code = security_code_generator(app.config['TEST_PUBLIC_USER'])
+        code = security_code_generator(public_user_email)
         security_code_ = SecurityCode.query.filter(
-            SecurityCode.email == app.config['TEST_PUBLIC_USER'],
+            SecurityCode.email == public_user_email,
             SecurityCode.code == code
         ).first()
         yield security_code_
+
