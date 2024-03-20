@@ -49,3 +49,5 @@ class Config:
 class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
+    DEFAULT_ADMIN_USER = "test.email@example.com"
+    TEST_URL = os.environ.get('TEST_URL', 'http://localhost')
