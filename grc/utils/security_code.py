@@ -31,7 +31,7 @@ def security_code_generator(email):
 def is_security_code_valid(email, code, is_admin):
 
     if email is None:
-        logger.log(LogLevel.INFO, message="No email found")
+        logger.log(LogLevel.INFO, message="No email found when checking security code")
         return False
 
     code_record = SecurityCode.query.filter_by(code=code, email=email).first()
