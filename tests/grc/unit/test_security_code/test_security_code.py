@@ -26,6 +26,11 @@ class TestSecurityCode:
             db.session.delete(user_security_code)
             db.session.commit()
 
+    def test_is_security_code_valid_valid_code_no_user(self, app, client, public_user_email, security_code_):
+        with app.app_context():
+            with app.test_request_context():
+                assert sc.is_security_code_valid(None, security_code_.code, False) is False
+
     def test_is_security_code_valid_invalid_code_public_user(self, app, client, public_user_email):
         with app.app_context():
             with app.test_request_context():
