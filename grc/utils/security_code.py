@@ -1,8 +1,8 @@
 import random
 from datetime import datetime, timedelta
-from dateutil import tz
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, SecurityCode
+from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.logger import LogLevel, Logger
 
 logger = Logger()
@@ -52,7 +52,7 @@ def is_security_code_valid(email, code, is_admin):
 
 def generate_security_code(email):
     security_code = security_code_generator(email)
-    local = datetime.now().replace(tzinfo=tz.gettz('UTC')).astimezone(tz.gettz('Europe/London'))
+    local = convert_date_to_local_timezone(datetime.now())
     security_code_timeout = datetime.strftime(local + timedelta(hours=24), '%H:%M on %d %b %Y')
     return security_code, security_code_timeout
 

@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from grc.models import db, SecurityCode
 from grc.utils import security_code as sc
 from unittest.mock import patch
@@ -76,3 +77,37 @@ class TestSecurityCode:
             with app.test_request_context():
                 assert sc.is_security_code_valid(public_user_email, security_code_.code, False) is True
                 mock_delete_all_user_codes.assert_called_with(public_user_email)
+
+    @patch('grc.utils.date_utils.convert_date_to_local_timezone')
+    @patch('grc.utils.security_code.security_code_generator')
+    def test_generate_security_code(self, mock_security_code_generator, mock_datetime, app, client, public_user_email,
+                                    security_code_):
+        with (app.app_context()):
+            expiry_datetime = datetime.now() + timedelta(hours=24)
+            mock_datetime.return_value = expiry_datetime
+
+            mock_security_code_generator.return_value = security_code_.code
+            assert sc.generate_security_code(public_user_email) == (security_code_.code, expiry_datetime.strftime(
+                '%H:%M on %d %b %Y'))
+
+    def test_has_last_security_code_been_used_last_security_code_used(self, app):
+        with app.app_context():
+            last_login_date = datetime.now() - timedelta(hours=1)
+            security_code_created_date = datetime.now() - timedelta(hours=23)
+            assert sc.has_last_security_code_been_used(last_login_date, security_code_created_date) is True
+
+    def test_has_last_security_code_been_used_last_security_code_not_used(self, app):
+        with app.app_context():
+            last_login_date = datetime.now() - timedelta(hours=10)
+            security_code_created_date = datetime.now() - timedelta(hours=5)
+            assert sc.has_last_security_code_been_used(last_login_date, security_code_created_date) is False
+
+    def test_has_last_security_code_been_used_last_security_expired(self, app):
+        with app.app_context():
+            security_created_date = datetime.now() - timedelta(hours=5)
+            assert sc.has_security_code_expired(security_created_date, datetime.now()) is True
+
+    def test_has_last_security_code_been_used_last_security_not_expired(self, app):
+        with app.app_context():
+            security_created_date = datetime.now() + timedelta(hours=5)
+            assert sc.has_security_code_expired(security_created_date, datetime.now()) is False
