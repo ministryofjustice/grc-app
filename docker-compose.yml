@@ -1,6 +1,9 @@
 version: "3.8"
 
 services:
+  grc_clamav:
+    image: 'clamav/clamav:latest'
+
   grc_db:
     image: "postgres:13.5"
     container_name: "grc_db"
