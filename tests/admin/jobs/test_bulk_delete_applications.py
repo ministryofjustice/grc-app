@@ -1,4 +1,4 @@
-from .data import create_test_applications, delete_test_applications
+from tests.admin.helpers.data import create_test_applications, delete_test_applications
 from grc.models import ApplicationStatus, Application
 
 
