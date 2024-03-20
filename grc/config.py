@@ -45,4 +45,4 @@ class Config:
 class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    TEST_PUBLIC_USER = 'test.email@example.com'
+    TEST_PUBLIC_USER = 'test.public.email@example.com'
