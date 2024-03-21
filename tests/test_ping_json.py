@@ -1,9 +1,10 @@
+import os
 import requests
 
 
 def test_json_health_check():
     # Access health pages, currently does not work with admin app
-    public_response = requests.get("http://localhost:8080/health")
+    public_response = requests.get(f"{os.environ['TEST_URL']}/health")
 
     # Converting into accessible data
     public_data = public_response.json()
