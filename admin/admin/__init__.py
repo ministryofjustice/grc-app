@@ -104,9 +104,7 @@ def sign_in_with_security_code():
     if request.method == 'POST':
         if form.validate_on_submit():
 
-            user = AdminUser.query.filter_by(
-                email=email_address
-            ).first()
+            user = AdminUser.query.filter_by(email=email_address).first()
 
             if user is None:
                 message = "We could not find your user details. Please try logging in again"
@@ -120,7 +118,6 @@ def sign_in_with_security_code():
             session['userType'] = user.userType
 
             logger.log(LogLevel.INFO, f"User {logger.mask_email_address(email_address)} logged in with security code")
-
             return local_redirect(url_for('applications.index'))
 
     if request.method == 'GET' and request.args.get('resend') == 'true':
@@ -131,11 +128,7 @@ def sign_in_with_security_code():
             error = err.args[0].json()
             flash(error['errors'][0]['message'], 'error')
 
-    return render_template(
-        'login/login-security-code-sent.html',
-        email_address=email_address,
-        form=form
-    )
+    return render_template('login/login-security-code-sent.html', email_address=email_address, form=form)
 
 
 def add_default_admin_user_to_database_if_there_are_no_users():
