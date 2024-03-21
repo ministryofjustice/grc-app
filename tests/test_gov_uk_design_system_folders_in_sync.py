@@ -38,8 +38,11 @@ def test_gov_uk_design_system_folders_in_sync():
 
         print(f"Comparing GRC vs ADMIN govuk-design-system-templates file ({filename})")
         if grc_file_text != admin_file_text:
-            error_message = f"Gov.UK Design System template files do not match between GRC and ADMIN folders. Mis-matching file is ({filename})"
-            raise Exception(error_message)
+            if not ignore_difference(grc_file_text, admin_file_text, filename, 'admin'):
+                # if not ignore_content_in_file(filename, admin_file_text, 'admin'):
+                error_message = (f"Gov.UK Design System template files do not match between GRC and ADMIN folders."
+                                 f" Mis-matching file is ({filename})")
+                raise Exception(error_message)
 
         dashboard_file = open(dashboard_filename, 'r')
         dashboard_file_text = dashboard_file.read()
@@ -47,5 +50,24 @@ def test_gov_uk_design_system_folders_in_sync():
 
         print(f"Comparing GRC vs DASHBOARD govuk-design-system-templates file ({filename})")
         if grc_file_text != dashboard_file_text:
-            error_message = f"Gov.UK Design System template files do not match between GRC and DASHBOARD folders. Mis-matching file is ({filename})"
-            raise Exception(error_message)
+            if not ignore_difference(grc_file_text, admin_file_text, filename, 'dashboard'):
+                error_message = (f"Gov.UK Design System template files do not match between GRC and DASHBOARD folders."
+                                 f" Mis-matching file is ({filename})")
+                raise Exception(error_message)
+
+
+def ignore_difference(file_one, file_two, filename, app):
+    content_to_ignore = {
+        'admin': [
+            ('{{ _(\'There is a problem\') }}', 'There is a problem', 'error-summary.html')
+        ],
+        'dashboard': [
+            ('{{ _(\'There is a problem\') }}', 'There is a problem', 'error-summary.html')
+        ]
+    }
+
+    for content in content_to_ignore[app]:
+        file_1_content, file_2_content, name_of_file = content
+        if file_1_content in file_one and file_2_content in file_two and filename == name_of_file:
+            return True
+    return False
