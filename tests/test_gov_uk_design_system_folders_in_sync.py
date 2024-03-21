@@ -39,7 +39,6 @@ def test_gov_uk_design_system_folders_in_sync():
         print(f"Comparing GRC vs ADMIN govuk-design-system-templates file ({filename})")
         if grc_file_text != admin_file_text:
             if not ignore_difference(grc_file_text, admin_file_text, filename, 'admin'):
-                # if not ignore_content_in_file(filename, admin_file_text, 'admin'):
                 error_message = (f"Gov.UK Design System template files do not match between GRC and ADMIN folders."
                                  f" Mis-matching file is ({filename})")
                 raise Exception(error_message)
