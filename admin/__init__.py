@@ -1,6 +1,5 @@
 import json
-import os
-from admin.config import Config, DevConfig, TestConfig
+from admin.config import Config, TestConfig
 from datetime import timedelta
 from flask import Flask, g
 from flask_migrate import Migrate
@@ -21,14 +20,10 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
-    if os.environ['FLASK_ENV'] == 'production':
-        config_object = Config
-    elif os.environ['FLASK_ENV'] == 'development':
-        config_object = DevConfig
+    if test_config:
+        app.config.from_object(TestConfig)
     else:
-        config_object = TestConfig
-
-    app.config.from_object(config_object)
+        app.config.from_object(Config)
 
     # Require HTTP Basic Authentication if both the username and password are set
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
