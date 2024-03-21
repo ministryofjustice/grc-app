@@ -115,11 +115,10 @@ jobs:
             flask db migrate
             flask db upgrade
       - run:
-        name: Run unit and integration tests
-        command: |
-          . venv/bin/activate
-          
-          pytest --ignore=tests/end_to_end_tests --html=report.html
+          name: Run unit and integration tests
+          command: |
+            . venv/bin/activate
+            pytest --ignore=tests/end_to_end_tests --html=report.html
       - run:
           name: Start site and test with pytest
           command: |
