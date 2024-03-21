@@ -930,7 +930,7 @@ msgstr "datganiadau academaidd"
 
 #: grc/templates/policies/privacy-policy.html:45
 msgid "Purpose"
-msgstr ""
+msgstr "Pwrpas"
 
 #: grc/templates/policies/privacy-policy.html:48
 msgid ""
@@ -1260,7 +1260,7 @@ msgstr "Sut i gwyno"
 
 #: grc/templates/policies/privacy-policy.html:191
 msgid "When we ask you for information, we will keep to the law"
-msgstr ""
+msgstr "Pan ofynnwn i chi am wybodaeth, byddwn yn cadw at y gyfraith"
 
 #: grc/templates/policies/privacy-policy.html:192
 msgid ""
