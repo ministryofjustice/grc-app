@@ -21,11 +21,11 @@ msgstr ""
 
 #: grc/business_logic/constants.py:3 grc/templates/policies/cookies.html:114
 msgid "Yes"
-msgstr ""
+msgstr "Nac ydw"
 
 #: grc/business_logic/constants.py:4 grc/templates/policies/cookies.html:120
 msgid "No"
-msgstr ""
+msgstr "Ydw"
 
 #: grc/business_logic/constants.py:5
 msgid "Married"
@@ -847,11 +847,11 @@ msgstr "Cwyis"
 
 #: grc/templates/policies/cookies.html:12
 msgid "Success"
-msgstr ""
+msgstr "Llwydd"
 
 #: grc/templates/policies/cookies.html:16
 msgid "You’ve set your cookie preferences"
-msgstr ""
+msgstr "Rydych wedi cadw eich dewisiadau cwcis"
 
 #: grc/templates/policies/cookies.html:21
 msgid "GOV.UK Gender Recognition Certificate"
@@ -866,6 +866,8 @@ msgid ""
 "These cookies are used across the GOV.UK Gender Recognition Certificate "
 "website"
 msgstr ""
+"Mae’r cwcis hyn yn cael eu defnyddio ar draws gwefan Tystysgrif Cydnabod "
+"Rhywedd GOV.UK"
 
 #: grc/templates/policies/cookies.html:24
 msgid ""
@@ -947,11 +949,11 @@ msgstr "Cadw eich gosodiadau caniatáu cwcis"
 
 #: grc/templates/policies/cookies.html:55
 msgid "1 year"
-msgstr ""
+msgstr "1 flynedd"
 
 #: grc/templates/policies/cookies.html:60
 msgid "Analytics cookies (optional)"
-msgstr ""
+msgstr "Cwcis Dadansoddol (dewisol)"
 
 #: grc/templates/policies/cookies.html:62
 msgid ""
@@ -966,6 +968,8 @@ msgid ""
 "We do this to help make sure the site is meeting the needs of its users "
 "and to help us make improvements"
 msgstr ""
+"Rydym yn gwneud hyn i helpu i sicrhau bod y gwasanaeth yn diwallu "
+"anghenion ei ddefnyddwyr ac i’n helpu i wneud gwelliannau"
 
 #: grc/templates/policies/cookies.html:65
 msgid ""
@@ -983,27 +987,27 @@ msgstr "Nid ydym yn caniatáu i Google ddefnyddio neu rannu ein data dadansoddol
 
 #: grc/templates/policies/cookies.html:67
 msgid "Google Analytics stores information about:"
-msgstr ""
+msgstr "Mae Google Analytics yn storio gwybodaeth am:"
 
 #: grc/templates/policies/cookies.html:70
 msgid "the pages you visit"
-msgstr ""
+msgstr "y tudalennau yr ydych yn ymweld â hwy"
 
 #: grc/templates/policies/cookies.html:71
 msgid "how long you spend on each page"
-msgstr ""
+msgstr "faint o amser y byddwch yn ei dreulio ar bob tudalen"
 
 #: grc/templates/policies/cookies.html:72
 msgid "how you arrived at the site"
-msgstr ""
+msgstr "sut y daethoch o hyd i’r gwasanaeth"
 
 #: grc/templates/policies/cookies.html:73
 msgid "what you click on while you visit the site"
-msgstr ""
+msgstr "yr hyn rydych chi’n clicio arno wrth ddefnyddio’r gwasanaeth"
 
 #: grc/templates/policies/cookies.html:74
 msgid "the device and browser you use"
-msgstr ""
+msgstr "y dyfais a’r porwr yr ydych yn ei ddefnyddio"
 
 #: grc/templates/policies/cookies.html:78
 msgid "Analytics cookies we use"
@@ -1040,7 +1044,7 @@ msgstr "A ydych eisiau derbyn cwcis dadansoddol?"
 
 #: grc/templates/policies/cookies.html:128
 msgid "Save cookie settings"
-msgstr ""
+msgstr "Cadw gosodiadau cwcis"
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
