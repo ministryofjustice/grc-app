@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from flask import Blueprint, render_template, request, make_response
 from dashboard.stats.forms import DateRangeForm
 from grc.models import db
+from sqlalchemy.sql import text
 
 stats = Blueprint('stats', __name__)
 
@@ -24,15 +25,15 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     if stat == 'date_bands':
         if start_date and end_date:
-            sql = """SELECT MAX(EXTRACT(DAY FROM updated - created)) AS diff
+            sql = text("""SELECT MAX(EXTRACT(DAY FROM updated - created)) AS diff
                     FROM application
                     WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
-                        AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date));"""
+                        AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date));""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT MAX(EXTRACT(DAY FROM updated - created)) AS diff
+            sql = text("""SELECT MAX(EXTRACT(DAY FROM updated - created)) AS diff
                     FROM application
-                    WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'));"""
+                    WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'));""")
             result = db.session.execute(sql)
 
         diff = result.mappings().first()
@@ -42,15 +43,15 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'applications_by_status':
         if start_date and end_date:
-            sql = """SELECT status AS "application status", COUNT(*) AS "number of applications"
+            sql = text("""SELECT status AS "application status", COUNT(*) AS "number of applications"
                     FROM application
                     WHERE (created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date)
-                    GROUP BY status;"""
+                    GROUP BY status;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT status AS "application status", COUNT(*) AS "number of applications"
+            sql = text("""SELECT status AS "application status", COUNT(*) AS "number of applications"
                     FROM application
-                    GROUP BY status;"""
+                    GROUP BY status;""")
             result = db.session.execute(sql)
 
         return \
@@ -59,7 +60,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'started_applications_by_month':
         if start_date and end_date:
-            sql = """SELECT date AS "application date", num AS "number of applications"
+            sql = text("""SELECT date AS "application date", num AS "number of applications"
                 FROM (
                     SELECT COUNT(*) AS num, SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4) AS date, CAST(TO_CHAR(updated, 'YYYYMM') AS INTEGER) AS order_value
                     FROM application
@@ -67,17 +68,17 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                         AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date))
                     GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                 ) AS t
-                ORDER BY order_value;"""
+                ORDER BY order_value;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT date AS "application date", num AS "number of applications"
+            sql = text("""SELECT date AS "application date", num AS "number of applications"
                 FROM (
                     SELECT COUNT(*) AS num, SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4) AS date, CAST(TO_CHAR(updated, 'YYYYMM') AS INTEGER) AS order_value
                     FROM application
                     WHERE (status IN ('STARTED'))
                     GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                 ) AS t
-                ORDER BY order_value;"""
+                ORDER BY order_value;""")
             result = db.session.execute(sql)
 
         return \
@@ -86,7 +87,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'completed_applications_by_month':
         if start_date and end_date:
-            sql = """SELECT date AS "application date", num AS "number of applications"
+            sql = text("""SELECT date AS "application date", num AS "number of applications"
                 FROM (
                     SELECT COUNT(*) AS num, SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4) AS date, CAST(TO_CHAR(updated, 'YYYYMM') AS INTEGER) AS order_value
                     FROM application
@@ -94,17 +95,17 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                         AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date))
                     GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                 ) AS t
-                ORDER BY order_value;"""
+                ORDER BY order_value;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT date AS "application date", num AS "number of applications"
+            sql = text("""SELECT date AS "application date", num AS "number of applications"
                 FROM (
                     SELECT COUNT(*) AS num, SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4) AS date, CAST(TO_CHAR(updated, 'YYYYMM') AS INTEGER) AS order_value
                     FROM application
                     WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
                     GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                 ) AS t
-                ORDER BY order_value;"""
+                ORDER BY order_value;""")
             result = db.session.execute(sql)
 
         return \
@@ -113,7 +114,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'applications_by_month':
         if start_date and end_date:
-            sql = """SELECT date AS "application date", num AS "number of applications", status
+            sql = text("""SELECT date AS "application date", num AS "number of applications", status
                     FROM (
                         SELECT date, num, 'started' AS status, order_value
                         FROM (
@@ -133,10 +134,10 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                             GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                         ) AS t
                     ) AS t
-                    ORDER BY order_value, status DESC;"""
+                    ORDER BY order_value, status DESC;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT date AS "application date", num AS "number of applications", status
+            sql = text("""SELECT date AS "application date", num AS "number of applications", status
                     FROM (
                         SELECT date, num, 'started' AS status, order_value
                         FROM (
@@ -154,7 +155,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                             GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                         ) AS t
                     ) AS t
-                    ORDER BY order_value, status DESC;"""
+                    ORDER BY order_value, status DESC;""")
             result = db.session.execute(sql)
 
         return \
@@ -162,7 +163,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
             result.mappings().all()
 
     elif stat == 'applications_by_month_joined':
-        sql = """SELECT t1.application_date AS "application date",
+        sql = text("""SELECT t1.application_date AS "application date",
                     t1.started AS "number of applications started",
                     t2.submitted AS "number of applications submitted"
                 FROM (
@@ -182,7 +183,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                         WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
                         GROUP BY SUBSTRING(TO_CHAR(updated, 'Month'), 1, 3) || '-' || SUBSTRING(TO_CHAR(updated, 'YYYY'), 3, 4), TO_CHAR(updated, 'YYYYMM')
                     ) AS t
-                    ORDER BY order_value) AS t2 ON t1.application_date = t2.application_date;"""
+                    ORDER BY order_value) AS t2 ON t1.application_date = t2.application_date;""")
         result = db.session.execute(sql)
 
         return \
@@ -191,7 +192,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'days_to_complete_application':
         if start_date and end_date:
-            sql = """SELECT diff AS "number of days", COUNT(*) AS "number of applications"
+            sql = text("""SELECT diff AS "number of days", COUNT(*) AS "number of applications"
                     FROM (
                         SELECT EXTRACT(DAY FROM updated - created) + 1 AS diff
                         FROM application
@@ -199,17 +200,17 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                             AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date))
                     ) AS t
                     GROUP BY diff
-                    ORDER BY diff;"""
+                    ORDER BY diff;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT diff AS "number of days", COUNT(*) AS "number of applications"
+            sql = text("""SELECT diff AS "number of days", COUNT(*) AS "number of applications"
                     FROM (
                         SELECT EXTRACT(DAY FROM updated - created) + 1 AS diff
                         FROM application
                         WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
                     ) AS t
                     GROUP BY diff
-                    ORDER BY diff;"""
+                    ORDER BY diff;""")
             result = db.session.execute(sql)
 
         return \
@@ -231,19 +232,19 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'sessions_to_complete_application':
         if start_date and end_date:
-            sql = """SELECT COUNT(*) AS "number of applications", COALESCE(number_sessions, 1) AS "number of sessions"
+            sql = text("""SELECT COUNT(*) AS "number of applications", COALESCE(number_sessions, 1) AS "number of sessions"
                     FROM application
                     WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
                         AND ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date))
                     GROUP BY number_sessions
-                    ORDER BY number_sessions;"""
+                    ORDER BY number_sessions;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT COUNT(*) AS "number of applications", COALESCE(number_sessions, 1) AS "number of sessions"
+            sql = text("""SELECT COUNT(*) AS "number of applications", COALESCE(number_sessions, 1) AS "number of sessions"
                     FROM application
                     WHERE (status IN ('COMPLETED', 'SUBMITTED', 'DOWNLOADED'))
                     GROUP BY number_sessions
-                    ORDER BY number_sessions;"""
+                    ORDER BY number_sessions;""")
             result = db.session.execute(sql)
 
         return \
@@ -265,23 +266,23 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'number_of_duplicate_emailaddresses':
         if start_date and end_date:
-            sql = """SELECT COUNT(*) AS "number of applications"
+            sql = text("""SELECT COUNT(*) AS "number of applications"
                     FROM (
                         SELECT COUNT(*) AS num
                         FROM application
                         WHERE ((created >= :start_date AND created <= :end_date) OR (updated >= :start_date AND updated <= :end_date))
                         GROUP BY email
                     ) AS t
-                    WHERE (num > 1);"""
+                    WHERE (num > 1);""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT COUNT(*) AS "number of applications"
+            sql = text("""SELECT COUNT(*) AS "number of applications"
                     FROM (
                         SELECT COUNT(*) AS num
                         FROM application
                         GROUP BY email
                     ) AS t
-                    WHERE (num > 1);"""
+                    WHERE (num > 1);""")
             result = db.session.execute(sql)
 
         return \
@@ -290,7 +291,7 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
 
     elif stat == 'duplicate_emailaddresses':
         if start_date and end_date:
-            sql = """SELECT num AS "number of applications", COUNT(*) AS "number of users"
+            sql = text("""SELECT num AS "number of applications", COUNT(*) AS "number of users"
             FROM (
                 SELECT COUNT(*) AS num
                 FROM application
@@ -298,17 +299,17 @@ def get_stats(stat, start_date=None, end_date=None, num_bands=8, download=False)
                 GROUP BY email
             ) AS t
             GROUP BY num
-            ORDER BY num;"""
+            ORDER BY num;""")
             result = db.session.execute(sql, date_range)
         else:
-            sql = """SELECT num AS "number of applications", COUNT(*) AS "number of users"
+            sql = text("""SELECT num AS "number of applications", COUNT(*) AS "number of users"
             FROM (
                 SELECT COUNT(*) AS num
                 FROM application
                 GROUP BY email
             ) AS t
             GROUP BY num
-            ORDER BY num;"""
+            ORDER BY num;""")
             result = db.session.execute(sql)
 
         return \
