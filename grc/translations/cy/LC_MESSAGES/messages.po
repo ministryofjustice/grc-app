@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-11 15:35+0000\n"
+"POT-Creation-Date: 2024-03-14 12:24+0000\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -19,6 +19,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
 
+#: grc/business_logic/constants.py:3 grc/templates/policies/cookies.html:114
+msgid "Yes"
+msgstr ""
+
+#: grc/business_logic/constants.py:4 grc/templates/policies/cookies.html:120
+msgid "No"
+msgstr ""
+
+#: grc/business_logic/constants.py:5
+msgid "Married"
+msgstr "Wedi priodi"
+
+#: grc/business_logic/constants.py:6
+msgid "Civil partnership"
+msgstr "Mewn partneriaeth sifil"
+
+#: grc/business_logic/constants.py:7
+msgid "Neither"
+msgstr "Ddim un ohonynt"
+
+#: grc/business_logic/constants.py:10
+msgid ""
+"Do you plan to remain married after you receive your Gender Recognition "
+"Certificate?"
+msgstr ""
+"Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod "
+"Rhywedd?"
+
+#: grc/business_logic/constants.py:11
+msgid ""
+"Do you plan to remain in your civil partnership after you receive your "
+"Gender Recognition Certificate?"
+msgstr ""
+"Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich"
+" Tystysgrif Cydnabod Rhywedd?"
+
+#: grc/business_logic/constants.py:15
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants.py:16
+msgid "Select if you are currently married or in a civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants.py:17
+msgid ""
+"Select if you ever been married or in a civil partnership where your "
+"spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants.py:19
+msgid ""
+"Select if you have ever been married or in a civil partnership that has "
+"ended"
+msgstr ""
+
+#: grc/business_logic/constants.py:21
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
+#: grc/business_logic/constants.py:23
+msgid ""
+"Select if you plan to remain married after receiving your Gender "
+"Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants.py:25
+msgid "Enter your email address"
+msgstr ""
+
+#: grc/business_logic/constants.py:26
+msgid "Enter a valid email address"
+msgstr ""
+
 #: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
 msgstr ""
@@ -28,20 +104,318 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:419
+#: grc/utils/form_custom_validators.py:418
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:107
-#: grc/utils/form_custom_validators.py:424
+#: grc/utils/form_custom_validators.py:423
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:7
+#: grc/templates/document-checker/currently_in_a_partnership.html:25
+msgid "Are you currently married or in a civil partnership?"
+msgstr "Ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd?"
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:29
+msgid ""
+"Select your current legal status, even if you are planning to end your "
+"marriage or civil partnership."
+msgstr ""
+"Dewiswch eich statws cyfreithiol cyfredol, hyd yn oed os ydych yn bwriadu"
+" dod â'ch priodas neu bartneriaeth sifil i ben."
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:32
+msgid "or"
+msgstr "neu"
 
 #: grc/templates/document-checker/doc-checker-base.html:80
 msgid "Check documents needed to apply for a Gender Recognition Certificate"
 msgstr ""
 "Gwirio dogfennau sydd eu hangen i wneud cais am Dystysgrif Cydnabod "
 "Rhywedd"
+
+#: grc/templates/document-checker/email-address.html:7
+#: grc/templates/document-checker/email-address.html:27
+msgid "What is your email address?"
+msgstr "Beth yw eich cyfeiriad e-bost?"
+
+#: grc/templates/document-checker/email-address.html:32
+msgid ""
+"If you would like to receive your list of documents by email, enter your "
+"email address here"
+msgstr ""
+"Os hoffech gael eich rhestr o ddogfennau drwy e-bost, nodwch eich "
+"cyfeiriad e-bost yma"
+
+#: grc/templates/document-checker/email-address.html:42
+#: grc/templates/document-checker/start.html:33
+#: grc/templates/govuk-design-system-templates/continue.html:4
+msgid "Continue"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:45
+msgid "Return to your documents list"
+msgstr "Dychwelyd at eich rhestr o ddogfennau"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:7
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:23
+msgid "Gender recognition outside of the UK"
+msgstr "Cydnabod rhywedd y tu allan i'r DU"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:27
+msgid ""
+"Some people may have already received gender recognition outside of the "
+"UK."
+msgstr ""
+"Efallai bod rhai pobl eisoes wedi derbyn cydnabyddiaeth rhywedd y tu "
+"allan i'r DU."
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:30
+msgid ""
+"The documents you need to provide are different if you have received "
+"gender recognition in a country or territory from this list:"
+msgstr ""
+"Mae'r dogfennau y mae angen i chi eu darparu yn wahanol os ydych wedi "
+"cael cydnabyddiaeth rhywedd mewn gwlad neu diriogaeth o'r rhestr hon:"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:33
+msgid "Australia – not including the external territories"
+msgstr "Awstralia – heb gynnwys y tiriogaethau allanol"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:34
+msgid "Austria"
+msgstr "Awstria"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:35
+msgid "Belgium"
+msgstr "Gwlad Belg"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:36
+msgid "Bulgaria"
+msgstr "Bwlgaria"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:37
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr "Canada - heb gynnwys Tiriogaethau'r Gogledd Orllewin a Nunavut"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:38
+msgid "Croatia"
+msgstr "Croatia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:39
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:40
+msgid "Czech Republic"
+msgstr "Gweriniaeth Tsiec"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:41
+msgid "Denmark"
+msgstr "Denmarc"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:42
+msgid "Estonia"
+msgstr "Estonia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:43
+msgid "Finland"
+msgstr "Ffindir"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:44
+msgid "France"
+msgstr "Ffrainc"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:45
+msgid "Germany"
+msgstr "Almaen"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:46
+msgid "Greece"
+msgstr "Groeg"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:47
+msgid "Iceland"
+msgstr "Gwlad yr Iâ"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:48
+msgid "Italy"
+msgstr "Eidal"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:49
+msgid "Japan"
+msgstr "Japan"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:50
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:51
+msgid "Luxembourg"
+msgstr "Lwcsembwrg"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:52
+msgid "Malta"
+msgstr "Malta"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:53
+msgid "Federal District of Mexico"
+msgstr "Ardal Ffederal Mecsico"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:54
+msgid "Moldova"
+msgstr "Moldofa"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:55
+msgid "Netherlands"
+msgstr "Iseldiroedd"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:56
+msgid "New Zealand"
+msgstr "Seland Newydd"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:57
+msgid "Norway"
+msgstr "Norwy"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:58
+msgid "Poland"
+msgstr "Gwlad Pwyl"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:59
+msgid "Romania"
+msgstr "Rwmania"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:60
+msgid "Russian Federation"
+msgstr "Ffederasiwn Rwsia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:61
+msgid "Serbia"
+msgstr "Serbia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:62
+msgid "Singapore"
+msgstr "Singapôr"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:63
+msgid "Slovakia"
+msgstr "Slofacia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:64
+msgid "Slovenia"
+msgstr "Slofenia"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:65
+msgid "South Africa"
+msgstr "De Affrica"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:66
+msgid "South Korea"
+msgstr "De Corea"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:67
+msgid "Spain"
+msgstr "Sbaen"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:68
+msgid "Sweden"
+msgstr "Sweden"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:69
+msgid "Switzerland"
+msgstr "Swistir"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:70
+msgid "Turkey"
+msgstr "Twrci"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:71
+msgid "Ukraine"
+msgstr "Wcráin"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:72
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr "Unol Daleithiau America – heb gynnwys Idaho, Ohio, Tennessee a Texas"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:73
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:82
+msgid ""
+"Have you received gender recognition in one of these countries or "
+"territories?"
+msgstr ""
+"Ydych chi wedi cael cydnabyddiaeth rhywedd yn un o'r gwledydd neu'r "
+"tiriogaethau hyn?"
+
+#: grc/templates/document-checker/partner-died.html:7
+#: grc/templates/document-checker/partner-died.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership where your spouse "
+"or partner died?"
+msgstr ""
+"Ydych chi erioed wedi bod mewn priodas neu bartneriaeth sifil lle bu farw"
+" eich priod neu'ch partner?"
+
+#: grc/templates/document-checker/previous-names-check.html:7
+#: grc/templates/document-checker/previous-names-check.html:45
+msgid "Have you ever changed your name to reflect your gender?"
+msgstr "Ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd?"
+
+#: grc/templates/document-checker/previous-names-check.html:20
+msgid "If you have ever changed your name to reflect your gender"
+msgstr "Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
+
+#: grc/templates/document-checker/previous-names-check.html:24
+msgid "You will need to send us documents that show this"
+msgstr "Bydd angen i chi anfon dogfennau atom sy'n dangos hynny"
+
+#: grc/templates/document-checker/previous-names-check.html:25
+msgid ""
+"If you have changed your name more than once, we will need to see "
+"documents for each instance"
+msgstr ""
+"Os ydych wedi newid eich enw fwy nag unwaith, bydd angen i ni weld "
+"dogfennau ar gyfer pob achos"
+
+#: grc/templates/document-checker/previous-names-check.html:28
+msgid ""
+"We ask for this so we can match your birth records after you receive a "
+"Gender Recognition Certificate"
+msgstr ""
+"Gofynnwn am hyn fel y gallwn eu cyfateb i'ch cofnodion geni ar ôl i chi "
+"gael Tystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/document-checker/previous-names-check.html:31
+msgid "These documents are likely to be:"
+msgstr "Mae'r dogfennau hyn yn debygol o fod yn:"
+
+#: grc/templates/document-checker/previous-names-check.html:34
+msgid "deed poll documents, either enrolled or unenrolled"
+msgstr ""
+"dogfennau gweithred newid enw, naill ai wedi'u cofrestru neu heb eu "
+"cofrestru"
+
+#: grc/templates/document-checker/previous-names-check.html:35
+msgid "change of name documents (Scotland)"
+msgstr "dogfennau newid enw (Yr Alban)"
+
+#: grc/templates/document-checker/previous-names-check.html:36
+msgid "statutory declarations"
+msgstr "datganiadau statudol"
+
+#: grc/templates/document-checker/previous-partnership-ended.html:7
+#: grc/templates/document-checker/previous-partnership-ended.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership that ended for "
+"another reason?"
+msgstr ""
+"Ydych chi erioed wedi bod mewn partneriaeth sifil neu briodas a ddaeth i "
+"ben am reswm arall?"
 
 #: grc/templates/document-checker/start.html:3
 #: grc/templates/document-checker/start.html:10
@@ -89,9 +463,14 @@ msgstr "Os oes gennych eich dogfennau eisoes yn barod, "
 msgid "start your application"
 msgstr "gallwch ddechrau gwneud eich cais"
 
-#: grc/templates/document-checker/start.html:33
-msgid "Continue"
+#: grc/templates/govuk-design-system-templates/back_link.html:2
+msgid "Back"
 msgstr ""
+
+#: grc/templates/govuk-design-system-templates/error-summary.html:6
+#, fuzzy
+msgid "There is a problem"
+msgstr "Mae"
 
 #: grc/templates/policies/accessibility-statement.html:3
 #, fuzzy
@@ -325,7 +704,7 @@ msgstr ""
 
 #: grc/templates/policies/accessibility-statement.html:109
 msgid "This website is partially compliant with the"
-msgstr "Mae’r wefan hon yn cydymffurfio’n rhannol â"
+msgstr "Mae’r wefan hon yn cydymffurfio’n rhannol â safon"
 
 #: grc/templates/policies/accessibility-statement.html:109
 msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
@@ -334,7 +713,7 @@ msgstr ""
 "newydd)"
 
 #: grc/templates/policies/accessibility-statement.html:109
-msgid "AA standard, due to ‘the non-compliances’, listed below"
+msgid " AA standard, due to ‘the non-compliances’, listed below"
 msgstr ""
 ", a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir "
 "isod"
@@ -455,6 +834,12 @@ msgstr "Profwyd y wefan hon ddiwethaf ar 26 Mai 2022"
 #: grc/templates/policies/accessibility-statement.html:166
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "AA standard, due to ‘the non-compliances’, listed below"
+msgstr ""
+", a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir "
+"isod"
 
 #: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
 msgid "Cookies"
@@ -652,14 +1037,6 @@ msgstr "1 munud"
 #: grc/templates/policies/cookies.html:108
 msgid "Do you want to accept analytics cookies?"
 msgstr "A ydych eisiau derbyn cwcis dadansoddol?"
-
-#: grc/templates/policies/cookies.html:114
-msgid "Yes"
-msgstr ""
-
-#: grc/templates/policies/cookies.html:120
-msgid "No"
-msgstr ""
 
 #: grc/templates/policies/cookies.html:128
 msgid "Save cookie settings"
