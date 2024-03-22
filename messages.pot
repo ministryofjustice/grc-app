@@ -1,0 +1,1609 @@
+# Translations template for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-03-14 12:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.0\n"
+
+#: grc/business_logic/constants.py:3
+msgid "Yes"
+msgstr ""
+
+#: grc/business_logic/constants.py:4
+msgid "No"
+msgstr ""
+
+#: grc/business_logic/constants.py:5
+msgid "Married"
+msgstr ""
+
+#: grc/business_logic/constants.py:6
+msgid "Civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants.py:7
+msgid "Neither"
+msgstr ""
+
+#: grc/business_logic/constants.py:10
+msgid ""
+"Do you plan to remain married after you receive your Gender Recognition "
+"Certificate?"
+msgstr ""
+
+#: grc/business_logic/constants.py:11
+msgid ""
+"Do you plan to remain in your civil partnership after you receive your "
+"Gender Recognition Certificate?"
+msgstr ""
+
+#: grc/business_logic/constants.py:15
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants.py:16
+msgid "Select if you are currently married or in a civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants.py:17
+msgid ""
+"Select if you ever been married or in a civil partnership where your "
+"spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants.py:19
+msgid ""
+"Select if you have ever been married or in a civil partnership that has "
+"ended"
+msgstr ""
+
+#: grc/business_logic/constants.py:21
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
+#: grc/business_logic/constants.py:23
+msgid ""
+"Select if you plan to remain married after receiving your Gender "
+"Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants.py:25
+msgid "Enter your email address"
+msgstr ""
+
+#: grc/business_logic/constants.py:26
+msgid "Enter a valid email address"
+msgstr ""
+
+#: grc/lazy/lazy_form_custom_validators.py:39
+msgid "This field is required."
+msgstr ""
+
+#: grc/lazy/lazy_form_custom_validators.py:73
+msgid "Invalid email address."
+msgstr ""
+
+#: grc/lazy/lazy_form_custom_validators.py:98
+#: grc/utils/form_custom_validators.py:418
+msgid "File does not have an approved extension: {extensions}"
+msgstr ""
+
+#: grc/lazy/lazy_form_custom_validators.py:107
+#: grc/utils/form_custom_validators.py:423
+msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:7
+#: grc/templates/document-checker/currently_in_a_partnership.html:25
+msgid "Are you currently married or in a civil partnership?"
+msgstr ""
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:29
+msgid ""
+"Select your current legal status, even if you are planning to end your "
+"marriage or civil partnership."
+msgstr ""
+
+#: grc/templates/document-checker/currently_in_a_partnership.html:32
+msgid "or"
+msgstr ""
+
+#: grc/templates/document-checker/doc-checker-base.html:80
+msgid "Check documents needed to apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:7
+#: grc/templates/document-checker/email-address.html:27
+msgid "What is your email address?"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:32
+msgid ""
+"If you would like to receive your list of documents by email, enter your "
+"email address here"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:42
+#: grc/templates/document-checker/start.html:33
+#: grc/templates/govuk-design-system-templates/continue.html:4
+msgid "Continue"
+msgstr ""
+
+#: grc/templates/document-checker/email-address.html:45
+msgid "Return to your documents list"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:7
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:23
+msgid "Gender recognition outside of the UK"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:27
+msgid ""
+"Some people may have already received gender recognition outside of the "
+"UK."
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:30
+msgid ""
+"The documents you need to provide are different if you have received "
+"gender recognition in a country or territory from this list:"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:33
+msgid "Australia – not including the external territories"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:34
+msgid "Austria"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:35
+msgid "Belgium"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:36
+msgid "Bulgaria"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:37
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:38
+msgid "Croatia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:39
+msgid "Cyprus"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:40
+msgid "Czech Republic"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:41
+msgid "Denmark"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:42
+msgid "Estonia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:43
+msgid "Finland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:44
+msgid "France"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:45
+msgid "Germany"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:46
+msgid "Greece"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:47
+msgid "Iceland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:48
+msgid "Italy"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:49
+msgid "Japan"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:50
+msgid "Liechtenstein"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:51
+msgid "Luxembourg"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:52
+msgid "Malta"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:53
+msgid "Federal District of Mexico"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:54
+msgid "Moldova"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:55
+msgid "Netherlands"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:56
+msgid "New Zealand"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:57
+msgid "Norway"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:58
+msgid "Poland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:59
+msgid "Romania"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:60
+msgid "Russian Federation"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:61
+msgid "Serbia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:62
+msgid "Singapore"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:63
+msgid "Slovakia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:64
+msgid "Slovenia"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:65
+msgid "South Africa"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:66
+msgid "South Korea"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:67
+msgid "Spain"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:68
+msgid "Sweden"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:69
+msgid "Switzerland"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:70
+msgid "Turkey"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:71
+msgid "Ukraine"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:72
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:73
+msgid "Uruguay"
+msgstr ""
+
+#: grc/templates/document-checker/gender-recognition-outside-uk.html:82
+msgid ""
+"Have you received gender recognition in one of these countries or "
+"territories?"
+msgstr ""
+
+#: grc/templates/document-checker/partner-died.html:7
+#: grc/templates/document-checker/partner-died.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership where your spouse "
+"or partner died?"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:7
+#: grc/templates/document-checker/previous-names-check.html:45
+msgid "Have you ever changed your name to reflect your gender?"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:20
+msgid "If you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:24
+msgid "You will need to send us documents that show this"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:25
+msgid ""
+"If you have changed your name more than once, we will need to see "
+"documents for each instance"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:28
+msgid ""
+"We ask for this so we can match your birth records after you receive a "
+"Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:31
+msgid "These documents are likely to be:"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:34
+msgid "deed poll documents, either enrolled or unenrolled"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:35
+msgid "change of name documents (Scotland)"
+msgstr ""
+
+#: grc/templates/document-checker/previous-names-check.html:36
+msgid "statutory declarations"
+msgstr ""
+
+#: grc/templates/document-checker/previous-partnership-ended.html:7
+#: grc/templates/document-checker/previous-partnership-ended.html:25
+msgid ""
+"Have you ever been in a marriage or civil partnership that ended for "
+"another reason?"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:3
+#: grc/templates/document-checker/start.html:10
+msgid "Before you start"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:14
+msgid ""
+"Use this tool to check which documents you need for your Gender "
+"Recognition Certificate application"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:17
+msgid ""
+"Answering the questions means we can give you a list of documents based "
+"on your personal circumstances"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:18
+msgid "You can have the list of documents sent to you by email at the end"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:21
+msgid ""
+"This is not part of the application process and is designed only to help "
+"you prepare the documents you need before you start your application"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:24
+msgid "We do not store any of the information you enter in this tool"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:27
+msgid "If you already have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:27
+msgid "start your application"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/back_link.html:2
+msgid "Back"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/error-summary.html:6
+msgid "There is a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:10
+msgid ""
+"Accessibility statement for Gender Recognition Certificate application "
+"service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:13
+msgid ""
+"We want everyone to be able to do what they need to do with our website, "
+"regardless of any access needs due to a disability or condition"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:17
+msgid ""
+"A detailed accessibility statement about the Gender Recognition "
+"Certificate application service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:20
+msgid "This page describes:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:23
+msgid "how accessible our website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:24
+msgid "what to do if you have a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:25
+msgid "what we are doing to meet the regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:28
+msgid ""
+"This accessibility statement applies to the Gender Recognition "
+"Certificate application service and document checker"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:29
+msgid ""
+"It does not apply to the guidance about Gender Recognition Certificates "
+"on GOV.UK"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:33
+msgid "Using our website and services"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:36
+msgid "This service is run by the Government Equalities Office"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:37
+msgid "We want as many people as possible to be able to use this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:38
+msgid "For example, that means you should be able to:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:41
+#, python-format
+msgid "zoom in up to 300%% without problems"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:42
+msgid "navigate most of the website using just a keyboard"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:43
+msgid "navigate most of the website using speech recognition software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:44
+msgid ""
+"use most of the website using a screen reader (including the most recent "
+"versions of JAWS, NVDA and VoiceOver)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:47
+msgid "We have also made the website text as simple as possible to understand"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "AbilityNet (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "has advice on making your device easier to use if you have a disability"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:54
+msgid "How accessible this website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:57
+msgid ""
+"We aim to meet international accessibility guidelines, however this may "
+"not always be possible, or we may have missed a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:60
+msgid "We know some parts of this website are not fully accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:64
+msgid ""
+"most older PDF documents that are linked to from this website are not "
+"fully accessible to screen reader software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid ""
+"some GOV.UK Pay pages are not accessible, but we do not manage these "
+"pages – see the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "GOV.UK Pay accessibility statement (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "for more information"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:71
+msgid "We are working to fix the issue with inaccessible PDFs"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:75
+msgid "What to do if you cannot access parts of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:78
+msgid ""
+"If you need information on this website in a different format like "
+"accessible PDF, large print, easy read, audio recording or braille, "
+"contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:82
+msgid "We will consider your request and get back to you within 5 working days"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:86
+msgid "Reporting accessibility problems with this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:89
+msgid "We are always looking to improve the accessibility of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:90
+msgid ""
+"If you find any problems not listed on this page, or think we are not "
+"meeting accessibility requirements, contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:95
+msgid "Enforcement procedure"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:98
+msgid ""
+"The Equality and Human Rights Commission (EHRC) is responsible for "
+"enforcing the Public Sector Bodies (Websites and Mobile Applications) "
+"(No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "If you’re not happy with how we respond to your complaint, contact the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "Equality Advisory and Support Service (EASS) (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:103
+msgid "Technical information about this website’s accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:106
+msgid ""
+"The Government Equalities Office is committed to making its website "
+"accessible, in accordance with the Public Sector Bodies (Websites and "
+"Mobile Applications) (No. 2) Accessibility Regulations 2018"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "This website is partially compliant with the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid " AA standard, due to ‘the non-compliances’, listed below"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:113
+msgid "Non-accessible content"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:116
+msgid "The content listed below is not accessible for the following reasons"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:120
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions – this makes it difficult for people with screen readers to "
+"use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:125
+msgid "Non-compliance with the accessibility regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:128
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:129
+msgid "This makes it difficult for people with screen readers to use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:132
+msgid "We are aware of these issues and are working to fix them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:136
+msgid "Disproportionate burden"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:139
+msgid ""
+"We have not yet identified a part of the service where it would be a "
+"disproportionate burden on the Government Equalities Office to resolve "
+"the non-compliance"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:140
+msgid ""
+"If this becomes the case, we will publish full details here explaining "
+"our decision"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:144
+msgid "How we tested"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid ""
+"Testing has been conducted internally by Government Equalities Office "
+"staff and externally audited by the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid "Digital Accessibility Centre (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:148
+#: grc/templates/policies/accessibility-statement.html:167
+msgid ""
+"Where they have been checked for compliance, it has been against WCAG 2.1"
+" AA"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:152
+msgid "What we are doing to improve accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:155
+msgid "We are working to fix any parts of the service which are not accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:159
+msgid "Preparation of this accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:162
+msgid ""
+"This statement was prepared on 7th June 2022. It was last reviewed on 7th"
+" June 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:165
+msgid "This website was last tested on 26th May 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:166
+msgid "The test was carried out by the Digital Accessibility Centre"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:10
+msgid ""
+"Accessibility statement for Gender Recognition Certificate application "
+"service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:13
+msgid ""
+"We want everyone to be able to do what they need to do with our website, "
+"regardless of any access needs due to a disability or condition"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:17
+msgid ""
+"A detailed accessibility statement about the Gender Recognition "
+"Certificate application service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:20
+msgid "This page describes:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:23
+msgid "how accessible our website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:24
+msgid "what to do if you have a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:25
+msgid "what we are doing to meet the regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:28
+msgid ""
+"This accessibility statement applies to the Gender Recognition "
+"Certificate application service and document checker"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:29
+msgid ""
+"It does not apply to the guidance about Gender Recognition Certificates "
+"on GOV.UK"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:33
+msgid "Using our website and services"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:36
+msgid "This service is run by the Government Equalities Office"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:37
+msgid "We want as many people as possible to be able to use this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:38
+msgid "For example, that means you should be able to:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:41
+#, python-format
+msgid "zoom in up to 300%% without problems"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:42
+msgid "navigate most of the website using just a keyboard"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:43
+msgid "navigate most of the website using speech recognition software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:44
+msgid ""
+"use most of the website using a screen reader (including the most recent "
+"versions of JAWS, NVDA and VoiceOver)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:47
+msgid "We have also made the website text as simple as possible to understand"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "AbilityNet (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "has advice on making your device easier to use if you have a disability"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:54
+msgid "How accessible this website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:57
+msgid ""
+"We aim to meet international accessibility guidelines, however this may "
+"not always be possible, or we may have missed a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:60
+msgid "We know some parts of this website are not fully accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:64
+msgid ""
+"most older PDF documents that are linked to from this website are not "
+"fully accessible to screen reader software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid ""
+"some GOV.UK Pay pages are not accessible, but we do not manage these "
+"pages – see the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "GOV.UK Pay accessibility statement (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "for more information"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:71
+msgid "We are working to fix the issue with inaccessible PDFs"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:75
+msgid "What to do if you cannot access parts of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:78
+msgid ""
+"If you need information on this website in a different format like "
+"accessible PDF, large print, easy read, audio recording or braille, "
+"contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:82
+msgid "We will consider your request and get back to you within 5 working days"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:86
+msgid "Reporting accessibility problems with this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:89
+msgid "We are always looking to improve the accessibility of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:90
+msgid ""
+"If you find any problems not listed on this page, or think we are not "
+"meeting accessibility requirements, contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:95
+msgid "Enforcement procedure"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:98
+msgid ""
+"The Equality and Human Rights Commission (EHRC) is responsible for "
+"enforcing the Public Sector Bodies (Websites and Mobile Applications) "
+"(No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "If you’re not happy with how we respond to your complaint, contact the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "Equality Advisory and Support Service (EASS) (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:103
+msgid "Technical information about this website’s accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:106
+msgid ""
+"The Government Equalities Office is committed to making its website "
+"accessible, in accordance with the Public Sector Bodies (Websites and "
+"Mobile Applications) (No. 2) Accessibility Regulations 2018"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "This website is partially compliant with the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "AA standard, due to ‘the non-compliances’, listed below"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:113
+msgid "Non-accessible content"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:116
+msgid "The content listed below is not accessible for the following reasons"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:120
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions – this makes it difficult for people with screen readers to "
+"use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:125
+msgid "Non-compliance with the accessibility regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:128
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:129
+msgid "This makes it difficult for people with screen readers to use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:132
+msgid "We are aware of these issues and are working to fix them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:136
+msgid "Disproportionate burden"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:139
+msgid ""
+"We have not yet identified a part of the service where it would be a "
+"disproportionate burden on the Government Equalities Office to resolve "
+"the non-compliance"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:140
+msgid ""
+"If this becomes the case, we will publish full details here explaining "
+"our decision"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:144
+msgid "How we tested"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid ""
+"Testing has been conducted internally by Government Equalities Office "
+"staff and externally audited by the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid "Digital Accessibility Centre (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:148
+#: grc/templates/policies/accessibility-statement.html:167
+msgid ""
+"Where they have been checked for compliance, it has been against WCAG 2.1"
+" AA"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:152
+msgid "What we are doing to improve accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:155
+msgid "We are working to fix any parts of the service which are not accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:159
+msgid "Preparation of this accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:162
+msgid ""
+"This statement was prepared on 7th June 2022. It was last reviewed on 7th"
+" June 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:165
+msgid "This website was last tested on 26th May 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:166
+msgid "The test was carried out by the Digital Accessibility Centre"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
+msgid "Cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:16
+msgid "You’ve set your cookie preferences"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "GOV.UK Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "puts small files (known as ‘cookies’) on your computer"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:22
+msgid ""
+"These cookies are used across the GOV.UK Gender Recognition Certificate "
+"website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:24
+msgid ""
+"We only set cookies when JavaScript is running in your browser and you’ve"
+" accepted them"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:25
+msgid ""
+"If you choose not to run Javascript, the information on this page will "
+"not apply to you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:28
+msgid ""
+"If you use an older browser, such as Internet Explorer 8 or earlier, the "
+"cookies we use will not affect you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "Find out"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "how to manage cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "from the Information Commissioner's Office"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:33
+msgid "Essential cookies (strictly necessary)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:34
+msgid ""
+"We use an essential cookie to remember when you accept or reject cookies "
+"on our website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:37
+msgid "Essential cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:41
+#: grc/templates/policies/cookies.html:82
+#: grc/templates/policies/privacy-policy.html:45
+msgid "Purpose"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:42
+#: grc/templates/policies/cookies.html:83
+msgid "Expires"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:49
+msgid "Saves your progress on the website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:50
+msgid "When you close your browser tab"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:54
+msgid "Saves your cookie consent settings"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:55
+msgid "1 year"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:60
+msgid "Analytics cookies (optional)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:62
+msgid ""
+"We use Google Analytics software to understand how people use the GOV.UK "
+"Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:63
+msgid ""
+"We do this to help make sure the site is meeting the needs of its users "
+"and to help us make improvements"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:65
+msgid ""
+"We do not collect or store your personal information (for example your "
+"name or address) so this information cannot be used to identify who you "
+"are"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:66
+msgid "We do not allow Google to use or share our analytics data"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:67
+msgid "Google Analytics stores information about:"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:70
+msgid "the pages you visit"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:71
+msgid "how long you spend on each page"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:72
+msgid "how you arrived at the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:73
+msgid "what you click on while you visit the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:74
+msgid "the device and browser you use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:78
+msgid "Analytics cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:89
+#: grc/templates/policies/cookies.html:94
+msgid ""
+"Helps us count how many people visit the GOV.UK Gender Recognition "
+"Certificate by telling us if you’ve visited before"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:90
+msgid "2 years"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:95
+msgid "24 hours"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:99
+msgid "Used to reduce the number of requests"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:100
+msgid "1 minute"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:108
+msgid "Do you want to accept analytics cookies?"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:114
+msgid "Yes"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:120
+msgid "No"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:128
+msgid "Save cookie settings"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:3
+msgid "Privacy Policy"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:10
+msgid "Privacy policy"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:13
+msgid ""
+"This page explains what kind of personal information the Government "
+"Equalities Office (GEO) holds about you when you apply for a Gender "
+"Recognition Certificate (GRC) using this service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:14
+msgid ""
+"It also explains how your personal information is protected and how you "
+"can find out about it"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:18
+msgid "What personal information we hold about you"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:21
+msgid "We hold the following information about you:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:24
+msgid "personal details – name, email address, and telephone number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:25
+msgid "birth or adoption certificate details"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:26
+msgid "medical information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:27
+msgid "name change documentation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:28
+msgid "National Insurance number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:31
+msgid ""
+"We also hold documents relating to living in your affirmed gender "
+"including your:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:34
+msgid "ID documentation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:35
+msgid "passport"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:36
+msgid "driver’s licence"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:37
+msgid "utility bills"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:38
+msgid "payslips"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:39
+msgid "bank statements"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:40
+msgid "tax letters"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:41
+msgid "academic statements"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:48
+msgid ""
+"We use your personal data to enable the submission of applications to the"
+" Gender Recognition team at HMCTS (HM Courts and Tribunals Service)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:52
+msgid "Legal basis of processing"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:55
+msgid ""
+"Processing is necessary for the performance of a task carried out in the "
+"public interest or in the compliance of legal obligations"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:56
+msgid "In particular:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:59
+msgid ""
+"Allowing the submission of gender recognition certificate applications to"
+" the gender recognition panel"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:60
+msgid "This is outlined in the Gender Recognition Act 2004"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:63
+msgid "Sensitive personal data is personal data about your:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:66
+msgid "racial or ethnic origin"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:67
+msgid "political opinions"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:68
+msgid "religious or philosophical beliefs"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:69
+msgid "trade union membership"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:72
+msgid "It also includes the processing of:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:75
+msgid ""
+"genetic data, biometric data for the purpose of uniquely identifying a "
+"natural person"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:76
+msgid "data concerning health"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:77
+msgid "data concerning a natural person's sex life or sexual orientation"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:80
+msgid ""
+"The legal basis for processing your sensitive personal data is necessary "
+"for the performance of a task carried out in the public interest or in "
+"the compliance of legal obligations"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:81
+msgid "As stated above"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:85
+msgid "How long we keep your personal data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:88
+msgid ""
+"When you begin an application, or return to an existing application you "
+"will be sent an email with a pin number"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:91
+msgid ""
+"If you do not use the pin to verify your email within 24 hours, you will "
+"need to start either the application or the log-in again and request a "
+"new pin"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:94
+msgid ""
+"After you have started your application, we will keep your personal data "
+"for 6 calendar months from the date you last signed in"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:95
+msgid ""
+"If you do not sign in within 6 calendar months we will permanently delete"
+" all personal identifiable data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:96
+msgid ""
+"We will warn you 3 months, one month and one week before we delete your "
+"data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:99
+msgid ""
+"After you have submitted your application, it is shared with the HMCTS "
+"Gender Recognition administration team"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:102
+msgid ""
+"HMCTS will use your data to process your application and put it to the "
+"Gender Recognition panel for review"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "See the"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "HMCTS privacy notice (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:103
+msgid "for more information about how they process and hold your information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:104
+msgid ""
+"We permanently delete your application from our online system after it "
+"has been reviewed by the Gender Recognition panel"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "There is a separate"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "privacy notice for GOV.UK Pay (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:107
+msgid "the government's online payment service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:108
+msgid "You will need to use GOV.UK Pay if you pay for your GRC application online"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:112
+msgid "Sharing your information"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:115
+msgid ""
+"When you submit your application, your data will be shared with the HMCTS"
+" Gender Recognition administration team"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:116
+msgid "They require a secure login to access the data"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:117
+msgid ""
+"The data is not shared with any third parties or government departments, "
+"agencies or arms-length bodies"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:120
+msgid ""
+"Throughout the application process, information is shared with our email "
+"provider (GOV.UK Notify) and stored in our hosting provider (GOV.UK "
+"Platform as a Service) where this is needed to process your application"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:121
+msgid ""
+"It is also shared with our hosting suppliers and third-party IT support "
+"companies for the purposes of managing the site"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:124
+msgid ""
+"There are some cases when your information can be shared for other "
+"reasons – for example, to prevent crime, respond to legal obligations or "
+"cooperate with public inquiries"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:128
+msgid "Your rights"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:131
+msgid "You can ask to see and correct the personal information we hold about you"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:132
+msgid "You can do this by logging into your application"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:135
+msgid ""
+"In certain circumstances, you may also object to or restrict the "
+"processing of your data by GEO by making a request to"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:138
+msgid ""
+"After you have submitted your application, you will no longer be able to "
+"log in to access the 'apply for a gender recognition certificate' service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:141
+msgid ""
+"To ask for your data to be amended or deleted after you have submitted an"
+" application, email:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:156
+msgid "Preparation of this privacy notice"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:159
+msgid "This privacy notice was first published on 28 June 2022"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:162
+msgid "We have carried out a data protection impact assessment"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:163
+msgid ""
+"We will use the impact assessment to keep track of any changes to the way"
+" your personal data is processed, and will update this notice if any "
+"changes arise"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:167
+msgid "Contact Details"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:170
+msgid ""
+"The data controller for your personal data is HM Courts and Tribunals "
+"Service"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:173
+msgid "The contact details for the data controller are:"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:188
+msgid "How to make a complaint"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:191
+msgid "When we ask you for information, we will keep to the law"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:192
+msgid ""
+"If you consider that your information has been handled incorrectly, you "
+"can contact the Information Commissioner for independent advice about "
+"data protection"
+msgstr ""
+
+#: grc/templates/policies/privacy-policy.html:195
+msgid "You can contact the Information Commissioner at:"
+msgstr ""
+
