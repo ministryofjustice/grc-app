@@ -53,6 +53,7 @@ jobs:
           POSTGRES_PASSWORD: password
     steps:
       - checkout
+      - setup_remote_docker
       - when:
           condition:
             equal: [ DEV, << parameters.env_name >> ]
@@ -86,9 +87,6 @@ jobs:
                 name: Login to PROD ECR
                 command: |
                   aws ecr get-login-password --region $ECR_REGION_PROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PROD}.dkr.ecr.${ECR_REGION_PROD}.amazonaws.com
-      - setup_remote_docker:
-          version: 20.10.11
-          docker_layer_caching: true
       - run:
           name: Install dependencies
           command: |
