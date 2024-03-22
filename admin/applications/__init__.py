@@ -108,7 +108,7 @@ def search_by_reference_number():
     form = ReferenceNumberForm()
 
     if form.reference_number.data:
-        if reference_number_is_valid(form.reference_number.data):
+        if reference_number_is_valid(form.reference_number.data, None, True):
             reference_number = form.reference_number.data.replace('-', '').replace(' ', '').upper()
             return local_redirect(url_for('applications.view', reference_number=reference_number))
 
