@@ -7,7 +7,7 @@ from grc.models import db, Application, ApplicationStatus
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
-from grc.utils.reference_number import validate_reference_number
+from grc.utils.reference_number import reference_number_is_valid
 from sqlalchemy import or_
 
 applications = Blueprint('applications', __name__)
@@ -108,7 +108,7 @@ def search_by_reference_number():
     form = ReferenceNumberForm()
 
     if form.reference_number.data:
-        if validate_reference_number(form.reference_number.data):
+        if reference_number_is_valid(form.reference_number.data):
             reference_number = form.reference_number.data.replace('-', '').replace(' ', '').upper()
             return local_redirect(url_for('applications.view', reference_number=reference_number))
 

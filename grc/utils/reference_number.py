@@ -1,4 +1,7 @@
 from grc.models import Application
+from grc.utils.logger import Logger, LogLevel
+
+logger = Logger()
 
 
 def reference_number_string(reference_number):
@@ -7,12 +10,11 @@ def reference_number_string(reference_number):
     return formatted_reference
 
 
-def validate_reference_number(reference):
+def reference_number_is_valid(reference):
     reference = reference.replace('-', '').replace(' ', '').upper()
     application = Application.query.filter_by(reference_number=reference).first()
 
     if application is None:
-        print(f"An application with reference number {reference} does not exist", flush=True)
+        logger.log(LogLevel.INFO, message=f"An application with reference number {reference} does not exist")
         return False
-    else:
-        return application
+    return True

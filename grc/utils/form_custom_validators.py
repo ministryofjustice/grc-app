@@ -8,7 +8,7 @@ from collections.abc import Iterable
 from datetime import date
 from grc.business_logic.data_store import DataStore
 from grc.utils.security_code import is_security_code_valid
-from grc.utils.reference_number import validate_reference_number
+from grc.utils.reference_number import reference_number_is_valid
 from grc.models import db, Application
 
 
@@ -90,7 +90,7 @@ def validate_security_code(form, field):
 
 
 def validateReferenceNumber(form, field):
-    if validate_reference_number(field.data) is False:
+    if reference_number_is_valid(field.data) is False:
         from grc.utils.logger import LogLevel, Logger
         logger = Logger()
         email = logger.mask_email_address(session['validatedEmail']) if 'validatedEmail' in session else 'Unknown user'
