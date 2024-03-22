@@ -1105,7 +1105,7 @@ msgid ""
 "We also hold documents relating to living in your affirmed gender "
 "including your:"
 msgstr ""
-"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd "
+"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd a "
 "gadarnhawyd, gan gynnwys eich:"
 
 #: grc/templates/policies/privacy-policy.html:34
@@ -1139,10 +1139,6 @@ msgstr "llythyrau treth"
 #: grc/templates/policies/privacy-policy.html:41
 msgid "academic statements"
 msgstr "datganiadau academaidd"
-
-#: grc/templates/policies/privacy-policy.html:45
-msgid "Purpose"
-msgstr "Pwrpas"
 
 #: grc/templates/policies/privacy-policy.html:48
 msgid ""
