@@ -3,14 +3,9 @@ import requests
 import time
 
 
-def pytest_addoption(parser):
-    parser.addoption("--max-retries", type=int, default=1, help="Add number of attempts to ping endpoint")
-    parser.addoption("--timeout", type=int, default=3, help="Timeout in seconds between each ping")
-
-
-def test_json_health_check(request):
-    max_retries = request.config.getoption("--max-retries")
-    timeout = request.config.getoption("--timeout")
+def test_json_health_check(max_retries, timeout):
+    max_retries = max_retries
+    timeout = timeout
 
     for attempt in range(1, max_retries + 1):
         try:
