@@ -12,9 +12,6 @@ class TestValidateDateOfBirth:
     @patch('grc.business_logic.data_store.DataStore.load_application')
     def test_validate_date_of_birth_after_transition_date(self, mock_load_application, app, client):
         with app.app_context():
-            response = client.get('/')
-            assert response.status_code == 200
-
             form = DobForm()
             form.year = None
             form['day'].data = '1'
@@ -22,9 +19,6 @@ class TestValidateDateOfBirth:
             form['year'].data = '1990'
             form['day'].errors = None
             form['month'].errors = None
-
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
 
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
@@ -40,9 +34,6 @@ class TestValidateDateOfBirth:
     def test_validate_date_of_birth_after_statutory_declaration_date_valid_transition_date(self, mock_load_application,
                                                                                            app, client):
         with app.app_context():
-            response = client.get('/')
-            assert response.status_code == 200
-
             form = DobForm()
             form.year = None
             form['day'].data = '1'
@@ -50,9 +41,6 @@ class TestValidateDateOfBirth:
             form['year'].data = '1990'
             form['day'].errors = None
             form['month'].errors = None
-
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
 
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
@@ -80,9 +68,6 @@ class TestValidateDateOfBirth:
             form['day'].errors = None
             form['month'].errors = None
 
-            with client.session_transaction() as session:
-                session['reference_number'] = '123ABCD'
-
             with app.test_request_context():
                 mock_data = MagicMock(personal_details_data=MagicMock(
                     transition_date=None,
@@ -96,9 +81,6 @@ class TestValidateDateOfBirth:
 
     def test_validate_date_of_birth_age_more_than_110(self, app, client):
         with app.app_context():
-            response = client.get('/')
-            assert response.status_code == 200
-
             input_age = date.today() - relativedelta(years=112)
             form = DobForm()
             form.year = None
@@ -130,9 +112,6 @@ class TestValidateDateOfBirth:
 
     def test_validate_date_of_birth_return_error_invalid_input(self, app, client):
         with app.app_context():
-            response = client.get('/')
-            assert response.status_code == 200
-
             form = DobForm()
             form.year = None
             form['day'].data = 'wdsad'
@@ -146,9 +125,6 @@ class TestValidateDateOfBirth:
 
     def test_validate_date_of_birth_return_none_if_empty_day_or_month(self, app, client):
         with app.app_context():
-            response = client.get('/')
-            assert response.status_code == 200
-
             form = DobForm()
             form.year = None
             form['day'].data = None

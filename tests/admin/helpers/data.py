@@ -16,7 +16,6 @@ def create_test_applications(status: ApplicationStatus, number_of_applications: 
         new_app.status = status
         new_app.completed = datetime.now() - relativedelta(days=7)
         db.session.commit()
-        print(f'Test ADMIN Completed App Ref - {new_app.reference_number}', flush=True)
         test_completed_apps.append(new_app)
     return test_completed_apps
 
@@ -28,5 +27,3 @@ def delete_test_applications(*application_references_lists: [Application.referen
                 Application.reference_number.in_(app_refs)
             ).filter_by(email='test.email@example.com').delete()
             db.session.commit()
-            print(f'applications - {app_refs} deleted', flush=True)
-
