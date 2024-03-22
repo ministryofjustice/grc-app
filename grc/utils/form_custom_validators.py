@@ -42,7 +42,7 @@ class StrictRequiredIf(DataRequired):
         - http://stackoverflow.com/questions/8463209/how-to-make-a-field-conditionally-optional-in-wtforms
 
     """
-    field_flags = ('requiredif',)
+    field_flags = {'requiredif': True}
 
     def __init__(self, other_field_name, other_field_value, message=None, validators=None, *args, **kwargs):
         self.other_field_name = other_field_name
