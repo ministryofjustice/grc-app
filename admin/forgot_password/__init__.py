@@ -1,7 +1,6 @@
-import jwt
 from datetime import datetime, timedelta
 from dateutil import tz
-from flask import Blueprint, render_template, request, current_app, url_for
+from flask import Blueprint, render_template, request, session, url_for
 from admin.forgot_password.forms import ForgotPasswordForm
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import AdminUser
@@ -41,6 +40,7 @@ def index():
                 except Exception as e:
                     print(e, flush=True)
 
+                session['email'] = email_address
                 return local_redirect(url_for('password_reset.reset_password_security_code'))
 
             else:
