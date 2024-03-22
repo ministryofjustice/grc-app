@@ -153,7 +153,7 @@ msgstr ""
 #: grc/templates/document-checker/start.html:33
 #: grc/templates/govuk-design-system-templates/continue.html:4
 msgid "Continue"
-msgstr ""
+msgstr "Parhau"
 
 #: grc/templates/document-checker/email-address.html:45
 msgid "Return to your documents list"
