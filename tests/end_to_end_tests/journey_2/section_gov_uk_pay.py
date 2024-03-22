@@ -1,6 +1,6 @@
 from playwright.async_api import Page
-from tests.helpers.e2e_assert_helpers import AssertHelpers
-from tests.helpers.e2e_page_helpers import PageHelpers
+from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
+from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_2.data as data
 
 

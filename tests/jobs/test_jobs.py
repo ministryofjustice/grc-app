@@ -3,7 +3,7 @@ from grc.config import TestConfig
 from grc.models import ApplicationStatus, SecurityCode
 from sqlalchemy import or_
 from admin.jobs.notify_applicants_inactive_apps import application_notifications
-from tests.helpers.jobs.helpers import create_test_apps, delete_test_application, create_test_expired_security_codes, create_test_emails
+from tests.jobs.helpers import create_test_apps, delete_test_application, create_test_expired_security_codes, create_test_emails
 
 
 def create_test_app():

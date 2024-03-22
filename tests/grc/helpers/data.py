@@ -1,9 +1,8 @@
-from flask_wtf import FlaskForm
 from datetime import date
-from grc.personal_details.forms import DateRangeForm
+from grc.personal_details.forms import ContactDatesForm, DateRangeForm
 
 
-def single_date_mock(form: FlaskForm, form_date: date, **kwargs):
+def single_date_mock(form: ContactDatesForm, form_date: date, **kwargs):
     form.day.data = str(form_date.day)
     form.month.data = str(form_date.month)
     form.year.data = str(form_date.year)
@@ -46,6 +45,6 @@ def date_range_mock(form: DateRangeForm, from_date: date, to_date: date, **kwarg
         form.to_date_year.data = kwargs.get('to_year')
 
 
-def remove_date_ranges(form: FlaskForm):
+def remove_date_ranges(form: ContactDatesForm):
     for _ in range(len(form.date_ranges)):
         form.date_ranges.pop_entry()
