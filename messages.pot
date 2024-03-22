@@ -739,6 +739,505 @@ msgstr ""
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr ""
 
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:10
+msgid ""
+"Accessibility statement for Gender Recognition Certificate application "
+"service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:13
+msgid ""
+"We want everyone to be able to do what they need to do with our website, "
+"regardless of any access needs due to a disability or condition"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:17
+msgid ""
+"A detailed accessibility statement about the Gender Recognition "
+"Certificate application service"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:20
+msgid "This page describes:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:23
+msgid "how accessible our website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:24
+msgid "what to do if you have a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:25
+msgid "what we are doing to meet the regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:28
+msgid ""
+"This accessibility statement applies to the Gender Recognition "
+"Certificate application service and document checker"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:29
+msgid ""
+"It does not apply to the guidance about Gender Recognition Certificates "
+"on GOV.UK"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:33
+msgid "Using our website and services"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:36
+msgid "This service is run by the Government Equalities Office"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:37
+msgid "We want as many people as possible to be able to use this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:38
+msgid "For example, that means you should be able to:"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:41
+#, python-format
+msgid "zoom in up to 300%% without problems"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:42
+msgid "navigate most of the website using just a keyboard"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:43
+msgid "navigate most of the website using speech recognition software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:44
+msgid ""
+"use most of the website using a screen reader (including the most recent "
+"versions of JAWS, NVDA and VoiceOver)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:47
+msgid "We have also made the website text as simple as possible to understand"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "AbilityNet (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:50
+msgid "has advice on making your device easier to use if you have a disability"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:54
+msgid "How accessible this website is"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:57
+msgid ""
+"We aim to meet international accessibility guidelines, however this may "
+"not always be possible, or we may have missed a problem"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:60
+msgid "We know some parts of this website are not fully accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:64
+msgid ""
+"most older PDF documents that are linked to from this website are not "
+"fully accessible to screen reader software"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid ""
+"some GOV.UK Pay pages are not accessible, but we do not manage these "
+"pages – see the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "GOV.UK Pay accessibility statement (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:67
+msgid "for more information"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:71
+msgid "We are working to fix the issue with inaccessible PDFs"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:75
+msgid "What to do if you cannot access parts of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:78
+msgid ""
+"If you need information on this website in a different format like "
+"accessible PDF, large print, easy read, audio recording or braille, "
+"contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:82
+msgid "We will consider your request and get back to you within 5 working days"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:86
+msgid "Reporting accessibility problems with this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:89
+msgid "We are always looking to improve the accessibility of this website"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:90
+msgid ""
+"If you find any problems not listed on this page, or think we are not "
+"meeting accessibility requirements, contact"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:95
+msgid "Enforcement procedure"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:98
+msgid ""
+"The Equality and Human Rights Commission (EHRC) is responsible for "
+"enforcing the Public Sector Bodies (Websites and Mobile Applications) "
+"(No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "If you’re not happy with how we respond to your complaint, contact the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:99
+msgid "Equality Advisory and Support Service (EASS) (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:103
+msgid "Technical information about this website’s accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:106
+msgid ""
+"The Government Equalities Office is committed to making its website "
+"accessible, in accordance with the Public Sector Bodies (Websites and "
+"Mobile Applications) (No. 2) Accessibility Regulations 2018"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "This website is partially compliant with the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:109
+msgid "AA standard, due to ‘the non-compliances’, listed below"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:113
+msgid "Non-accessible content"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:116
+msgid "The content listed below is not accessible for the following reasons"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:120
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions – this makes it difficult for people with screen readers to "
+"use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:125
+msgid "Non-compliance with the accessibility regulations"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:128
+msgid ""
+"Statutory declaration PDFs have not been marked up with tags or text "
+"descriptions"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:129
+msgid "This makes it difficult for people with screen readers to use them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:132
+msgid "We are aware of these issues and are working to fix them"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:136
+msgid "Disproportionate burden"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:139
+msgid ""
+"We have not yet identified a part of the service where it would be a "
+"disproportionate burden on the Government Equalities Office to resolve "
+"the non-compliance"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:140
+msgid ""
+"If this becomes the case, we will publish full details here explaining "
+"our decision"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:144
+msgid "How we tested"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid ""
+"Testing has been conducted internally by Government Equalities Office "
+"staff and externally audited by the"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:147
+msgid "Digital Accessibility Centre (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:148
+#: grc/templates/policies/accessibility-statement.html:167
+msgid ""
+"Where they have been checked for compliance, it has been against WCAG 2.1"
+" AA"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:152
+msgid "What we are doing to improve accessibility"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:155
+msgid "We are working to fix any parts of the service which are not accessible"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:159
+msgid "Preparation of this accessibility statement"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:162
+msgid ""
+"This statement was prepared on 7th June 2022. It was last reviewed on 7th"
+" June 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:165
+msgid "This website was last tested on 26th May 2022"
+msgstr ""
+
+#: grc/templates/policies/accessibility-statement.html:166
+msgid "The test was carried out by the Digital Accessibility Centre"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
+msgid "Cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:16
+msgid "You’ve set your cookie preferences"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "GOV.UK Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:21
+msgid "puts small files (known as ‘cookies’) on your computer"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:22
+msgid ""
+"These cookies are used across the GOV.UK Gender Recognition Certificate "
+"website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:24
+msgid ""
+"We only set cookies when JavaScript is running in your browser and you’ve"
+" accepted them"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:25
+msgid ""
+"If you choose not to run Javascript, the information on this page will "
+"not apply to you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:28
+msgid ""
+"If you use an older browser, such as Internet Explorer 8 or earlier, the "
+"cookies we use will not affect you"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "Find out"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "how to manage cookies"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:30
+msgid "from the Information Commissioner's Office"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:33
+msgid "Essential cookies (strictly necessary)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:34
+msgid ""
+"We use an essential cookie to remember when you accept or reject cookies "
+"on our website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:37
+msgid "Essential cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:41
+#: grc/templates/policies/cookies.html:82
+#: grc/templates/policies/privacy-policy.html:45
+msgid "Purpose"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:42
+#: grc/templates/policies/cookies.html:83
+msgid "Expires"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:49
+msgid "Saves your progress on the website"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:50
+msgid "When you close your browser tab"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:54
+msgid "Saves your cookie consent settings"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:55
+msgid "1 year"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:60
+msgid "Analytics cookies (optional)"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:62
+msgid ""
+"We use Google Analytics software to understand how people use the GOV.UK "
+"Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:63
+msgid ""
+"We do this to help make sure the site is meeting the needs of its users "
+"and to help us make improvements"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:65
+msgid ""
+"We do not collect or store your personal information (for example your "
+"name or address) so this information cannot be used to identify who you "
+"are"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:66
+msgid "We do not allow Google to use or share our analytics data"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:67
+msgid "Google Analytics stores information about:"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:70
+msgid "the pages you visit"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:71
+msgid "how long you spend on each page"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:72
+msgid "how you arrived at the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:73
+msgid "what you click on while you visit the site"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:74
+msgid "the device and browser you use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:78
+msgid "Analytics cookies we use"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:89
+#: grc/templates/policies/cookies.html:94
+msgid ""
+"Helps us count how many people visit the GOV.UK Gender Recognition "
+"Certificate by telling us if you’ve visited before"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:90
+msgid "2 years"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:95
+msgid "24 hours"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:99
+msgid "Used to reduce the number of requests"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:100
+msgid "1 minute"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:108
+msgid "Do you want to accept analytics cookies?"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:114
+msgid "Yes"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:120
+msgid "No"
+msgstr ""
+
+#: grc/templates/policies/cookies.html:128
+msgid "Save cookie settings"
+msgstr ""
+
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
 msgstr ""
@@ -824,10 +1323,6 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:41
 msgid "academic statements"
-msgstr ""
-
-#: grc/templates/policies/privacy-policy.html:45
-msgid "Purpose"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:48
