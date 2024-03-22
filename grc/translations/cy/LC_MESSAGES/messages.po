@@ -1105,7 +1105,7 @@ msgid ""
 "We also hold documents relating to living in your affirmed gender "
 "including your:"
 msgstr ""
-"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd "
+"Rydym hefyd yn cadw dogfennau sy’n ymwneud â byw yn eich rhywedd a "
 "gadarnhawyd, gan gynnwys eich:"
 
 #: grc/templates/policies/privacy-policy.html:34
@@ -1468,7 +1468,7 @@ msgstr "Sut i gwyno"
 
 #: grc/templates/policies/privacy-policy.html:191
 msgid "When we ask you for information, we will keep to the law"
-msgstr ""
+msgstr "Pan ofynnwn i chi am wybodaeth, byddwn yn cadw at y gyfraith"
 
 #: grc/templates/policies/privacy-policy.html:192
 msgid ""
