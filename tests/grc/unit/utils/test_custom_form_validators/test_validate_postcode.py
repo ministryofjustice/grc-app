@@ -9,7 +9,7 @@ class TestValidatePostcode:
     def test_validate_postcode_valid(self, app):
         with app.app_context():
             form = AddressForm()
-            valid_postcodes = ['W1J 7NT', 'SW1H 9EX', 'W1J7NT', 'SW1H9EX']
+            valid_postcodes = ['W1J 7NT', 'SW1H 9EX', 'W1J7NT', 'SW1H9EX', 'M25 1AB', 'W29CD']
             for postcode in valid_postcodes:
                 form.postcode.data = postcode
                 assert validate_postcode(form, form.postcode) is None
