@@ -46,16 +46,18 @@ def test_gov_uk_design_system_folders_in_sync():
 
     all_files = get_all_python_files_in_grc_and_admin_apps()
 
-    pattern = re.compile('\Wredirect\(')
+    pattern = re.compile(r'\Wredirect\(')
 
     for full_filename in all_files:
         grc_file = open(full_filename, 'r')
         grc_file_text = grc_file.read()
         grc_file.close()
 
-        if pattern.search(grc_file_text) != None:
-            error_message = f"Found a use of 'redirect()' in file ({full_filename}). redirect() is not allowed in this codebase. Use local_redirect instead."
+        if pattern.search(grc_file_text) is not None:
+            error_message = (f"Found a use of 'redirect()' in file ({full_filename}). redirect() is not allowed"
+                             f" in this codebase. Use local_redirect instead.")
             raise Exception(error_message)
+
 
 def get_all_python_files_in_grc_and_admin_apps():
     path_to_this_file = pathlib.Path(__file__).parent.absolute()
@@ -74,11 +76,8 @@ def get_all_python_files_in_grc_and_admin_apps():
                 elif dir_child_item.is_dir():
                     dir_list.append(dir_child_item.path)
 
-    print_now(f"Found ({len(files)}) files")
+    print(f"Found ({len(files)}) files")
     python_files = list(filter(lambda file: file.endswith('.py'), files))
-    print_now(f"Found ({len(python_files)}) python files")
+    print(f"Found ({len(python_files)}) python files")
 
     return python_files
-
-def print_now(message):
-    print(message, flush=True)

@@ -1,8 +1,8 @@
 import os
 import asyncio
 from playwright.async_api import async_playwright
-from tests.helpers.e2e_assert_helpers import AssertHelpers
-from tests.helpers.e2e_page_helpers import PageHelpers
+from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
+from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_2.data as data
 import tests.end_to_end_tests.journey_2.section_fill_in_application as section_fill_in_application
 import tests.end_to_end_tests.journey_2.section_gov_uk_pay as section_gov_uk_pay
