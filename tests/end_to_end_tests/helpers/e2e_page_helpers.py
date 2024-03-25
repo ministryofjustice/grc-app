@@ -80,7 +80,7 @@ class PageHelpers:
         await self.page.set_input_files(f"input[type=\"file\"][name=\"{field}\"]", files)
 
     async def upload_file_valid(self, field, file_name):
-        with open('tests/helpers/TestDocument.png', mode='rb') as file:
+        with open('tests/end_to_end_tests/helpers/TestDocument.png', mode='rb') as file:
             image_contents = file.read()
 
         files = [{

@@ -1,7 +1,7 @@
 import re
 from playwright.async_api import Page
-from tests.accessibility.accessibility_checks import AccessibilityChecks
-from tests.helpers.e2e_page_helpers import PageHelpers, clean_string
+from tests.end_to_end_tests.accessibility.accessibility_checks import AccessibilityChecks
+from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers, clean_string
 
 
 class AssertHelpers:

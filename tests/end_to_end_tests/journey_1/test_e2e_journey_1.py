@@ -1,8 +1,8 @@
 import os
 import asyncio
 from playwright.async_api import async_playwright
-from tests.helpers.e2e_assert_helpers import AssertHelpers
-from tests.helpers.e2e_page_helpers import PageHelpers
+from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
+from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 import tests.end_to_end_tests.journey_1.login_and_confirmation.section as section_login_and_confirmation
 import tests.end_to_end_tests.journey_1.personal_details.section as section_personal_details
