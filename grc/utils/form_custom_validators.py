@@ -223,7 +223,7 @@ def validateDateOfTransiton(form, field):
 
 
 def validate_statutory_declaration_date(form, field):
-    if form['statutory_declaration_date_day'].errors or not form['statutory_declaration_date_month'].errors:
+    if form['statutory_declaration_date_day'].errors or form['statutory_declaration_date_month'].errors:
         return
 
     try:
