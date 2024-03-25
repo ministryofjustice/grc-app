@@ -31,7 +31,6 @@ class TestValidatePasswordStrength:
                 with pytest.raises(ValidationError, match='Your password needs to contain 8 or more characters, a lower'
                                                           ' case letter, an upper case letter, a number and a special '
                                                           'character'):
-
                     validate_password_strength(form, form.password)
 
     def test_validate_password_strength_no_uppercase(self, app):
