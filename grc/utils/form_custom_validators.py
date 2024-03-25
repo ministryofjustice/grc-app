@@ -171,7 +171,7 @@ def validate_date_of_birth(form, field):
                               + ' date')
 
 
-def validate_date_of_transiton(form, field):
+def validate_date_of_transition(form, field):
     if not form['transition_date_month'].errors:
         try:
             transition_date_month = int(form['transition_date_month'].data)
