@@ -171,7 +171,7 @@ def validate_date_of_birth(form, field):
                               + ' date')
 
 
-def validateDateOfTransiton(form, field):
+def validate_date_of_transiton(form, field):
     if not form['transition_date_month'].errors:
         try:
             transition_date_month = int(form['transition_date_month'].data)
@@ -183,28 +183,24 @@ def validateDateOfTransiton(form, field):
         earliest_date_of_transition_years = 100
         earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
-        reference_number = session['reference_number']
-        application_record = db.session.query(Application).filter_by(
-            reference_number=reference_number
-        ).first()
-        application_data = DataStore.load_application(reference_number)
-
-        latest_transition_years = 2
-        application_created_date = date(
-            application_record.created.year,
-            application_record.created.month,
-            application_record.created.day
-        )
-        latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
-
         if date_of_transition < earliest_date_of_transition:
             raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
 
         if date_of_transition > date.today():
             raise ValidationError('Enter a date in the past')
 
-        if date_of_transition > latest_transition_date \
-                and not application_data.confirmation_data.gender_recognition_outside_uk:
+        reference_number = session['reference_number']
+        application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
+        application_created_date = date(application_record.created.year, application_record.created.month,
+                                        application_record.created.day)
+        application_data = DataStore.load_application(reference_number)
+
+        if application_data.confirmation_data.gender_recognition_outside_uk:
+            return
+
+        latest_transition_years = 2
+        latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
+        if date_of_transition > latest_transition_date:
             raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
 
 
