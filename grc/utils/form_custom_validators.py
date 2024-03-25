@@ -195,7 +195,7 @@ def validate_date_of_transition(form, field):
     application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
     application_created_date = date(application_record.created.year, application_record.created.month,
                                     application_record.created.day)
-    application_data = DataStore.load_application(reference_number)
+    application_data = application_record.application_data()
 
     if application_data.confirmation_data.gender_recognition_outside_uk:
         return

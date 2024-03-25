@@ -43,8 +43,7 @@ class TestValidateTransitionDate:
                 validate_date_of_transition(form, form.transition_date_year)
 
     @patch('grc.models.db.session')
-    @patch('grc.business_logic.data_store.DataStore.load_application')
-    def test_validate_transition_date_invalid_date_within_2_years_of_starting_application(self, mock_load_application,
+    def test_validate_transition_date_invalid_date_within_2_years_of_starting_application(self,
                                                                                           mock_db_session, app):
         with app.app_context():
             with app.test_request_context():
@@ -58,7 +57,7 @@ class TestValidateTransitionDate:
                 ))
                 mock_application_data = MagicMock(confirmation_data=MagicMock(gender_recognition_outside_uk=False))
                 mock_db_session.query.return_value.filter_by.return_value.first.return_value = mock_application_record
-                mock_load_application.return_value = mock_application_data
+                mock_application_record.application_data.return_value = mock_application_data
 
                 test_transition_date = datetime.now() - relativedelta(years=1)
                 form = TransitionDateForm()
@@ -68,9 +67,8 @@ class TestValidateTransitionDate:
                     validate_date_of_transition(form, form.transition_date_year)
 
     @patch('grc.models.db.session')
-    @patch('grc.business_logic.data_store.DataStore.load_application')
     def test_validate_transition_date_valid_date_within_2_years_of_starting_application_and_transition_outside_uk(
-            self, mock_load_application, mock_db_session, app):
+            self, mock_db_session, app):
         with app.app_context():
             with app.test_request_context():
                 session['reference_number'] = '123ABC'
@@ -83,7 +81,7 @@ class TestValidateTransitionDate:
                 ))
                 mock_application_data = MagicMock(confirmation_data=MagicMock(gender_recognition_outside_uk=True))
                 mock_db_session.query.return_value.filter_by.return_value.first.return_value = mock_application_record
-                mock_load_application.return_value = mock_application_data
+                mock_application_record.application_data.return_value = mock_application_data
 
                 test_transition_date = datetime.now() - relativedelta(years=1)
                 form = TransitionDateForm()
@@ -92,9 +90,8 @@ class TestValidateTransitionDate:
                 assert validate_date_of_transition(form, form.transition_date_year) is None
 
     @patch('grc.models.db.session')
-    @patch('grc.business_logic.data_store.DataStore.load_application')
     def test_validate_transition_date_valid_date_before_2_years_of_starting_application_and_transition_inside_uk(
-            self, mock_load_application, mock_db_session, app):
+            self, mock_db_session, app):
         with app.app_context():
             with app.test_request_context():
                 session['reference_number'] = '123ABC'
@@ -107,7 +104,7 @@ class TestValidateTransitionDate:
                 ))
                 mock_application_data = MagicMock(confirmation_data=MagicMock(gender_recognition_outside_uk=False))
                 mock_db_session.query.return_value.filter_by.return_value.first.return_value = mock_application_record
-                mock_load_application.return_value = mock_application_data
+                mock_application_record.application_data.return_value = mock_application_data
 
                 test_transition_date = datetime.now() - relativedelta(years=3)
                 form = TransitionDateForm()
@@ -116,9 +113,8 @@ class TestValidateTransitionDate:
                 assert validate_date_of_transition(form, form.transition_date_year) is None
 
     @patch('grc.models.db.session')
-    @patch('grc.business_logic.data_store.DataStore.load_application')
     def test_validate_transition_date_valid_date_before_2_years_of_starting_application_and_transition_outside_uk(
-            self, mock_load_application, mock_db_session, app):
+            self, mock_db_session, app):
         with app.app_context():
             with app.test_request_context():
                 session['reference_number'] = '123ABC'
@@ -131,7 +127,7 @@ class TestValidateTransitionDate:
                 ))
                 mock_application_data = MagicMock(confirmation_data=MagicMock(gender_recognition_outside_uk=True))
                 mock_db_session.query.return_value.filter_by.return_value.first.return_value = mock_application_record
-                mock_load_application.return_value = mock_application_data
+                mock_application_record.application_data.return_value = mock_application_data
 
                 test_transition_date = datetime.now() - relativedelta(years=3)
                 form = TransitionDateForm()
