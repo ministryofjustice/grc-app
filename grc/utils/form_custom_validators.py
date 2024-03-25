@@ -100,7 +100,7 @@ def validateReferenceNumber(form, field):
         raise ValidationError('Enter a valid reference number')
 
 
-def validateGovUkEmailAddress(form, field):
+def validate_gov_uk_email_address(form, field):
     email_address: str = field.data
     if not email_address.endswith('.gov.uk'):
         raise ValidationError('Enter a .gov.uk email address')
