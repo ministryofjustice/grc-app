@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validate_statutory_declaration_date, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -67,7 +67,7 @@ class StatutoryDeclarationDateForm(FlaskForm):
         validators=[
             DataRequired(message='Enter a year'),
             Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validateStatutoryDeclarationDate])
+                    validators=[validate_statutory_declaration_date])
         ]
     )
 
