@@ -1,10 +1,13 @@
 import pytest
 from grc.personal_details.forms import HmrcForm
-from grc.utils.form_custom_validators import validateNationalInsuranceNumber
+from grc.utils.form_custom_validators import validate_national_insurance_number
 from wtforms.validators import ValidationError
 
 
 class TestValidateNationalInsuranceNumber:
+
+    # https://www.gov.uk/hmrc-internal-manuals/national-insurance-manual/nim39110
+    # https://stackoverflow.com/questions/17928496/use-regex-to-validate-a-uk-national-insurance-no-nino-in-an-html5-pattern-attri
 
     def test_validate_national_insurance_number_valid_numbers(self, app):
         with app.app_context():
@@ -12,7 +15,7 @@ class TestValidateNationalInsuranceNumber:
             valid_ni_numbers = ['PP 12 34 56 A', 'PP123456A', 'AZ 8 237 23C', 'KW728462 D']
             for number in valid_ni_numbers:
                 form.national_insurance_number.data = number
-                assert validateNationalInsuranceNumber(form, form.national_insurance_number) is None
+                assert validate_national_insurance_number(form, form.national_insurance_number) is None
 
     def test_validate_national_insurance_number_valid_numbers_lowercase(self, app):
         with app.app_context():
@@ -20,7 +23,7 @@ class TestValidateNationalInsuranceNumber:
             valid_ni_numbers = ['pp 12 34 56 a', 'pp123456a', 'az 8 237 23c', 'kw728462 d']
             for number in valid_ni_numbers:
                 form.national_insurance_number.data = number
-                assert validateNationalInsuranceNumber(form, form.national_insurance_number) is None
+                assert validate_national_insurance_number(form, form.national_insurance_number) is None
 
     def test_validate_national_insurance_number_invalid_first_letter(self, app):
         with app.app_context():
@@ -29,7 +32,7 @@ class TestValidateNationalInsuranceNumber:
             for number in invalid_ni_numbers:
                 form.national_insurance_number.data = number
                 with pytest.raises(ValidationError, match='Enter a valid National Insurance number'):
-                    validateNationalInsuranceNumber(form, form.national_insurance_number)
+                    validate_national_insurance_number(form, form.national_insurance_number)
 
     def test_validate_national_insurance_number_invalid_prefix_combinations(self, app):
         with app.app_context():
@@ -40,7 +43,7 @@ class TestValidateNationalInsuranceNumber:
             for number in invalid_ni_numbers:
                 form.national_insurance_number.data = number
                 with pytest.raises(ValidationError, match='Enter a valid National Insurance number'):
-                    validateNationalInsuranceNumber(form, form.national_insurance_number)
+                    validate_national_insurance_number(form, form.national_insurance_number)
 
     def test_validate_national_insurance_number_invalid_number_length(self, app):
         with app.app_context():
@@ -50,7 +53,7 @@ class TestValidateNationalInsuranceNumber:
             for number in invalid_ni_numbers:
                 form.national_insurance_number.data = number
                 with pytest.raises(ValidationError, match='Enter a valid National Insurance number'):
-                    validateNationalInsuranceNumber(form, form.national_insurance_number)
+                    validate_national_insurance_number(form, form.national_insurance_number)
 
     def test_validate_national_insurance_number_invalid_suffix(self, app):
         with app.app_context():
@@ -60,5 +63,5 @@ class TestValidateNationalInsuranceNumber:
             for number in invalid_ni_numbers:
                 form.national_insurance_number.data = number
                 with pytest.raises(ValidationError, match='Enter a valid National Insurance number'):
-                    validateNationalInsuranceNumber(form, form.national_insurance_number)
+                    validate_national_insurance_number(form, form.national_insurance_number)
 

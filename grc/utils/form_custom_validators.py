@@ -270,10 +270,7 @@ def validateDateRange(form, field):
             raise ValidationError('Enter a valid end year')
 
 
-def validateNationalInsuranceNumber(form, field):
-
-    # https://www.gov.uk/hmrc-internal-manuals/national-insurance-manual/nim39110
-    # https://stackoverflow.com/questions/17928496/use-regex-to-validate-a-uk-national-insurance-no-nino-in-an-html5-pattern-attri
+def validate_national_insurance_number(form, field):
     if not (field.data is None or field.data == ''):
         data = field.data.replace(' ', '').upper()
         match = re.search('^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]{1}$', data)
