@@ -128,7 +128,6 @@ def validateAddressField(form, field):
 
 
 def validate_postcode(form, field):
-    # https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
     if not field.data:
         return
 
