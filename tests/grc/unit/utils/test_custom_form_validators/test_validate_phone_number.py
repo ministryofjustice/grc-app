@@ -1,6 +1,6 @@
 import pytest
 from grc.personal_details.forms import ContactPreferencesForm
-from grc.utils.form_custom_validators import validatePhoneNumber
+from grc.utils.form_custom_validators import validate_phone_number
 from wtforms.validators import ValidationError
 
 
@@ -13,7 +13,7 @@ class TestValidatePhoneNumber:
             valid_numbers = ['0', '123', '34324', '07111111111', '07123456789', '31341432131432143124']
             for number in valid_numbers:
                 form.phone.data = number
-                assert validatePhoneNumber(form, form.phone) is None
+                assert validate_phone_number(form, form.phone) is None
 
     def test_validate_phone_number_invalid_non_numeric(self, app):
         with app.app_context():
@@ -23,7 +23,7 @@ class TestValidatePhoneNumber:
             for number in valid_numbers:
                 form.phone.data = number
                 with pytest.raises(ValidationError, match='Enter a valid phone number'):
-                    validatePhoneNumber(form, form.phone)
+                    validate_phone_number(form, form.phone)
 
     def test_validate_phone_number_invalid_special_char(self, app):
         with app.app_context():
@@ -33,4 +33,4 @@ class TestValidatePhoneNumber:
             for number in valid_numbers:
                 form.phone.data = number
                 with pytest.raises(ValidationError, match='Enter a valid phone number'):
-                    validatePhoneNumber(form, form.phone)
+                    validate_phone_number(form, form.phone)
