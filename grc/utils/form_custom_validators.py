@@ -101,23 +101,34 @@ def validate_reference_number(form, field):
         raise ValidationError('Enter a valid reference number')
 
 
-def validateGovUkEmailAddress(form, field):
+def validate_gov_uk_email_address(form, field):
     email_address: str = field.data
     if not email_address.endswith('.gov.uk'):
         raise ValidationError('Enter a .gov.uk email address')
 
 
-def validatePasswordStrength(form, field):
-    def password_check(password):
-        length_error = len(password) < 8
-        digit_error = re.search(r'\d', password) is None
-        uppercase_error = re.search(r'[A-Z]', password) is None
-        lowercase_error = re.search(r'[a-z]', password) is None
-        symbol_error = re.search(r'\W', password) is None
-        return not (length_error or digit_error or uppercase_error or lowercase_error or symbol_error)
+def validate_password_strength(form, field):
+    password = field.data
+    errors = []
+    if len(password) < 8:
+        errors.append('Password too short')
 
-    if password_check(field.data) is False:
-        raise ValidationError('Your password needs to contain 8 or more characters, a lower case letter, an upper case letter, a number and a special character')
+    if not re.search(r'\d', password):
+        errors.append('Password is missing a number')
+
+    if not re.search(r'[A-Z]', password):
+        errors.append('Password is missing an uppercase char')
+
+    if not re.search(r'[a-z]', password):
+        errors.append('Password is missing a lowercase char')
+
+    if not re.search(r'\W', password):
+        errors.append('Password is missing a special char')
+
+    if errors:
+        logger.log(LogLevel.INFO, message=f'Error resetting password with following errors = {errors}')
+        raise ValidationError('Your password needs to contain 8 or more characters, a lower case letter, an upper case'
+                              ' letter, a number and a special character')
 
 
 def validateAddressField(form, field):
