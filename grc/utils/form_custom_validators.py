@@ -7,10 +7,10 @@ from werkzeug.datastructures import FileStorage
 from collections.abc import Iterable
 from datetime import date
 from grc.business_logic.data_store import DataStore
-from grc.utils.security_code import is_security_code_valid
-from grc.utils.reference_number import validate_reference_number
 from grc.models import db, Application
-from grc.utils.logger import Logger, LogLevel
+from grc.utils.security_code import is_security_code_valid
+from grc.utils.reference_number import reference_number_is_valid
+from grc.utils.logger import LogLevel, Logger
 
 logger = Logger()
 
@@ -92,14 +92,12 @@ def validate_security_code(form, field):
         raise ValidationError('Enter the security code that we emailed you')
 
 
-def validateReferenceNumber(form, field):
-    if validate_reference_number(field.data) is False:
-        from grc.utils.logger import LogLevel, Logger
-        logger = Logger()
-        email = logger.mask_email_address(session['validatedEmail']) if 'validatedEmail' in session else 'Unknown user'
+def validate_reference_number(form, field):
+    validated_email = session.get('validatedEmail')
+    if not reference_number_is_valid(field.data, validated_email):
+        email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-
         raise ValidationError('Enter a valid reference number')
 
 
