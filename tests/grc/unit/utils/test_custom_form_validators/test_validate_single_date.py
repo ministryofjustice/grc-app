@@ -45,8 +45,9 @@ class TestValidateSingleDate:
             form.day.data = '1'
             form.month.data = '1'
             form.year.data = 'INVALID YEAR'
-            with pytest.raises(ValidationError, match='Enter a valid date'):
-                validate_single_date(form, form.year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a valid date'):
+                    validate_single_date(form, form.year)
 
     def test_validate_single_date_invalid_date_in_past(self, app):
         with app.app_context():
