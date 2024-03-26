@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validate_phone_number, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validate_address_field, validatePostcode, validateDateOfTransiton, validate_phone_number, validateStatutoryDeclarationDate, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -84,13 +84,13 @@ class PreviousNamesCheck(FlaskForm):
 
 class AddressForm(FlaskForm):
     address_line_one = StringField(
-        validators=[DataRequired(message='Enter your address'), validateAddressField]
+        validators=[DataRequired(message='Enter your address'), validate_address_field]
     )
 
-    address_line_two = StringField(validators=[validateAddressField])
+    address_line_two = StringField(validators=[validate_address_field])
 
     town = StringField(
-        validators=[DataRequired(message='Enter your town or city'), validateAddressField]
+        validators=[DataRequired(message='Enter your town or city'), validate_address_field]
     )
 
     country = SelectField(
