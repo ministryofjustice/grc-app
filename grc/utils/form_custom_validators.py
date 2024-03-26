@@ -288,13 +288,14 @@ def validatePhoneNumber(form, field):
             raise ValidationError('Enter a valid phone number')
 
 
-def validateHWFReferenceNumber(form, field):
+def validate_hwf_reference_number(form, field):
+    """
+    Regex to validate HWF reference number separated into 2 parts by an OR '|':
+    1. 11 chars long in the format of HWF-123-ABC
+    2. 9 chars long in format of HWF123ABC
+    """
+
     if not (field.data is None or field.data == ''):
-        """
-        Regex to validate HWF reference number separated into 2 parts by an OR '|':
-        1. 11 chars long in the format of HWF-123-ABC
-        2. 9 chars long in format of HWF123ABC
-        """
         match = re.search(
             '^(((?=.{11}$)(?=HWF-)+([a-zA-Z0-9])+((-[a-zA-Z0-9]{3})+))|((?=.{9}$)(?=^HWF)(?=[a-zA-Z0-9]).*))+$',
             field.data
