@@ -7,9 +7,12 @@ from werkzeug.datastructures import FileStorage
 from collections.abc import Iterable
 from datetime import date
 from grc.business_logic.data_store import DataStore
-from grc.utils.security_code import is_security_code_valid
-from grc.utils.reference_number import validate_reference_number
 from grc.models import db, Application
+from grc.utils.security_code import is_security_code_valid
+from grc.utils.reference_number import reference_number_is_valid
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
 
 
 class StrictRequiredIf(DataRequired):
@@ -89,42 +92,52 @@ def validate_security_code(form, field):
         raise ValidationError('Enter the security code that we emailed you')
 
 
-def validateReferenceNumber(form, field):
-    if validate_reference_number(field.data) is False:
-        from grc.utils.logger import LogLevel, Logger
-        logger = Logger()
-        email = logger.mask_email_address(session['validatedEmail']) if 'validatedEmail' in session else 'Unknown user'
+def validate_reference_number(form, field):
+    validated_email = session.get('validatedEmail')
+    if not reference_number_is_valid(field.data, validated_email):
+        email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-
         raise ValidationError('Enter a valid reference number')
 
 
-def validateGovUkEmailAddress(form, field):
+def validate_gov_uk_email_address(form, field):
     email_address: str = field.data
     if not email_address.endswith('.gov.uk'):
         raise ValidationError('Enter a .gov.uk email address')
 
 
-def validatePasswordStrength(form, field):
-    def password_check(password):
-        length_error = len(password) < 8
-        digit_error = re.search(r'\d', password) is None
-        uppercase_error = re.search(r'[A-Z]', password) is None
-        lowercase_error = re.search(r'[a-z]', password) is None
-        symbol_error = re.search(r'\W', password) is None
-        return not (length_error or digit_error or uppercase_error or lowercase_error or symbol_error)
+def validate_password_strength(form, field):
+    password = field.data
+    errors = []
+    if len(password) < 8:
+        errors.append('Password too short')
 
-    if password_check(field.data) is False:
-        raise ValidationError('Your password needs to contain 8 or more characters, a lower case letter, an upper case letter, a number and a special character')
+    if not re.search(r'\d', password):
+        errors.append('Password is missing a number')
+
+    if not re.search(r'[A-Z]', password):
+        errors.append('Password is missing an uppercase char')
+
+    if not re.search(r'[a-z]', password):
+        errors.append('Password is missing a lowercase char')
+
+    if not re.search(r'\W', password):
+        errors.append('Password is missing a special char')
+
+    if errors:
+        logger.log(LogLevel.INFO, message=f'Error resetting password with following errors = {errors}')
+        raise ValidationError('Your password needs to contain 8 or more characters, a lower case letter, an upper case'
+                              ' letter, a number and a special character')
 
 
-def validateAddressField(form, field):
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^[a-zA-Z0-9- ]*$', data)
-        if match is None:
-            raise ValidationError(f'Enter a valid {field.name.replace("_", " ")}')
+def validate_address_field(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^[a-zA-Z0-9- ]*$', field.data)
+    if match is None:
+        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
 
 
 def validate_postcode(form, field):
