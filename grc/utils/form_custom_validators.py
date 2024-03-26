@@ -294,14 +294,15 @@ def validate_hwf_reference_number(form, field):
     1. 11 chars long in the format of HWF-123-ABC
     2. 9 chars long in format of HWF123ABC
     """
+    if not field.data:
+        return
 
-    if not (field.data is None or field.data == ''):
-        match = re.search(
-            '^(((?=.{11}$)(?=HWF-)+([a-zA-Z0-9])+((-[a-zA-Z0-9]{3})+))|((?=.{9}$)(?=^HWF)(?=[a-zA-Z0-9]).*))+$',
-            field.data
-        )
-        if match is None:
-            raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
+    match = re.search(
+        '^(((?=.{11}$)(?=HWF-)+([a-zA-Z0-9])+((-[a-zA-Z0-9]{3})+))|((?=.{9}$)(?=^HWF)(?=[a-zA-Z0-9]).*))+$',
+        field.data
+    )
+    if match is None:
+        raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
 
 
 def validate_single_date(form, field):
