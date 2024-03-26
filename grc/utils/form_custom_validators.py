@@ -271,11 +271,16 @@ def validateDateRange(form, field):
 
 
 def validate_national_insurance_number(form, field):
-    if not (field.data is None or field.data == ''):
-        data = field.data.replace(' ', '').upper()
-        match = re.search(r'^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]{1}$', data)
-        if match is None:
-            raise ValidationError('Enter a valid National Insurance number')
+    if not field.data:
+        return
+
+    data = field.data.replace(' ', '').upper()
+    match = re.search(
+        r'^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)([A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]$',
+        data
+    )
+    if match is None:
+        raise ValidationError('Enter a valid National Insurance number')
 
 
 def validatePhoneNumber(form, field):
