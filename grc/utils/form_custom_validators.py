@@ -282,10 +282,12 @@ def validateNationalInsuranceNumber(form, field):
 
 
 def validate_phone_number(form, field):
-    if not(field.data is None or field.data == ''):
-        match = re.search(r'^[0-9]+$', field.data)
-        if match is None:
-            raise ValidationError('Enter a valid phone number')
+    if not field.data:
+        return
+
+    match = re.search(r'^[0-9]+$', field.data)
+    if match is None:
+        raise ValidationError('Enter a valid phone number')
 
 
 def validateHWFReferenceNumber(form, field):
