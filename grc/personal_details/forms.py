@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validate_address_field, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validate_address_field, validate_postcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -297,7 +297,7 @@ class AddressForm(FlaskForm):
 
     postcode = StringField(
         validators=[StrictRequiredIf('country', ['', 'United Kingdom'], message='Enter your postcode',
-                                     validators=[validatePostcode])]
+                                     validators=[validate_postcode])]
     )
 
 
