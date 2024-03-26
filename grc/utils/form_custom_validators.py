@@ -249,25 +249,30 @@ def validateStatutoryDeclarationDate(form, field):
             raise ValidationError('Enter a date that does not precede your transition date')
 
 
-def validateDateRange(form, field):
-    if not form['start_date_day'].errors and not form['start_date_month'].errors and not form['end_date_day'].errors and not form['end_date_month'].errors:
-        try:
-            start_date_day = int(form['start_date_day'].data)
-            start_date_month = int(form['start_date_month'].data)
-            start_date_year = int(form['start_date_year'].data)
+def validate_date_range(form, field):
+    if form['start_date_day'].errors or form['start_date_month'].errors:
+        return
 
-            start_date = date(start_date_year, start_date_month, start_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid start year')
+    if form['end_date_day'].errors or form['end_date_month'].errors:
+        return
 
-        try:
-            end_date_day = int(form['end_date_day'].data)
-            end_date_month = int(form['end_date_month'].data)
-            end_date_year = int(form['end_date_year'].data)
+    try:
+        start_date_day = int(form['start_date_day'].data)
+        start_date_month = int(form['start_date_month'].data)
+        start_date_year = int(form['start_date_year'].data)
+        date(start_date_year, start_date_month, start_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid start date with message={e}')
+        raise ValidationError('Enter a valid start year')
 
-            end_date = date(end_date_year, end_date_month, end_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid end year')
+    try:
+        end_date_day = int(form['end_date_day'].data)
+        end_date_month = int(form['end_date_month'].data)
+        end_date_year = int(form['end_date_year'].data)
+        date(end_date_year, end_date_month, end_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid end date with message={e}')
+        raise ValidationError('Enter a valid end year')
 
 
 def validateNationalInsuranceNumber(form, field):
