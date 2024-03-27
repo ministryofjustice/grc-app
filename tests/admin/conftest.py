@@ -95,7 +95,13 @@ def submitted_application(app):
     with app.app_context():
         with app.test_request_context():
             application = create_test_applications(status=ApplicationStatus.SUBMITTED, number_of_applications=1)
-    yield application
+            application = application[0]
+            db.session.add(application)
+            db.session.commit()
+            yield application
+
+            db.session.delete(application)
+            db.session.commit()
 
 
 @pytest.fixture()
@@ -103,7 +109,13 @@ def downloadeded_application(app):
     with app.app_context():
         with app.test_request_context():
             application = create_test_applications(status=ApplicationStatus.DOWNLOADED, number_of_applications=1)
-    yield application
+            application = application[0]
+            db.session.add(application)
+            db.session.commit()
+            yield application
+
+            db.session.delete(application)
+            db.session.commit()
 
 
 @pytest.fixture()
@@ -111,4 +123,11 @@ def completed_application(app):
     with app.app_context():
         with app.test_request_context():
             application = create_test_applications(status=ApplicationStatus.COMPLETED, number_of_applications=1)
-    yield application
+            application = application[0]
+            db.session.add(application)
+            db.session.commit()
+            yield application
+
+            db.session.delete(application)
+            db.session.commit()
+
