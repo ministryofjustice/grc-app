@@ -8,7 +8,7 @@ from wtforms.validators import ValidationError
 
 class TestValidateMultipleFileSizeLimit:
 
-    def test_validate_files_size_limit_valid_file_size_one_file(self, app):
+    def test_validate_multiple_files_size_limit_valid_file_size_one_file(self, app):
         with app.app_context():
             file_size_limit_bytes = 10 * 1024 * 1024
             mock_stream = MagicMock()
@@ -19,7 +19,7 @@ class TestValidateMultipleFileSizeLimit:
             form.documents.data = test_files
             assert validate_multiple_files_size_limit(form, form.documents) is None
 
-    def test_validate_files_size_limit_valid_file_size_multiple_files(self, app):
+    def test_validate_multiple_files_size_limit_valid_file_size_multiple_files(self, app):
         with app.app_context():
             file_size_limit_bytes = 10 * 1024 * 1024
             mock_stream = MagicMock()
@@ -34,7 +34,7 @@ class TestValidateMultipleFileSizeLimit:
             form.documents.data = test_files
             assert validate_multiple_files_size_limit(form, form.documents) is None
 
-    def test_validate_files_size_limit_invalid_file_size_one_file(self, app):
+    def test_validate_multiple_files_size_limit_invalid_file_size_one_file(self, app):
         with app.app_context():
             over_file_size_limit_bytes = 11 * 1024 * 1024
             mock_stream = MagicMock()
@@ -46,7 +46,7 @@ class TestValidateMultipleFileSizeLimit:
             with pytest.raises(ValidationError, match='The selected file must be smaller than 10MB'):
                 validate_multiple_files_size_limit(form, form.documents)
 
-    def test_validate_files_size_limit_invalid_file_size_multiple_files(self, app):
+    def test_validate_multiple_files_size_limit_invalid_file_size_multiple_files(self, app):
         with app.app_context():
             under_file_size_limit_bytes = 7 * 1024 * 1024
             over_file_size_limit_bytes = 11 * 1024 * 1024
@@ -65,7 +65,7 @@ class TestValidateMultipleFileSizeLimit:
             with pytest.raises(ValidationError, match='The selected file must be smaller than 10MB'):
                 validate_multiple_files_size_limit(form, form.documents)
 
-    def test_validate_files_size_limit_invalid_empty_file(self, app):
+    def test_validate_multiple_files_size_limit_invalid_empty_file(self, app):
         with app.app_context():
             mock_stream = MagicMock()
             mock_stream.read.return_value.__len__.return_value = 0
@@ -77,7 +77,7 @@ class TestValidateMultipleFileSizeLimit:
                                                       'uploading has the content you expect'):
                 validate_multiple_files_size_limit(form, form.documents)
 
-    def test_validate_files_size_limit_invalid_multiple_files_one_empty_file(self, app):
+    def test_validate_multiple_files_size_limit_invalid_multiple_files_one_empty_file(self, app):
         with app.app_context():
             mock_stream_valid = MagicMock()
             mock_stream_invalid = MagicMock()
