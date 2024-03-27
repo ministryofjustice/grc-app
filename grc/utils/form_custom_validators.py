@@ -399,7 +399,7 @@ class MultiFileAllowed(object):
         self.message = message
 
     def __call__(self, form, field):
-        if not (all(isinstance(item, FileStorage) for item in field.data) and field.data):
+        if not (field.data and all(isinstance(item, FileStorage) for item in field.data)):
             return
 
         for data in field.data:
@@ -412,11 +412,6 @@ class MultiFileAllowed(object):
                 raise StopValidation(self.message or field.gettext(
                     'File does not have an approved extension: {extensions}'
                 ).format(extensions=', '.join(self.upload_set)))
-
-            if not self.upload_set.file_allowed(field.data, filename):
-                raise StopValidation(self.message or field.gettext(
-                    'File does not have an approved extension.'
-                ))
 
 def fileSizeLimit(max_size_in_mb):
     max_bytes = max_size_in_mb*1024*1024
