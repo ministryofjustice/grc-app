@@ -131,21 +131,23 @@ def validate_password_strength(form, field):
                               ' letter, a number and a special character')
 
 
-def validateAddressField(form, field):
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^[a-zA-Z0-9- ]*$', data)
-        if match is None:
-            raise ValidationError(f'Enter a valid {field.name.replace("_", " ")}')
+def validate_address_field(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^[a-zA-Z0-9- ]*$', field.data)
+    if match is None:
+        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
 
 
-def validatePostcode(form, field):
-    # https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$', data)
-        if match is None:
-            raise ValidationError('Enter a valid postcode')
+def validate_postcode(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
+                      field.data)
+    if match is None:
+        raise ValidationError('Enter a valid postcode')
 
 
 def validate_date_of_birth(form, field):
