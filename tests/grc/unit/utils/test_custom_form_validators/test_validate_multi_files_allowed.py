@@ -1,5 +1,6 @@
 import pytest
 from admin.tools.forms import UnlockFileForm
+from grc.upload.forms import UploadForm
 from grc.utils.form_custom_validators import MultiFileAllowed
 from werkzeug.datastructures import FileStorage
 from unittest.mock import MagicMock
@@ -53,5 +54,21 @@ class TestValidateMultiFileAllowed:
                                                      content_type='text/plain'),
             form = UnlockFileForm()
             form.file.data = invalid_test_file_uploaded
-            validator = MultiFileAllowed(['pdf'], 'Select a PDF file to upload')
+            validator = MultiFileAllowed(form.upload_set, 'Select a PDF file to upload')
             assert validator.__call__(form, form.file) is None
+
+    def test_multi_file_allowed_public_file_upload_valid(self, app):
+        with app.app_context():
+            test_files_uploaded = [
+                FileStorage(filename='test_file1.pdf', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file2.jpg', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file3.jpeg', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file4.png', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file5.tif', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file5.tiff', stream=MagicMock(), content_type='text/plain'),
+                FileStorage(filename='test_file5.bmp', stream=MagicMock(), content_type='text/plain'),
+            ]
+            form = UploadForm()
+            form.documents.data = test_files_uploaded
+            validator = MultiFileAllowed(form.upload_set, 'Select a PDF file to upload')
+            assert validator.__call__(form, form.documents) is None

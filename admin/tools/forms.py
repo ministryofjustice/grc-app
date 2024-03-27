@@ -5,10 +5,12 @@ from grc.utils.form_custom_validators import MultiFileAllowed, fileSizeLimit, fi
 
 
 class UnlockFileForm(FlaskForm):
+    upload_set = ['pdf']
+
     file = MultipleFileField(
         validators=[
             DataRequired(message='Select a PDF file to upload'),
-            MultiFileAllowed(['pdf'], message='Select a PDF file to upload'),
+            MultiFileAllowed(upload_set, message='Select a PDF file to upload'),
             fileSizeLimit(10),
             fileVirusScan
         ]
