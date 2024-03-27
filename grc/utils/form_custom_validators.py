@@ -437,24 +437,25 @@ def fileSizeLimit(max_size_in_mb):
     return file_length_check
 
 
-def fileVirusScan(form, field):
-    if ('AV_API' not in current_app.config.keys()) or (not current_app.config['AV_API']):
-        return
-    if (field.name not in request.files or request.files[field.name].filename == ''):
+def file_virus_scan(form, field):
+    if 'AV_API' not in current_app.config.keys() or not current_app.config['AV_API']:
         return
 
-    print('Scanning %s' % current_app.config['AV_API'], flush=True)
+    if not field.data:
+        return
+
+    logger.log(LogLevel.INFO, message=f'Scanning {current_app.config["AV_API"]}')
 
     from pyclamd import ClamdNetworkSocket
     url = current_app.config['AV_API']
     url = url.replace('http://', '')
     url = url.replace('https://', '')
     cd = ClamdNetworkSocket(host=url, port=3310, timeout=None)
-    uploaded_files = request.files.getlist(field.name)
+    uploaded_files = field.data
 
     for uploaded_file in uploaded_files:
         uploaded_file.stream.seek(0)
-
+        print(cd)
         if not cd.ping():
             raise ValidationError('Unable to communicate with virus scanner')
 
