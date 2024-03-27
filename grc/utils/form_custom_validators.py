@@ -1,5 +1,6 @@
 import os
 import re
+import pathlib
 from dateutil.relativedelta import relativedelta
 from flask import request, session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
@@ -393,6 +394,26 @@ def validate_date_ranges(from_date, to_date):
     return form_errors
 
 
+# class SingleFileAllowed:
+#     def __init__(self, upload_set, message=None):
+#         self.upload_set = upload_set
+#         self.message = message
+#
+#     def __call__(self, form, field):
+#         if not field.data and not isinstance(field.data, FileStorage):
+#             return
+#
+#         filename = field.data.filename.lower()
+#
+#         if isinstance(self.upload_set, Iterable):
+#             if any(filename.endswith('.' + x) for x in self.upload_set):
+#                 return
+#
+#             raise StopValidation(self.message or field.gettext(
+#                 'File does not have an approved extension: {extensions}'
+#             ).format(extensions=', '.join(self.upload_set)))
+
+
 class MultiFileAllowed:
     def __init__(self, upload_set, message=None):
         self.upload_set = upload_set
@@ -404,14 +425,13 @@ class MultiFileAllowed:
 
         for data in field.data:
             filename = data.filename.lower()
+            if pathlib.Path(filename).suffix[1:] in self.upload_set:
+                continue
 
-            if isinstance(self.upload_set, Iterable):
-                if any(filename.endswith('.' + x) for x in self.upload_set):
-                    continue
+            raise StopValidation(self.message or field.gettext(
+                'File does not have an approved extension: {extensions}'
+            ).format(extensions=', '.join(self.upload_set)))
 
-                raise StopValidation(self.message or field.gettext(
-                    'File does not have an approved extension: {extensions}'
-                ).format(extensions=', '.join(self.upload_set)))
 
 def fileSizeLimit(max_size_in_mb):
     max_bytes = max_size_in_mb*1024*1024
