@@ -1,6 +1,4 @@
 import pytest
-import random
-import string
 from grc.upload.forms import UploadForm
 from grc.utils.form_custom_validators import validate_multiple_files_size_limit
 from unittest.mock import MagicMock
