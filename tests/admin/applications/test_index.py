@@ -1,7 +1,3 @@
-from tests.admin.helpers.data import create_test_applications
-from grc.models import ApplicationStatus
-
-
 class TestAdminElements:
 
     def test_homepage_elements(self, app, client):
@@ -31,6 +27,7 @@ class TestAdminElements:
             assert 'Reference number' in html
             assert 'Applicant name' in html
             assert 'Submitted' in html
+            assert f'/applications/{submitted_application.reference_number}' in html
 
     def test_downloaded_applications_present(self, app, client, downloadeded_application):
         with app.app_context():
@@ -46,6 +43,7 @@ class TestAdminElements:
             assert 'Submitted' in html
             assert 'Downloaded on' in html
             assert 'Downloaded by' in html
+            assert f'/applications/{downloadeded_application.reference_number}' in html
 
     def test_completed_applications_present(self, app, client, completed_application):
         with app.app_context():
@@ -61,3 +59,4 @@ class TestAdminElements:
             assert 'Submitted' in html
             assert 'Completed on' in html
             assert 'Completed by' in html
+            assert f'/applications/{completed_application.reference_number}' in html
