@@ -18,13 +18,10 @@ class TestAdminElements:
             assert 'Downloaded applications' in html
             assert 'Completed applications' in html
 
-    def test_new_applications_present(self, app, client):
+    def test_new_applications_present(self, app, client, submitted_application):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
-
-            with app.test_request_context():
-                application = create_test_applications(status=ApplicationStatus.SUBMITTED, number_of_applications=1)
 
             response = client.get('/applications#new')
             html = response.data.decode()
@@ -35,13 +32,10 @@ class TestAdminElements:
             assert 'Applicant name' in html
             assert 'Submitted' in html
 
-    def test_downloaded_applications_present(self, app, client):
+    def test_downloaded_applications_present(self, app, client, downloadeded_application):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
-
-            with app.test_request_context():
-                application = create_test_applications(status=ApplicationStatus.DOWNLOADED, number_of_applications=1)
 
             response = client.get('/applications#downloaded')
             html = response.data.decode()
@@ -53,13 +47,10 @@ class TestAdminElements:
             assert 'Downloaded on' in html
             assert 'Downloaded by' in html
 
-    def test_completed_applications_present(self, app, client):
+    def test_completed_applications_present(self, app, client, completed_application):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
-
-            with app.test_request_context():
-                application = create_test_applications(status=ApplicationStatus.COMPLETED, number_of_applications=1)
 
             response = client.get('/applications#completed')
             html = response.data.decode()
