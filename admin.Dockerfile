@@ -32,6 +32,6 @@ RUN npm run build
 RUN chmod 777 /app/run_admin.sh
 
 # Don't run as root user
-# USER 1000
+USER 1000
 CMD /app/run_admin.sh
 # CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0" "--port=5001"]
