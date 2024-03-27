@@ -8,6 +8,13 @@ from wtforms.validators import ValidationError
 
 class TestValidateMultipleFileSizeLimit:
 
+    def test_validate_multiple_files_size_limit_no_files_or_data(self, app):
+        with app.app_context():
+            form = UploadForm()
+            form.file_size_limit_mb = 10
+            form.documents.data = None
+            assert validate_multiple_files_size_limit(form, form.documents) is None
+
     def test_validate_multiple_files_size_limit_valid_file_size_one_file(self, app):
         with app.app_context():
             file_size_limit_bytes = 10 * 1024 * 1024

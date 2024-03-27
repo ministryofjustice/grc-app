@@ -7,6 +7,12 @@ from wtforms.validators import ValidationError
 
 
 class TestValidateFileSizeLimit:
+    def test_validate_file_size_limit_valid_file_size_no_file_or_data(self, app):
+        with app.app_context():
+            form = UnlockFileForm()
+            form.file_size_limit_mb = 10
+            form.file.data = None
+            assert validate_file_size_limit(form, form.file) is None
 
     def test_validate_file_size_limit_valid_file_size(self, app):
         with app.app_context():
