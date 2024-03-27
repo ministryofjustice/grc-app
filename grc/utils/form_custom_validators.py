@@ -393,7 +393,7 @@ def validate_date_ranges(from_date, to_date):
     return form_errors
 
 
-class MultiFileAllowed(object):
+class MultiFileAllowed:
     def __init__(self, upload_set, message=None):
         self.upload_set = upload_set
         self.message = message
@@ -407,7 +407,7 @@ class MultiFileAllowed(object):
 
             if isinstance(self.upload_set, Iterable):
                 if any(filename.endswith('.' + x) for x in self.upload_set):
-                    return
+                    continue
 
                 raise StopValidation(self.message or field.gettext(
                     'File does not have an approved extension: {extensions}'
