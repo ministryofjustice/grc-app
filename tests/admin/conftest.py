@@ -6,6 +6,8 @@ from dateutil.relativedelta import relativedelta
 from grc.models import db, AdminUser, SecurityCode
 from grc.utils.security_code import security_code_generator
 from werkzeug.security import generate_password_hash
+from tests.admin.helpers.data import create_test_applications
+from grc.models import ApplicationStatus
 
 
 @pytest.fixture()
@@ -86,3 +88,27 @@ def expired_security_code(app):
 
         db.session.delete(security_code_)
         db.session.commit()
+
+
+@pytest.fixture()
+def submitted_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            application = create_test_applications(status=ApplicationStatus.SUBMITTED, number_of_applications=1)
+    yield application
+
+
+@pytest.fixture()
+def downloadeded_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            application = create_test_applications(status=ApplicationStatus.DOWNLOADED, number_of_applications=1)
+    yield application
+
+
+@pytest.fixture()
+def completed_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            application = create_test_applications(status=ApplicationStatus.COMPLETED, number_of_applications=1)
+    yield application
