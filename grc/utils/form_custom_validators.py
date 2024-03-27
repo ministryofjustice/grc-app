@@ -44,7 +44,6 @@ class StrictRequiredIf(DataRequired):
             super(StrictRequiredIf, self).__call__(form, field)
             if self.validators:
                 for validator in self.validators:
-                    print(validator)
                     validator(form, field)
 
 
