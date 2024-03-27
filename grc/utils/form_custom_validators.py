@@ -140,13 +140,14 @@ def validate_address_field(form, field):
         raise ValidationError(f'Enter a valid {field.label.text.lower()}')
 
 
-def validatePostcode(form, field):
-    # https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$', data)
-        if match is None:
-            raise ValidationError('Enter a valid postcode')
+def validate_postcode(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
+                      field.data)
+    if match is None:
+        raise ValidationError('Enter a valid postcode')
 
 
 def validate_date_of_birth(form, field):
@@ -271,15 +272,17 @@ def validateDateRange(form, field):
             raise ValidationError('Enter a valid end year')
 
 
-def validateNationalInsuranceNumber(form, field):
+def validate_national_insurance_number(form, field):
+    if not field.data:
+        return
 
-    # https://www.gov.uk/hmrc-internal-manuals/national-insurance-manual/nim39110
-    # https://stackoverflow.com/questions/17928496/use-regex-to-validate-a-uk-national-insurance-no-nino-in-an-html5-pattern-attri
-    if not (field.data is None or field.data == ''):
-        data = field.data.replace(' ', '').upper()
-        match = re.search('^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]{1}$', data)
-        if match is None:
-            raise ValidationError('Enter a valid National Insurance number')
+    data = field.data.replace(' ', '').upper()
+    match = re.search(
+        r'^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)([A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]$',
+        data
+    )
+    if match is None:
+        raise ValidationError('Enter a valid National Insurance number')
 
 
 def validate_phone_number(form, field):
