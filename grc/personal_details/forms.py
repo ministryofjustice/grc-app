@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validate_address_field, validate_postcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -396,7 +396,7 @@ class HmrcForm(FlaskForm):
     )
 
     national_insurance_number = StringField(
-        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validateNationalInsuranceNumber])]
+        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validate_national_insurance_number])]
     )
 
 
