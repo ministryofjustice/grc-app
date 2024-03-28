@@ -46,3 +46,4 @@ class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
     TEST_PUBLIC_USER = 'test.public.email@example.com'
+    AV_API = 'TEST CLAMAV API'
