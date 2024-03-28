@@ -43,9 +43,11 @@ class TestGovNotifyEmails:
             assert 'Good experience using doc checker' in response['content']['body']
             assert 'No other suggestions' in response['content']['body']
 
-    # @patch('grc.external_services.gov_uk_notify.generate_security_code')
-    # def test_send_email_admin_login_security_code(self, app, public_user_email):
-    #     with app.app_context():
-    #         response = GovUkNotify().send_email_admin_login_security_code(public_user_email)
-    #         assert 'Feedback received' in response['content']['subject']
-    #         assert 'list of questions which were difficult to answer' in response['content']['body']
+    @patch('grc.external_services.gov_uk_notify.generate_security_code')
+    def test_send_email_admin_login_security_code(self, mock_security_code, app, public_user_email):
+        with app.app_context():
+            mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
+            response = GovUkNotify().send_email_admin_login_security_code(public_user_email)
+            assert 'Your login link for GRC admin' in response['content']['subject']
+            assert '12345' in response['content']['body']
+            assert 'until 12:45 on 29 Mar 2024' in response['content']['body']

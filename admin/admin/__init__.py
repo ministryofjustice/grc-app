@@ -84,8 +84,7 @@ def index():
 
             # Email out 2FA link
             security_code, expires = generate_security_code(email_address)
-            GovUkNotify().send_email_admin_login_security_code(email_address=user.email, expires=expires,
-                                                               security_code=security_code)
+            GovUkNotify().send_email_admin_login_security_code(email_address=user.email)
             logger.log(LogLevel.INFO, f"login link sent to {logger.mask_email_address(user.email)}")
             return local_redirect(url_for('admin.sign_in_with_security_code'))
 
