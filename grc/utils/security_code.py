@@ -1,6 +1,5 @@
 import random
 from datetime import datetime, timedelta
-from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.logger import LogLevel, Logger
