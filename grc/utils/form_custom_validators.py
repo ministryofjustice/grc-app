@@ -312,18 +312,20 @@ def validate_hwf_reference_number(form, field):
 
 
 def validate_single_date(form, field):
-    if not form['day'].errors and not form['month'].errors:
-        try:
-            day = int(form['day'].data)
-            month = int(form['month'].data)
-            year = int(form['year'].data)
-            date_entered = date(year, month, day)
-        except Exception as e:
-            print(f"ERROR => {e}", flush=True)
-            raise ValidationError('Enter a valid date')
+    if form['day'].errors or form['month'].errors:
+        return
 
-        if date_entered < date.today():
-            raise ValidationError('Enter a date in the future')
+    try:
+        day = int(form['day'].data)
+        month = int(form['month'].data)
+        year = int(form['year'].data)
+        date_entered = date(year, month, day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Error validating single date: {e}')
+        raise ValidationError('Enter a valid date')
+
+    if date_entered < date.today():
+        raise ValidationError('Enter a date in the future')
 
 
 def validate_date_range_form(date_ranges_form):
