@@ -455,16 +455,14 @@ def file_virus_scan(form, field):
 
     for uploaded_file in uploaded_files:
         uploaded_file.stream.seek(0)
-        print(cd)
+
         if not cd.ping():
             raise ValidationError('Unable to communicate with virus scanner')
 
         results = cd.scan_stream(uploaded_file.stream.read())
-        if results is None:
-            uploaded_file.stream.seek(0)
-        else:
+        if results:
             res_type, res_msg = results['stream']
             if res_type == 'FOUND':
                 raise ValidationError('The selected file contains a virus')
-            else:
-                print('Error scanning uploaded file', flush=True)
+            logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
+            raise ValidationError('Error scanning uploaded file')
