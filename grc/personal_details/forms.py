@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validateNationalInsuranceNumber, validateAddressField, validatePostcode, validateDateOfTransiton, validatePhoneNumber, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -43,7 +43,7 @@ class TransitionDateForm(FlaskForm):
     transition_date_year = StringField(
         validators=[
             DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validateDateOfTransiton])
+            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validate_date_of_transition])
         ]
     )
 
@@ -67,7 +67,7 @@ class StatutoryDeclarationDateForm(FlaskForm):
         validators=[
             DataRequired(message='Enter a year'),
             Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validateStatutoryDeclarationDate])
+                    validators=[validate_statutory_declaration_date])
         ]
     )
 
@@ -84,13 +84,13 @@ class PreviousNamesCheck(FlaskForm):
 
 class AddressForm(FlaskForm):
     address_line_one = StringField(
-        validators=[DataRequired(message='Enter your address'), validateAddressField]
+        validators=[DataRequired(message='Enter your address'), validate_address_field]
     )
 
-    address_line_two = StringField(validators=[validateAddressField])
+    address_line_two = StringField(validators=[validate_address_field])
 
     town = StringField(
-        validators=[DataRequired(message='Enter your town or city'), validateAddressField]
+        validators=[DataRequired(message='Enter your town or city'), validate_address_field]
     )
 
     country = SelectField(
@@ -297,7 +297,7 @@ class AddressForm(FlaskForm):
 
     postcode = StringField(
         validators=[StrictRequiredIf('country', ['', 'United Kingdom'], message='Enter your postcode',
-                                     validators=[validatePostcode])]
+                                     validators=[validate_postcode])]
     )
 
 
@@ -318,7 +318,7 @@ class ContactPreferencesForm(FlaskForm):
 
     phone = TelField(
         validators=[StrictRequiredIf('contact_options', 'PHONE', message='Enter your phone number',
-                                     validators=[validatePhoneNumber])]
+                                     validators=[validate_phone_number])]
     )
 
 
@@ -396,7 +396,7 @@ class HmrcForm(FlaskForm):
     )
 
     national_insurance_number = StringField(
-        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validateNationalInsuranceNumber])]
+        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validate_national_insurance_number])]
     )
 
 
