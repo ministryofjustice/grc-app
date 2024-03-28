@@ -139,14 +139,9 @@ def add_default_admin_user_to_database_if_there_are_no_users():
         db.session.add(record)
         db.session.commit()
 
-        try:
-            GovUkNotify().send_email_admin_new_user(
-                email_address=default_email_address,
-                temporary_password=temporary_password,
-                application_link=request.base_url
-            )
-        except Exception as e:
-            logger.log(LogLevel.ERROR, message=f'{e}')
+        GovUkNotify().send_email_admin_new_user(email_address=default_email_address,
+                                                temporary_password=temporary_password,
+                                                application_link=request.base_url)
 
 
 def generate_temporary_password():

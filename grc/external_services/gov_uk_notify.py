@@ -1,6 +1,10 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
+from notifications_python_client.errors import HTTPError
 from grc.utils.security_code import generate_security_code_and_expiry
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
 
 
 class GovUkNotify:
@@ -162,10 +166,15 @@ class GovUkNotify:
             if self.notify_override_email:
                 email_address = self.notify_override_email
 
-        response = self.gov_uk_notify_client.send_email_notification(
-            email_address=email_address,
-            template_id=template_id,
-            personalisation=personalisation
-        )
+        try:
+            response = self.gov_uk_notify_client.send_email_notification(
+                email_address=email_address,
+                template_id=template_id,
+                personalisation=personalisation
+            )
+            return response
 
-        return response
+        except HTTPError as error:
+            message = (f'Error sending email to user - {logger.mask_email_address(email_address)}: {error.status_code}'
+                       f' - {error.message}')
+            logger.log(LogLevel.ERROR, message=message)
