@@ -62,29 +62,6 @@ def generate_security_code(email):
     return security_code, security_code_timeout
 
 
-def send_security_code(email):
-    security_code, security_code_timeout = generate_security_code(email)
-    response = GovUkNotify().send_email_security_code(
-        email_address=email,
-        security_code=security_code,
-        security_code_timeout=security_code_timeout
-    )
-
-    return response
-
-
-def send_security_code_admin(email):
-    security_code, expires = generate_security_code(email)
-
-    response = GovUkNotify().send_email_admin_login_security_code(
-        email_address=email,
-        security_code=security_code,
-        expires=expires
-    )
-
-    return response
-
-
 def has_last_security_code_been_used(last_login_date: datetime, security_code_created_date: datetime):
     return last_login_date > security_code_created_date
 
