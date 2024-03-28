@@ -2,7 +2,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from grc.models import db, Application, ApplicationStatus, SecurityCode
 from grc.business_logic.data_store import DataStore
-from grc.utils.security_code import security_code_generator
+from grc.utils.security_code import _security_code_generator
 
 
 def create_test_apps():
@@ -51,7 +51,7 @@ def create_test_emails(number_of_emails_to_create: int):
 
 
 def create_test_expired_security_codes(test_emails: str):
-    codes = [security_code_generator(email) for email in test_emails]
+    codes = [_security_code_generator(email) for email in test_emails]
     print(f'codes = {codes}', flush=True)
 
     security_codes = SecurityCode.query.filter(SecurityCode.code.in_(codes)).all()

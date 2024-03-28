@@ -11,14 +11,14 @@ class TestAdminSignInWithSecurityCode:
             response = client.get('/sign-in-with-security_code')
             assert response.status_code == 200
 
-    @patch('admin.admin.send_security_code_admin')
-    def test_sign_in_with_security_code_resend_code(self, mock_resend_security_code, app, client):
+    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
+    def test_sign_in_with_security_code_resend_code(self, mock_send_security_code_email, app, client):
         with app.app_context():
             with client.session_transaction() as session:
                 session['email'] = 'test.email@example.com'
 
             response = client.get('/sign-in-with-security_code', query_string={'resend': 'true'})
-            mock_resend_security_code.assert_called_once()
+            mock_send_security_code_email.assert_called_once_with('test.email@example.com')
             assert response.status_code == 200
             assert 'Success' in response.text
             assert 'We’ve resent you a security code. This can take a few minutes to arrive' in response.text

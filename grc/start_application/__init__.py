@@ -1,11 +1,11 @@
 from flask import Blueprint, flash, render_template, request, url_for, session
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
+from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
     OverseasApprovedCheckForm, DeclerationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.security_code import send_security_code
 from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, ValidatedEmailRequired
 from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
@@ -23,12 +23,8 @@ def index():
     if form.validate_on_submit():
         session.clear()
         session['email'] = form.email.data
-        try:
-            send_security_code(form.email.data)
-            return local_redirect(url_for('startApplication.securityCode'))
-        except BaseException as err:
-            error = err.args[0].json()
-            flash(error['errors'][0]['message'], 'error')
+        GovUkNotify().send_email_security_code(form.email.data)
+        return local_redirect(url_for('startApplication.securityCode'))
     return render_template(
         'start-application/email-address.html',
         form=form
