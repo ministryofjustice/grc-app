@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 from grc import create_app
 from grc.config import TestConfig
 from grc.models import db, SecurityCode
-from grc.utils.security_code import _security_code_generator
+from grc.utils.security_code import generate_security_code_and_expiry
 
 
 @pytest.fixture()
@@ -25,7 +25,7 @@ def public_user_email(app):
 @pytest.fixture()
 def security_code_(app, public_user_email) -> SecurityCode:
     with app.app_context():
-        code = _security_code_generator(public_user_email)
+        code, _ = generate_security_code_and_expiry(public_user_email)
         security_code_ = SecurityCode.query.filter(
             SecurityCode.email == public_user_email,
             SecurityCode.code == code
