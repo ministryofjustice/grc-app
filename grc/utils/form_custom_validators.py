@@ -7,10 +7,10 @@ from werkzeug.datastructures import FileStorage
 from collections.abc import Iterable
 from datetime import date
 from grc.business_logic.data_store import DataStore
-from grc.utils.security_code import is_security_code_valid
-from grc.utils.reference_number import validate_reference_number
 from grc.models import db, Application
-from grc.utils.logger import Logger, LogLevel
+from grc.utils.security_code import is_security_code_valid
+from grc.utils.reference_number import reference_number_is_valid
+from grc.utils.logger import LogLevel, Logger
 
 logger = Logger()
 
@@ -92,14 +92,12 @@ def validate_security_code(form, field):
         raise ValidationError('Enter the security code that we emailed you')
 
 
-def validateReferenceNumber(form, field):
-    if validate_reference_number(field.data) is False:
-        from grc.utils.logger import LogLevel, Logger
-        logger = Logger()
-        email = logger.mask_email_address(session['validatedEmail']) if 'validatedEmail' in session else 'Unknown user'
+def validate_reference_number(form, field):
+    validated_email = session.get('validatedEmail')
+    if not reference_number_is_valid(field.data, validated_email):
+        email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-
         raise ValidationError('Enter a valid reference number')
 
 
@@ -133,21 +131,23 @@ def validate_password_strength(form, field):
                               ' letter, a number and a special character')
 
 
-def validateAddressField(form, field):
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^[a-zA-Z0-9- ]*$', data)
-        if match is None:
-            raise ValidationError(f'Enter a valid {field.name.replace("_", " ")}')
+def validate_address_field(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^[a-zA-Z0-9- ]*$', field.data)
+    if match is None:
+        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
 
 
-def validatePostcode(form, field):
-    # https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
-    if not (field.data is None or field.data == ''):
-        data = field.data
-        match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$', data)
-        if match is None:
-            raise ValidationError('Enter a valid postcode')
+def validate_postcode(form, field):
+    if not field.data:
+        return
+
+    match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
+                      field.data)
+    if match is None:
+        raise ValidationError('Enter a valid postcode')
 
 
 def validate_date_of_birth(form, field):
@@ -185,41 +185,39 @@ def validate_date_of_birth(form, field):
                               + ' date')
 
 
-def validateDateOfTransiton(form, field):
-    if not form['transition_date_month'].errors:
-        try:
-            transition_date_month = int(form['transition_date_month'].data)
-            transition_date_year = int(form['transition_date_year'].data)
-            date_of_transition = date(transition_date_year, transition_date_month, 1)
-        except Exception as e:
-            raise ValidationError('Enter a valid year')
-    
-        earliest_date_of_transition_years = 100
-        earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
+def validate_date_of_transition(form, field):
+    if form['transition_date_month'].errors:
+        return
 
-        reference_number = session['reference_number']
-        application_record = db.session.query(Application).filter_by(
-            reference_number=reference_number
-        ).first()
-        application_data = DataStore.load_application(reference_number)
+    try:
+        transition_date_month = int(form['transition_date_month'].data)
+        transition_date_year = int(form['transition_date_year'].data)
+        date_of_transition = date(transition_date_year, transition_date_month, 1)
+    except Exception as e:
+        raise ValidationError('Enter a valid year')
 
-        latest_transition_years = 2
-        application_created_date = date(
-            application_record.created.year,
-            application_record.created.month,
-            application_record.created.day
-        )
-        latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
+    earliest_date_of_transition_years = 100
+    earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
-        if date_of_transition < earliest_date_of_transition:
-            raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
+    if date_of_transition < earliest_date_of_transition:
+        raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
 
-        if date_of_transition > date.today():
-            raise ValidationError('Enter a date in the past')
+    if date_of_transition > date.today():
+        raise ValidationError('Enter a date in the past')
 
-        if date_of_transition > latest_transition_date \
-                and not application_data.confirmation_data.gender_recognition_outside_uk:
-            raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
+    reference_number = session['reference_number']
+    application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
+    application_created_date = date(application_record.created.year, application_record.created.month,
+                                    application_record.created.day)
+    application_data = application_record.application_data()
+
+    if application_data.confirmation_data.gender_recognition_outside_uk:
+        return
+
+    latest_transition_years = 2
+    latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
+    if date_of_transition > latest_transition_date:
+        raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
 
 
 def validate_statutory_declaration_date(form, field):
@@ -274,22 +272,26 @@ def validateDateRange(form, field):
             raise ValidationError('Enter a valid end year')
 
 
-def validateNationalInsuranceNumber(form, field):
+def validate_national_insurance_number(form, field):
+    if not field.data:
+        return
 
-    # https://www.gov.uk/hmrc-internal-manuals/national-insurance-manual/nim39110
-    # https://stackoverflow.com/questions/17928496/use-regex-to-validate-a-uk-national-insurance-no-nino-in-an-html5-pattern-attri
-    if not (field.data is None or field.data == ''):
-        data = field.data.replace(' ', '').upper()
-        match = re.search('^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]{1}$', data)
-        if match is None:
-            raise ValidationError('Enter a valid National Insurance number')
+    data = field.data.replace(' ', '').upper()
+    match = re.search(
+        r'^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)([A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}[A-D]$',
+        data
+    )
+    if match is None:
+        raise ValidationError('Enter a valid National Insurance number')
 
 
-def validatePhoneNumber(form, field):
-    if not(field.data is None or field.data == ''):
-        match = re.search('^[0-9]+$', field.data)
-        if match is None:
-            raise ValidationError('Enter a valid phone number')
+def validate_phone_number(form, field):
+    if not field.data:
+        return
+
+    match = re.search(r'^[0-9]+$', field.data)
+    if match is None:
+        raise ValidationError('Enter a valid phone number')
 
 
 def validateHWFReferenceNumber(form, field):
