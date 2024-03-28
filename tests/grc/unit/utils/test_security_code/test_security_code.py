@@ -18,7 +18,7 @@ class TestSecurityCode:
 
     def test_security_code_generator(self, app, client, public_user_email):
         with app.app_context():
-            code = sc.security_code_generator(public_user_email)
+            code = sc._security_code_generator(public_user_email)
             user_security_code = SecurityCode.query.filter_by(email=public_user_email, code=code).first()
             assert user_security_code is not None
             assert user_security_code.email == 'test.public.email@example.com'
@@ -92,7 +92,7 @@ class TestSecurityCode:
             mock_datetime.return_value = expiry_datetime
 
             mock_security_code_generator.return_value = security_code_.code
-            assert sc.generate_security_code(public_user_email) == (security_code_.code, expiry_datetime.strftime(
+            assert sc.generate_security_code_and_expiry(public_user_email) == (security_code_.code, expiry_datetime.strftime(
                 '%H:%M on %d %b %Y'))
 
     def test_has_last_security_code_been_used_last_security_code_used(self, app):

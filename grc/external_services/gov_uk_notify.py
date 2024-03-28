@@ -1,6 +1,6 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
-from grc.utils.security_code import generate_security_code
+from grc.utils.security_code import generate_security_code_and_expiry
 
 
 class GovUkNotify:
@@ -12,7 +12,7 @@ class GovUkNotify:
         self.gov_uk_notify_client = NotificationsAPIClient(gov_uk_notify_api_key)
 
     def send_email_security_code(self, email_address: str):
-        security_code, security_code_timeout = generate_security_code(email_address)
+        security_code, security_code_timeout = generate_security_code_and_expiry(email_address)
         personalisation = {
             'security_code': security_code,
             'security_code_timeout': security_code_timeout,
@@ -114,7 +114,7 @@ class GovUkNotify:
         )
 
     def send_email_admin_login_security_code(self, email_address: str):
-        security_code, expires = generate_security_code(email_address)
+        security_code, expires = generate_security_code_and_expiry(email_address)
         personalisation = {
             'expires': expires,
             'security_code': security_code,
@@ -126,7 +126,8 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-    def send_email_admin_forgot_password(self, email_address: str, expires: str, security_code: str):
+    def send_email_admin_forgot_password(self, email_address: str):
+        security_code, expires = generate_security_code_and_expiry(email_address)
         personalisation = {
             'expires': expires,
             'security_code': security_code,

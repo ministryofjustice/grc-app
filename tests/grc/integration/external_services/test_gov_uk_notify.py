@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 class TestGovNotifyEmails:
 
-    @patch('grc.external_services.gov_uk_notify.generate_security_code')
+    @patch('grc.external_services.gov_uk_notify.generate_security_code_and_expiry')
     def test_send_email_security_code(self, mock_security_code, app, public_user_email):
         with app.app_context():
             mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
@@ -43,7 +43,7 @@ class TestGovNotifyEmails:
             assert 'Good experience using doc checker' in response['content']['body']
             assert 'No other suggestions' in response['content']['body']
 
-    @patch('grc.external_services.gov_uk_notify.generate_security_code')
+    @patch('grc.external_services.gov_uk_notify.generate_security_code_and_expiry')
     def test_send_email_admin_login_security_code(self, mock_security_code, app, public_user_email):
         with app.app_context():
             mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
@@ -51,3 +51,19 @@ class TestGovNotifyEmails:
             assert 'Your login link for GRC admin' in response['content']['subject']
             assert '12345' in response['content']['body']
             assert 'until 12:45 on 29 Mar 2024' in response['content']['body']
+
+    @patch('grc.external_services.gov_uk_notify.generate_security_code_and_expiry')
+    def test_send_email_admin_forgot_password(self, mock_security_code, app, public_user_email):
+        with app.app_context():
+            mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
+            response = GovUkNotify().send_email_admin_forgot_password(public_user_email)
+            assert 'Reset your password for GRC admin' in response['content']['subject']
+            assert '12345' in response['content']['body']
+            assert 'until 12:45 on 29 Mar 2024' in response['content']['body']
+
+    def test_send_email_admin_new_user(self, app, public_user_email):
+        with app.app_context():
+            response = GovUkNotify().send_email_admin_new_user(public_user_email, '123ABC', 'http://app-link')
+            assert 'You have been invited to view GRC applications' in response['content']['subject']
+            assert 'http://app-link' in response['content']['body']
+            assert 'Your temporary password is 123ABC' in response['content']['body']

@@ -13,7 +13,7 @@ def delete_all_user_codes(email):
     db.session.commit()
 
 
-def security_code_generator(email):
+def _security_code_generator(email):
     delete_all_user_codes(email)
 
     try:
@@ -54,8 +54,8 @@ def is_security_code_valid(email, code, is_admin):
     return True
 
 
-def generate_security_code(email):
-    security_code = security_code_generator(email)
+def generate_security_code_and_expiry(email):
+    security_code = _security_code_generator(email)
     local = convert_date_to_local_timezone(datetime.now())
     security_code_timeout = datetime.strftime(local + timedelta(hours=24), '%H:%M on %d %b %Y')
     return security_code, security_code_timeout
