@@ -4,7 +4,7 @@ from admin.config import TestConfig
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from grc.models import db, AdminUser, SecurityCode
-from grc.utils.security_code import _security_code_generator
+from grc.utils.security_code import generate_security_code_and_expiry
 from werkzeug.security import generate_password_hash
 
 
@@ -62,7 +62,7 @@ def admin(app):
 @pytest.fixture()
 def security_code(app):
     with app.app_context():
-        code = _security_code_generator(app.config['DEFAULT_ADMIN_USER'])
+        code, _ = generate_security_code_and_expiry(app.config['DEFAULT_ADMIN_USER'])
         security_code_ = SecurityCode.query.filter(
             SecurityCode.email == app.config['DEFAULT_ADMIN_USER'],
             SecurityCode.code == code
