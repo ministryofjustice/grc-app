@@ -23,7 +23,7 @@ def public_user_email(app):
 
 
 @pytest.fixture()
-def security_code_(app, public_user_email) -> SecurityCode:
+def security_code(app, public_user_email) -> SecurityCode:
     with app.app_context():
         code, _ = generate_security_code_and_expiry(public_user_email)
         security_code_ = SecurityCode.query.filter(
