@@ -11,6 +11,7 @@ from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.strtobool import strtobool
+from psycopg2.errors import OperationalError
 
 startApplication = Blueprint('startApplication', __name__)
 logger = Logger()
@@ -72,45 +73,47 @@ def isFirstVisit():
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('startApplication.reference'))
 
-                except BaseException as err:
+                except OperationalError:
                     flash('There is a problem creating a new application', 'error')
                     return render_template('start-application/is-first-visit.html', form=form)
 
-            elif form.isFirstVisit.data == 'HAS_REFERENCE':
-                application = loadApplicationFromDatabaseByReferenceNumber(form.reference.data)
+            if form.isFirstVisit.data == 'HAS_REFERENCE':
+                reference_number = DataStore.compact_reference(form.reference.data)
+                application = Application.query.filter_by(reference_number=reference_number).first()
+
                 if application is None:
-                    # This should already be caught by the 'validateReferenceNumber' custom form validator
-                    return returnToIsFirstVisitPageWithInvalidReferenceError(form)
+                    form.reference.errors.append('Enter a valid reference number')
+                    return render_template('start-application/is-first-visit.html', form=form)
+
+                if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
+                    # This application has been anonymised
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access an anonymised application")
+                    return render_template('start-application/application-anonymised.html')
+
+                elif application.status == ApplicationStatus.COMPLETED or \
+                        application.status == ApplicationStatus.SUBMITTED or \
+                        application.status == ApplicationStatus.DOWNLOADED:
+                    # This application has already been submitted
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access a submitted application")
+                    return render_template('start-application/application-already-submitted.html')
+
+                elif application.email == session['validatedEmail']:
+                    # The reference number is associated with their email address - load the application
+                    logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" accessed their application")
+                    session.clear()  # Clear out session['validatedEmail']
+                    session['reference_number'] = application.reference_number
+                    DataStore.increment_application_sessions(application.reference_number)
+                    return local_redirect(url_for('taskList.index'))
 
                 else:
-                    if (not application.email) or \
-                            application.status == ApplicationStatus.DELETED or \
-                            application.status == ApplicationStatus.ABANDONED:
-                        # This application has been anonymised (i.e. after it's been submitted and processed OR after it's been abandoned)
-                        # Show the user a friendly page explaining this
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access an anonymised application")
-                        return render_template('start-application/application-anonymised.html')
-
-                    elif application.status == ApplicationStatus.COMPLETED or \
-                            application.status == ApplicationStatus.SUBMITTED or \
-                            application.status == ApplicationStatus.DOWNLOADED:
-                        # This application has already been submitted
-                        # Show the user a friendly page explaining this
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access a submitted application")
-                        return render_template('start-application/application-already-submitted.html')
-
-                    elif application.email == session['validatedEmail']:
-                        # The reference number is associated with their email address - load the application
-                        logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])} accessed their application")
-                        session.clear()  # Clear out session['validatedEmail']
-                        session['reference_number'] = application.reference_number
-                        DataStore.increment_application_sessions(application.reference_number)
-                        return local_redirect(url_for('taskList.index'))
-
-                    else:
-                        # This reference number is owned by another email address - pretend it doesn't exist
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access someone elses application")
-                        return returnToIsFirstVisitPageWithInvalidReferenceError(form)
+                    # This reference number is owned by another email address - pretend it doesn't exist
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access someone else's application")
+                    form.reference.errors.append('Enter a valid reference number')
+                    return render_template('start-application/is-first-visit.html', form=form)
 
     return render_template(
         'start-application/is-first-visit.html',
@@ -118,20 +121,11 @@ def isFirstVisit():
     )
 
 
-def loadApplicationFromDatabaseByReferenceNumber(reference) -> Application:
-    trimmed_reference = reference.replace('-', '').replace(' ', '').upper()
-    return Application.query.filter_by(reference_number=trimmed_reference).first()
-
-
-def returnToIsFirstVisitPageWithInvalidReferenceError(form):
-    form.reference.errors.append('Enter a valid reference number')
-    return render_template('start-application/is-first-visit.html', form=form)
-
-
 @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
 @LoginRequired
 def backToIsFirstVisit():
-    application = loadApplicationFromDatabaseByReferenceNumber(session['reference_number'])
+    reference_number = DataStore.compact_reference(session['reference_number'])
+    application = Application.query.filter_by(reference_number=reference_number).first()
     session.clear()  # Clear out session['reference_number']
     session['validatedEmail'] = application.email
     return local_redirect(url_for('startApplication.isFirstVisit'))

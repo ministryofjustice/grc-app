@@ -1,4 +1,4 @@
-import pytest
+from psycopg2.errors import OperationalError
 from unittest.mock import patch
 
 
@@ -47,7 +47,7 @@ class TestIsFirstVisit:
         with app.app_context():
             with client.session_transaction() as session:
                 session['validatedEmail'] = public_user_email
-            mock_data_store.create_new_application.side_effect = BaseException
+            mock_data_store.create_new_application.side_effect = OperationalError
             response = client.post('/is-first-visit', data={'isFirstVisit': 'FIRST_VISIT'})
             assert response.status_code == 200
             assert 'There is a problem creating a new application' in response.text
@@ -105,13 +105,13 @@ class TestIsFirstVisit:
             assert response.status_code == 200
             assert 'Enter a valid reference number' in response.text
 
-    @patch('grc.start_application.DataStore')
-    def test_is_first_visit_post_has_reference_valid(self, mock_data_store, app, client, public_user_email,
+    @patch('grc.start_application.DataStore.increment_application_sessions')
+    def test_is_first_visit_post_has_reference_valid(self, mock_inc_app_session, app, client, public_user_email,
                                                      test_application):
         with app.app_context():
             with client.session_transaction() as session:
                 session['validatedEmail'] = public_user_email
-            mock_data_store.increment_application_sessions.return_value = None
+            mock_inc_app_session.return_value = None
             form_data = {'isFirstVisit': 'HAS_REFERENCE', 'reference': f'{test_application.reference_number}'}
             response = client.post('/is-first-visit', data=form_data)
             assert response.status_code == 302
