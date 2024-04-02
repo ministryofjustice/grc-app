@@ -46,7 +46,7 @@ def securityCode():
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
-        GovUkNotify().send_email_admin_login_security_code(session['email'])
+        GovUkNotify().send_email_security_code(session['email'])
         flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
 
     return render_template(
