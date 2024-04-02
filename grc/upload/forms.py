@@ -5,6 +5,8 @@ from grc.utils.form_custom_validators import MultiFileAllowed, fileSizeLimit, fi
 
 
 class UploadForm(FlaskForm):
+    upload_set = ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp', 'pdf']
+
     button_clicked = RadioField(
         choices=[
             ('Upload file', 'Upload file'),
@@ -18,7 +20,7 @@ class UploadForm(FlaskForm):
             StrictRequiredIf('button_clicked', 'Upload file',
                              message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB',
                              validators=[
-                                 MultiFileAllowed(['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp', 'pdf'],
+                                 MultiFileAllowed(upload_set,
                                                   message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB'),
                                  fileSizeLimit(10),
                                  fileVirusScan
