@@ -1,5 +1,3 @@
-
-
 class TestBackToIsFirstVisit:
 
     def test_back_to_is_first_visit_get(self, app, client, public_user_email, test_application):
