@@ -11,11 +11,13 @@ class TestSecurityCode:
             assert response.status_code == 200
             assert 'Enter security code' in response.text
 
-    def test_security_code_resend_code(self, app, client, public_user_email):
+    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_security_code')
+    def test_security_code_resend_code(self, mock_send_security_code, app, client, public_user_email):
         with app.app_context():
             with client.session_transaction() as session:
                 session['email'] = public_user_email
             response = client.get('/security-code', query_string={'resend': 'true'})
+            mock_send_security_code.assert_called_once_with('test.public.email@example.com')
             assert response.status_code == 200
             assert 'Enter security code' in response.text
             assert 'We’ve resent you a security code. This can take a few minutes to arrive.' in response.text
