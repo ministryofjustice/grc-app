@@ -1,5 +1,7 @@
-from grc.external_services.gov_uk_notify import GovUkNotify
-from unittest.mock import patch
+import pytest
+from grc.external_services.gov_uk_notify import GovUkNotify, GovUkNotifyException
+from notifications_python_client.errors import HTTPError
+from unittest.mock import patch, MagicMock
 
 
 class TestGovNotifyEmails:
@@ -67,3 +69,14 @@ class TestGovNotifyEmails:
             assert 'You have been invited to view GRC applications' in response['content']['subject']
             assert 'http://app-link' in response['content']['body']
             assert 'Your temporary password is 123ABC' in response['content']['body']
+
+    def test_send_email_bad_request(self, app, public_user_email):
+        with app.app_context():
+            mock_response = MagicMock(status_code=400)
+            test_client = GovUkNotify()
+            test_client.gov_uk_notify_client = MagicMock()
+            test_client.gov_uk_notify_client.send_email_notification.side_effect = HTTPError(mock_response)
+            with pytest.raises(GovUkNotifyException):
+                with app.test_request_context():
+                    test_client.send_email(public_user_email, 'some template', {})
+
