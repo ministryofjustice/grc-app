@@ -146,7 +146,7 @@ def overseas_check():
     application_data = DataStore.load_application_by_session_reference_number()
 
     if form.validate_on_submit():
-        application_data.confirmation_data.gender_recognition_outside_uk = form.overseasCheck.data
+        application_data.confirmation_data.gender_recognition_outside_uk = bool(form.overseasCheck.data)
 
         if not application_data.confirmation_data.gender_recognition_outside_uk:
             application_data.confirmation_data.gender_recognition_from_approved_country = None
@@ -175,7 +175,7 @@ def overseas_approved_check():
     application_data = DataStore.load_application_by_session_reference_number()
 
     if form.validate_on_submit():
-        application_data.confirmation_data.gender_recognition_from_approved_country = form.overseasApprovedCheck.data
+        application_data.confirmation_data.gender_recognition_from_approved_country = bool(form.overseasApprovedCheck.data)
         DataStore.save_application(application_data)
 
         return get_next_page(application_data, 'startApplication.declaration')
