@@ -478,20 +478,21 @@ def validate_multiple_files_size_limit(form, field):
             raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
 
 
-def fileVirusScan(form, field):
-    if ('AV_API' not in current_app.config.keys()) or (not current_app.config['AV_API']):
-        return
-    if (field.name not in request.files or request.files[field.name].filename == ''):
+def file_virus_scan(form, field):
+    if 'AV_API' not in current_app.config.keys() or not current_app.config['AV_API']:
         return
 
-    print('Scanning %s' % current_app.config['AV_API'], flush=True)
+    if not field.data:
+        return
+
+    logger.log(LogLevel.INFO, message=f'Scanning {current_app.config["AV_API"]}')
 
     from pyclamd import ClamdNetworkSocket
     url = current_app.config['AV_API']
     url = url.replace('http://', '')
     url = url.replace('https://', '')
     cd = ClamdNetworkSocket(host=url, port=3310, timeout=None)
-    uploaded_files = request.files.getlist(field.name)
+    uploaded_files = field.data
 
     for uploaded_file in uploaded_files:
         uploaded_file.stream.seek(0)
@@ -500,11 +501,9 @@ def fileVirusScan(form, field):
             raise ValidationError('Unable to communicate with virus scanner')
 
         results = cd.scan_stream(uploaded_file.stream.read())
-        if results is None:
-            uploaded_file.stream.seek(0)
-        else:
+        if results:
             res_type, res_msg = results['stream']
             if res_type == 'FOUND':
                 raise ValidationError('The selected file contains a virus')
-            else:
-                print('Error scanning uploaded file', flush=True)
+            logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
+            raise ValidationError('Error scanning uploaded file')
