@@ -10,6 +10,7 @@ from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, Val
 from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
+from grc.utils.strtobool import strtobool
 from psycopg2.errors import OperationalError
 
 startApplication = Blueprint('startApplication', __name__)
@@ -146,7 +147,7 @@ def overseas_check():
     application_data = DataStore.load_application_by_session_reference_number()
 
     if form.validate_on_submit():
-        application_data.confirmation_data.gender_recognition_outside_uk = bool(form.overseasCheck.data)
+        application_data.confirmation_data.gender_recognition_outside_uk = strtobool(form.overseasCheck.data)
 
         if not application_data.confirmation_data.gender_recognition_outside_uk:
             application_data.confirmation_data.gender_recognition_from_approved_country = None
@@ -175,7 +176,7 @@ def overseas_approved_check():
     application_data = DataStore.load_application_by_session_reference_number()
 
     if form.validate_on_submit():
-        application_data.confirmation_data.gender_recognition_from_approved_country = bool(form.overseasApprovedCheck.data)
+        application_data.confirmation_data.gender_recognition_from_approved_country = strtobool(form.overseasApprovedCheck.data)
         DataStore.save_application(application_data)
 
         return get_next_page(application_data, 'startApplication.declaration')
