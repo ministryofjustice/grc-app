@@ -55,7 +55,7 @@ def test_application(app, public_user_email):
     with app.app_context():
         application_record = Application(
             reference_number='ABCD1234',
-            email=public_user_email,
+            email=public_user_email
         )
 
         db.session.add(application_record)
