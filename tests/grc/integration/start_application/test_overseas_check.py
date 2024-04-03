@@ -64,4 +64,3 @@ class TestOverseasCheck:
             assert ('Have you ever been issued a Gender Recognition Certificate (or its equivalent)'
                     ' in another country?') in response.text
             assert after_request_data.confirmation_data.gender_recognition_outside_uk is True
-
