@@ -1,5 +1,6 @@
 import os
 import re
+import pathlib
 from dateutil.relativedelta import relativedelta
 from flask import request, session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
@@ -185,91 +186,96 @@ def validate_date_of_birth(form, field):
                               + ' date')
 
 
-def validateDateOfTransiton(form, field):
-    if not form['transition_date_month'].errors:
-        try:
-            transition_date_month = int(form['transition_date_month'].data)
-            transition_date_year = int(form['transition_date_year'].data)
-            date_of_transition = date(transition_date_year, transition_date_month, 1)
-        except Exception as e:
-            raise ValidationError('Enter a valid year')
-    
-        earliest_date_of_transition_years = 100
-        earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
+def validate_date_of_transition(form, field):
+    if form['transition_date_month'].errors:
+        return
 
-        reference_number = session['reference_number']
-        application_record = db.session.query(Application).filter_by(
-            reference_number=reference_number
-        ).first()
-        application_data = DataStore.load_application(reference_number)
+    try:
+        transition_date_month = int(form['transition_date_month'].data)
+        transition_date_year = int(form['transition_date_year'].data)
+        date_of_transition = date(transition_date_year, transition_date_month, 1)
+    except Exception as e:
+        raise ValidationError('Enter a valid year')
 
-        latest_transition_years = 2
-        application_created_date = date(
-            application_record.created.year,
-            application_record.created.month,
-            application_record.created.day
-        )
-        latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
+    earliest_date_of_transition_years = 100
+    earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
-        if date_of_transition < earliest_date_of_transition:
-            raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
+    if date_of_transition < earliest_date_of_transition:
+        raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
 
-        if date_of_transition > date.today():
-            raise ValidationError('Enter a date in the past')
+    if date_of_transition > date.today():
+        raise ValidationError('Enter a date in the past')
 
-        if date_of_transition > latest_transition_date \
-                and not application_data.confirmation_data.gender_recognition_outside_uk:
-            raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
+    reference_number = session['reference_number']
+    application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
+    application_created_date = date(application_record.created.year, application_record.created.month,
+                                    application_record.created.day)
+    application_data = application_record.application_data()
+
+    if application_data.confirmation_data.gender_recognition_outside_uk:
+        return
+
+    latest_transition_years = 2
+    latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
+    if date_of_transition > latest_transition_date:
+        raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
 
 
-def validateStatutoryDeclarationDate(form, field):
-    if not form['statutory_declaration_date_day'].errors and not form['statutory_declaration_date_month'].errors:
-        try:
-            statutory_declaration_date_day = int(form['statutory_declaration_date_day'].data)
-            statutory_declaration_date_month = int(form['statutory_declaration_date_month'].data)
-            statutory_declaration_date_year = int(form['statutory_declaration_date_year'].data)
-            statutory_declaration_date = date(statutory_declaration_date_year, statutory_declaration_date_month, statutory_declaration_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid year')
+def validate_statutory_declaration_date(form, field):
+    if form['statutory_declaration_date_day'].errors or form['statutory_declaration_date_month'].errors:
+        return
 
-        application_record = db.session.query(Application).filter_by(
-            reference_number=session['reference_number']
-        ).first()
-        transition_date = application_record.application_data().personal_details_data.transition_date
-        earliest_statutory_declaration_date_years = 100
-        earliest_statutory_declaration_date = date.today() - relativedelta(years=earliest_statutory_declaration_date_years)
+    try:
+        statutory_declaration_date_day = int(form['statutory_declaration_date_day'].data)
+        statutory_declaration_date_month = int(form['statutory_declaration_date_month'].data)
+        statutory_declaration_date_year = int(form['statutory_declaration_date_year'].data)
+        statutory_declaration_date = date(statutory_declaration_date_year, statutory_declaration_date_month,
+                                          statutory_declaration_date_day)
+    except Exception as e:
+        raise ValidationError('Enter a valid year')
 
-        if statutory_declaration_date < earliest_statutory_declaration_date:
-            raise ValidationError(f'Enter a date within the last {earliest_statutory_declaration_date_years} years')
+    earliest_statutory_declaration_date_years = 100
+    earliest_statutory_declaration_date = date.today() - relativedelta(
+        years=earliest_statutory_declaration_date_years)
 
-        latest_statutory_declaration_date = date.today()
+    if statutory_declaration_date < earliest_statutory_declaration_date:
+        raise ValidationError(f'Enter a date within the last {earliest_statutory_declaration_date_years} years')
 
-        if statutory_declaration_date > latest_statutory_declaration_date:
-            raise ValidationError('Enter a date in the past')
+    latest_statutory_declaration_date = date.today()
+    if statutory_declaration_date > latest_statutory_declaration_date:
+        raise ValidationError('Enter a date in the past')
 
-        if statutory_declaration_date < transition_date:
-            raise ValidationError('Enter a date that does not precede your transition date')
+    reference_number = session['reference_number']
+    application_data = DataStore.load_application(reference_number)
+    transition_date = application_data.personal_details_data.transition_date
+    if statutory_declaration_date < transition_date:
+        raise ValidationError('Enter a date that does not precede your transition date')
 
 
-def validateDateRange(form, field):
-    if not form['start_date_day'].errors and not form['start_date_month'].errors and not form['end_date_day'].errors and not form['end_date_month'].errors:
-        try:
-            start_date_day = int(form['start_date_day'].data)
-            start_date_month = int(form['start_date_month'].data)
-            start_date_year = int(form['start_date_year'].data)
+def validate_date_range(form, field):
+    if form['start_date_day'].errors or form['start_date_month'].errors:
+        return
 
-            start_date = date(start_date_year, start_date_month, start_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid start year')
+    if form['end_date_day'].errors or form['end_date_month'].errors:
+        return
 
-        try:
-            end_date_day = int(form['end_date_day'].data)
-            end_date_month = int(form['end_date_month'].data)
-            end_date_year = int(form['end_date_year'].data)
+    try:
+        start_date_day = int(form['start_date_day'].data)
+        start_date_month = int(form['start_date_month'].data)
+        start_date_year = int(form['start_date_year'].data)
+        date(start_date_year, start_date_month, start_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid start date with message={e}')
+        raise ValidationError('Enter a valid start year')
 
-            end_date = date(end_date_year, end_date_month, end_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid end year')
+    try:
+        end_date_day = int(form['end_date_day'].data)
+        end_date_month = int(form['end_date_month'].data)
+        end_date_year = int(form['end_date_year'].data)
+        date(end_date_year, end_date_month, end_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid end date with message={e}')
+        raise ValidationError('Enter a valid end year')
 
 
 def validate_national_insurance_number(form, field):
@@ -294,34 +300,38 @@ def validate_phone_number(form, field):
         raise ValidationError('Enter a valid phone number')
 
 
-def validateHWFReferenceNumber(form, field):
-    if not (field.data is None or field.data == ''):
-        """
-        Regex to validate HWF reference number separated into 2 parts by an OR '|':
-        1. 11 chars long in the format of HWF-123-ABC
-        2. 9 chars long in format of HWF123ABC
-        """
-        match = re.search(
-            '^(((?=.{11}$)(?=HWF-)+([a-zA-Z0-9])+((-[a-zA-Z0-9]{3})+))|((?=.{9}$)(?=^HWF)(?=[a-zA-Z0-9]).*))+$',
-            field.data
-        )
-        if match is None:
-            raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
+def validate_hwf_reference_number(form, field):
+    """
+    Regex to validate HWF reference number separated into 2 parts by an OR '|':
+    1. 11 chars long in the format of HWF-123-ABC
+    2. 9 chars long in format of HWF123ABC
+    """
+    if not field.data:
+        return
+
+    match = re.search(
+        '^(((?=.{11}$)(?=HWF-)+([a-zA-Z0-9])+((-[a-zA-Z0-9]{3})+))|((?=.{9}$)(?=^HWF)(?=[a-zA-Z0-9]).*))+$',
+        field.data
+    )
+    if match is None:
+        raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
 
 
 def validate_single_date(form, field):
-    if not form['day'].errors and not form['month'].errors:
-        try:
-            day = int(form['day'].data)
-            month = int(form['month'].data)
-            year = int(form['year'].data)
-            date_entered = date(year, month, day)
-        except Exception as e:
-            print(f"ERROR => {e}", flush=True)
-            raise ValidationError('Enter a valid date')
+    if form['day'].errors or form['month'].errors:
+        return
 
-        if date_entered < date.today():
-            raise ValidationError('Enter a date in the future')
+    try:
+        day = int(form['day'].data)
+        month = int(form['month'].data)
+        year = int(form['year'].data)
+        date_entered = date(year, month, day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Error validating single date: {e}')
+        raise ValidationError('Enter a valid date')
+
+    if date_entered < date.today():
+        raise ValidationError('Enter a date in the future')
 
 
 def validate_date_range_form(date_ranges_form):
@@ -397,44 +407,75 @@ def validate_date_ranges(from_date, to_date):
     return form_errors
 
 
-class MultiFileAllowed(object):
+class SingleFileAllowed:
     def __init__(self, upload_set, message=None):
         self.upload_set = upload_set
         self.message = message
 
     def __call__(self, form, field):
-        if not (all(isinstance(item, FileStorage) for item in field.data) and field.data):
+        if not field.data and not isinstance(field.data, FileStorage):
+            return
+
+        filename = field.data.filename.lower()
+
+        if pathlib.Path(filename).suffix[1:] in self.upload_set:
+            return
+
+        raise StopValidation(self.message or field.gettext(
+            'File does not have an approved extension: {extensions}'
+        ).format(extensions=', '.join(self.upload_set)))
+
+
+class MultiFileAllowed:
+    def __init__(self, upload_set, message=None):
+        self.upload_set = upload_set
+        self.message = message
+
+    def __call__(self, form, field):
+        if not (field.data and all(isinstance(item, FileStorage) for item in field.data)):
             return
 
         for data in field.data:
             filename = data.filename.lower()
+            if pathlib.Path(filename).suffix[1:] in self.upload_set:
+                continue
 
-            if isinstance(self.upload_set, Iterable):
-                if any(filename.endswith('.' + x) for x in self.upload_set):
-                    return
+            raise StopValidation(self.message or field.gettext(
+                'File does not have an approved extension: {extensions}'
+            ).format(extensions=', '.join(self.upload_set)))
 
-                raise StopValidation(self.message or field.gettext(
-                    'File does not have an approved extension: {extensions}'
-                ).format(extensions=', '.join(self.upload_set)))
 
-            if not self.upload_set.file_allowed(field.data, filename):
-                raise StopValidation(self.message or field.gettext(
-                    'File does not have an approved extension.'
-                ))
 
-def fileSizeLimit(max_size_in_mb):
-    max_bytes = max_size_in_mb*1024*1024
+def validate_file_size_limit(form, field):
+    if not field.data:
+        return
 
-    def file_length_check(form, field):
-        for data in field.data:
-            file_size = data.read()
-            data.seek(0)
-            if len(file_size) == 0:
-                raise ValidationError('The selected file is empty. Check that the file you are uploading has the content you expect')
-            elif len(file_size) > max_bytes:
-                raise ValidationError(f'The selected file must be smaller than {max_size_in_mb}MB')
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
 
-    return file_length_check
+    file_size = field.data.read()
+    field.data.seek(0)
+    if len(file_size) == 0:
+        raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                              ' content you expect')
+    elif len(file_size) > max_bytes:
+        raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+
+
+def validate_multiple_files_size_limit(form, field):
+    if not field.data:
+        return
+
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
+    for data in field.data:
+        file_size = data.read()
+        data.seek(0)
+        if len(file_size) == 0:
+            raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                                  ' content you expect')
+        elif len(file_size) > max_bytes:
+            raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
 
 
 def file_virus_scan(form, field):

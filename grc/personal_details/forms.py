@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
 from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validateDateOfTransiton, validate_phone_number, validateStatutoryDeclarationDate, validate_single_date, Integer
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 
 
@@ -43,7 +43,7 @@ class TransitionDateForm(FlaskForm):
     transition_date_year = StringField(
         validators=[
             DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validateDateOfTransiton])
+            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validate_date_of_transition])
         ]
     )
 
@@ -67,7 +67,7 @@ class StatutoryDeclarationDateForm(FlaskForm):
         validators=[
             DataRequired(message='Enter a year'),
             Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validateStatutoryDeclarationDate])
+                    validators=[validate_statutory_declaration_date])
         ]
     )
 
