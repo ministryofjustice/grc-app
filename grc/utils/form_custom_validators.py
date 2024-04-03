@@ -445,19 +445,37 @@ class MultiFileAllowed:
             ).format(extensions=', '.join(self.upload_set)))
 
 
-def fileSizeLimit(max_size_in_mb):
-    max_bytes = max_size_in_mb*1024*1024
 
-    def file_length_check(form, field):
-        for data in field.data:
-            file_size = data.read()
-            data.seek(0)
-            if len(file_size) == 0:
-                raise ValidationError('The selected file is empty. Check that the file you are uploading has the content you expect')
-            elif len(file_size) > max_bytes:
-                raise ValidationError(f'The selected file must be smaller than {max_size_in_mb}MB')
+def validate_file_size_limit(form, field):
+    if not field.data:
+        return
 
-    return file_length_check
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
+
+    file_size = field.data.read()
+    field.data.seek(0)
+    if len(file_size) == 0:
+        raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                              ' content you expect')
+    elif len(file_size) > max_bytes:
+        raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+
+
+def validate_multiple_files_size_limit(form, field):
+    if not field.data:
+        return
+
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
+    for data in field.data:
+        file_size = data.read()
+        data.seek(0)
+        if len(file_size) == 0:
+            raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                                  ' content you expect')
+        elif len(file_size) > max_bytes:
+            raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
 
 
 def fileVirusScan(form, field):
