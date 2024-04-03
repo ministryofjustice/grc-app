@@ -17,7 +17,7 @@ class TestOverseasApprovedCheck:
             assert response.status_code == 302
             assert response.location == '/'
 
-    def test_overseas_approved_check_get_overseas_check_data_persists(self, app, client, test_application):
+    def test_overseas_approved_check_get_overseas_approve_check_data_persists(self, app, client, test_application):
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
