@@ -8,7 +8,7 @@ from wtforms.validators import ValidationError
 from unittest.mock import patch, MagicMock
 
 
-class Testvalidate_statutory_declaration_date:
+class TestValidateStatutoryDeclarationDate:
 
     def test_validate_statutory_declaration_date_invalid_day(self, app):
         with app.app_context():
