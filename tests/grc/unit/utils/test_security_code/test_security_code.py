@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from grc.models import db, SecurityCode
 from grc.utils import security_code as sc
+from grc.utils.date_utils import convert_date_to_local_timezone
 from unittest.mock import patch
 
 
@@ -88,7 +89,7 @@ class TestSecurityCode:
     def test_generate_security_code(self, mock_security_code_generator, mock_datetime, app, client, public_user_email,
                                     security_code_):
         with (app.app_context()):
-            expiry_datetime = datetime.now() + timedelta(hours=24)
+            expiry_datetime = convert_date_to_local_timezone(datetime.now() + timedelta(hours=24))
             mock_datetime.return_value = expiry_datetime
 
             mock_security_code_generator.return_value = security_code_.code

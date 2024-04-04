@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField, StringField, RadioField, BooleanField
 from wtforms.validators import DataRequired, Email
-from grc.utils.form_custom_validators import validate_security_code, validateReferenceNumber, StrictRequiredIf
+from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf
 
 
 class EmailAddressForm(FlaskForm):
@@ -30,7 +30,8 @@ class IsFirstVisitForm(FlaskForm):
     )
 
     reference = StringField(
-        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE', message='Enter a reference number', validators=[validateReferenceNumber])]
+        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE',
+                                     message='Enter a reference number', validators=[validate_reference_number])]
     )
 
 
