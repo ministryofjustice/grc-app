@@ -3,68 +3,29 @@ from grc.business_logic.data_structures.uploads_data import EvidenceFile
 
 class UploadsHelpers:
 
-    @staticmethod
-    def medical_reports_uploads(number_of_files, is_password_required):
-        files = []
-        for i in range(1, number_of_files + 1):
-            ef = EvidenceFile()
-            ef.aws_file_name = f'aws_medical_file_name_{i}'
-            ef.original_file_name = f'original_medical_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
+    def __init__(self, section: str):
+        self.section = section
 
-    @staticmethod
-    def evidence_of_living_in_gender_uploads(number_of_files, is_password_required):
-        files = []
-        for i in range(1, number_of_files + 1):
-            ef = EvidenceFile()
-            ef.aws_file_name = f'aws_ev_living_in_gender_file_name_{i}'
-            ef.original_file_name = f'original_ev_living_in_gender_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
+    def get_uploads_object_data(self, extensions_and_number):
+        uploads_file_data = []
+        for extension, number in extensions_and_number.items():
+            for i in range(1, number + 1):
+                ef = EvidenceFile()
+                ef.aws_file_name = f'aws_{self.section}_name_{i}_original.{extension}'
+                ef.original_file_name = f'original_{self.section}_name_{i}.{extension}'
+                uploads_file_data.append(ef)
+        return uploads_file_data
 
-    @staticmethod
-    def name_change_documents_uploads(number_of_files, is_password_required):
-        files = []
+    def get_uploads_object_data_pdf(self, number_of_files, number_passwords_required=0):
+        if number_passwords_required > number_of_files:
+            raise ValueError('Number of pdfs with passwords requested exceeds number of pdfs requested')
+        uploads_file_data = []
         for i in range(1, number_of_files + 1):
             ef = EvidenceFile()
-            ef.aws_file_name = f'aws_name_change_doc_file_name_{i}'
-            ef.original_file_name = f'original_name_change_doc_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
-
-    @staticmethod
-    def partnership_documents_uploads(number_of_files, is_password_required):
-        files = []
-        for i in range(1, number_of_files + 1):
-            ef = EvidenceFile()
-            ef.aws_file_name = f'aws_partnership_doc_file_name_{i}'
-            ef.original_file_name = f'original_partnership_doc_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
-
-    @staticmethod
-    def overseas_documents_uploads(number_of_files, is_password_required):
-        files = []
-        for i in range(1, number_of_files + 1):
-            ef = EvidenceFile()
-            ef.aws_file_name = f'aws_overseas_doc_file_name_{i}'
-            ef.original_file_name = f'original_overseas_doc_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
-
-    @staticmethod
-    def statutory_declarations_uploads(number_of_files, is_password_required):
-        files = []
-        for i in range(1, number_of_files + 1):
-            ef = EvidenceFile()
-            ef.aws_file_name = f'aws_stat_dec_file_name_{i}'
-            ef.original_file_name = f'original_stat_dec_doc_file_name_{i}'
-            ef.password_required = is_password_required
-            files.append(ef)
-        return files
+            ef.aws_file_name = f'aws_{self.section}_name_{i}.pdf'
+            ef.original_file_name = f'original_{self.section}_name_{i}.pdf'
+            if number_passwords_required > 0:
+                ef.password_required = True
+                number_passwords_required -= 1
+            uploads_file_data.append(ef)
+        return uploads_file_data
