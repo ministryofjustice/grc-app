@@ -99,10 +99,10 @@ jobs:
             . venv/bin/activate
             pybabel compile -d grc/translations
       - run:
-          name: Install Playwright and browsers
+          name: Install Playwright, browsers and coverage tool
           command: |
             . venv/bin/activate
-            pip install playwright==1.41.2 pytest-playwright asyncio pytest-html
+            pip install playwright==1.41.2 pytest-playwright asyncio pytest-html pytest-cov
             pip install -e .
             python -m playwright install --with-deps
       - run:
@@ -121,7 +121,7 @@ jobs:
           name: Run unit and integration tests
           command: |
             . venv/bin/activate
-            pytest --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html
+            pytest --cov=grc --cov=admin --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html --cov-report=html:reports/coverage
       - run:
           name: Start site and run e2e
           command: |
