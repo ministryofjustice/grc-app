@@ -1,10 +1,13 @@
 from flask_wtf import Form, FlaskForm
 from wtforms import MultipleFileField, HiddenField, RadioField, PasswordField, SubmitField, FormField, FieldList
 from wtforms.validators import DataRequired
-from grc.utils.form_custom_validators import MultiFileAllowed, fileSizeLimit, fileVirusScan, StrictRequiredIf
+from grc.utils.form_custom_validators import MultiFileAllowed, validate_multiple_files_size_limit, file_virus_scan, StrictRequiredIf
 
 
 class UploadForm(FlaskForm):
+    upload_set = ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp', 'pdf']
+    file_size_limit_mb = 10
+
     button_clicked = RadioField(
         choices=[
             ('Upload file', 'Upload file'),
@@ -18,10 +21,10 @@ class UploadForm(FlaskForm):
             StrictRequiredIf('button_clicked', 'Upload file',
                              message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB',
                              validators=[
-                                 MultiFileAllowed(['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp', 'pdf'],
+                                 MultiFileAllowed(upload_set,
                                                   message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB'),
-                                 fileSizeLimit(10),
-                                 fileVirusScan
+                                 validate_multiple_files_size_limit,
+                                 file_virus_scan
                              ]),
         ]
     )
