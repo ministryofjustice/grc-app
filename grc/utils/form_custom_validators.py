@@ -252,25 +252,30 @@ def validate_statutory_declaration_date(form, field):
         raise ValidationError('Enter a date that does not precede your transition date')
 
 
-def validateDateRange(form, field):
-    if not form['start_date_day'].errors and not form['start_date_month'].errors and not form['end_date_day'].errors and not form['end_date_month'].errors:
-        try:
-            start_date_day = int(form['start_date_day'].data)
-            start_date_month = int(form['start_date_month'].data)
-            start_date_year = int(form['start_date_year'].data)
+def validate_date_range(form, field):
+    if form['start_date_day'].errors or form['start_date_month'].errors:
+        return
 
-            start_date = date(start_date_year, start_date_month, start_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid start year')
+    if form['end_date_day'].errors or form['end_date_month'].errors:
+        return
 
-        try:
-            end_date_day = int(form['end_date_day'].data)
-            end_date_month = int(form['end_date_month'].data)
-            end_date_year = int(form['end_date_year'].data)
+    try:
+        start_date_day = int(form['start_date_day'].data)
+        start_date_month = int(form['start_date_month'].data)
+        start_date_year = int(form['start_date_year'].data)
+        date(start_date_year, start_date_month, start_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid start date with message={e}')
+        raise ValidationError('Enter a valid start year')
 
-            end_date = date(end_date_year, end_date_month, end_date_day)
-        except Exception as e:
-            raise ValidationError('Enter a valid end year')
+    try:
+        end_date_day = int(form['end_date_day'].data)
+        end_date_month = int(form['end_date_month'].data)
+        end_date_year = int(form['end_date_year'].data)
+        date(end_date_year, end_date_month, end_date_day)
+    except ValueError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid end date with message={e}')
+        raise ValidationError('Enter a valid end year')
 
 
 def validate_national_insurance_number(form, field):
@@ -440,35 +445,54 @@ class MultiFileAllowed:
             ).format(extensions=', '.join(self.upload_set)))
 
 
-def fileSizeLimit(max_size_in_mb):
-    max_bytes = max_size_in_mb*1024*1024
 
-    def file_length_check(form, field):
-        for data in field.data:
-            file_size = data.read()
-            data.seek(0)
-            if len(file_size) == 0:
-                raise ValidationError('The selected file is empty. Check that the file you are uploading has the content you expect')
-            elif len(file_size) > max_bytes:
-                raise ValidationError(f'The selected file must be smaller than {max_size_in_mb}MB')
-
-    return file_length_check
-
-
-def fileVirusScan(form, field):
-    if ('AV_API' not in current_app.config.keys()) or (not current_app.config['AV_API']):
-        return
-    if (field.name not in request.files or request.files[field.name].filename == ''):
+def validate_file_size_limit(form, field):
+    if not field.data:
         return
 
-    print('Scanning %s' % current_app.config['AV_API'], flush=True)
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
+
+    file_size = field.data.read()
+    field.data.seek(0)
+    if len(file_size) == 0:
+        raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                              ' content you expect')
+    elif len(file_size) > max_bytes:
+        raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+
+
+def validate_multiple_files_size_limit(form, field):
+    if not field.data:
+        return
+
+    file_size_limit = form.file_size_limit_mb if form.file_size_limit_mb else 10
+    max_bytes = file_size_limit * 1024 * 1024
+    for data in field.data:
+        file_size = data.read()
+        data.seek(0)
+        if len(file_size) == 0:
+            raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
+                                  ' content you expect')
+        elif len(file_size) > max_bytes:
+            raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+
+
+def file_virus_scan(form, field):
+    if 'AV_API' not in current_app.config.keys() or not current_app.config['AV_API']:
+        return
+
+    if not field.data:
+        return
+
+    logger.log(LogLevel.INFO, message=f'Scanning {current_app.config["AV_API"]}')
 
     from pyclamd import ClamdNetworkSocket
     url = current_app.config['AV_API']
     url = url.replace('http://', '')
     url = url.replace('https://', '')
     cd = ClamdNetworkSocket(host=url, port=3310, timeout=None)
-    uploaded_files = request.files.getlist(field.name)
+    uploaded_files = field.data
 
     for uploaded_file in uploaded_files:
         uploaded_file.stream.seek(0)
@@ -477,11 +501,9 @@ def fileVirusScan(form, field):
             raise ValidationError('Unable to communicate with virus scanner')
 
         results = cd.scan_stream(uploaded_file.stream.read())
-        if results is None:
-            uploaded_file.stream.seek(0)
-        else:
+        if results:
             res_type, res_msg = results['stream']
             if res_type == 'FOUND':
                 raise ValidationError('The selected file contains a virus')
-            else:
-                print('Error scanning uploaded file', flush=True)
+            logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
+            raise ValidationError('Error scanning uploaded file')
