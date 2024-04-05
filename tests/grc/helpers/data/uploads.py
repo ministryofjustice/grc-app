@@ -1,10 +1,16 @@
+import io
+from functools import partial
 from grc.business_logic.data_structures.uploads_data import EvidenceFile
 
 
 class UploadsHelpers:
 
-    def __init__(self, section: str):
+    def __init__(self, section: str, mock_s3_client=None):
+        self.mock_s3_client = mock_s3_client
         self.section = section
+
+        if self.mock_s3_client:
+            self.mock_s3_client.return_value.download_object.side_effect = partial(self._mock_download_object)
 
     def get_uploads_object_data(self, extensions_and_number):
         uploads_file_data = []
@@ -29,3 +35,10 @@ class UploadsHelpers:
                 number_passwords_required -= 1
             uploads_file_data.append(ef)
         return uploads_file_data
+
+    @staticmethod
+    def _mock_download_object(aws_file_name):
+        test_file_content_string = f"{aws_file_name} file content"
+        return io.BytesIO(test_file_content_string.encode("utf-8"))
+
+
