@@ -81,6 +81,7 @@ class ApplicationFiles():
                     )
                     zipper.writestr('application.pdf', data)
 
+                print('ATTACHMENT FILE NAME', attachment_file_name, flush=True)
                 bytes = zip_buffer.getvalue()
                 AwsS3Client().upload_fileobj(zip_buffer, attachment_file_name)
                 if not download:
