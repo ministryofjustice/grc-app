@@ -9,7 +9,6 @@ from grc.config import TestConfig as GRCTestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import security_code_generator
 from tests.grc.helpers.data.application_data import ApplicationDataHelpers
-from unittest.mock import patch
 
 
 @pytest.fixture()
@@ -29,7 +28,7 @@ def client(app):
 
 @pytest.fixture()
 def public_user_email(app):
-    return app.config['TEST_PUBLIC_USER']
+    return app.config[GRCTestConfig.TEST_PUBLIC_USER]
 
 
 @pytest.fixture()
@@ -128,12 +127,3 @@ def test_completed_application(app, public_user_email):
 
         db.session.delete(application_record)
         db.session.commit()
-
-
-# @pytest.fixture()
-# def mock_s3_client(app):
-#     with app.app_context():
-#         with patch('grc.external_services.aws_s3_client.AwsS3Client') as MockAwsS3Client:
-#             mock_s3_client = MockAwsS3Client.return_value
-#             mock_s3_client.upload_fileobj.return_value = True
-#             yield MockAwsS3Client.return_value
