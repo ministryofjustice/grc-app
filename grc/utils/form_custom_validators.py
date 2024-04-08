@@ -507,3 +507,4 @@ def file_virus_scan(form, field):
                 raise ValidationError('The selected file contains a virus')
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
+        uploaded_file.stream.seek(0)
