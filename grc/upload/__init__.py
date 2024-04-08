@@ -171,7 +171,7 @@ def uploadInfoPage(section_url: str):
             if form.button_clicked.data.startswith('Upload '):
                 has_password = False
                 try:
-                    for document in request.files.getlist('documents'):
+                    for document in form.documents.data:
                         original_file_name = document.filename
                         object_name = create_aws_file_name(application_data.reference_number, section.data_section, original_file_name)
                         password_required = False
@@ -190,8 +190,9 @@ def uploadInfoPage(section_url: str):
                                     has_password = True
 
                                 AwsS3Client().upload_fileobj(document, object_name)
-                            except:
-                                logger.log(LogLevel.ERROR, f"User uploaded PDF attachment ({object_name}) which could not be opened")
+                            except Exception as e:
+                                logger.log(LogLevel.ERROR, f"User uploaded PDF attachment ({object_name}) which"
+                                                           f" could not be opened: message = {e}")
 
                         elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
                             resized, resized_document = resize_image(document)
