@@ -40,27 +40,14 @@ def securityCode():
     if request.method == 'POST':
         email = session['email']
         if form.validate_on_submit():
-            #existing_application = Application.query.filter(
-            #    Application.email == email.lower(),
-            #    ((Application.status == ApplicationStatus.SUBMITTED) | (Application.status == ApplicationStatus.DOWNLOADED) | (Application.status == ApplicationStatus.COMPLETED)),
-            #    # (DATE REJECTED?????)
-            #).first()
-            #if existing_application is not None:
-            #    form.security_code.errors.append("You have already submitted an application, please contact the admin team if you require an update")
-            #else:
             session.clear()  # Clear out session['email']
             session['validatedEmail'] = email
             return local_redirect(url_for('startApplication.isFirstVisit'))
-        else:
-            logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
+        logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
-        try:
-            send_security_code(session['email'])
-            flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
-        except BaseException as err:
-            error = err.args[0].json()
-            flash(error['errors'][0]['message'], 'error')
+        GovUkNotify().send_email_security_code(session['email'])
+        flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
 
     return render_template(
         'security-code.html',
