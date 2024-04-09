@@ -56,7 +56,6 @@ class ApplicationFiles():
                         files = self.get_files_for_section(section, application_data)
                         for file_index, evidence_file in enumerate(files):
                             print(f'\nAwsS3Client().download_object({evidence_file.aws_file_name})')
-                            print('bytes data', AwsS3Client().download_object(evidence_file.aws_file_name).getvalue(), '\n')
                             data = AwsS3Client().download_object(evidence_file.aws_file_name)
                             print(data)
                             if data is not None:

@@ -1,27 +1,22 @@
-import io
 from grc.business_logic.data_structures.uploads_data import EvidenceFile
-from unittest.mock import call
 
 
 class UploadsHelpers:
 
-    def __init__(self, section: str, mock_s3_client=None, download=False):
-        self.mock_s3_client = mock_s3_client
+    def __init__(self, section: str, download=False):
         self.section = section
+        self.aws_file_names = []
         self.download = download
-
-        if self.mock_s3_client:
-            self.mock_s3_client.return_value.download_object.side_effect = self._mock_download_object
-            self.calls = []
 
     def get_uploads_object_data(self, extensions_and_number):
         uploads_file_data = []
         for extension, number in extensions_and_number.items():
             for i in range(1, number + 1):
                 ef = EvidenceFile()
-                ef.aws_file_name = f'aws_{self.section}_name_{i}_original.{extension}'
+                ef.aws_file_name = f'aws_{self.section}_name_{i}.{extension}'
                 ef.original_file_name = f'original_{self.section}_name_{i}.{extension}'
                 uploads_file_data.append(ef)
+                self.aws_file_names.append(ef.aws_file_name)
         return uploads_file_data
 
     def get_uploads_object_data_pdf(self, number_of_files, number_passwords_required=0):
@@ -36,13 +31,5 @@ class UploadsHelpers:
                 ef.password_required = True
                 number_passwords_required -= 1
             uploads_file_data.append(ef)
+            self.aws_file_names.append(ef.aws_file_name)
         return uploads_file_data
-
-    def _mock_download_object(self, aws_file_name):
-        if aws_file_name == 'ABCD1234.zip' and not self.download:
-            return None
-
-        self.calls.append(call(aws_file_name))
-
-        test_file_content_string = f"{aws_file_name} file content"
-        return io.BytesIO(test_file_content_string.encode("utf-8"))
