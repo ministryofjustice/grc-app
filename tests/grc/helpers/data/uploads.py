@@ -1,16 +1,18 @@
 import io
 from grc.business_logic.data_structures.uploads_data import EvidenceFile
+from unittest.mock import call
 
 
 class UploadsHelpers:
 
-    def __init__(self, section: str, mock_s3_client=None):
+    def __init__(self, section: str, mock_s3_client=None, download=False):
         self.mock_s3_client = mock_s3_client
         self.section = section
+        self.download = download
 
         if self.mock_s3_client:
             self.mock_s3_client.return_value.download_object.side_effect = self._mock_download_object
-            self.mock_s3_client.return_value.upload_fileobj.side_effect = self.mock_upload_fileobj
+            self.calls = []
 
     def get_uploads_object_data(self, extensions_and_number):
         uploads_file_data = []
@@ -36,13 +38,11 @@ class UploadsHelpers:
             uploads_file_data.append(ef)
         return uploads_file_data
 
-    @staticmethod
-    def _mock_download_object(aws_file_name):
+    def _mock_download_object(self, aws_file_name):
+        if aws_file_name == 'ABCD1234.zip' and not self.download:
+            return None
+
+        self.calls.append(call(aws_file_name))
+
         test_file_content_string = f"{aws_file_name} file content"
         return io.BytesIO(test_file_content_string.encode("utf-8"))
-
-    @staticmethod
-    def mock_upload_fileobj(zip_buffer, attachment_name):
-        return zip_buffer, attachment_name
-
-
