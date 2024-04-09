@@ -28,7 +28,7 @@ def client(app):
 
 @pytest.fixture()
 def public_user_email(app):
-    return app.config[GRCTestConfig.TEST_PUBLIC_USER]
+    return app.config['TEST_PUBLIC_USER']
 
 
 @pytest.fixture()
