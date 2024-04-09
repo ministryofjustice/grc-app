@@ -35,7 +35,7 @@ class TestCreateOrDownloadAttachments:
             assert app_files.create_or_download_attachments(data.reference_number, data, False) == expected
 
     @patch('grc.utils.application_files.AwsS3Client')
-    def test_create_or_download_attachments_create_attachment_zip_correct_files_uploaded(
+    def test_create_or_download_attachments_create_attachment_correct_files_are_downloaded_from_s3_for_zipping(
             self, mock_s3_client: MagicMock, app, test_application, app_files):
         with app.test_request_context():
             # Set up evidence doc data
@@ -52,7 +52,7 @@ class TestCreateOrDownloadAttachments:
             data.uploads_data.partnership_documents = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
 
             # Mock file content data and get args used in download_object call
-            mock_s3 = MockAWSClientHelper(mock_s3_client, False)
+            MockAWSClientHelper(mock_s3_client, False)
 
             expected_downloads_objects_calls = [
                 # medical docs
