@@ -1,5 +1,6 @@
 from io import BytesIO
 import os
+import tempfile
 import zipfile
 from flask import render_template
 from typing import Callable, List, Dict, Tuple
@@ -12,7 +13,7 @@ from grc.utils.pdf_utils import PDFUtils
 logger = Logger()
 
 
-class ApplicationFiles():
+class ApplicationFiles:
     sections = ['medicalReports', 'genderEvidence', 'nameChange', 'marriageDocuments', 'overseasCertificate', 'statutoryDeclarations']
     section_names = ['Medical Reports', 'Gender Evidence', 'Name Change', 'Marriage Documents', 'Overseas Certificate', 'Statutory Declarations']
     section_files:  Dict[str, Callable[[UploadsData], List[EvidenceFile]]] = {
@@ -24,18 +25,55 @@ class ApplicationFiles():
         'statutoryDeclarations': (lambda u: u.statutory_declarations),
     }
 
-
-    def __init__(self):
-        pass
-
-
     def get_files_for_section(self, section: str, application_data: ApplicationData) -> list:
         return self.section_files[section](application_data.uploads_data)
-
 
     def get_section_name(self, section: str) -> str:
         return self.section_names[self.sections.index(section)]
 
+    def create_and_upload_attachments(self, reference_number: str, application_data: ApplicationData):
+        zip_file_name = f'{reference_number}.zip'
+        logger.log(LogLevel.INFO, message=f'creating attachments for {zip_file_name}')
+        application_zip = self.create_application_zip(application_data)
+        return AwsS3Client().upload_fileobj(application_zip, zip_file_name)
+
+    def download_attachments(self, reference_number: str, application_data: ApplicationData) -> Tuple[BytesIO, str]:
+        zip_file_name = f'{reference_number}.zip'
+        data = AwsS3Client().download_object(zip_file_name)
+        if data:
+            return data.getvalue(), zip_file_name
+
+        logger.log(LogLevel.WARN, message=f'unable to download {zip_file_name}. Attempting to download and attach'
+                                          f'files individually')
+        application_zip = self.create_application_zip(application_data)
+        return application_zip, zip_file_name
+
+    def create_application_zip(self, application_data: ApplicationData) -> BytesIO:
+        zip_buffer = BytesIO()
+        with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
+            for section in self.sections:
+                files = self.get_files_for_section(section, application_data)
+                for file_index, evidence_file in enumerate(files):
+                    data = AwsS3Client().download_object(evidence_file.aws_file_name)
+                    if data is not None:
+                        attachment_file_name = (f"{application_data.reference_number}__{section}__{(file_index + 1)}_"
+                                                f"{evidence_file.original_file_name}")
+                        zipper.writestr(attachment_file_name, data.getvalue())
+
+                    file_name, file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
+                    if file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
+                        data = AwsS3Client().download_object(f'{file_name}_original{file_ext}')
+                        if data is not None:
+                            file_name, file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
+                            attachment_file_name = (f"{application_data.reference_number}__{section}__"
+                                                    f"{(file_index + 1)}_{file_name}_original{file_ext}")
+                            zipper.writestr(attachment_file_name, data.getvalue())
+
+            data, _ = self.create_or_download_pdf(application_data.reference_number, application_data,
+                                                  attach_files=False, download=True, create_toc=False, paginate=False)
+            zipper.writestr('application.pdf', data)
+        zip_buffer.seek(0)
+        return zip_buffer
 
     def create_or_download_attachments(self, reference_number: str, application_data: ApplicationData, download: bool = False) -> Tuple[BytesIO, str]:
         bytes = None
@@ -88,7 +126,6 @@ class ApplicationFiles():
 
         return bytes, zip_file_file_name
 
-
     def create_or_download_pdf(self, reference_number: str, application_data: ApplicationData, is_admin: bool = True, attach_files: bool = True, download: bool = False, create_toc: bool = False, paginate: bool = False) -> Tuple[BytesIO, str]:
         bytes = None
         file_name = ''
@@ -136,7 +173,6 @@ class ApplicationFiles():
 
         return bytes, file_name
 
-
     def delete_application_files(self, reference_number: str, application_data: ApplicationData) -> None:
         AwsS3Client().delete_object(reference_number + '.zip')
         AwsS3Client().delete_object(reference_number + '.pdf')
@@ -146,12 +182,10 @@ class ApplicationFiles():
             for evidence_file in files:
                 AwsS3Client().delete_object(evidence_file.aws_file_name)
 
-
     def create_application_cover_sheet_pdf(self, application_data: ApplicationData, is_admin: bool) -> BytesIO:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
         return PDFUtils().create_pdf_from_html(html, title='Application')
-
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''
@@ -166,13 +200,11 @@ class ApplicationFiles():
             logger.log(LogLevel.INFO, "Adding attachments pdf")
             return PDFUtils().create_pdf_from_html(attachments_html, title='Attachments')
 
-
     def attach_all_files(self, pdfs: list, all_sections: list, application_data: ApplicationData) -> None:
         for section in all_sections:
             files = self.get_files_for_section(section, application_data)
             for file_index, evidence_file in enumerate(files):
                 self.add_object(pdfs, section, evidence_file.aws_file_name, evidence_file.original_file_name)
-
 
     def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str) -> None:
         if '.' in aws_file_name:
@@ -217,13 +249,11 @@ class ApplicationFiles():
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
             self.create_pdf_for_attachment_error(section, original_file_name)
 
-
     def create_pdf_for_attachment_error(self, section: str, file_name: str) -> BytesIO:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
         return PDFUtils().create_pdf_from_html(html, title=f'{self.get_section_name(section)}:{file_name}')
 
-
-    def get_filename_and_extension(self, file_name: str) -> str:
+    def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
         file_ext = ''
         if '.' in file_name:
             file_ext = file_name[file_name.rindex('.'):]

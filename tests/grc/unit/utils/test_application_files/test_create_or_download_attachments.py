@@ -119,3 +119,25 @@ class TestCreateAndDownloadAttachments:
             # assert the correct zip is uploaded to s3
             assert app_files.create_and_upload_attachments(data.reference_number, data) is True
             mock_s3_client.return_value.upload_fileobj.assert_called_once_with(test_zipe_files, 'ABCD1234.zip')
+
+    @patch('grc.utils.application_files.AwsS3Client')
+    def test_download_attachments_zip_exists(self, mock_s3_client: MagicMock, app,
+                                             test_application, app_files):
+        with app.test_request_context():
+            # Set up evidence doc data
+            medical_reports_docs = UploadsHelpers('medicalReports')
+            gender_evidence_docs = UploadsHelpers('genderEvidence')
+            statutory_declaration_docs = UploadsHelpers('statutoryDeclarations')
+
+            # Load uploads data
+            data = test_application.application_data()
+            data.uploads_data.medical_reports = medical_reports_docs.get_uploads_object_data({'bmp': 1, 'png': 1})
+            data.uploads_data.evidence_of_living_in_gender = gender_evidence_docs.get_uploads_object_data_pdf(2)
+            stat_dec_documents_non_pdfs = statutory_declaration_docs.get_uploads_object_data({'jpeg': 1, 'tiff': 1})
+            stat_dec_documents_pdfs = statutory_declaration_docs.get_uploads_object_data_pdf(2, 1)
+            data.uploads_data.statutory_declarations = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
+
+            # Mock file content data and get args used in download_object call
+            MockAWSClientHelper(mock_s3_client, False)
+
+            # app_files.download_attachments(data.reference_number, data)
