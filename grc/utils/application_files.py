@@ -40,27 +40,22 @@ class ApplicationFiles():
     def create_or_download_attachments(self, reference_number: str, application_data: ApplicationData, download: bool = False) -> Tuple[BytesIO, str]:
         bytes = None
         zip_file_file_name = ''
+
         try:
             zip_file_file_name = reference_number + '.zip'
 
-            data = AwsS3Client().download_object(zip_file_file_name)
-            print(f'DATA from downloading {zip_file_file_name}', flush=True)
+            data = None if os.getenv('FLASK_ENV', '') == 'development' else AwsS3Client().download_object(zip_file_file_name)
             if data:
-                print('There is data', flush=True)
                 if download:
                     bytes = data.getvalue()
             else:
                 zip_buffer = BytesIO()
-                with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
 
-                    print(zip_buffer)
-                    print(zipper.filename)
+                with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
                     for section in self.sections:
                         files = self.get_files_for_section(section, application_data)
                         for file_index, evidence_file in enumerate(files):
-                            print(f'\nAwsS3Client().download_object({evidence_file.aws_file_name})')
                             data = AwsS3Client().download_object(evidence_file.aws_file_name)
-                            print(data)
                             if data is not None:
                                 attachment_file_name = f"{reference_number}__{section}__{(file_index + 1)}_{evidence_file.original_file_name}"
                                 zipper.writestr(attachment_file_name, data.getvalue())
@@ -83,9 +78,7 @@ class ApplicationFiles():
                     )
                     zipper.writestr('application.pdf', data)
 
-                print('ATTACHMENT FILE NAME', attachment_file_name, flush=True)
                 bytes = zip_buffer.getvalue()
-                print(bytes)
                 AwsS3Client().upload_fileobj(zip_buffer, attachment_file_name)
                 if not download:
                     bytes = None
