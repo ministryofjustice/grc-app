@@ -38,15 +38,15 @@ class ApplicationFiles():
 
 
     def create_or_download_attachments(self, reference_number: str, application_data: ApplicationData, download: bool = False) -> Tuple[BytesIO, str]:
-        print(AwsS3Client().download_object('aws_medical_reports_name_1_original.jpeg'))
         bytes = None
         zip_file_file_name = ''
         try:
             zip_file_file_name = reference_number + '.zip'
 
-            if download:
-                data = AwsS3Client().download_object(zip_file_file_name)
-                if data:
+            data = None if os.getenv('FLASK_ENV', '') == 'development' else AwsS3Client().download_object(
+                zip_file_file_name)
+            if data:
+                if download:
                     bytes = data.getvalue()
             else:
                 zip_buffer = BytesIO()
