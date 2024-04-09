@@ -43,15 +43,18 @@ class ApplicationFiles():
         try:
             zip_file_file_name = reference_number + '.zip'
 
-            data = None if os.getenv('FLASK_ENV', '') == 'development' else AwsS3Client().download_object(
-                zip_file_file_name)
+            data = AwsS3Client().download_object(zip_file_file_name)
+            print(f'DATA from downloading {zip_file_file_name}', flush=True)
             if data:
+                print('There is data', flush=True)
                 if download:
                     bytes = data.getvalue()
             else:
                 zip_buffer = BytesIO()
-
                 with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
+
+                    print(zip_buffer)
+                    print(zipper.filename)
                     for section in self.sections:
                         files = self.get_files_for_section(section, application_data)
                         for file_index, evidence_file in enumerate(files):
@@ -82,6 +85,7 @@ class ApplicationFiles():
 
                 print('ATTACHMENT FILE NAME', attachment_file_name, flush=True)
                 bytes = zip_buffer.getvalue()
+                print(bytes)
                 AwsS3Client().upload_fileobj(zip_buffer, attachment_file_name)
                 if not download:
                     bytes = None
