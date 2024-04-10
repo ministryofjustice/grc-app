@@ -1,6 +1,5 @@
 from io import BytesIO
 import os
-import tempfile
 import zipfile
 from flask import render_template
 from typing import Callable, List, Dict, Tuple
@@ -37,7 +36,7 @@ class ApplicationFiles:
         application_zip = self.create_application_zip(application_data)
         return AwsS3Client().upload_fileobj(application_zip, zip_file_name)
 
-    def download_attachments(self, reference_number: str, application_data: ApplicationData) -> Tuple[BytesIO, str]:
+    def download_attachments(self, reference_number: str, application_data: ApplicationData) -> Tuple[bytes, str]:
         zip_file_name = f'{reference_number}.zip'
         data = AwsS3Client().download_object(zip_file_name)
         if data:
@@ -46,7 +45,7 @@ class ApplicationFiles:
         logger.log(LogLevel.WARN, message=f'unable to download {zip_file_name}. Attempting to download and attach'
                                           f'files individually')
         application_zip = self.create_application_zip(application_data)
-        return application_zip, zip_file_name
+        return application_zip.getvalue(), zip_file_name
 
     def create_application_zip(self, application_data: ApplicationData) -> BytesIO:
         zip_buffer = BytesIO()
