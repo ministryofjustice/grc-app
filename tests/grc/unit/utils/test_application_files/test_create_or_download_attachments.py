@@ -75,7 +75,7 @@ class TestCreateAndDownloadAttachments:
                 "ABCD1234__statutoryDeclarations__4_original_statutorydeclarations_name_2.pdf": b'aws_statutorydeclarations_name_2.pdf file content',
             }
 
-            application_file_zip: io.BytesIO = app_files.create_application_zip(data)
+            application_file_zip: io.BytesIO = app_files._create_application_zip(data)
             with zipfile.ZipFile(application_file_zip, 'r') as test_application_zip_file:
                 for file, data in expected_zip_files_content.items():
                     file_content = test_application_zip_file.read(file)
@@ -89,7 +89,7 @@ class TestCreateAndDownloadAttachments:
             # assert the correct files are downloaded from s3
             mock_s3_client.return_value.download_object.assert_has_calls(expected_downloads_objects_calls)
 
-    @patch('grc.utils.application_files.ApplicationFiles.create_application_zip')
+    @patch('grc.utils.application_files.ApplicationFiles._create_application_zip')
     @patch('grc.utils.application_files.AwsS3Client')
     def test_create_and_upload_attachment(self, mock_s3_client: MagicMock, mock_create_app_zip, app, test_application,
                                           app_files):
@@ -139,7 +139,7 @@ class TestCreateAndDownloadAttachments:
 
             assert app_files.download_attachments(data.reference_number, data) == (b'ABCD1234.zip file content', 'ABCD1234.zip')
 
-    @patch('grc.utils.application_files.ApplicationFiles.create_application_zip')
+    @patch('grc.utils.application_files.ApplicationFiles._create_application_zip')
     @patch('grc.utils.application_files.AwsS3Client')
     def test_download_attachments_zip_does_not_exist(self, mock_s3_client: MagicMock, mock_create_app_zip: MagicMock,
                                                      app, test_application, app_files):
