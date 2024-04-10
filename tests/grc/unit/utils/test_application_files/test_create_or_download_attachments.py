@@ -1,6 +1,5 @@
 import io
 import zipfile
-
 import pytest
 from grc.utils.application_files import ApplicationFiles
 from tests.grc.helpers.mock_aws_client import MockAWSClientHelper
@@ -31,7 +30,7 @@ class TestCreateAndDownloadAttachments:
             data.uploads_data.statutory_declarations = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
 
             # Mock file content data and get args used in download_object call
-            MockAWSClientHelper(mock_s3_client, False)
+            MockAWSClientHelper(mock_s3_client)
 
             expected_downloads_objects_calls = [
                 # medical docs
@@ -109,8 +108,7 @@ class TestCreateAndDownloadAttachments:
             data.uploads_data.statutory_declarations = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
 
             # Mock file content data and get args used in download_object call
-            MockAWSClientHelper(mock_s3_client, False)
-            mock_s3_client.return_value.upload_fileobj.return_value = True
+            MockAWSClientHelper(mock_s3_client, upload=True)
 
             # mock create application zip
             test_zipe_files = io.BytesIO('test zip files'.encode('utf-8'))
@@ -121,8 +119,7 @@ class TestCreateAndDownloadAttachments:
             mock_s3_client.return_value.upload_fileobj.assert_called_once_with(test_zipe_files, 'ABCD1234.zip')
 
     @patch('grc.utils.application_files.AwsS3Client')
-    def test_download_attachments_zip_exists(self, mock_s3_client: MagicMock, app,
-                                             test_application, app_files):
+    def test_download_attachments_zip_exists(self, mock_s3_client: MagicMock, app, test_application, app_files):
         with app.test_request_context():
             # Set up evidence doc data
             medical_reports_docs = UploadsHelpers('medicalReports')
@@ -138,6 +135,34 @@ class TestCreateAndDownloadAttachments:
             data.uploads_data.statutory_declarations = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
 
             # Mock file content data and get args used in download_object call
-            MockAWSClientHelper(mock_s3_client, False)
+            MockAWSClientHelper(mock_s3_client)
 
-            # app_files.download_attachments(data.reference_number, data)
+            assert app_files.download_attachments(data.reference_number, data) == (b'ABCD1234.zip file content', 'ABCD1234.zip')
+
+    @patch('grc.utils.application_files.ApplicationFiles.create_application_zip')
+    @patch('grc.utils.application_files.AwsS3Client')
+    def test_download_attachments_zip_does_not_exist(self, mock_s3_client: MagicMock, mock_create_app_zip: MagicMock,
+                                                     app, test_application, app_files):
+        with app.test_request_context():
+            # Set up evidence doc data
+            medical_reports_docs = UploadsHelpers('medicalReports')
+            gender_evidence_docs = UploadsHelpers('genderEvidence')
+            statutory_declaration_docs = UploadsHelpers('statutoryDeclarations')
+
+            # Load uploads data
+            data = test_application.application_data()
+            data.uploads_data.medical_reports = medical_reports_docs.get_uploads_object_data({'bmp': 1, 'png': 1})
+            data.uploads_data.evidence_of_living_in_gender = gender_evidence_docs.get_uploads_object_data_pdf(2)
+            stat_dec_documents_non_pdfs = statutory_declaration_docs.get_uploads_object_data({'jpeg': 1, 'tiff': 1})
+            stat_dec_documents_pdfs = statutory_declaration_docs.get_uploads_object_data_pdf(2, 1)
+            data.uploads_data.statutory_declarations = stat_dec_documents_non_pdfs + stat_dec_documents_pdfs
+
+            # Mock file content data and get args used in download_object call
+            MockAWSClientHelper(mock_s3_client, zip_exists=False)
+
+            # mock create application zip
+            test_zipe_files = io.BytesIO('test zip files'.encode('utf-8'))
+            mock_create_app_zip.return_value = test_zipe_files
+
+            assert app_files.download_attachments(data.reference_number, data) == (b'test zip files', 'ABCD1234.zip')
+            mock_create_app_zip.assert_called_once_with(data)
