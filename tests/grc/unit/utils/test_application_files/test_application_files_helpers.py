@@ -10,7 +10,7 @@ class TestApplicationFilesHelpers:
         pdfs = upload_helper.get_uploads_object_data_pdf(2, 1)
         data.uploads_data.medical_reports = pdfs + non_pdfs
         application_files = ApplicationFiles()
-        test_medical_report_files = application_files.get_files_for_section('medicalReports', data)
+        test_medical_report_files = application_files._get_files_for_section('medicalReports', data)
         assert test_medical_report_files[0].aws_file_name == 'aws_medicalreports_name_1.pdf'
         assert test_medical_report_files[0].original_file_name == 'original_medicalreports_name_1.pdf'
         assert test_medical_report_files[0].password_required is True
@@ -29,7 +29,7 @@ class TestApplicationFilesHelpers:
         upload_helper = UploadsHelpers('genderEvidence')
         data.uploads_data.evidence_of_living_in_gender = upload_helper.get_uploads_object_data({'jpeg': 2, 'tiff': 1})
         application_files = ApplicationFiles()
-        test_ev_living_in_gender_files = application_files.get_files_for_section('genderEvidence', data)
+        test_ev_living_in_gender_files = application_files._get_files_for_section('genderEvidence', data)
         assert test_ev_living_in_gender_files[0].aws_file_name == 'aws_genderevidence_name_1.jpeg'
         assert test_ev_living_in_gender_files[0].original_file_name == 'original_genderevidence_name_1.jpeg'
         assert test_ev_living_in_gender_files[0].password_required is False
@@ -47,7 +47,7 @@ class TestApplicationFilesHelpers:
         pdfs = upload_helper.get_uploads_object_data_pdf(1)
         data.uploads_data.overseas_documents = non_pdfs + pdfs
         application_files = ApplicationFiles()
-        test_overseas_certs_files = application_files.get_files_for_section('overseasCertificate', data)
+        test_overseas_certs_files = application_files._get_files_for_section('overseasCertificate', data)
         assert test_overseas_certs_files[0].aws_file_name == f'aws_overseascertificate_name_1.png'
         assert test_overseas_certs_files[0].original_file_name == 'original_overseascertificate_name_1.png'
         assert test_overseas_certs_files[0].password_required is False
@@ -62,7 +62,7 @@ class TestApplicationFilesHelpers:
         pdfs = upload_helper.get_uploads_object_data_pdf(1)
         data.uploads_data.name_change_documents = non_pdfs + pdfs
         application_files = ApplicationFiles()
-        test_name_change_docs = application_files.get_files_for_section('nameChange', data)
+        test_name_change_docs = application_files._get_files_for_section('nameChange', data)
         assert test_name_change_docs[0].aws_file_name == f'aws_namechange_name_1.png'
         assert test_name_change_docs[0].original_file_name == 'original_namechange_name_1.png'
         assert test_name_change_docs[0].password_required is False
@@ -77,7 +77,7 @@ class TestApplicationFilesHelpers:
         pdfs = upload_helper.get_uploads_object_data_pdf(1)
         data.uploads_data.partnership_documents = non_pdfs + pdfs
         application_files = ApplicationFiles()
-        test_marriage_docs_files = application_files.get_files_for_section('marriageDocuments', data)
+        test_marriage_docs_files = application_files._get_files_for_section('marriageDocuments', data)
         assert test_marriage_docs_files[0].aws_file_name == f'aws_marriagedocuments_name_1.png'
         assert test_marriage_docs_files[0].original_file_name == 'original_marriagedocuments_name_1.png'
         assert test_marriage_docs_files[0].password_required is False
@@ -92,7 +92,7 @@ class TestApplicationFilesHelpers:
         pdfs = upload_helper.get_uploads_object_data_pdf(1)
         data.uploads_data.statutory_declarations = non_pdfs + pdfs
         application_files = ApplicationFiles()
-        test_stat_dec_files = application_files.get_files_for_section('statutoryDeclarations', data)
+        test_stat_dec_files = application_files._get_files_for_section('statutoryDeclarations', data)
         assert test_stat_dec_files[0].aws_file_name == f'aws_statutorydeclarations_name_1.png'
         assert test_stat_dec_files[0].original_file_name == 'original_statutorydeclarations_name_1.png'
         assert test_stat_dec_files[0].password_required is False
@@ -101,10 +101,10 @@ class TestApplicationFilesHelpers:
         assert test_stat_dec_files[1].password_required is False
 
     def test_get_section_name(self):
-        assert ApplicationFiles().get_section_name('medicalReports') == 'Medical Reports'
-        assert ApplicationFiles().get_section_name('genderEvidence') == 'Gender Evidence'
-        assert ApplicationFiles().get_section_name('nameChange') == 'Name Change'
-        assert ApplicationFiles().get_section_name('marriageDocuments') == 'Marriage Documents'
-        assert ApplicationFiles().get_section_name('overseasCertificate') == 'Overseas Certificate'
-        assert ApplicationFiles().get_section_name('statutoryDeclarations') == 'Statutory Declarations'
+        assert ApplicationFiles()._get_section_name('medicalReports') == 'Medical Reports'
+        assert ApplicationFiles()._get_section_name('genderEvidence') == 'Gender Evidence'
+        assert ApplicationFiles()._get_section_name('nameChange') == 'Name Change'
+        assert ApplicationFiles()._get_section_name('marriageDocuments') == 'Marriage Documents'
+        assert ApplicationFiles()._get_section_name('overseasCertificate') == 'Overseas Certificate'
+        assert ApplicationFiles()._get_section_name('statutoryDeclarations') == 'Statutory Declarations'
 
