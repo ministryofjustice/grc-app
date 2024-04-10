@@ -33,7 +33,7 @@ class ApplicationFiles:
     def create_and_upload_attachments(self, reference_number: str, application_data: ApplicationData):
         zip_file_name = f'{reference_number}.zip'
         logger.log(LogLevel.INFO, message=f'creating attachments for {zip_file_name}')
-        application_zip = self.create_application_zip(application_data)
+        application_zip = self._create_application_zip(application_data)
         return AwsS3Client().upload_fileobj(application_zip, zip_file_name)
 
     def download_attachments(self, reference_number: str, application_data: ApplicationData) -> Tuple[bytes, str]:
@@ -44,10 +44,10 @@ class ApplicationFiles:
 
         logger.log(LogLevel.WARN, message=f'unable to download {zip_file_name}. Attempting to download and attach'
                                           f'files individually')
-        application_zip = self.create_application_zip(application_data)
+        application_zip = self._create_application_zip(application_data)
         return application_zip.getvalue(), zip_file_name
 
-    def create_application_zip(self, application_data: ApplicationData) -> BytesIO:
+    def _create_application_zip(self, application_data: ApplicationData) -> BytesIO:
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
             for section in self.sections:
