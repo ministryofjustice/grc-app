@@ -61,7 +61,7 @@ msgstr ""
 
 #: grc/business_logic/constants.py:16
 msgid "Select if you are currently married or in a civil partnership"
-msgstr ""
+msgstr "Dewiswch os ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd"
 
 #: grc/business_logic/constants.py:17
 msgid ""
@@ -468,9 +468,8 @@ msgid "Back"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
-#, fuzzy
 msgid "There is a problem"
-msgstr "Mae"
+msgstr "Mae yna broblem"
 
 #: grc/templates/policies/accessibility-statement.html:3
 #, fuzzy
