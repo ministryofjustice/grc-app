@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for
-from grc.business_logic import constants as c
+from grc.document_checker.constants import DocumentCheckerConstants as c
 from grc.document_checker.doc_checker_data_store import DocCheckerDataStore
 from grc.document_checker.doc_checker_state import DocCheckerState, CurrentlyInAPartnershipEnum
 from grc.document_checker.forms import PreviousNamesCheck, MarriageCivilPartnershipForm, PlanToRemainInAPartnershipForm, \
@@ -160,7 +160,7 @@ def your_documents():
     return render_template(
         'document-checker/your-documents.html',
         doc_checker_state=doc_checker_state_,
-        partnership_content=get_partnership_content(doc_checker_state_)
+        context=get_context(doc_checker_state_)
     )
 
 
@@ -224,11 +224,31 @@ def getUrlForNextUnansweredQuestion() -> str:
     return url_for('documentChecker.your_documents')
 
 
-def get_partnership_content(state) -> dict:
+def get_context(state: DocCheckerState) -> dict:
+    context = {}
     in_civil_partnership = state.is_in_civil_partnership
-    partnership_content = {
-        'partner_name': 'civil partner' if in_civil_partnership else 'spouse',
-        'partnership_name': 'civil partnership' if in_civil_partnership else 'marriage',
-        'in_partnership_name': 'in a civil partnership' if in_civil_partnership else 'married'
-    }
-    return partnership_content
+
+    if state.need_to_send_statutory_declaration_for_applicant_in_partnership and in_civil_partnership:
+        context['stat_dec_applicant_summary'] = c.STAT_DEC_APPLICANTS_CIVIL_PARTNERSHIP_SUMMARY
+    else:
+        context['stat_dec_applicant_summary'] = c.STAT_DEC_MARRIED_APPLICANTS_SUMMARY
+
+    if state.need_to_send_partners_statutory_declaration and in_civil_partnership:
+        context['stat_dec_partner_summary'] = c.STAT_DEC_CIVIL_PARTNER_SUMMARY
+        context['stat_dec_partner_p1'] = c.STAT_DEC_CIVIL_PARTNER_P1
+        context['stat_dec_partner_p2'] = c.STAT_DEC_CIVIL_PARTNER_P2
+        context['stat_dec_partner_p3'] = c.STAT_DEC_CIVIL_PARTNER_P3
+    else:
+        context['stat_dec_partner_summary'] = c.STAT_DEC_SPOUSE_SUMMARY
+        context['stat_dec_partner_p1'] = c.STAT_DEC_SPOUSE_P1
+        context['stat_dec_partner_p2'] = c.STAT_DEC_SPOUSE_P2
+        context['stat_dec_partner_p3'] = c.STAT_DEC_SPOUSE_P3
+
+    if state.need_to_send_partnership_certificate and in_civil_partnership:
+        context['partner_cert_summary'] = c.PARTNER_CP_CERT_SUMMARY
+        context['partner_cert_p1'] = c.PARTNER_CP_CERT_P1
+    else:
+        context['partner_cert_summary'] = c.PARTNER_MARRIAGE_CERT_SUMMARY
+        context['partner_cert_p1'] = c.PARTNER_MARRIAGE_CERT_P1
+
+    return context

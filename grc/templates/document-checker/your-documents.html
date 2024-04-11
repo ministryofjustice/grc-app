@@ -206,15 +206,15 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Statutory declaration for applicants who are {{ partnership_content.in_partnership_name }}
+                            {{ context.stat_dec_applicant_summary }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
-                        Fill in and sign a
-                        <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants"
-                           target="_blank" class="govuk-link">
-                            statutory declaration (opens in a new tab)</a>.
-                        Follow the guidance to find out who can act as a witness when you sign your declaration.
+                        {{ _('Fill in and sign a') }}
+                        <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants" target="_blank" class="govuk-link">
+                        {{ _('statutory declaration (opens in a new tab)') }}
+                        </a>.
+                        {{ _('Follow the guidance to find out who can act as a witness when you sign your declaration') }}.
                     </div>
                 </details>
             {% endif %}
@@ -224,25 +224,22 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Your {{ partnership_content.partner_name }}’s statutory declaration
+                            {{ context.stat_dec_partner_summary }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
                         <p class="govuk-body">
-                            If you intend to remain {{ partnership_content.in_partnership_name }}, your {{ partnership_content.partner_name }} needs to fill in and sign a
-                            <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants"
-                               target="_blank" class="govuk-link">
-                                statutory declaration (opens in a new tab)</a>.
+                            {{ context.stat_dec_partner_p1 }}
+                            <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants" target="_blank" class="govuk-link">
+                                {{ _('statutory declaration (opens in a new tab)') }}
+                            </a>.
                         </p>
                         <p class="govuk-body">
-                            Follow the guidance to find out who can act as a witness when they sign their declaration.
+                            {{ _('Follow the guidance to find out who can act as a witness when they sign their declaration') }}.
                         </p>
                         <p class="govuk-body">
-                            If you are currently {{ partnership_content.in_partnership_name }} and your {{ partnership_content.partner_name }} does not provide a
-                            statutory declaration of consent, or you do not plan to stay {{ partnership_content.in_partnership_name }},
-                            then you can still apply for a Gender Recognition Certificate without it,
-                            but you will be given an Interim Gender Recognition Certificate.
-                            This can be used to end your {{ partnership_content.partnership_name }} after which you’ll receive a full certificate.
+                            {{ context.stat_dec_partner_p2 }}
+                            {{ context.stat_dec_partner_p3 }}
                         </p>
                     </div>
                 </details>
@@ -253,12 +250,12 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Your {{ partnership_content.partnership_name }} certificate
+                            {{ context.partner_cert_summary }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
                         <p class="govuk-body">
-                            Upload a scan or good quality photograph of your {{ partnership_content.partnership_name }} certificate.
+                            {{ context.partner_cert_p1 }}
                         </p>
                     </div>
                 </details>
