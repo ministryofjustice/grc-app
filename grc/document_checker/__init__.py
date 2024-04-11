@@ -152,13 +152,15 @@ def genderRecognitionOutsideUK():
 
 @documentChecker.route('/check-documents/your-documents', methods=['GET', 'POST'])
 def your_documents():
+    doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
 
     if not hasUserAnswersAllTheQuestions():
         return local_redirect(getUrlForNextUnansweredQuestion())
 
     return render_template(
         'document-checker/your-documents.html',
-        partnership_content=get_partnership_content()
+        doc_checker_state=doc_checker_state_,
+        partnership_content=get_partnership_content(doc_checker_state_)
     )
 
 
@@ -222,9 +224,8 @@ def getUrlForNextUnansweredQuestion() -> str:
     return url_for('documentChecker.your_documents')
 
 
-def get_partnership_content() -> dict:
-    doc_checker_state_ = DocCheckerDataStore.load_doc_checker_state()
-    in_civil_partnership = doc_checker_state_.is_in_civil_partnership
+def get_partnership_content(state) -> dict:
+    in_civil_partnership = state.is_in_civil_partnership
     partnership_content = {
         'partner_name': 'civil partner' if in_civil_partnership else 'spouse',
         'partnership_name': 'civil partnership' if in_civil_partnership else 'marriage',

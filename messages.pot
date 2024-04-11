@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-11 13:52+0100\n"
+"POT-Creation-Date: 2024-04-11 14:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -728,6 +728,184 @@ msgstr ""
 msgid ""
 "You might be asked to send in more evidence after you submit your "
 "application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:189
+msgid "Statutory declaration for single applicants"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:194
+msgid "Fill in and sign a"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:196
+msgid "statutory declaration (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:198
+msgid ""
+"Follow the guidance to find out who can act as a witness when you sign "
+"your declaration"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:272
+msgid "Death certificate for your spouse or civil partner"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:277
+msgid ""
+"Upload a death certificate for your partner if their death ended the "
+"marriage or civil partnership – you can"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:279
+msgid "order a death certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:281
+msgid "if their death was registered in the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:292
+msgid "Decree absolute or final order"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:297
+msgid "Upload a scan or good quality photograph of your"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:299
+msgid "decree absolute or final order (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:301
+msgid "to show the marriage or civil partnership has ended"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:304
+msgid ""
+"If you have been married or in a civil partnership more than once, you "
+"need a separate certificate for each marriage or civil partnership"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:315
+msgid "Proof that your affirmed gender is recognised outside the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:320
+msgid "If your affirmed gender is already recognised in an"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:322
+msgid "approved country or territory (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:324
+msgid "you need a document that proves this"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:327
+msgid "The document could be"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:330
+msgid "something that’s equal to a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:331
+msgid "an updated birth certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:332
+msgid "a court order"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:333
+msgid "an entry in a legal register"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:341
+msgid "Documents to send by post"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:344
+msgid ""
+"You should post the following documents after you have submitted your "
+"application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:350
+msgid "Birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:355
+msgid "Send an original or"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:357
+msgid "certified copy (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:359
+msgid "of your full birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:360
+msgid "If your birth or adoption was registered in the UK, find out how to"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:362
+msgid "order a certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:364
+msgid "if you do not have it available"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:371
+msgid "If any of your documents are not in English"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:374
+msgid "You’ll need to have your documents translated"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:375
+msgid ""
+"The translator does not need to have any qualifications, so the "
+"translation can be done by a friend or a family member"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:378
+msgid ""
+"Get the translator to sign the translated documents and write down their "
+"translation qualifications if they have any"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:381
+msgid "You’ll need to send in both the original documents and the translations"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:384
+msgid "Once you have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:386
+msgid "apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:392
+msgid "Get this list by email"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:395
+msgid ""
+"If you want us to email you the list of documents, please click this "
+"button"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:399
+msgid "Email documents list"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
