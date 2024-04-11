@@ -1,43 +1,33 @@
 {% extends 'document-checker/doc-checker-base.html' %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Documents you need to provide{% endblock %}
+{% block title %}{{ _('Documents you need to provide') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('documentChecker.genderRecognitionOutsideUK') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('documentChecker.genderRecognitionOutsideUK') }}
 {% endblock %}
-
-{%  set partnerName = 'civil partner'
-    if doc_checker_state.is_in_civil_partnership
-    else 'spouse' %}
-{%  set partnershipName = 'civil partnership'
-    if doc_checker_state.is_in_civil_partnership
-    else 'marriage' %}
-{%  set inPartnershipName = 'in a civil partnership'
-    if doc_checker_state.is_in_civil_partnership
-    else 'married' %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                Documents you need to provide
+                {{ _('Documents you need to provide') }}
             </h1>
 
             <p class="govuk-body">
-                Based on your answers, these are the documents you need for your application.
+                {{ _('Based on your answers, these are the documents you need for your application') }}.
             </p>
             <p class="govuk-body">
-                Some documents will be uploaded during the application process,
-                while others need to be posted to us after you submit an application.
+                {{ _('Some documents will be uploaded during the application process, while others need to be posted to us after you submit an application.') }}
             </p>
 
             <h2 class="govuk-heading-m">
-                Documents to upload
+                {{ _('Documents to upload') }}
             </h2>
             <p class="govuk-body">
-                You should upload a scan or good quality photograph of
-                the following documents when you make your application.
+                {{ _('You should upload a scan or good quality photograph of the following documents when you make your application') }}.
             </p>
 
 
@@ -45,14 +35,13 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Copies of all change of name documents
+                            {{ ('Copies of all change of name documents') }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
-                        If you’ve changed your name to reflect your affirmed gender, upload copies of all documents
-                        that show when you’ve done this.
-                        This includes enrolled or unenrolled deed polls and statutory declarations of name changes.
-                        These copies do not need to be certified.
+                        {{ ('If you’ve changed your name to reflect your affirmed gender, upload copies of all documents that show when you’ve done this') }}.
+                        {{ ('This includes enrolled or unenrolled deed polls and statutory declarations of name changes') }}.
+                        {{ ('These copies do not need to be certified') }}.
                     </div>
                 </details>
             {% endif %}
@@ -62,78 +51,75 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Medical reports
+                            {{ ('Medical reports') }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
                         <p class="govuk-body">
-                            You need 2 reports written by either:
+                            {{ ('You need 2 reports written by either') }}:
                         </p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>2 different medical doctors registered in the UK</li>
-                            <li>a medical doctor and a clinical psychologist, both registered in the UK</li>
+                            <li>{{ ('2 different medical doctors registered in the UK') }}</li>
+                            <li>{{ ('a medical doctor and a clinical psychologist, both registered in the UK') }}</li>
                         </ul>
                         <p class="govuk-body">
-                            Neither of the reports can be written by a nurse practitioner.
+                            {{ ('Neither of the reports can be written by a nurse practitioner') }}.
                         </p>
                         <p class="govuk-body">
-                            The reports both need to include the name, practice address and contact details of the person who wrote the report.
+                            {{ ('The reports both need to include the name, practice address and contact details of the person who wrote the report') }}.
                         </p>
                         <p class="govuk-body govuk-!-margin-bottom-2">
-                            At least 1 of the 2 reports needs to include details of any gender affirmation treatment
-                            you’ve had or plan to have, including:
+                            {{ ('At least 1 of the 2 reports needs to include details of any gender affirmation treatment you’ve had or plan to have, including') }}:
                         </p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>any surgical treatments</li>
-                            <li>any non-surgical treatments, such as hormone therapy</li>
-                            <li>if you’ve not had any treatment and do not plan to have any, why that’s the case</li>
+                            <li>{{ ('any surgical treatments') }}</li>
+                            <li>{{ ('any non-surgical treatments, such as hormone therapy') }}</li>
+                            <li>{{ ('if you’ve not had any treatment and do not plan to have any, why that’s the case') }}</li>
                         </ul>
                         <p class="govuk-body govuk-!-margin-bottom-2">
-                            The first report needs to confirm your gender dysphoria diagnosis and the clinical history this was based on, including:
+                            {{ ('The first report needs to confirm your gender dysphoria diagnosis and the clinical history this was based on, including') }}:
                         </p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>who made the diagnosis</li>
-                            <li>when the diagnosis was made</li>
-                            <li>what evidence was used to make the diagnosis</li>
+                            <li>{{ ('who made the diagnosis') }}</li>
+                            <li>{{ ('when the diagnosis was made') }}</li>
+                            <li>{{ ('what evidence was used to make the diagnosis') }}</li>
                         </ul>
                         <p class="govuk-body">
-                            This first report needs to be written by a registered doctor or clinical psychologist who
-                            practises in the field of gender dysphoria. You can find one of these by:
+                            {{ ('This first report needs to be written by a registered doctor or clinical psychologist who practises in the field of gender dysphoria. You can find one of these by') }}:
                         </p>
                         <ul class="govuk-list govuk-list--bullet">
-                            <li>asking your GP for a referral</li>
+                            <li>{{ ('asking your GP for a referral') }}</li>
                             <li>
-                                contacting someone on the
+                                {{ ('contacting someone on the') }}
                                 <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-list-of-medical-practitioners-in-gender-dysphoria"
                                     target="_blank" class="govuk-link">
-                                    list of specialists in gender dysphoria (opens in a new tab)
+                                    {{ ('list of specialists in gender dysphoria (opens in a new tab)') }}
                                 </a>
-                                - this is not a complete list and it’s not always up-to-date
+                                {{ ('- this is not a complete list and it’s not always up-to-date') }}
                             </li>
                         </ul>
                         <p class="govuk-body">
-                            If your registered doctor or clinical psychologist is not on the list of specialists, ask them to
-                            include a brief summary of their experience of practising in the field of gender dysphoria.
+                            {{ ('If your registered doctor or clinical psychologist is not on the list of specialists, ask them to include a brief summary of their experience of practising in the field of gender dysphoria') }}.
                         </p>
                         <p class="govuk-body">
-                            The second report can be written by any registered doctor or clinical psychologist,
-                            including your GP, a surgeon or an endocrinologist.
+                            {{ ('The second report can be written by any registered doctor or clinical psychologist, including your GP, a surgeon or an endocrinologist') }}.
                         </p>
                         <p class="govuk-body">
-                            There’s no required content for this second report, and it can include the same information from the first report.
+                            {{ ('There’s no required content for this second report, and it can include the same information from the first report') }}.
                         </p>
                         <p class="govuk-body">
-                            The reports do not need to be specially written for your application, so long as they meet all the requirements.
-                            You may already have suitable reports in your medical records.
+                            {{ ('The reports do not need to be specially written for your application, so long as they meet all the requirements') }}.
+                            {{ ('You may already have suitable reports in your medical records') }}.
                         </p>
                         <p class="govuk-body">
-                            If you do need new reports written, you’ll probably need to pay for them even if you use NHS medical practitioners.
+                            {{ ('If you do need new reports written, you’ll probably need to pay for them even if you use NHS medical practitioners') }}.
                         </p>
                         <p class="govuk-body">
-                            There is a
+                            {{ ('There is a') }}
                             <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-writing-medical-reports"
                                target="_blank" class="govuk-link">
-                                form that medical practitioners can use to write either of these reports (opens in a new tab)</a>.
+                                {{ ('form that medical practitioners can use to write either of these reports (opens in a new tab)') }}
+                            </a>.
                         </p>
                     </div>
                 </details>
@@ -221,7 +207,7 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Statutory declaration for applicants who are {{ inPartnershipName }}
+                            Statutory declaration for applicants who are {{ partnership_content.in_partnership_name }}
                         </span>
                     </summary>
                     <div class="govuk-details__text">
@@ -239,12 +225,12 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Your {{ partnerName }}’s statutory declaration
+                            Your {{ partnership_content.partner_name }}’s statutory declaration
                         </span>
                     </summary>
                     <div class="govuk-details__text">
                         <p class="govuk-body">
-                            If you intend to remain {{ inPartnershipName }}, your {{ partnerName }} needs to fill in and sign a
+                            If you intend to remain {{ partnership_content.in_partnership_name }}, your {{ partnership_content.partner_name }} needs to fill in and sign a
                             <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants"
                                target="_blank" class="govuk-link">
                                 statutory declaration (opens in a new tab)</a>.
@@ -253,11 +239,11 @@
                             Follow the guidance to find out who can act as a witness when they sign their declaration.
                         </p>
                         <p class="govuk-body">
-                            If you are currently {{ inPartnershipName }} and your {{ partnerName }} does not provide a
-                            statutory declaration of consent, or you do not plan to stay {{ inPartnershipName }},
+                            If you are currently {{ partnership_content.in_partnership_name }} and your {{ partnership_content.partner_name }} does not provide a
+                            statutory declaration of consent, or you do not plan to stay {{ partnership_content.in_partnership_name }},
                             then you can still apply for a Gender Recognition Certificate without it,
                             but you will be given an Interim Gender Recognition Certificate.
-                            This can be used to end your {{ partnershipName }} after which you’ll receive a full certificate.
+                            This can be used to end your {{ partnership_content.partnership_name }} after which you’ll receive a full certificate.
                         </p>
                     </div>
                 </details>
@@ -268,12 +254,12 @@
                 <details class="govuk-details" data-module="govuk-details">
                     <summary class="govuk-details__summary">
                         <span class="govuk-details__summary-text">
-                            Your {{ partnershipName }} certificate
+                            Your {{ partnership_content.partnership_name }} certificate
                         </span>
                     </summary>
                     <div class="govuk-details__text">
                         <p class="govuk-body">
-                            Upload a scan or good quality photograph of your {{ partnershipName }} certificate.
+                            Upload a scan or good quality photograph of your {{ partnership_content.partnership_name }} certificate.
                         </p>
                     </div>
                 </details>

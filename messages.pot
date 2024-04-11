@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-10 15:29+0100\n"
+"POT-Creation-Date: 2024-04-11 13:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -426,6 +426,33 @@ msgstr ""
 
 #: grc/templates/document-checker/start.html:27
 msgid "start your application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:5
+#: grc/templates/document-checker/your-documents.html:16
+msgid "Documents you need to provide"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:20
+msgid ""
+"Based on your answers, these are the documents you need for your "
+"application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:23
+msgid ""
+"Some documents will be uploaded during the application process, while "
+"others need to be posted to us after you submit an application."
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:27
+msgid "Documents to upload"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:30
+msgid ""
+"You should upload a scan or good quality photograph of the following "
+"documents when you make your application"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2

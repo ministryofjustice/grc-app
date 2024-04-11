@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-10 15:29+0100\n"
+"POT-Creation-Date: 2024-04-11 13:30+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -470,6 +470,39 @@ msgstr "Os oes gennych eich dogfennau eisoes yn barod, "
 #: grc/templates/document-checker/start.html:27
 msgid "start your application"
 msgstr "gallwch ddechrau gwneud eich cais"
+
+#: grc/templates/document-checker/your-documents.html:5
+#: grc/templates/document-checker/your-documents.html:16
+msgid "Documents you need to provide"
+msgstr "Dogfennau y mae angen i chi eu darparu"
+
+#: grc/templates/document-checker/your-documents.html:20
+msgid ""
+"Based on your answers, these are the documents you need for your "
+"application"
+msgstr ""
+"Yn seiliedig ar eich atebion, dyma'r dogfennau sydd eu hangen arnoch ar "
+"gyfer eich cais"
+
+#: grc/templates/document-checker/your-documents.html:23
+msgid ""
+"Some documents will be uploaded during the application process, while "
+"others need to be posted to us after you submit an application."
+msgstr ""
+"Bydd rhai dogfennau'n cael eu llwytho yn ystod y broses gwneud cais, tra "
+"bod angen postio eraill atom ar ôl i chi gyflwyno cais."
+
+#: grc/templates/document-checker/your-documents.html:27
+msgid "Documents to upload"
+msgstr "Dogfennau i'w llwytho"
+
+#: grc/templates/document-checker/your-documents.html:30
+msgid ""
+"You should upload a scan or good quality photograph of the following "
+"documents when you make your application"
+msgstr ""
+"Dylech lwytho sgan neu lun o ansawdd da o'r dogfennau canlynol pan "
+"fyddwch yn gwneud eich cais"
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 msgid "Back"
