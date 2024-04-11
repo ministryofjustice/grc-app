@@ -15,7 +15,7 @@ PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP = _l(
 PREVIOUS_NAME_CHECK_ERROR = _l('Select if you have ever changed your name to reflect your gender')
 CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR = _l('Select if you are currently married or in a civil partnership')
 PREVIOUS_PARTNER_DIED_ERROR = _l(
-    'Select if you ever been married or in a civil partnership where your spouse or partner died')
+    'Select if you have ever been married or in a civil partnership where your spouse or partner died')
 MARRIED_OR_CIVIL_PARTNERSHIP_ENDED_ERROR = _l(
     'Select if you have ever been married or in a civil partnership that has ended')
 GENDER_RECOGNITION_IN_COUNTRY_ERROR = _l(

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-03-14 12:24+0000\n"
+"POT-Creation-Date: 2024-04-10 15:29+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -61,39 +61,47 @@ msgstr ""
 
 #: grc/business_logic/constants.py:16
 msgid "Select if you are currently married or in a civil partnership"
-msgstr ""
+msgstr "Dewiswch os ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd"
 
 #: grc/business_logic/constants.py:17
 msgid ""
-"Select if you ever been married or in a civil partnership where your "
-"spouse or partner died"
+"Select if you have ever been married or in a civil partnership where your"
+" spouse or partner died"
 msgstr ""
+"Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
+"sifil pan fu farw eich priod neu'ch partner"
 
 #: grc/business_logic/constants.py:19
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
 msgstr ""
+"Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
+"sifil sydd wedi dod i ben"
 
 #: grc/business_logic/constants.py:21
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
 msgstr ""
+"Dewiswch os ydych chi wedi cael cydnabyddiaeth rhywedd yn un o'r gwledydd"
+" neu'r tiriogaethau hyn"
 
 #: grc/business_logic/constants.py:23
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
 msgstr ""
+"Dewiswch os ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif "
+"Cydnabod Rhywedd"
 
 #: grc/business_logic/constants.py:25
 msgid "Enter your email address"
-msgstr ""
+msgstr "Nodwch eich cyfeiriad e-bost"
 
 #: grc/business_logic/constants.py:26
 msgid "Enter a valid email address"
-msgstr ""
+msgstr "Nodwch gyfeiriad e-bost dilys"
 
 #: grc/lazy/lazy_form_custom_validators.py:39
 msgid "This field is required."
@@ -104,12 +112,12 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:418
+#: grc/utils/form_custom_validators.py:424
+#: grc/utils/form_custom_validators.py:443
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:107
-#: grc/utils/form_custom_validators.py:423
 msgid "File does not have an approved extension."
 msgstr ""
 
@@ -465,12 +473,11 @@ msgstr "gallwch ddechrau gwneud eich cais"
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 msgid "Back"
-msgstr ""
+msgstr "Yn ôl"
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
-#, fuzzy
 msgid "There is a problem"
-msgstr "Mae"
+msgstr "Mae yna broblem"
 
 #: grc/templates/policies/accessibility-statement.html:3
 #, fuzzy
@@ -713,7 +720,7 @@ msgstr ""
 "newydd)"
 
 #: grc/templates/policies/accessibility-statement.html:109
-msgid " AA standard, due to ‘the non-compliances’, listed below"
+msgid "AA standard, due to ‘the non-compliances’, listed below"
 msgstr ""
 ", a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir "
 "isod"
@@ -834,12 +841,6 @@ msgstr "Profwyd y wefan hon ddiwethaf ar 26 Mai 2022"
 #: grc/templates/policies/accessibility-statement.html:166
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
-
-#: grc/templates/policies/accessibility-statement.html:109
-msgid "AA standard, due to ‘the non-compliances’, listed below"
-msgstr ""
-", a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir "
-"isod"
 
 #: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
 msgid "Cookies"
