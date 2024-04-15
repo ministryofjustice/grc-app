@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-11 17:03+0100\n"
+"POT-Creation-Date: 2024-04-15 15:19+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -103,27 +103,27 @@ msgstr "Nodwch eich cyfeiriad e-bost"
 msgid "Enter a valid email address"
 msgstr "Nodwch gyfeiriad e-bost dilys"
 
-#: grc/document_checker/constants.py:11
+#: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
 
-#: grc/document_checker/constants.py:12
+#: grc/document_checker/constants.py:8
 msgid "Statutory declaration for applicants who are in a civil partnership"
 msgstr "Datganiad statudol ar gyfer ceiswyr sydd mewn partneriaeth sifil"
 
-#: grc/document_checker/constants.py:14
+#: grc/document_checker/constants.py:10
 msgid "Your spouse’s statutory declaration"
 msgstr "Datganiad statudol eich priod"
 
-#: grc/document_checker/constants.py:15
+#: grc/document_checker/constants.py:11
 msgid "Your civil partner’s statutory declaration"
 msgstr "Datganiad statudol eich partner sifil"
 
-#: grc/document_checker/constants.py:16
+#: grc/document_checker/constants.py:12
 msgid "If you intend to remain married, your spouse needs to fill in and sign a"
 msgstr "Os ydych yn bwriadu aros yn briod, mae angen i’ch priod lenwi a llofnodi"
 
-#: grc/document_checker/constants.py:17
+#: grc/document_checker/constants.py:13
 msgid ""
 "If you are currently married and your spouse does not provide a statutory"
 " declaration of consent, or you do not plan to stay married, then you can"
@@ -135,7 +135,7 @@ msgstr ""
 "briod, yna gallwch barhau i wneud cais am Dystysgrif Cydnabod Rhywedd "
 "hebddo, ond rhoddir Tystysgrif Cydnabod Rhywedd Interim i chi."
 
-#: grc/document_checker/constants.py:21
+#: grc/document_checker/constants.py:17
 msgid ""
 "This can be used to end your marriage after which you’ll receive a full "
 "certificate"
@@ -143,7 +143,7 @@ msgstr ""
 "Gallwch ddefnyddio’r dystysgrif hon i ddod â’ch priodas i ben ac yna fe "
 "gewch dystysgrif lawn"
 
-#: grc/document_checker/constants.py:22
+#: grc/document_checker/constants.py:18
 msgid ""
 "If you intend to remain in a civil partnership, your civil partner needs "
 "to fill in and sign a"
@@ -151,7 +151,7 @@ msgstr ""
 "Os ydych yn bwriadu aros mewn partneriaeth sifil, mae angen i'ch partner "
 "sifil lenwi a llofnodi"
 
-#: grc/document_checker/constants.py:24
+#: grc/document_checker/constants.py:20
 msgid ""
 "If you are currently in a civil partnership and your civil partner does "
 "not provide a statutory declaration of consent, or you do not plan to "
@@ -165,7 +165,7 @@ msgstr ""
 "Dystysgrif Cydnabod Rhywedd hebddo, ond rhoddir Tystysgrif Cydnabod "
 "Rhywedd Dros Dro i chi."
 
-#: grc/document_checker/constants.py:28
+#: grc/document_checker/constants.py:24
 msgid ""
 "This can be used to end your civil partnership after which you’ll receive"
 " a full certificate"
@@ -173,19 +173,19 @@ msgstr ""
 "Gellir defnyddio hyn i ddod â'ch partneriaeth sifil i ben ac ar ôl hynny "
 "byddwch yn derbyn tystysgrif lawn"
 
-#: grc/document_checker/constants.py:30
+#: grc/document_checker/constants.py:26
 msgid "Your marriage certificate"
 msgstr "Eich tystysgrif priodas"
 
-#: grc/document_checker/constants.py:31
+#: grc/document_checker/constants.py:27
 msgid "Your civil partnership certificate"
 msgstr "Eich tystysgrif partneriaeth sifil"
 
-#: grc/document_checker/constants.py:32
+#: grc/document_checker/constants.py:28
 msgid "Upload a scan or good quality photograph of your marriage certificate"
 msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’ch tystysgrif priodas"
 
-#: grc/document_checker/constants.py:33
+#: grc/document_checker/constants.py:29
 msgid ""
 "Upload a scan or good quality photograph of your civil partnership "
 "certificate"
@@ -234,6 +234,7 @@ msgstr ""
 
 #: grc/templates/document-checker/email-address.html:7
 #: grc/templates/document-checker/email-address.html:27
+#: grc/templates/start-application/email-address.html:46
 msgid "What is your email address?"
 msgstr "Beth yw eich cyfeiriad e-bost?"
 
@@ -2131,4 +2132,49 @@ msgstr ""
 #: grc/templates/policies/privacy-policy.html:195
 msgid "You can contact the Information Commissioner at:"
 msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
+
+#: grc/templates/start-application/email-address.html:6
+#: grc/templates/start-application/email-address.html:15
+msgid "Email address"
+msgstr "Cyfeiriad e-bost"
+
+#: grc/templates/start-application/email-address.html:19
+msgid ""
+"You need to provide an email address to apply for a Gender Recognition "
+"Certificate using this service"
+msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i ddefnyddio’r gwasanaeth hwn i wneud cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/start-application/email-address.html:20
+msgid ""
+"This is so we can save your progress and you can return to your "
+"application later"
+msgstr "Y rheswm dros hyn yw er mwyn i ni allu cadw eich cais ac i chi allu dychwelyd i’ch cais yn hwyrach ymlaen"
+
+#: grc/templates/start-application/email-address.html:23
+msgid ""
+"If this is your first time using this service, we will give you a "
+"reference number"
+msgstr "Os mai hwn yw’r tro cyntaf i chi ddefnyddio’r gwasanaeth hwn, byddwn yn rhoi cyfeirnod i chi"
+
+#: grc/templates/start-application/email-address.html:24
+msgid "You will need this if you return to your application"
+msgstr "Byddwch angen hwn os byddwch yn dychwelyd i’ch cais"
+
+#: grc/templates/start-application/email-address.html:27
+msgid ""
+"If you are returning to your application, you will need your application "
+"reference number"
+msgstr "Os ydych yn dychwelyd i’ch cais, byddwch angen cyfeirnod eich cais"
+
+#: grc/templates/start-application/email-address.html:28
+msgid "If you have lost or forgotten it, you can start a new application"
+msgstr "Os ydych wedi’i golli neu ei anghofio, gallwch ddechrau cais newydd"
+
+#: grc/templates/start-application/email-address.html:32
+msgid "Before you start, make sure you have read the guidance on"
+msgstr "Cyn i chi ddechrau gwnewch yn siwr eich bod wedi darllen y cyfarwyddyd ar"
+
+#: grc/templates/start-application/email-address.html:34
+msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
+msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd"
 
