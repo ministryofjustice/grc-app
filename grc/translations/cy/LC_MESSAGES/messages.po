@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-15 15:19+0100\n"
+"POT-Creation-Date: 2024-04-15 15:53+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -208,6 +208,10 @@ msgstr ""
 #: grc/lazy/lazy_form_custom_validators.py:107
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/templates/base.html:66
+msgid "Apply for a Gender Recognition Certificate"
+msgstr "Gwneud cais am Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
@@ -2142,19 +2146,25 @@ msgstr "Cyfeiriad e-bost"
 msgid ""
 "You need to provide an email address to apply for a Gender Recognition "
 "Certificate using this service"
-msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i ddefnyddio’r gwasanaeth hwn i wneud cais am Dystysgrif Cydnabod Rhywedd"
+msgstr ""
+"Mae angen i chi ddarparu cyfeiriad e-bost i ddefnyddio’r gwasanaeth hwn i"
+" wneud cais am Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/start-application/email-address.html:20
 msgid ""
 "This is so we can save your progress and you can return to your "
 "application later"
-msgstr "Y rheswm dros hyn yw er mwyn i ni allu cadw eich cais ac i chi allu dychwelyd i’ch cais yn hwyrach ymlaen"
+msgstr ""
+"Y rheswm dros hyn yw er mwyn i ni allu cadw eich cais ac i chi allu "
+"dychwelyd i’ch cais yn hwyrach ymlaen"
 
 #: grc/templates/start-application/email-address.html:23
 msgid ""
 "If this is your first time using this service, we will give you a "
 "reference number"
-msgstr "Os mai hwn yw’r tro cyntaf i chi ddefnyddio’r gwasanaeth hwn, byddwn yn rhoi cyfeirnod i chi"
+msgstr ""
+"Os mai hwn yw’r tro cyntaf i chi ddefnyddio’r gwasanaeth hwn, byddwn yn "
+"rhoi cyfeirnod i chi"
 
 #: grc/templates/start-application/email-address.html:24
 msgid "You will need this if you return to your application"

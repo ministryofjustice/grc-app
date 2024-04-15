@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-15 15:19+0100\n"
+"POT-Creation-Date: 2024-04-15 15:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,6 +178,10 @@ msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:107
 msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/templates/base.html:66
+msgid "Apply for a Gender Recognition Certificate"
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
