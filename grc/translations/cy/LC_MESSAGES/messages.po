@@ -918,7 +918,7 @@ msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:189
 msgid "Statutory declaration for single applicants"
-msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
+msgstr "Datganiad statudol ar gyfer ceiswyr sengl"
 
 #: grc/templates/document-checker/your-documents.html:194
 #: grc/templates/document-checker/your-documents.html:213
