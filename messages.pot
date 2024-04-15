@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-10 15:29+0100\n"
+"POT-Creation-Date: 2024-04-11 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,76 +17,149 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
 
-#: grc/business_logic/constants.py:3 grc/templates/policies/cookies.html:114
+#: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
 msgid "Yes"
 msgstr ""
 
-#: grc/business_logic/constants.py:4 grc/templates/policies/cookies.html:120
+#: grc/business_logic/constants.py:6 grc/templates/policies/cookies.html:120
 msgid "No"
 msgstr ""
 
-#: grc/business_logic/constants.py:5
+#: grc/business_logic/constants.py:7
 msgid "Married"
 msgstr ""
 
-#: grc/business_logic/constants.py:6
+#: grc/business_logic/constants.py:8
 msgid "Civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:7
+#: grc/business_logic/constants.py:9
 msgid "Neither"
 msgstr ""
 
-#: grc/business_logic/constants.py:10
+#: grc/business_logic/constants.py:12
 msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
 msgstr ""
 
-#: grc/business_logic/constants.py:11
+#: grc/business_logic/constants.py:13
 msgid ""
 "Do you plan to remain in your civil partnership after you receive your "
 "Gender Recognition Certificate?"
 msgstr ""
 
-#: grc/business_logic/constants.py:15
+#: grc/business_logic/constants.py:17
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr ""
 
-#: grc/business_logic/constants.py:16
+#: grc/business_logic/constants.py:18
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:17
+#: grc/business_logic/constants.py:19
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
 msgstr ""
 
-#: grc/business_logic/constants.py:19
+#: grc/business_logic/constants.py:21
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
 msgstr ""
 
-#: grc/business_logic/constants.py:21
+#: grc/business_logic/constants.py:23
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
 msgstr ""
 
-#: grc/business_logic/constants.py:23
+#: grc/business_logic/constants.py:25
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
 msgstr ""
 
-#: grc/business_logic/constants.py:25
+#: grc/business_logic/constants.py:27
 msgid "Enter your email address"
 msgstr ""
 
-#: grc/business_logic/constants.py:26
+#: grc/business_logic/constants.py:28
 msgid "Enter a valid email address"
+msgstr ""
+
+#: grc/document_checker/constants.py:11
+msgid "Statutory declaration for applicants who are married"
+msgstr ""
+
+#: grc/document_checker/constants.py:12
+msgid "Statutory declaration for applicants who are in a civil partnership"
+msgstr ""
+
+#: grc/document_checker/constants.py:14
+msgid "Your spouse’s statutory declaration"
+msgstr ""
+
+#: grc/document_checker/constants.py:15
+msgid "Your civil partner’s statutory declaration"
+msgstr ""
+
+#: grc/document_checker/constants.py:16
+msgid "If you intend to remain married, your spouse needs to fill in and sign a"
+msgstr ""
+
+#: grc/document_checker/constants.py:17
+msgid ""
+"If you are currently married and your spouse does not provide a statutory"
+" declaration of consent, or you do not plan to stay married, then you can"
+" still apply for a Gender Recognition Certificate without it, but you "
+"will be given an Interim Gender Recognition Certificate."
+msgstr ""
+
+#: grc/document_checker/constants.py:21
+msgid ""
+"This can be used to end your marriage after which you’ll receive a full "
+"certificate"
+msgstr ""
+
+#: grc/document_checker/constants.py:22
+msgid ""
+"If you intend to remain in a civil partnership, your civil partner needs "
+"to fill in and sign a"
+msgstr ""
+
+#: grc/document_checker/constants.py:24
+msgid ""
+"If you are currently in a civil partnership and your civil partner does "
+"not provide a statutory declaration of consent, or you do not plan to "
+"stay in a civil partnership, then you can still apply for a Gender "
+"Recognition Certificate without it, but you will be given an Interim "
+"Gender Recognition Certificate."
+msgstr ""
+
+#: grc/document_checker/constants.py:28
+msgid ""
+"This can be used to end your civil partnership after which you’ll receive"
+" a full certificate"
+msgstr ""
+
+#: grc/document_checker/constants.py:30
+msgid "Your marriage certificate"
+msgstr ""
+
+#: grc/document_checker/constants.py:31
+msgid "Your civil partnership certificate"
+msgstr ""
+
+#: grc/document_checker/constants.py:32
+msgid "Upload a scan or good quality photograph of your marriage certificate"
+msgstr ""
+
+#: grc/document_checker/constants.py:33
+msgid ""
+"Upload a scan or good quality photograph of your civil partnership "
+"certificate"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:39
@@ -428,315 +501,502 @@ msgstr ""
 msgid "start your application"
 msgstr ""
 
+#: grc/templates/document-checker/your-documents.html:5
+#: grc/templates/document-checker/your-documents.html:16
+msgid "Documents you need to provide"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:20
+msgid ""
+"Based on your answers, these are the documents you need for your "
+"application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:23
+msgid ""
+"Some documents will be uploaded during the application process, while "
+"others need to be posted to us after you submit an application."
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:27
+msgid "Documents to upload"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:30
+msgid ""
+"You should upload a scan or good quality photograph of the following "
+"documents when you make your application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:38
+msgid "Copies of all change of name documents"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:42
+msgid ""
+"If you’ve changed your name to reflect your affirmed gender, upload "
+"copies of all documents that show when you’ve done this"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:43
+msgid ""
+"This includes enrolled or unenrolled deed polls and statutory "
+"declarations of name changes"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:44
+msgid "These copies do not need to be certified"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:54
+msgid "Medical reports"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:59
+msgid "You need 2 reports written by either"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:62
+msgid "2 different medical doctors registered in the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:63
+msgid "a medical doctor and a clinical psychologist, both registered in the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:66
+msgid "Neither of the reports can be written by a nurse practitioner"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:69
+msgid ""
+"The reports both need to include the name, practice address and contact "
+"details of the person who wrote the report"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:72
+msgid ""
+"At least 1 of the 2 reports needs to include details of any gender "
+"affirmation treatment you’ve had or plan to have, including"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:75
+msgid "any surgical treatments"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:76
+msgid "any non-surgical treatments, such as hormone therapy"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:77
+msgid ""
+"if you’ve not had any treatment and do not plan to have any, why that’s "
+"the case"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:80
+msgid ""
+"The first report needs to confirm your gender dysphoria diagnosis and the"
+" clinical history this was based on, including"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:83
+msgid "who made the diagnosis"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:84
+msgid "when the diagnosis was made"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:85
+msgid "what evidence was used to make the diagnosis"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:88
+msgid ""
+"This first report needs to be written by a registered doctor or clinical "
+"psychologist who practises in the field of gender dysphoria. You can find"
+" one of these by"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:91
+msgid "asking your GP for a referral"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:93
+msgid "contacting someone on the"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:96
+msgid "list of specialists in gender dysphoria (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:98
+msgid "this is not a complete list and it’s not always up-to-date"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:102
+msgid ""
+"If your registered doctor or clinical psychologist is not on the list of "
+"specialists, ask them to include a brief summary of their experience of "
+"practising in the field of gender dysphoria"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:105
+msgid ""
+"The second report can be written by any registered doctor or clinical "
+"psychologist, including your GP, a surgeon or an endocrinologist"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:108
+msgid ""
+"There’s no required content for this second report, and it can include "
+"the same information from the first report"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:111
+msgid ""
+"The reports do not need to be specially written for your application, so "
+"long as they meet all the requirements"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:112
+msgid "You may already have suitable reports in your medical records"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:115
+msgid ""
+"If you do need new reports written, you’ll probably need to pay for them "
+"even if you use NHS medical practitioners"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:118
+msgid "There is a"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:120
+msgid ""
+"form that medical practitioners can use to write either of these reports "
+"(opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:132
+msgid "Evidence of living in your affirmed gender for 2 years"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:137
+msgid ""
+"You need copies of evidence to show that you’ve been living in your "
+"affirmed gender for the last 2 years"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:140
+msgid ""
+"Each piece of evidence should contain at least one of the following that "
+"matches up with your affirmed gender"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:143
+msgid "a name"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:144
+msgid "a title, like 'Mr' or 'Miss'"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:145
+msgid "a gender marker, like 'male' or 'female'"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:148
+msgid ""
+"There are no other specific requirements for this evidence, but try to "
+"find"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:151
+msgid ""
+"evidence from different points over the 2 years, with roughly 4 pieces of"
+" evidence from each year"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:152
+msgid "at least one piece of evidence from the last 2 or 3 months"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:153
+msgid "evidence from a variety of different sources"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:156
+msgid "The evidence can come from before you were diagnosed with gender dysphoria"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:159
+msgid ""
+"Examples of what you can upload include good quality photocopies or "
+"photographs of"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:162
+msgid "your driving licence"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:163
+msgid "your passport"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:164
+msgid ""
+"identity cards, like workplace IDs, student IDs, railcards, health "
+"insurance cards, library cards or supermarket loyalty cards"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:165
+msgid "letters from solicitors, accountants, doctors, dentists or employers"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:166
+#: grc/templates/policies/privacy-policy.html:39
+msgid "bank statements"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:167
+msgid "payslips, P60s and P45s"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:168
+msgid "benefit letters"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:169
+msgid "tax letters and documents, including council tax"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:170
+msgid "credit reports"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:171
+msgid "confirmation letters that you’re on the electoral register"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:172
+msgid "student loan statements"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:173
+msgid "utility bills, such as internet bills"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:174
+msgid "rental agreements"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:175
+msgid "academic certificates and documents"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:178
+msgid ""
+"You might be asked to send in more evidence after you submit your "
+"application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:189
+msgid "Statutory declaration for single applicants"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:194
+#: grc/templates/document-checker/your-documents.html:213
+msgid "Fill in and sign a"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:196
+#: grc/templates/document-checker/your-documents.html:215
+#: grc/templates/document-checker/your-documents.html:234
+msgid "statutory declaration (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:198
+#: grc/templates/document-checker/your-documents.html:217
+msgid ""
+"Follow the guidance to find out who can act as a witness when you sign "
+"your declaration"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:238
+msgid ""
+"Follow the guidance to find out who can act as a witness when they sign "
+"their declaration"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:269
+msgid "Death certificate for your spouse or civil partner"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:274
+msgid ""
+"Upload a death certificate for your partner if their death ended the "
+"marriage or civil partnership – you can"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:276
+msgid "order a death certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:278
+msgid "if their death was registered in the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:289
+msgid "Decree absolute or final order"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:294
+msgid "Upload a scan or good quality photograph of your"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:296
+msgid "decree absolute or final order (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:298
+msgid "to show the marriage or civil partnership has ended"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:301
+msgid ""
+"If you have been married or in a civil partnership more than once, you "
+"need a separate certificate for each marriage or civil partnership"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:312
+msgid "Proof that your affirmed gender is recognised outside the UK"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:317
+msgid "If your affirmed gender is already recognised in an"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:319
+msgid "approved country or territory (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:321
+msgid "you need a document that proves this"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:324
+msgid "The document could be"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:327
+msgid "something that’s equal to a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:328
+msgid "an updated birth certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:329
+msgid "a court order"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:330
+msgid "an entry in a legal register"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:338
+msgid "Documents to send by post"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:341
+msgid ""
+"You should post the following documents after you have submitted your "
+"application"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:347
+msgid "Birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:352
+msgid "Send an original or"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:354
+msgid "certified copy (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:356
+msgid "of your full birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:357
+msgid "If your birth or adoption was registered in the UK, find out how to"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:359
+msgid "order a certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:361
+msgid "if you do not have it available"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:368
+msgid "If any of your documents are not in English"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:371
+msgid "You’ll need to have your documents translated"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:372
+msgid ""
+"The translator does not need to have any qualifications, so the "
+"translation can be done by a friend or a family member"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:375
+msgid ""
+"Get the translator to sign the translated documents and write down their "
+"translation qualifications if they have any"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:378
+msgid "You’ll need to send in both the original documents and the translations"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:383
+msgid "apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:389
+msgid "Get this list by email"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:392
+msgid ""
+"If you want us to email you the list of documents, please click this "
+"button"
+msgstr ""
+
+#: grc/templates/document-checker/your-documents.html:396
+msgid "Email documents list"
+msgstr ""
+
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 msgid "Back"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:3
-msgid "Accessibility statement"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:10
-msgid ""
-"Accessibility statement for Gender Recognition Certificate application "
-"service"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:13
-msgid ""
-"We want everyone to be able to do what they need to do with our website, "
-"regardless of any access needs due to a disability or condition"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:17
-msgid ""
-"A detailed accessibility statement about the Gender Recognition "
-"Certificate application service"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:20
-msgid "This page describes:"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:23
-msgid "how accessible our website is"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:24
-msgid "what to do if you have a problem"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:25
-msgid "what we are doing to meet the regulations"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:28
-msgid ""
-"This accessibility statement applies to the Gender Recognition "
-"Certificate application service and document checker"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:29
-msgid ""
-"It does not apply to the guidance about Gender Recognition Certificates "
-"on GOV.UK"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:33
-msgid "Using our website and services"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:36
-msgid "This service is run by the Government Equalities Office"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:37
-msgid "We want as many people as possible to be able to use this website"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:38
-msgid "For example, that means you should be able to:"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:41
-#, python-format
-msgid "zoom in up to 300%% without problems"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:42
-msgid "navigate most of the website using just a keyboard"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:43
-msgid "navigate most of the website using speech recognition software"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:44
-msgid ""
-"use most of the website using a screen reader (including the most recent "
-"versions of JAWS, NVDA and VoiceOver)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:47
-msgid "We have also made the website text as simple as possible to understand"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:50
-msgid "AbilityNet (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:50
-msgid "has advice on making your device easier to use if you have a disability"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:54
-msgid "How accessible this website is"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:57
-msgid ""
-"We aim to meet international accessibility guidelines, however this may "
-"not always be possible, or we may have missed a problem"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:60
-msgid "We know some parts of this website are not fully accessible"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:64
-msgid ""
-"most older PDF documents that are linked to from this website are not "
-"fully accessible to screen reader software"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:67
-msgid ""
-"some GOV.UK Pay pages are not accessible, but we do not manage these "
-"pages – see the"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:67
-msgid "GOV.UK Pay accessibility statement (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:67
-msgid "for more information"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:71
-msgid "We are working to fix the issue with inaccessible PDFs"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:75
-msgid "What to do if you cannot access parts of this website"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:78
-msgid ""
-"If you need information on this website in a different format like "
-"accessible PDF, large print, easy read, audio recording or braille, "
-"contact"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:82
-msgid "We will consider your request and get back to you within 5 working days"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:86
-msgid "Reporting accessibility problems with this website"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:89
-msgid "We are always looking to improve the accessibility of this website"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:90
-msgid ""
-"If you find any problems not listed on this page, or think we are not "
-"meeting accessibility requirements, contact"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:95
-msgid "Enforcement procedure"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:98
-msgid ""
-"The Equality and Human Rights Commission (EHRC) is responsible for "
-"enforcing the Public Sector Bodies (Websites and Mobile Applications) "
-"(No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:99
-msgid "If you’re not happy with how we respond to your complaint, contact the"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:99
-msgid "Equality Advisory and Support Service (EASS) (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:103
-msgid "Technical information about this website’s accessibility"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:106
-msgid ""
-"The Government Equalities Office is committed to making its website "
-"accessible, in accordance with the Public Sector Bodies (Websites and "
-"Mobile Applications) (No. 2) Accessibility Regulations 2018"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:109
-msgid "This website is partially compliant with the"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:109
-msgid "Web Content Accessibility Guidelines version 2.1 (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:109
-msgid "AA standard, due to ‘the non-compliances’, listed below"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:113
-msgid "Non-accessible content"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:116
-msgid "The content listed below is not accessible for the following reasons"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:120
-msgid ""
-"Statutory declaration PDFs have not been marked up with tags or text "
-"descriptions – this makes it difficult for people with screen readers to "
-"use them"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:125
-msgid "Non-compliance with the accessibility regulations"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:128
-msgid ""
-"Statutory declaration PDFs have not been marked up with tags or text "
-"descriptions"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:129
-msgid "This makes it difficult for people with screen readers to use them"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:132
-msgid "We are aware of these issues and are working to fix them"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:136
-msgid "Disproportionate burden"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:139
-msgid ""
-"We have not yet identified a part of the service where it would be a "
-"disproportionate burden on the Government Equalities Office to resolve "
-"the non-compliance"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:140
-msgid ""
-"If this becomes the case, we will publish full details here explaining "
-"our decision"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:144
-msgid "How we tested"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:147
-msgid ""
-"Testing has been conducted internally by Government Equalities Office "
-"staff and externally audited by the"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:147
-msgid "Digital Accessibility Centre (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:148
-#: grc/templates/policies/accessibility-statement.html:167
-msgid ""
-"Where they have been checked for compliance, it has been against WCAG 2.1"
-" AA"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:152
-msgid "What we are doing to improve accessibility"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:155
-msgid "We are working to fix any parts of the service which are not accessible"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:159
-msgid "Preparation of this accessibility statement"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:162
-msgid ""
-"This statement was prepared on 7th June 2022. It was last reviewed on 7th"
-" June 2022"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:165
-msgid "This website was last tested on 26th May 2022"
-msgstr ""
-
-#: grc/templates/policies/accessibility-statement.html:166
-msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr ""
 
 #: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
@@ -1000,10 +1260,6 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:38
 msgid "payslips"
-msgstr ""
-
-#: grc/templates/policies/privacy-policy.html:39
-msgid "bank statements"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:40
