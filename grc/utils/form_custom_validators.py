@@ -2,12 +2,13 @@ import os
 import re
 import pathlib
 from dateutil.relativedelta import relativedelta
-from flask import request, session, current_app
+from flask import session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
 from werkzeug.datastructures import FileStorage
-from collections.abc import Iterable
 from datetime import date
+from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
+from grc.lazy.lazy_errors import LazyValidationError
 from grc.models import db, Application
 from grc.utils.security_code import is_security_code_valid
 from grc.utils.reference_number import reference_number_is_valid
@@ -82,15 +83,24 @@ class Integer(DataRequired):
                 validator(form, field)
 
 
+def validate_security_code_admin(form, field):
+    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
+
+    if is_test and field.data == '11111':
+        return
+
+    if not is_security_code_valid(session.get('email'), field.data, True):
+        raise ValidationError('Enter the security code that we emailed you')
+
+
 def validate_security_code(form, field):
     is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
 
     if is_test and field.data == '11111':
         return
 
-    is_admin = True if 'userType' in session else False
-    if not is_security_code_valid(session.get('email'), field.data, is_admin):
-        raise ValidationError('Enter the security code that we emailed you')
+    if not is_security_code_valid(session.get('email'), field.data, False):
+        raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
 def validate_reference_number(form, field):

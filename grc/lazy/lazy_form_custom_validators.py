@@ -1,21 +1,10 @@
 import email_validator
+from .lazy_errors import LazyValidationError, LazyStopValidation
 from collections.abc import Iterable
 from flask_babel import LazyString
 from grc.utils.form_custom_validators import MultiFileAllowed
 from werkzeug.datastructures import FileStorage
 from wtforms.validators import DataRequired, ValidationError, StopValidation, Email
-
-
-class LazyStopValidation(StopValidation):
-
-    def __init__(self, lazy_message: LazyString = None, *args):
-        Exception.__init__(self, lazy_message, *args)
-
-
-class LazyValidationError(ValidationError):
-
-    def __init__(self, lazy_message: LazyString = None, *args):
-        ValueError.__init__(self, lazy_message, *args)
 
 
 class LazyDataRequired(DataRequired):

@@ -17,7 +17,7 @@ class EmailAddressForm(FlaskForm):
 
 class SecurityCodeForm(FlaskForm):
     security_code = StringField(
-        validators=[DataRequired(message='Enter a security code'), validate_security_code]
+        validators=[LazyDataRequired(lazy_message=c.NO_SECURITY_CODE), validate_security_code]
     )
 
 

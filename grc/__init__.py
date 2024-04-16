@@ -57,6 +57,7 @@ def create_app(test_config=None):
     def make_before_request():
         app.permanent_session_lifetime = timedelta(hours=3)
         g.build_info = build_info
+        g.lang_code = get_locale()
 
     @app.after_request
     def add_header(response):

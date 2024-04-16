@@ -13,6 +13,9 @@ class BaseConstants:
     PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP = _l(
         'Do you plan to remain in your civil partnership after you receive your Gender Recognition Certificate?')
 
+    # Flash messages
+    RESEND_SECURITY_CODE = _l("We’ve resent you a security code. This can take a few minutes to arrive")
+
     # Error messages
     PREVIOUS_NAME_CHECK_ERROR = _l('Select if you have ever changed your name to reflect your gender')
     CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR = _l('Select if you are currently married or in a civil partnership')
@@ -26,3 +29,5 @@ class BaseConstants:
         'Select if you plan to remain married after receiving your Gender Recognition Certificate')
     NO_EMAIL_ADDRESS_ERROR = _l('Enter your email address')
     EMAIL_ADDRESS_INVALID_ERROR = _l('Enter a valid email address')
+    NO_SECURITY_CODE = _l('Enter a security code')
+    INVALID_SECURITY_CODE = _l('Enter the security code that we emailed you')
