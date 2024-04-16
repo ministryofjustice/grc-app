@@ -1,14 +1,16 @@
 from flask_wtf import FlaskForm
+from grc.business_logic.constants import BaseConstants as c
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
 from wtforms import EmailField, StringField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import DataRequired
 from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf
 
 
 class EmailAddressForm(FlaskForm):
     email = EmailField(
         validators=[
-            DataRequired(message='Enter your email address'),
-            Email(message='Enter a valid email address')
+            LazyDataRequired(lazy_message=c.NO_EMAIL_ADDRESS_ERROR),
+            LazyEmail(message=c.EMAIL_ADDRESS_INVALID_ERROR)
         ]
     )
 
