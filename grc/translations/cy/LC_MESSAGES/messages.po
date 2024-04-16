@@ -271,7 +271,7 @@ msgstr "sicrhewch eich bod wedi rhoi y cyfeiriad e-bost cywir"
 
 #: grc/templates/security-code.html:37
 msgid "If it's still not there, we can"
-msgstr "Os ydych dal heb gael y neges e-bost"
+msgstr "Os ydych dal heb gael y neges e-bost, "
 
 #: grc/templates/security-code.html:39
 msgid "resend the email"
