@@ -8,7 +8,6 @@ from werkzeug.datastructures import FileStorage
 from datetime import date
 from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
-from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from grc.lazy.lazy_errors import LazyValidationError
 from grc.models import db, Application
 from grc.utils.security_code import is_security_code_valid
@@ -18,7 +17,7 @@ from grc.utils.logger import LogLevel, Logger
 logger = Logger()
 
 
-class StrictRequiredIf(DataRequired, LazyDataRequired):
+class StrictRequiredIf(DataRequired):
     """Validator which makes a field required if another field is set and has a specific value.
 
     Sources:
