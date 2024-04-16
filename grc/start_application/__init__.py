@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, render_template, request, url_for, session
+from flask import Blueprint, flash, render_template, request, url_for, session, g
 from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
@@ -24,6 +24,7 @@ def index():
     if form.validate_on_submit():
         session.clear()
         session['email'] = form.email.data
+        session['lang_code'] = g.lang_code
         try:
             send_security_code(form.email.data)
             return local_redirect(url_for('startApplication.securityCode'))
