@@ -34,7 +34,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/')
+    await asserts.url('/security-code')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('Enter security code')
