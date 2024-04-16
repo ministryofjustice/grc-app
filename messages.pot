@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-15 15:53+0100\n"
+"POT-Creation-Date: 2024-04-16 10:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,43 +50,55 @@ msgid ""
 msgstr ""
 
 #: grc/business_logic/constants.py:17
+msgid "We’ve resent you a security code. This can take a few minutes to arrive"
+msgstr ""
+
+#: grc/business_logic/constants.py:20
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr ""
 
-#: grc/business_logic/constants.py:18
+#: grc/business_logic/constants.py:21
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:19
+#: grc/business_logic/constants.py:22
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
 msgstr ""
 
-#: grc/business_logic/constants.py:21
+#: grc/business_logic/constants.py:24
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
 msgstr ""
 
-#: grc/business_logic/constants.py:23
+#: grc/business_logic/constants.py:26
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
 msgstr ""
 
-#: grc/business_logic/constants.py:25
+#: grc/business_logic/constants.py:28
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
 msgstr ""
 
-#: grc/business_logic/constants.py:27
+#: grc/business_logic/constants.py:30
 msgid "Enter your email address"
 msgstr ""
 
-#: grc/business_logic/constants.py:28
+#: grc/business_logic/constants.py:31
 msgid "Enter a valid email address"
+msgstr ""
+
+#: grc/business_logic/constants.py:32
+msgid "Enter a security code"
+msgstr ""
+
+#: grc/business_logic/constants.py:33
+msgid "Enter the security code that we emailed you"
 msgstr ""
 
 #: grc/document_checker/constants.py:7
@@ -171,8 +183,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:424
-#: grc/utils/form_custom_validators.py:443
+#: grc/utils/form_custom_validators.py:425
+#: grc/utils/form_custom_validators.py:444
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
@@ -182,6 +194,42 @@ msgstr ""
 
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/security-code.html:7 grc/templates/security-code.html:20
+msgid "Enter security code"
+msgstr ""
+
+#: grc/templates/security-code.html:24
+msgid "We’ve sent a security code to"
+msgstr ""
+
+#: grc/templates/security-code.html:27
+msgid "This can take a few minutes to arrive"
+msgstr ""
+
+#: grc/templates/security-code.html:30
+msgid "If you do not get an email"
+msgstr ""
+
+#: grc/templates/security-code.html:33
+msgid "check your spam or junk folder"
+msgstr ""
+
+#: grc/templates/security-code.html:34
+msgid "check you have entered the correct email"
+msgstr ""
+
+#: grc/templates/security-code.html:37
+msgid "If it's still not there, we can"
+msgstr ""
+
+#: grc/templates/security-code.html:39
+msgid "resend the email"
+msgstr ""
+
+#: grc/templates/security-code.html:51
+msgid "Security code"
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7

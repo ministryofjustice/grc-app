@@ -1,4 +1,5 @@
-from flask import Blueprint, flash, render_template, request, url_for, session
+from flask import Blueprint, flash, render_template, request, url_for, session, g
+from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.models import Application, ApplicationStatus
@@ -23,6 +24,7 @@ def index():
     if form.validate_on_submit():
         session.clear()
         session['email'] = form.email.data
+        session['lang_code'] = g.lang_code
         try:
             send_security_code(form.email.data)
             return local_redirect(url_for('startApplication.securityCode'))
@@ -61,7 +63,7 @@ def securityCode():
     elif request.args.get('resend') == 'true':
         try:
             send_security_code(session['email'])
-            flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
+            flash(c.RESEND_SECURITY_CODE, 'email')
         except BaseException as err:
             error = err.args[0].json()
             flash(error['errors'][0]['message'], 'error')

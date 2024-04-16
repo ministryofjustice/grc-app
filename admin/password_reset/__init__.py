@@ -3,12 +3,12 @@ from datetime import datetime
 from dateutil import tz
 from flask import Blueprint, render_template, request, current_app, session, url_for, flash
 from werkzeug.security import generate_password_hash
+from admin.admin.forms import SecurityCodeForm
 from admin.password_reset.forms import PasswordResetForm
 from grc.models import db, AdminUser
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.security_code import send_security_code_admin
-from grc.start_application.forms import SecurityCodeForm
 
 password_reset = Blueprint('password_reset', __name__)
 logger = Logger()
