@@ -8,6 +8,7 @@ from werkzeug.datastructures import FileStorage
 from datetime import date
 from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from grc.lazy.lazy_errors import LazyValidationError
 from grc.models import db, Application
 from grc.utils.security_code import is_security_code_valid
@@ -17,7 +18,7 @@ from grc.utils.logger import LogLevel, Logger
 logger = Logger()
 
 
-class StrictRequiredIf(DataRequired):
+class StrictRequiredIf(DataRequired, LazyDataRequired):
     """Validator which makes a field required if another field is set and has a specific value.
 
     Sources:
@@ -109,7 +110,7 @@ def validate_reference_number(form, field):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-        raise ValidationError('Enter a valid reference number')
+        raise LazyValidationError(c.INVALID_REFERENCE_NUMBER_ERROR)
 
 
 def validate_gov_uk_email_address(form, field):

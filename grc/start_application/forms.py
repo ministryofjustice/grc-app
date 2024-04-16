@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from grc.business_logic.constants import BaseConstants as c
+from grc.start_application.constants import StartApplicationConstants as c
+from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
 from wtforms import EmailField, StringField, RadioField, BooleanField
 from wtforms.validators import DataRequired
@@ -22,18 +23,18 @@ class SecurityCodeForm(FlaskForm):
 
 
 class IsFirstVisitForm(FlaskForm):
-    isFirstVisit = RadioField(
-        choices=[
-            ('FIRST_VISIT', "No"),
-            ('HAS_REFERENCE', "Yes, and I have my reference number"),
-            ('LOST_REFERENCE', "Yes, but I have lost my reference number")
+    isFirstVisit = LazyRadioField(
+        lazy_choices=[
+            ('FIRST_VISIT', c.NO),
+            ('HAS_REFERENCE', c.YES_WITH_REFERENCE_NUMBER),
+            ('LOST_REFERENCE', c.YES_LOST_REFERENCE_NUMBER)
         ],
-        validators=[DataRequired(message='Select if you have already started an application')]
+        validators=[LazyDataRequired(lazy_message=c.IS_FIRST_VISIT_ERROR)]
     )
 
     reference = StringField(
         validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE',
-                                     message='Enter a reference number', validators=[validate_reference_number])]
+                                     lazy_message=c.NO_REFERENCE_NUMBER_ERROR, validators=[validate_reference_number])]
     )
 
 
