@@ -83,16 +83,23 @@ class Integer(DataRequired):
                 validator(form, field)
 
 
+def validate_security_code_admin(form, field):
+    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
+
+    if is_test and field.data == '11111':
+        return
+
+    if not is_security_code_valid(session.get('email'), field.data, True):
+        raise ValidationError('Enter the security code that we emailed you')
+
+
 def validate_security_code(form, field):
     is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
 
     if is_test and field.data == '11111':
         return
 
-    is_admin = form.is_admin or False
-    if not is_security_code_valid(session.get('email'), field.data, is_admin):
-        if is_admin:
-            raise ValidationError('Enter the security code that we emailed you')
+    if not is_security_code_valid(session.get('email'), field.data, False):
         raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
