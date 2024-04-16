@@ -89,8 +89,10 @@ def validate_security_code(form, field):
     if is_test and field.data == '11111':
         return
 
-    is_admin = True if 'userType' in session else False
+    is_admin = form.is_admin or False
     if not is_security_code_valid(session.get('email'), field.data, is_admin):
+        if is_admin:
+            raise ValidationError('Enter the security code that we emailed you')
         raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
