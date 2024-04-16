@@ -2186,5 +2186,5 @@ msgstr "Cyn i chi ddechrau gwnewch yn siwr eich bod wedi darllen y cyfarwyddyd a
 
 #: grc/templates/start-application/email-address.html:34
 msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
-msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd"
+msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd)"
 
