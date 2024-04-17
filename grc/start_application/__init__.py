@@ -4,7 +4,7 @@ from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
-    OverseasApprovedCheckForm, DeclerationForm, IsFirstVisitForm
+    OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
 from grc.utils.security_code import send_security_code
 from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, ValidatedEmailRequired
@@ -222,7 +222,7 @@ def overseas_approved_check():
 @startApplication.route('/declaration', methods=['GET', 'POST'])
 @LoginRequired
 def declaration():
-    form = DeclerationForm()
+    form = DeclarationForm()
     application_data = DataStore.load_application_by_session_reference_number()
     back_link = ('startApplication.overseas_approved_check'
                  if application_data.confirmation_data.gender_recognition_outside_uk
