@@ -44,3 +44,23 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Enter a valid Security Code, click Continue button
     await helpers.fill_textbox(field='security_code', value='11111')
     await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Is First Visit page
+    # ------------------------------------------------
+    await asserts.url('/is-first-visit')
+    await asserts.accessibility()
+    await asserts.h1('Have you already started an application?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/is-first-visit')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Have you already started an application?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Have you already started an application?')
+
+    # Choose the "No" (this is my first visit) option
+    await helpers.check_radio(field='isFirstVisit', value='FIRST_VISIT')
+    await helpers.click_button('Parhau')
