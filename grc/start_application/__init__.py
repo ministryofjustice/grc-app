@@ -190,11 +190,7 @@ def overseas_check():
     elif request.method == 'GET':
         form.overseasCheck.data = application_data.confirmation_data.gender_recognition_outside_uk
 
-    return render_template(
-        'start-application/overseas-check.html',
-        form=form,
-        back=get_previous_page(application_data, 'startApplication.reference')
-    )
+    return render_template('start-application/overseas-check.html', form=form)
 
 
 @startApplication.route('/overseas-approved-check', methods=['GET', 'POST'])
