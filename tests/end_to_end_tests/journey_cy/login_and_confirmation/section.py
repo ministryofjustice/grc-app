@@ -100,7 +100,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?')
     await helpers.click_button('Cymraeg')
     await asserts.h1('Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?')
-    await helpers.click_button('Parhau')
 
     # Choose the "No" option - this should take you straight to the Declaration page
     # i.e. you should skip the Overseas Approved Check page
