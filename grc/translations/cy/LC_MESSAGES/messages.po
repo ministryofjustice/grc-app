@@ -128,7 +128,7 @@ msgid "Enter a valid reference number"
 msgstr "Nodwch gyfeirnod dilys"
 
 #: grc/business_logic/constants.py:37
-msgid "Select if you ever been issued a Gender Recognition Certificate"
+msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr "Dewiswch a roddwyd Tystysgrif Cydnabod Rhywedd ichi erioed"
 
 #: grc/business_logic/constants.py:38
