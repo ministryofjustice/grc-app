@@ -146,7 +146,8 @@ def genderRecognitionOutsideUK():
     return render_template(
         'document-checker/gender-recognition-outside-uk.html',
         form=form,
-        doc_checker_state=doc_checker_state_
+        doc_checker_state=doc_checker_state_,
+        countries=c.APPROVED_COUNTRIES
     )
 
 
