@@ -58,7 +58,7 @@ class OverseasApprovedCheckForm(FlaskForm):
     )
 
 
-class DeclerationForm(FlaskForm):
+class DeclarationForm(FlaskForm):
     consent = BooleanField(
-        validators=[DataRequired(message='You must consent to the General Register Office contacting you')]
+        validators=[LazyDataRequired(lazy_message=c.DECLARATION_ERROR)]
     )

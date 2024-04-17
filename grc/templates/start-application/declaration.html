@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/checkbox-single.html" as checkbox_single %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Notifying the General Register Office{% endblock %}
+{% block title %}{{ _('Notifying the General Register Office') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,19 +17,17 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Notifying the General Register Office
+                {{ _('Notifying the General Register Office') }}
             </h1>
 
             <p class="govuk-body">
-                If you were born in the UK, the Gender Recognition Panel will tell the relevant General Register Office about your application.
+                {{ _('If you were born in the UK, the Gender Recognition Panel will tell the relevant General Register Office about your application') }}.
             </p>
             <p class="govuk-body">
-                This will include telling them if you are married or in a civil partnership registered in England and Wales or
-                Scotland and you are applying for gender recognition while remaining married or in a civil partnership.
+                {{ _('This will include telling them if you are married or in a civil partnership registered in England and Wales or Scotland and you are applying for gender recognition while remaining married or in a civil partnership') }}.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                After you receive your certificate, the General Register Office will contact you about your new
-                birth certificate and, if appropriate, a new certificate for your marriage or civil partnership.
+                {{ _('After you receive your certificate, the General Register Office will contact you about your new birth certificate and, if appropriate, a new certificate for your marriage or civil partnership') }}.
             </p>
 
             <form method="POST" action="#">
@@ -36,16 +36,14 @@
                 {{ checkbox_single.renderFor(
                     form,
                     fieldName='consent',
-                    question="Do you consent to the General Register Office contacting you about your application?",
+                    question=_("Do you consent to the General Register Office contacting you about your application?"),
                     label='I consent',
                     checkboxOptions={
                         'questionClasses': 'govuk-fieldset__legend--m'
                     }
                 ) }}
 
-                <button class="govuk-button" data-module="govuk-button">
-                    Continue
-                </button>
+                {{ continue.renderFor() }}
             </form>
         </div>
     </div>
