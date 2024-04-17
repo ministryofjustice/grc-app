@@ -184,7 +184,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await asserts.h1('Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?')
     await asserts.number_of_errors(1)
-    await asserts.error(field='overseasCheck', message='Select if you ever been issued a Gender Recognition Certificate')
+    await asserts.error(field='overseasCheck', message='Select if you have ever been issued a Gender Recognition Certificate')
 
     # Choose the "No" option - this should take you straight to the Declaration page
     # i.e. you should skip the Overseas Approved Check page
