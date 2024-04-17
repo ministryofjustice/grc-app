@@ -109,7 +109,7 @@ def validate_reference_number(form, field):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-        raise ValidationError('Enter a valid reference number')
+        raise LazyValidationError(c.INVALID_REFERENCE_NUMBER_ERROR)
 
 
 def validate_gov_uk_email_address(form, field):

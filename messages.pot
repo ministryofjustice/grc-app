@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-16 10:13+0100\n"
+"POT-Creation-Date: 2024-04-16 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,6 +101,18 @@ msgstr ""
 msgid "Enter the security code that we emailed you"
 msgstr ""
 
+#: grc/business_logic/constants.py:34
+msgid "Select if you have already started an application"
+msgstr ""
+
+#: grc/business_logic/constants.py:35
+msgid "Enter a reference number"
+msgstr ""
+
+#: grc/business_logic/constants.py:36
+msgid "Enter a valid reference number"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -174,22 +186,30 @@ msgid ""
 "certificate"
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:39
+#: grc/lazy/lazy_form_custom_validators.py:28
 msgid "This field is required."
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:73
+#: grc/lazy/lazy_form_custom_validators.py:62
 msgid "Invalid email address."
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:425
-#: grc/utils/form_custom_validators.py:444
+#: grc/lazy/lazy_form_custom_validators.py:87
+#: grc/utils/form_custom_validators.py:435
+#: grc/utils/form_custom_validators.py:454
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:107
+#: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/start_application/constants.py:6
+msgid "Yes, and I have my reference number"
+msgstr ""
+
+#: grc/start_application/constants.py:7
+msgid "Yes, but I have lost my reference number"
 msgstr ""
 
 #: grc/templates/base.html:66
@@ -1951,5 +1971,18 @@ msgstr ""
 
 #: grc/templates/start-application/email-address.html:34
 msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/start-application/is-first-visit.html:8
+#: grc/templates/start-application/is-first-visit.html:31
+msgid "Have you already started an application?"
+msgstr ""
+
+#: grc/templates/start-application/is-first-visit.html:25
+msgid "You will need to start a new application"
+msgstr ""
+
+#: grc/templates/start-application/is-first-visit.html:40
+msgid "Reference number"
 msgstr ""
 
