@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-16 15:27+0100\n"
+"POT-Creation-Date: 2024-04-17 09:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,6 +113,26 @@ msgstr ""
 msgid "Enter a valid reference number"
 msgstr ""
 
+#: grc/business_logic/constants.py:32
+msgid "Enter a security code"
+msgstr ""
+
+#: grc/business_logic/constants.py:33
+msgid "Enter the security code that we emailed you"
+msgstr ""
+
+#: grc/business_logic/constants.py:34
+msgid "Select if you have already started an application"
+msgstr ""
+
+#: grc/business_logic/constants.py:35
+msgid "Enter a reference number"
+msgstr ""
+
+#: grc/business_logic/constants.py:36
+msgid "Enter a valid reference number"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -195,8 +215,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:87
-#: grc/utils/form_custom_validators.py:435
-#: grc/utils/form_custom_validators.py:454
+#: grc/utils/form_custom_validators.py:434
+#: grc/utils/form_custom_validators.py:453
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
@@ -212,8 +232,52 @@ msgstr ""
 msgid "Yes, but I have lost my reference number"
 msgstr ""
 
+#: grc/start_application/constants.py:6
+msgid "Yes, and I have my reference number"
+msgstr ""
+
+#: grc/start_application/constants.py:7
+msgid "Yes, but I have lost my reference number"
+msgstr ""
+
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/security-code.html:7 grc/templates/security-code.html:20
+msgid "Enter security code"
+msgstr ""
+
+#: grc/templates/security-code.html:24
+msgid "We’ve sent a security code to"
+msgstr ""
+
+#: grc/templates/security-code.html:27
+msgid "This can take a few minutes to arrive"
+msgstr ""
+
+#: grc/templates/security-code.html:30
+msgid "If you do not get an email"
+msgstr ""
+
+#: grc/templates/security-code.html:33
+msgid "check your spam or junk folder"
+msgstr ""
+
+#: grc/templates/security-code.html:34
+msgid "check you have entered the correct email"
+msgstr ""
+
+#: grc/templates/security-code.html:37
+msgid "If it's still not there, we can"
+msgstr ""
+
+#: grc/templates/security-code.html:39
+msgid "resend the email"
+msgstr ""
+
+#: grc/templates/security-code.html:51
+msgid "Security code"
 msgstr ""
 
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
@@ -286,6 +350,7 @@ msgstr ""
 #: grc/templates/document-checker/email-address.html:42
 #: grc/templates/document-checker/start.html:33
 #: grc/templates/govuk-design-system-templates/continue.html:4
+#: grc/templates/start-application/reference-number.html:32
 msgid "Continue"
 msgstr ""
 
@@ -1984,5 +2049,26 @@ msgstr ""
 
 #: grc/templates/start-application/is-first-visit.html:40
 msgid "Reference number"
+msgstr ""
+
+#: grc/templates/start-application/reference-number.html:5
+#: grc/templates/start-application/reference-number.html:16
+msgid "Your reference number"
+msgstr ""
+
+#: grc/templates/start-application/reference-number.html:20
+msgid "We will automatically save your application as you progress"
+msgstr ""
+
+#: grc/templates/start-application/reference-number.html:23
+msgid "Your reference number is"
+msgstr ""
+
+#: grc/templates/start-application/reference-number.html:27
+msgid "You will need your reference number to return to your application"
+msgstr ""
+
+#: grc/templates/start-application/reference-number.html:28
+msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr ""
 
