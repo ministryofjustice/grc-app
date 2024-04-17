@@ -64,3 +64,23 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Choose the "No" (this is my first visit) option
     await helpers.check_radio(field='isFirstVisit', value='FIRST_VISIT')
     await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Reference Number page
+    # ------------------------------------------------
+    await asserts.url('/reference-number')
+    await asserts.accessibility()
+    await asserts.h1('Eich cyfeirnod')
+    await asserts.number_of_errors(0)
+
+    # Copy reference number so we can use it later
+    reference_number = await page.inner_text('#reference-number')
+
+    # Change language
+    await asserts.url('/reference-number')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Your reference number')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Eich cyfeirnod')
+    await helpers.click_button('Parhau')
