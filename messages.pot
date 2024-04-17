@@ -212,52 +212,8 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
-#: grc/start_application/constants.py:6
-msgid "Yes, and I have my reference number"
-msgstr ""
-
-#: grc/start_application/constants.py:7
-msgid "Yes, but I have lost my reference number"
-msgstr ""
-
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
-msgstr ""
-
-#: grc/templates/security-code.html:7 grc/templates/security-code.html:20
-msgid "Enter security code"
-msgstr ""
-
-#: grc/templates/security-code.html:24
-msgid "We’ve sent a security code to"
-msgstr ""
-
-#: grc/templates/security-code.html:27
-msgid "This can take a few minutes to arrive"
-msgstr ""
-
-#: grc/templates/security-code.html:30
-msgid "If you do not get an email"
-msgstr ""
-
-#: grc/templates/security-code.html:33
-msgid "check your spam or junk folder"
-msgstr ""
-
-#: grc/templates/security-code.html:34
-msgid "check you have entered the correct email"
-msgstr ""
-
-#: grc/templates/security-code.html:37
-msgid "If it's still not there, we can"
-msgstr ""
-
-#: grc/templates/security-code.html:39
-msgid "resend the email"
-msgstr ""
-
-#: grc/templates/security-code.html:51
-msgid "Security code"
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
