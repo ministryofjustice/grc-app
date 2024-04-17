@@ -26,15 +26,12 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-# RUN pip install pre-commit
-# RUN pre-commit install --install-hooks
-
 RUN npm install
 RUN npm run build
 
-#RUN rm /app/admin -r
+# Compile messages
+RUN pybabel compile -d grc/translations
 
 # Don't run as root user
 USER 1000
 CMD /app/run.sh
-# CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
