@@ -39,12 +39,12 @@ class IsFirstVisitForm(FlaskForm):
 
 
 class OverseasCheckForm(FlaskForm):
-    overseasCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    overseasCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you ever been issued a Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.GENDER_RECOGNITION_OUTSIDE_UK_ERROR)]
     )
 
 

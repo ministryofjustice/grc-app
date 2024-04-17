@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-17 09:34+0100\n"
+"POT-Creation-Date: 2024-04-17 14:51+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -126,6 +126,10 @@ msgstr "Nodwch gyfeirnod"
 #: grc/business_logic/constants.py:36
 msgid "Enter a valid reference number"
 msgstr "Nodwch gyfeirnod dilys"
+
+#: grc/business_logic/constants.py:37
+msgid "Select if you have ever been issued a Gender Recognition Certificate"
+msgstr "Dewiswch a roddwyd Tystysgrif Cydnabod Rhywedd ichi erioed"
 
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
@@ -321,7 +325,7 @@ msgstr ""
 #: grc/templates/document-checker/email-address.html:42
 #: grc/templates/document-checker/start.html:33
 #: grc/templates/govuk-design-system-templates/continue.html:4
-#: grc/templates/start-application/reference-number.html:32
+#: grc/templates/start-application/reference-number.html:31
 msgid "Continue"
 msgstr "Parhau"
 
@@ -1197,6 +1201,7 @@ msgid "Email documents list"
 msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
+#: grc/templates/govuk-design-system-templates/back_link.html:6
 msgid "Back"
 msgstr "Yn ôl"
 
@@ -2270,24 +2275,33 @@ msgstr "Bydd angen i chi ddechrau cais newydd"
 msgid "Reference number"
 msgstr "Cyfeirnod"
 
-#: grc/templates/start-application/reference-number.html:5
-#: grc/templates/start-application/reference-number.html:16
+#: grc/templates/start-application/overseas-check.html:7
+#: grc/templates/start-application/overseas-check.html:25
+msgid ""
+"Have you ever been issued a Gender Recognition Certificate (or its "
+"equivalent) in another country?"
+msgstr ""
+"Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif "
+"cyfwerth) mewn gwlad arall?"
+
+#: grc/templates/start-application/reference-number.html:4
+#: grc/templates/start-application/reference-number.html:15
 msgid "Your reference number"
 msgstr "Eich cyfeirnod"
 
-#: grc/templates/start-application/reference-number.html:20
+#: grc/templates/start-application/reference-number.html:19
 msgid "We will automatically save your application as you progress"
 msgstr "Byddwn yn cadw eich cais yn awtomatig wrth i chi ei gwblhau"
 
-#: grc/templates/start-application/reference-number.html:23
+#: grc/templates/start-application/reference-number.html:22
 msgid "Your reference number is"
 msgstr "Eich cyfeirnod yw"
 
-#: grc/templates/start-application/reference-number.html:27
+#: grc/templates/start-application/reference-number.html:26
 msgid "You will need your reference number to return to your application"
 msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 
-#: grc/templates/start-application/reference-number.html:28
+#: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
 
