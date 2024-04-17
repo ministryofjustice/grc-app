@@ -56,6 +56,7 @@ def securityCode():
             #else:
             session.clear()  # Clear out session['email']
             session['validatedEmail'] = email
+            session['lang_code'] = g.lang_code
             return local_redirect(url_for('startApplication.isFirstVisit'))
         else:
             logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")

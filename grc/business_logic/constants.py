@@ -31,3 +31,6 @@ class BaseConstants:
     EMAIL_ADDRESS_INVALID_ERROR = _l('Enter a valid email address')
     NO_SECURITY_CODE = _l('Enter a security code')
     INVALID_SECURITY_CODE = _l('Enter the security code that we emailed you')
+    IS_FIRST_VISIT_ERROR = _l('Select if you have already started an application')
+    NO_REFERENCE_NUMBER_ERROR = _l('Enter a reference number')
+    INVALID_REFERENCE_NUMBER_ERROR = _l('Enter a valid reference number')

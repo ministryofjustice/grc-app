@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-16 10:13+0100\n"
+"POT-Creation-Date: 2024-04-16 15:27+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -115,6 +115,18 @@ msgstr "Nodwch god diogelwch"
 msgid "Enter the security code that we emailed you"
 msgstr "Nodwch y cod diogelwch y gwnaethom anfon atoch trwy e-bost"
 
+#: grc/business_logic/constants.py:34
+msgid "Select if you have already started an application"
+msgstr "Dewiswch a ydych eisoes wedi dechrau cais"
+
+#: grc/business_logic/constants.py:35
+msgid "Enter a reference number"
+msgstr "Nodwch gyfeirnod"
+
+#: grc/business_logic/constants.py:36
+msgid "Enter a valid reference number"
+msgstr "Nodwch gyfeirnod dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -203,23 +215,31 @@ msgid ""
 "certificate"
 msgstr "Llwythwch sgan neu lun o ansawdd da o'ch tystysgrif partneriaeth sifil"
 
-#: grc/lazy/lazy_form_custom_validators.py:39
+#: grc/lazy/lazy_form_custom_validators.py:28
 msgid "This field is required."
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:73
+#: grc/lazy/lazy_form_custom_validators.py:62
 msgid "Invalid email address."
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:98
-#: grc/utils/form_custom_validators.py:425
-#: grc/utils/form_custom_validators.py:444
+#: grc/lazy/lazy_form_custom_validators.py:87
+#: grc/utils/form_custom_validators.py:435
+#: grc/utils/form_custom_validators.py:454
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
-#: grc/lazy/lazy_form_custom_validators.py:107
+#: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/start_application/constants.py:6
+msgid "Yes, and I have my reference number"
+msgstr "Do, ac mae gennyf fy nghyfeirnod"
+
+#: grc/start_application/constants.py:7
+msgid "Yes, but I have lost my reference number"
+msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
 
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
@@ -2235,4 +2255,17 @@ msgstr "Cyn i chi ddechrau gwnewch yn siwr eich bod wedi darllen y cyfarwyddyd a
 #: grc/templates/start-application/email-address.html:34
 msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
 msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd)"
+
+#: grc/templates/start-application/is-first-visit.html:8
+#: grc/templates/start-application/is-first-visit.html:31
+msgid "Have you already started an application?"
+msgstr ""
+
+#: grc/templates/start-application/is-first-visit.html:25
+msgid "You will need to start a new application"
+msgstr "Bydd angen i chi ddechrau cais newydd"
+
+#: grc/templates/start-application/is-first-visit.html:40
+msgid "Reference number"
+msgstr "Cyfeirnod"
 
