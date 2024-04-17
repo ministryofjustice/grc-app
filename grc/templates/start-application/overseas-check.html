@@ -7,7 +7,7 @@
 {% block title %}{{ _('Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?') }}{% endblock %}
 
 {% block backLink %}
-    {{ back_link.renderFor('startApplication.reference') }}
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
