@@ -84,3 +84,26 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cymraeg')
     await asserts.h1('Eich cyfeirnod')
     await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Overseas Check page
+    # ------------------------------------------------
+    await asserts.url('/overseas-check')
+    await asserts.accessibility()
+    await asserts.h1('Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/overseas-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?')
+    await helpers.click_button('Parhau')
+
+    # Choose the "No" option - this should take you straight to the Declaration page
+    # i.e. you should skip the Overseas Approved Check page
+    await helpers.check_radio(field='overseasCheck', value='False')
+    await helpers.click_button('Parhau')
+
