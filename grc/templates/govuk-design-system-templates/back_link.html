@@ -1,3 +1,7 @@
 {% macro renderFor(url) %}
     <a href="{{ url_for(url) }}" class="govuk-back-link">{{ _('Back') }}</a>
 {% endmacro %}
+
+{% macro renderForRawURL(url) %}
+    <a href="{{ url }}" class="govuk-back-link">{{ _('Back') }}</a>
+{% endmacro %}
