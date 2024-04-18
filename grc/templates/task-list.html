@@ -146,7 +146,7 @@
 
                         {% if application_data.need_overseas_documents %}
                             {{ taskListItem(
-                                "Overseas certificate documents",
+                                _("Overseas certificate documents"),
                                 url_for('upload.uploadInfoPage', section_url='overseas-certificate'),
                                 application_data.section_status_overseas_documents)
                             }}
