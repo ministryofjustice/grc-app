@@ -179,7 +179,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/overseas-approved-check')
+    await asserts.url('/task-list')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('Your application')
