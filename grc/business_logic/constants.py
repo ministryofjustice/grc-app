@@ -35,3 +35,4 @@ class BaseConstants:
     NO_REFERENCE_NUMBER_ERROR = _l('Enter a reference number')
     INVALID_REFERENCE_NUMBER_ERROR = _l('Enter a valid reference number')
     GENDER_RECOGNITION_OUTSIDE_UK_ERROR = _l('Select if you have ever been issued a Gender Recognition Certificate')
+    DECLARATION_ERROR = _l('You must consent to the General Register Office contacting you')
