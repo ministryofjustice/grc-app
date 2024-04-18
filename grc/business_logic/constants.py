@@ -7,6 +7,49 @@ class BaseConstants:
     MARRIED = _l('Married')
     CIVIL_PARTNERSHIP = _l('Civil partnership')
     NEITHER = _l('Neither')
+    APPROVED_COUNTRIES = (
+        _l('Australia – not including the external territories'),
+        _l('Austria'),
+        _l('Belgium'),
+        _l('Bulgaria'),
+        _l('Canada – not including Northwest Territories and Nunavut'),
+        _l('Croatia'),
+        _l('Cyprus'),
+        _l('Czech Republic'),
+        _l('Denmark'),
+        _l('Estonia'),
+        _l('Finland'),
+        _l('France'),
+        _l('Germany'),
+        _l('Greece'),
+        _l('Iceland'),
+        _l('Italy'),
+        _l('Japan'),
+        _l('Liechtenstein'),
+        _l('Luxembourg'),
+        _l('Malta'),
+        _l('Federal District of Mexico'),
+        _l('Moldova'),
+        _l('Netherlands'),
+        _l('New Zealand'),
+        _l('Norway'),
+        _l('Poland'),
+        _l('Romania'),
+        _l('Russian Federation'),
+        _l('Serbia'),
+        _l('Singapore'),
+        _l('Slovakia'),
+        _l('Slovenia'),
+        _l('South Africa'),
+        _l('South Korea'),
+        _l('Spain'),
+        _l('Sweden'),
+        _l('Switzerland'),
+        _l('Turkey'),
+        _l('Ukraine'),
+        _l('United States of America – not including Idaho, Ohio, Tennessee and Texas'),
+        _l('Uruguay')
+    )
 
     # Questions
     PLAN_TO_REMAIN_MARRIED = _l('Do you plan to remain married after you receive your Gender Recognition Certificate?')
@@ -36,3 +79,4 @@ class BaseConstants:
     INVALID_REFERENCE_NUMBER_ERROR = _l('Enter a valid reference number')
     GENDER_RECOGNITION_OUTSIDE_UK_ERROR = _l('Select if you have ever been issued a Gender Recognition Certificate')
     DECLARATION_ERROR = _l('You must consent to the General Register Office contacting you')
+    GENDER_RECOGNITION_IN_APPROVED_COUNTRY_ERROR = _l('Select if you have official documentation')

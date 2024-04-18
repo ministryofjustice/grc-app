@@ -63,7 +63,171 @@ msgstr "Mewn partneriaeth sifil"
 msgid "Neither"
 msgstr "Ddim un ohonynt"
 
+#: grc/business_logic/constants.py:11
+msgid "Australia – not including the external territories"
+msgstr "Awstralia – heb gynnwys y tiriogaethau allanol"
+
 #: grc/business_logic/constants.py:12
+msgid "Austria"
+msgstr "Awstria"
+
+#: grc/business_logic/constants.py:13
+msgid "Belgium"
+msgstr "Gwlad Belg"
+
+#: grc/business_logic/constants.py:14
+msgid "Bulgaria"
+msgstr "Bwlgaria"
+
+#: grc/business_logic/constants.py:15
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr "Canada - heb gynnwys Tiriogaethau'r Gogledd Orllewin a Nunavut"
+
+#: grc/business_logic/constants.py:16
+msgid "Croatia"
+msgstr "Croatia"
+
+#: grc/business_logic/constants.py:17
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: grc/business_logic/constants.py:18
+msgid "Czech Republic"
+msgstr "Gweriniaeth Tsiec"
+
+#: grc/business_logic/constants.py:19
+msgid "Denmark"
+msgstr "Denmarc"
+
+#: grc/business_logic/constants.py:20
+msgid "Estonia"
+msgstr "Estonia"
+
+#: grc/business_logic/constants.py:21
+msgid "Finland"
+msgstr "Ffindir"
+
+#: grc/business_logic/constants.py:22
+msgid "France"
+msgstr "Ffrainc"
+
+#: grc/business_logic/constants.py:23
+msgid "Germany"
+msgstr "Almaen"
+
+#: grc/business_logic/constants.py:24
+msgid "Greece"
+msgstr "Groeg"
+
+#: grc/business_logic/constants.py:25
+msgid "Iceland"
+msgstr "Gwlad yr Iâ"
+
+#: grc/business_logic/constants.py:26
+msgid "Italy"
+msgstr "Eidal"
+
+#: grc/business_logic/constants.py:27
+msgid "Japan"
+msgstr "Japan"
+
+#: grc/business_logic/constants.py:28
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: grc/business_logic/constants.py:29
+msgid "Luxembourg"
+msgstr "Lwcsembwrg"
+
+#: grc/business_logic/constants.py:30
+msgid "Malta"
+msgstr "Malta"
+
+#: grc/business_logic/constants.py:31
+msgid "Federal District of Mexico"
+msgstr "Ardal Ffederal Mecsico"
+
+#: grc/business_logic/constants.py:32
+msgid "Moldova"
+msgstr "Moldofa"
+
+#: grc/business_logic/constants.py:33
+msgid "Netherlands"
+msgstr "Iseldiroedd"
+
+#: grc/business_logic/constants.py:34
+msgid "New Zealand"
+msgstr "Seland Newydd"
+
+#: grc/business_logic/constants.py:35
+msgid "Norway"
+msgstr "Norwy"
+
+#: grc/business_logic/constants.py:36
+msgid "Poland"
+msgstr "Gwlad Pwyl"
+
+#: grc/business_logic/constants.py:37
+msgid "Romania"
+msgstr "Rwmania"
+
+#: grc/business_logic/constants.py:38
+msgid "Russian Federation"
+msgstr "Ffederasiwn Rwsia"
+
+#: grc/business_logic/constants.py:39
+msgid "Serbia"
+msgstr "Serbia"
+
+#: grc/business_logic/constants.py:40
+msgid "Singapore"
+msgstr "Singapôr"
+
+#: grc/business_logic/constants.py:41
+msgid "Slovakia"
+msgstr "Slofacia"
+
+#: grc/business_logic/constants.py:42
+msgid "Slovenia"
+msgstr "Slofenia"
+
+#: grc/business_logic/constants.py:43
+msgid "South Africa"
+msgstr "De Affrica"
+
+#: grc/business_logic/constants.py:44
+msgid "South Korea"
+msgstr "De Corea"
+
+#: grc/business_logic/constants.py:45
+msgid "Spain"
+msgstr "Sbaen"
+
+#: grc/business_logic/constants.py:46
+msgid "Sweden"
+msgstr "Sweden"
+
+#: grc/business_logic/constants.py:47
+msgid "Switzerland"
+msgstr "Swistir"
+
+#: grc/business_logic/constants.py:48
+msgid "Turkey"
+msgstr "Twrci"
+
+#: grc/business_logic/constants.py:49
+msgid "Ukraine"
+msgstr "Wcráin"
+
+#: grc/business_logic/constants.py:50
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr "Unol Daleithiau America – heb gynnwys Idaho, Ohio, Tennessee a Texas"
+
+#: grc/business_logic/constants.py:51
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: grc/business_logic/constants.py:55
 msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
@@ -71,7 +235,7 @@ msgstr ""
 "Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod "
 "Rhywedd?"
 
-#: grc/business_logic/constants.py:13
+#: grc/business_logic/constants.py:56
 msgid ""
 "Do you plan to remain in your civil partnership after you receive your "
 "Gender Recognition Certificate?"
@@ -79,19 +243,19 @@ msgstr ""
 "Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich"
 " Tystysgrif Cydnabod Rhywedd?"
 
-#: grc/business_logic/constants.py:17
+#: grc/business_logic/constants.py:60
 msgid "We’ve resent you a security code. This can take a few minutes to arrive"
 msgstr ""
 
-#: grc/business_logic/constants.py:20
+#: grc/business_logic/constants.py:63
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr ""
 
-#: grc/business_logic/constants.py:21
+#: grc/business_logic/constants.py:64
 msgid "Select if you are currently married or in a civil partnership"
 msgstr "Dewiswch os ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd"
 
-#: grc/business_logic/constants.py:22
+#: grc/business_logic/constants.py:65
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
@@ -99,7 +263,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil pan fu farw eich priod neu'ch partner"
 
-#: grc/business_logic/constants.py:24
+#: grc/business_logic/constants.py:67
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
@@ -107,7 +271,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil sydd wedi dod i ben"
 
-#: grc/business_logic/constants.py:26
+#: grc/business_logic/constants.py:69
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
@@ -115,7 +279,7 @@ msgstr ""
 "Dewiswch os ydych chi wedi cael cydnabyddiaeth rhywedd yn un o'r gwledydd"
 " neu'r tiriogaethau hyn"
 
-#: grc/business_logic/constants.py:28
+#: grc/business_logic/constants.py:71
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
@@ -123,41 +287,45 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif "
 "Cydnabod Rhywedd"
 
-#: grc/business_logic/constants.py:30
+#: grc/business_logic/constants.py:73
 msgid "Enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
-#: grc/business_logic/constants.py:31
+#: grc/business_logic/constants.py:74
 msgid "Enter a valid email address"
 msgstr "Nodwch gyfeiriad e-bost dilys"
 
-#: grc/business_logic/constants.py:32
+#: grc/business_logic/constants.py:75
 msgid "Enter a security code"
 msgstr "Nodwch god diogelwch"
 
-#: grc/business_logic/constants.py:33
+#: grc/business_logic/constants.py:76
 msgid "Enter the security code that we emailed you"
 msgstr "Nodwch y cod diogelwch y gwnaethom anfon atoch trwy e-bost"
 
-#: grc/business_logic/constants.py:34
+#: grc/business_logic/constants.py:77
 msgid "Select if you have already started an application"
 msgstr "Dewiswch a ydych eisoes wedi dechrau cais"
 
-#: grc/business_logic/constants.py:35
+#: grc/business_logic/constants.py:78
 msgid "Enter a reference number"
 msgstr "Nodwch gyfeirnod"
 
-#: grc/business_logic/constants.py:36
+#: grc/business_logic/constants.py:79
 msgid "Enter a valid reference number"
 msgstr "Nodwch gyfeirnod dilys"
 
-#: grc/business_logic/constants.py:37
+#: grc/business_logic/constants.py:80
 msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr "Dewiswch a roddwyd Tystysgrif Cydnabod Rhywedd ichi erioed"
 
-#: grc/business_logic/constants.py:38
+#: grc/business_logic/constants.py:81
 msgid "You must consent to the General Register Office contacting you"
 msgstr "Rhaid i chi roi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu â chi"
+
+#: grc/business_logic/constants.py:82
+msgid "Select if you have official documentation"
+msgstr "Dewiswch a oes gennych ddogfennaeth swyddogol"
 
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
@@ -501,171 +669,7 @@ msgstr ""
 "Mae'r dogfennau y mae angen i chi eu darparu yn wahanol os ydych wedi "
 "cael cydnabyddiaeth rhywedd mewn gwlad neu diriogaeth o'r rhestr hon:"
 
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:33
-msgid "Australia – not including the external territories"
-msgstr "Awstralia – heb gynnwys y tiriogaethau allanol"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:34
-msgid "Austria"
-msgstr "Awstria"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:35
-msgid "Belgium"
-msgstr "Gwlad Belg"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:36
-msgid "Bulgaria"
-msgstr "Bwlgaria"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:37
-msgid "Canada – not including Northwest Territories and Nunavut"
-msgstr "Canada - heb gynnwys Tiriogaethau'r Gogledd Orllewin a Nunavut"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:38
-msgid "Croatia"
-msgstr "Croatia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:39
-msgid "Cyprus"
-msgstr "Cyprus"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:40
-msgid "Czech Republic"
-msgstr "Gweriniaeth Tsiec"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:41
-msgid "Denmark"
-msgstr "Denmarc"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:42
-msgid "Estonia"
-msgstr "Estonia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:43
-msgid "Finland"
-msgstr "Ffindir"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:44
-msgid "France"
-msgstr "Ffrainc"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:45
-msgid "Germany"
-msgstr "Almaen"
-
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:46
-msgid "Greece"
-msgstr "Groeg"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:47
-msgid "Iceland"
-msgstr "Gwlad yr Iâ"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:48
-msgid "Italy"
-msgstr "Eidal"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:49
-msgid "Japan"
-msgstr "Japan"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:50
-msgid "Liechtenstein"
-msgstr "Liechtenstein"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:51
-msgid "Luxembourg"
-msgstr "Lwcsembwrg"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:52
-msgid "Malta"
-msgstr "Malta"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:53
-msgid "Federal District of Mexico"
-msgstr "Ardal Ffederal Mecsico"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:54
-msgid "Moldova"
-msgstr "Moldofa"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:55
-msgid "Netherlands"
-msgstr "Iseldiroedd"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:56
-msgid "New Zealand"
-msgstr "Seland Newydd"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:57
-msgid "Norway"
-msgstr "Norwy"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:58
-msgid "Poland"
-msgstr "Gwlad Pwyl"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:59
-msgid "Romania"
-msgstr "Rwmania"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:60
-msgid "Russian Federation"
-msgstr "Ffederasiwn Rwsia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:61
-msgid "Serbia"
-msgstr "Serbia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:62
-msgid "Singapore"
-msgstr "Singapôr"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:63
-msgid "Slovakia"
-msgstr "Slofacia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:64
-msgid "Slovenia"
-msgstr "Slofenia"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:65
-msgid "South Africa"
-msgstr "De Affrica"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:66
-msgid "South Korea"
-msgstr "De Corea"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:67
-msgid "Spain"
-msgstr "Sbaen"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:68
-msgid "Sweden"
-msgstr "Sweden"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:69
-msgid "Switzerland"
-msgstr "Swistir"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:70
-msgid "Turkey"
-msgstr "Twrci"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:71
-msgid "Ukraine"
-msgstr "Wcráin"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:72
-msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
-msgstr "Unol Daleithiau America – heb gynnwys Idaho, Ohio, Tennessee a Texas"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:73
-msgid "Uruguay"
-msgstr "Uruguay"
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:82
 msgid ""
 "Have you received gender recognition in one of these countries or "
 "territories?"
@@ -1239,14 +1243,17 @@ msgid "something that’s equal to a Gender Recognition Certificate"
 msgstr "Rhywbeth sy'n cyfateb i Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/your-documents.html:328
+#: grc/templates/start-application/overseas-approved-check.html:31
 msgid "an updated birth certificate"
 msgstr "Tystysgrif geni wedi'i diweddaru"
 
 #: grc/templates/document-checker/your-documents.html:329
+#: grc/templates/start-application/overseas-approved-check.html:32
 msgid "a court order"
 msgstr "gorchymyn llys"
 
 #: grc/templates/document-checker/your-documents.html:330
+#: grc/templates/start-application/overseas-approved-check.html:33
 msgid "an entry in a legal register"
 msgstr "cofnod mewn cofrestr gyfreithiol"
 
@@ -2461,6 +2468,62 @@ msgstr "Bydd angen i chi ddechrau cais newydd"
 #: grc/templates/start-application/is-first-visit.html:40
 msgid "Reference number"
 msgstr "Cyfeirnod"
+
+#: grc/templates/start-application/overseas-approved-check.html:7
+#: grc/templates/start-application/overseas-approved-check.html:20
+msgid "Gender recognition in approved countries and territories"
+msgstr "Cydnabod rhywedd mewn gwledydd a thiriogaethau cymeradwy"
+
+#: grc/templates/start-application/overseas-approved-check.html:24
+msgid ""
+"If you have ever been issued a Gender Recognition Certificate (or its "
+"equivalent) in an approved country or territory, you will need to provide"
+" official documentation that shows this"
+msgstr ""
+"Os ydych erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif "
+"cyfwerth) mewn gwlad neu diriogaeth cymeradwy, bydd angen i chi ddarparu "
+"dogfennaeth swyddogol sy’n dangos hyn"
+
+#: grc/templates/start-application/overseas-approved-check.html:27
+msgid "This could be"
+msgstr "Gallai hyn fod yn"
+
+#: grc/templates/start-application/overseas-approved-check.html:30
+msgid "a document equal to a Gender Recognition Certificate"
+msgstr "ddogfen sy'n cyfateb i Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/start-application/overseas-approved-check.html:36
+msgid ""
+"If you have received gender recognition from somewhere else, or you can’t"
+" provide this documentation, you will need to provide medical reports and"
+" evidence of living in your gender for 2 years instead"
+msgstr ""
+"Os ydych wedi cael statws cydnabod rhywedd mewn rhyw ffordd arall, neu os"
+" na allwch ddarparu’r ddogfennaeth hon, bydd angen i chi ddarparu "
+"adroddiadau meddygol a thystiolaeth eich bod wedi bod yn byw yn eich "
+"rhywedd ers 2 flynedd"
+
+#: grc/templates/start-application/overseas-approved-check.html:40
+msgid "List of approved countries and territories"
+msgstr "Rhestr o wledydd a thiriogaethau cymeradwy"
+
+#: grc/templates/start-application/overseas-approved-check.html:56
+msgid ""
+"Do you have official documentation that shows you have ever been issued a"
+" Gender Recognition Certificate (or its equivalent) in one of these "
+"countries or territories?"
+msgstr ""
+"A oes gennych chi ddogfennaeth swyddogol sy’n dangos eich bod wedi cael "
+"Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) yn un o’r gwledydd "
+"neu diriogaethau hyn?"
+
+#: grc/templates/start-application/overseas-approved-check.html:60
+msgid ""
+"Select ‘No’ if you have received gender recognition from somewhere else, "
+"or you can’t provide this documentation."
+msgstr ""
+"Dewiswch ‘Nac oes’ os ydych wedi cael statws cydnabod rhywedd gan wlad "
+"neu diriogaeth arall, neu os na allwch ddarparu’r ddogfennaeth hon."
 
 #: grc/templates/start-application/overseas-check.html:7
 #: grc/templates/start-application/overseas-check.html:25

@@ -61,88 +61,260 @@ msgstr ""
 msgid "Neither"
 msgstr ""
 
+#: grc/business_logic/constants.py:11
+msgid "Australia – not including the external territories"
+msgstr ""
+
 #: grc/business_logic/constants.py:12
+msgid "Austria"
+msgstr ""
+
+#: grc/business_logic/constants.py:13
+msgid "Belgium"
+msgstr ""
+
+#: grc/business_logic/constants.py:14
+msgid "Bulgaria"
+msgstr ""
+
+#: grc/business_logic/constants.py:15
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr ""
+
+#: grc/business_logic/constants.py:16
+msgid "Croatia"
+msgstr ""
+
+#: grc/business_logic/constants.py:17
+msgid "Cyprus"
+msgstr ""
+
+#: grc/business_logic/constants.py:18
+msgid "Czech Republic"
+msgstr ""
+
+#: grc/business_logic/constants.py:19
+msgid "Denmark"
+msgstr ""
+
+#: grc/business_logic/constants.py:20
+msgid "Estonia"
+msgstr ""
+
+#: grc/business_logic/constants.py:21
+msgid "Finland"
+msgstr ""
+
+#: grc/business_logic/constants.py:22
+msgid "France"
+msgstr ""
+
+#: grc/business_logic/constants.py:23
+msgid "Germany"
+msgstr ""
+
+#: grc/business_logic/constants.py:24
+msgid "Greece"
+msgstr ""
+
+#: grc/business_logic/constants.py:25
+msgid "Iceland"
+msgstr ""
+
+#: grc/business_logic/constants.py:26
+msgid "Italy"
+msgstr ""
+
+#: grc/business_logic/constants.py:27
+msgid "Japan"
+msgstr ""
+
+#: grc/business_logic/constants.py:28
+msgid "Liechtenstein"
+msgstr ""
+
+#: grc/business_logic/constants.py:29
+msgid "Luxembourg"
+msgstr ""
+
+#: grc/business_logic/constants.py:30
+msgid "Malta"
+msgstr ""
+
+#: grc/business_logic/constants.py:31
+msgid "Federal District of Mexico"
+msgstr ""
+
+#: grc/business_logic/constants.py:32
+msgid "Moldova"
+msgstr ""
+
+#: grc/business_logic/constants.py:33
+msgid "Netherlands"
+msgstr ""
+
+#: grc/business_logic/constants.py:34
+msgid "New Zealand"
+msgstr ""
+
+#: grc/business_logic/constants.py:35
+msgid "Norway"
+msgstr ""
+
+#: grc/business_logic/constants.py:36
+msgid "Poland"
+msgstr ""
+
+#: grc/business_logic/constants.py:37
+msgid "Romania"
+msgstr ""
+
+#: grc/business_logic/constants.py:38
+msgid "Russian Federation"
+msgstr ""
+
+#: grc/business_logic/constants.py:39
+msgid "Serbia"
+msgstr ""
+
+#: grc/business_logic/constants.py:40
+msgid "Singapore"
+msgstr ""
+
+#: grc/business_logic/constants.py:41
+msgid "Slovakia"
+msgstr ""
+
+#: grc/business_logic/constants.py:42
+msgid "Slovenia"
+msgstr ""
+
+#: grc/business_logic/constants.py:43
+msgid "South Africa"
+msgstr ""
+
+#: grc/business_logic/constants.py:44
+msgid "South Korea"
+msgstr ""
+
+#: grc/business_logic/constants.py:45
+msgid "Spain"
+msgstr ""
+
+#: grc/business_logic/constants.py:46
+msgid "Sweden"
+msgstr ""
+
+#: grc/business_logic/constants.py:47
+msgid "Switzerland"
+msgstr ""
+
+#: grc/business_logic/constants.py:48
+msgid "Turkey"
+msgstr ""
+
+#: grc/business_logic/constants.py:49
+msgid "Ukraine"
+msgstr ""
+
+#: grc/business_logic/constants.py:50
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr ""
+
+#: grc/business_logic/constants.py:51
+msgid "Uruguay"
+msgstr ""
+
+#: grc/business_logic/constants.py:55
 msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
 msgstr ""
 
-#: grc/business_logic/constants.py:13
+#: grc/business_logic/constants.py:56
 msgid ""
 "Do you plan to remain in your civil partnership after you receive your "
 "Gender Recognition Certificate?"
 msgstr ""
 
-#: grc/business_logic/constants.py:17
+#: grc/business_logic/constants.py:60
 msgid "We’ve resent you a security code. This can take a few minutes to arrive"
 msgstr ""
 
-#: grc/business_logic/constants.py:20
+#: grc/business_logic/constants.py:63
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr ""
 
-#: grc/business_logic/constants.py:21
+#: grc/business_logic/constants.py:64
 msgid "Select if you are currently married or in a civil partnership"
 msgstr ""
 
-#: grc/business_logic/constants.py:22
+#: grc/business_logic/constants.py:65
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
 msgstr ""
 
-#: grc/business_logic/constants.py:24
+#: grc/business_logic/constants.py:67
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
 msgstr ""
 
-#: grc/business_logic/constants.py:26
+#: grc/business_logic/constants.py:69
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
 msgstr ""
 
-#: grc/business_logic/constants.py:28
+#: grc/business_logic/constants.py:71
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
 msgstr ""
 
-#: grc/business_logic/constants.py:30
+#: grc/business_logic/constants.py:73
 msgid "Enter your email address"
 msgstr ""
 
-#: grc/business_logic/constants.py:31
+#: grc/business_logic/constants.py:74
 msgid "Enter a valid email address"
 msgstr ""
 
-#: grc/business_logic/constants.py:32
+#: grc/business_logic/constants.py:75
 msgid "Enter a security code"
 msgstr ""
 
-#: grc/business_logic/constants.py:33
+#: grc/business_logic/constants.py:76
 msgid "Enter the security code that we emailed you"
 msgstr ""
 
-#: grc/business_logic/constants.py:34
+#: grc/business_logic/constants.py:77
 msgid "Select if you have already started an application"
 msgstr ""
 
-#: grc/business_logic/constants.py:35
+#: grc/business_logic/constants.py:78
 msgid "Enter a reference number"
 msgstr ""
 
-#: grc/business_logic/constants.py:36
+#: grc/business_logic/constants.py:79
 msgid "Enter a valid reference number"
 msgstr ""
 
-#: grc/business_logic/constants.py:37
+#: grc/business_logic/constants.py:80
 msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr ""
 
 #: grc/business_logic/constants.py:38
 msgid "You must consent to the General Register Office contacting you"
+msgstr ""
+
+#: grc/business_logic/constants.py:81
+msgid "You must consent to the General Register Office contacting you"
+msgstr ""
+
+#: grc/business_logic/constants.py:82
+msgid "Select if you have official documentation"
 msgstr ""
 
 #: grc/document_checker/constants.py:7
@@ -454,171 +626,7 @@ msgid ""
 "gender recognition in a country or territory from this list:"
 msgstr ""
 
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:33
-msgid "Australia – not including the external territories"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:34
-msgid "Austria"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:35
-msgid "Belgium"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:36
-msgid "Bulgaria"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:37
-msgid "Canada – not including Northwest Territories and Nunavut"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:38
-msgid "Croatia"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:39
-msgid "Cyprus"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:40
-msgid "Czech Republic"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:41
-msgid "Denmark"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:42
-msgid "Estonia"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:43
-msgid "Finland"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:44
-msgid "France"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:45
-msgid "Germany"
-msgstr ""
-
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:46
-msgid "Greece"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:47
-msgid "Iceland"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:48
-msgid "Italy"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:49
-msgid "Japan"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:50
-msgid "Liechtenstein"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:51
-msgid "Luxembourg"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:52
-msgid "Malta"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:53
-msgid "Federal District of Mexico"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:54
-msgid "Moldova"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:55
-msgid "Netherlands"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:56
-msgid "New Zealand"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:57
-msgid "Norway"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:58
-msgid "Poland"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:59
-msgid "Romania"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:60
-msgid "Russian Federation"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:61
-msgid "Serbia"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:62
-msgid "Singapore"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:63
-msgid "Slovakia"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:64
-msgid "Slovenia"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:65
-msgid "South Africa"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:66
-msgid "South Korea"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:67
-msgid "Spain"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:68
-msgid "Sweden"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:69
-msgid "Switzerland"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:70
-msgid "Turkey"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:71
-msgid "Ukraine"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:72
-msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:73
-msgid "Uruguay"
-msgstr ""
-
-#: grc/templates/document-checker/gender-recognition-outside-uk.html:82
 msgid ""
 "Have you received gender recognition in one of these countries or "
 "territories?"
@@ -1108,14 +1116,17 @@ msgid "something that’s equal to a Gender Recognition Certificate"
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:328
+#: grc/templates/start-application/overseas-approved-check.html:31
 msgid "an updated birth certificate"
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:329
+#: grc/templates/start-application/overseas-approved-check.html:32
 msgid "a court order"
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:330
+#: grc/templates/start-application/overseas-approved-check.html:33
 msgid "an entry in a legal register"
 msgstr ""
 
@@ -2104,6 +2115,42 @@ msgstr ""
 msgid "I consent"
 msgstr ""
 
+#: grc/templates/start-application/declaration.html:7
+#: grc/templates/start-application/declaration.html:20
+msgid "Notifying the General Register Office"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:24
+msgid ""
+"If you were born in the UK, the Gender Recognition Panel will tell the "
+"relevant General Register Office about your application"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:27
+msgid ""
+"This will include telling them if you are married or in a civil "
+"partnership registered in England and Wales or Scotland and you are "
+"applying for gender recognition while remaining married or in a civil "
+"partnership"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:30
+msgid ""
+"After you receive your certificate, the General Register Office will "
+"contact you about your new birth certificate and, if appropriate, a new "
+"certificate for your marriage or civil partnership"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:39
+msgid ""
+"Do you consent to the General Register Office contacting you about your "
+"application?"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:40
+msgid "I consent"
+msgstr ""
+
 #: grc/templates/start-application/email-address.html:6
 #: grc/templates/start-application/email-address.html:15
 msgid "Email address"
@@ -2160,6 +2207,50 @@ msgstr ""
 
 #: grc/templates/start-application/is-first-visit.html:40
 msgid "Reference number"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:7
+#: grc/templates/start-application/overseas-approved-check.html:20
+msgid "Gender recognition in approved countries and territories"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:24
+msgid ""
+"If you have ever been issued a Gender Recognition Certificate (or its "
+"equivalent) in an approved country or territory, you will need to provide"
+" official documentation that shows this"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:27
+msgid "This could be"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:30
+msgid "a document equal to a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:36
+msgid ""
+"If you have received gender recognition from somewhere else, or you can’t"
+" provide this documentation, you will need to provide medical reports and"
+" evidence of living in your gender for 2 years instead"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:40
+msgid "List of approved countries and territories"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:56
+msgid ""
+"Do you have official documentation that shows you have ever been issued a"
+" Gender Recognition Certificate (or its equivalent) in one of these "
+"countries or territories?"
+msgstr ""
+
+#: grc/templates/start-application/overseas-approved-check.html:60
+msgid ""
+"Select ‘No’ if you have received gender recognition from somewhere else, "
+"or you can’t provide this documentation."
 msgstr ""
 
 #: grc/templates/start-application/overseas-check.html:7
