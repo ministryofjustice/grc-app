@@ -1,10 +1,11 @@
 import enum
+from grc.task_list.constants import TaskListConstants as c
 
 
 class ListStatus(enum.Enum):
-    COMPLETED = "COMPLETED"
-    IN_PROGRESS = "IN PROGRESS"
-    NOT_STARTED = "NOT STARTED"
-    CANNOT_START_YET = "CANNOT START YET"
-    IN_REVIEW = "IN REVIEW"  # Value 'in progress' is used only at task list
-    ERROR = "ERROR"
+    COMPLETED = c.COMPLETED
+    IN_PROGRESS = c.IN_PROGRESS
+    NOT_STARTED = c.NOT_STARTED
+    CANNOT_START_YET = c.CANNOT_START_YET
+    IN_REVIEW = c.IN_REVIEW  # Value 'in progress' is used only at task list
+    ERROR = c.ERROR

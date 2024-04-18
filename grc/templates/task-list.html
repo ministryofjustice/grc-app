@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% import "helper-macros/random-id.html" as random_id %}
 
-{% block title %}Your application{% endblock %}
+{% block title %}{{ _('Your application') }}{% endblock %}
 
 {% macro taskListItem(text, url, status, suffix, id=None) %}
     {% set id = id or 'id-' + random_id.randomId(10) %}
@@ -28,43 +28,43 @@
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                Your application
+                {{ _('Your application') }}
             </h1>
 
         </div>
         <div class="govuk-grid-column-two-thirds">
 
             <p class="govuk-body">
-                This is where you can provide your personal details and upload your documents.
+                {{ _('This is where you can provide your personal details and upload your documents') }}.
             </p>
             <p class="govuk-body">
-                Your application is saved automatically as you progress.
-                You can
+                {{ _('Your application is saved automatically as you progress') }}.
+                {{ _('You can') }}
                 <a href="{{ url_for('saveAndReturn.exitApplication') }}" class="govuk-link govuk-link--no-visited-state">
-                    save and exit
+                    {{ _('save and exit') }}
                 </a>
-                at any time and return to your application later.
+                {{ _('at any time and return to your application later') }}.
             </p>
 
             <div class="govuk-inset-text govuk-!-margin-bottom-8">
                 <p class="govuk-body">
-                    You can upload most documents online, but you will need to post us your birth or adoption certificate.
+                    {{ _('You can upload most documents online, but you will need to post us your birth or adoption certificate') }}.
                 </p>
 
                 <p class="govuk-body">
-                    What you need to upload depends on the information you provide during your application.
+                    {{ _('What you need to upload depends on the information you provide during your application') }}.
                 </p>
             </div>
 
             <ol class="app-task-list app-task-list--no-numbers">
                 <li>
                     <h2 class="app-task-list__section">
-                    Before you start
+                    {{ _('Before you start') }}
                     </h2>
 
                     <ul class="app-task-list__items">
                         {{ taskListItem(
-                            "Confirmation",
+                            _("Confirmation"),
                             url_for('startApplication.overseas_check'),
                             application_data.confirmation_data.section_status)
                         }}
@@ -74,12 +74,12 @@
                 <!-- Fill in your details -->
                 <li>
                     <h2 class="app-task-list__section">
-                        Fill in your details
+                        {{ _('Fill in your details') }}
                     </h2>
 
                     <ul class="app-task-list__items">
                         {{ taskListItem(
-                            "Your personal details",
+                            _("Your personal details"),
                             (url_for('personalDetails.checkYourAnswers')
                              if application_data.personal_details_data.section_status == ListStatus.COMPLETED
                              else url_for('personalDetails.index')),
@@ -87,7 +87,7 @@
                         }}
 
                         {{ taskListItem(
-                            "Your birth registration information",
+                            _("Your birth registration information"),
                             (url_for('birthRegistration.checkYourAnswers')
                              if application_data.birth_registration_data.section_status == ListStatus.COMPLETED
                              else url_for('birthRegistration.index')),
@@ -95,7 +95,7 @@
                         }}
 
                         {{ taskListItem(
-                            "Marriage or civil partnership details",
+                            _("Marriage or civil partnership details"),
                             (url_for('partnershipDetails.checkYourAnswers')
                              if application_data.partnership_details_data.section_status == ListStatus.COMPLETED
                              else url_for('partnershipDetails.index')),
@@ -108,13 +108,13 @@
                 <!-- Upload your documents -->
                 <li>
                     <h2 class="app-task-list__section">
-                        Upload your documents
+                        {{ _('Upload your documents') }}
                     </h2>
 
                     <ul class="app-task-list__items">
                         {% if application_data.need_medical_reports %}
                             {{ taskListItem(
-                                "Your medical reports",
+                                _("Your medical reports"),
                                 url_for('upload.uploadInfoPage', section_url='medical-reports'),
                                 application_data.section_status_medical_reports)
                             }}
@@ -122,7 +122,7 @@
 
                         {% if application_data.need_evidence_of_living_in_gender %}
                             {{ taskListItem(
-                                "Evidence of living in your gender",
+                                _("Evidence of living in your gender"),
                                 url_for('upload.uploadInfoPage', section_url='gender-evidence'),
                                 application_data.section_status_evidence_of_living_in_gender)
                             }}
@@ -130,7 +130,7 @@
 
                         {% if application_data.need_name_change_documents %}
                             {{ taskListItem(
-                                "Name change documents",
+                                _("Name change documents"),
                                 url_for('upload.uploadInfoPage', section_url='name-change'),
                                 application_data.section_status_name_change_documents)
                             }}
@@ -138,7 +138,7 @@
 
                         {% if application_data.need_partnership_documents %}
                             {{ taskListItem(
-                                "Marriage and civil partnership documents",
+                                _("Marriage and civil partnership documents"),
                                 url_for('upload.uploadInfoPage', section_url='marriage-documents'),
                                 application_data.section_status_partnership_documents)
                             }}
@@ -153,7 +153,7 @@
                         {% endif %}
 
                         {{ taskListItem(
-                            "Statutory declarations",
+                            _("Statutory declarations"),
                             url_for('upload.uploadInfoPage', section_url='statutory-declarations'),
                             application_data.section_status_statutory_declarations)
                         }}
@@ -164,17 +164,17 @@
                 <!-- Apply -->
                 <li>
                     <h2 class="app-task-list__section">
-                        Apply
+                        {{ _('Apply') }}
                     </h2>
 
                     <ul class="app-task-list__items">
                         {% macro submitAndPaySuffix() %}
                             <span class="govuk-hint govuk-!-margin-top-3 govuk-!-margin-bottom-0"><br>
-                                Once you have completed the other sections you can submit your application.
+                                {{ _('Once you have completed the other sections you can submit your application') }}.
                             </span>
                         {% endmacro %}
                         {{ taskListItem(
-                            "Submit and pay",
+                            _("Submit and pay"),
                             url_for('submitAndPay.index'),
                             application_data.section_status_submit_and_pay_data,
                             submitAndPaySuffix())
@@ -190,14 +190,14 @@
             <div class="gem-c-contextual-sidebar">
                 <div class="gem-c-related-navigation">
                     <h2 id="related-nav-related_items-298b5325" class="gem-c-related-navigation__main-heading">
-                        Returning to your application
+                        {{ _('Returning to your application') }}
                     </h2>
                     <p class="govuk-body-s">
-                        Your application is saved automatically as you progress.
+                        {{ _('Your application is saved automatically as you progress') }}.
                     </p>
                     <p class="govuk-body-s">
                         <a href="{{ url_for('saveAndReturn.exitApplication') }}" class="govuk-link govuk-link--no-visited-state">
-                            Exit and return later
+                            {{ _('Exit and return later') }}
                         </a>
                     </p>
                 </div>
