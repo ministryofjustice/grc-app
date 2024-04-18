@@ -29,49 +29,13 @@
             <p class="govuk-body">
                 {{ _('The documents you need to provide are different if you have received gender recognition in a country or territory from this list:') }}
             </p>
+            {% if countries %}
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
-                <li>{{ _('Australia – not including the external territories') }}</li>
-                <li>{{ _('Austria') }}</li>
-                <li>{{ _('Belgium') }}</li>
-                <li>{{ _('Bulgaria') }}</li>
-                <li>{{ _('Canada – not including Northwest Territories and Nunavut') }}</li>
-                <li>{{ _('Croatia') }}</li>
-                <li>{{ _('Cyprus') }}</li>
-                <li>{{ _('Czech Republic') }}</li>
-                <li>{{ _('Denmark') }}</li>
-                <li>{{ _('Estonia') }}</li>
-                <li>{{ _('Finland') }}</li>
-                <li>{{ _('France') }}</li>
-                <li>{{ _('Germany') }}</li>
-                <li>{{ _('Greece') }}</li>
-                <li>{{ _('Iceland') }}</li>
-                <li>{{ _('Italy') }}</li>
-                <li>{{ _('Japan') }}</li>
-                <li>{{ _('Liechtenstein') }}</li>
-                <li>{{ _('Luxembourg') }}</li>
-                <li>{{ _('Malta') }}</li>
-                <li>{{ _('Federal District of Mexico') }}</li>
-                <li>{{ _('Moldova') }}</li>
-                <li>{{ _('Netherlands') }}</li>
-                <li>{{ _('New Zealand') }}</li>
-                <li>{{ _('Norway') }}</li>
-                <li>{{ _('Poland') }}</li>
-                <li>{{ _('Romania') }}</li>
-                <li>{{ _('Russian Federation') }}</li>
-                <li>{{ _('Serbia') }}</li>
-                <li>{{ _('Singapore') }}</li>
-                <li>{{ _('Slovakia') }}</li>
-                <li>{{ _('Slovenia') }}</li>
-                <li>{{ _('South Africa') }}</li>
-                <li>{{ _('South Korea') }}</li>
-                <li>{{ _('Spain') }}</li>
-                <li>{{ _('Sweden') }}</li>
-                <li>{{ _('Switzerland') }}</li>
-                <li>{{ _('Turkey') }}</li>
-                <li>{{ _('Ukraine') }}</li>
-                <li>{{ _('United States of America – not including Idaho, Ohio, Tennessee and Texas') }}</li>
-                <li>{{ _('Uruguay') }}</li>
+                {% for country in countries %}
+                <li>{{ country }}</li>
+                {% endfor %}
             </ul>
+            {% endif %}
 
             <form method="POST" action="{{ url_for('documentChecker.genderRecognitionOutsideUK') }}">
                 {{ form.csrf_token }}

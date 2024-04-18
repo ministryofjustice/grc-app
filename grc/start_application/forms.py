@@ -49,12 +49,12 @@ class OverseasCheckForm(FlaskForm):
 
 
 class OverseasApprovedCheckForm(FlaskForm):
-    overseasApprovedCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    overseasApprovedCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have official documentation')]
+        validators=[LazyDataRequired(lazy_message=c.GENDER_RECOGNITION_IN_APPROVED_COUNTRY_ERROR)]
     )
 
 
