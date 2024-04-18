@@ -169,3 +169,29 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Check the checkbox
     await helpers.check_checkbox(field='consent')
     await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Task List page
+    # ------------------------------------------------
+    await asserts.url('/task-list')
+    await asserts.accessibility()
+    await asserts.h1('Eich cais')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/overseas-approved-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Your application')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Eich cais')
+
+    # Status of "Confirmation" section should be "COMPLETED"
+    await asserts.task_list_sections(7)
+    await asserts.task_list_section(section='Cadarnhau', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Eich manylion personol', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Manylion eich priodas neu bartneriaeth sifil', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Datganiadau statudol', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Cyflwyno a thalu', expected_status='METHU DECHRAU ETO')
