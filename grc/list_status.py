@@ -1,11 +1,11 @@
 import enum
-from grc.task_list.constants import TaskListConstants as c
+from flask_babel import lazy_gettext as _l
 
 
 class ListStatus(enum.Enum):
-    COMPLETED = c.COMPLETED
-    IN_PROGRESS = c.IN_PROGRESS
-    NOT_STARTED = c.NOT_STARTED
-    CANNOT_START_YET = c.CANNOT_START_YET
-    IN_REVIEW = c.IN_REVIEW  # Value 'in progress' is used only at task list
-    ERROR = c.ERROR
+    COMPLETED = _l("COMPLETED")
+    IN_PROGRESS = _l("IN PROGRESS")
+    NOT_STARTED = _l("NOT STARTED")
+    CANNOT_START_YET = _l("CANNOT START YET")
+    IN_REVIEW = _l("IN REVIEW")  # Value 'in progress' is used only at task list
+    ERROR = _l("ERROR")
