@@ -281,6 +281,10 @@ msgstr ""
 msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr ""
 
+#: grc/business_logic/constants.py:38
+msgid "You must consent to the General Register Office contacting you"
+msgstr ""
+
 #: grc/business_logic/constants.py:81
 msgid "You must consent to the General Register Office contacting you"
 msgstr ""
@@ -1943,6 +1947,42 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:195
 msgid "You can contact the Information Commissioner at:"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:7
+#: grc/templates/start-application/declaration.html:20
+msgid "Notifying the General Register Office"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:24
+msgid ""
+"If you were born in the UK, the Gender Recognition Panel will tell the "
+"relevant General Register Office about your application"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:27
+msgid ""
+"This will include telling them if you are married or in a civil "
+"partnership registered in England and Wales or Scotland and you are "
+"applying for gender recognition while remaining married or in a civil "
+"partnership"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:30
+msgid ""
+"After you receive your certificate, the General Register Office will "
+"contact you about your new birth certificate and, if appropriate, a new "
+"certificate for your marriage or civil partnership"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:39
+msgid ""
+"Do you consent to the General Register Office contacting you about your "
+"application?"
+msgstr ""
+
+#: grc/templates/start-application/declaration.html:40
+msgid "I consent"
 msgstr ""
 
 #: grc/templates/start-application/declaration.html:7
