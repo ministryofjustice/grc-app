@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-17 16:24+0100\n"
+"POT-Creation-Date: 2024-04-18 10:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.0\n"
+
+#: grc/list_status.py:6
+msgid "COMPLETED"
+msgstr ""
+
+#: grc/list_status.py:7
+msgid "IN PROGRESS"
+msgstr ""
+
+#: grc/list_status.py:8
+msgid "NOT STARTED"
+msgstr ""
+
+#: grc/list_status.py:9
+msgid "CANNOT START YET"
+msgstr ""
+
+#: grc/list_status.py:10
+msgid "IN REVIEW"
+msgstr ""
+
+#: grc/list_status.py:11
+msgid "ERROR"
+msgstr ""
 
 #: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
 msgid "Yes"
@@ -258,6 +282,117 @@ msgstr ""
 
 #: grc/templates/security-code.html:51
 msgid "Security code"
+msgstr ""
+
+#: grc/templates/task-list.html:4 grc/templates/task-list.html:31
+msgid "Your application"
+msgstr ""
+
+#: grc/templates/task-list.html:38
+msgid ""
+"This is where you can provide your personal details and upload your "
+"documents"
+msgstr ""
+
+#: grc/templates/task-list.html:41 grc/templates/task-list.html:196
+msgid "Your application is saved automatically as you progress"
+msgstr ""
+
+#: grc/templates/task-list.html:42
+msgid "You can"
+msgstr ""
+
+#: grc/templates/task-list.html:44
+msgid "save and exit"
+msgstr ""
+
+#: grc/templates/task-list.html:46
+msgid "at any time and return to your application later"
+msgstr ""
+
+#: grc/templates/task-list.html:51
+msgid ""
+"You can upload most documents online, but you will need to post us your "
+"birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/task-list.html:55
+msgid ""
+"What you need to upload depends on the information you provide during "
+"your application"
+msgstr ""
+
+#: grc/templates/document-checker/start.html:3
+#: grc/templates/document-checker/start.html:10 grc/templates/task-list.html:62
+msgid "Before you start"
+msgstr ""
+
+#: grc/templates/task-list.html:67
+msgid "Confirmation"
+msgstr ""
+
+#: grc/templates/task-list.html:77
+msgid "Fill in your details"
+msgstr ""
+
+#: grc/templates/task-list.html:82
+msgid "Your personal details"
+msgstr ""
+
+#: grc/templates/task-list.html:90
+msgid "Your birth registration information"
+msgstr ""
+
+#: grc/templates/task-list.html:98
+msgid "Marriage or civil partnership details"
+msgstr ""
+
+#: grc/templates/task-list.html:111
+msgid "Upload your documents"
+msgstr ""
+
+#: grc/templates/task-list.html:117
+msgid "Your medical reports"
+msgstr ""
+
+#: grc/templates/task-list.html:125
+msgid "Evidence of living in your gender"
+msgstr ""
+
+#: grc/templates/task-list.html:133
+msgid "Name change documents"
+msgstr ""
+
+#: grc/templates/task-list.html:141
+msgid "Marriage and civil partnership documents"
+msgstr ""
+
+#: grc/templates/task-list.html:149
+msgid "Overseas certificate documents"
+msgstr ""
+
+#: grc/templates/task-list.html:156
+msgid "Statutory declarations"
+msgstr ""
+
+#: grc/templates/task-list.html:167
+msgid "Apply"
+msgstr ""
+
+#: grc/templates/task-list.html:173
+msgid "Once you have completed the other sections you can submit your application"
+msgstr ""
+
+#: grc/templates/task-list.html:177
+msgid "Submit and pay"
+msgstr ""
+
+#: grc/templates/task-list.html:193
+msgid "Returning to your application"
+msgstr ""
+
+#: grc/templates/task-list.html:200
+msgid "Exit and return later"
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
@@ -542,11 +677,6 @@ msgstr ""
 msgid ""
 "Have you ever been in a marriage or civil partnership that ended for "
 "another reason?"
-msgstr ""
-
-#: grc/templates/document-checker/start.html:3
-#: grc/templates/document-checker/start.html:10
-msgid "Before you start"
 msgstr ""
 
 #: grc/templates/document-checker/start.html:14
