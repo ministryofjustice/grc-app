@@ -106,3 +106,30 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.check_radio(field='overseasCheck', value='False')
     await helpers.click_button('Parhau')
 
+    # ------------------------------------------------
+    # ---- Declaration page
+    # ------------------------------------------------
+    await asserts.url('/declaration')
+    await asserts.accessibility()
+    await asserts.h1('Hysbysu’r Swyddfa Gofrestru Gyffredinol')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/declaration')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Notifying the General Register Office')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Hysbysu’r Swyddfa Gofrestru Gyffredinol')
+
+    # Click "Back" to return to the Overseas Check page
+    await helpers.click_button('Yn ôl')
+
+    # ------------------------------------------------
+    # ---- Overseas Check page
+    # ------------------------------------------------
+    await asserts.url('/overseas-check')
+    await asserts.accessibility()
+    await asserts.h1('Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?')
+    await asserts.number_of_errors(0)
+
