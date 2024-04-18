@@ -133,3 +133,39 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?')
     await asserts.number_of_errors(0)
 
+    # Choose the "Yes" radio option
+    # This should take us to the Overseas Approved Check page
+    await helpers.check_radio(field='overseasCheck', value='True')
+    await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Overseas Approved Check page
+    # ------------------------------------------------
+    await asserts.url('/overseas-approved-check')
+    await asserts.accessibility()
+    await asserts.h1('Cydnabod rhywedd mewn gwledydd a thiriogaethau cymeradwy')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/overseas-approved-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Gender recognition in approved countries and territories')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Cydnabod rhywedd mewn gwledydd a thiriogaethau cymeradwy')
+
+    # Choose the "Yes" radio option
+    await helpers.check_radio(field='overseasApprovedCheck', value='True')
+    await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Declaration page
+    # ------------------------------------------------
+    await asserts.url('/declaration')
+    await asserts.accessibility()
+    await asserts.h1('Hysbysu’r Swyddfa Gofrestru Gyffredinol')
+    await asserts.number_of_errors(0)
+
+    # Check the checkbox
+    await helpers.check_checkbox(field='consent')
+    await helpers.click_button('Parhau')

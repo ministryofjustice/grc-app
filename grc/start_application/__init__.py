@@ -215,6 +215,7 @@ def overseas_approved_check():
     return render_template(
         'start-application/overseas-approved-check.html',
         form=form,
+        countries=c.APPROVED_COUNTRIES,
         back=get_previous_page(application_data, 'startApplication.overseas_check')
     )
 
