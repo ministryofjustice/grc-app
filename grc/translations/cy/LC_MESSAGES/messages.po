@@ -21,11 +21,11 @@ msgstr ""
 
 #: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
 msgid "Yes"
-msgstr "Nac ydw"
+msgstr "Ydw"
 
 #: grc/business_logic/constants.py:6 grc/templates/policies/cookies.html:120
 msgid "No"
-msgstr "Ydw"
+msgstr "Nac ydw"
 
 #: grc/business_logic/constants.py:7
 msgid "Married"
