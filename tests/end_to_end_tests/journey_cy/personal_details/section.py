@@ -42,3 +42,23 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='middle_names', value=data.MIDDLE_NAMES)
     await helpers.fill_textbox(field='last_name', value=data.LAST_NAME)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Affirmed Gender page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/affirmed-gender')
+    await asserts.accessibility()
+    await asserts.h1('What is your affirmed gender?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/affirmed-gender')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('What is your affirmed gender?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('What is your affirmed gender?')
+
+    # Choose an option, click Save and continue
+    await helpers.check_radio(field='affirmedGender', value='MALE')
+    await helpers.click_button('Cadw a pharhau')
