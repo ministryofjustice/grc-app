@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-18 10:29+0100\n"
+"POT-Creation-Date: 2024-04-22 09:47+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -432,6 +432,18 @@ msgstr ""
 #: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/personal_details/constants.py:6
+msgid "Enter your title"
+msgstr "Nodwch eich teitl"
+
+#: grc/personal_details/constants.py:7
+msgid "Enter your first name(s)"
+msgstr "Nodwch eich enw(au) cyntaf"
+
+#: grc/personal_details/constants.py:8
+msgid "Enter your last name"
+msgstr "Nodwch eich cyfenw"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1354,9 +1366,74 @@ msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
 msgid "Back"
 msgstr "Yn ôl"
 
+#: grc/templates/govuk-design-system-templates/continue.html:12
+msgid "Save and continue"
+msgstr "Cadw a pharhau"
+
+#: grc/templates/govuk-design-system-templates/continue.html:15
+msgid "Return to task list"
+msgstr "Yn ôl i’r rhestr tasgau"
+
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
+
+#: grc/templates/personal-details/name.html:7
+#: grc/templates/personal-details/name.html:26
+msgid "What is your name?"
+msgstr "Beth yw eich enw?"
+
+#: grc/templates/personal-details/name.html:30
+msgid ""
+"Enter your name exactly as it appears on either your latest change of "
+"name document or your birth certificate"
+msgstr ""
+"Rhowch eich enw yn union fel y mae’n ymddangos ar naill ai eich dogfen "
+"newid enw ddiweddaraf neu eich tystysgrif geni"
+
+#: grc/templates/personal-details/name.html:33
+msgid "This will appear in full on your Gender Recognition Certificate"
+msgstr "Bydd hwn i’w weld yn llawn ar eich Tystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/personal-details/name.html:36
+msgid ""
+"If you want to use a different name from your birth certificate or change"
+" of name document, you should"
+msgstr ""
+"Os ydych eisiau defnyddio enw gwahanol o’ch tystysgrif geni neu ddogfen "
+"newid enw, dylech"
+
+#: grc/templates/personal-details/name.html:39
+msgid "change your name by deed poll (opens in a new tab)"
+msgstr "newid eich enw drwy weithred newid enw (yn agor mewn tab newydd)"
+
+#: grc/templates/personal-details/name.html:41
+msgid "before you apply for a Gender Recognition Certificate"
+msgstr "cyn i chi wneud cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/personal-details/name.html:48
+msgid "Title"
+msgstr "Teitl"
+
+#: grc/templates/personal-details/name.html:49
+msgid ""
+"For internal use only. This will not appear on your Gender Recognition "
+"Certificate."
+msgstr ""
+"At ddefnydd mewnol yn unig. Ni fydd hwn yn ymddangos ar eich Tystysgrif "
+"Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/name.html:59
+msgid "First name"
+msgstr "Enw cyntaf"
+
+#: grc/templates/personal-details/name.html:69
+msgid "Middle names (only required if you have middle names)"
+msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
+
+#: grc/templates/personal-details/name.html:79
+msgid "Last name"
+msgstr "Cyfenw"
 
 #: grc/templates/policies/accessibility-statement.html:3
 #, fuzzy
