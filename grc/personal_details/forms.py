@@ -1,24 +1,26 @@
 from flask_wtf import FlaskForm
+from .constants import PersonalDetailsConstants as c
+from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
-from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
-from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
+from wtforms.validators import DataRequired, Email
 
 
 class NameForm(FlaskForm):
     title = StringField(
-        validators=[DataRequired(message='Enter your title')]
+        validators=[LazyDataRequired(lazy_message=c.TITLE_ERROR)]
     )
 
     first_name = StringField(
-        validators=[DataRequired(message='Enter your first name(s)')]
+        validators=[LazyDataRequired(lazy_message=c.FIRST_NAME_ERROR)]
     )
 
     middle_names = StringField()
 
     last_name = StringField(
-        validators=[DataRequired(message='Enter your last name')]
+        validators=[LazyDataRequired(message=c.LAST_NAME_ERROR)]
     )
 
 
