@@ -1,12 +1,14 @@
 import pytest
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 import grc
 import admin
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from admin.config import TestConfig as AdminTestConfig
+from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.config import TestConfig as GRCTestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import security_code_generator
+from tests.grc.helpers.data.application_data import ApplicationDataHelpers
 
 
 @pytest.fixture()
@@ -64,6 +66,11 @@ def test_application(app, public_user_email):
         )
         db.session.add(application_record)
         db.session.commit()
+
+        data = ApplicationData()
+        data.reference_number = application_record.reference_number
+        data.email_address = application_record.email
+        ApplicationDataHelpers.save_test_data(data)
 
         yield application_record
 

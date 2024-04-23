@@ -20,6 +20,7 @@ class AwsS3Client:
         self.bucket_name = current_app.config.get('BUCKET_NAME')
 
     def upload_fileobj(self, file, object_name):
+        logger.log(LogLevel.INFO, f"Uploading {object_name}, file - {file}")
         try:
             file.seek(0)
             self.s3.upload_fileobj(file, self.bucket_name, object_name)
