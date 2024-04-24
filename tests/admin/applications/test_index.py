@@ -62,3 +62,18 @@ class TestAdminElements:
             assert '/applications/IJKL9012' in html
             assert 'IJKL9012' in html
             assert f'{completed_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+
+    def test_invalid_applications_present(self, app, client, invalid_submitted_application):
+        with app.app_context():
+            with client.session_transaction() as session:
+                session['signedIn'] = 'test.email@example.com'
+
+            response = client.get('/applications#new')
+            html = response.data.decode()
+            assert 'New applications' in html
+            assert 'View application' in html
+            assert 'Reference number' in html
+            assert 'Applicant name' in html
+            assert 'Submitted' in html
+            assert 'Valid data not found for application MNOP3456 - test.email2@example.com' in html
+
