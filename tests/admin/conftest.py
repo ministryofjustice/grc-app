@@ -96,7 +96,7 @@ def submitted_application(app):
     with app.app_context():
         with app.test_request_context():
             # Generate a unique reference number
-            reference_number = DataStore.generate_unallocated_reference_number()
+            reference_number = 'ABCD1234'
 
             # Create the application record
             application_record = Application(
@@ -138,7 +138,7 @@ def downloaded_application(app):
     with app.app_context():
         with app.test_request_context():
             # Generate a unique reference number
-            reference_number = DataStore.generate_unallocated_reference_number()
+            reference_number = 'EFGH5678'
 
             # Create the application record
             application_record = Application(
@@ -180,7 +180,7 @@ def completed_application(app):
     with app.app_context():
         with app.test_request_context():
             # Generate a unique reference number
-            reference_number = DataStore.generate_unallocated_reference_number()
+            reference_number = 'IJKL9012'
 
             # Create the application record
             application_record = Application(
