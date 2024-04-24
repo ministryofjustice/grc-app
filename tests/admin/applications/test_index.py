@@ -24,10 +24,9 @@ class TestAdminElements:
             assert 'Reference number' in html
             assert 'Applicant name' in html
             assert 'Submitted' in html
+            assert f'/applications/{submitted_application.reference_number}' in html
             assert f'{submitted_application.reference_number}' in html
             assert f'{submitted_application.user_input}' in html
-            print(f'Actual value: {submitted_application.completed.strftime("%d/%m/%Y %H:%M")}')
-            print(f'HTML: {html}')
             assert f'{submitted_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
 
     def test_downloaded_applications_present(self, app, client, downloaded_application):
@@ -45,7 +44,7 @@ class TestAdminElements:
             assert 'Downloaded by' in html
             assert f'/applications/{downloaded_application.reference_number}' in html
             assert f'{downloaded_application.reference_number}' in html
-            # assert f'{downloaded_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+            assert f'{downloaded_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
 
     def test_completed_applications_present(self, app, client, completed_application):
         with app.app_context():
@@ -62,4 +61,4 @@ class TestAdminElements:
             assert 'Completed by' in html
             assert f'/applications/{completed_application.reference_number}' in html
             assert f'{completed_application.reference_number}' in html
-            # assert f'{completed_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+            assert f'{completed_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
