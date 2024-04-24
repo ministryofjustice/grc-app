@@ -215,3 +215,38 @@ def completed_application(app):
             # Delete the application after the test
             db.session.delete(new_app)
             db.session.commit()
+
+
+@pytest.fixture()
+def invalid_submitted_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            # Generate a unique reference number
+            reference_number = 'MNOP3456'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email2@example.com',
+                status=ApplicationStatus.SUBMITTED,
+                completed=datetime.now() + relativedelta(hours=1)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Retrieve the newly created application
+            new_app = Application.query.filter_by(
+                reference_number=reference_number,
+                email='test.email2@example.com'
+            ).first()
+
+            # Yield the application for use in the test
+            yield new_app
+
+            # Delete the application after the test
+            db.session.delete(new_app)
+            db.session.commit()
