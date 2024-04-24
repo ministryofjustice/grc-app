@@ -137,25 +137,41 @@ def submitted_application(app):
 def downloaded_application(app):
     with app.app_context():
         with app.test_request_context():
-            new_submitted_application = []
+            # Generate a unique reference number
+            reference_number = DataStore.generate_unallocated_reference_number()
 
-            app = DataStore.create_new_application('test.email@example.com')
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                status=ApplicationStatus.DOWNLOADED,
+                completed=datetime.now() + relativedelta(hours=1)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Commit the changes to the database
             db.session.commit()
+
+            # Add user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+
+            DataStore.save_application(application_data)
+
+            # Retrieve the newly created application
             new_app = Application.query.filter_by(
-                reference_number=app.reference_number,
-                email=app.email_address
+                reference_number=reference_number,
+                email='test.email@example.com'
             ).first()
-            new_app.status = ApplicationStatus.DOWNLOADED
-            new_app.completed = datetime.now()
 
-            db.session.commit()
+            # Yield the application for use in the test
+            yield new_app
 
-            new_submitted_application.append(new_app)
-            new_submitted_application = new_submitted_application[0]
-
-            yield new_submitted_application
-
-            db.session.delete(new_submitted_application)
+            # Delete the application after the test
+            db.session.delete(new_app)
             db.session.commit()
 
 
@@ -163,23 +179,39 @@ def downloaded_application(app):
 def completed_application(app):
     with app.app_context():
         with app.test_request_context():
-            new_submitted_application = []
+            # Generate a unique reference number
+            reference_number = DataStore.generate_unallocated_reference_number()
 
-            app = DataStore.create_new_application('test.email@example.com')
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                status=ApplicationStatus.COMPLETED,
+                completed=datetime.now() + relativedelta(hours=1)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Commit the changes to the database
             db.session.commit()
+
+            # Add user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+
+            DataStore.save_application(application_data)
+
+            # Retrieve the newly created application
             new_app = Application.query.filter_by(
-                reference_number=app.reference_number,
-                email=app.email_address
+                reference_number=reference_number,
+                email='test.email@example.com'
             ).first()
-            new_app.status = ApplicationStatus.COMPLETED
-            new_app.completed = datetime.now()
 
-            db.session.commit()
+            # Yield the application for use in the test
+            yield new_app
 
-            new_submitted_application.append(new_app)
-            new_submitted_application = new_submitted_application[0]
-
-            yield new_submitted_application
-
-            db.session.delete(new_submitted_application)
+            # Delete the application after the test
+            db.session.delete(new_app)
             db.session.commit()
