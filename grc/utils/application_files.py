@@ -99,7 +99,8 @@ class ApplicationFiles:
     @staticmethod
     def download_pdf_admin(application_data: ApplicationData) -> bytes:
         file_name = application_data.reference_number + '.pdf'
-        return AwsS3Client().download_object(file_name).getvalue()
+        pdf = AwsS3Client().download_object(file_name)
+        return pdf.getvalue() if pdf else None
 
     def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
         file_name = application_data.reference_number + '.pdf'
