@@ -24,8 +24,8 @@ class TestAdminElements:
             assert 'Reference number' in html
             assert 'Applicant name' in html
             assert 'Submitted' in html
-            assert f'/applications/{submitted_application.reference_number}' in html
-            assert f'{submitted_application.reference_number}' in html
+            assert '/applications/ABCD1234' in html
+            assert 'ABCD1234' in html
             assert f'{submitted_application.user_input}' in html
             assert f'{submitted_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
 
@@ -42,8 +42,8 @@ class TestAdminElements:
             assert 'Submitted' in html
             assert 'Downloaded on' in html
             assert 'Downloaded by' in html
-            assert f'/applications/{downloaded_application.reference_number}' in html
-            assert f'{downloaded_application.reference_number}' in html
+            assert '/applications/EFGH5678' in html
+            assert 'EFGH5678' in html
             assert f'{downloaded_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
 
     def test_completed_applications_present(self, app, client, completed_application):
@@ -59,6 +59,6 @@ class TestAdminElements:
             assert 'Submitted' in html
             assert 'Completed on' in html
             assert 'Completed by' in html
-            assert f'/applications/{completed_application.reference_number}' in html
-            assert f'{completed_application.reference_number}' in html
+            assert '/applications/IJKL9012' in html
+            assert 'IJKL9012' in html
             assert f'{completed_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
