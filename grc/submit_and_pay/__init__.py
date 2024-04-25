@@ -206,15 +206,14 @@ def confirmation():
     mark_complete(application_data.reference_number)
 
     @copy_current_request_context
-    def create_files(reference_number, application_data):
-        ApplicationFiles().create_or_download_attachments(
+    def create_files(reference_number, application_data_):
+        ApplicationFiles().create_and_upload_attachments(
             reference_number,
-            application_data,
-            download=False
+            application_data_,
         )
         ApplicationFiles().create_or_download_pdf(
             reference_number,
-            application_data
+            application_data_
         )
 
         mark_files_created(reference_number)
