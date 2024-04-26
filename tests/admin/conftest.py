@@ -1,13 +1,12 @@
+import jsonpickle
 import pytest
 from admin import create_app
 from admin.config import TestConfig
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from grc.models import db, AdminUser, SecurityCode
+from grc.models import db, AdminUser, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import security_code_generator
 from werkzeug.security import generate_password_hash
-from tests.admin.helpers.data import create_test_applications
-from grc.models import db, Application, ApplicationStatus
 from grc.business_logic.data_store import DataStore, ApplicationData
 
 
@@ -95,7 +94,6 @@ def expired_security_code(app):
 def submitted_application(app):
     with app.app_context():
         with app.test_request_context():
-            # Generate a unique reference number
             reference_number = 'ABCD1234'
 
             # Create the application record
@@ -103,33 +101,29 @@ def submitted_application(app):
                 reference_number=reference_number,
                 email='test.email@example.com',
                 status=ApplicationStatus.SUBMITTED,
-                completed=datetime.now() + relativedelta(hours=1)
+                updated=datetime(2024, 1, 1, 9)
             )
 
             # Add the application to the database session
             db.session.add(application_record)
 
-            # Commit the changes to the database
-            db.session.commit()
-
-            # Add user input
+            # Add and encode user input
             application_data = ApplicationData()
             application_data.reference_number = reference_number
             application_data.email_address = 'test.email@example.com'
+            application_data.updated = application_record.updated
 
-            DataStore.save_application(application_data)
+            user_input: str = jsonpickle.encode(application_data)
+            application_record.user_input = user_input
 
-            # Retrieve the newly created application
-            new_app = Application.query.filter_by(
-                reference_number=reference_number,
-                email='test.email@example.com'
-            ).first()
+            # Commit the changes to the database
+            db.session.commit()
 
             # Yield the application for use in the test
-            yield new_app
+            yield application_record
 
             # Delete the application after the test
-            db.session.delete(new_app)
+            db.session.delete(application_record)
             db.session.commit()
 
 
@@ -145,7 +139,7 @@ def downloaded_application(app):
                 reference_number=reference_number,
                 email='test.email@example.com',
                 status=ApplicationStatus.DOWNLOADED,
-                completed=datetime.now() + relativedelta(hours=1)
+                downloaded=datetime(2024, 1, 1, 9)
             )
 
             # Add the application to the database session
@@ -159,19 +153,17 @@ def downloaded_application(app):
             application_data.reference_number = reference_number
             application_data.email_address = 'test.email@example.com'
 
-            DataStore.save_application(application_data)
+            user_input: str = jsonpickle.encode(application_data)
+            application_record.user_input = user_input
 
-            # Retrieve the newly created application
-            new_app = Application.query.filter_by(
-                reference_number=reference_number,
-                email='test.email@example.com'
-            ).first()
+            # Commit the changes to the database
+            db.session.commit()
 
             # Yield the application for use in the test
-            yield new_app
+            yield application_record
 
             # Delete the application after the test
-            db.session.delete(new_app)
+            db.session.delete(application_record)
             db.session.commit()
 
 
@@ -187,7 +179,7 @@ def completed_application(app):
                 reference_number=reference_number,
                 email='test.email@example.com',
                 status=ApplicationStatus.COMPLETED,
-                completed=datetime.now() + relativedelta(hours=1)
+                completed=datetime(2024, 1, 1, 9)
             )
 
             # Add the application to the database session
@@ -201,19 +193,17 @@ def completed_application(app):
             application_data.reference_number = reference_number
             application_data.email_address = 'test.email@example.com'
 
-            DataStore.save_application(application_data)
+            user_input: str = jsonpickle.encode(application_data)
+            application_record.user_input = user_input
 
-            # Retrieve the newly created application
-            new_app = Application.query.filter_by(
-                reference_number=reference_number,
-                email='test.email@example.com'
-            ).first()
+            # Commit the changes to the database
+            db.session.commit()
 
             # Yield the application for use in the test
-            yield new_app
+            yield application_record
 
             # Delete the application after the test
-            db.session.delete(new_app)
+            db.session.delete(application_record)
             db.session.commit()
 
 
@@ -229,7 +219,7 @@ def invalid_submitted_application(app):
                 reference_number=reference_number,
                 email='test.email2@example.com',
                 status=ApplicationStatus.SUBMITTED,
-                completed=datetime.now() + relativedelta(hours=1)
+                completed=datetime(2024, 1, 1, 9)
             )
 
             # Add the application to the database session
@@ -238,15 +228,9 @@ def invalid_submitted_application(app):
             # Commit the changes to the database
             db.session.commit()
 
-            # Retrieve the newly created application
-            new_app = Application.query.filter_by(
-                reference_number=reference_number,
-                email='test.email2@example.com'
-            ).first()
-
             # Yield the application for use in the test
-            yield new_app
+            yield application_record
 
             # Delete the application after the test
-            db.session.delete(new_app)
+            db.session.delete(application_record)
             db.session.commit()

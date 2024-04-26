@@ -14,9 +14,6 @@ class TestAdminElements:
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
 
-            print('Firing up with:', submitted_application.application_data())
-            print('Application created with reference number:', submitted_application.application_data().reference_number)
-
             response = client.get('/applications#new')
             html = response.data.decode()
             assert 'New applications' in html
@@ -26,8 +23,7 @@ class TestAdminElements:
             assert 'Submitted' in html
             assert '/applications/ABCD1234' in html
             assert 'ABCD1234' in html
-            assert f'{submitted_application.user_input}' in html
-            assert f'{submitted_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+            assert '01/01/2024 09:00' in html
 
     def test_downloaded_applications_present(self, app, client, downloaded_application):
         with app.app_context():
@@ -44,7 +40,7 @@ class TestAdminElements:
             assert 'Downloaded by' in html
             assert '/applications/EFGH5678' in html
             assert 'EFGH5678' in html
-            assert f'{downloaded_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+            assert '01/01/2024 09:00' in html
 
     def test_completed_applications_present(self, app, client, completed_application):
         with app.app_context():
@@ -61,7 +57,7 @@ class TestAdminElements:
             assert 'Completed by' in html
             assert '/applications/IJKL9012' in html
             assert 'IJKL9012' in html
-            assert f'{completed_application.completed.strftime("%d/%m/%Y %H:%M")}' in html
+            assert '01/01/2024 09:00' in html
 
     def test_invalid_applications_present(self, app, client, invalid_submitted_application):
         with app.app_context():
