@@ -145,19 +145,11 @@ def downloaded_application(app):
             # Add the application to the database session
             db.session.add(application_record)
 
-            # Commit the changes to the database
-            db.session.commit()
-
-            # Add user input
+            # Add and save user input
             application_data = ApplicationData()
             application_data.reference_number = reference_number
             application_data.email_address = 'test.email@example.com'
-
-            user_input: str = jsonpickle.encode(application_data)
-            application_record.user_input = user_input
-
-            # Commit the changes to the database
-            db.session.commit()
+            DataStore.save_application(application_data)
 
             # Yield the application for use in the test
             yield application_record
@@ -188,16 +180,11 @@ def completed_application(app):
             # Commit the changes to the database
             db.session.commit()
 
-            # Add user input
+            # Add and save user input
             application_data = ApplicationData()
             application_data.reference_number = reference_number
             application_data.email_address = 'test.email@example.com'
-
-            user_input: str = jsonpickle.encode(application_data)
-            application_record.user_input = user_input
-
-            # Commit the changes to the database
-            db.session.commit()
+            DataStore.save_application(application_data)
 
             # Yield the application for use in the test
             yield application_record
