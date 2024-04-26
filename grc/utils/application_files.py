@@ -1,5 +1,4 @@
 from io import BytesIO
-import os
 import zipfile
 from flask import render_template
 from typing import Callable, List, Dict, Tuple
@@ -59,6 +58,18 @@ class ApplicationFiles:
         zip_buffer.seek(0)
         return zip_buffer
 
+    def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
+        self.attach_all_files(pdfs, sections, application_data)
+        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
+        return output_pdf_document
+
+    def _create_pdf_attach_filenames(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
+        attachments_pdf = self.create_attachment_names_pdf(sections, application_data)
+        if attachments_pdf:
+            pdfs.append(attachments_pdf)
+        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
+        return output_pdf_document
+
     def create_and_upload_attachments(self, reference_number: str, application_data: ApplicationData):
         zip_file_name = f'{reference_number}.zip'
         logger.log(LogLevel.INFO, message=f'creating attachments for {zip_file_name}')
@@ -96,27 +107,15 @@ class ApplicationFiles:
                         'overseasCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
+    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
+        file_name = application_data.reference_number + '.pdf'
+        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
+
     @staticmethod
     def download_pdf_admin(application_data: ApplicationData) -> bytes:
         file_name = application_data.reference_number + '.pdf'
         pdf = AwsS3Client().download_object(file_name)
         return pdf.getvalue() if pdf else None
-
-    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
-        file_name = application_data.reference_number + '.pdf'
-        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
-
-    def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
-        self.attach_all_files(pdfs, sections, application_data)
-        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
-        return output_pdf_document
-
-    def _create_pdf_attach_filenames(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
-        attachments_pdf = self.create_attachment_names_pdf(sections, application_data)
-        if attachments_pdf:
-            pdfs.append(attachments_pdf)
-        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
-        return output_pdf_document
 
     def delete_application_files(self, reference_number: str, application_data: ApplicationData) -> None:
         AwsS3Client().delete_object(reference_number + '.zip')
