@@ -155,9 +155,14 @@ def checkYourAnswers():
 def download():
     application_data = DataStore.load_application_by_session_reference_number()
 
-    bytes_, file_name = ApplicationFiles().create_pdf_public(application_data)
+    bytes, file_name = ApplicationFiles().create_or_download_pdf(
+        application_data.reference_number,
+        application_data,
+        is_admin=False,
+        download=True
+    )
 
-    response = make_response(bytes_)
+    response = make_response(bytes)
     response.headers.set('Content-Type', 'application/pdf')
     response.headers.set('Content-Disposition', 'attachment', filename=file_name)
     return response
@@ -202,10 +207,16 @@ def confirmation():
 
     @copy_current_request_context
     def create_files(reference_number, application_data_):
-        app_files_util = ApplicationFiles()
-        if app_files_util.create_and_upload_attachments(reference_number, application_data_) and \
-                app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
-            mark_files_created(reference_number)
+        ApplicationFiles().create_and_upload_attachments(
+            reference_number,
+            application_data_,
+        )
+        ApplicationFiles().create_or_download_pdf(
+            reference_number,
+            application_data_
+        )
+
+        mark_files_created(reference_number)
 
     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
 
