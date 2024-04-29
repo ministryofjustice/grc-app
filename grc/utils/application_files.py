@@ -1,5 +1,4 @@
 from io import BytesIO
-import os
 import zipfile
 from flask import render_template
 from typing import Callable, List, Dict, Tuple
@@ -51,11 +50,25 @@ class ApplicationFiles:
                                                     f"{(file_index + 1)}_{file_name}_original{file_ext}")
                             zipper.writestr(attachment_file_name, data.getvalue())
 
-            data, _ = self.create_or_download_pdf(application_data.reference_number, application_data,
-                                                  attach_files=False, download=True, create_toc=False, paginate=False)
-            zipper.writestr('application.pdf', data)
+            application_pdf = self.download_pdf_admin(application_data)
+            if not application_pdf:
+                application_pdf, _ = self.create_pdf_admin_with_filenames(application_data)
+
+            zipper.writestr('application.pdf', application_pdf)
         zip_buffer.seek(0)
         return zip_buffer
+
+    def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
+        self.attach_all_files(pdfs, sections, application_data)
+        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
+        return output_pdf_document
+
+    def _create_pdf_attach_filenames(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
+        attachments_pdf = self.create_attachment_names_pdf(sections, application_data)
+        if attachments_pdf:
+            pdfs.append(attachments_pdf)
+        output_pdf_document = PDFUtils().merge_pdfs(pdfs)
+        return output_pdf_document
 
     def create_and_upload_attachments(self, reference_number: str, application_data: ApplicationData):
         zip_file_name = f'{reference_number}.zip'
@@ -74,52 +87,35 @@ class ApplicationFiles:
         application_zip = self._create_application_zip(application_data)
         return application_zip.getvalue(), zip_file_name
 
-    def create_or_download_pdf(self, reference_number: str, application_data: ApplicationData, is_admin: bool = True, attach_files: bool = True, download: bool = False, create_toc: bool = False, paginate: bool = False) -> Tuple[BytesIO, str]:
-        bytes = None
-        file_name = ''
+    def create_pdf_public(self, application_data: ApplicationData) -> Tuple[bytes, str]:
+        file_name = 'grc_' + str(application_data.email_address).replace('@', '_').replace('.', '_') + '.pdf'
+        pdfs = [self.create_application_cover_sheet_pdf(application_data, False)]
+        output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
+        return output_pdf_document.read(), file_name
 
-        try:
-            file_name = reference_number + '.pdf' if is_admin else 'grc_' + str(application_data.email_address).replace('@', '_').replace('.', '_') + '.pdf'
+    def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
+        file_name = application_data.reference_number + '.pdf'
+        pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
+        all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
+                        'overseasCertificate']
+        return self._create_pdf_attach_files(application_data, pdfs, all_sections).read(), file_name
 
-            data = None
-            if is_admin and not attach_files:
-                data = None if os.getenv('FLASK_ENV', '') == 'development' else AwsS3Client().download_object(file_name)
-            if data:
-                if download:
-                    bytes = data.getvalue()
-            else:
-                all_sections = self.sections
-                if is_admin:
-                    all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence', 'overseasCertificate']
+    def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
+        file_name = application_data.reference_number + '.pdf'
+        pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
+        all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
+                        'overseasCertificate']
+        return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
-                pdfs = []
-                application_pdf = self.create_application_cover_sheet_pdf(application_data, is_admin)
-                pdfs.append(application_pdf)
+    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
+        file_name = application_data.reference_number + '.pdf'
+        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
 
-                if attach_files:
-                    self.attach_all_files(pdfs, all_sections, application_data)
-
-                else:
-                    attachments_pdf = self.create_attachment_names_pdf(all_sections, application_data)
-                    if attachments_pdf:
-                        pdfs.append(attachments_pdf)
-
-                output_pdf_document = PDFUtils().merge_pdfs(pdfs)
-                if create_toc:
-                    output_pdf_document = PDFUtils().create_pdf_toc(output_pdf_document)
-                if paginate:
-                    output_pdf_document = PDFUtils().paginate_pdf(output_pdf_document)
-
-                bytes = output_pdf_document.read()
-                if is_admin and not attach_files:
-                    AwsS3Client().upload_fileobj(output_pdf_document, file_name)
-                if not download:
-                    bytes = None
-
-        except Exception as e:
-            logger.log(LogLevel.ERROR, e)
-
-        return bytes, file_name
+    @staticmethod
+    def download_pdf_admin(application_data: ApplicationData) -> bytes:
+        file_name = application_data.reference_number + '.pdf'
+        pdf = AwsS3Client().download_object(file_name)
+        return pdf.getvalue() if pdf else None
 
     def delete_application_files(self, reference_number: str, application_data: ApplicationData) -> None:
         AwsS3Client().delete_object(reference_number + '.zip')
