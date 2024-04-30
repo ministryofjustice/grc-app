@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-22 09:47+0100\n"
+"POT-Creation-Date: 2024-04-22 15:42+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -433,17 +433,29 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
+#: grc/personal_details/constants.py:5
+msgid "Male"
+msgstr "Gwryw"
+
 #: grc/personal_details/constants.py:6
+msgid "Female"
+msgstr "Benyw"
+
+#: grc/personal_details/constants.py:9
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:7
+#: grc/personal_details/constants.py:10
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:8
+#: grc/personal_details/constants.py:11
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
+
+#: grc/personal_details/constants.py:12
+msgid "Select your affirmed gender"
+msgstr "Dewiswch eich rhywedd a gadarnhawyd"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1377,6 +1389,15 @@ msgstr "Yn ôl i’r rhestr tasgau"
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
+
+#: grc/templates/personal-details/affirmed-gender.html:7
+#: grc/templates/personal-details/affirmed-gender.html:25
+msgid "What is your affirmed gender?"
+msgstr "Beth yw eich rhywedd a gadarnhawyd?"
+
+#: grc/templates/personal-details/affirmed-gender.html:29
+msgid "This will appear on your Gender Recognition Certificate."
+msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd."
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26

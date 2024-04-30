@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from .constants import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
+from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
@@ -25,12 +26,12 @@ class NameForm(FlaskForm):
 
 
 class AffirmedGenderForm(FlaskForm):
-    affirmedGender = RadioField(
-        choices=[
-            (AffirmedGender.MALE.name, 'Male'),
-            (AffirmedGender.FEMALE.name, 'Female')
+    affirmedGender = LazyRadioField(
+        lazy_choices=[
+            (AffirmedGender.MALE.name, c.MALE),
+            (AffirmedGender.FEMALE.name, c.FEMALE)
         ],
-        validators=[DataRequired(message='Select your affirmed gender')]
+        validators=[LazyDataRequired(lazy_message=c.NO_AFFIRMED_GENDER_ERROR)]
     )
 
 
