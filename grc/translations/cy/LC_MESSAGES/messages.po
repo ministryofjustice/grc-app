@@ -435,11 +435,11 @@ msgstr ""
 
 #: grc/personal_details/constants.py:5
 msgid "Male"
-msgstr ""
+msgstr "Gwryw"
 
 #: grc/personal_details/constants.py:6
 msgid "Female"
-msgstr ""
+msgstr "Benyw"
 
 #: grc/personal_details/constants.py:9
 msgid "Enter your title"
@@ -1393,7 +1393,7 @@ msgstr "Mae yna broblem"
 #: grc/templates/personal-details/affirmed-gender.html:7
 #: grc/templates/personal-details/affirmed-gender.html:25
 msgid "What is your affirmed gender?"
-msgstr ""
+msgstr "Beth yw eich rhywedd a gadarnhawyd?"
 
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
