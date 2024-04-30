@@ -5,3 +5,14 @@
     </button>
 </div>
 {% endmacro %}
+
+{% macro renderForSaveAndContinue() %}
+<div class="govuk-button-group">
+    <button class="govuk-button" data-module="govuk-button">
+        {{ _('Save and continue') }}
+    </button>
+    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
+        {{ _('Return to task list') }}
+    </a>
+</div>
+{% endmacro %}
