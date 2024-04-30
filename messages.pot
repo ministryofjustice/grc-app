@@ -404,6 +404,18 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
+#: grc/personal_details/constants.py:6
+msgid "Enter your title"
+msgstr ""
+
+#: grc/personal_details/constants.py:7
+msgid "Enter your first name(s)"
+msgstr ""
+
+#: grc/personal_details/constants.py:8
+msgid "Enter your last name"
+msgstr ""
+
 #: grc/personal_details/constants.py:5
 msgid "Male"
 msgstr ""
@@ -1247,8 +1259,67 @@ msgstr ""
 msgid "Return to task list"
 msgstr ""
 
+#: grc/templates/govuk-design-system-templates/continue.html:12
+msgid "Save and continue"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/continue.html:15
+msgid "Return to task list"
+msgstr ""
+
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:7
+#: grc/templates/personal-details/name.html:26
+msgid "What is your name?"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:30
+msgid ""
+"Enter your name exactly as it appears on either your latest change of "
+"name document or your birth certificate"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:33
+msgid "This will appear in full on your Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:36
+msgid ""
+"If you want to use a different name from your birth certificate or change"
+" of name document, you should"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:39
+msgid "change your name by deed poll (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:41
+msgid "before you apply for a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:48
+msgid "Title"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:49
+msgid ""
+"For internal use only. This will not appear on your Gender Recognition "
+"Certificate."
+msgstr ""
+
+#: grc/templates/personal-details/name.html:59
+msgid "First name"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:69
+msgid "Middle names (only required if you have middle names)"
+msgstr ""
+
+#: grc/templates/personal-details/name.html:79
+msgid "Last name"
 msgstr ""
 
 #: grc/templates/personal-details/affirmed-gender.html:7
