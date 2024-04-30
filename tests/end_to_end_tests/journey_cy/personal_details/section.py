@@ -48,7 +48,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/personal-details/affirmed-gender')
     await asserts.accessibility()
-    await asserts.h1('What is your affirmed gender?')
+    await asserts.h1('Beth yw eich rhywedd a gadarnhawyd?')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -57,7 +57,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is your affirmed gender?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1('What is your affirmed gender?')
+    await asserts.h1('Beth yw eich rhywedd a gadarnhawyd?')
 
     # Choose an option, click Save and continue
     await helpers.check_radio(field='affirmedGender', value='MALE')
