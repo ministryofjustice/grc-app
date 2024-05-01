@@ -72,7 +72,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/personal-details/affirmed-gender')
+    await asserts.url('/personal-details/transition-date')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('When did you transition?')
