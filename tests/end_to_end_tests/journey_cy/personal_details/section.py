@@ -105,3 +105,24 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='statutory_declaration_date_month', value=data.STATUTORY_DECLARATION_DATE_MONTH)
     await helpers.fill_textbox(field='statutory_declaration_date_year', value=data.STATUTORY_DECLARATION_DATE_YEAR)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Previous Name Check page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/previous-names-check')
+    await asserts.accessibility()
+    await asserts.h1('Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd')
+    await asserts.h1('If you have ever changed your name to reflect your gender')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/previous-names-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('If you have ever changed your name to reflect your gender')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd')
+
+    # Choose an option, click Save and continue
+    await helpers.check_radio(field='previousNameCheck', value='True')
+    await helpers.click_button('Cadw a pharhau')
