@@ -1520,14 +1520,13 @@ msgid ""
 "Gender Recognition Certificate"
 msgstr ""
 "Rhaid iddo fod o leiaf 2 flynedd cyn i chi gyflwyno’ch cais am Dystysgrif"
-" Cydnabod Rhywedd."
+" Cydnabod Rhywedd"
 
 #: grc/templates/personal-details/transition-date.html:56
 msgid "Month"
 msgstr "Mis"
 
 #: grc/templates/personal-details/transition-date.html:69
-#, fuzzy
 msgid "Year"
 msgstr "Blwyddyn"
 
