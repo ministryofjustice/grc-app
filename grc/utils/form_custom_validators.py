@@ -205,16 +205,16 @@ def validate_date_of_transition(form, field):
         transition_date_year = int(form['transition_date_year'].data)
         date_of_transition = date(transition_date_year, transition_date_month, 1)
     except Exception as e:
-        raise ValidationError('Enter a valid year')
+        raise LazyValidationError(c.INVALID_YEAR_ERROR)
 
     earliest_date_of_transition_years = 100
     earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
     if date_of_transition < earliest_date_of_transition:
-        raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
+        raise LazyValidationError(c.TRANSITION_DATE_TOO_EARLY_ERROR)
 
     if date_of_transition > date.today():
-        raise ValidationError('Enter a date in the past')
+        raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
 
     reference_number = session['reference_number']
     application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
@@ -228,7 +228,7 @@ def validate_date_of_transition(form, field):
     latest_transition_years = 2
     latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
     if date_of_transition > latest_transition_date:
-        raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
+        raise LazyValidationError(c.ENTER_DATE_2_YEARS_BEFORE_APP_CREATED_ERROR)
 
 
 def validate_statutory_declaration_date(form, field):

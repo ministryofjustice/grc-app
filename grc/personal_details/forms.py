@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from .constants import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 from grc.lazy.lazy_fields import LazyRadioField
-from grc.lazy.lazy_form_custom_validators import LazyDataRequired
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger
 from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
@@ -38,15 +38,15 @@ class AffirmedGenderForm(FlaskForm):
 class TransitionDateForm(FlaskForm):
     transition_date_month = StringField(
         validators=[
-            DataRequired(message='Enter a month'),
-            Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            LazyDataRequired(lazy_message=c.ENTER_MONTH_ERROR),
+            LazyInteger(min_=1, max_=12, message=c.ENTER_VALID_MONTH_ERROR)
         ]
     )
 
     transition_date_year = StringField(
         validators=[
-            DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validate_date_of_transition])
+            LazyDataRequired(lazy_message=c.ENTER_YEAR_ERROR),
+            LazyInteger(min_=1000, message=c.ENTER_VALID_YEAR_ERROR, validators=[validate_date_of_transition])
         ]
     )
 
