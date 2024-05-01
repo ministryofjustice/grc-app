@@ -211,7 +211,7 @@ def validate_date_of_transition(form, field):
     earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
     if date_of_transition < earliest_date_of_transition:
-        raise LazyValidationError(c.TRANSITION_DATE_TOO_EARLY_ERROR)
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     if date_of_transition > date.today():
         raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
@@ -242,24 +242,24 @@ def validate_statutory_declaration_date(form, field):
         statutory_declaration_date = date(statutory_declaration_date_year, statutory_declaration_date_month,
                                           statutory_declaration_date_day)
     except Exception as e:
-        raise ValidationError('Enter a valid year')
+        raise LazyValidationError(c.INVALID_YEAR_ERROR)
 
     earliest_statutory_declaration_date_years = 100
     earliest_statutory_declaration_date = date.today() - relativedelta(
         years=earliest_statutory_declaration_date_years)
 
     if statutory_declaration_date < earliest_statutory_declaration_date:
-        raise ValidationError(f'Enter a date within the last {earliest_statutory_declaration_date_years} years')
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     latest_statutory_declaration_date = date.today()
     if statutory_declaration_date > latest_statutory_declaration_date:
-        raise ValidationError('Enter a date in the past')
+        raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
 
     reference_number = session['reference_number']
     application_data = DataStore.load_application(reference_number)
     transition_date = application_data.personal_details_data.transition_date
     if statutory_declaration_date < transition_date:
-        raise ValidationError('Enter a date that does not precede your transition date')
+        raise LazyValidationError(c.STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR)
 
 
 def validate_date_range(form, field):
