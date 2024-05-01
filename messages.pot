@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 13:56+0100\n"
+"POT-Creation-Date: 2024-05-01 14:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -705,10 +705,13 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
+#: grc/templates/personal-details/previous-names-check.html:44
 msgid "Have you ever changed your name to reflect your gender?"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:20
+#: grc/templates/personal-details/previous-names-check.html:7
+#: grc/templates/personal-details/previous-names-check.html:20
 msgid "If you have ever changed your name to reflect your gender"
 msgstr ""
 
@@ -717,30 +720,36 @@ msgid "You will need to send us documents that show this"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:25
+#: grc/templates/personal-details/previous-names-check.html:24
 msgid ""
 "If you have changed your name more than once, we will need to see "
 "documents for each instance"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:28
+#: grc/templates/personal-details/previous-names-check.html:27
 msgid ""
 "We ask for this so we can match your birth records after you receive a "
 "Gender Recognition Certificate"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:31
+#: grc/templates/personal-details/previous-names-check.html:30
 msgid "These documents are likely to be:"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:34
+#: grc/templates/personal-details/previous-names-check.html:33
 msgid "deed poll documents, either enrolled or unenrolled"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:35
+#: grc/templates/personal-details/previous-names-check.html:34
 msgid "change of name documents (Scotland)"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:36
+#: grc/templates/personal-details/previous-names-check.html:35
 msgid "statutory declarations"
 msgstr ""
 
@@ -1353,6 +1362,10 @@ msgstr ""
 
 #: grc/templates/personal-details/name.html:79
 msgid "Last name"
+msgstr ""
+
+#: grc/templates/personal-details/previous-names-check.html:23
+msgid "You will need to upload documents that show this"
 msgstr ""
 
 #: grc/templates/personal-details/statutory-declaration-date.html:7
