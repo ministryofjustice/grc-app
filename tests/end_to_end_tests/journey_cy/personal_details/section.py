@@ -83,3 +83,25 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH)
     await helpers.fill_textbox(field='transition_date_year', value=data.TRANSITION_DATE_YEAR)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Statutory Declaration Date page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/statutory-declaration-date')
+    await asserts.accessibility()
+    await asserts.h1('Pryd wnaethoch chi arwyddo eich Datganiad Statudol?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/statutory-declaration-date')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('When did you sign your statutory declaration?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Pryd wnaethoch chi arwyddo eich Datganiad Statudol?')
+
+    # Enter a valid date
+    await helpers.fill_textbox(field='statutory_declaration_date_day', value=data.STATUTORY_DECLARATION_DATE_DAY)
+    await helpers.fill_textbox(field='statutory_declaration_date_month', value=data.STATUTORY_DECLARATION_DATE_MONTH)
+    await helpers.fill_textbox(field='statutory_declaration_date_year', value=data.STATUTORY_DECLARATION_DATE_YEAR)
+    await helpers.click_button('Cadw a pharhau')
