@@ -2,11 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
 {% import "govuk-design-system-templates/select-input.html" as selectInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}What is your address?{% endblock %}
+{% block title %}{{ _('What is your address?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -22,18 +24,18 @@
                     <fieldset class="govuk-fieldset" aria-describedby="fieldset-hint">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
-                                What is your address?
+                                {{ _('What is your address?') }}
                             </h1>
                         </legend>
                         <div class="govuk-hint" id="fieldset-hint">
-                            This should be the address that you want us to send your Gender Recognition Certificate to.
+                            {{ _('This should be the address that you want us to send your Gender Recognition Certificate to') }}.
                         </div>
 
                         {{ textInput.renderFor(
                             form,
                             fieldName='address_line_one',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Address line 1' },
+                                'labelOptions': { 'htmlOrText': _('Address line 1') },
                                 'autocomplete': 'address-line1'
                             }
                         ) }}
@@ -42,7 +44,7 @@
                             form,
                             fieldName='address_line_two',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Address line 2 (optional)' },
+                                'labelOptions': { 'htmlOrText': _('Address line 2 (optional)') },
                                 'autocomplete': 'address-line2'
                             }
                         ) }}
@@ -51,7 +53,7 @@
                             form,
                             fieldName='town',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Town or city' },
+                                'labelOptions': { 'htmlOrText': _('Town or city') },
                                 'autocomplete': 'address-level1',
                                 'classes': 'govuk-input--width-20'
                             }
@@ -61,7 +63,7 @@
                             form,
                             fieldName='country',
                             selectInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Country (optional)' },
+                                'labelOptions': { 'htmlOrText': _('Country (optional)') },
                                 'options': countries
                             }
                         ) }}
@@ -70,7 +72,7 @@
                             form,
                             fieldName='postcode',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Postcode or zipcode' },
+                                'labelOptions': { 'htmlOrText': _('Postcode or zipcode') },
                                 'autocomplete': 'postal-code',
                                 'classes': 'govuk-input--width-10'
                             }
@@ -78,14 +80,7 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>
