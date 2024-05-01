@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-22 15:42+0100\n"
+"POT-Creation-Date: 2024-05-01 12:44+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -327,6 +327,38 @@ msgstr "Rhaid i chi roi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu �
 msgid "Select if you have official documentation"
 msgstr "Dewiswch a oes gennych ddogfennaeth swyddogol"
 
+#: grc/business_logic/constants.py:83
+msgid "Enter a month"
+msgstr "Nodwch fis"
+
+#: grc/business_logic/constants.py:84
+msgid "Enter a month as a number between 1 and 12"
+msgstr "Nodwch fis fel rhif rhwng 1 a 12"
+
+#: grc/business_logic/constants.py:85
+msgid "Enter a year"
+msgstr "Nodwch flwyddyn"
+
+#: grc/business_logic/constants.py:86
+msgid "Enter a valid year"
+msgstr "Nodwch ddyddiad dilys"
+
+#: grc/business_logic/constants.py:87
+msgid "Enter a year as a 4-digit number, like 2000"
+msgstr "Nodwch flwyddyn fel rhif 4 digid, fel 2000"
+
+#: grc/business_logic/constants.py:88
+msgid "Enter a date within the last 100 years"
+msgstr "Nodwch ddyddiad o fewn y 100 diwethaf"
+
+#: grc/business_logic/constants.py:89
+msgid "Enter a date in the past"
+msgstr "Nodwch ddyddiad yn y gorffennol"
+
+#: grc/business_logic/constants.py:90
+msgid "Enter a date at least 2 years before your application"
+msgstr "Nodwch ddyddiad o leiaf 2 o flynyddoedd cyn eich cais"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -433,27 +465,27 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
-#: grc/personal_details/constants.py:5
+#: grc/personal_details/constants.py:6
 msgid "Male"
 msgstr "Gwryw"
 
-#: grc/personal_details/constants.py:6
+#: grc/personal_details/constants.py:7
 msgid "Female"
 msgstr "Benyw"
 
-#: grc/personal_details/constants.py:9
+#: grc/personal_details/constants.py:10
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:10
+#: grc/personal_details/constants.py:11
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:11
+#: grc/personal_details/constants.py:12
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/personal_details/constants.py:12
+#: grc/personal_details/constants.py:13
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
 
@@ -1455,6 +1487,40 @@ msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
 #: grc/templates/personal-details/name.html:79
 msgid "Last name"
 msgstr "Cyfenw"
+
+#: grc/templates/personal-details/transition-date.html:7
+#: grc/templates/personal-details/transition-date.html:27
+msgid "When did you transition?"
+msgstr "Pryd wnaethoch chi drawsnewid o un rhywedd i’r llall?   "
+
+#: grc/templates/personal-details/transition-date.html:32
+msgid "Enter the month and year of your transition"
+msgstr "Rhowch fis a blwyddyn eich trawsnewidiad"
+
+#: grc/templates/personal-details/transition-date.html:34
+msgid ""
+"The date must be the same as on your gender recognition statutory "
+"declaration"
+msgstr ""
+"Rhaid i’r dyddiad fod yr un fath â’r dyddiad sydd ar eich datganiad "
+"statudol cydnabod rhywedd"
+
+#: grc/templates/personal-details/transition-date.html:35
+msgid ""
+"It must be at least 2 years before you submit your application for a "
+"Gender Recognition Certificate"
+msgstr ""
+"Rhaid iddo fod o leiaf 2 flynedd cyn i chi gyflwyno’ch cais am Dystysgrif"
+" Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/transition-date.html:56
+msgid "Month"
+msgstr "Mis"
+
+#: grc/templates/personal-details/transition-date.html:69
+#, fuzzy
+msgid "Year"
+msgstr "Blwyddyn"
 
 #: grc/templates/policies/accessibility-statement.html:3
 #, fuzzy
