@@ -94,7 +94,7 @@ class BaseConstants:
     ADDRESS_ERROR = _l('Enter your address')
     ADDRESS_NO_TOWN_ERROR = _l('Enter your town or city')
     ADDRESS_LINE_ONE_ERROR = _l('Enter a valid address line one')
-    ADDRESS_LINE_TWO_ERROR = _l('Enter a valid address line one')
+    ADDRESS_LINE_TWO_ERROR = _l('Enter a valid address line two')
     ADDRESS_TOWN_OR_CITY_ERROR = _l('Enter a valid town')
     NO_POSTCODE_ERROR = _l('Enter your postcode')
     ENTER_VALID_POSTCODE_ERROR = _l('Enter a valid postcode')

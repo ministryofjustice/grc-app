@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 14:18+0100\n"
+"POT-Creation-Date: 2024-05-01 15:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -357,6 +357,34 @@ msgstr ""
 msgid "Enter a date that does not precede your transition date"
 msgstr ""
 
+#: grc/business_logic/constants.py:94
+msgid "Enter your address"
+msgstr ""
+
+#: grc/business_logic/constants.py:95
+msgid "Enter your town or city"
+msgstr ""
+
+#: grc/business_logic/constants.py:96
+msgid "Enter a valid address line one"
+msgstr ""
+
+#: grc/business_logic/constants.py:97
+msgid "Enter a valid address line two"
+msgstr ""
+
+#: grc/business_logic/constants.py:98
+msgid "Enter a valid town"
+msgstr ""
+
+#: grc/business_logic/constants.py:99
+msgid "Enter your postcode"
+msgstr ""
+
+#: grc/business_logic/constants.py:100
+msgid "Enter a valid postcode"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -439,8 +467,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:87
-#: grc/utils/form_custom_validators.py:434
-#: grc/utils/form_custom_validators.py:453
+#: grc/utils/form_custom_validators.py:441
+#: grc/utils/form_custom_validators.py:460
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
@@ -1302,6 +1330,37 @@ msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:8
+#: grc/templates/personal-details/address.html:27
+msgid "What is your address?"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:31
+msgid ""
+"This should be the address that you want us to send your Gender "
+"Recognition Certificate to"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:38
+msgid "Address line 1"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:47
+msgid "Address line 2 (optional)"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:56
+msgid "Town or city"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:66
+msgid "Country (optional)"
+msgstr ""
+
+#: grc/templates/personal-details/address.html:75
+msgid "Postcode or zipcode"
 msgstr ""
 
 #: grc/templates/personal-details/affirmed-gender.html:7

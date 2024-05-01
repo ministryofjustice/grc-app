@@ -155,7 +155,7 @@ def validate_address_field(form, field):
             'default': c.ADDRESS_ERROR
         }
         message.setdefault('default')
-        raise LazyValidationError(message[field.label])
+        raise LazyValidationError(message[field.label.field_id])
 
 
 def validate_postcode(form, field):
