@@ -1,7 +1,8 @@
 from flask_babel import lazy_gettext as _l
+from grc.business_logic.constants import BaseConstants
 
 
-class PersonalDetailsConstants:
+class PersonalDetailsConstants(BaseConstants):
     MALE = _l('Male')
     FEMALE = _l('Female')
 
