@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 14:18+0100\n"
+"POT-Creation-Date: 2024-05-01 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1292,12 +1292,13 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: grc/templates/govuk-design-system-templates/continue.html:12
-msgid "Save and continue"
+#: grc/templates/govuk-design-system-templates/error-summary.html:6
+msgid "There is a problem"
 msgstr ""
 
-#: grc/templates/govuk-design-system-templates/continue.html:15
-msgid "Return to task list"
+#: grc/templates/personal-details/affirmed-gender.html:7
+#: grc/templates/personal-details/affirmed-gender.html:25
+msgid "What is your affirmed gender?"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
