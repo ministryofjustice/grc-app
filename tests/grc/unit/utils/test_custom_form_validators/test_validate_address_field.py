@@ -22,14 +22,16 @@ class TestValidateAddressField:
         with app.app_context():
             form = AddressForm()
             form.address_line_one.data = '12 in^al(id a££ress line'
-            with pytest.raises(ValidationError, match='Enter a valid address line one'):
-                validate_address_field(form, form.address_line_one)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a valid address line one'):
+                    validate_address_field(form, form.address_line_one)
 
     def test_validate_address_field_invalid_address_line_two(self, app):
         with app.app_context():
             form = AddressForm()
             form.address_line_one.data = '12 valid address line'
             form.address_line_two.data = '12 in^al(id a££ress line'
-            with pytest.raises(ValidationError, match='Enter a valid address line two'):
-                validate_address_field(form, form.address_line_two)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a valid address line two'):
+                    validate_address_field(form, form.address_line_two)
 
