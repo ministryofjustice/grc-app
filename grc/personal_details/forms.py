@@ -54,23 +54,23 @@ class TransitionDateForm(FlaskForm):
 class StatutoryDeclarationDateForm(FlaskForm):
     statutory_declaration_date_day = StringField(
         validators=[
-            DataRequired(message='Enter a day'),
-            Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
+            LazyDataRequired(lazy_message=c.ENTER_DAY_ERROR),
+            LazyInteger(min_=1, max_=31, lazy_message=c.ENTER_VALID_DAY_ERROR)
         ]
     )
 
     statutory_declaration_date_month = StringField(
         validators=[
-            DataRequired(message='Enter a month'),
-            Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            LazyDataRequired(lazy_message=c.ENTER_MONTH_ERROR),
+            LazyInteger(min_=1, max_=12, lazy_message=c.ENTER_VALID_MONTH_ERROR)
         ]
     )
 
     statutory_declaration_date_year = StringField(
         validators=[
-            DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validate_statutory_declaration_date])
+            LazyDataRequired(lazy_message=c.ENTER_YEAR_ERROR),
+            LazyInteger(min_=1000, lazy_message=c.ENTER_VALID_YEAR_ERROR,
+                        validators=[validate_statutory_declaration_date])
         ]
     )
 
