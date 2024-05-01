@@ -62,3 +62,24 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Choose an option, click Save and continue
     await helpers.check_radio(field='affirmedGender', value='MALE')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Transition Date page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/transition-date')
+    await asserts.accessibility()
+    await asserts.h1('Pryd wnaethoch chi drawsnewid o un rhywedd i’r llall?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/affirmed-gender')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('When did you transition?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Pryd wnaethoch chi drawsnewid o un rhywedd i’r llall?')
+
+    # Enter a valid date
+    await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH)
+    await helpers.fill_textbox(field='transition_date_year', value=data.TRANSITION_DATE_YEAR)
+    await helpers.click_button('Cadw a pharhau')
