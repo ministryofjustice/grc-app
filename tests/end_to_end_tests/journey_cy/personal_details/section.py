@@ -112,7 +112,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/previous-names-check')
     await asserts.accessibility()
     await asserts.h1('Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd')
-    await asserts.h1('If you have ever changed your name to reflect your gender')
     await asserts.number_of_errors(0)
 
     # Change language
