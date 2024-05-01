@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 12:44+0100\n"
+"POT-Creation-Date: 2024-05-01 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1350,6 +1350,12 @@ msgstr ""
 
 #: grc/templates/personal-details/transition-date.html:32
 msgid "Enter the month and year of your transition"
+msgstr ""
+
+#: grc/templates/personal-details/transition-date.html:33
+msgid ""
+"For example, this could be when you changed your name by deed poll, or "
+"when you told friends or family you were changing your gender"
 msgstr ""
 
 #: grc/templates/personal-details/transition-date.html:34
