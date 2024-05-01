@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 13:56+0100\n"
+"POT-Creation-Date: 2024-05-01 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -355,6 +355,38 @@ msgstr ""
 
 #: grc/business_logic/constants.py:93
 msgid "Enter a date that does not precede your transition date"
+msgstr ""
+
+#: grc/business_logic/constants.py:83
+msgid "Enter a month"
+msgstr ""
+
+#: grc/business_logic/constants.py:84
+msgid "Enter a month as a number between 1 and 12"
+msgstr ""
+
+#: grc/business_logic/constants.py:85
+msgid "Enter a year"
+msgstr ""
+
+#: grc/business_logic/constants.py:86
+msgid "Enter a valid year"
+msgstr ""
+
+#: grc/business_logic/constants.py:87
+msgid "Enter a year as a 4-digit number, like 2000"
+msgstr ""
+
+#: grc/business_logic/constants.py:88
+msgid "Enter a date within the last 100 years"
+msgstr ""
+
+#: grc/business_logic/constants.py:89
+msgid "Enter a date in the past"
+msgstr ""
+
+#: grc/business_logic/constants.py:90
+msgid "Enter a date at least 2 years before your application"
 msgstr ""
 
 #: grc/document_checker/constants.py:7
@@ -1283,16 +1315,17 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: grc/templates/govuk-design-system-templates/continue.html:12
-msgid "Save and continue"
-msgstr ""
-
-#: grc/templates/govuk-design-system-templates/continue.html:15
-msgid "Return to task list"
-msgstr ""
-
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
+msgstr ""
+
+#: grc/templates/personal-details/affirmed-gender.html:7
+#: grc/templates/personal-details/affirmed-gender.html:25
+msgid "What is your affirmed gender?"
+msgstr ""
+
+#: grc/templates/personal-details/affirmed-gender.html:29
+msgid "This will appear on your Gender Recognition Certificate."
 msgstr ""
 
 #: grc/templates/personal-details/affirmed-gender.html:7
