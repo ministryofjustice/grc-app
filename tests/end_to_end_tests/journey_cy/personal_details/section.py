@@ -125,3 +125,26 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Choose an option, click Save and continue
     await helpers.check_radio(field='previousNameCheck', value='True')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Address page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/address')
+    await asserts.accessibility()
+    await asserts.h1('Beth yw eich cyfeiriad?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/address')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('What is your address?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw eich cyfeiriad?')
+
+    # Enter valid values, click Save and continue
+    await helpers.fill_textbox(field='address_line_one', value=data.ADDRESS_LINE_ONE)
+    await helpers.fill_textbox(field='address_line_two', value=data.ADDRESS_LINE_TWO)
+    await helpers.fill_textbox(field='town', value=data.TOWN)
+    await helpers.fill_textbox(field='postcode', value=data.POSTCODE)
+    await helpers.click_button('Cadw a pharhau')
