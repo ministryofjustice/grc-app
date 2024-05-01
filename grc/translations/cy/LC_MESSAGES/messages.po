@@ -1511,7 +1511,7 @@ msgstr "Cyfenw"
 
 #: grc/templates/personal-details/previous-names-check.html:23
 msgid "You will need to upload documents that show this"
-msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny."
+msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny"
 
 #: grc/templates/personal-details/statutory-declaration-date.html:7
 #: grc/templates/personal-details/statutory-declaration-date.html:27
