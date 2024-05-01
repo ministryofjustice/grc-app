@@ -756,10 +756,13 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
+#: grc/templates/personal-details/previous-names-check.html:44
 msgid "Have you ever changed your name to reflect your gender?"
 msgstr "Ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd?"
 
 #: grc/templates/document-checker/previous-names-check.html:20
+#: grc/templates/personal-details/previous-names-check.html:7
+#: grc/templates/personal-details/previous-names-check.html:20
 msgid "If you have ever changed your name to reflect your gender"
 msgstr "Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
 
@@ -768,6 +771,7 @@ msgid "You will need to send us documents that show this"
 msgstr "Bydd angen i chi anfon dogfennau atom sy'n dangos hynny"
 
 #: grc/templates/document-checker/previous-names-check.html:25
+#: grc/templates/personal-details/previous-names-check.html:24
 msgid ""
 "If you have changed your name more than once, we will need to see "
 "documents for each instance"
@@ -776,6 +780,7 @@ msgstr ""
 "dogfennau ar gyfer pob achos"
 
 #: grc/templates/document-checker/previous-names-check.html:28
+#: grc/templates/personal-details/previous-names-check.html:27
 msgid ""
 "We ask for this so we can match your birth records after you receive a "
 "Gender Recognition Certificate"
@@ -784,20 +789,24 @@ msgstr ""
 "gael Tystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/previous-names-check.html:31
+#: grc/templates/personal-details/previous-names-check.html:30
 msgid "These documents are likely to be:"
 msgstr "Mae'r dogfennau hyn yn debygol o fod yn:"
 
 #: grc/templates/document-checker/previous-names-check.html:34
+#: grc/templates/personal-details/previous-names-check.html:33
 msgid "deed poll documents, either enrolled or unenrolled"
 msgstr ""
 "dogfennau gweithred newid enw, naill ai wedi'u cofrestru neu heb eu "
 "cofrestru"
 
 #: grc/templates/document-checker/previous-names-check.html:35
+#: grc/templates/personal-details/previous-names-check.html:34
 msgid "change of name documents (Scotland)"
 msgstr "dogfennau newid enw (Yr Alban)"
 
 #: grc/templates/document-checker/previous-names-check.html:36
+#: grc/templates/personal-details/previous-names-check.html:35
 msgid "statutory declarations"
 msgstr "datganiadau statudol"
 
@@ -1500,6 +1509,10 @@ msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
 msgid "Last name"
 msgstr "Cyfenw"
 
+#: grc/templates/personal-details/previous-names-check.html:23
+msgid "You will need to upload documents that show this"
+msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny"
+
 #: grc/templates/personal-details/statutory-declaration-date.html:7
 #: grc/templates/personal-details/statutory-declaration-date.html:27
 msgid "When did you sign your statutory declaration?"
@@ -1509,7 +1522,9 @@ msgstr "Pryd wnaethoch chi arwyddo eich Datganiad Statudol?"
 msgid ""
 "Enter the date you signed your gender recognition statutory declaration "
 "in front of someone authorised to administer oaths."
-msgstr "Rhowch y dyddiad pan wnaethoch lofnodi eich datganiad statudol cydnabod rhywedd ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu llwon."
+msgstr ""
+"Rhowch y dyddiad pan wnaethoch lofnodi eich datganiad statudol cydnabod "
+"rhywedd ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu llwon."
 
 #: grc/templates/personal-details/statutory-declaration-date.html:53
 msgid "Day"
@@ -2746,4 +2761,23 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
+
+#~ msgid ""
+#~ "If you have changed your name more"
+#~ " than once, we will need to see"
+#~ " documents for each instance."
+#~ msgstr ""
+#~ "Os ydych wedi newid eich enw fwy"
+#~ " nag unwaith, bydd angen i ni "
+#~ "weld dogfennau ar gyfer pob achos"
+
+#~ msgid ""
+#~ "We ask for this so we can "
+#~ "match your birth records after you "
+#~ "receive a Gender Recognition Certificate."
+#~ msgstr ""
+#~ "Gofynnwn am hyn fel y gallwn eu"
+#~ " cyfateb i'ch cofnodion geni ar ôl"
+#~ " i chi gael Tystysgrif Cydnabod "
+#~ "Rhywedd"
 

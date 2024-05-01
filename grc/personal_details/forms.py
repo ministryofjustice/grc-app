@@ -76,12 +76,12 @@ class StatutoryDeclarationDateForm(FlaskForm):
 
 
 class PreviousNamesCheck(FlaskForm):
-    previousNameCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    previousNameCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have ever changed your name to reflect your gender')]
+        validators=[LazyDataRequired(lazy_message=c.PREVIOUS_NAME_CHECK_ERROR)]
     )
 
 
