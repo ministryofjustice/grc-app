@@ -1474,7 +1474,7 @@ msgstr "Mae yna broblem"
 #: grc/templates/personal-details/address.html:8
 #: grc/templates/personal-details/address.html:27
 msgid "What is your address?"
-msgstr "Beth yw eich cyfeiriad? "
+msgstr "Beth yw eich cyfeiriad?"
 
 #: grc/templates/personal-details/address.html:31
 msgid ""
@@ -1570,7 +1570,7 @@ msgstr "Cyfenw"
 
 #: grc/templates/personal-details/previous-names-check.html:23
 msgid "You will need to upload documents that show this"
-msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny."
+msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny"
 
 #: grc/templates/personal-details/statutory-declaration-date.html:7
 #: grc/templates/personal-details/statutory-declaration-date.html:27
