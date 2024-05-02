@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 09:46+0100\n"
+"POT-Creation-Date: 2024-05-02 11:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,58 +330,78 @@ msgid "Enter a valid year"
 msgstr ""
 
 #: grc/business_logic/constants.py:87
-msgid "Enter a year as a 4-digit number, like 2000"
+msgid "Enter a valid date"
 msgstr ""
 
 #: grc/business_logic/constants.py:88
-msgid "Enter a date within the last 100 years"
+msgid "Enter a year as a 4-digit number, like 2000"
 msgstr ""
 
 #: grc/business_logic/constants.py:89
-msgid "Enter a date in the past"
+msgid "Enter a date within the last 100 years"
 msgstr ""
 
 #: grc/business_logic/constants.py:90
-msgid "Enter a date at least 2 years before your application"
+msgid "Enter a date in the past"
 msgstr ""
 
 #: grc/business_logic/constants.py:91
-msgid "Enter a day"
+msgid "Enter a date in the future"
 msgstr ""
 
 #: grc/business_logic/constants.py:92
-msgid "Enter a day as a number between 1 and 31"
+msgid "Enter a date at least 2 years before your application"
 msgstr ""
 
 #: grc/business_logic/constants.py:93
-msgid "Enter a date that does not precede your transition date"
+msgid "Enter a day"
 msgstr ""
 
 #: grc/business_logic/constants.py:94
-msgid "Enter your address"
+msgid "Enter a day as a number between 1 and 31"
 msgstr ""
 
 #: grc/business_logic/constants.py:95
-msgid "Enter your town or city"
+msgid "Enter a date that does not precede your transition date"
 msgstr ""
 
 #: grc/business_logic/constants.py:96
-msgid "Enter a valid address line one"
+msgid "'From' date is in the past"
 msgstr ""
 
 #: grc/business_logic/constants.py:97
-msgid "Enter a valid address line two"
+msgid "'To' date is in the past"
 msgstr ""
 
 #: grc/business_logic/constants.py:98
-msgid "Enter a valid town"
+msgid "'From' date is after the 'To' date'"
 msgstr ""
 
 #: grc/business_logic/constants.py:99
-msgid "Enter your postcode"
+msgid "Enter your address"
 msgstr ""
 
 #: grc/business_logic/constants.py:100
+msgid "Enter your town or city"
+msgstr ""
+
+#: grc/business_logic/constants.py:101
+msgid "Enter a valid address line one"
+msgstr ""
+
+#: grc/business_logic/constants.py:102
+msgid "Enter a valid address line two"
+msgstr ""
+
+#: grc/business_logic/constants.py:103
+msgid "Enter a valid town"
+msgstr ""
+
+#: grc/business_logic/constants.py:104
+msgid "Enter your postcode"
+msgstr ""
+
+#: grc/business_logic/constants.py:105
 msgid "Enter a valid postcode"
 msgstr ""
 
@@ -484,20 +504,38 @@ msgstr ""
 msgid "Female"
 msgstr ""
 
+#: grc/personal_details/constants.py:8
+msgid "A single date"
+msgstr ""
+
+#: grc/personal_details/constants.py:9
+msgid "A range of dates"
+msgstr ""
+
 #: grc/personal_details/constants.py:10
-msgid "Enter your title"
-msgstr ""
-
-#: grc/personal_details/constants.py:11
-msgid "Enter your first name(s)"
-msgstr ""
-
-#: grc/personal_details/constants.py:12
-msgid "Enter your last name"
+msgid "No dates"
 msgstr ""
 
 #: grc/personal_details/constants.py:13
+msgid "Enter your title"
+msgstr ""
+
+#: grc/personal_details/constants.py:14
+msgid "Enter your first name(s)"
+msgstr ""
+
+#: grc/personal_details/constants.py:15
+msgid "Enter your last name"
+msgstr ""
+
+#: grc/personal_details/constants.py:16
 msgid "Select your affirmed gender"
+msgstr ""
+
+#: grc/personal_details/constants.py:17
+msgid ""
+"Select if you don't want us to contact you at any point in the next 6 "
+"months"
 msgstr ""
 
 #: grc/start_application/constants.py:6
@@ -1328,6 +1366,53 @@ msgstr ""
 msgid "Return to task list"
 msgstr ""
 
+#: grc/templates/govuk-design-system-templates/date-range.html:33
+#: grc/templates/govuk-design-system-templates/date-range.html:138
+msgid "From"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:41
+#: grc/templates/govuk-design-system-templates/date-range.html:88
+#: grc/templates/govuk-design-system-templates/date-range.html:146
+#: grc/templates/govuk-design-system-templates/date-range.html:191
+#: grc/templates/govuk-design-system-templates/date.html:32
+#: grc/templates/personal-details/statutory-declaration-date.html:53
+msgid "Day"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:54
+#: grc/templates/govuk-design-system-templates/date-range.html:101
+#: grc/templates/govuk-design-system-templates/date-range.html:158
+#: grc/templates/govuk-design-system-templates/date-range.html:203
+#: grc/templates/govuk-design-system-templates/date.html:45
+#: grc/templates/personal-details/statutory-declaration-date.html:66
+#: grc/templates/personal-details/transition-date.html:56
+msgid "Month"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:67
+#: grc/templates/govuk-design-system-templates/date-range.html:114
+#: grc/templates/govuk-design-system-templates/date-range.html:170
+#: grc/templates/govuk-design-system-templates/date-range.html:215
+#: grc/templates/govuk-design-system-templates/date.html:58
+#: grc/templates/personal-details/statutory-declaration-date.html:79
+#: grc/templates/personal-details/transition-date.html:69
+msgid "Year"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:80
+#: grc/templates/govuk-design-system-templates/date-range.html:183
+msgid "To"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:127
+msgid "Remove date range"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:229
+msgid "Add another date range"
+msgstr ""
+
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr ""
@@ -1370,6 +1455,32 @@ msgstr ""
 
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
+msgstr ""
+
+#: grc/templates/personal-details/contact-dates.html:11
+#: grc/templates/personal-details/contact-dates.html:33
+msgid ""
+"If we need to contact you by post in the next 6 months, are there any "
+"dates we should avoid?"
+msgstr ""
+
+#: grc/templates/personal-details/contact-dates.html:27
+msgid "For example, 31 8 2023"
+msgstr ""
+
+#: grc/templates/personal-details/contact-dates.html:37
+msgid ""
+"For example, if you are away on holiday. The Gender Recognition Panel "
+"admin team will not contact you during this time - but other government "
+"departments such as HMRC might still contact you."
+msgstr ""
+
+#: grc/templates/personal-details/contact-dates.html:44
+msgid "Insert date to avoid"
+msgstr ""
+
+#: grc/templates/personal-details/contact-dates.html:53
+msgid "Insert dates to avoid"
 msgstr ""
 
 #: grc/templates/personal-details/name.html:7
@@ -1436,20 +1547,6 @@ msgstr ""
 msgid ""
 "Enter the date you signed your gender recognition statutory declaration "
 "in front of someone authorised to administer oaths."
-msgstr ""
-
-#: grc/templates/personal-details/statutory-declaration-date.html:53
-msgid "Day"
-msgstr ""
-
-#: grc/templates/personal-details/statutory-declaration-date.html:66
-#: grc/templates/personal-details/transition-date.html:56
-msgid "Month"
-msgstr ""
-
-#: grc/templates/personal-details/statutory-declaration-date.html:79
-#: grc/templates/personal-details/transition-date.html:69
-msgid "Year"
 msgstr ""
 
 #: grc/templates/personal-details/transition-date.html:7
