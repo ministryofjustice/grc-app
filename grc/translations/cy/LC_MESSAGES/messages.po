@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 09:46+0100\n"
+"POT-Creation-Date: 2024-05-02 16:42+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -399,6 +399,14 @@ msgstr "Nodwch eich cod post"
 msgid "Enter a valid postcode"
 msgstr "Nodwch god post dilys"
 
+#: grc/business_logic/constants.py:101
+msgid "Enter your phone number"
+msgstr "Nodwch eich rhif ffôn"
+
+#: grc/business_logic/constants.py:102
+msgid "Enter a valid phone number"
+msgstr "Nodwch rif ffôn dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -513,21 +521,37 @@ msgstr "Gwryw"
 msgid "Female"
 msgstr "Benyw"
 
+#: grc/personal_details/constants.py:8
+msgid "Email"
+msgstr "E-bost"
+
+#: grc/personal_details/constants.py:9
+msgid "Phone call"
+msgstr "Galwad ffôn"
+
 #: grc/personal_details/constants.py:10
+msgid "Post"
+msgstr "Post"
+
+#: grc/personal_details/constants.py:13
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:11
+#: grc/personal_details/constants.py:14
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:12
+#: grc/personal_details/constants.py:15
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/personal_details/constants.py:13
+#: grc/personal_details/constants.py:16
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
+
+#: grc/personal_details/constants.py:17
+msgid "Select how would you like to be contacted"
+msgstr "Dewiswch sut hoffech chi inni gysylltu â chi"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1512,6 +1536,23 @@ msgstr "Beth yw eich rhywedd a gadarnhawyd?"
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
 msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/contact-preferences.html:8
+#: grc/templates/personal-details/contact-preferences.html:33
+msgid ""
+"How would you like to be contacted if we have any questions about your "
+"application?"
+msgstr "Sut yr hoffech i ni gysylltu â chi ynghylch eich cais? "
+
+#: grc/templates/personal-details/contact-preferences.html:42
+#: grc/templates/start-application/email-address.html:6
+#: grc/templates/start-application/email-address.html:15
+msgid "Email address"
+msgstr "Cyfeiriad e-bost"
+
+#: grc/templates/personal-details/contact-preferences.html:53
+msgid "Phone number"
+msgstr "Rhif ffôn"
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26
@@ -2681,11 +2722,6 @@ msgstr ""
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
 msgstr ""
-
-#: grc/templates/start-application/email-address.html:6
-#: grc/templates/start-application/email-address.html:15
-msgid "Email address"
-msgstr "Cyfeiriad e-bost"
 
 #: grc/templates/start-application/email-address.html:19
 msgid ""
