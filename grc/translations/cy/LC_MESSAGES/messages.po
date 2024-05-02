@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 11:29+0100\n"
+"POT-Creation-Date: 2024-05-02 15:42+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -388,7 +388,7 @@ msgid "'To' date is in the past"
 msgstr ""
 
 #: grc/business_logic/constants.py:98
-msgid "'From' date is after the 'To' date'"
+msgid "'From' date is after the 'To' date"
 msgstr ""
 
 #: grc/business_logic/constants.py:99
@@ -2934,4 +2934,7 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
+
+#~ msgid "'From' date is after the 'To' date'"
+#~ msgstr ""
 

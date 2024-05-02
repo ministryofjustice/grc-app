@@ -120,7 +120,7 @@ class TestContactDatesForm:
             assert form_errors == {}
             form_errors = validate_date_ranges(valid_from_date, invalid_to_date)
             assert form_errors == {
-                'to_date_year': "'From' date is after the 'To' date'"
+                'to_date_year': "'From' date is after the 'To' date"
             }
             remove_date_ranges(contact_dates_form)
 
@@ -202,5 +202,5 @@ class TestContactDatesForm:
                 i: validate_date_ranges(
                     date_range['from_date'], date_range['to_date']) for i, date_range in date_ranges.items()
             }
-            assert form_errors == {0: {}, 1: {'to_date_year': "'From' date is after the 'To' date'"}}
+            assert form_errors == {0: {}, 1: {'to_date_year': "'From' date is after the 'To' date"}}
             remove_date_ranges(contact_dates_form)

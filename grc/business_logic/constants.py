@@ -95,7 +95,7 @@ class BaseConstants:
     STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR = _l('Enter a date that does not precede your transition date')
     CONTACT_FROM_DATE_IN_PAST_ERROR = _l("'From' date is in the past")
     CONTACT_TO_DATE_IN_PAST_ERROR = _l("'To' date is in the past")
-    CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR = _l("'From' date is after the 'To' date'")
+    CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR = _l("'From' date is after the 'To' date")
     ADDRESS_ERROR = _l('Enter your address')
     ADDRESS_NO_TOWN_ERROR = _l('Enter your town or city')
     ADDRESS_LINE_ONE_ERROR = _l('Enter a valid address line one')
