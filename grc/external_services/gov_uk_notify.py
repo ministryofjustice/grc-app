@@ -1,6 +1,6 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
-from grc.external_services.gov_uk_notify import GovUkNotifyTemplates
+from grc.external_services.gov_uk_notify_templates import GovUkNotifyTemplates
 
 
 class GovUkNotify:
