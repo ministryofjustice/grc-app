@@ -87,13 +87,13 @@ class PreviousNamesCheck(FlaskForm):
 
 class AddressForm(FlaskForm):
     address_line_one = StringField(
-        validators=[DataRequired(message='Enter your address'), validate_address_field]
+        validators=[LazyDataRequired(lazy_message=c.ADDRESS_ERROR), validate_address_field]
     )
 
     address_line_two = StringField(validators=[validate_address_field])
 
     town = StringField(
-        validators=[DataRequired(message='Enter your town or city'), validate_address_field]
+        validators=[LazyDataRequired(lazy_message=c.ADDRESS_NO_TOWN_ERROR), validate_address_field]
     )
 
     country = SelectField(
@@ -299,8 +299,8 @@ class AddressForm(FlaskForm):
     )
 
     postcode = StringField(
-        validators=[StrictRequiredIf('country', ['', 'United Kingdom'], message='Enter your postcode',
-                                     validators=[validate_postcode])]
+        validators=[StrictRequiredIf('country', ['', 'United Kingdom'],
+                                     message=c.NO_POSTCODE_ERROR, validators=[validate_postcode])]
     )
 
 

@@ -1,6 +1,7 @@
 import os
 import re
 import pathlib
+from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from flask import session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
@@ -148,7 +149,14 @@ def validate_address_field(form, field):
 
     match = re.search('^[a-zA-Z0-9- ]*$', field.data)
     if match is None:
-        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
+        messages = defaultdict(lambda: c.ADDRESS_ERROR)
+        error_messages = {
+            'address_line_one': c.ADDRESS_LINE_ONE_ERROR,
+            'address_line_two': c.ADDRESS_LINE_TWO_ERROR,
+            'town': c.ADDRESS_TOWN_OR_CITY_ERROR,
+        }
+        messages.update(error_messages)
+        raise LazyValidationError(messages[field.label.field_id])
 
 
 def validate_postcode(form, field):
@@ -158,7 +166,7 @@ def validate_postcode(form, field):
     match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
                       field.data)
     if match is None:
-        raise ValidationError('Enter a valid postcode')
+        raise LazyValidationError(c.ENTER_VALID_POSTCODE_ERROR)
 
 
 def validate_date_of_birth(form, field):
