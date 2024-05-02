@@ -4,12 +4,14 @@
 {% import "govuk-design-system-templates/textarea.html" as textarea %}
 {% import "govuk-design-system-templates/date.html" as date %}
 {% import "govuk-design-system-templates/date-range.html" as dateRange %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
 
-{% block title %}If we need to contact you by post in the next 6 months, are there any dates we should avoid?{% endblock %}
+{% block title %}{{ _('If we need to contact you by post in the next 6 months, are there any dates we should avoid?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -22,26 +24,24 @@
                 {{ form.csrf_token }}
 
                 {% macro insertDatesToAvoidHintText() %}
-                    For example, 31 8 2023
+                    {{ _('For example, 31 8 2023') }}
                 {% endmacro %}
 
                 {{ radios.renderFor(
                     form,
                     fieldName='contactDatesCheck',
-                    question="If we need to contact you by post in the next 6 months, are there any dates we should avoid?",
+                    question=_("If we need to contact you by post in the next 6 months, are there any dates we should avoid?"),
                     radiosOptions={
                         'questionIsPageHeading': true,
                         'hintOptions': {
-                            'htmlOrText': 'For example, if you are away on holiday. The Gender Recognition Panel
-                                           admin team will not contact you during this time – but other government
-                                           departments such as HMRC might still contact you.'
+                            'htmlOrText': _('For example, if you are away on holiday. The Gender Recognition Panel admin team will not contact you during this time - but other government departments such as HMRC might still contact you.')
                         },
                         'conditionalOptions': [
                             ('SINGLE_DATE',
                             date.renderFor(
                                 form,
                                 dateForOptions={
-                                    'labelOptions': { 'htmlOrText': "Insert date to avoid" },
+                                    'labelOptions': { 'htmlOrText': _("Insert date to avoid") },
                                     'hintOptions': { 'htmlOrText': insertDatesToAvoidHintText() },
                                     'parentForm': 'contactDatesCheck'
                                 }
@@ -50,7 +50,7 @@
                             dateRange.renderFor(
                                 form,
                                 dateForOptions={
-                                    'labelOptions': { 'htmlOrText': "Insert dates to avoid" },
+                                    'labelOptions': { 'htmlOrText': _("Insert dates to avoid") },
                                     'hintOptions': { 'htmlOrText': insertDatesToAvoidHintText() },
                                     'parentForm': 'contactDatesCheck'
                                 }
@@ -59,14 +59,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
             
         </div>

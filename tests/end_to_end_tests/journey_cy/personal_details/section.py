@@ -148,3 +148,29 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='town', value=data.TOWN)
     await helpers.fill_textbox(field='postcode', value=data.POSTCODE)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Contact Dates page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/contact-dates')
+    await asserts.accessibility()
+    await asserts.h1('Os bydd arnom angen cysylltu â chi drwy’r post yn y 6 mis nesaf, a oes unrhyw ddyddiadau y dylid eu hosgoi?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/contact-dates')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('If we need to contact you by post in the next 6 months, are there any dates we should avoid?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Os bydd arnom angen cysylltu â chi drwy’r post yn y 6 mis nesaf, a oes unrhyw ddyddiadau y dylid eu hosgoi?')
+
+    # Enter a valid date range
+    await helpers.check_radio(field='contactDatesCheck', value='DATE_RANGE')
+    await helpers.fill_textbox(field='date_ranges-0-from_date_day', value=data.CONTACT_DATE_RANGE_1_FROM_DAY)
+    await helpers.fill_textbox(field='date_ranges-0-from_date_month', value=data.CONTACT_DATE_RANGE_1_FROM_MONTH)
+    await helpers.fill_textbox(field='date_ranges-0-from_date_year', value=data.CONTACT_DATE_RANGE_1_FROM_YEAR)
+    await helpers.fill_textbox(field='date_ranges-0-to_date_day', value=data.CONTACT_DATE_RANGE_1_TO_DAY)
+    await helpers.fill_textbox(field='date_ranges-0-to_date_month', value=data.CONTACT_DATE_RANGE_1_TO_MONTH)
+    await helpers.fill_textbox(field='date_ranges-0-to_date_year', value=data.CONTACT_DATE_RANGE_1_TO_YEAR)
+    await helpers.click_button('Cadw a pharhau')
