@@ -2935,6 +2935,3 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
 
-#~ msgid "'From' date is after the 'To' date'"
-#~ msgstr ""
-
