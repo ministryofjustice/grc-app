@@ -315,7 +315,7 @@ def validate_phone_number(form, field):
 
     match = re.search(r'^[0-9]+$', field.data)
     if match is None:
-        raise ValidationError('Enter a valid phone number')
+        raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
 
 def validate_hwf_reference_number(form, field):
