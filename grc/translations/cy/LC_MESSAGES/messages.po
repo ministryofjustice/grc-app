@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-01 14:27+0100\n"
+"POT-Creation-Date: 2024-05-02 09:46+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -371,6 +371,34 @@ msgstr "Nodwch ddiwrnod fel rhif rhwng 1 ac 31"
 msgid "Enter a date that does not precede your transition date"
 msgstr "Nodwch ddyddiad nad yw cyn dyddiad eich trawsnewidiad"
 
+#: grc/business_logic/constants.py:94
+msgid "Enter your address"
+msgstr "Nodwch eich cyfeiriad"
+
+#: grc/business_logic/constants.py:95
+msgid "Enter your town or city"
+msgstr "Nodwch eich tref neu ddinas"
+
+#: grc/business_logic/constants.py:96
+msgid "Enter a valid address line one"
+msgstr "Nodwch gyfeiriad llinell un dilys"
+
+#: grc/business_logic/constants.py:97
+msgid "Enter a valid address line two"
+msgstr "Nodwch gyfeiriad llinell dau dilys"
+
+#: grc/business_logic/constants.py:98
+msgid "Enter a valid town"
+msgstr "Nodwch dref ddilys"
+
+#: grc/business_logic/constants.py:99
+msgid "Enter your postcode"
+msgstr "Nodwch eich cod post"
+
+#: grc/business_logic/constants.py:100
+msgid "Enter a valid postcode"
+msgstr "Nodwch god post dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -468,8 +496,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:87
-#: grc/utils/form_custom_validators.py:434
-#: grc/utils/form_custom_validators.py:453
+#: grc/utils/form_custom_validators.py:442
+#: grc/utils/form_custom_validators.py:461
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
@@ -1443,6 +1471,39 @@ msgstr "Yn ôl i’r rhestr tasgau"
 msgid "There is a problem"
 msgstr "Mae yna broblem"
 
+#: grc/templates/personal-details/address.html:8
+#: grc/templates/personal-details/address.html:27
+msgid "What is your address?"
+msgstr "Beth yw eich cyfeiriad?"
+
+#: grc/templates/personal-details/address.html:31
+msgid ""
+"This should be the address that you want us to send your Gender "
+"Recognition Certificate to"
+msgstr ""
+"Dylech roi’r cyfeiriad yr ydych eisiau i ni ei ddefnyddio i anfon eich "
+"Tystysgrif Cydnabod Rhywedd iddo"
+
+#: grc/templates/personal-details/address.html:38
+msgid "Address line 1"
+msgstr "Llinell gyntaf y cyfeiriad"
+
+#: grc/templates/personal-details/address.html:47
+msgid "Address line 2 (optional)"
+msgstr "Ail linell y cyfeiriad (dewisol)"
+
+#: grc/templates/personal-details/address.html:56
+msgid "Town or city"
+msgstr "Tref neu ddinas"
+
+#: grc/templates/personal-details/address.html:66
+msgid "Country (optional)"
+msgstr "Gwlad (dewisol)"
+
+#: grc/templates/personal-details/address.html:75
+msgid "Postcode or zipcode"
+msgstr "Cod post neu god sip"
+
 #: grc/templates/personal-details/affirmed-gender.html:7
 #: grc/templates/personal-details/affirmed-gender.html:25
 msgid "What is your affirmed gender?"
@@ -1548,6 +1609,15 @@ msgstr "Pryd wnaethoch chi drawsnewid o un rhywedd i’r llall?   "
 #: grc/templates/personal-details/transition-date.html:32
 msgid "Enter the month and year of your transition"
 msgstr "Rhowch fis a blwyddyn eich trawsnewidiad"
+
+#: grc/templates/personal-details/transition-date.html:33
+msgid ""
+"For example, this could be when you changed your name by deed poll, or "
+"when you told friends or family you were changing your gender"
+msgstr ""
+"Er enghraifft, gallai hyn fod yr adeg pan wnaethoch newid eich enw drwy "
+"weithred newid enw, neu pam ddywedoch wrth eich teulu neu ffrindiau eich "
+"bod yn newid eich rhywedd"
 
 #: grc/templates/personal-details/transition-date.html:34
 msgid ""
@@ -2761,23 +2831,4 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
-
-#~ msgid ""
-#~ "If you have changed your name more"
-#~ " than once, we will need to see"
-#~ " documents for each instance."
-#~ msgstr ""
-#~ "Os ydych wedi newid eich enw fwy"
-#~ " nag unwaith, bydd angen i ni "
-#~ "weld dogfennau ar gyfer pob achos"
-
-#~ msgid ""
-#~ "We ask for this so we can "
-#~ "match your birth records after you "
-#~ "receive a Gender Recognition Certificate."
-#~ msgstr ""
-#~ "Gofynnwn am hyn fel y gallwn eu"
-#~ " cyfateb i'ch cofnodion geni ar ôl"
-#~ " i chi gael Tystysgrif Cydnabod "
-#~ "Rhywedd"
 
