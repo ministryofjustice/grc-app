@@ -566,6 +566,8 @@ msgid ""
 "Select if you don't want us to contact you at any point in the next 6 "
 "months"
 msgstr ""
+"Dewiswch os nad ydych chi am i ni gysylltu â chi ar unrhyw adeg yn ystod "
+"y 6 mis nesaf"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
