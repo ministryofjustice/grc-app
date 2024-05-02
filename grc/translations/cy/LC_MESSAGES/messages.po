@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 09:46+0100\n"
+"POT-Creation-Date: 2024-05-02 15:42+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -341,61 +341,81 @@ msgstr "Nodwch flwyddyn"
 
 #: grc/business_logic/constants.py:86
 msgid "Enter a valid year"
-msgstr "Nodwch ddyddiad dilys"
+msgstr "Nodwch flwyddyn ddilys"
 
 #: grc/business_logic/constants.py:87
+msgid "Enter a valid date"
+msgstr "Nodwch ddyddiad dilys"
+
+#: grc/business_logic/constants.py:88
 msgid "Enter a year as a 4-digit number, like 2000"
 msgstr "Nodwch flwyddyn fel rhif 4 digid, fel 2000"
 
-#: grc/business_logic/constants.py:88
+#: grc/business_logic/constants.py:89
 msgid "Enter a date within the last 100 years"
 msgstr "Nodwch ddyddiad o fewn y 100 diwethaf"
 
-#: grc/business_logic/constants.py:89
+#: grc/business_logic/constants.py:90
 msgid "Enter a date in the past"
 msgstr "Nodwch ddyddiad yn y gorffennol"
 
-#: grc/business_logic/constants.py:90
+#: grc/business_logic/constants.py:91
+msgid "Enter a date in the future"
+msgstr "Nodwch ddyddiad yn y dyfodol"
+
+#: grc/business_logic/constants.py:92
 msgid "Enter a date at least 2 years before your application"
 msgstr "Nodwch ddyddiad o leiaf 2 o flynyddoedd cyn eich cais"
 
-#: grc/business_logic/constants.py:91
+#: grc/business_logic/constants.py:93
 msgid "Enter a day"
 msgstr "Nodwch ddiwrnod"
 
-#: grc/business_logic/constants.py:92
+#: grc/business_logic/constants.py:94
 msgid "Enter a day as a number between 1 and 31"
 msgstr "Nodwch ddiwrnod fel rhif rhwng 1 ac 31"
 
-#: grc/business_logic/constants.py:93
+#: grc/business_logic/constants.py:95
 msgid "Enter a date that does not precede your transition date"
 msgstr "Nodwch ddyddiad nad yw cyn dyddiad eich trawsnewidiad"
 
-#: grc/business_logic/constants.py:94
+#: grc/business_logic/constants.py:96
+msgid "'From' date is in the past"
+msgstr ""
+
+#: grc/business_logic/constants.py:97
+msgid "'To' date is in the past"
+msgstr ""
+
+#: grc/business_logic/constants.py:98
+msgid "'From' date is after the 'To' date"
+msgstr ""
+
+#: grc/business_logic/constants.py:99
 msgid "Enter your address"
 msgstr "Nodwch eich cyfeiriad"
 
-#: grc/business_logic/constants.py:95
+#: grc/business_logic/constants.py:100
 msgid "Enter your town or city"
 msgstr "Nodwch eich tref neu ddinas"
 
-#: grc/business_logic/constants.py:96
+#: grc/business_logic/constants.py:101
 msgid "Enter a valid address line one"
 msgstr "Nodwch gyfeiriad llinell un dilys"
 
-#: grc/business_logic/constants.py:97
+#: grc/business_logic/constants.py:102
 msgid "Enter a valid address line two"
 msgstr "Nodwch gyfeiriad llinell dau dilys"
 
-#: grc/business_logic/constants.py:98
+#: grc/business_logic/constants.py:103
 msgid "Enter a valid town"
 msgstr "Nodwch dref ddilys"
 
-#: grc/business_logic/constants.py:99
+#: grc/business_logic/constants.py:104
 msgid "Enter your postcode"
 msgstr "Nodwch eich cod post"
 
-#: grc/business_logic/constants.py:100
+#: grc/business_logic/constants.py:105
 msgid "Enter a valid postcode"
 msgstr "Nodwch god post dilys"
 
@@ -513,21 +533,41 @@ msgstr "Gwryw"
 msgid "Female"
 msgstr "Benyw"
 
+#: grc/personal_details/constants.py:8
+msgid "A single date"
+msgstr "Dyddiad unigol"
+
+#: grc/personal_details/constants.py:9
+msgid "A range of dates"
+msgstr "Ystod o ddyddiadau"
+
 #: grc/personal_details/constants.py:10
+msgid "No dates"
+msgstr "Dim dyddiadau"
+
+#: grc/personal_details/constants.py:13
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:11
+#: grc/personal_details/constants.py:14
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:12
+#: grc/personal_details/constants.py:15
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/personal_details/constants.py:13
+#: grc/personal_details/constants.py:16
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
+
+#: grc/personal_details/constants.py:17
+msgid ""
+"Select if you don't want us to contact you at any point in the next 6 "
+"months"
+msgstr ""
+"Dewiswch os nad ydych chi am i ni gysylltu â chi ar unrhyw adeg yn ystod "
+"y 6 mis nesaf"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1467,6 +1507,53 @@ msgstr "Cadw a pharhau"
 msgid "Return to task list"
 msgstr "Yn ôl i’r rhestr tasgau"
 
+#: grc/templates/govuk-design-system-templates/date-range.html:33
+#: grc/templates/govuk-design-system-templates/date-range.html:138
+msgid "From"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:41
+#: grc/templates/govuk-design-system-templates/date-range.html:88
+#: grc/templates/govuk-design-system-templates/date-range.html:146
+#: grc/templates/govuk-design-system-templates/date-range.html:191
+#: grc/templates/govuk-design-system-templates/date.html:32
+#: grc/templates/personal-details/statutory-declaration-date.html:53
+msgid "Day"
+msgstr "Diwrnod"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:54
+#: grc/templates/govuk-design-system-templates/date-range.html:101
+#: grc/templates/govuk-design-system-templates/date-range.html:158
+#: grc/templates/govuk-design-system-templates/date-range.html:203
+#: grc/templates/govuk-design-system-templates/date.html:45
+#: grc/templates/personal-details/statutory-declaration-date.html:66
+#: grc/templates/personal-details/transition-date.html:56
+msgid "Month"
+msgstr "Mis"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:67
+#: grc/templates/govuk-design-system-templates/date-range.html:114
+#: grc/templates/govuk-design-system-templates/date-range.html:170
+#: grc/templates/govuk-design-system-templates/date-range.html:215
+#: grc/templates/govuk-design-system-templates/date.html:58
+#: grc/templates/personal-details/statutory-declaration-date.html:79
+#: grc/templates/personal-details/transition-date.html:69
+msgid "Year"
+msgstr "Blwyddyn"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:80
+#: grc/templates/govuk-design-system-templates/date-range.html:183
+msgid "To"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:127
+msgid "Remove date range"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/date-range.html:229
+msgid "Add another date range"
+msgstr "Ychwanegu ystod dyddiad arall"
+
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
@@ -1512,6 +1599,38 @@ msgstr "Beth yw eich rhywedd a gadarnhawyd?"
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
 msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/contact-dates.html:11
+#: grc/templates/personal-details/contact-dates.html:33
+msgid ""
+"If we need to contact you by post in the next 6 months, are there any "
+"dates we should avoid?"
+msgstr ""
+"Os bydd arnom angen cysylltu â chi drwy’r post yn y 6 mis nesaf, a oes "
+"unrhyw ddyddiadau y dylid eu hosgoi? "
+
+#: grc/templates/personal-details/contact-dates.html:27
+msgid "For example, 31 8 2023"
+msgstr "Er enghraifft, 31 8 2023"
+
+#: grc/templates/personal-details/contact-dates.html:37
+msgid ""
+"For example, if you are away on holiday. The Gender Recognition Panel "
+"admin team will not contact you during this time - but other government "
+"departments such as HMRC might still contact you."
+msgstr ""
+"Er enghraifft, os ydych i ffwrdd ar wyliau. Ni fydd tîm gweinyddol y "
+"Panel Cydnabod Rhywedd yn cysylltu â chi yn ystod y cyfnod hwn - ond "
+"efallai y bydd adrannau eraill y llywodraeth, megis HMRC yn cysylltu â "
+"chi."
+
+#: grc/templates/personal-details/contact-dates.html:44
+msgid "Insert date to avoid"
+msgstr "Rhowch ddyddiad i’w osgoi"
+
+#: grc/templates/personal-details/contact-dates.html:53
+msgid "Insert dates to avoid"
+msgstr "Rhowch ddyddiadau i'w hosgoi"
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26
@@ -1586,20 +1705,6 @@ msgid ""
 msgstr ""
 "Rhowch y dyddiad pan wnaethoch lofnodi eich datganiad statudol cydnabod "
 "rhywedd ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu llwon."
-
-#: grc/templates/personal-details/statutory-declaration-date.html:53
-msgid "Day"
-msgstr "Diwrnod"
-
-#: grc/templates/personal-details/statutory-declaration-date.html:66
-#: grc/templates/personal-details/transition-date.html:56
-msgid "Month"
-msgstr "Mis"
-
-#: grc/templates/personal-details/statutory-declaration-date.html:79
-#: grc/templates/personal-details/transition-date.html:69
-msgid "Year"
-msgstr "Blwyddyn"
 
 #: grc/templates/personal-details/transition-date.html:7
 #: grc/templates/personal-details/transition-date.html:27
