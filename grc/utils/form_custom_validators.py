@@ -414,13 +414,13 @@ def validate_date_ranges(from_date, to_date):
     form_errors = dict()
 
     if from_date < date.today():
-        form_errors['from_date_year'] = '\'From\' date is in the past'
+        form_errors['from_date_year'] = c.CONTACT_FROM_DATE_IN_PAST_ERROR
 
     if to_date < date.today():
-        form_errors['to_date_year'] = '\'To\' date is in the past'
+        form_errors['to_date_year'] = c.CONTACT_TO_DATE_IN_PAST_ERROR
 
     if from_date > to_date:
-        form_errors['to_date_year'] = '\'From\' date is after the \'To\' date'
+        form_errors['to_date_year'] = c.CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR
 
     return form_errors
 
