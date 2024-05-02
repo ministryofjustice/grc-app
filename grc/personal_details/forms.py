@@ -347,35 +347,35 @@ class DateRangeForm(Form):
 
 
 class ContactDatesForm(FlaskForm):
-    contactDatesCheck = RadioField(
-        choices=[
-            (ContactDatesAvoid.SINGLE_DATE.name, 'A single date'),
-            (ContactDatesAvoid.DATE_RANGE.name, 'A range of dates'),
-            (ContactDatesAvoid.NO_DATES.name, 'No dates')
+    contactDatesCheck = LazyRadioField(
+        lazy_choices=[
+            (ContactDatesAvoid.SINGLE_DATE.name, c.SINGLE_DATE),
+            (ContactDatesAvoid.DATE_RANGE.name, c.DATE_RANGE),
+            (ContactDatesAvoid.NO_DATES.name, c.NO_DATES)
         ],
-        validators=[DataRequired(message="Select if you don't want us to contact you at any point in the next 6 months")]
+        validators=[LazyDataRequired(lazy_message=c.NO_CONTACT_DATES_OPTION_ERROR)]
     )
 
     day = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a day', validators=[
-                Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
-            ]),
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_DAY_ERROR, validators=[
+                    LazyInteger(min_=1, max_=31, lazy_message=c.ENTER_VALID_DAY_ERROR)
+            ])
         ]
     )
 
     month = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a month', validators=[
-                Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_MONTH_ERROR, validators=[
+                LazyInteger(min_=1, max_=12, lazy_message=c.ENTER_VALID_MONTH_ERROR)
             ])
         ]
     )
 
     year = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a year', validators=[
-                Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_YEAR_ERROR, validators=[
+                LazyInteger(min_=1000, lazy_message=c.ENTER_VALID_YEAR_ERROR, validators=[
                     validate_single_date
                 ])
             ])

@@ -346,10 +346,10 @@ def validate_single_date(form, field):
         date_entered = date(year, month, day)
     except ValueError as e:
         logger.log(LogLevel.ERROR, message=f'Error validating single date: {e}')
-        raise ValidationError('Enter a valid date')
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     if date_entered < date.today():
-        raise ValidationError('Enter a date in the future')
+        raise LazyValidationError(c.ENTER_DATE_IN_FUTURE_ERROR)
 
 
 def validate_date_range_form(date_ranges_form):
@@ -362,50 +362,50 @@ def validate_date_range_form(date_ranges_form):
     to_date_year_entered = True
 
     if not date_ranges_form.from_date_day.data:
-        form_errors['from_date_day'] = 'Enter a day'
+        form_errors['from_date_day'] = c.ENTER_DAY_ERROR
         from_date_day_entered = False
 
     if not date_ranges_form.from_date_month.data:
-        form_errors['from_date_month'] = 'Enter a month'
+        form_errors['from_date_month'] = c.ENTER_MONTH_ERROR
         from_date_month_entered = False
 
     if not date_ranges_form.from_date_year.data:
-        form_errors['from_date_year'] = 'Enter a year'
+        form_errors['from_date_year'] = c.ENTER_YEAR_ERROR
         from_date_year_entered = False
 
     if not date_ranges_form.to_date_day.data:
-        form_errors['to_date_day'] = 'Enter a day'
+        form_errors['to_date_day'] = c.ENTER_DAY_ERROR
         to_date_day_entered = False
 
     if not date_ranges_form.to_date_month.data:
-        form_errors['to_date_month'] = 'Enter a month'
+        form_errors['to_date_month'] = c.ENTER_MONTH_ERROR
         to_date_month_entered = False
 
     if not date_ranges_form.to_date_year.data:
-        form_errors['to_date_year'] = 'Enter a year'
+        form_errors['to_date_year'] = c.ENTER_YEAR_ERROR
         to_date_year_entered = False
 
     if from_date_day_entered and (int(date_ranges_form.from_date_day.data) < 1 or
                                   int(date_ranges_form.from_date_day.data) > 31):
-        form_errors['from_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['from_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if to_date_day_entered and (int(date_ranges_form.to_date_day.data) < 1 or
                                 int(date_ranges_form.to_date_day.data) > 31):
-        form_errors['to_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['to_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if from_date_month_entered and (int(date_ranges_form.from_date_month.data) < 1 or
                                     int(date_ranges_form.from_date_month.data) > 12):
-        form_errors['from_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['from_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if to_date_month_entered and (int(date_ranges_form.to_date_month.data) < 1 or
                                   int(date_ranges_form.to_date_month.data) > 12):
-        form_errors['to_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['to_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if from_date_year_entered and int(date_ranges_form.from_date_year.data) < 1000:
-        form_errors['from_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['from_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     if to_date_year_entered and int(date_ranges_form.to_date_year.data) < 1000:
-        form_errors['to_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['to_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     return form_errors
 
@@ -414,13 +414,13 @@ def validate_date_ranges(from_date, to_date):
     form_errors = dict()
 
     if from_date < date.today():
-        form_errors['from_date_year'] = '\'From\' date is in the past'
+        form_errors['from_date_year'] = c.CONTACT_FROM_DATE_IN_PAST_ERROR
 
     if to_date < date.today():
-        form_errors['to_date_year'] = '\'To\' date is in the past'
+        form_errors['to_date_year'] = c.CONTACT_TO_DATE_IN_PAST_ERROR
 
     if from_date > to_date:
-        form_errors['to_date_year'] = '\'From\' date is after the \'To\' date'
+        form_errors['to_date_year'] = c.CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR
 
     return form_errors
 
