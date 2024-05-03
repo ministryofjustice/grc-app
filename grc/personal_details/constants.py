@@ -19,3 +19,4 @@ class PersonalDetailsConstants(BaseConstants):
     NO_AFFIRMED_GENDER_ERROR = _l('Select your affirmed gender')
     NO_CONTACT_DATES_OPTION_ERROR = _l("Select if you don't want us to contact you at any point in the next 6 months")
     NO_CONTACT_PREFERENCES_ERROR = _l('Select how would you like to be contacted')
+    NO_HMRC_OPTION_ERROR = _l('Select if you would like us to tell HMRC after you receive a Gender Recognition Certificate')
