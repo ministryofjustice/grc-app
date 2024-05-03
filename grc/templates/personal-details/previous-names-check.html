@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}If you have ever changed your name to reflect your gender{% endblock %}
+{% block title %}{{ _('If you have ever changed your name to reflect your gender') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,22 +17,22 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                If you have ever changed your name to reflect your gender
+                {{ _('If you have ever changed your name to reflect your gender') }}
             </h1>
             <p class="govuk-body">
-                You will need to upload documents that show this.
-                If you have changed your name more than once, we will need to see documents for each instance.
+                {{ _('You will need to upload documents that show this') }}.
+                {{ _('If you have changed your name more than once, we will need to see documents for each instance') }}.
             </p>
             <p class="govuk-body">
-                We ask for this so we can match your birth records after you receive a Gender Recognition Certificate.
+                {{ _('We ask for this so we can match your birth records after you receive a Gender Recognition Certificate') }}.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-2">
-                These documents are likely to be:
+                {{ _('These documents are likely to be:') }}
             </p>
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
-                <li>deed poll documents, either enrolled or unenrolled</li>
-                <li>change of name documents (Scotland)</li>
-                <li>statutory declarations</li>
+                <li>{{ _('deed poll documents, either enrolled or unenrolled') }}</li>
+                <li>{{ _('change of name documents (Scotland)') }}</li>
+                <li>{{ _('statutory declarations') }}</li>
             </ul>
 
             <form method="POST" action="#">
@@ -39,20 +41,13 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='previousNameCheck',
-                    question="Have you ever changed your name to reflect your gender?",
+                    question=_("Have you ever changed your name to reflect your gender?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m'
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

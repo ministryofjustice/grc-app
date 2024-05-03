@@ -9,7 +9,7 @@ from tests.grc.helpers.data import remove_date_ranges, single_date_mock, date_ra
 class TestContactDatesForm:
 
     def test_contact_single_date_valid(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
             valid_date = date.today() + relativedelta(days=7)
@@ -17,7 +17,7 @@ class TestContactDatesForm:
             assert contact_dates_form.validate()
 
     def test_contact_single_date_in_the_past(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
             invalid_date = date.today() - relativedelta(days=7)
@@ -26,7 +26,7 @@ class TestContactDatesForm:
             assert contact_dates_form.errors['year'][0] == 'Enter a date in the future'
 
     def test_contact_single_date_missing_input(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
             invalid_date = date.today() + relativedelta(days=7)
@@ -35,7 +35,7 @@ class TestContactDatesForm:
             assert contact_dates_form.errors['year'][0] == 'Enter a year'
 
     def test_contact_single_date_invalid_input(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.SINGLE_DATE.value
             invalid_date = date.today() + relativedelta(days=7)
@@ -44,7 +44,7 @@ class TestContactDatesForm:
             assert contact_dates_form.errors['month'][0] == 'Enter a month as a number between 1 and 12'
 
     def test_contact_single_date_range(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -58,7 +58,7 @@ class TestContactDatesForm:
             remove_date_ranges(contact_dates_form)
 
     def test_contact_single_date_range_invalid_inputs(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -80,7 +80,7 @@ class TestContactDatesForm:
             remove_date_ranges(contact_dates_form)
 
     def test_contact_single_date_range_invalid_date_in_past(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -103,7 +103,7 @@ class TestContactDatesForm:
             remove_date_ranges(contact_dates_form)
 
     def test_contact_single_date_range_invalid_to_date_before_from_date(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -120,12 +120,12 @@ class TestContactDatesForm:
             assert form_errors == {}
             form_errors = validate_date_ranges(valid_from_date, invalid_to_date)
             assert form_errors == {
-                'to_date_year': '\'From\' date is after the \'To\' date'
+                'to_date_year': "'From' date is after the 'To' date"
             }
             remove_date_ranges(contact_dates_form)
 
     def test_contact_multi_date_range_valid(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -163,7 +163,7 @@ class TestContactDatesForm:
             remove_date_ranges(contact_dates_form)
 
     def test_contact_multi_date_range_invalid(self, app):
-        with app.app_context():
+        with app.test_request_context():
             contact_dates_form = ContactDatesForm()
             contact_dates_form.contactDatesCheck.data = ContactDatesAvoid.DATE_RANGE.value
 
@@ -202,5 +202,5 @@ class TestContactDatesForm:
                 i: validate_date_ranges(
                     date_range['from_date'], date_range['to_date']) for i, date_range in date_ranges.items()
             }
-            assert form_errors == {0: {}, 1: {'to_date_year': '\'From\' date is after the \'To\' date'}}
+            assert form_errors == {0: {}, 1: {'to_date_year': "'From' date is after the 'To' date"}}
             remove_date_ranges(contact_dates_form)
