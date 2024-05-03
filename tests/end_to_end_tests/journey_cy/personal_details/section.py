@@ -205,7 +205,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/hmrc')
     await asserts.accessibility()
     await asserts.h1('Hysbysu HMRC')
-    await asserts.h1('Notifying HMRC')
     await asserts.number_of_errors(0)
 
     # Change language
