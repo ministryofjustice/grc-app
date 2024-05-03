@@ -249,7 +249,7 @@ msgstr ""
 
 #: grc/business_logic/constants.py:63
 msgid "Select if you have ever changed your name to reflect your gender"
-msgstr ""
+msgstr "Dewiswch os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
 
 #: grc/business_logic/constants.py:64
 msgid "Select if you are currently married or in a civil partnership"
@@ -381,15 +381,15 @@ msgstr "Nodwch ddyddiad nad yw cyn dyddiad eich trawsnewidiad"
 
 #: grc/business_logic/constants.py:96
 msgid "'From' date is in the past"
-msgstr ""
+msgstr "'Mae'r 'o ddyddiad' yn y gorffennol"
 
 #: grc/business_logic/constants.py:97
 msgid "'To' date is in the past"
-msgstr ""
+msgstr "'Mae'r 'dyddiad diwedd' yn y gorffennol'"
 
 #: grc/business_logic/constants.py:98
 msgid "'From' date is after the 'To' date"
-msgstr ""
+msgstr "'Mae'r 'o ddyddiad' yw ar ôl mae'r 'dyddiad diwedd"
 
 #: grc/business_logic/constants.py:99
 msgid "Enter your address"
@@ -1554,7 +1554,7 @@ msgstr "Yn ôl i’r rhestr tasgau"
 #: grc/templates/govuk-design-system-templates/date-range.html:33
 #: grc/templates/govuk-design-system-templates/date-range.html:138
 msgid "From"
-msgstr ""
+msgstr "Oddi wrth"
 
 #: grc/templates/govuk-design-system-templates/date-range.html:41
 #: grc/templates/govuk-design-system-templates/date-range.html:88
@@ -1588,11 +1588,11 @@ msgstr "Blwyddyn"
 #: grc/templates/govuk-design-system-templates/date-range.html:80
 #: grc/templates/govuk-design-system-templates/date-range.html:183
 msgid "To"
-msgstr ""
+msgstr "At"
 
 #: grc/templates/govuk-design-system-templates/date-range.html:127
 msgid "Remove date range"
-msgstr ""
+msgstr "Dileu'r ystod dyddiad"
 
 #: grc/templates/govuk-design-system-templates/date-range.html:229
 msgid "Add another date range"
