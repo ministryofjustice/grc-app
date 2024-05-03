@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from .constants import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
-from grc.lazy.lazy_fields import LazyRadioField
-from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger
+from grc.lazy.lazy_fields import LazyRadioField, LazyMultiSelectField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger, LazyEmail
 from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
 from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
 from wtforms.form import Form
@@ -305,22 +305,22 @@ class AddressForm(FlaskForm):
 
 
 class ContactPreferencesForm(FlaskForm):
-    contact_options = SelectMultipleField(
-        choices=[
-            ('EMAIL', 'Email'),
-            ('PHONE', 'Phone call'),
-            ('POST', 'Post')
+    contact_options = LazyMultiSelectField(
+        lazy_choices=[
+            ('EMAIL', c.EMAIL),
+            ('PHONE', c.PHONE),
+            ('POST', c.POST)
         ],
-        validators=[DataRequired(message='Select how would you like to be contacted')]
+        validators=[LazyDataRequired(lazy_message=c.NO_CONTACT_PREFERENCES_ERROR)]
     )
 
     email = EmailField(
-        validators=[StrictRequiredIf('contact_options', 'EMAIL', message='Enter your email address',
-                                     validators=[Email('Enter a valid email address')])]
+        validators=[StrictRequiredIf('contact_options', 'EMAIL', message=c.NO_EMAIL_ADDRESS_ERROR,
+                                     validators=[LazyEmail(lazy_message=c.EMAIL_ADDRESS_INVALID_ERROR)])]
     )
 
     phone = TelField(
-        validators=[StrictRequiredIf('contact_options', 'PHONE', message='Enter your phone number',
+        validators=[StrictRequiredIf('contact_options', 'PHONE', message=c.NO_PHONE_NUMBER_ERROR,
                                      validators=[validate_phone_number])]
     )
 
