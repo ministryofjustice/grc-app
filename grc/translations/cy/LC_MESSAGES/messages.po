@@ -427,6 +427,14 @@ msgstr "Nodwch eich rhif ffôn"
 msgid "Enter a valid phone number"
 msgstr "Nodwch rif ffôn dilys"
 
+#: grc/business_logic/constants.py:108
+msgid "Enter your National Insurance number"
+msgstr "Nodwch eich rhif Yswiriant Gwladol"
+
+#: grc/business_logic/constants.py:109
+msgid "Enter a valid National Insurance number"
+msgstr "Nodwch rif Yswiriant Gwladol dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -594,6 +602,14 @@ msgstr ""
 #: grc/personal_details/constants.py:21
 msgid "Select how would you like to be contacted"
 msgstr "Dewiswch sut hoffech chi inni gysylltu â chi"
+
+#: grc/personal_details/constants.py:22
+msgid ""
+"Select if you would like us to tell HMRC after you receive a Gender "
+"Recognition Certificate"
+msgstr ""
+"Dewiswch os hoffech chi i ni ddweud wrth HMRC ar ôl i chi gael eich "
+"Tystysgrif Cydnabod Rhywedd"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1728,6 +1744,69 @@ msgstr "Cyfeiriad e-bost"
 #: grc/templates/personal-details/contact-preferences.html:53
 msgid "Phone number"
 msgstr "Rhif ffôn"
+
+#: grc/templates/personal-details/hmrc.html:8
+#: grc/templates/personal-details/hmrc.html:21
+msgid "Notifying HMRC"
+msgstr "Hysbysu HMRC"
+
+#: grc/templates/personal-details/hmrc.html:25
+msgid "HMRC must be told if you have received a Gender Recognition Certificate."
+msgstr "Rhaid dweud wrth HMRC os ydych wedi cael Tystysgrif Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/hmrc.html:28
+msgid "If you usually pay tax in the UK, we can tell HMRC on your behalf."
+msgstr ""
+"Os ydych fel arfer yn talu treth yn y DU, yna gallwn ni ddweud wrth HMRC "
+"ar eich rhan."
+
+#: grc/templates/personal-details/hmrc.html:29
+msgid ""
+"HMRC will update its records with your gender and any name change, and "
+"they will tell the Department for Work and Pensions."
+msgstr ""
+"Bydd HMRC yn diweddaru ei gofnodion gyda’ch rhywedd a’ch newid enw, a "
+"byddant yn dweud wrth yr Adran Gwaith a Phensiynau."
+
+#: grc/templates/personal-details/hmrc.html:30
+msgid "They will send you a letter to confirm the changes."
+msgstr "Byddant yn anfon llythyr atoch i gadarnhau’r newidiadau."
+
+#: grc/templates/personal-details/hmrc.html:33
+msgid "If you prefer,"
+msgstr "Os byddai’n well gennych,"
+
+#: grc/templates/personal-details/hmrc.html:35
+msgid "you can tell HMRC yourself (opens in a new tab)"
+msgstr "gallwch chi ddweud wrth HMRC eich hun (yn agor mewn tab newydd)"
+
+#: grc/templates/personal-details/hmrc.html:39
+msgid ""
+"If you pay tax in the Isle of Man or Channel Islands, please select ‘No’ "
+"and tell HMRC yourself."
+msgstr ""
+"Os ydych chi’n talu treth yn Ynys Manaw neu Ynysoedd y Sianel, dewiswch "
+"‘Na’ a dywedwch wrth HMRC eich hun."
+
+#: grc/templates/personal-details/hmrc.html:48
+msgid ""
+"Would you like us to tell HMRC after you receive a Gender Recognition "
+"Certificate?"
+msgstr ""
+"A hoffech i ni ddweud wrth HMRC ar ôl i chi gael eich Tystysgrif Cydnabod"
+" Rhywedd?"
+
+#: grc/templates/personal-details/hmrc.html:58
+msgid "What is your National Insurance number?"
+msgstr "Beth yw eich rhif Yswiriant Gwladol?"
+
+#: grc/templates/personal-details/hmrc.html:62
+msgid ""
+"It’s on your National Insurance card, benefit letter, payslip or P60. For"
+" example, ‘QQ 12 34 56 C’."
+msgstr ""
+"Bydd ar eich cerdyn Yswiriant Gwladol, llythyrau budd-daliadau, slip "
+"cyflog neu P60. Er enghraifft, ‘QQ 12 34 56 C’"
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26
