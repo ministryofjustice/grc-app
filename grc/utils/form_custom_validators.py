@@ -185,7 +185,7 @@ def validate_date_of_birth(form, field):
     age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
 
     if age < 18:
-        raise LazyValidationError(c.ADULT_AGE_ERROR)
+        raise LazyValidationError(c.ABOVE_AGE_ERROR)
 
     if age > 110:
         raise LazyValidationError(c.BELOW_AGE_ERROR)
