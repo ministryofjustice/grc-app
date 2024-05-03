@@ -21,24 +21,24 @@ class GovUkNotifyTemplates:
     def get_docs_for_grc_app_template_id():
         if g.get_locale() == 'cy':
             return '3bcfc20d-a2ce-4132-91fa-1fc91dd1a097'
-        else
+        else:
             return 'a992b8c5-17e6-4dca-820c-5aa4bdd67b58'
 
     def get_app_recd_30_weeks_template_id():
         if g.get_locale() == 'cy':
             return '11aa2538-d411-42d8-8999-6d97c7b5f429'
-        else
+        else:
             return '77007bae-b688-4dbb-bc84-334b0f5d3aef'
 
     def get_unfinished_app_template_id():
         if g.get_locale() == 'cy':
             return '6d981947-7fa7-4c62-8912-f4324cd050ee'
-        else
+        else:
             return '151fce32-1f66-4efd-a875-28026e8d8d70'
 
 
     def get_security_code_template_id():
         if g.get_locale() == 'cy':
             return '1e5f89f3-44ea-4f08-8458-b4f1ef369e74'
-        else
+        else:
             return 'd93108b9-4a5b-4268-91ee-2bb59686e702'
