@@ -15,7 +15,7 @@ class GovUkNotifyTemplates:
     def get_feedback_template_id():
         if g.get_locale() == 'cy':
             return '388b14cd-345b-4382-9594-b8026c2242a6'
-        else
+        else:
             return 'd83e561e-3620-47f5-983a-4b50bf3fc33c'
 
     def get_docs_for_grc_app_template_id():
