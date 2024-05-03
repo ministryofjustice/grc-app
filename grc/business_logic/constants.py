@@ -91,4 +91,4 @@ class BaseConstants:
     TRANSITION_DATE_TOO_EARLY_ERROR = _l('Enter a date within the last 100 years')
     ENTER_DATE_IN_PAST_ERROR = _l('Enter a date in the past')
     ENTER_DATE_2_YEARS_BEFORE_APP_CREATED_ERROR = _l('Enter a date at least 2 years before your application')
-    ENTER_VALID_DATE = _l('Enter a valid date')
+    ENTER_VALID_DATE_ERROR = _l('Enter a valid date')
