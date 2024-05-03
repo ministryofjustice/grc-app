@@ -463,9 +463,3 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Click Save and continue
     await helpers.click_button('Cadw a pharhau')
-
-
-
-
-
-

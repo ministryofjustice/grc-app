@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 10:12+0100\n"
+"POT-Creation-Date: 2024-05-03 14:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,6 +102,20 @@ msgid ""
 "Select if your birth was registered by a Forces registering service, or "
 "with a British Consul or High Commission, or under Merchant Shipping or "
 "Civil Aviation provisions"
+msgstr ""
+
+#: grc/birth_registration/constants.py:23
+msgid "You need to be at least 18 years old to apply"
+msgstr ""
+
+#: grc/birth_registration/constants.py:24
+msgid "You need to be less than 110 years old to apply"
+msgstr ""
+
+#: grc/birth_registration/constants.py:25
+msgid ""
+"Your date of birth must be before your transition date and statutory "
+"declaration date"
 msgstr ""
 
 #: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
@@ -420,6 +434,10 @@ msgstr ""
 msgid "Enter a date at least 2 years before your application"
 msgstr ""
 
+#: grc/business_logic/constants.py:94
+msgid "Enter a valid date"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -502,8 +520,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:87
-#: grc/utils/form_custom_validators.py:434
-#: grc/utils/form_custom_validators.py:453
+#: grc/utils/form_custom_validators.py:432
+#: grc/utils/form_custom_validators.py:451
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
