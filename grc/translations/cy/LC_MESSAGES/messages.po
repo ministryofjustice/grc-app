@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 17:27+0100\n"
+"POT-Creation-Date: 2024-05-03 10:32+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -554,6 +554,7 @@ msgid "No dates"
 msgstr "Dim dyddiadau"
 
 #: grc/personal_details/constants.py:11
+#: grc/templates/personal-details/check-your-answers.html:83
 msgid "Email"
 msgstr "E-bost"
 
@@ -562,6 +563,7 @@ msgid "Phone call"
 msgstr "Galwad ffôn"
 
 #: grc/personal_details/constants.py:13
+#: grc/templates/personal-details/check-your-answers.html:93
 msgid "Post"
 msgstr "Post"
 
@@ -698,6 +700,8 @@ msgstr "Cadarnhau"
 msgid "Fill in your details"
 msgstr "Rhoi eich manylion"
 
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:22
 #: grc/templates/task-list.html:82
 msgid "Your personal details"
 msgstr "Eich manylion personol"
@@ -1624,6 +1628,58 @@ msgstr "Beth yw eich rhywedd a gadarnhawyd?"
 msgid "This will appear on your Gender Recognition Certificate."
 msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd."
 
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:21
+msgid "Check your answers:"
+msgstr "Gwiriwch eich atebion:"
+
+#: grc/templates/personal-details/check-your-answers.html:27
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr "Enw"
+
+#: grc/templates/personal-details/check-your-answers.html:34
+msgid "Affirmed gender"
+msgstr "Rhywedd a gadarnhawyd"
+
+#: grc/templates/personal-details/check-your-answers.html:41
+msgid "When you transitioned"
+msgstr "Pan wnaethoch drawsnewid"
+
+#: grc/templates/personal-details/check-your-answers.html:48
+msgid "When you signed your statutory declaration"
+msgstr "Pan wnaethoch lofnodi eich datganiad statudol"
+
+#: grc/templates/personal-details/check-your-answers.html:55
+msgid "Ever changed name"
+msgstr "Erioed wedi newid enw"
+
+#: grc/templates/personal-details/check-your-answers.html:73
+msgid "Address"
+msgstr "Cyfeiriad"
+
+#: grc/templates/personal-details/check-your-answers.html:88
+msgid "Phone"
+msgstr "Ffôn"
+
+#: grc/templates/personal-details/check-your-answers.html:99
+msgid "Contact preferences"
+msgstr "Dewisiadau cyswllt"
+
+#: grc/templates/personal-details/check-your-answers.html:114
+#: grc/templates/personal-details/check-your-answers.html:137
+msgid "Unavailable over the next 6 months"
+msgstr "Ddim ar gael yn y 6 mis nesaf"
+
+#: grc/templates/personal-details/check-your-answers.html:145
+msgid "Notify HMRC"
+msgstr "Hysbysu HMRC"
+
+#: grc/templates/personal-details/check-your-answers.html:153
+msgid "National insurance number"
+msgstr "Rhif Yswiriant Gwladol"
+
 #: grc/templates/personal-details/contact-dates.html:11
 #: grc/templates/personal-details/contact-dates.html:33
 msgid ""
@@ -2221,11 +2277,6 @@ msgstr ""
 #: grc/templates/policies/cookies.html:37
 msgid "Essential cookies we use"
 msgstr "Cwcis hanfodol yr ydym yn eu defnyddio"
-
-#: grc/templates/policies/cookies.html:40
-#: grc/templates/policies/cookies.html:81
-msgid "Name"
-msgstr "Enw"
 
 #: grc/templates/policies/cookies.html:41
 #: grc/templates/policies/cookies.html:82
