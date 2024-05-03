@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-03 16:16+0100\n"
+"POT-Creation-Date: 2024-05-03 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,20 +102,6 @@ msgid ""
 "Select if your birth was registered by a Forces registering service, or "
 "with a British Consul or High Commission, or under Merchant Shipping or "
 "Civil Aviation provisions"
-msgstr ""
-
-#: grc/birth_registration/constants.py:23
-msgid "You need to be at least 18 years old to apply"
-msgstr ""
-
-#: grc/birth_registration/constants.py:24
-msgid "You need to be less than 110 years old to apply"
-msgstr ""
-
-#: grc/birth_registration/constants.py:25
-msgid ""
-"Your date of birth must be before your transition date and statutory "
-"declaration date"
 msgstr ""
 
 #: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
@@ -500,6 +486,20 @@ msgstr ""
 
 #: grc/business_logic/constants.py:112
 msgid "Enter a valid National Insurance number"
+msgstr ""
+
+#: grc/business_logic/constants.py:113
+msgid "You need to be at least 18 years old to apply"
+msgstr ""
+
+#: grc/business_logic/constants.py:114
+msgid "You need to be less than 110 years old to apply"
+msgstr ""
+
+#: grc/business_logic/constants.py:115
+msgid ""
+"Your date of birth must be before your transition date and statutory "
+"declaration date"
 msgstr ""
 
 #: grc/document_checker/constants.py:7

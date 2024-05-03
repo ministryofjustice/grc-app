@@ -110,3 +110,7 @@ class BaseConstants:
     ENTER_VALID_PHONE_NUMBER_ERROR = _l('Enter a valid phone number')
     ENTER_NI_NUMBER_ERROR = _l('Enter your National Insurance number')
     ENTER_VALID_NI_NUMBER_ERROR = _l('Enter a valid National Insurance number')
+    ABOVE_AGE_ERROR = _l('You need to be at least 18 years old to apply')
+    BELOW_AGE_ERROR = _l('You need to be less than 110 years old to apply')
+    DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR = _l('Your date of birth must be before your transition date and statutory '
+                                               'declaration date')
