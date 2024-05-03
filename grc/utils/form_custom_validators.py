@@ -171,7 +171,7 @@ def validate_date_of_birth(form, field):
         y = int(form['year'].data)
         date_of_birth = date(day=d, month=m, year=y)
     except ValueError as error:
-        raise LazyValidationError(c.ENTER_VALID_DATE)
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     today = date.today()
     age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
