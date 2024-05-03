@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-03 16:37+0100\n"
+"POT-Creation-Date: 2024-05-03 17:03+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1874,6 +1874,10 @@ msgstr ""
 #: grc/templates/document-checker/your-documents.html:396
 msgid "Email documents list"
 msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
+
+#: grc/templates/govuk-design-system-templates/_summary-list-item.html:12
+msgid "Change"
+msgstr "Newid"
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 #: grc/templates/govuk-design-system-templates/back_link.html:6

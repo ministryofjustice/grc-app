@@ -268,14 +268,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.dt('Adopted in UK')
     await asserts.dt('Forces registering service, British Consul or High Commission, or under Merchant Shipping or '
                      'Civil Aviation provisions')
+    await helpers.click_button('Cymraeg')
 
-    await helpers.click_button('Change whether your birth was registered in the UK')
+    await helpers.click_button('Newid whether your birth was registered in the UK')
 
     # ------------------------------------------------
     # ---- UK Check page
     # ------------------------------------------------
     await asserts.url('/birth-registration/uk-check?check_source=section&pages_from_check=1')
-    await helpers.click_button('Cymraeg')
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
@@ -328,14 +328,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.dt('Date of birth')
     await asserts.dt('Birth registered in UK')
     await asserts.dt('Registered birth country')
+    await helpers.click_button('Cymraeg')
 
-    await helpers.click_button('Change whether your birth was registered in the UK')
+    await helpers.click_button('Newid whether your birth was registered in the UK')
 
     # ------------------------------------------------
     # ---- UK Check page
     # ------------------------------------------------
     await asserts.url('/birth-registration/uk-check?check_source=section&pages_from_check=1')
-    await helpers.click_button('Cymraeg')
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
