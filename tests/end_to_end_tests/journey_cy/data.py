@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 DEFAULT_TIMEOUT = 3 * 1000  # Wait a maximum of 3 seconds
 
 EMAIL_ADDRESS = 'test.public.email@example.com'
+PHONE_NUMBER = '07700900000'
 
 TITLE = 'Mr'
 FIRST_NAME = 'Joseph'

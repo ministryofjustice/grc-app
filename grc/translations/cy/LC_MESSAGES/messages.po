@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 15:42+0100\n"
+"POT-Creation-Date: 2024-05-02 17:27+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -419,6 +419,14 @@ msgstr "Nodwch eich cod post"
 msgid "Enter a valid postcode"
 msgstr "Nodwch god post dilys"
 
+#: grc/business_logic/constants.py:106
+msgid "Enter your phone number"
+msgstr "Nodwch eich rhif ffôn"
+
+#: grc/business_logic/constants.py:107
+msgid "Enter a valid phone number"
+msgstr "Nodwch rif ffôn dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -545,29 +553,45 @@ msgstr "Ystod o ddyddiadau"
 msgid "No dates"
 msgstr "Dim dyddiadau"
 
+#: grc/personal_details/constants.py:11
+msgid "Email"
+msgstr "E-bost"
+
+#: grc/personal_details/constants.py:12
+msgid "Phone call"
+msgstr "Galwad ffôn"
+
 #: grc/personal_details/constants.py:13
+msgid "Post"
+msgstr "Post"
+
+#: grc/personal_details/constants.py:16
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:14
+#: grc/personal_details/constants.py:17
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:15
+#: grc/personal_details/constants.py:18
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/personal_details/constants.py:16
+#: grc/personal_details/constants.py:19
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
 
-#: grc/personal_details/constants.py:17
+#: grc/personal_details/constants.py:20
 msgid ""
 "Select if you don't want us to contact you at any point in the next 6 "
 "months"
 msgstr ""
 "Dewiswch os nad ydych chi am i ni gysylltu â chi ar unrhyw adeg yn ystod "
 "y 6 mis nesaf"
+
+#: grc/personal_details/constants.py:21
+msgid "Select how would you like to be contacted"
+msgstr "Dewiswch sut hoffech chi inni gysylltu â chi"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -1631,6 +1655,23 @@ msgstr "Rhowch ddyddiad i’w osgoi"
 #: grc/templates/personal-details/contact-dates.html:53
 msgid "Insert dates to avoid"
 msgstr "Rhowch ddyddiadau i'w hosgoi"
+
+#: grc/templates/personal-details/contact-preferences.html:8
+#: grc/templates/personal-details/contact-preferences.html:33
+msgid ""
+"How would you like to be contacted if we have any questions about your "
+"application?"
+msgstr "Sut yr hoffech i ni gysylltu â chi ynghylch eich cais? "
+
+#: grc/templates/personal-details/contact-preferences.html:42
+#: grc/templates/start-application/email-address.html:6
+#: grc/templates/start-application/email-address.html:15
+msgid "Email address"
+msgstr "Cyfeiriad e-bost"
+
+#: grc/templates/personal-details/contact-preferences.html:53
+msgid "Phone number"
+msgstr "Rhif ffôn"
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26
@@ -2786,11 +2827,6 @@ msgstr ""
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
 msgstr ""
-
-#: grc/templates/start-application/email-address.html:6
-#: grc/templates/start-application/email-address.html:15
-msgid "Email address"
-msgstr "Cyfeiriad e-bost"
 
 #: grc/templates/start-application/email-address.html:19
 msgid ""
