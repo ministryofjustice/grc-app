@@ -198,3 +198,25 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='phone', value=data.PHONE_NUMBER)
     await helpers.check_checkbox(field='contact_options', value='POST')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Notify HMRC page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/hmrc')
+    await asserts.accessibility()
+    await asserts.h1('Hysbysu HMRC')
+    await asserts.h1('Notifying HMRC')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/hmrc')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Notifying HMRC')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Hysbysu HMRC')
+
+    # Enter a valid National Insurance number
+    await helpers.check_radio(field='tell_hmrc', value='True')
+    await helpers.fill_textbox(field='national_insurance_number', value=data.NATIONAL_INSURANCE_NUMBER)
+    await helpers.click_button('Cadw a pharhau')
