@@ -38,6 +38,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What name was originally registered on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Pa enw oedd wedi’i gofrestru’n wreiddiol ar eich tystysgrif geni neu’ch tystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.BIRTH_FIRST_NAME)
@@ -58,6 +59,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is the date of birth on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw’r dyddiad geni ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='day', value='1')
@@ -79,6 +81,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('Was your birth registered in the UK?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='birth_registered_in_uk', value='True')
@@ -98,6 +101,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is the town or city of birth on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='place_of_birth', value=data.TOWN_OR_CITY)
@@ -117,6 +121,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.MOTHER_FIRST_NAME)
@@ -138,6 +143,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("Is your father's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='fathers_name_on_certificate', value='True')
@@ -157,6 +163,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.FATHER_FIRST_NAME)
@@ -177,6 +184,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("Were you adopted?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A gawsoch chi eich mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='adopted', value='True')
@@ -196,6 +204,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("Were you adopted in the United Kingdom?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A gawsoch chi eich mabwysiadu yn y Deyrnas Unedig?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='adopted_uk', value='ADOPTED_IN_THE_UK_YES')
@@ -217,6 +226,8 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1("Was your birth registered by a Forces registering service, or with a British Consul or High "
                      "Commission, or under Merchant Shipping or Civil Aviation provisions?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A oedd eich genedigaeth wedi’i chofrestru gan wasanaeth cofrestru y Lluoedd, neu gyda Chonswl '
+                     'Prydeinig neu Uwch Gomisiwn, neu dan ddarpariaethau Llongau Masnach neu Hedfan Sifil?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='forces', value='True')
@@ -268,6 +279,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
+    await helpers.click_button('English')
+    await asserts.h1('Was your birth registered in the UK?')
+    await helpers.click_button('Cymraeg')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='birth_registered_in_uk', value='False')
@@ -287,6 +301,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("What country was your birth registered in?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Ym mha wlad cafodd eich genedigaeth ei chofrestru?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='country_of_birth', value=data.COUNTRY_OF_BIRTH)
@@ -324,6 +339,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
+    await helpers.click_button('English')
+    await asserts.h1('Was your birth registered in the UK?')
+    await helpers.click_button('Cymraeg')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='birth_registered_in_uk', value='True')
@@ -343,6 +361,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is the town or city of birth on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='place_of_birth', value=data.TOWN_OR_CITY)
@@ -362,6 +381,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
+    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.MOTHER_FIRST_NAME)
@@ -383,6 +403,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("Is your father's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='fathers_name_on_certificate', value='False')
@@ -402,6 +423,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1("Were you adopted?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A gawsoch chi eich mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='adopted', value='False')
@@ -423,6 +445,8 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1("Was your birth registered by a Forces registering service, or with a British Consul or High "
                      "Commission, or under Merchant Shipping or Civil Aviation provisions?")
     await helpers.click_button('Cymraeg')
+    await asserts.h1('A oedd eich genedigaeth wedi’i chofrestru gan wasanaeth cofrestru y Lluoedd, neu gyda Chonswl '
+                     'Prydeinig neu Uwch Gomisiwn, neu dan ddarpariaethau Llongau Masnach neu Hedfan Sifil?')
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='forces', value='False')
