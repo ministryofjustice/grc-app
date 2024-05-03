@@ -18,4 +18,9 @@ class BirthRegistrationConstants(BaseConstants):
     ENTER_FATHERS_LAST_NAME_ERROR = _l("Enter your father's last name")
     ENTER_ADOPTED_ERROR = _l('Select if you were you adopted')
     SELECT_ADOPTED_UK_ERROR = _l('Select if you were adopted in the United Kingdom')
-    SELECT_FORCES_ERROR = _l('Select if your birth was registered by a Forces registering service, or with a British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions')
+    SELECT_FORCES_ERROR = _l('Select if your birth was registered by a Forces registering service, or with a British '
+                             'Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions')
+    ABOVE_AGE_ERROR = _l('You need to be at least 18 years old to apply')
+    BELOW_AGE_ERROR = _l('You need to be less than 110 years old to apply')
+    DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR = _l('Your date of birth must be before your transition date and statutory '
+                                               'declaration date')
