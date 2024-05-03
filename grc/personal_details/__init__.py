@@ -1,5 +1,6 @@
 import datetime
 from flask import Blueprint, render_template, request, url_for
+from grc.business_logic.constants import BaseConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
@@ -270,7 +271,7 @@ def contactDates():
                         )
                     except ValueError as err:
                         print(f'Error setting from date as datetime, message={err}', flush=True)
-                        date_range_errors[i] = {'from_date_year': 'Enter a valid date'}
+                        date_range_errors[i] = {'from_date_year': c.ENTER_VALID_DATE_ERROR}
 
                     try:
                         date_range_result.to_date = datetime.date(
@@ -280,7 +281,7 @@ def contactDates():
                         )
                     except ValueError as err:
                         print(f'Error setting to date as datetime, message={err}', flush=True)
-                        date_range_errors[i] = {'to_date_year': 'Enter a valid date'}
+                        date_range_errors[i] = {'to_date_year': c.ENTER_VALID_DATE_ERROR}
 
                     if not date_range_errors[i]:
                         date_range_errors[i] = validate_date_ranges(date_range_result.from_date,

@@ -1,6 +1,7 @@
 import os
 import re
 import pathlib
+from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from flask import session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
@@ -148,7 +149,14 @@ def validate_address_field(form, field):
 
     match = re.search('^[a-zA-Z0-9- ]*$', field.data)
     if match is None:
-        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
+        messages = defaultdict(lambda: c.ADDRESS_ERROR)
+        error_messages = {
+            'address_line_one': c.ADDRESS_LINE_ONE_ERROR,
+            'address_line_two': c.ADDRESS_LINE_TWO_ERROR,
+            'town': c.ADDRESS_TOWN_OR_CITY_ERROR,
+        }
+        messages.update(error_messages)
+        raise LazyValidationError(messages[field.label.field_id])
 
 
 def validate_postcode(form, field):
@@ -158,7 +166,7 @@ def validate_postcode(form, field):
     match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
                       field.data)
     if match is None:
-        raise ValidationError('Enter a valid postcode')
+        raise LazyValidationError(c.ENTER_VALID_POSTCODE_ERROR)
 
 
 def validate_date_of_birth(form, field):
@@ -209,7 +217,7 @@ def validate_date_of_transition(form, field):
     earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
     if date_of_transition < earliest_date_of_transition:
-        raise LazyValidationError(c.TRANSITION_DATE_TOO_EARLY_ERROR)
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     if date_of_transition > date.today():
         raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
@@ -240,24 +248,24 @@ def validate_statutory_declaration_date(form, field):
         statutory_declaration_date = date(statutory_declaration_date_year, statutory_declaration_date_month,
                                           statutory_declaration_date_day)
     except Exception as e:
-        raise ValidationError('Enter a valid year')
+        raise LazyValidationError(c.INVALID_YEAR_ERROR)
 
     earliest_statutory_declaration_date_years = 100
     earliest_statutory_declaration_date = date.today() - relativedelta(
         years=earliest_statutory_declaration_date_years)
 
     if statutory_declaration_date < earliest_statutory_declaration_date:
-        raise ValidationError(f'Enter a date within the last {earliest_statutory_declaration_date_years} years')
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     latest_statutory_declaration_date = date.today()
     if statutory_declaration_date > latest_statutory_declaration_date:
-        raise ValidationError('Enter a date in the past')
+        raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
 
     reference_number = session['reference_number']
     application_data = DataStore.load_application(reference_number)
     transition_date = application_data.personal_details_data.transition_date
     if statutory_declaration_date < transition_date:
-        raise ValidationError('Enter a date that does not precede your transition date')
+        raise LazyValidationError(c.STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR)
 
 
 def validate_date_range(form, field):
@@ -296,7 +304,7 @@ def validate_national_insurance_number(form, field):
         data
     )
     if match is None:
-        raise ValidationError('Enter a valid National Insurance number')
+        raise LazyValidationError(c.ENTER_VALID_NI_NUMBER_ERROR)
 
 
 def validate_phone_number(form, field):
@@ -305,7 +313,7 @@ def validate_phone_number(form, field):
 
     match = re.search(r'^[0-9]+$', field.data)
     if match is None:
-        raise ValidationError('Enter a valid phone number')
+        raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
 
 def validate_hwf_reference_number(form, field):
@@ -336,10 +344,10 @@ def validate_single_date(form, field):
         date_entered = date(year, month, day)
     except ValueError as e:
         logger.log(LogLevel.ERROR, message=f'Error validating single date: {e}')
-        raise ValidationError('Enter a valid date')
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     if date_entered < date.today():
-        raise ValidationError('Enter a date in the future')
+        raise LazyValidationError(c.ENTER_DATE_IN_FUTURE_ERROR)
 
 
 def validate_date_range_form(date_ranges_form):
@@ -352,50 +360,50 @@ def validate_date_range_form(date_ranges_form):
     to_date_year_entered = True
 
     if not date_ranges_form.from_date_day.data:
-        form_errors['from_date_day'] = 'Enter a day'
+        form_errors['from_date_day'] = c.ENTER_DAY_ERROR
         from_date_day_entered = False
 
     if not date_ranges_form.from_date_month.data:
-        form_errors['from_date_month'] = 'Enter a month'
+        form_errors['from_date_month'] = c.ENTER_MONTH_ERROR
         from_date_month_entered = False
 
     if not date_ranges_form.from_date_year.data:
-        form_errors['from_date_year'] = 'Enter a year'
+        form_errors['from_date_year'] = c.ENTER_YEAR_ERROR
         from_date_year_entered = False
 
     if not date_ranges_form.to_date_day.data:
-        form_errors['to_date_day'] = 'Enter a day'
+        form_errors['to_date_day'] = c.ENTER_DAY_ERROR
         to_date_day_entered = False
 
     if not date_ranges_form.to_date_month.data:
-        form_errors['to_date_month'] = 'Enter a month'
+        form_errors['to_date_month'] = c.ENTER_MONTH_ERROR
         to_date_month_entered = False
 
     if not date_ranges_form.to_date_year.data:
-        form_errors['to_date_year'] = 'Enter a year'
+        form_errors['to_date_year'] = c.ENTER_YEAR_ERROR
         to_date_year_entered = False
 
     if from_date_day_entered and (int(date_ranges_form.from_date_day.data) < 1 or
                                   int(date_ranges_form.from_date_day.data) > 31):
-        form_errors['from_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['from_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if to_date_day_entered and (int(date_ranges_form.to_date_day.data) < 1 or
                                 int(date_ranges_form.to_date_day.data) > 31):
-        form_errors['to_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['to_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if from_date_month_entered and (int(date_ranges_form.from_date_month.data) < 1 or
                                     int(date_ranges_form.from_date_month.data) > 12):
-        form_errors['from_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['from_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if to_date_month_entered and (int(date_ranges_form.to_date_month.data) < 1 or
                                   int(date_ranges_form.to_date_month.data) > 12):
-        form_errors['to_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['to_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if from_date_year_entered and int(date_ranges_form.from_date_year.data) < 1000:
-        form_errors['from_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['from_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     if to_date_year_entered and int(date_ranges_form.to_date_year.data) < 1000:
-        form_errors['to_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['to_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     return form_errors
 
@@ -404,13 +412,13 @@ def validate_date_ranges(from_date, to_date):
     form_errors = dict()
 
     if from_date < date.today():
-        form_errors['from_date_year'] = '\'From\' date is in the past'
+        form_errors['from_date_year'] = c.CONTACT_FROM_DATE_IN_PAST_ERROR
 
     if to_date < date.today():
-        form_errors['to_date_year'] = '\'To\' date is in the past'
+        form_errors['to_date_year'] = c.CONTACT_TO_DATE_IN_PAST_ERROR
 
     if from_date > to_date:
-        form_errors['to_date_year'] = '\'From\' date is after the \'To\' date'
+        form_errors['to_date_year'] = c.CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR
 
     return form_errors
 
