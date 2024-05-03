@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-03 09:26+0100\n"
+"POT-Creation-Date: 2024-05-03 10:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -406,10 +406,18 @@ msgid "Enter a valid postcode"
 msgstr ""
 
 #: grc/business_logic/constants.py:106
-msgid "Enter your National Insurance number"
+msgid "Enter your phone number"
 msgstr ""
 
 #: grc/business_logic/constants.py:107
+msgid "Enter a valid phone number"
+msgstr ""
+
+#: grc/business_logic/constants.py:108
+msgid "Enter your National Insurance number"
+msgstr ""
+
+#: grc/business_logic/constants.py:109
 msgid "Enter a valid National Insurance number"
 msgstr ""
 
@@ -524,29 +532,45 @@ msgstr ""
 msgid "No dates"
 msgstr ""
 
+#: grc/personal_details/constants.py:11
+msgid "Email"
+msgstr ""
+
+#: grc/personal_details/constants.py:12
+msgid "Phone call"
+msgstr ""
+
 #: grc/personal_details/constants.py:13
-msgid "Enter your title"
-msgstr ""
-
-#: grc/personal_details/constants.py:14
-msgid "Enter your first name(s)"
-msgstr ""
-
-#: grc/personal_details/constants.py:15
-msgid "Enter your last name"
+msgid "Post"
 msgstr ""
 
 #: grc/personal_details/constants.py:16
-msgid "Select your affirmed gender"
+msgid "Enter your title"
 msgstr ""
 
 #: grc/personal_details/constants.py:17
+msgid "Enter your first name(s)"
+msgstr ""
+
+#: grc/personal_details/constants.py:18
+msgid "Enter your last name"
+msgstr ""
+
+#: grc/personal_details/constants.py:19
+msgid "Select your affirmed gender"
+msgstr ""
+
+#: grc/personal_details/constants.py:20
 msgid ""
 "Select if you don't want us to contact you at any point in the next 6 "
 "months"
 msgstr ""
 
-#: grc/personal_details/constants.py:18
+#: grc/personal_details/constants.py:21
+msgid "Select how would you like to be contacted"
+msgstr ""
+
+#: grc/personal_details/constants.py:22
 msgid ""
 "Select if you would like us to tell HMRC after you receive a Gender "
 "Recognition Certificate"
@@ -1495,6 +1519,23 @@ msgstr ""
 
 #: grc/templates/personal-details/contact-dates.html:53
 msgid "Insert dates to avoid"
+msgstr ""
+
+#: grc/templates/personal-details/contact-preferences.html:8
+#: grc/templates/personal-details/contact-preferences.html:33
+msgid ""
+"How would you like to be contacted if we have any questions about your "
+"application?"
+msgstr ""
+
+#: grc/templates/personal-details/contact-preferences.html:42
+#: grc/templates/start-application/email-address.html:6
+#: grc/templates/start-application/email-address.html:15
+msgid "Email address"
+msgstr ""
+
+#: grc/templates/personal-details/contact-preferences.html:53
+msgid "Phone number"
 msgstr ""
 
 #: grc/templates/personal-details/hmrc.html:8
@@ -2533,11 +2574,6 @@ msgstr ""
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
-msgstr ""
-
-#: grc/templates/start-application/email-address.html:6
-#: grc/templates/start-application/email-address.html:15
-msgid "Email address"
 msgstr ""
 
 #: grc/templates/start-application/email-address.html:19

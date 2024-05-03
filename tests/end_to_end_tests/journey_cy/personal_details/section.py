@@ -174,3 +174,27 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.fill_textbox(field='date_ranges-0-to_date_month', value=data.CONTACT_DATE_RANGE_1_TO_MONTH)
     await helpers.fill_textbox(field='date_ranges-0-to_date_year', value=data.CONTACT_DATE_RANGE_1_TO_YEAR)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Contact Preferences page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/contact-preferences')
+    await asserts.accessibility()
+    await asserts.h1('Sut yr hoffech i ni gysylltu â chi ynghylch eich cais?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/contact-preferences')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('How would you like to be contacted if we have any questions about your application?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Sut yr hoffech i ni gysylltu â chi ynghylch eich cais?')
+
+    # Choose all the options and enter a valid email address and phone number
+    await helpers.check_checkbox(field='contact_options', value='EMAIL')
+    await helpers.fill_textbox(field='email', value=data.EMAIL_ADDRESS)
+    await helpers.check_checkbox(field='contact_options', value='PHONE')
+    await helpers.fill_textbox(field='phone', value=data.PHONE_NUMBER)
+    await helpers.check_checkbox(field='contact_options', value='POST')
+    await helpers.click_button('Cadw a pharhau')

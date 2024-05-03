@@ -103,5 +103,7 @@ class BaseConstants:
     ADDRESS_TOWN_OR_CITY_ERROR = _l('Enter a valid town')
     NO_POSTCODE_ERROR = _l('Enter your postcode')
     ENTER_VALID_POSTCODE_ERROR = _l('Enter a valid postcode')
+    NO_PHONE_NUMBER_ERROR = _l('Enter your phone number')
+    ENTER_VALID_PHONE_NUMBER_ERROR = _l('Enter a valid phone number')
     ENTER_NI_NUMBER_ERROR = _l('Enter your National Insurance number')
     ENTER_VALID_NI_NUMBER_ERROR = _l('Enter a valid National Insurance number')
