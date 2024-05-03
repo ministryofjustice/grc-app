@@ -390,16 +390,17 @@ class ContactDatesForm(FlaskForm):
 
 
 class HmrcForm(FlaskForm):
-    tell_hmrc = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    tell_hmrc = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you would like us to tell HMRC after you receive a Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.NO_HMRC_OPTION_ERROR)]
     )
 
     national_insurance_number = StringField(
-        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validate_national_insurance_number])]
+        validators=[StrictRequiredIf('tell_hmrc', True, message=c.ENTER_NI_NUMBER_ERROR,
+                                     validators=[validate_national_insurance_number])]
     )
 
 
