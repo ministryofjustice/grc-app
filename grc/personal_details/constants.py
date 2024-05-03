@@ -15,3 +15,4 @@ class PersonalDetailsConstants(BaseConstants):
     LAST_NAME_ERROR = _l('Enter your last name')
     NO_AFFIRMED_GENDER_ERROR = _l('Select your affirmed gender')
     NO_CONTACT_DATES_OPTION_ERROR = _l("Select if you don't want us to contact you at any point in the next 6 months")
+    NO_HMRC_OPTION_ERROR = _l('Select if you would like us to tell HMRC after you receive a Gender Recognition Certificate')

@@ -306,7 +306,7 @@ def validate_national_insurance_number(form, field):
         data
     )
     if match is None:
-        raise ValidationError('Enter a valid National Insurance number')
+        raise LazyValidationError(c.ENTER_VALID_NI_NUMBER_ERROR)
 
 
 def validate_phone_number(form, field):
