@@ -238,7 +238,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
-    await asserts.h1('Manylion Cofrestru Genedigaeth')
+    await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
     await asserts.dt('Enw adeg geni')
     await asserts.dt('Dyddiad geni')
     await asserts.dt('Genedigaeth a gofrestrwyd yn y DU')
@@ -312,7 +312,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
-    await asserts.h1('Manylion Cofrestru Genedigaeth')
+    await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
     await asserts.dt('Enw adeg geni')
     await asserts.dt('Dyddiad geni')
     await asserts.dt('Genedigaeth a gofrestrwyd yn y DU')
@@ -457,7 +457,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
-    await asserts.h1('Manylion Cofrestru Genedigaeth')
+    await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
     await asserts.dt('Enw adeg geni')
     await asserts.dt('Dyddiad geni')
     await asserts.dt('Genedigaeth a gofrestrwyd yn y DU')
