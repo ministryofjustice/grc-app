@@ -1,7 +1,6 @@
 from flask import g
 
 class GovUkNotifyTemplates:
-    def __init__(self):
 
     def get_admin_login_sc_template_id():
         return 'fde1def2-bf10-45d2-8c38-2837a0a79399'
