@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-02 15:42+0100\n"
+"POT-Creation-Date: 2024-05-03 09:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -405,6 +405,14 @@ msgstr ""
 msgid "Enter a valid postcode"
 msgstr ""
 
+#: grc/business_logic/constants.py:106
+msgid "Enter your National Insurance number"
+msgstr ""
+
+#: grc/business_logic/constants.py:107
+msgid "Enter a valid National Insurance number"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -536,6 +544,12 @@ msgstr ""
 msgid ""
 "Select if you don't want us to contact you at any point in the next 6 "
 "months"
+msgstr ""
+
+#: grc/personal_details/constants.py:18
+msgid ""
+"Select if you would like us to tell HMRC after you receive a Gender "
+"Recognition Certificate"
 msgstr ""
 
 #: grc/start_application/constants.py:6
@@ -1481,6 +1495,59 @@ msgstr ""
 
 #: grc/templates/personal-details/contact-dates.html:53
 msgid "Insert dates to avoid"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:8
+#: grc/templates/personal-details/hmrc.html:21
+msgid "Notifying HMRC"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:25
+msgid "HMRC must be told if you have received a Gender Recognition Certificate."
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:28
+msgid "If you usually pay tax in the UK, we can tell HMRC on your behalf."
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:29
+msgid ""
+"HMRC will update its records with your gender and any name change, and "
+"they will tell the Department for Work and Pensions."
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:30
+msgid "They will send you a letter to confirm the changes."
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:33
+msgid "If you prefer,"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:35
+msgid "you can tell HMRC yourself (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:39
+msgid ""
+"If you pay tax in the Isle of Man or Channel Islands, please select ‘No’ "
+"and tell HMRC yourself."
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:48
+msgid ""
+"Would you like us to tell HMRC after you receive a Gender Recognition "
+"Certificate?"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:58
+msgid "What is your National Insurance number?"
+msgstr ""
+
+#: grc/templates/personal-details/hmrc.html:62
+msgid ""
+"It’s on your National Insurance card, benefit letter, payslip or P60. For"
+" example, ‘QQ 12 34 56 C’."
 msgstr ""
 
 #: grc/templates/personal-details/name.html:7

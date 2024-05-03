@@ -391,7 +391,7 @@ class ContactDatesForm(FlaskForm):
 
 class HmrcForm(FlaskForm):
     tell_hmrc = LazyRadioField(
-        choices=[
+        lazy_choices=[
             (True, c.YES),
             (False, c.NO)
         ],
