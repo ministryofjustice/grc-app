@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-03 16:37+0100\n"
+"POT-Creation-Date: 2024-05-03 17:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1694,6 +1694,10 @@ msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:396
 msgid "Email documents list"
+msgstr ""
+
+#: grc/templates/govuk-design-system-templates/_summary-list-item.html:12
+msgid "Change"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/back_link.html:2
