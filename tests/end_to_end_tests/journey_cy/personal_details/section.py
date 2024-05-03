@@ -219,3 +219,22 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.check_radio(field='tell_hmrc', value='True')
     await helpers.fill_textbox(field='national_insurance_number', value=data.NATIONAL_INSURANCE_NUMBER)
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Check Your Answers page
+    # ------------------------------------------------
+    await asserts.url('/personal-details/check-your-answers')
+    await asserts.accessibility()
+    await asserts.h1('Gwiriwch eich atebion: Eich manylion personol')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/personal-details/check-your-answers')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Check your answers: Your personal details')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Gwiriwch eich atebion: Eich manylion personol')
+
+    # Click Save and continue to return to Task List page
+    await helpers.click_button('Cadw a pharhau')

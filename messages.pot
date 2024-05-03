@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-03 10:01+0100\n"
+"POT-Creation-Date: 2024-05-03 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -533,6 +533,7 @@ msgid "No dates"
 msgstr ""
 
 #: grc/personal_details/constants.py:11
+#: grc/templates/personal-details/check-your-answers.html:83
 msgid "Email"
 msgstr ""
 
@@ -541,6 +542,7 @@ msgid "Phone call"
 msgstr ""
 
 #: grc/personal_details/constants.py:13
+#: grc/templates/personal-details/check-your-answers.html:93
 msgid "Post"
 msgstr ""
 
@@ -675,6 +677,8 @@ msgstr ""
 msgid "Fill in your details"
 msgstr ""
 
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:22
 #: grc/templates/task-list.html:82
 msgid "Your personal details"
 msgstr ""
@@ -1495,6 +1499,58 @@ msgstr ""
 msgid "This will appear on your Gender Recognition Certificate."
 msgstr ""
 
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:21
+msgid "Check your answers:"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:27
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:34
+msgid "Affirmed gender"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:41
+msgid "When you transitioned"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:48
+msgid "When you signed your statutory declaration"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:55
+msgid "Ever changed name"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:73
+msgid "Address"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:88
+msgid "Phone"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:99
+msgid "Contact preferences"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:114
+#: grc/templates/personal-details/check-your-answers.html:137
+msgid "Unavailable over the next 6 months"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:145
+msgid "Notify HMRC"
+msgstr ""
+
+#: grc/templates/personal-details/check-your-answers.html:153
+msgid "National insurance number"
+msgstr ""
+
 #: grc/templates/personal-details/contact-dates.html:11
 #: grc/templates/personal-details/contact-dates.html:33
 msgid ""
@@ -2055,11 +2111,6 @@ msgstr ""
 
 #: grc/templates/policies/cookies.html:37
 msgid "Essential cookies we use"
-msgstr ""
-
-#: grc/templates/policies/cookies.html:40
-#: grc/templates/policies/cookies.html:81
-msgid "Name"
 msgstr ""
 
 #: grc/templates/policies/cookies.html:41
