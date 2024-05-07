@@ -8,13 +8,13 @@ from wtforms.validators import DataRequired
 
 
 class MarriageCivilPartnershipForm(FlaskForm):
-    currently_married = RadioField(
-        choices=[
-            (CurrentlyInAPartnershipEnum.MARRIED.name, 'Married'),
-            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, 'Civil partnership'),
-            (CurrentlyInAPartnershipEnum.NEITHER.name, 'Neither')
+    currently_married = LazyRadioField(
+        lazy_choices=[
+            (CurrentlyInAPartnershipEnum.MARRIED.name, c.MARRIED),
+            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, c.CIVIL_PARTNERSHIP),
+            (CurrentlyInAPartnershipEnum.NEITHER.name, c.NEITHER)
         ],
-        validators=[DataRequired(message='Select if you are currently married or in a civil partnership')]
+        validators=[LazyDataRequired(lazy_message=c.CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 

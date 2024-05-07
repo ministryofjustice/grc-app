@@ -804,6 +804,8 @@ msgstr "Gadael a dychwelyd yn hwyrach ymlaen"
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
+#: grc/templates/partnership-details/current-check.html:7
+#: grc/templates/partnership-details/current-check.html:33
 msgid "Are you currently married or in a civil partnership?"
 msgstr "Ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd?"
 
@@ -816,6 +818,7 @@ msgstr ""
 " dod â'ch priodas neu bartneriaeth sifil i ben."
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:32
+#: grc/templates/partnership-details/current-check.html:40
 msgid "or"
 msgstr "neu"
 
@@ -1623,6 +1626,23 @@ msgstr "Ychwanegu ystod dyddiad arall"
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
+
+#: grc/templates/partnership-details/current-check.html:20
+msgid "Marriages and civil partnerships"
+msgstr "Priodasau a phartneriaethau sifil"
+
+#: grc/templates/partnership-details/current-check.html:24
+msgid ""
+"If you’ve ever been married or in a civil partnership, you need to upload"
+" a scan or good quality photograph of your marriage or civil partnership "
+"certificates."
+msgstr "Os ydych erioed wedi bod yn briod neu mewn partneriaeth sifil, bydd angen i chi uwchlwytho sgan neu lun o ansawdd da o’ch tystysgrif priodas neu’ch tystysgrif partneriaeth sifil."
+
+#: grc/templates/partnership-details/current-check.html:37
+msgid ""
+"If you are in the process of ending, or you plan to end your marriage or "
+"civil partnership, you should select your current, legal status"
+msgstr "Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, dylech ddewis eich statws cyfreithiol ar hyn o bryd."
 
 #: grc/templates/personal-details/address.html:8
 #: grc/templates/personal-details/address.html:27

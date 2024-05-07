@@ -759,6 +759,8 @@ msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
+#: grc/templates/partnership-details/current-check.html:7
+#: grc/templates/partnership-details/current-check.html:33
 msgid "Are you currently married or in a civil partnership?"
 msgstr ""
 
@@ -769,6 +771,7 @@ msgid ""
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:32
+#: grc/templates/partnership-details/current-check.html:40
 msgid "or"
 msgstr ""
 
@@ -1475,6 +1478,23 @@ msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
+msgstr ""
+
+#: grc/templates/partnership-details/current-check.html:20
+msgid "Marriages and civil partnerships"
+msgstr ""
+
+#: grc/templates/partnership-details/current-check.html:24
+msgid ""
+"If you’ve ever been married or in a civil partnership, you need to upload"
+" a scan or good quality photograph of your marriage or civil partnership "
+"certificates."
+msgstr ""
+
+#: grc/templates/partnership-details/current-check.html:37
+msgid ""
+"If you are in the process of ending, or you plan to end your marriage or "
+"civil partnership, you should select your current, legal status"
 msgstr ""
 
 #: grc/templates/personal-details/address.html:8
