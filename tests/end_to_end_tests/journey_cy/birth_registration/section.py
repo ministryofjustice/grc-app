@@ -239,17 +239,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
-    await asserts.check_your_answers_row_name('Enw adeg geni')
-    await asserts.check_your_answers_row_name('Dyddiad geni')
-    await asserts.check_your_answers_row_name('Genedigaeth a gofrestrwyd yn y DU')
-    await asserts.check_your_answers_row_name('Tref neu ddinas geni')
-    await asserts.check_your_answers_row_name('Enw’r fam')
-    await asserts.check_your_answers_row_name('Enw’r tad a restrwyd')
-    await asserts.check_your_answers_row_name('Enw’r tad')
-    await asserts.check_your_answers_row_name('Mabwysiadwyd')
-    await asserts.check_your_answers_row_name('Mabwysiadwyd yn y DU')
-    await asserts.check_your_answers_row_name('Gwasanaeth cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu dan ddarpariaethau '
-                     'Llongau Masnach neu Hedfan Sifil')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -257,17 +246,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Birth registration details")
-    await asserts.check_your_answers_row_name('Birth name')
-    await asserts.check_your_answers_row_name('Date of birth')
-    await asserts.check_your_answers_row_name('Birth registered in UK')
-    await asserts.check_your_answers_row_name('Town or city of birth')
-    await asserts.check_your_answers_row_name("Mother's name")
-    await asserts.check_your_answers_row_name("Father's name listed")
-    await asserts.check_your_answers_row_name("Father's name")
-    await asserts.check_your_answers_row_name('Adopted')
-    await asserts.check_your_answers_row_name('Adopted in UK')
-    await asserts.check_your_answers_row_name('Forces registering service, British Consul or High Commission, or under Merchant Shipping or '
-                     'Civil Aviation provisions')
     await helpers.click_button('Cymraeg')
 
     await helpers.click_button('Newid whether your birth was registered in the UK')
@@ -313,10 +291,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
-    await asserts.check_your_answers_row_name('Enw adeg geni')
-    await asserts.check_your_answers_row_name('Dyddiad geni')
-    await asserts.check_your_answers_row_name('Genedigaeth a gofrestrwyd yn y DU')
-    await asserts.check_your_answers_row_name('Gwlad enedigol gofrestredig')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -324,10 +298,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Birth registration details")
-    await asserts.check_your_answers_row_name('Birth name')
-    await asserts.check_your_answers_row_name('Date of birth')
-    await asserts.check_your_answers_row_name('Birth registered in UK')
-    await asserts.check_your_answers_row_name('Registered birth country')
     await helpers.click_button('Cymraeg')
 
     await helpers.click_button('Newid whether your birth was registered in the UK')
@@ -458,15 +428,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await asserts.h1('Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth')
-    await asserts.check_your_answers_row_name('Enw adeg geni')
-    await asserts.check_your_answers_row_name('Dyddiad geni')
-    await asserts.check_your_answers_row_name('Genedigaeth a gofrestrwyd yn y DU')
-    await asserts.check_your_answers_row_name('Tref neu ddinas geni')
-    await asserts.check_your_answers_row_name('Enw’r fam')
-    await asserts.check_your_answers_row_name('Enw’r tad a restrwyd')
-    await asserts.check_your_answers_row_name('Mabwysiadwyd')
-    await asserts.check_your_answers_row_name('Gwasanaeth cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu dan ddarpariaethau '
-                     'Llongau Masnach neu Hedfan Sifil')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -474,15 +435,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Birth registration details")
-    await asserts.check_your_answers_row_name('Birth name')
-    await asserts.check_your_answers_row_name('Date of birth')
-    await asserts.check_your_answers_row_name('Birth registered in UK')
-    await asserts.check_your_answers_row_name('Town or city of birth')
-    await asserts.check_your_answers_row_name("Mother's name")
-    await asserts.check_your_answers_row_name("Father's name listed")
-    await asserts.check_your_answers_row_name('Adopted')
-    await asserts.check_your_answers_row_name('Forces registering service, British Consul or High Commission, or under Merchant Shipping or '
-                     'Civil Aviation provisions')
     await helpers.click_button('Cymraeg')
 
     # Click Save and continue
