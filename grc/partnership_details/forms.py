@@ -29,12 +29,12 @@ class StayTogetherForm(FlaskForm):
 
 
 class PartnerAgreesForm(FlaskForm):
-    partner_agrees = RadioField(
+    partner_agrees = LazyRadioField(
         choices=[
-            (True, 'Yes'),
-            (False, 'No')
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you can provide a declaration of consent from your spouse or civil partner')]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_AGREES_ERROR)]
     )
 
 
