@@ -253,7 +253,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- UK Check page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/uk-check?check_source=section&pages_from_check=1')
+    await asserts.url('/birth-registration/uk-check')
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
@@ -268,13 +268,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Country page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/country?check_source=section&pages_from_check=2')
+    await asserts.url('/birth-registration/country')
     await asserts.accessibility()
     await asserts.h1('Ym mha wlad cafodd eich genedigaeth ei chofrestru?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/country?check_source=section&pages_from_check=2')
+    await asserts.url('/birth-registration/country')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("What country was your birth registered in?")
@@ -305,7 +305,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- UK Check page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/uk-check?check_source=section&pages_from_check=1')
+    await asserts.url('/birth-registration/uk-check')
     await asserts.accessibility()
     await asserts.h1('A gafodd eich genedigaeth ei chofrestru yn y DU?')
     await asserts.number_of_errors(0)
@@ -320,13 +320,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Place of Birth page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/place-of-birth?check_source=section&pages_from_check=2')
+    await asserts.url('/birth-registration/place-of-birth')
     await asserts.accessibility()
     await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/place-of-birth?check_source=section&pages_from_check=2')
+    await asserts.url('/birth-registration/place-of-birth')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('What is the town or city of birth on your birth or adoption certificate?')
@@ -340,13 +340,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Mothers Name page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/mothers-name?check_source=section&pages_from_check=3')
+    await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/mothers-name?check_source=section&pages_from_check=3')
+    await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
@@ -362,13 +362,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Fathers Name Check page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/fathers-name-check?check_source=section&pages_from_check=4')
+    await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/fathers-name-check?check_source=section&pages_from_check=4')
+    await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Is your father's name listed on the certificate?")
@@ -382,13 +382,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Adopted page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/adopted?check_source=section&pages_from_check=5')
+    await asserts.url('/birth-registration/adopted')
     await asserts.accessibility()
     await asserts.h1('A gawsoch chi eich mabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/adopted?check_source=section&pages_from_check=5')
+    await asserts.url('/birth-registration/adopted')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Were you adopted?")
@@ -402,14 +402,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Forces page
     # ------------------------------------------------
-    await asserts.url('/birth-registration/forces?check_source=section&pages_from_check=6')
+    await asserts.url('/birth-registration/forces')
     await asserts.accessibility()
     await asserts.h1('A oedd eich genedigaeth wedi’i chofrestru gan wasanaeth cofrestru y Lluoedd, neu gyda Chonswl '
                      'Prydeinig neu Uwch Gomisiwn, neu dan ddarpariaethau Llongau Masnach neu Hedfan Sifil?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/forces?check_source=section&pages_from_check=6')
+    await asserts.url('/birth-registration/forces')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("Was your birth registered by a Forces registering service, or with a British Consul or High "
