@@ -245,7 +245,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Birth registration details")
+    await asserts.h1("Check your answers: Birth registration details")
     await helpers.click_button('Cymraeg')
 
     await helpers.click_button('Newid whether your birth was registered in the UK')
@@ -297,7 +297,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Birth registration details")
+    await asserts.h1("Check your answers: Birth registration details")
     await helpers.click_button('Cymraeg')
 
     await helpers.click_button('Newid whether your birth was registered in the UK')
@@ -434,7 +434,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/check-your-answers')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Birth registration details")
+    await asserts.h1("Check your answers: Birth registration details")
     await helpers.click_button('Cymraeg')
 
     # Click Save and continue
