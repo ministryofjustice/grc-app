@@ -3,6 +3,7 @@ from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
 from grc.list_status import ListStatus
+from grc.partnership_details.constants import PartnershipDetailsConstants as c
 from grc.partnership_details.forms import MarriageCivilPartnershipForm, StayTogetherForm, PartnerAgreesForm, \
     PartnerDiedForm, PreviousPartnershipEndedForm, InterimCheckForm, CheckYourAnswers, PartnerDetailsForm
 from grc.utils.decorators import LoginRequired
@@ -86,9 +87,21 @@ def stayTogether():
     if request.method == 'GET':
         form.stay_together.data = application_data.partnership_details_data.plan_to_remain_in_a_partnership
 
+    context = {}
+    if application_data.partnership_details_data.is_married:
+        context['question'] = c.PLAN_TO_REMAIN_MARRIED
+    else:
+        context['question'] = c.PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP
+        context['hint_text'] = {
+            'before_link_text': c.HINT_TEXT_BEFORE_LINK,
+            'link_text': c.HINT_TEXT_LINK,
+            'after_link_text': c.HINT_TEXT_AFTER_LINK
+        }
+
     return render_template(
         'partnership-details/stay-together.html',
         form=form,
+        context=context,
         application_data=application_data,
         back=get_previous_page(application_data, 'partnershipDetails.index')
     )
