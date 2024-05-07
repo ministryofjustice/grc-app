@@ -30,7 +30,7 @@ class StayTogetherForm(FlaskForm):
 
 class PartnerAgreesForm(FlaskForm):
     partner_agrees = LazyRadioField(
-        choices=[
+        lazy_choices=[
             (True, c.YES),
             (False, c.NO)
         ],
