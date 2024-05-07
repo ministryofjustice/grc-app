@@ -117,6 +117,11 @@ class AssertHelpers:
         status = await self.page.inner_text(selector)
         assert_equal(status, expected_value)
 
+    async def check_your_answers_row_name(self, row_name: str):
+        selector = self.page.locator('.govuk-summary-list__row')
+        status = await self.page.inner_text(selector)
+        assert_equal(status, row_name)
+
     async def check_your_answers_row_missing(self, row_name: str):
         selector = f".govuk-summary-list__key:text-is(\"{row_name}\")"
         number_of_matching_rows = await self.page.locator(selector).count()
