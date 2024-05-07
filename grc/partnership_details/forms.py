@@ -1,17 +1,20 @@
 from flask_wtf import FlaskForm
+from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
+from grc.business_logic.constants import BaseConstants as c
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from wtforms import RadioField, StringField
 from wtforms.validators import DataRequired
-from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
 
 
 class MarriageCivilPartnershipForm(FlaskForm):
-    currently_married = RadioField(
-        choices=[
-            (CurrentlyInAPartnershipEnum.MARRIED.name, 'Married'),
-            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, 'Civil partnership'),
-            (CurrentlyInAPartnershipEnum.NEITHER.name, 'Neither')
+    currently_married = LazyRadioField(
+        lazy_choices=[
+            (CurrentlyInAPartnershipEnum.MARRIED.name, c.MARRIED),
+            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, c.CIVIL_PARTNERSHIP),
+            (CurrentlyInAPartnershipEnum.NEITHER.name, c.NEITHER)
         ],
-        validators=[DataRequired(message='Select if you are currently married or in a civil partnership')]
+        validators=[LazyDataRequired(lazy_message=c.CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 
