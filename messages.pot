@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-07 14:54+0100\n"
+"POT-Creation-Date: 2024-05-07 17:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -524,10 +524,46 @@ msgstr ""
 msgid ", you must do that before you apply for a Gender Recognition Certificate."
 msgstr ""
 
-#: grc/partnership_details/constants.py:11
+#: grc/partnership_details/constants.py:10
+msgid ""
+"If you intend to remain in a civil partnership, your civil partner needs "
+"to fill in a "
+msgstr ""
+
+#: grc/partnership_details/constants.py:12
+msgid "If you intend to remain married, your spouse needs to fill in a "
+msgstr ""
+
+#: grc/partnership_details/constants.py:13
+msgid "statutory declaration for civil partners (opens in a new tab)"
+msgstr ""
+
+#: grc/partnership_details/constants.py:14
+msgid "statutory declaration for spouses (opens in a new tab)"
+msgstr ""
+
+#: grc/partnership_details/constants.py:15
+msgid ", and sign it in front of someone authorised to administer oaths."
+msgstr ""
+
+#: grc/partnership_details/constants.py:16
+msgid "Can you provide a statutory declaration from your civil partner"
+msgstr ""
+
+#: grc/partnership_details/constants.py:17
+msgid "Can you provide a statutory declaration from your spouse"
+msgstr ""
+
+#: grc/partnership_details/constants.py:20
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
+msgstr ""
+
+#: grc/partnership_details/constants.py:22
+msgid ""
+"Select if you can provide a declaration of consent from your spouse or "
+"civil partner"
 msgstr ""
 
 #: grc/personal_details/constants.py:6
@@ -1495,6 +1531,11 @@ msgstr ""
 msgid ""
 "If you are in the process of ending, or you plan to end your marriage or "
 "civil partnership, you should select your current, legal status"
+msgstr ""
+
+#: grc/templates/partnership-details/partner-agrees.html:7
+#: grc/templates/partnership-details/partner-agrees.html:20
+msgid "Declaration of consent"
 msgstr ""
 
 #: grc/templates/personal-details/address.html:8

@@ -18,7 +18,7 @@
             {{ error_summary.renderFor(form) }}
             {% set conditional_options = [] %}
             {% if context.link %}
-                {% set conditional_options = [(True, hint.render({'htmlOrText': link}))] %}
+                {% set conditional_options = [(True, hint.render({'htmlOrText': context.link}))] %}
             {% endif %}
 
             <form method="POST" action="#">
