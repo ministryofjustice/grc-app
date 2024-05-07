@@ -13,8 +13,8 @@ class PartnershipDetailsConstants(BaseConstants):
     PARTNER_AGREES_CP_LINK_TEXT = _l('statutory declaration for civil partners (opens in a new tab)')
     PARTNER_AGREES_MARRIED_LINK_TEXT = _l('statutory declaration for spouses (opens in a new tab)')
     PARTNER_AGREES_TEXT_AFTER_LINK = _l(', and sign it in front of someone authorised to administer oaths.')
-    PARTNER_AGREES_CP_QUESTION = _l('Can you provide a statutory declaration from your civil partner')
-    PARTNER_AGREES_MARRIED_QUESTION = _l('Can you provide a statutory declaration from your spouse')
+    PARTNER_AGREES_CP_QUESTION = _l('Can you provide a statutory declaration from your civil partner?')
+    PARTNER_AGREES_MARRIED_QUESTION = _l('Can you provide a statutory declaration from your spouse?')
 
     # Errors
     STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR = _l('Select if you plan to remain married or in your civil partnership'

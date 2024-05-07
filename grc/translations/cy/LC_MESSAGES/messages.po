@@ -582,11 +582,11 @@ msgstr ""
 "llwon."
 
 #: grc/partnership_details/constants.py:16
-msgid "Can you provide a statutory declaration from your civil partner"
+msgid "Can you provide a statutory declaration from your civil partner?"
 msgstr "Allwch chi ddarparu datganiad statudol gan eich partner sifil?"
 
 #: grc/partnership_details/constants.py:17
-msgid "Can you provide a statutory declaration from your spouse"
+msgid "Can you provide a statutory declaration from your spouse?"
 msgstr "Allwch chi ddarparu datganiad statudol gan eich priod?"
 
 #: grc/partnership_details/constants.py:20
