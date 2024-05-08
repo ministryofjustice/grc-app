@@ -196,7 +196,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/partnership-details/partner-agrees')
     await asserts.accessibility()
     await asserts.h1('Datganiad o gydsyniad')
-    await asserts.fieldset_legend('Allwch chi ddarparu datganiad statudol gan eich priod?')
+    await asserts.fieldset_legend('Allwch chi ddarparu datganiad statudol gan eich partner sifil?')
     await asserts.number_of_errors(0)
 
     # Change language
