@@ -325,9 +325,9 @@ def get_context_partner_details(partnership_data) -> dict:
     context = {}
     if partnership_data.is_in_civil_partnership:
         context['header'] = c.PARTNER_DETAILS_CP_HEADER
-        context['p'] = c.PARTNER_DETAILS_CP_PARAGRAPH
+        context['p'] = c.PARTNER_DETAILS_CP_PARAGRAPH + c.PARTNER_DETAILS_PARAGRAPH_2
     else:
         context['header'] = c.PARTNER_DETAILS_MARRIED_HEADER
-        context['p'] = c.PARTNER_DETAILS_MARRIED_PARAGRAPH
+        context['p'] = c.PARTNER_DETAILS_MARRIED_PARAGRAPH + c.PARTNER_DETAILS_PARAGRAPH_2
 
     return context

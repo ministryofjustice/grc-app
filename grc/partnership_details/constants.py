@@ -19,11 +19,11 @@ class PartnershipDetailsConstants(BaseConstants):
     PARTNER_DETAILS_CP_HEADER = _l("Your civil partner's details")
     PARTNER_DETAILS_MARRIED_HEADER = _l("Your spouse's details")
     PARTNER_DETAILS_CP_PARAGRAPH = _l("We will contact them about what to do if they change their mind about staying in"
-                                      " a civil partnership. We will also let them know how their pensions and benefits"
-                                      " may be affected if you receive a Gender Recognition Certificate.")
+                                      " a civil partnership.")
     PARTNER_DETAILS_MARRIED_PARAGRAPH = _l("We will contact them about what to do if they change their mind about"
-                                           " staying married. We will also let them know how their pensions and "
-                                           "benefits may be affected if you receive a Gender Recognition Certificate.")
+                                           " staying married.")
+    PARTNER_DETAILS_PARAGRAPH_2 = _l(" We will also let them know how their pensions and benefits may be affected if "
+                                     "you receive a Gender Recognition Certificate.")
 
     # Errors
     STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR = _l('Select if you plan to remain married or in your civil partnership'

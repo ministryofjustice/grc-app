@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-07 17:26+0100\n"
+"POT-Creation-Date: 2024-05-08 10:05+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -589,7 +589,41 @@ msgstr "Allwch chi ddarparu datganiad statudol gan eich partner sifil?"
 msgid "Can you provide a statutory declaration from your spouse?"
 msgstr "Allwch chi ddarparu datganiad statudol gan eich priod?"
 
+#: grc/partnership_details/constants.py:19
+msgid "Your civil partner's details"
+msgstr "Manylion eich partner sifil"
+
 #: grc/partnership_details/constants.py:20
+msgid "Your spouse's details"
+msgstr "Manylion eich priod"
+
+#: grc/partnership_details/constants.py:21
+#, fuzzy
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying in a civil partnership."
+msgstr ""
+"Byddwn yn cysylltu â nhw i ddweud wrthynt beth allant wneud os byddant yn"
+" newid eu meddwl am aros mewn partneriaeth sifil."
+
+#: grc/partnership_details/constants.py:23
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying married."
+msgstr ""
+"Byddwn yn cysylltu â nhw i ddweud wrthynt beth allant wneud os byddant yn"
+" newid eu meddwl am aros yn briod."
+
+#: grc/partnership_details/constants.py:25
+msgid ""
+" We will also let them know how their pensions and benefits may be "
+"affected if you receive a Gender Recognition Certificate."
+msgstr ""
+" Byddwn hefyd yn rhoi gwybod iddynt sut y gall hyn effeithio ar eu "
+"pensiynau a’u budd-daliadau os byddwch yn cael Tystysgrif Cydnabod "
+"Rhywedd."
+
+#: grc/partnership_details/constants.py:29
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
@@ -597,13 +631,29 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
 " ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
 
-#: grc/partnership_details/constants.py:22
+#: grc/partnership_details/constants.py:31
 msgid ""
 "Select if you can provide a declaration of consent from your spouse or "
 "civil partner"
 msgstr ""
 "Dewiswch os ydych chi'n gallu darparu datganiad o gydsyniad gan eich "
 "priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:32
+msgid "Enter your spouse or civil partner's title"
+msgstr "Nodwch deitl eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:33
+msgid "Enter your spouse or civil partner's first name"
+msgstr "Nodwch enw cyntaf eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:34
+msgid "Enter your spouse or civil partner's last name"
+msgstr "Nodwch gyfenw eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:35
+msgid "Enter your spouse or civil partner's postal address"
+msgstr "Nodwch gyfeiriad post eich  priod neu bartner sifil"
 
 #: grc/personal_details/constants.py:6
 msgid "Male"
@@ -1697,6 +1747,25 @@ msgstr ""
 msgid "Declaration of consent"
 msgstr "Datganiad o gydsyniad"
 
+#: grc/templates/partnership-details/partner-details.html:39
+#: grc/templates/personal-details/name.html:48
+msgid "Title"
+msgstr "Teitl"
+
+#: grc/templates/partnership-details/partner-details.html:49
+#: grc/templates/personal-details/name.html:59
+msgid "First name"
+msgstr "Enw cyntaf"
+
+#: grc/templates/partnership-details/partner-details.html:59
+#: grc/templates/personal-details/name.html:79
+msgid "Last name"
+msgstr "Cyfenw"
+
+#: grc/templates/partnership-details/partner-details.html:70
+msgid "Postal address – including postcode or zip code"
+msgstr "Cyfeiriad ar gyfer postio - gan gynnwys cod post neu god sip"
+
 #: grc/templates/personal-details/address.html:8
 #: grc/templates/personal-details/address.html:27
 msgid "What is your address?"
@@ -1936,10 +2005,6 @@ msgstr "newid eich enw drwy weithred newid enw (yn agor mewn tab newydd)"
 msgid "before you apply for a Gender Recognition Certificate"
 msgstr "cyn i chi wneud cais am Dystysgrif Cydnabod Rhywedd"
 
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr "Teitl"
-
 #: grc/templates/personal-details/name.html:49
 msgid ""
 "For internal use only. This will not appear on your Gender Recognition "
@@ -1948,17 +2013,9 @@ msgstr ""
 "At ddefnydd mewnol yn unig. Ni fydd hwn yn ymddangos ar eich Tystysgrif "
 "Cydnabod Rhywedd."
 
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr "Enw cyntaf"
-
 #: grc/templates/personal-details/name.html:69
 msgid "Middle names (only required if you have middle names)"
 msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
-
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr "Cyfenw"
 
 #: grc/templates/personal-details/previous-names-check.html:23
 msgid "You will need to upload documents that show this"
@@ -3197,4 +3254,14 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
+
+#~ msgid ""
+#~ "We will contact them about what to"
+#~ " do if they change their mind "
+#~ "about staying married. We will also "
+#~ "let them know how their pensions "
+#~ "and benefits may be affected if "
+#~ "you receive a Gender Recognition "
+#~ "Certificate."
+#~ msgstr ""
 
