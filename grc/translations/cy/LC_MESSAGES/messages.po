@@ -1686,7 +1686,7 @@ msgstr ""
 #: grc/templates/partnership-details/current-check.html:37
 msgid ""
 "If you are in the process of ending, or you plan to end your marriage or "
-"civil partnership, you should select your current, legal status"
+"civil partnership, you should select your current legal status"
 msgstr ""
 "Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, "
 "neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, "
