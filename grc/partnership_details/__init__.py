@@ -177,6 +177,7 @@ def partnerDetails():
     return render_template(
         'partnership-details/partner-details.html',
         form=form,
+        context=get_context_partner_details(application_data.partnership_details_data),
         application_data=application_data,
         back=get_previous_page(application_data, 'partnershipDetails.partnerAgrees')
     )
@@ -319,3 +320,14 @@ def get_context_partner_agrees(partnership_data) -> dict:
 
     return context
 
+
+def get_context_partner_details(partnership_data) -> dict:
+    context = {}
+    if partnership_data.is_in_civil_partnership:
+        context['header'] = c.PARTNER_DETAILS_CP_HEADER
+        context['p'] = c.PARTNER_DETAILS_CP_PARAGRAPH
+    else:
+        context['header'] = c.PARTNER_DETAILS_MARRIED_HEADER
+        context['p'] = c.PARTNER_DETAILS_MARRIED_PARAGRAPH
+
+    return context
