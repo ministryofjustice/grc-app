@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 11:58+0100\n"
+"POT-Creation-Date: 2024-05-08 14:09+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -654,7 +654,56 @@ msgstr "Gallu darparu datganiad o gydsyniad gan eich priod"
 msgid "Can provide a declaration of consent from your civil partner"
 msgstr "Gallu darparu datganiad o gydsyniad gan eich partner sifil"
 
-#: grc/partnership_details/constants.py:38
+#: grc/partnership_details/constants.py:37
+msgid ""
+"When you apply for a certificate, your civil partner needs to sign a "
+"document if you want to stay in a civil partnership."
+msgstr ""
+
+#: grc/partnership_details/constants.py:39
+msgid ""
+"If they do not sign the document, or you’re ending the civil partnership,"
+" you will get an ‘interim’ certificate if you continue with your "
+"application."
+msgstr ""
+
+#: grc/partnership_details/constants.py:41
+msgid "You can only use the interim certificate to end your civil partnership."
+msgstr ""
+
+#: grc/partnership_details/constants.py:42
+msgid ""
+"You will get a full certificate once you’re no longer in a civil "
+"partnership."
+msgstr ""
+
+#: grc/partnership_details/constants.py:43
+msgid ""
+"When you apply for a certificate, your spouse needs tosign a document if "
+"you want to stay married."
+msgstr "Pan fyddwch yn gwneud cais am dystysgrif, mae angen i’ch priod lofnodi dogfen os ydych eisiau aros yn briod."
+
+#: grc/partnership_details/constants.py:45
+msgid ""
+"If they do not sign the document, or you’re ending the marriage, you will"
+" get an ‘interim’ certificate if you continue with your application."
+msgstr "Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch priodas i ben, byddwch yn cael tystysgrif ‘interim’ os byddwch yn parhau â’ch cais."
+
+#: grc/partnership_details/constants.py:47
+msgid "You can only use the interim certificate to end your marriage."
+msgstr "Gallwch ond defnyddio’r dystysgrif interim i ddod â’ch priodas i ben."
+
+#: grc/partnership_details/constants.py:48
+msgid "You will get a full certificate once you’re no longer married."
+msgstr "Byddwch yn cael tystysgrif lawn pan na fyddwch yn briod mwyach."
+
+#: grc/partnership_details/constants.py:49
+msgid ""
+"You have 6 months to apply for an annulment, divorce or dissolution from "
+"when you get your interim certificate."
+msgstr "Mae gennych 6 mis i wneud cais am ddirymiad, ysgariad neu ddiddymiad o’r adeg pan fyddwch yn cael eich tystysgrif interim."
+
+#: grc/partnership_details/constants.py:53
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
@@ -662,7 +711,7 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
 " ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
 
-#: grc/partnership_details/constants.py:40
+#: grc/partnership_details/constants.py:55
 msgid ""
 "Select if you can provide a declaration of consent from your spouse or "
 "civil partner"
@@ -670,19 +719,19 @@ msgstr ""
 "Dewiswch os ydych chi'n gallu darparu datganiad o gydsyniad gan eich "
 "priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:41
+#: grc/partnership_details/constants.py:56
 msgid "Enter your spouse or civil partner's title"
 msgstr "Nodwch deitl eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:42
+#: grc/partnership_details/constants.py:57
 msgid "Enter your spouse or civil partner's first name"
 msgstr "Nodwch enw cyntaf eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:43
+#: grc/partnership_details/constants.py:58
 msgid "Enter your spouse or civil partner's last name"
 msgstr "Nodwch gyfenw eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:44
+#: grc/partnership_details/constants.py:59
 msgid "Enter your spouse or civil partner's postal address"
 msgstr "Nodwch gyfeiriad post eich  priod neu bartner sifil"
 
@@ -1797,6 +1846,11 @@ msgstr ""
 "Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, "
 "neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, "
 "dylech ddewis eich statws cyfreithiol ar hyn o bryd."
+
+#: grc/templates/partnership-details/interim-check.html:5
+#: grc/templates/partnership-details/interim-check.html:17
+msgid "Interim Gender Recognition Certificate"
+msgstr "Tystysgrif Cydnabod Rhywedd Interim"
 
 #: grc/templates/partnership-details/partner-agrees.html:7
 #: grc/templates/partnership-details/partner-agrees.html:20
