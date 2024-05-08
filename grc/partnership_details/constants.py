@@ -57,3 +57,6 @@ class PartnershipDetailsConstants(BaseConstants):
     PARTNER_FIRST_NAME_ERROR = _l("Enter your spouse or civil partner's first name")
     PARTNER_LAST_NAME_ERROR = _l("Enter your spouse or civil partner's last name")
     PARTNER_POSTCODE_ERROR = _l("Enter your spouse or civil partner's postal address")
+
+    PARTNER_DIED_ERROR = _l('Select if you were previously married or in a civil partnership, and your spouse or'
+                            ' partner died')
