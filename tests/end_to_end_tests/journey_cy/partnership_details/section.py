@@ -296,17 +296,16 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/partnership-details/stay-together')
     await asserts.accessibility()
-    await asserts.h1(
-        "Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich Tystysgrif Cydnabod Rhywedd?")
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/partnership-details/stay-together')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1('Do you plan to remain in your civil partnership after you receive your Gender Recognition Certificate?')
+    await asserts.h1('Do you plan to remain married after you receive your Gender Recognition Certificate?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1("Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich Tystysgrif Cydnabod Rhywedd?")
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
 
     # Select the "No" option, go down that route
     # Then backtrack and choose "No"
