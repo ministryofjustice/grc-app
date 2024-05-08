@@ -380,3 +380,34 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Select a valid option, click "Save and continue"
     await helpers.check_radio(field='partner_died', value='True')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Partnership Ended page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/ended-check')
+    await asserts.accessibility()
+    await asserts.h1('A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth i ben?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/ended-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Have you ever been married or in a civil partnership that ended?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth i ben?')
+
+    # Select a valid option, click "Save and continue"
+    await helpers.check_radio(field='previous_partnership_ended', value='True')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Marriage details: Check Your Answers page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/check-your-answers')
+    await asserts.accessibility()
+    await asserts.h1('Gwiriwch eich atebion: Manylion eich priodas neu bartneriaeth sifil')
+    await asserts.number_of_errors(0)
+
+    # Click "Save and continue"
+    await helpers.click_button('Cadw a pharhau')
