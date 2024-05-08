@@ -93,7 +93,11 @@
                 {% endif %}
             </dl>
 
-            {{ continue.renderForSaveAndContinue() }}
+            <form method="POST" action="#">
+                {{ form.csrf_token }}
+
+                {{ continue.renderForSaveAndContinue() }}
+            </form>
         </div>
     </div>
 {% endblock %}

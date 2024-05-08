@@ -125,6 +125,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Select the "Civil partnership" option
     # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
     await helpers.click_button('Yn ôl')
+    await asserts.url('/partnership-details/partner-details')
+
+    # REWIND!
+    # Go all the way back to the "Are you married" page,
+    # Select the "Civil partnership" option
+    # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
+    await helpers.click_button('Yn ôl')
     await asserts.url('/partnership-details/partner-agrees')
 
     # REWIND!
