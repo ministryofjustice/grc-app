@@ -34,6 +34,21 @@ class PartnershipDetailsConstants(BaseConstants):
     PARTNER_DETAILS_CYA_PARTNER_MARRIED_AGREES = _l("Can provide a declaration of consent from your spouse")
     PARTNER_DETAILS_CYA_PARTNER_CP_AGREES = _l("Can provide a declaration of consent from your civil partner")
 
+    INTERIM_P1_CP = _l('When you apply for a certificate, your civil partner needs to sign a document if you want to'
+                       ' stay in a civil partnership.')
+    INTERIM_P2_CP = _l("If they do not sign the document, or you’re ending the civil partnership, you will get an"
+                       " ‘interim’ certificate if you continue with your application.")
+    INTERIM_P3_CP = _l("You can only use the interim certificate to end your civil partnership.")
+    INTERIM_P5_CP = _l("You will get a full certificate once you’re no longer in a civil partnership.")
+    INTERIM_P1_MARRIED = _l('When you apply for a certificate, your spouse needs tosign a document if you want to'
+                            ' stay married.')
+    INTERIM_P2_MARRIED = _l("If they do not sign the document, or you’re ending the marriage, you will get an ‘interim’"
+                            " certificate if you continue with your application.")
+    INTERIM_P3_MARRIED = _l("You can only use the interim certificate to end your marriage.")
+    INTERIM_P5_MARRIED = _l("You will get a full certificate once you’re no longer married.")
+    INTERIM_P4 = _l("You have 6 months to apply for an annulment, divorce or dissolution from when you get your"
+                    " interim certificate.")
+
     # Errors
     STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR = _l('Select if you plan to remain married or in your civil partnership'
                                                     ' after receiving your Gender Recognition Certificate')
