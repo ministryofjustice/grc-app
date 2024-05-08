@@ -1873,13 +1873,17 @@ msgstr ""
 #: grc/templates/partnership-details/ended-check.html:7
 #: grc/templates/partnership-details/ended-check.html:25
 msgid "Have you ever been married or in a civil partnership that ended?"
-msgstr "A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth i ben?"
+msgstr ""
+"A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth"
+" i ben?"
 
 #: grc/templates/partnership-details/ended-check.html:29
 msgid ""
 "If yes, you will need to provide a copy of your decree(s) dissolving the "
 "marriage or civil partnership"
-msgstr "Os ‘Ydw’ bydd angen i chi ddarparu copi o’ch datganiad(au) yn diddymu’r briodas neu bartneriaeth sifil"
+msgstr ""
+"Os ‘Ydw’ bydd angen i chi ddarparu copi o’ch datganiad(au) yn diddymu’r "
+"briodas neu bartneriaeth sifil"
 
 #: grc/templates/partnership-details/interim-check.html:5
 #: grc/templates/partnership-details/interim-check.html:17
