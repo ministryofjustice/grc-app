@@ -659,6 +659,8 @@ msgid ""
 "When you apply for a certificate, your civil partner needs to sign a "
 "document if you want to stay in a civil partnership."
 msgstr ""
+"Pan fyddwch yn gwneud cais am dystysgrif, mae angen i'ch partner sifil "
+"lofnodi dogfen os ydych yn bwriadu aros mewn partneriaeth sifil."
 
 #: grc/partnership_details/constants.py:39
 msgid ""
@@ -666,28 +668,39 @@ msgid ""
 " you will get an ‘interim’ certificate if you continue with your "
 "application."
 msgstr ""
+"Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch "
+"partneriaeth sifil i ben, byddwch yn cael tystysgrif ‘interim’ os byddwch"
+" yn parhau â’ch cais."
 
 #: grc/partnership_details/constants.py:41
 msgid "You can only use the interim certificate to end your civil partnership."
 msgstr ""
+"Gallwch ond defnyddio’r dystysgrif interim i ddod â’ch partneriaeth sifil"
+" i ben."
 
 #: grc/partnership_details/constants.py:42
 msgid ""
 "You will get a full certificate once you’re no longer in a civil "
 "partnership."
 msgstr ""
+"Byddwch yn cael tystysgrif lawn pan na fyddwch yn partneriaeth sifil "
+"mwyach."
 
 #: grc/partnership_details/constants.py:43
 msgid ""
 "When you apply for a certificate, your spouse needs tosign a document if "
 "you want to stay married."
-msgstr "Pan fyddwch yn gwneud cais am dystysgrif, mae angen i’ch priod lofnodi dogfen os ydych eisiau aros yn briod."
+msgstr ""
+"Pan fyddwch yn gwneud cais am dystysgrif, mae angen i’ch priod lofnodi "
+"dogfen os ydych eisiau aros yn briod."
 
 #: grc/partnership_details/constants.py:45
 msgid ""
 "If they do not sign the document, or you’re ending the marriage, you will"
 " get an ‘interim’ certificate if you continue with your application."
-msgstr "Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch priodas i ben, byddwch yn cael tystysgrif ‘interim’ os byddwch yn parhau â’ch cais."
+msgstr ""
+"Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch priodas i "
+"ben, byddwch yn cael tystysgrif ‘interim’ os byddwch yn parhau â’ch cais."
 
 #: grc/partnership_details/constants.py:47
 msgid "You can only use the interim certificate to end your marriage."
@@ -701,7 +714,9 @@ msgstr "Byddwch yn cael tystysgrif lawn pan na fyddwch yn briod mwyach."
 msgid ""
 "You have 6 months to apply for an annulment, divorce or dissolution from "
 "when you get your interim certificate."
-msgstr "Mae gennych 6 mis i wneud cais am ddirymiad, ysgariad neu ddiddymiad o’r adeg pan fyddwch yn cael eich tystysgrif interim."
+msgstr ""
+"Mae gennych 6 mis i wneud cais am ddirymiad, ysgariad neu ddiddymiad o’r "
+"adeg pan fyddwch yn cael eich tystysgrif interim."
 
 #: grc/partnership_details/constants.py:53
 msgid ""
