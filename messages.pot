@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 10:05+0100\n"
+"POT-Creation-Date: 2024-05-08 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -580,31 +580,63 @@ msgid ""
 "affected if you receive a Gender Recognition Certificate."
 msgstr ""
 
+#: grc/partnership_details/constants.py:28
+msgid "Remain married"
+msgstr ""
+
 #: grc/partnership_details/constants.py:29
+msgid "Remain in your civil partnership"
+msgstr ""
+
+#: grc/partnership_details/constants.py:30
+msgid "Spouse's name"
+msgstr ""
+
+#: grc/partnership_details/constants.py:31
+msgid "Civil partner's name"
+msgstr ""
+
+#: grc/partnership_details/constants.py:32
+msgid "Spouse's postal address"
+msgstr ""
+
+#: grc/partnership_details/constants.py:33
+msgid "Civil partner's postal address"
+msgstr ""
+
+#: grc/partnership_details/constants.py:34
+msgid "Can provide a declaration of consent from your spouse"
+msgstr ""
+
+#: grc/partnership_details/constants.py:35
+msgid "Can provide a declaration of consent from your civil partner"
+msgstr ""
+
+#: grc/partnership_details/constants.py:38
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
 msgstr ""
 
-#: grc/partnership_details/constants.py:31
+#: grc/partnership_details/constants.py:40
 msgid ""
 "Select if you can provide a declaration of consent from your spouse or "
 "civil partner"
 msgstr ""
 
-#: grc/partnership_details/constants.py:32
+#: grc/partnership_details/constants.py:41
 msgid "Enter your spouse or civil partner's title"
 msgstr ""
 
-#: grc/partnership_details/constants.py:33
+#: grc/partnership_details/constants.py:42
 msgid "Enter your spouse or civil partner's first name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:34
+#: grc/partnership_details/constants.py:43
 msgid "Enter your spouse or civil partner's last name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:35
+#: grc/partnership_details/constants.py:44
 msgid "Enter your spouse or civil partner's postal address"
 msgstr ""
 
@@ -783,6 +815,8 @@ msgstr ""
 msgid "Your birth registration information"
 msgstr ""
 
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:21
 #: grc/templates/task-list.html:98
 msgid "Marriage or civil partnership details"
 msgstr ""
@@ -1558,6 +1592,29 @@ msgstr ""
 msgid "There is a problem"
 msgstr ""
 
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:20
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:21
+msgid "Check your answers:"
+msgstr ""
+
+#: grc/templates/partnership-details/check-your-answers.html:26
+msgid "Currently married or in a civil partnership"
+msgstr ""
+
+#: grc/templates/partnership-details/check-your-answers.html:34
+msgid "Spouse or partner has died"
+msgstr ""
+
+#: grc/templates/partnership-details/check-your-answers.html:41
+msgid "Marriage or civil partnership has ended"
+msgstr ""
+
+#: grc/templates/partnership-details/check-your-answers.html:87
+msgid "Interim GRC"
+msgstr ""
+
 #: grc/templates/partnership-details/current-check.html:20
 msgid "Marriages and civil partnerships"
 msgstr ""
@@ -1637,11 +1694,6 @@ msgstr ""
 
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
-msgstr ""
-
-#: grc/templates/personal-details/check-your-answers.html:10
-#: grc/templates/personal-details/check-your-answers.html:21
-msgid "Check your answers:"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:27

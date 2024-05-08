@@ -274,6 +274,7 @@ def checkYourAnswers():
     return render_template(
         'partnership-details/check-your-answers.html',
         form=form,
+        content=get_context_check_your_answers(application_data.partnership_details_data),
         application_data=application_data,
         back=get_previous_page(application_data, back_link)
     )
