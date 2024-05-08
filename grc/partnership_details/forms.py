@@ -72,7 +72,7 @@ class PreviousPartnershipEndedForm(FlaskForm):
             (True, c.YES),
             (False, c.NO)
         ],
-        validators=[LazyDataRequired(lazy_message=c.PARTNERSHIP_ENDED_ERROR)]
+        validators=[LazyDataRequired(lazy_message=c.MARRIED_OR_CIVIL_PARTNERSHIP_ENDED_ERROR)]
     )
 
 

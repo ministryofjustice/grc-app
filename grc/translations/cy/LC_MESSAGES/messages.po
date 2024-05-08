@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 15:35+0100\n"
+"POT-Creation-Date: 2024-05-08 16:31+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1869,6 +1869,17 @@ msgstr ""
 "Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, "
 "neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, "
 "dylech ddewis eich statws cyfreithiol ar hyn o bryd."
+
+#: grc/templates/partnership-details/ended-check.html:7
+#: grc/templates/partnership-details/ended-check.html:25
+msgid "Have you ever been married or in a civil partnership that ended?"
+msgstr "A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth i ben?"
+
+#: grc/templates/partnership-details/ended-check.html:29
+msgid ""
+"If yes, you will need to provide a copy of your decree(s) dissolving the "
+"marriage or civil partnership"
+msgstr "Os ‘Ydw’ bydd angen i chi ddarparu copi o’ch datganiad(au) yn diddymu’r briodas neu bartneriaeth sifil"
 
 #: grc/templates/partnership-details/interim-check.html:5
 #: grc/templates/partnership-details/interim-check.html:17
