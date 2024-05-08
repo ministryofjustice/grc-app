@@ -60,3 +60,5 @@ class PartnershipDetailsConstants(BaseConstants):
 
     PARTNER_DIED_ERROR = _l('Select if you were previously married or in a civil partnership, and your spouse or'
                             ' partner died')
+
+    PARTNERSHIP_ENDED_ERROR = _l('Select if you have ever been married or in a civil partnership that has ended')
