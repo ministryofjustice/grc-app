@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 14:09+0100\n"
+"POT-Creation-Date: 2024-05-08 15:35+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -749,6 +749,14 @@ msgstr "Nodwch gyfenw eich priod neu bartner sifil"
 #: grc/partnership_details/constants.py:59
 msgid "Enter your spouse or civil partner's postal address"
 msgstr "Nodwch gyfeiriad post eich  priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:61
+msgid ""
+"Select if you were previously married or in a civil partnership, and your"
+" spouse or partner died"
+msgstr ""
+"Dewiswch os ydych chi wedi bod yn briod neu mewn partneriaeth sifil yn y "
+"gorffennol, a bu farw eich priod neu'ch partner"
 
 #: grc/personal_details/constants.py:6
 msgid "Male"
@@ -1890,6 +1898,19 @@ msgstr "Cyfenw"
 #: grc/templates/partnership-details/partner-details.html:70
 msgid "Postal address – including postcode or zip code"
 msgstr "Cyfeiriad ar gyfer postio - gan gynnwys cod post neu god sip"
+
+#: grc/templates/partnership-details/partner-died.html:7
+#: grc/templates/partnership-details/partner-died.html:25
+msgid ""
+"Were you previously married or in a civil partnership and your spouse or "
+"partner died?"
+msgstr ""
+"A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod "
+"eich priod neu bartner sifil wedi marw?  "
+
+#: grc/templates/partnership-details/partner-died.html:29
+msgid "If yes, you will need to provide a copy of their death certificate"
+msgstr "Os ‘Ydw’, bydd angen i chi ddarparu copi o’u tystysgrif marwolaeth"
 
 #: grc/templates/personal-details/address.html:8
 #: grc/templates/personal-details/address.html:27

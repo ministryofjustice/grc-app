@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 14:09+0100\n"
+"POT-Creation-Date: 2024-05-08 15:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -687,6 +687,12 @@ msgstr ""
 
 #: grc/partnership_details/constants.py:59
 msgid "Enter your spouse or civil partner's postal address"
+msgstr ""
+
+#: grc/partnership_details/constants.py:61
+msgid ""
+"Select if you were previously married or in a civil partnership, and your"
+" spouse or partner died"
 msgstr ""
 
 #: grc/personal_details/constants.py:6
@@ -1708,6 +1714,17 @@ msgstr ""
 
 #: grc/templates/partnership-details/partner-details.html:70
 msgid "Postal address – including postcode or zip code"
+msgstr ""
+
+#: grc/templates/partnership-details/partner-died.html:7
+#: grc/templates/partnership-details/partner-died.html:25
+msgid ""
+"Were you previously married or in a civil partnership and your spouse or "
+"partner died?"
+msgstr ""
+
+#: grc/templates/partnership-details/partner-died.html:29
+msgid "If yes, you will need to provide a copy of their death certificate"
 msgstr ""
 
 #: grc/templates/personal-details/address.html:8
