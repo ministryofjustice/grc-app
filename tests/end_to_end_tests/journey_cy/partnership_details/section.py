@@ -337,3 +337,47 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await asserts.h1('Gwiriwch eich atebion: Manylion eich priodas neu bartneriaeth sifil')
     await asserts.number_of_errors(0)
+
+    # Click "Change" to get back to the "Are You Married" page, then choose "Neither"
+    await helpers.click_button('Change if you are currently married or in a civil partnership')
+
+    # ------------------------------------------------
+    # ---- Are You Married page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details')
+    await asserts.accessibility()
+    await asserts.h1('Priodasau a phartneriaethau sifil')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Marriages and civil partnerships')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Priodasau a phartneriaethau sifil')
+
+    # Select the "Married" option
+    await helpers.check_radio(field='currently_married', value='NEITHER')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Partner Died page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/partner-died')
+    await asserts.accessibility()
+    await asserts.h1('A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod eich priod neu bartner sifil wedi marw?')
+    await asserts.h1('Were you previously married or in a civil partnership and your spouse or partner died?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Were you previously married or in a civil partnership and your spouse or partner died?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod eich priod neu bartner sifil wedi marw?')
+
+    # Select a valid option, click "Save and continue"
+    await helpers.check_radio(field='partner_died', value='True')
+    await helpers.click_button('Cadw a pharhau')
