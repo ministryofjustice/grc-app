@@ -93,10 +93,10 @@ def stayTogether():
         context['question'] = c.PLAN_TO_REMAIN_MARRIED
     else:
         link = LinkBuilder(
-            c.STAY_TOGETHER_HINT_TEXT_BEFORE_LINK,
+            '<a href="https://www.gov.uk/convert-civil-partnership" target="_blank" class="govuk-link">',
             c.STAY_TOGETHER_HINT_TEXT_LINK,
+            c.STAY_TOGETHER_HINT_TEXT_BEFORE_LINK,
             c.STAY_TOGETHER_HINT_TEXT_AFTER_LINK,
-            '<a href="https://www.gov.uk/convert-civil-partnership" target="_blank" class="govuk-link">'
         )
         context['question'] = c.PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP
         context['link'] = link.get_link_with_text_safe()
@@ -300,19 +300,19 @@ def get_context_partner_agrees(partnership_data) -> dict:
               'declarations-for-applicants" rel="noreferrer noopener" target="_blank" class="govuk-link">')
     if partnership_data.is_in_civil_partnership:
         link = LinkBuilder(
-            c.PARTNER_AGREES_CP_TEXT_BEFORE_LINK,
+            anchor,
             c.PARTNER_AGREES_CP_LINK_TEXT,
+            c.PARTNER_AGREES_CP_TEXT_BEFORE_LINK,
             c.PARTNER_AGREES_TEXT_AFTER_LINK,
-            anchor
         )
         context['question'] = c.PARTNER_AGREES_CP_QUESTION
         context['link'] = link.get_link_with_text_safe()
     else:
         link = LinkBuilder(
-            c.PARTNER_AGREES_MARRIED_TEXT_BEFORE_LINK,
+            anchor,
             c.PARTNER_AGREES_MARRIED_LINK_TEXT,
-            c.PARTNER_AGREES_TEXT_AFTER_LINK,
-            anchor
+            c.PARTNER_AGREES_MARRIED_TEXT_BEFORE_LINK,
+            c.PARTNER_AGREES_TEXT_AFTER_LINK
         )
         context['question'] = c.PARTNER_AGREES_MARRIED_QUESTION
         context['link'] = link.get_link_with_text_safe()
