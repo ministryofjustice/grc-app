@@ -367,11 +367,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/partnership-details/partner-died')
     await asserts.accessibility()
     await asserts.h1('A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod eich priod neu bartner sifil wedi marw?')
-    await asserts.h1('Were you previously married or in a civil partnership and your spouse or partner died?')
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/partnership-details')
+    await asserts.url('/partnership-details/partner-died')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1('Were you previously married or in a civil partnership and your spouse or partner died?')
