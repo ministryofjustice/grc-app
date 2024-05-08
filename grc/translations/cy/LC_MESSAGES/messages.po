@@ -598,7 +598,6 @@ msgid "Your spouse's details"
 msgstr "Manylion eich priod"
 
 #: grc/partnership_details/constants.py:21
-#, fuzzy
 msgid ""
 "We will contact them about what to do if they change their mind about "
 "staying in a civil partnership."
