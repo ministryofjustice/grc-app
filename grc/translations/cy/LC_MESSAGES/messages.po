@@ -1906,7 +1906,7 @@ msgid ""
 "partner died?"
 msgstr ""
 "A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod "
-"eich priod neu bartner sifil wedi marw?  "
+"eich priod neu bartner sifil wedi marw?"
 
 #: grc/templates/partnership-details/partner-died.html:29
 msgid "If yes, you will need to provide a copy of their death certificate"
