@@ -25,6 +25,15 @@ class PartnershipDetailsConstants(BaseConstants):
     PARTNER_DETAILS_PARAGRAPH_2 = _l(" We will also let them know how their pensions and benefits may be affected if "
                                      "you receive a Gender Recognition Certificate.")
 
+    PARTNER_DETAILS_CYA_STAY_TOGETHER_MARRIED = _l("Remain married")
+    PARTNER_DETAILS_CYA_STAY_TOGETHER_CP = _l("Remain in your civil partnership")
+    PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED = _l("Spouse's name")
+    PARTNER_DETAILS_CYA_PARTNER_CP_CAPITALISED = _l("Civil partner's name")
+    PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED_ADDRESS = _l("Spouse's postal address")
+    PARTNER_DETAILS_CYA_PARTNER_CP_CAPITALISED_ADDRESS = _l("Civil partner's postal address")
+    PARTNER_DETAILS_CYA_PARTNER_MARRIED_AGREES = _l("Can provide a declaration of consent from your spouse")
+    PARTNER_DETAILS_CYA_PARTNER_CP_AGREES = _l("Can provide a declaration of consent from your civil partner")
+
     # Errors
     STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR = _l('Select if you plan to remain married or in your civil partnership'
                                                     ' after receiving your Gender Recognition Certificate')
