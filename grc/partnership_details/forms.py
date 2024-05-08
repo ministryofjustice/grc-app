@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
-from grc.business_logic.constants import BaseConstants as c
+from grc.partnership_details.constants import PartnershipDetailsConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from wtforms import RadioField, StringField
@@ -19,22 +19,22 @@ class MarriageCivilPartnershipForm(FlaskForm):
 
 
 class StayTogetherForm(FlaskForm):
-    stay_together = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    stay_together = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you plan to remain married or in your civil partnership after receiving your Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 
 class PartnerAgreesForm(FlaskForm):
-    partner_agrees = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    partner_agrees = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you can provide a declaration of consent from your spouse or civil partner')]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_AGREES_ERROR)]
     )
 
 

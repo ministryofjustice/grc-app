@@ -3,10 +3,12 @@ from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
 from grc.list_status import ListStatus
+from grc.partnership_details.constants import PartnershipDetailsConstants as c
 from grc.partnership_details.forms import MarriageCivilPartnershipForm, StayTogetherForm, PartnerAgreesForm, \
     PartnerDiedForm, PreviousPartnershipEndedForm, InterimCheckForm, CheckYourAnswers, PartnerDetailsForm
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
+from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 
@@ -86,9 +88,23 @@ def stayTogether():
     if request.method == 'GET':
         form.stay_together.data = application_data.partnership_details_data.plan_to_remain_in_a_partnership
 
+    context = {}
+    if application_data.partnership_details_data.is_married:
+        context['question'] = c.PLAN_TO_REMAIN_MARRIED
+    else:
+        link = LinkBuilder(
+            '<a href="https://www.gov.uk/convert-civil-partnership" target="_blank" class="govuk-link">',
+            c.STAY_TOGETHER_HINT_TEXT_LINK,
+            c.STAY_TOGETHER_HINT_TEXT_BEFORE_LINK,
+            c.STAY_TOGETHER_HINT_TEXT_AFTER_LINK,
+        )
+        context['question'] = c.PLAN_TO_REMAIN_IN_CIVIL_PARTNERSHIP
+        context['link'] = link.get_link_with_text_safe()
+
     return render_template(
         'partnership-details/stay-together.html',
         form=form,
+        context=context,
         application_data=application_data,
         back=get_previous_page(application_data, 'partnershipDetails.index')
     )
@@ -130,6 +146,7 @@ def partnerAgrees():
     return render_template(
         'partnership-details/partner-agrees.html',
         form=form,
+        context=get_context_partner_agrees(application_data.partnership_details_data),
         application_data=application_data,
         back=get_previous_page(application_data, 'partnershipDetails.stayTogether')
     )
@@ -275,3 +292,30 @@ def get_previous_page(application_data: ApplicationData, previous_page_in_journe
         section_check_your_answers_page='partnershipDetails.checkYourAnswers',
         section_status=application_data.partnership_details_data.section_status,
         application_data=application_data)
+
+
+def get_context_partner_agrees(partnership_data) -> dict:
+    context = {}
+    anchor = ('<a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-'
+              'declarations-for-applicants" rel="noreferrer noopener" target="_blank" class="govuk-link">')
+    if partnership_data.is_in_civil_partnership:
+        link = LinkBuilder(
+            anchor,
+            c.PARTNER_AGREES_CP_LINK_TEXT,
+            c.PARTNER_AGREES_CP_TEXT_BEFORE_LINK,
+            c.PARTNER_AGREES_TEXT_AFTER_LINK,
+        )
+        context['question'] = c.PARTNER_AGREES_CP_QUESTION
+        context['link'] = link.get_link_with_text_safe()
+    else:
+        link = LinkBuilder(
+            anchor,
+            c.PARTNER_AGREES_MARRIED_LINK_TEXT,
+            c.PARTNER_AGREES_MARRIED_TEXT_BEFORE_LINK,
+            c.PARTNER_AGREES_TEXT_AFTER_LINK
+        )
+        context['question'] = c.PARTNER_AGREES_MARRIED_QUESTION
+        context['link'] = link.get_link_with_text_safe()
+
+    return context
+

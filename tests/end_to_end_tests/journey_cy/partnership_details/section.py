@@ -37,3 +37,46 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Then, re-trace our steps back here and choose the "Civil partnership" and then "Neither" options
     await helpers.check_radio(field='currently_married', value='MARRIED')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Stay Together page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/stay-together')
+    await asserts.accessibility()
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/stay-together')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Do you plan to remain married after you receive your Gender Recognition Certificate?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
+
+    # Select the "Yes" option, go down that route
+    # Then backtrack and choose "No"
+    await helpers.check_radio(field='stay_together', value='True')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Partner Agrees page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/partner-agrees')
+    await asserts.accessibility()
+    await asserts.h1('Datganiad o gydsyniad')
+    await asserts.fieldset_legend('Allwch chi ddarparu datganiad statudol gan eich priod?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/partner-agrees')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Declaration of consent')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Datganiad o gydsyniad')
+
+    # Select the "Yes" option, go down that route
+    # Then backtrack and choose "No"
+    await helpers.check_radio(field='partner_agrees', value='True')
+    await helpers.click_button('Cadw a pharhau')
