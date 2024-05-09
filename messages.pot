@@ -524,6 +524,24 @@ msgstr ""
 msgid ", you must do that before you apply for a Gender Recognition Certificate."
 msgstr ""
 
+#: grc/partnership_details/constants.py:11
+msgid ""
+"Select if you plan to remain married or in your civil partnership after "
+"receiving your Gender Recognition Certificate"
+msgstr ""
+
+#: grc/partnership_details/constants.py:6
+msgid "If you are in a same-sex civil partnership and want "
+msgstr ""
+
+#: grc/partnership_details/constants.py:7
+msgid "convert your civil partnership to a marriage (opens in a new tab)"
+msgstr ""
+
+#: grc/partnership_details/constants.py:8
+msgid ", you must do that before you apply for a Gender Recognition Certificate."
+msgstr ""
+
 #: grc/partnership_details/constants.py:10
 msgid ""
 "If you intend to remain in a civil partnership, your civil partner needs "
