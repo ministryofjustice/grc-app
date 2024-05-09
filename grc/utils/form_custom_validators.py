@@ -179,16 +179,16 @@ def validate_date_of_birth(form, field):
         y = int(form['year'].data)
         date_of_birth = date(day=d, month=m, year=y)
     except ValueError as error:
-        raise ValidationError('Enter a valid date')
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     today = date.today()
     age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
 
     if age < 18:
-        raise ValidationError('You need to be at least 18 years old to apply')
+        raise LazyValidationError(c.ABOVE_AGE_ERROR)
 
     if age > 110:
-        raise ValidationError('You need to be less than 110 years old to apply')
+        raise LazyValidationError(c.BELOW_AGE_ERROR)
 
     reference_number = session.get('reference_number')
     application_data = DataStore.load_application(reference_number)
@@ -196,12 +196,10 @@ def validate_date_of_birth(form, field):
     statutory_declaration_date = application_data.personal_details_data.statutory_declaration_date
 
     if transition_date and date_of_birth > transition_date:
-        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
-                              + ' date')
+        raise LazyValidationError(c.DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR)
 
     if statutory_declaration_date and date_of_birth > statutory_declaration_date:
-        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
-                              + ' date')
+        raise LazyValidationError(c.DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR)
 
 
 def validate_date_of_transition(form, field):
