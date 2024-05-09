@@ -19,7 +19,20 @@ class PartnershipDetailsConstants(BaseConstants):
     HINT_TEXT_LINK = _l('convert your civil partnership to a marriage (opens in a new tab)')
     HINT_TEXT_AFTER_LINK = _l(', you must do that before you apply for a Gender Recognition Certificate.')
 
+    PARTNER_DETAILS_CP_HEADER = _l("Your civil partner's details")
+    PARTNER_DETAILS_MARRIED_HEADER = _l("Your spouse's details")
+    PARTNER_DETAILS_CP_PARAGRAPH = _l("We will contact them about what to do if they change their mind about staying in"
+                                      " a civil partnership.")
+    PARTNER_DETAILS_MARRIED_PARAGRAPH = _l("We will contact them about what to do if they change their mind about"
+                                           " staying married.")
+    PARTNER_DETAILS_PARAGRAPH_2 = _l(" We will also let them know how their pensions and benefits may be affected if "
+                                     "you receive a Gender Recognition Certificate.")
+
     # Errors
     STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR = _l('Select if you plan to remain married or in your civil partnership'
                                                     ' after receiving your Gender Recognition Certificate')
     PARTNER_AGREES_ERROR = _l('Select if you can provide a declaration of consent from your spouse or civil partner')
+    PARTNER_TITLE_ERROR = _l("Enter your spouse or civil partner's title")
+    PARTNER_FIRST_NAME_ERROR = _l("Enter your spouse or civil partner's first name")
+    PARTNER_LAST_NAME_ERROR = _l("Enter your spouse or civil partner's last name")
+    PARTNER_POSTCODE_ERROR = _l("Enter your spouse or civil partner's postal address")

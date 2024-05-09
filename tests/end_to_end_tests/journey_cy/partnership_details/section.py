@@ -80,3 +80,26 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Then backtrack and choose "No"
     await helpers.check_radio(field='partner_agrees', value='True')
     await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Your spouse's details page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/partner-details')
+    await asserts.accessibility()
+    await asserts.h1("Manylion eich priod")
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/partner-details')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1("Your spouse's details")
+    await helpers.click_button('Cymraeg')
+    await asserts.h1("Manylion eich priod")
+
+    # Enter valid details, click Save and continue
+    await helpers.fill_textbox(field='partner_title', value=data.PARTNER_TITLE)
+    await helpers.fill_textbox(field='partner_first_name', value=data.PARTNER_FIRST_NAME)
+    await helpers.fill_textbox(field='partner_last_name', value=data.PARTNER_LAST_NAME)
+    await helpers.fill_textbox(field='partner_postal_address', value=data.PARTNER_POSTAL_ADDRESS)
+    await helpers.click_button('Cadw a pharhau')
