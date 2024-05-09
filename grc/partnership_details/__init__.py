@@ -274,6 +274,7 @@ def checkYourAnswers():
     return render_template(
         'partnership-details/check-your-answers.html',
         form=form,
+        content=get_context_check_your_answers(application_data.partnership_details_data),
         application_data=application_data,
         back=get_previous_page(application_data, back_link)
     )
@@ -329,5 +330,25 @@ def get_context_partner_details(partnership_data) -> dict:
     else:
         context['header'] = c.PARTNER_DETAILS_MARRIED_HEADER
         context['p'] = c.PARTNER_DETAILS_MARRIED_PARAGRAPH + c.PARTNER_DETAILS_PARAGRAPH_2
+
+    return context
+
+
+def get_context_check_your_answers(partnership_data) -> dict:
+    context = {}
+    if partnership_data.is_in_civil_partnership:
+        context['partner_agrees_title'] = c.PARTNER_DETAILS_CYA_PARTNER_CP_AGREES
+        context['stay_together_title'] = c.PARTNER_DETAILS_CYA_STAY_TOGETHER_CP
+        context['partner_name'] = "civil partner"
+        context['in_your_partnership_name'] = "in your civil partnership"
+        context['partner_name_cap'] = c.PARTNER_DETAILS_CYA_PARTNER_CP_CAPITALISED
+        context['partner_name_post_code'] = c.PARTNER_DETAILS_CYA_PARTNER_CP_CAPITALISED_ADDRESS
+    else:
+        context['partner_agrees_title'] = c.PARTNER_DETAILS_CYA_PARTNER_MARRIED_AGREES
+        context['stay_together_title'] = c.PARTNER_DETAILS_CYA_STAY_TOGETHER_MARRIED
+        context['partner_name'] = "spouse"
+        context['in_your_partnership_name'] = "married"
+        context['partner_name_cap'] = c.PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED
+        context['partner_name_post_code'] = c.PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED_ADDRESS
 
     return context
