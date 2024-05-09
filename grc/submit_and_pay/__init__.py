@@ -1,7 +1,7 @@
 import os
 import threading
 from datetime import datetime
-from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response
+from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response, g
 import requests
 from requests.structures import CaseInsensitiveDict
 import json
@@ -221,9 +221,14 @@ def confirmation():
 
     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
 
+    if g.lang_code == 'cy':
+        doc_template = 'documents-cy.html'
+    else:
+        doc_template = 'documents.html'
+
     GovUkNotify().send_email_completed_application(
         email_address=application_data.email_address,
-        documents_to_be_posted=render_template('documents.html', application_data=application_data)
+        documents_to_be_posted=render_template(doc_template, application_data=application_data)
     )
 
     applications_to_anonymise = Application.query.filter(

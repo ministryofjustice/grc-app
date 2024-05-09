@@ -1,7 +1,7 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
 from grc.external_services.gov_uk_notify_templates import GovUkNotifyTemplates
-
+from grc.utils.logger import LogLevel, Logger
 
 class GovUkNotify:
     def __init__(self):
@@ -10,6 +10,8 @@ class GovUkNotify:
         self.is_production = self.space == 'production'
         self.notify_override_email = current_app.config['NOTIFY_OVERRIDE_EMAIL']
         self.gov_uk_notify_client = NotificationsAPIClient(gov_uk_notify_api_key)
+        self.logger = Logger()
+        self.templateHelper = GovUkNotifyTemplates()
 
     def send_email_security_code(self, email_address: str, security_code: str, security_code_timeout: str):
         personalisation = {
@@ -19,7 +21,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_security_code_template_id,
+            template_id=self.templateHelper.get_security_code_template_id(),
             personalisation=personalisation
         )
 
@@ -31,7 +33,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_unfinished_app_template_id,
+            template_id=self.templateHelper.get_unfinished_app_template_id(),
             personalisation=personalisation
         )
 
@@ -42,14 +44,14 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_app_recd_30_weeks_template_id,
+            template_id=self.templateHelper.get_app_recd_30_weeks_template_id(),
             personalisation=personalisation
         )
 
     def send_email_documents_you_need_for_your_grc_application(self, email_address: str, documents_required: dict):
         return self.send_email(
             email_address=email_address,
-            template_id=get_docs_for_grc_app_template_id,
+            template_id=self.templateHelper.get_docs_for_grc_app_template_id(),
             personalisation=documents_required
         )
 
@@ -77,7 +79,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address='grc-service-feedback@cabinetoffice.gov.uk',
-            template_id=get_feedback_template_id,
+            template_id=self.templateHelper.get_feedback_template_id(),
             personalisation=personalisation
         )
 
@@ -89,7 +91,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_admin_login_sc_template_id,
+            template_id=self.templateHelper.get_admin_login_sc_template_id(),
             personalisation=personalisation
         )
 
@@ -101,7 +103,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_admin_forget_password_template_id,
+            template_id=self.templateHelper.get_admin_forget_password_template_id(),
             personalisation=personalisation
         )
 
@@ -113,7 +115,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=get_admin_new_user_template_id,
+            template_id=self.templateHelper.get_admin_new_user_template_id(),
             personalisation=personalisation
         )
 
