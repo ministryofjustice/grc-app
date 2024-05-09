@@ -63,8 +63,12 @@
                 {% if currently_uploaded_files | selectattr('password_required', 'equalto', true) | list | length > 0 %}
                 <p>
                     {{ currently_uploaded_files | selectattr('password_required', 'equalto', true) | list | length }}
-                    {% if currently_uploaded_files | selectattr('password_required', 'equalto', true) | list | length == 1 %}file is{% else %}files are{% endif %} password protected.
-                    <a href="{{ url_for('upload.documentPassword', section_url=section_url) }}" class="gov-link">Click here to manage passwords</a>.
+                    {% if currently_uploaded_files | selectattr('password_required', 'equalto', true) | list | length == 1 %}
+                        {{ _('file is password protected') }}
+                    {% else %}
+                        {{ _('files are password protected') }}
+                    {% endif %}.
+                    <a href="{{ url_for('upload.documentPassword', section_url=section_url) }}" class="gov-link">{{ _('Click here to manage passwords') }}</a>.
                 </p>
                 {% endif %}
             </dl>

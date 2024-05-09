@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 16:31+0100\n"
+"POT-Creation-Date: 2024-05-09 15:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.12.0\n"
 
 #: grc/list_status.py:6
 msgid "COMPLETED"
@@ -502,6 +502,24 @@ msgid ""
 "declaration date"
 msgstr ""
 
+#: grc/business_logic/constants.py:117
+msgid ""
+"The selected file is empty. Check that the file you are uploading has the"
+" content you expect"
+msgstr ""
+
+#: grc/business_logic/constants.py:118
+msgid "The selected file must be smaller than 10MB"
+msgstr ""
+
+#: grc/business_logic/constants.py:119
+msgid "Unable to communicate with virus scanner"
+msgstr ""
+
+#: grc/business_logic/constants.py:120
+msgid "The selected file contains a virus"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -594,14 +612,17 @@ msgid "File does not have an approved extension."
 msgstr ""
 
 #: grc/partnership_details/constants.py:6
+#: grc/partnership_details/constants.py:18
 msgid "If you are in a same-sex civil partnership and want "
 msgstr ""
 
 #: grc/partnership_details/constants.py:7
+#: grc/partnership_details/constants.py:19
 msgid "convert your civil partnership to a marriage (opens in a new tab)"
 msgstr ""
 
 #: grc/partnership_details/constants.py:8
+#: grc/partnership_details/constants.py:20
 msgid ", you must do that before you apply for a Gender Recognition Certificate."
 msgstr ""
 
@@ -635,450 +656,145 @@ msgstr ""
 msgid "Can you provide a statutory declaration from your spouse?"
 msgstr ""
 
-#: grc/partnership_details/constants.py:19
+#: grc/partnership_details/constants.py:22
 msgid "Your civil partner's details"
 msgstr ""
 
-#: grc/partnership_details/constants.py:20
+#: grc/partnership_details/constants.py:23
 msgid "Your spouse's details"
 msgstr ""
 
-#: grc/partnership_details/constants.py:21
+#: grc/partnership_details/constants.py:24
 msgid ""
 "We will contact them about what to do if they change their mind about "
 "staying in a civil partnership."
 msgstr ""
 
-#: grc/partnership_details/constants.py:23
+#: grc/partnership_details/constants.py:26
 msgid ""
 "We will contact them about what to do if they change their mind about "
 "staying married."
 msgstr ""
 
-#: grc/partnership_details/constants.py:25
+#: grc/partnership_details/constants.py:28
 msgid ""
 " We will also let them know how their pensions and benefits may be "
 "affected if you receive a Gender Recognition Certificate."
 msgstr ""
 
-#: grc/partnership_details/constants.py:28
+#: grc/partnership_details/constants.py:31
 msgid "Remain married"
 msgstr ""
 
-#: grc/partnership_details/constants.py:29
+#: grc/partnership_details/constants.py:32
 msgid "Remain in your civil partnership"
 msgstr ""
 
-#: grc/partnership_details/constants.py:30
+#: grc/partnership_details/constants.py:33
 msgid "Spouse's name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:31
+#: grc/partnership_details/constants.py:34
 msgid "Civil partner's name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:32
+#: grc/partnership_details/constants.py:35
 msgid "Spouse's postal address"
 msgstr ""
 
-#: grc/partnership_details/constants.py:33
+#: grc/partnership_details/constants.py:36
 msgid "Civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:34
-msgid "Can provide a declaration of consent from your spouse"
-msgstr ""
-
-#: grc/partnership_details/constants.py:35
-msgid "Can provide a declaration of consent from your civil partner"
 msgstr ""
 
 #: grc/partnership_details/constants.py:37
-msgid ""
-"When you apply for a certificate, your civil partner needs to sign a "
-"document if you want to stay in a civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:39
-msgid ""
-"If they do not sign the document, or you’re ending the civil partnership,"
-" you will get an ‘interim’ certificate if you continue with your "
-"application."
-msgstr ""
-
-#: grc/partnership_details/constants.py:41
-msgid "You can only use the interim certificate to end your civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:42
-msgid ""
-"You will get a full certificate once you’re no longer in a civil "
-"partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:43
-msgid ""
-"When you apply for a certificate, your spouse needs tosign a document if "
-"you want to stay married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:45
-msgid ""
-"If they do not sign the document, or you’re ending the marriage, you will"
-" get an ‘interim’ certificate if you continue with your application."
-msgstr ""
-
-#: grc/partnership_details/constants.py:47
-msgid "You can only use the interim certificate to end your marriage."
-msgstr ""
-
-#: grc/partnership_details/constants.py:48
-msgid "You will get a full certificate once you’re no longer married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:49
-msgid ""
-"You have 6 months to apply for an annulment, divorce or dissolution from "
-"when you get your interim certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:53
-msgid ""
-"Select if you plan to remain married or in your civil partnership after "
-"receiving your Gender Recognition Certificate"
-msgstr ""
-
-#: grc/partnership_details/constants.py:55
-msgid ""
-"Select if you can provide a declaration of consent from your spouse or "
-"civil partner"
-msgstr ""
-
-#: grc/partnership_details/constants.py:56
-msgid "Enter your spouse or civil partner's title"
-msgstr ""
-
-#: grc/partnership_details/constants.py:57
-msgid "Enter your spouse or civil partner's first name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:58
-msgid "Enter your spouse or civil partner's last name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:59
-msgid "Enter your spouse or civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:61
-msgid ""
-"Select if you were previously married or in a civil partnership, and your"
-" spouse or partner died"
-msgstr ""
-
-#: grc/partnership_details/constants.py:6
-msgid "If you are in a same-sex civil partnership and want "
-msgstr ""
-
-#: grc/partnership_details/constants.py:7
-msgid "convert your civil partnership to a marriage (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:8
-msgid ", you must do that before you apply for a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:10
-msgid ""
-"If you intend to remain in a civil partnership, your civil partner needs "
-"to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:12
-msgid "If you intend to remain married, your spouse needs to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:13
-msgid "statutory declaration for civil partners (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:14
-msgid "statutory declaration for spouses (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:15
-msgid ", and sign it in front of someone authorised to administer oaths."
-msgstr ""
-
-#: grc/partnership_details/constants.py:16
-msgid "Can you provide a statutory declaration from your civil partner?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:17
-msgid "Can you provide a statutory declaration from your spouse?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:19
-msgid "Your civil partner's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:20
-msgid "Your spouse's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:21
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying in a civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:23
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:25
-msgid ""
-" We will also let them know how their pensions and benefits may be "
-"affected if you receive a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:28
-msgid "Remain married"
-msgstr ""
-
-#: grc/partnership_details/constants.py:29
-msgid "Remain in your civil partnership"
-msgstr ""
-
-#: grc/partnership_details/constants.py:30
-msgid "Spouse's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:31
-msgid "Civil partner's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:32
-msgid "Spouse's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:33
-msgid "Civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:34
 msgid "Can provide a declaration of consent from your spouse"
 msgstr ""
 
-#: grc/partnership_details/constants.py:35
-msgid "Can provide a declaration of consent from your civil partner"
-msgstr ""
-
 #: grc/partnership_details/constants.py:38
-msgid ""
-"Select if you plan to remain married or in your civil partnership after "
-"receiving your Gender Recognition Certificate"
+msgid "Can provide a declaration of consent from your civil partner"
 msgstr ""
 
 #: grc/partnership_details/constants.py:40
 msgid ""
-"Select if you can provide a declaration of consent from your spouse or "
-"civil partner"
-msgstr ""
-
-#: grc/partnership_details/constants.py:41
-msgid "Enter your spouse or civil partner's title"
-msgstr ""
-
-#: grc/partnership_details/constants.py:42
-msgid "Enter your spouse or civil partner's first name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:43
-msgid "Enter your spouse or civil partner's last name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:44
-msgid "Enter your spouse or civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:6
-msgid "If you are in a same-sex civil partnership and want "
-msgstr ""
-
-#: grc/partnership_details/constants.py:7
-msgid "convert your civil partnership to a marriage (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:8
-msgid ", you must do that before you apply for a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:10
-msgid ""
-"If you intend to remain in a civil partnership, your civil partner needs "
-"to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:12
-msgid "If you intend to remain married, your spouse needs to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:13
-msgid "statutory declaration for civil partners (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:14
-msgid "statutory declaration for spouses (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:15
-msgid ", and sign it in front of someone authorised to administer oaths."
-msgstr ""
-
-#: grc/partnership_details/constants.py:16
-msgid "Can you provide a statutory declaration from your civil partner?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:17
-msgid "Can you provide a statutory declaration from your spouse?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:19
-msgid "Your civil partner's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:20
-msgid "Your spouse's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:21
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying in a civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:23
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:25
-msgid ""
-" We will also let them know how their pensions and benefits may be "
-"affected if you receive a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:28
-msgid "Remain married"
-msgstr ""
-
-#: grc/partnership_details/constants.py:29
-msgid "Remain in your civil partnership"
-msgstr ""
-
-#: grc/partnership_details/constants.py:30
-msgid "Spouse's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:31
-msgid "Civil partner's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:32
-msgid "Spouse's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:33
-msgid "Civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:34
-msgid "Can provide a declaration of consent from your spouse"
-msgstr ""
-
-#: grc/partnership_details/constants.py:35
-msgid "Can provide a declaration of consent from your civil partner"
-msgstr ""
-
-#: grc/partnership_details/constants.py:37
-msgid ""
 "When you apply for a certificate, your civil partner needs to sign a "
 "document if you want to stay in a civil partnership."
 msgstr ""
 
-#: grc/partnership_details/constants.py:39
+#: grc/partnership_details/constants.py:42
 msgid ""
 "If they do not sign the document, or you’re ending the civil partnership,"
 " you will get an ‘interim’ certificate if you continue with your "
 "application."
 msgstr ""
 
-#: grc/partnership_details/constants.py:41
+#: grc/partnership_details/constants.py:44
 msgid "You can only use the interim certificate to end your civil partnership."
 msgstr ""
 
-#: grc/partnership_details/constants.py:42
+#: grc/partnership_details/constants.py:45
 msgid ""
 "You will get a full certificate once you’re no longer in a civil "
 "partnership."
 msgstr ""
 
-#: grc/partnership_details/constants.py:43
+#: grc/partnership_details/constants.py:46
 msgid ""
 "When you apply for a certificate, your spouse needs tosign a document if "
 "you want to stay married."
 msgstr ""
 
-#: grc/partnership_details/constants.py:45
+#: grc/partnership_details/constants.py:48
 msgid ""
 "If they do not sign the document, or you’re ending the marriage, you will"
 " get an ‘interim’ certificate if you continue with your application."
 msgstr ""
 
-#: grc/partnership_details/constants.py:47
+#: grc/partnership_details/constants.py:50
 msgid "You can only use the interim certificate to end your marriage."
 msgstr ""
 
-#: grc/partnership_details/constants.py:48
+#: grc/partnership_details/constants.py:51
 msgid "You will get a full certificate once you’re no longer married."
 msgstr ""
 
-#: grc/partnership_details/constants.py:49
+#: grc/partnership_details/constants.py:52
 msgid ""
 "You have 6 months to apply for an annulment, divorce or dissolution from "
 "when you get your interim certificate."
 msgstr ""
 
-#: grc/partnership_details/constants.py:53
+#: grc/partnership_details/constants.py:56
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
 msgstr ""
 
-#: grc/partnership_details/constants.py:55
+#: grc/partnership_details/constants.py:58
 msgid ""
 "Select if you can provide a declaration of consent from your spouse or "
 "civil partner"
 msgstr ""
 
-#: grc/partnership_details/constants.py:56
+#: grc/partnership_details/constants.py:59
 msgid "Enter your spouse or civil partner's title"
 msgstr ""
 
-#: grc/partnership_details/constants.py:57
+#: grc/partnership_details/constants.py:60
 msgid "Enter your spouse or civil partner's first name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:58
+#: grc/partnership_details/constants.py:61
 msgid "Enter your spouse or civil partner's last name"
 msgstr ""
 
-#: grc/partnership_details/constants.py:59
+#: grc/partnership_details/constants.py:62
 msgid "Enter your spouse or civil partner's postal address"
+msgstr ""
+
+#: grc/partnership_details/constants.py:64
+msgid ""
+"Select if you were previously married or in a civil partnership, and your"
+" spouse or partner died"
 msgstr ""
 
 #: grc/personal_details/constants.py:6
@@ -1336,6 +1052,8 @@ msgid "Check your answers: Birth registration details"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:20
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:20
 #: grc/templates/personal-details/check-your-answers.html:10
 #: grc/templates/personal-details/check-your-answers.html:21
 msgid "Check your answers:"
@@ -1459,6 +1177,7 @@ msgstr ""
 #: grc/templates/birth-registration/fathers-name.html:34
 #: grc/templates/birth-registration/mothers-name.html:34
 #: grc/templates/birth-registration/name.html:34
+#: grc/templates/partnership-details/partner-details.html:49
 #: grc/templates/personal-details/name.html:59
 msgid "First name"
 msgstr ""
@@ -1466,6 +1185,7 @@ msgstr ""
 #: grc/templates/birth-registration/fathers-name.html:44
 #: grc/templates/birth-registration/mothers-name.html:44
 #: grc/templates/birth-registration/name.html:54
+#: grc/templates/partnership-details/partner-details.html:59
 #: grc/templates/personal-details/name.html:79
 msgid "Last name"
 msgstr ""
@@ -2199,10 +1919,14 @@ msgid "Back"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/continue.html:12
+#: grc/templates/upload/_upload-files-section.html:125
+#: grc/upload/constants.py:7
 msgid "Save and continue"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/continue.html:15
+#: grc/templates/upload/_upload-files-section.html:129
+#: grc/templates/upload/_upload-files-section.html:136
 msgid "Return to task list"
 msgstr ""
 
@@ -2225,60 +1949,8 @@ msgid "Add another date range"
 msgstr ""
 
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
+#: grc/templates/upload/_upload-files-section.html:6
 msgid "There is a problem"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:10
-#: grc/templates/partnership-details/check-your-answers.html:20
-#: grc/templates/personal-details/check-your-answers.html:10
-#: grc/templates/personal-details/check-your-answers.html:21
-msgid "Check your answers:"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:26
-msgid "Currently married or in a civil partnership"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:34
-msgid "Spouse or partner has died"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:41
-msgid "Marriage or civil partnership has ended"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:87
-msgid "Interim GRC"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:10
-#: grc/templates/partnership-details/check-your-answers.html:20
-#: grc/templates/personal-details/check-your-answers.html:10
-#: grc/templates/personal-details/check-your-answers.html:21
-msgid "Check your answers:"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:26
-msgid "Currently married or in a civil partnership"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:34
-msgid "Spouse or partner has died"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:41
-msgid "Marriage or civil partnership has ended"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:87
-msgid "Interim GRC"
-msgstr ""
-
-#: grc/templates/partnership-details/check-your-answers.html:10
-#: grc/templates/partnership-details/check-your-answers.html:20
-#: grc/templates/personal-details/check-your-answers.html:10
-#: grc/templates/personal-details/check-your-answers.html:21
-msgid "Check your answers:"
 msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:26
@@ -2314,88 +1986,6 @@ msgid ""
 "civil partnership, you should select your current legal status"
 msgstr ""
 
-#: grc/templates/partnership-details/partner-agrees.html:7
-#: grc/templates/partnership-details/partner-agrees.html:20
-msgid "Declaration of consent"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-agrees.html:7
-#: grc/templates/partnership-details/partner-agrees.html:20
-msgid "Declaration of consent"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:39
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:49
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:59
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:70
-msgid "Postal address – including postcode or zip code"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-agrees.html:7
-#: grc/templates/partnership-details/partner-agrees.html:20
-msgid "Declaration of consent"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:39
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:49
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:59
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:70
-msgid "Postal address – including postcode or zip code"
-msgstr ""
-
-#: grc/templates/partnership-details/interim-check.html:5
-#: grc/templates/partnership-details/interim-check.html:17
-msgid "Interim Gender Recognition Certificate"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-agrees.html:7
-#: grc/templates/partnership-details/partner-agrees.html:20
-msgid "Declaration of consent"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:39
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:49
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:59
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:70
-msgid "Postal address – including postcode or zip code"
-msgstr ""
-
 #: grc/templates/partnership-details/ended-check.html:7
 #: grc/templates/partnership-details/ended-check.html:25
 msgid "Have you ever been married or in a civil partnership that ended?"
@@ -2420,67 +2010,6 @@ msgstr ""
 #: grc/templates/partnership-details/partner-details.html:39
 #: grc/templates/personal-details/name.html:48
 msgid "Title"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:49
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:59
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:70
-msgid "Postal address – including postcode or zip code"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-died.html:7
-#: grc/templates/partnership-details/partner-died.html:25
-msgid ""
-"Were you previously married or in a civil partnership and your spouse or "
-"partner died?"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-died.html:29
-msgid "If yes, you will need to provide a copy of their death certificate"
-msgstr ""
-
-#: grc/templates/partnership-details/ended-check.html:7
-#: grc/templates/partnership-details/ended-check.html:25
-msgid "Have you ever been married or in a civil partnership that ended?"
-msgstr ""
-
-#: grc/templates/partnership-details/ended-check.html:29
-msgid ""
-"If yes, you will need to provide a copy of your decree(s) dissolving the "
-"marriage or civil partnership"
-msgstr ""
-
-#: grc/templates/partnership-details/interim-check.html:5
-#: grc/templates/partnership-details/interim-check.html:17
-msgid "Interim Gender Recognition Certificate"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-agrees.html:7
-#: grc/templates/partnership-details/partner-agrees.html:20
-msgid "Declaration of consent"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:39
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:49
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr ""
-
-#: grc/templates/partnership-details/partner-details.html:59
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
 msgstr ""
 
 #: grc/templates/partnership-details/partner-details.html:70
@@ -2714,10 +2243,6 @@ msgstr ""
 msgid ""
 "For internal use only. This will not appear on your Gender Recognition "
 "Certificate."
-msgstr ""
-
-#: grc/templates/personal-details/name.html:69
-msgid "Middle names (only required if you have middle names)"
 msgstr ""
 
 #: grc/templates/personal-details/previous-names-check.html:23
@@ -3772,5 +3297,117 @@ msgstr ""
 
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:11
+msgid "The upload failed. Please remove your files and re-upload."
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:18
+msgid "Remove all files"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:26
+msgid "Uploaded files"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:50
+msgid "Remove file"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:67
+msgid "file is password protected"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:69
+msgid "files are password protected"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:71
+msgid "Click here to manage passwords"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:84
+msgid "Upload files"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:87
+msgid "The files must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:98
+msgid "Error:"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:113
+#: grc/upload/constants.py:6
+msgid "Upload file"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:118
+msgid ""
+"Once you have uploaded all your files, click the \"Save and continue\" "
+"button"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:7
+#: grc/templates/upload/medical-reports.html:20
+msgid "Upload your medical reports"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:23
+msgid "This is where you can upload your 2 medical reports."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:26
+msgid "Find out more about the"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:29
+msgid "medical reports you need (opens in new tab)"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:33
+msgid ""
+"You must upload a scan or good quality photograph of the whole medical "
+"report."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:34
+msgid "If the report is longer than one page, you must upload every page."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:39
+msgid "Warning"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:40
+msgid "We will only accept clear images of full pages."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:41
+msgid ""
+"If you take a photograph, please make sure all 4 corners of each page are"
+" visible."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:45
+msgid "We process and protect all documents you upload in accordance with our"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:48
+msgid "privacy policy (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:54
+msgid "Please upload the files in page order if you can."
+msgstr ""
+
+#: grc/upload/constants.py:10
+msgid "Click on either the 'Upload file' button or 'Save and continue' button"
+msgstr ""
+
+#: grc/upload/constants.py:11
+msgid "Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB"
 msgstr ""
 
