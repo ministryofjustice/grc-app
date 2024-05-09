@@ -339,7 +339,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Click "Change" to get back to the "Are You Married" page, then choose "Neither"
-    await helpers.click_button('Change if you are currently married or in a civil partnership')
+    await helpers.click_button('Newid if you are currently married or in a civil partnership')
 
     # ------------------------------------------------
     # ---- Are You Married page
