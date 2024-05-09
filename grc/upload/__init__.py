@@ -168,7 +168,6 @@ def uploadInfoPage(section_url: str):
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
     if request.method == 'POST':
-        print(f'BUTTON CLICKED -> {form.button_clicked.data}')
         if form.validate_on_submit():
             if form.button_clicked.data == form.UploadEnum.UPLOAD_FILE.name:
                 has_password = False
