@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 10:05+0100\n"
+"POT-Creation-Date: 2024-05-08 11:58+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -712,7 +712,39 @@ msgstr ""
 "pensiynau a’u budd-daliadau os byddwch yn cael Tystysgrif Cydnabod "
 "Rhywedd."
 
+#: grc/partnership_details/constants.py:28
+msgid "Remain married"
+msgstr "Aros yn briod"
+
 #: grc/partnership_details/constants.py:29
+msgid "Remain in your civil partnership"
+msgstr "Aros yn eich partneriaeth sifil"
+
+#: grc/partnership_details/constants.py:30
+msgid "Spouse's name"
+msgstr "Enw’ch priod"
+
+#: grc/partnership_details/constants.py:31
+msgid "Civil partner's name"
+msgstr "Enw’ch partner sifil"
+
+#: grc/partnership_details/constants.py:32
+msgid "Spouse's postal address"
+msgstr "Cyfeiriad eich priod ar gyfer postio"
+
+#: grc/partnership_details/constants.py:33
+msgid "Civil partner's postal address"
+msgstr "Cyfeiriad eich partner sifil ar gyfer postio"
+
+#: grc/partnership_details/constants.py:34
+msgid "Can provide a declaration of consent from your spouse"
+msgstr "Gallu darparu datganiad o gydsyniad gan eich priod"
+
+#: grc/partnership_details/constants.py:35
+msgid "Can provide a declaration of consent from your civil partner"
+msgstr "Gallu darparu datganiad o gydsyniad gan eich partner sifil"
+
+#: grc/partnership_details/constants.py:38
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
@@ -720,7 +752,7 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
 " ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
 
-#: grc/partnership_details/constants.py:31
+#: grc/partnership_details/constants.py:40
 msgid ""
 "Select if you can provide a declaration of consent from your spouse or "
 "civil partner"
@@ -728,19 +760,19 @@ msgstr ""
 "Dewiswch os ydych chi'n gallu darparu datganiad o gydsyniad gan eich "
 "priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:32
+#: grc/partnership_details/constants.py:41
 msgid "Enter your spouse or civil partner's title"
 msgstr "Nodwch deitl eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:33
+#: grc/partnership_details/constants.py:42
 msgid "Enter your spouse or civil partner's first name"
 msgstr "Nodwch enw cyntaf eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:34
+#: grc/partnership_details/constants.py:43
 msgid "Enter your spouse or civil partner's last name"
 msgstr "Nodwch gyfenw eich priod neu bartner sifil"
 
-#: grc/partnership_details/constants.py:35
+#: grc/partnership_details/constants.py:44
 msgid "Enter your spouse or civil partner's postal address"
 msgstr "Nodwch gyfeiriad post eich  priod neu bartner sifil"
 
@@ -929,6 +961,8 @@ msgstr "Eich manylion personol"
 msgid "Your birth registration information"
 msgstr "Gwybodaeth am gofrestru eich genedigaeth"
 
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:21
 #: grc/templates/task-list.html:98
 msgid "Marriage or civil partnership details"
 msgstr "Manylion eich priodas neu bartneriaeth sifil"
@@ -2029,6 +2063,29 @@ msgstr "Ychwanegu ystod dyddiad arall"
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
+
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:20
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:21
+msgid "Check your answers:"
+msgstr "Gwiriwch eich atebion:"
+
+#: grc/templates/partnership-details/check-your-answers.html:26
+msgid "Currently married or in a civil partnership"
+msgstr "Wedi priodi neu mewn partneriaeth sifil ar hyn o bryd"
+
+#: grc/templates/partnership-details/check-your-answers.html:34
+msgid "Spouse or partner has died"
+msgstr "Mae fy mhriod neu fy mhartner wedi marw"
+
+#: grc/templates/partnership-details/check-your-answers.html:41
+msgid "Marriage or civil partnership has ended"
+msgstr "Mae ein priodas neu bartneriaeth sifil wedi dod i ben"
+
+#: grc/templates/partnership-details/check-your-answers.html:87
+msgid "Interim GRC"
+msgstr "Tystysgrif Cydnabod Rhywedd Interim"
 
 #: grc/templates/partnership-details/current-check.html:20
 msgid "Marriages and civil partnerships"
