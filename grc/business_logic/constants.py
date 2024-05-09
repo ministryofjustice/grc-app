@@ -114,3 +114,7 @@ class BaseConstants:
     BELOW_AGE_ERROR = _l('You need to be less than 110 years old to apply')
     DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR = _l('Your date of birth must be before your transition date and statutory '
                                                'declaration date')
+    FILE_EMPTY_ERROR = _l('The selected file is empty. Check that the file you are uploading has the content you expect')
+    FILE_SIZE_LIMIT_ERROR = _l('The selected file must be smaller than 10MB')
+    VIRUS_SCANNER_ERROR = _l('Unable to communicate with virus scanner')
+    FILE_HAS_VIRUS_ERROR = _l('The selected file contains a virus')
