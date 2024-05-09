@@ -3,8 +3,7 @@ from grc.business_logic.data_structures.partnership_details_data import Currentl
 from grc.partnership_details.constants import PartnershipDetailsConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired
-from wtforms import RadioField, StringField
-from wtforms.validators import DataRequired
+from wtforms import StringField
 
 
 class MarriageCivilPartnershipForm(FlaskForm):

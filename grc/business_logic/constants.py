@@ -107,3 +107,7 @@ class BaseConstants:
     ENTER_VALID_PHONE_NUMBER_ERROR = _l('Enter a valid phone number')
     ENTER_NI_NUMBER_ERROR = _l('Enter your National Insurance number')
     ENTER_VALID_NI_NUMBER_ERROR = _l('Enter a valid National Insurance number')
+    FILE_EMPTY_ERROR = _l('The selected file is empty. Check that the file you are uploading has the content you expect')
+    FILE_SIZE_LIMIT_ERROR = _l('The selected file must be smaller than 10MB')
+    VIRUS_SCANNER_ERROR = _l('Unable to communicate with virus scanner')
+    FILE_HAS_VIRUS_ERROR = _l('The selected file contains a virus')

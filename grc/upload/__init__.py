@@ -2,13 +2,14 @@ import datetime
 import io
 from typing import List, Callable
 from dateutil.relativedelta import relativedelta
-from flask import Blueprint, render_template, request, url_for, abort, make_response
+from flask import Blueprint, render_template, request, url_for, abort, make_response, g
 from werkzeug.utils import secure_filename
 import uuid
 from PIL import Image
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import any_duplicate_aws_file_names
 from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
+from grc.upload.constants import UploadsConstants as c
 from grc.upload.forms import UploadForm, DeleteForm, PasswordsForm, DeleteAllFilesInSectionForm
 from grc.utils.decorators import LoginRequired
 from grc.external_services.aws_s3_client import AwsS3Client
@@ -167,8 +168,9 @@ def uploadInfoPage(section_url: str):
     application_data = DataStore.load_application_by_session_reference_number()
     files = section.file_list(application_data.uploads_data)
     if request.method == 'POST':
+        print(f'BUTTON CLICKED -> {form.button_clicked.data}')
         if form.validate_on_submit():
-            if form.button_clicked.data.startswith('Upload '):
+            if form.button_clicked.data == form.UploadEnum.UPLOAD_FILE.name:
                 has_password = False
                 try:
                     for document in form.documents.data:
@@ -229,11 +231,11 @@ def uploadInfoPage(section_url: str):
                 else:
                     return local_redirect(url_for('upload.uploadInfoPage', section_url=section.url) + '#file-upload-section')
 
-            elif form.button_clicked.data == 'Save and continue':
+            elif form.button_clicked.data == form.UploadEnum.SAVE_AND_CONTINUE.name:
                 if len(files) > 0:
                     return local_redirect(url_for('taskList.index'))
                 else:
-                    form.documents.errors.append('Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB')
+                    form.documents.errors.append(c.FILE_TYPE_PUBLIC_ERROR)
 
     return render_template(
         f"upload/{section.html_file}",
@@ -244,7 +246,8 @@ def uploadInfoPage(section_url: str):
         currently_uploaded_files=files,
         duplicate_aws_file_names=any_duplicate_aws_file_names(files),
         date_now=datetime.datetime.now(),
-        date_two_years_ago=(datetime.datetime.now() - relativedelta(years=2))
+        date_two_years_ago=(datetime.datetime.now() - relativedelta(years=2)),
+        lang_code=g.lang_code
     )
 
 
