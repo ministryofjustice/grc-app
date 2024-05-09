@@ -12,6 +12,7 @@ class TestAdminIndex:
 
     @patch('grc.models.db.session')
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
+    @patch('grc.external_services.gov_uk_notify_templates.GovUkNotifyTemplates.g.lang_code', 'en')
     def test_index_add_default_admin_not_required(self, mock_send_email, mock_db_session, app, client):
         with app.app_context():
             mock_db_session.query.return_value.count.return_value = 1
