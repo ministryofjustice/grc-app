@@ -28,7 +28,7 @@ class UploadForm(FlaskForm):
 
     documents = MultipleFileField(
         validators=[
-            StrictRequiredIf('button_clicked', 'Upload file',
+            StrictRequiredIf('button_clicked', UploadEnum.UPLOAD_FILE.name,
                              message=c.FILE_TYPE_PUBLIC_ERROR,
                              validators=[
                                  LazyMultiFileAllowed(upload_set, lazy_message=c.FILE_TYPE_PUBLIC_ERROR),
