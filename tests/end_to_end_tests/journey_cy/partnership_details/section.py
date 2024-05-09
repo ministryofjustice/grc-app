@@ -242,3 +242,98 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     await asserts.h1('Gwiriwch eich atebion: Manylion eich priodas neu bartneriaeth sifil')
     await asserts.number_of_errors(0)
+
+    # REWIND!
+    # Go all the way back to the "Are you married" page,
+    # Select the "Civil partnership" option
+    # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
+    await helpers.click_button('Yn ôl')
+    await asserts.url('/partnership-details/partner-details')
+
+    # REWIND!
+    # Go all the way back to the "Are you married" page,
+    # Select the "Civil partnership" option
+    # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
+    await helpers.click_button('Yn ôl')
+    await asserts.url('/partnership-details/partner-agrees')
+
+    # REWIND!
+    # Go all the way back to the "Are you married" page,
+    # Select the "Civil partnership" option
+    # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
+    await helpers.click_button('Yn ôl')
+    await asserts.url('/partnership-details/stay-together')
+
+    # REWIND!
+    # Go all the way back to the "Are you married" page,
+    # Select the "Civil partnership" option
+    # Go through all the same journeys, checking the text has changed from "married" to "in a civil partnership"
+    await helpers.click_button('Yn ôl')
+    await asserts.url('/partnership-details')
+
+    # ------------------------------------------------
+    # ---- Are You Married page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details')
+    await asserts.accessibility()
+    await asserts.h1('Priodasau a phartneriaethau sifil')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Marriages and civil partnerships')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Priodasau a phartneriaethau sifil')
+
+    # Select the "Married" option
+    await helpers.check_radio(field='currently_married', value='MARRIED')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Stay Together page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/stay-together')
+    await asserts.accessibility()
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/stay-together')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Do you plan to remain married after you receive your Gender Recognition Certificate?')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1("Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod Rhywedd?")
+
+    # Select the "No" option, go down that route
+    # Then backtrack and choose "No"
+    await helpers.check_radio(field='stay_together', value='False')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Interim GRC page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/interim-check')
+    await asserts.accessibility()
+    await asserts.h1('Tystysgrif Cydnabod Rhywedd Interim')
+    await asserts.page_does_not_contain_text('partner sifil', 'partneriaeth sifil')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/partnership-details/interim-check')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1('Interim Gender Recognition Certificate')
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('Tystysgrif Cydnabod Rhywedd Interim')
+    await helpers.click_button('Parhau')
+
+    # ------------------------------------------------
+    # ---- Marriage details: Check Your Answers page
+    # ------------------------------------------------
+    await asserts.url('/partnership-details/check-your-answers')
+    await asserts.accessibility()
+    await asserts.h1('Gwiriwch eich atebion: Manylion eich priodas neu bartneriaeth sifil')
+    await asserts.number_of_errors(0)

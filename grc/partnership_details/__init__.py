@@ -203,6 +203,7 @@ def interimCheck():
     return render_template(
         'partnership-details/interim-check.html',
         form=form,
+        context=get_context_interim_check(application_data.partnership_details_data),
         back=get_previous_page(application_data, back_link),
         application_data=application_data
     )
@@ -350,5 +351,23 @@ def get_context_check_your_answers(partnership_data) -> dict:
         context['in_your_partnership_name'] = "married"
         context['partner_name_cap'] = c.PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED
         context['partner_name_post_code'] = c.PARTNER_DETAILS_CYA_PARTNER_MARRIED_CAPITALISED_ADDRESS
+
+    return context
+
+
+def get_context_interim_check(partnership_data) -> dict:
+    context = {}
+    if partnership_data.is_in_civil_partnership:
+        context['interim_p1'] = c.INTERIM_P1_CP
+        context['interim_p2'] = c.INTERIM_P2_CP
+        context['interim_p3'] = c.INTERIM_P3_CP
+        context['interim_p5'] = c.INTERIM_P5_CP
+    else:
+        context['interim_p1'] = c.INTERIM_P1_MARRIED
+        context['interim_p2'] = c.INTERIM_P2_MARRIED
+        context['interim_p3'] = c.INTERIM_P3_MARRIED
+        context['interim_p5'] = c.INTERIM_P5_MARRIED
+
+    context['interim_p4'] = c.INTERIM_P4
 
     return context
