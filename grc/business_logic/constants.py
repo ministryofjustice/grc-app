@@ -4,6 +4,7 @@ from flask_babel import lazy_gettext as _l
 class BaseConstants:
     YES = _l('Yes')
     NO = _l('No')
+    DONT_KNOW = _l("I don't know")
     MARRIED = _l('Married')
     CIVIL_PARTNERSHIP = _l('Civil partnership')
     NEITHER = _l('Neither')
@@ -80,6 +81,8 @@ class BaseConstants:
     GENDER_RECOGNITION_OUTSIDE_UK_ERROR = _l('Select if you have ever been issued a Gender Recognition Certificate')
     DECLARATION_ERROR = _l('You must consent to the General Register Office contacting you')
     GENDER_RECOGNITION_IN_APPROVED_COUNTRY_ERROR = _l('Select if you have official documentation')
+    ENTER_DAY_ERROR = _l('Enter a day')
+    ENTER_VALID_DAY_ERROR = _l('Enter a day as a number between 1 and 31')
     ENTER_MONTH_ERROR = _l('Enter a month')
     ENTER_VALID_MONTH_ERROR = _l('Enter a month as a number between 1 and 12')
     ENTER_YEAR_ERROR = _l('Enter a year')
@@ -107,3 +110,7 @@ class BaseConstants:
     ENTER_VALID_PHONE_NUMBER_ERROR = _l('Enter a valid phone number')
     ENTER_NI_NUMBER_ERROR = _l('Enter your National Insurance number')
     ENTER_VALID_NI_NUMBER_ERROR = _l('Enter a valid National Insurance number')
+    ABOVE_AGE_ERROR = _l('You need to be at least 18 years old to apply')
+    BELOW_AGE_ERROR = _l('You need to be less than 110 years old to apply')
+    DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR = _l('Your date of birth must be before your transition date and statutory '
+                                               'declaration date')

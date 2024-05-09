@@ -23,6 +23,9 @@ def content_to_ignore():
             ('"{{ _(\'Remove date range\') }}"', '"Remove date range"'),
             ('"{{ _(\'Add another date range\') }}"', '"Add another date range"')
         ],
+        '_summary-list-item.html': [
+            ('{{ _(\'Change\') }}', 'Change'),
+        ],
     }
     return content_to_ignore_
 
