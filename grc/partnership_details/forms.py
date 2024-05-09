@@ -40,19 +40,19 @@ class PartnerAgreesForm(FlaskForm):
 
 class PartnerDetailsForm(FlaskForm):
     partner_title = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's title")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_TITLE_ERROR)]
     )
 
     partner_first_name = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's first name")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_FIRST_NAME_ERROR)]
     )
 
     partner_last_name = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's last name")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_LAST_NAME_ERROR)]
     )
 
     partner_postal_address = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's postal address")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_POSTCODE_ERROR)]
     )
 
 
