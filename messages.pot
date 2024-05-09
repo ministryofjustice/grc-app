@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-08 15:35+0100\n"
+"POT-Creation-Date: 2024-05-08 16:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2371,6 +2371,17 @@ msgstr ""
 
 #: grc/templates/partnership-details/partner-details.html:70
 msgid "Postal address – including postcode or zip code"
+msgstr ""
+
+#: grc/templates/partnership-details/ended-check.html:7
+#: grc/templates/partnership-details/ended-check.html:25
+msgid "Have you ever been married or in a civil partnership that ended?"
+msgstr ""
+
+#: grc/templates/partnership-details/ended-check.html:29
+msgid ""
+"If yes, you will need to provide a copy of your decree(s) dissolving the "
+"marriage or civil partnership"
 msgstr ""
 
 #: grc/templates/partnership-details/interim-check.html:5
