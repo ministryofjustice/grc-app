@@ -27,7 +27,7 @@ class TestAdminIndex:
     @patch('grc.external_services.gov_uk_notify_templates.GovUkNotifyTemplates')
     def test_index_add_default_admin_required(self, mock_email_templates, mock_send_email, mock_db_session, mock_temp_password, app, client):
         with app.app_context():
-            mock_email_templates.lang_code = 'en'
+            mock_email_templates.g.lang_code = 'en'
             mock_db_session.query.return_value.count.return_value = 0
             mock_temp_password.return_value = '123ABC'
             response = client.get('/')
