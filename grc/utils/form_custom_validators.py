@@ -488,10 +488,9 @@ def validate_multiple_files_size_limit(form, field):
         file_size = data.read()
         data.seek(0)
         if len(file_size) == 0:
-            raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
-                                  ' content you expect')
+            raise LazyValidationError(c.FILE_EMPTY_ERROR)
         elif len(file_size) > max_bytes:
-            raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+            raise LazyValidationError(c.FILE_SIZE_LIMIT_ERROR)
 
 
 def file_virus_scan(form, field):
@@ -514,13 +513,13 @@ def file_virus_scan(form, field):
         uploaded_file.stream.seek(0)
 
         if not cd.ping():
-            raise ValidationError('Unable to communicate with virus scanner')
+            raise LazyValidationError(c.VIRUS_SCANNER_ERROR)
 
         results = cd.scan_stream(uploaded_file.stream.read())
         if results:
             res_type, res_msg = results['stream']
             if res_type == 'FOUND':
-                raise ValidationError('The selected file contains a virus')
+                raise LazyValidationError(c.FILE_HAS_VIRUS_ERROR)
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
