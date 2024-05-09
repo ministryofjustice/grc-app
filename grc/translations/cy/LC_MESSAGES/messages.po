@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-07 09:20+0100\n"
+"POT-Creation-Date: 2024-05-07 14:54+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -540,6 +540,28 @@ msgstr ""
 #: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
 msgstr ""
+
+#: grc/partnership_details/constants.py:6
+msgid "If you are in a same-sex civil partnership and want "
+msgstr "Os ydych mewn partneriaeth sifil o’r un rhyw ac rydych eisiau "
+
+#: grc/partnership_details/constants.py:7
+msgid "convert your civil partnership to a marriage (opens in a new tab)"
+msgstr "newid eich partneriaeth sifil yn briodas (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:8
+msgid ", you must do that before you apply for a Gender Recognition Certificate."
+msgstr ""
+", mae’n rhaid i chi wneud hynny cyn i chi wneud cais am Dystysgrif "
+"Cydnabod Rhywedd."
+
+#: grc/partnership_details/constants.py:11
+msgid ""
+"Select if you plan to remain married or in your civil partnership after "
+"receiving your Gender Recognition Certificate"
+msgstr ""
+"Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
+" ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
 
 #: grc/personal_details/constants.py:6
 msgid "Male"
