@@ -17,9 +17,8 @@
 
             {{ error_summary.renderFor(form) }}
             {% set conditional_options = [] %}
-            {% if context.hint_text %}
-                {% set hint_text = context.hint_text.before_link_text + '<a href="https://www.gov.uk/convert-civil-partnership" target="_blank" class="govuk-link">' + context.hint_text.link_text + '</a>' + context.hint_text.after_link_text %}
-                {% set conditional_options = [(True, hint.render({'htmlOrText': hint_text}))] %}
+            {% if context.link %}
+                {% set conditional_options = [(True, hint.render({'htmlOrText': context.link}))] %}
             {% endif %}
 
             <form method="POST" action="#">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-09 10:48+0100\n"
+"POT-Creation-Date: 2024-05-07 17:26+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -645,13 +645,55 @@ msgstr ""
 ", mae’n rhaid i chi wneud hynny cyn i chi wneud cais am Dystysgrif "
 "Cydnabod Rhywedd."
 
-#: grc/partnership_details/constants.py:11
+#: grc/partnership_details/constants.py:10
+msgid ""
+"If you intend to remain in a civil partnership, your civil partner needs "
+"to fill in a "
+msgstr ""
+"Os ydych yn bwriadu aros mewn partneriaeth sifil, mae angen i’ch partner "
+"sifil lenwi "
+
+#: grc/partnership_details/constants.py:12
+msgid "If you intend to remain married, your spouse needs to fill in a "
+msgstr "Os ydych yn bwriadu parhau i fod yn briod, bydd angen i’ch priod lenwi "
+
+#: grc/partnership_details/constants.py:13
+msgid "statutory declaration for civil partners (opens in a new tab)"
+msgstr "datganiad statudol ar gyfer partneriaid sifil (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:14
+msgid "statutory declaration for spouses (opens in a new tab)"
+msgstr "datganiad statudol ar gyfer priod (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:15
+msgid ", and sign it in front of someone authorised to administer oaths."
+msgstr ""
+", a’i lofnodi ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu "
+"llwon."
+
+#: grc/partnership_details/constants.py:16
+msgid "Can you provide a statutory declaration from your civil partner?"
+msgstr "Allwch chi ddarparu datganiad statudol gan eich partner sifil?"
+
+#: grc/partnership_details/constants.py:17
+msgid "Can you provide a statutory declaration from your spouse?"
+msgstr "Allwch chi ddarparu datganiad statudol gan eich priod?"
+
+#: grc/partnership_details/constants.py:20
 msgid ""
 "Select if you plan to remain married or in your civil partnership after "
 "receiving your Gender Recognition Certificate"
 msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
 " ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
+
+#: grc/partnership_details/constants.py:22
+msgid ""
+"Select if you can provide a declaration of consent from your spouse or "
+"civil partner"
+msgstr ""
+"Dewiswch os ydych chi'n gallu darparu datganiad o gydsyniad gan eich "
+"priod neu bartner sifil"
 
 #: grc/personal_details/constants.py:6
 msgid "Male"
@@ -1956,11 +1998,16 @@ msgstr ""
 #: grc/templates/partnership-details/current-check.html:37
 msgid ""
 "If you are in the process of ending, or you plan to end your marriage or "
-"civil partnership, you should select your current, legal status"
+"civil partnership, you should select your current legal status"
 msgstr ""
 "Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, "
 "neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, "
 "dylech ddewis eich statws cyfreithiol ar hyn o bryd."
+
+#: grc/templates/partnership-details/partner-agrees.html:7
+#: grc/templates/partnership-details/partner-agrees.html:20
+msgid "Declaration of consent"
+msgstr "Datganiad o gydsyniad"
 
 #: grc/templates/personal-details/address.html:8
 #: grc/templates/personal-details/address.html:27
