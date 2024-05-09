@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-07 14:19+0100\n"
+"POT-Creation-Date: 2024-05-07 14:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -591,6 +591,24 @@ msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
+msgstr ""
+
+#: grc/partnership_details/constants.py:6
+msgid "If you are in a same-sex civil partnership and want "
+msgstr ""
+
+#: grc/partnership_details/constants.py:7
+msgid "convert your civil partnership to a marriage (opens in a new tab)"
+msgstr ""
+
+#: grc/partnership_details/constants.py:8
+msgid ", you must do that before you apply for a Gender Recognition Certificate."
+msgstr ""
+
+#: grc/partnership_details/constants.py:11
+msgid ""
+"Select if you plan to remain married or in your civil partnership after "
+"receiving your Gender Recognition Certificate"
 msgstr ""
 
 #: grc/personal_details/constants.py:6
