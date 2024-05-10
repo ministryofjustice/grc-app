@@ -178,20 +178,14 @@ def download(reference_number):
         db.session.commit()
 
         from grc.utils.application_files import ApplicationFiles
-        bytes, file_name = ApplicationFiles().create_or_download_pdf(
-            application.reference_number,
-            application.application_data(),
-            download=True,
-            create_toc=False,
-            paginate=False
-        )
+        bytes_, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
 
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
 
-        if bytes is None:
+        if bytes_ is None:
             return abort(404)
 
-        response = make_response(bytes)
+        response = make_response(bytes_)
         response.headers.set('Content-Type', 'application/pdf')
         response.headers.set('Content-Disposition', 'attachment', filename=file_name)
         return response
@@ -239,19 +233,16 @@ def attachments(reference_number):
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} attempted to download files for application {reference_number} which cannot be found")
     else:
         from grc.utils.application_files import ApplicationFiles
-        bytes, file_name = ApplicationFiles().create_or_download_attachments(
+        bytes_, file_name = ApplicationFiles().download_attachments(
             application.reference_number,
-            application.application_data(),
-            download=True
+            application.application_data()
         )
-
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded files for application {reference_number}")
-
         session['message'] = "attachments zipped"
-        if bytes is None:
+        if bytes_ is None:
             return abort(404)
 
-        response = make_response(bytes)
+        response = make_response(bytes_)
         response.headers.set('Content-Type', 'application/zip')
         response.headers.set('Content-Disposition', 'attachment', filename=file_name)
         return response
