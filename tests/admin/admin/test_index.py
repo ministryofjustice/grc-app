@@ -24,17 +24,16 @@ class TestAdminIndex:
     @patch('admin.admin.generate_temporary_password')
     @patch('grc.models.db.session')
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
-    @patch('grc.external_services.gov_uk_notify_templates.GovUkNotifyTemplates')
-    def test_index_add_default_admin_required(self, mock_email_templates, mock_send_email, mock_db_session, mock_temp_password, app, client):
+    def test_index_add_default_admin_required(self, mock_send_email, mock_db_session, mock_temp_password, app, client):
         with app.app_context():
-            mock_email_templates.g.lang_code = 'en'
-            mock_email_templates.get_admin_new_user_template_id.return_value = '0ff48a4c-601e-4cc1-b6c6-30bac012c259'
+            with client.session_transaction() as session:
+                session['lang_code'] = 'en'
             mock_db_session.query.return_value.count.return_value = 0
             mock_temp_password.return_value = '123ABC'
             response = client.get('/')
             assert mock_db_session.add.called
             assert mock_db_session.commit.called
-            assert mock_send_email.called
+            assert mock_send_email.assert_called_with()
             assert response.status_code == 200
 
     def test_index_user_signed_in(self, app, client):
