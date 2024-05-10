@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-10 09:23+0100\n"
+"POT-Creation-Date: 2024-05-10 09:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -881,6 +881,20 @@ msgstr ""
 
 #: grc/templates/base.html:110
 msgid "Email resent"
+msgstr ""
+
+#: grc/templates/base.html:157 grc/templates/policies/privacy-policy.html:10
+msgid "Privacy policy"
+msgstr ""
+
+#: grc/templates/base.html:162
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr ""
+
+#: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
+#: grc/templates/policies/cookies.html:20
+msgid "Cookies"
 msgstr ""
 
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
@@ -2295,10 +2309,6 @@ msgid ""
 "Gender Recognition Certificate"
 msgstr ""
 
-#: grc/templates/policies/accessibility-statement.html:3
-msgid "Accessibility statement"
-msgstr ""
-
 #: grc/templates/policies/accessibility-statement.html:10
 msgid ""
 "Accessibility statement for Gender Recognition Certificate application "
@@ -2598,10 +2608,6 @@ msgstr ""
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr ""
 
-#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
-msgid "Cookies"
-msgstr ""
-
 #: grc/templates/policies/cookies.html:16
 msgid "You’ve set your cookie preferences"
 msgstr ""
@@ -2779,10 +2785,6 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
-msgstr ""
-
-#: grc/templates/policies/privacy-policy.html:10
-msgid "Privacy policy"
 msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:13

@@ -50,7 +50,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/is-first-visit')
     await asserts.accessibility()
-    await asserts.h1('Have you already started an application?')
+    await asserts.h1('Ydych chi eisoes wedi cychwyn gwneud cais?')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -59,7 +59,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('Have you already started an application?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Have you already started an application?')
+    await asserts.h1('Ydych chi eisoes wedi cychwyn gwneud cais?')
 
     # Choose the "No" (this is my first visit) option
     await helpers.check_radio(field='isFirstVisit', value='FIRST_VISIT')
