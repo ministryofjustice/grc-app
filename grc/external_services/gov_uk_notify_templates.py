@@ -5,7 +5,7 @@ class GovUkNotifyTemplates:
 
     def __init__(self):
         self.logger = Logger()
-        self.logger.log(LogLevel.INFO, f"GovUkNotifyTemplates instantiated with language code <{g.lang_code}>")
+        #self.logger.log(LogLevel.INFO, f"GovUkNotifyTemplates instantiated with language code <{g.lang_code}>")
 
     def get_admin_login_sc_template_id(self):
         return 'fde1def2-bf10-45d2-8c38-2837a0a79399'
