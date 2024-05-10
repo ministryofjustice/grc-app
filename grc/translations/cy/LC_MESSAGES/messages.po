@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-09 15:04+0100\n"
+"POT-Creation-Date: 2024-05-10 09:41+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: grc/list_status.py:6
 msgid "COMPLETED"
-msgstr ""
+msgstr "WEDI'I GWBLHAU"
 
 #: grc/list_status.py:7
 msgid "IN PROGRESS"
@@ -37,7 +37,7 @@ msgstr "METHU DECHRAU ETO"
 
 #: grc/list_status.py:10
 msgid "IN REVIEW"
-msgstr ""
+msgstr "YN CAEL EI ADOLYGU"
 
 #: grc/list_status.py:11
 msgid "ERROR"
@@ -320,6 +320,8 @@ msgstr ""
 #: grc/business_logic/constants.py:61
 msgid "We’ve resent you a security code. This can take a few minutes to arrive"
 msgstr ""
+"Rydym wedi ail anfon cod diogelwch atoch. Gall gymryd ychydig o funudau i"
+" gyrraedd"
 
 #: grc/business_logic/constants.py:64
 msgid "Select if you have ever changed your name to reflect your gender"
@@ -952,6 +954,28 @@ msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
 msgstr "Gwneud cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/base.html:105 grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr "Llwydd"
+
+#: grc/templates/base.html:110
+msgid "Email resent"
+msgstr "E-bost wedi'i ail anfon"
+
+#: grc/templates/base.html:157 grc/templates/policies/privacy-policy.html:10
+msgid "Privacy policy"
+msgstr "Polisi Preifatrwydd"
+
+#: grc/templates/base.html:162
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr "Datganiad hygyrchedd"
+
+#: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
+#: grc/templates/policies/cookies.html:20
+msgid "Cookies"
+msgstr "Cwyis"
 
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
@@ -2547,11 +2571,6 @@ msgstr ""
 "Rhaid iddo fod o leiaf 2 flynedd cyn i chi gyflwyno’ch cais am Dystysgrif"
 " Cydnabod Rhywedd."
 
-#: grc/templates/policies/accessibility-statement.html:3
-#, fuzzy
-msgid "Accessibility statement"
-msgstr "Datganiadau academaidd"
-
 #: grc/templates/policies/accessibility-statement.html:10
 msgid ""
 "Accessibility statement for Gender Recognition Certificate application "
@@ -2910,14 +2929,6 @@ msgstr "Profwyd y wefan hon ddiwethaf ar 26 Mai 2022"
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
 
-#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
-msgid "Cookies"
-msgstr "Cwyis"
-
-#: grc/templates/policies/cookies.html:12
-msgid "Success"
-msgstr "Llwydd"
-
 #: grc/templates/policies/cookies.html:16
 msgid "You’ve set your cookie preferences"
 msgstr "Rydych wedi cadw eich dewisiadau cwcis"
@@ -3112,10 +3123,6 @@ msgstr "Cadw gosodiadau cwcis"
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
-msgstr "Polisi Preifatrwydd"
-
-#: grc/templates/policies/privacy-policy.html:10
-msgid "Privacy policy"
 msgstr "Polisi Preifatrwydd"
 
 #: grc/templates/policies/privacy-policy.html:13
@@ -3584,10 +3591,12 @@ msgid ""
 "Do you consent to the General Register Office contacting you about your "
 "application?"
 msgstr ""
+"Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi "
+"yngl?n â'ch cais?"
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
-msgstr ""
+msgstr "Rwy’n rhoi caniatâd"
 
 #: grc/templates/start-application/email-address.html:19
 msgid ""
@@ -3638,7 +3647,7 @@ msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd)"
 #: grc/templates/start-application/is-first-visit.html:8
 #: grc/templates/start-application/is-first-visit.html:31
 msgid "Have you already started an application?"
-msgstr ""
+msgstr "Ydych chi eisoes wedi cychwyn gwneud cais?"
 
 #: grc/templates/start-application/is-first-visit.html:25
 msgid "You will need to start a new application"
