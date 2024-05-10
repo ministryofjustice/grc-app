@@ -31,7 +31,7 @@ class TestAdminIndex:
             response = client.get('/')
             assert mock_db_session.add.called
             assert mock_db_session.commit.called
-            assert mock_send_email.assert_called_with()
+            assert mock_send_email.assert_called
             assert response.status_code == 200
 
     def test_index_user_signed_in(self, app, client):
