@@ -102,12 +102,12 @@
                             <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
                                 <div class="govuk-notification-banner__header">
                                     <h2 id="govuk-notification-banner-title" class="govuk-notification-banner__title">
-                                        Success
+                                        {{ _('Success') }}
                                     </h2>
                                 </div>
                                 <div class="govuk-notification-banner__content">
                                     <h3 class="govuk-notification-banner__heading">
-                                        Email resent
+                                        {{ _('Email resent') }}
                                     </h3>
                                     {%- for msg in messages %}
                                         <p class="govuk-body">{{ msg }}</p>
@@ -154,17 +154,17 @@
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.privacy_policy') }}">
-                                Privacy policy
+                                {{ _('Privacy policy') }}
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.accessibility_statement') }}">
-                                Accessibility statement
+                                {{ _('Accessibility statement') }}
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.cookies') }}">
-                                Cookies
+                                {{ _('Cookies') }}
                             </a>
                         </li>
                     </ul>
