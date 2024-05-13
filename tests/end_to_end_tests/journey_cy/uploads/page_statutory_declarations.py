@@ -32,7 +32,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/personal-details')
+    await asserts.url('/upload/statutory-declarations')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1(PAGE_H1_EN)
