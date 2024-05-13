@@ -75,19 +75,16 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Return to Task List page
     # "Statutory declarations" section should be marked as "NOT STARTED"
-    await helpers.click_button('Return to task list')
+    await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
     # ---- Task List page
     # ------------------------------------------------
     await asserts.url('/task-list')
     await asserts.accessibility()
-    await asserts.h1('Your application')
+    await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
     # Status of "Statutory declarations" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Statutory declarations', expected_status="WEDI'I GWBLHAU")
-
-    # Click "Statutory declarations" to go back to the "Statutory Declarations" page
-    await helpers.click_button(TASK_LIST_BUTTON_NAME)
+    await asserts.task_list_section(section='Datganiadau statudol', expected_status="WEDI'I GWBLHAU")
