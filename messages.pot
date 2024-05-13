@@ -3444,7 +3444,7 @@ msgstr ""
 
 #: grc/templates/upload/medical-reports.html:32
 msgid ""
-"You must upload a scan or good quality photograph of the whole medical "
+"Do not upload a document you have already submitted, such as a medical "
 "report."
 msgstr ""
 
