@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 10:23+0100\n"
+"POT-Creation-Date: 2024-05-13 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3356,25 +3356,33 @@ msgid ""
 "button"
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:168
+#: grc/templates/upload/_upload-files-section.html:166
+msgid "You must upload a scan or good quality photograph of your documents."
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:167
+msgid "If the document is longer than one page, you must upload every page."
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:175
 msgid "Warning"
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:169
+#: grc/templates/upload/_upload-files-section.html:176
 msgid "We will only accept clear images of full pages."
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:170
+#: grc/templates/upload/_upload-files-section.html:177
 msgid ""
 "If you take a photograph, please make sure all 4 corners of each page are"
 " visible."
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:177
+#: grc/templates/upload/_upload-files-section.html:184
 msgid "We process and protect all documents you upload in accordance with our"
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:179
+#: grc/templates/upload/_upload-files-section.html:186
 msgid "privacy policy (opens in a new tab)"
 msgstr ""
 
@@ -3446,6 +3454,55 @@ msgstr ""
 
 #: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:6
+#: grc/templates/upload/statutory-declarations.html:19
+msgid "Statutory declarations documents"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:22
+msgid ""
+"This is where you can upload copies of all required statutory "
+"declarations."
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:25
+msgid "You must upload either:"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:28
+msgid "a statutory declaration for single applicants"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:29
+msgid ""
+"a statutory declaration for applicants who are married or in a civil "
+"partnership"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:32
+msgid ""
+"If you fill out the statutory declaration for applicants who are married "
+"or in a civil partnership\n"
+"                and you intend to stay in that marriage or civil "
+"partnership after you receive a certificate,\n"
+"                you must also upload a statutory declaration signed by "
+"your spouse or civil partner."
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:37
+msgid "Follow the"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:40
+msgid "guidance on statutory declarations (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/upload/statutory-declarations.html:42
+msgid ""
+"to find out which declaration is right for you and who can act as a "
+"witness when you sign your declaration."
 msgstr ""
 
 #: grc/upload/constants.py:10
