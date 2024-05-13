@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-10 09:41+0100\n"
+"POT-Creation-Date: 2024-05-13 10:23+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -3791,7 +3791,6 @@ msgid "Upload file"
 msgstr "Uwchlwytho ffeil"
 
 #: grc/templates/upload/_upload-files-section.html:118
-#, fuzzy
 msgid ""
 "Once you have uploaded all your files, click the \"Save and continue\" "
 "button"
@@ -3799,46 +3798,15 @@ msgstr ""
 "Unwaith y byddwch wedi uwchlwytho eich holl ffeiliau, cliciwch y botwm "
 "\"Cadw a pharhau\""
 
-#: grc/templates/upload/medical-reports.html:7
-#: grc/templates/upload/medical-reports.html:20
-msgid "Upload your medical reports"
-msgstr "Uwchlwythwch eich adroddiadau meddygol"
-
-#: grc/templates/upload/medical-reports.html:23
-msgid "This is where you can upload your 2 medical reports."
-msgstr "Dyma lle y gallwch uwchlwytho eich 2 adroddiad meddygol."
-
-#: grc/templates/upload/medical-reports.html:26
-msgid "Find out more about the"
-msgstr "Rhagor o wybodaeth am yr"
-
-#: grc/templates/upload/medical-reports.html:29
-msgid "medical reports you need (opens in new tab)"
-msgstr "adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
-
-#: grc/templates/upload/medical-reports.html:33
-msgid ""
-"You must upload a scan or good quality photograph of the whole medical "
-"report."
-msgstr ""
-"Mae’n rhaid i chi uwchlwytho sgan neu lun o ansawdd da o’r adroddiad "
-"meddygol cyfan."
-
-#: grc/templates/upload/medical-reports.html:34
-msgid "If the report is longer than one page, you must upload every page."
-msgstr ""
-"Os yw’r adroddiad yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
-"pob tudalen."
-
-#: grc/templates/upload/medical-reports.html:39
+#: grc/templates/upload/_upload-files-section.html:168
 msgid "Warning"
 msgstr "Rhybudd"
 
-#: grc/templates/upload/medical-reports.html:40
+#: grc/templates/upload/_upload-files-section.html:169
 msgid "We will only accept clear images of full pages."
 msgstr "Byddwn ond yn derbyn delweddau clir o dudalennau llawn."
 
-#: grc/templates/upload/medical-reports.html:41
+#: grc/templates/upload/_upload-files-section.html:170
 msgid ""
 "If you take a photograph, please make sure all 4 corners of each page are"
 " visible."
@@ -3846,17 +3814,95 @@ msgstr ""
 "Os byddwch yn tynnu llun, gwnewch yn siŵr bod pob 4 cornel o bob tudalen "
 "yn weladwy."
 
-#: grc/templates/upload/medical-reports.html:45
+#: grc/templates/upload/_upload-files-section.html:177
 msgid "We process and protect all documents you upload in accordance with our"
 msgstr ""
 "Rydym yn prosesu ac yn diogelu pob dogfen rydych chi'n ei huwchlwytho yn "
 "unol â'n"
 
-#: grc/templates/upload/medical-reports.html:48
+#: grc/templates/upload/_upload-files-section.html:179
 msgid "privacy policy (opens in a new tab)"
-msgstr " polisi preifatrwydd (yn agor mewn tab newydd)"
+msgstr "polisi preifatrwydd (yn agor mewn tab newydd)"
 
-#: grc/templates/upload/medical-reports.html:54
+#: grc/templates/upload/evidence.html:6 grc/templates/upload/evidence.html:19
+msgid "Upload evidence of living in your gender"
+msgstr "Uwchlwytho tystiolaeth o fyw yn eich rhywedd"
+
+#: grc/templates/upload/evidence.html:22
+msgid ""
+"This is where you can upload evidence to show you’ve been living in your "
+"affirmed gender for the last 2 years."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho tystiolaeth i ddangos eich bod wedi bod yn "
+"byw yn eich rhywedd a gadarnhawyd am y 2 flynedd diwethaf."
+
+#: grc/templates/upload/evidence.html:25
+msgid ""
+"For example, if you submit your application today, you will need evidence"
+" from"
+msgstr ""
+"Er enghraifft, os byddwch yn cyflwyno eich cais heddiw, byddwch angen "
+"tystiolaeth o"
+
+#: grc/templates/upload/evidence.html:27
+msgid "to"
+msgstr "at"
+
+#: grc/templates/upload/evidence.html:31
+#: grc/templates/upload/medical-reports.html:25
+msgid "Find out more about the"
+msgstr "Rhagor o wybodaeth am yr"
+
+#: grc/templates/upload/evidence.html:33
+msgid "evidence of living in your gender you need (opens in new tab)"
+msgstr ""
+"dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn tab"
+" newydd)"
+
+#: grc/templates/upload/evidence.html:37
+msgid "Please upload a scan or good quality photograph of each piece of evidence."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:46
+msgid "Do not upload more than 4 pieces of evidence for each year."
+msgstr "Peidiwch ag uwchlwytho mwy na 4 darn o dystiolaeth ar gyfer pob blwyddyn."
+
+#: grc/templates/upload/evidence.html:47
+msgid ""
+"Do not upload a document you have already submitted, such as a medical "
+"report."
+msgstr ""
+"Peidiwch ag uwchlwytho dogfen rydych eisoes wedi’i chyflwyno, megis "
+"adroddiad meddygol."
+
+#: grc/templates/upload/medical-reports.html:6
+#: grc/templates/upload/medical-reports.html:19
+msgid "Upload your medical reports"
+msgstr "Uwchlwythwch eich adroddiadau meddygol"
+
+#: grc/templates/upload/medical-reports.html:22
+msgid "This is where you can upload your 2 medical reports."
+msgstr "Dyma lle y gallwch uwchlwytho eich 2 adroddiad meddygol."
+
+#: grc/templates/upload/medical-reports.html:28
+msgid "medical reports you need (opens in new tab)"
+msgstr "adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/medical-reports.html:32
+msgid ""
+"You must upload a scan or good quality photograph of the whole medical "
+"report."
+msgstr ""
+"Mae’n rhaid i chi uwchlwytho sgan neu lun o ansawdd da o’r adroddiad "
+"meddygol cyfan."
+
+#: grc/templates/upload/medical-reports.html:33
+msgid "If the report is longer than one page, you must upload every page."
+msgstr ""
+"Os yw’r adroddiad yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
+"pob tudalen."
+
+#: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
 msgstr "Uwchlwythwch y ffeiliau yn eu trefn os yw’n bosibl."
 

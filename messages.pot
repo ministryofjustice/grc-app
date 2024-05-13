@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-10 09:41+0100\n"
+"POT-Creation-Date: 2024-05-13 10:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3356,56 +3356,95 @@ msgid ""
 "button"
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:7
-#: grc/templates/upload/medical-reports.html:20
-msgid "Upload your medical reports"
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:23
-msgid "This is where you can upload your 2 medical reports."
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:26
-msgid "Find out more about the"
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:29
-msgid "medical reports you need (opens in new tab)"
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:33
-msgid ""
-"You must upload a scan or good quality photograph of the whole medical "
-"report."
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:34
-msgid "If the report is longer than one page, you must upload every page."
-msgstr ""
-
-#: grc/templates/upload/medical-reports.html:39
+#: grc/templates/upload/_upload-files-section.html:168
 msgid "Warning"
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:40
+#: grc/templates/upload/_upload-files-section.html:169
 msgid "We will only accept clear images of full pages."
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:41
+#: grc/templates/upload/_upload-files-section.html:170
 msgid ""
 "If you take a photograph, please make sure all 4 corners of each page are"
 " visible."
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:45
+#: grc/templates/upload/_upload-files-section.html:177
 msgid "We process and protect all documents you upload in accordance with our"
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:48
+#: grc/templates/upload/_upload-files-section.html:179
 msgid "privacy policy (opens in a new tab)"
 msgstr ""
 
-#: grc/templates/upload/medical-reports.html:54
+#: grc/templates/upload/evidence.html:6 grc/templates/upload/evidence.html:19
+msgid "Upload evidence of living in your gender"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:22
+msgid ""
+"This is where you can upload evidence to show you’ve been living in your "
+"affirmed gender for the last 2 years."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:25
+msgid ""
+"For example, if you submit your application today, you will need evidence"
+" from"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:27
+msgid "to"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:31
+#: grc/templates/upload/medical-reports.html:25
+msgid "Find out more about the"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:33
+msgid "evidence of living in your gender you need (opens in new tab)"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:37
+msgid "Please upload a scan or good quality photograph of each piece of evidence."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:46
+msgid "Do not upload more than 4 pieces of evidence for each year."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:47
+msgid ""
+"Do not upload a document you have already submitted, such as a medical "
+"report."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:6
+#: grc/templates/upload/medical-reports.html:19
+msgid "Upload your medical reports"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:22
+msgid "This is where you can upload your 2 medical reports."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:28
+msgid "medical reports you need (opens in new tab)"
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:32
+msgid ""
+"You must upload a scan or good quality photograph of the whole medical "
+"report."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:33
+msgid "If the report is longer than one page, you must upload every page."
+msgstr ""
+
+#: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
 msgstr ""
 
