@@ -161,6 +161,13 @@
     </div>
 {% endmacro %}
 
+{% macro renderGoodQualityStatement() %}
+<p class="govuk-body">
+    {{ _('You must upload a scan or good quality photograph of your documents.') }}
+    {{ _('If the document is longer than one page, you must upload every page.') }}
+</p>
+{% endmacro %}
+
 {% macro renderWarning() %}
 <div class="govuk-warning-text govuk-!-margin-bottom-4 govuk-!-padding-0">
     <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
