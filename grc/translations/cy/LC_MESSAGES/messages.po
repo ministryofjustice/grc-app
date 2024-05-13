@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 11:51+0100\n"
+"POT-Creation-Date: 2024-05-13 14:59+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -3799,15 +3799,15 @@ msgstr ""
 "\"Cadw a pharhau\""
 
 #: grc/templates/upload/_upload-files-section.html:166
-#, fuzzy
 msgid "You must upload a scan or good quality photograph of your documents."
-msgstr "Uwchlwythwch sgan neu ffotograff o ansawdd da"
+msgstr ""
+"Mae’n rhaid i chi uwchlwytho sgan neu lun o ansawdd da o’ch dogfennau "
+"newid enw."
 
 #: grc/templates/upload/_upload-files-section.html:167
-#, fuzzy
 msgid "If the document is longer than one page, you must upload every page."
 msgstr ""
-"Os yw’r adroddiad yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
+"Os yw’r ddogfen yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
 "pob tudalen."
 
 #: grc/templates/upload/_upload-files-section.html:175

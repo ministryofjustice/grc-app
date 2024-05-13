@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 11:51+0100\n"
+"POT-Creation-Date: 2024-05-13 14:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3444,7 +3444,7 @@ msgstr ""
 
 #: grc/templates/upload/medical-reports.html:32
 msgid ""
-"Do not upload a document you have already submitted, such as a medical "
+"You must upload a scan or good quality photograph of the whole medical "
 "report."
 msgstr ""
 
