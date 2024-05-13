@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 15:23+0100\n"
+"POT-Creation-Date: 2024-05-13 16:41+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -3861,6 +3861,7 @@ msgid "to"
 msgstr "at"
 
 #: grc/templates/upload/evidence.html:31
+#: grc/templates/upload/marriage-documents.html:25
 #: grc/templates/upload/medical-reports.html:25
 msgid "Find out more about the"
 msgstr "Rhagor o wybodaeth am yr"
@@ -3886,6 +3887,27 @@ msgid ""
 msgstr ""
 "Peidiwch ag uwchlwytho dogfen rydych eisoes wedi’i chyflwyno, megis "
 "adroddiad meddygol."
+
+#: grc/templates/upload/marriage-documents.html:6
+#: grc/templates/upload/marriage-documents.html:19
+msgid "Upload marriage or civil partnership documents"
+msgstr "Uwchlwytho dogfennau priodas neu bartneriaeth sifil"
+
+#: grc/templates/upload/marriage-documents.html:22
+msgid ""
+"This is where you can upload copies of your marriage or civil partnership"
+" documents."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho copïau o’ch dogfennau priodas neu "
+"bartneriaeth sifil."
+
+#: grc/templates/upload/marriage-documents.html:28
+msgid ""
+"documents you need if you’ve ever been married or in a civil partnership "
+"(opens in new tab)"
+msgstr ""
+"dogfennau sydd ei hangen arnoch os ydych erioed wedi bod yn briod neu "
+"mewn partneriaeth sifil (yn agor mewn tab newydd)"
 
 #: grc/templates/upload/medical-reports.html:6
 #: grc/templates/upload/medical-reports.html:19
