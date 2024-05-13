@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 14:59+0100\n"
+"POT-Creation-Date: 2024-05-13 15:23+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -3917,6 +3917,27 @@ msgstr ""
 #: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
 msgstr "Uwchlwythwch y ffeiliau yn eu trefn os yw’n bosibl."
+
+#: grc/templates/upload/overseas-certificate.html:6
+#: grc/templates/upload/overseas-certificate.html:19
+msgid "Overseas gender recognition certificate documents"
+msgstr "Dogfennau tystysgrif cydnabod rhywedd tramor"
+
+#: grc/templates/upload/overseas-certificate.html:22
+msgid ""
+"This is where you can upload copies of your overseas gender recognition "
+"certificate documents."
+msgstr ""
+"Dyma lle gallwch uwchlwytho copïau o’ch dogfennau tystysgrif cydnabod "
+"rhywedd tramor."
+
+#: grc/templates/upload/overseas-certificate.html:25
+msgid "Find out more about documents you can submit"
+msgstr ""
+
+#: grc/templates/upload/overseas-certificate.html:28
+msgid "if you’re on the overseas route (opens in new tab)"
+msgstr ""
 
 #: grc/templates/upload/statutory-declarations.html:6
 #: grc/templates/upload/statutory-declarations.html:19
