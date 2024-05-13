@@ -86,4 +86,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Overseas certificate documents" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Datganiadau statudol', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status="WEDI'I GWBLHAU")
