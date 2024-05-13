@@ -19,11 +19,11 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Click "Statutory declarations" to go to the "Statutory Declarations" page
+    # Click "Overseas certificate documents" to go to the "Overseas certificate documents" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Statutory Declarations page
+    # ---- Overseas certificate documents page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -73,7 +73,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.document_uploaded(file_name=DOCUMENT_ONE_NAME)
 
     # Return to Task List page
-    # "Statutory declarations" section should be marked as "NOT STARTED"
+    # "Overseas certificate documents" section should be marked as "NOT STARTED"
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -84,6 +84,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Status of "Statutory declarations" section should be "NOT STARTED"
+    # Status of "Overseas certificate documents" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Datganiadau statudol', expected_status="WEDI'I GWBLHAU")
