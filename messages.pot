@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 10:16+0100\n"
+"POT-Creation-Date: 2024-05-13 10:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3386,6 +3386,16 @@ msgstr ""
 msgid ""
 "This is where you can upload evidence to show you’ve been living in your "
 "affirmed gender for the last 2 years."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:25
+msgid ""
+"For example, if you submit your application today, you will need evidence"
+" from"
+msgstr ""
+
+#: grc/templates/upload/evidence.html:27
+msgid "to"
 msgstr ""
 
 #: grc/templates/upload/evidence.html:31

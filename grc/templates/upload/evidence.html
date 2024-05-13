@@ -22,9 +22,9 @@
                 {{ _('This is where you can upload evidence to show you’ve been living in your affirmed gender for the last 2 years.') }}
             </p>
             <p class="govuk-body">
-                {{ ('For example, if you submit your application today, you will need evidence from') }}
+                {{ _('For example, if you submit your application today, you will need evidence from') }}
                 {{ date_two_years_ago.strftime('%B %Y') }}
-                {{ ('to') }}
+                {{ _('to') }}
                 {{ date_now.strftime('%B %Y') }}.
             </p>
             <p class="govuk-body">
@@ -37,9 +37,9 @@
                 {{ _('Please upload a scan or good quality photograph of each piece of evidence.') }}
             </p>
 
-            {{ upload_files_section.renderWarning }}
+            {{ upload_files_section.renderWarning() }}
 
-            {{ upload_files_section.renderPrivacyPolicyStatement }}
+            {{ upload_files_section.renderPrivacyPolicyStatement() }}
 
             {% macro extra_upload_hint() %}
                 <div class="govuk-inset-text">
@@ -55,7 +55,8 @@
                 currently_uploaded_files=currently_uploaded_files,
                 section_url=section_url,
                 duplicate_aws_file_names=duplicate_aws_file_names,
-                extra_upload_hint=extra_upload_hint)
+                extra_upload_hint=extra_upload_hint,
+                lang_code=lang_code)
             }}
 
         </div>
