@@ -3791,7 +3791,6 @@ msgid "Upload file"
 msgstr "Uwchlwytho ffeil"
 
 #: grc/templates/upload/_upload-files-section.html:118
-#, fuzzy
 msgid ""
 "Once you have uploaded all your files, click the \"Save and continue\" "
 "button"

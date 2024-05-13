@@ -2,7 +2,6 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "upload/_upload-files-section.html" as upload_files_section %}
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
-{% import "govuk-design-system-templates/continue.html" as continue %}
 
 {% block title %}{{ _('Upload your medical reports') }}{% endblock %}
 
@@ -33,27 +32,16 @@
                 {{ _('You must upload a scan or good quality photograph of the whole medical report.') }}
                 {{ _('If the report is longer than one page, you must upload every page.') }}
             </p>
-            <div class="govuk-warning-text govuk-!-margin-bottom-4 govuk-!-padding-0">
-                <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
-                <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">{{ _('Warning') }}</span>
-                    {{ _('We will only accept clear images of full pages.') }}
-                    {{ _('If you take a photograph, please make sure all 4 corners of each page are visible.') }}
-                </strong>
-            </div>
-            <p class="govuk-body">
-                {{ _('We process and protect all documents you upload in accordance with our') }}
-                <a href="{{ url_for('policies.privacy_policy') }}"
-                   target="_blank" class="govuk-link">
-                    {{ _('privacy policy (opens in a new tab)') }}
-                </a>.
-            </p>
+
+            {{ upload_files_section.renderWarning }}
+
+            {{ upload_files_section.renderPrivacyPolicyStatement }}
 
             {% macro extra_upload_hint() %}
                 <p class="govuk-body">
                     {{ _('Please upload the files in page order if you can.') }}
                 </p>
-            {%- endmacro %}
+            {% endmacro %}
 
             {{ upload_files_section.render(
                 form,
