@@ -4,13 +4,14 @@ from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 
 
-TASK_LIST_BUTTON_NAME = 'Dogfennau Tystysgrif o Dramor'
-PAGE_URL = '/upload/overseas-certificate'
-PAGE_H1_EN = 'Overseas gender recognition certificate documents'
-PAGE_H1_CY = 'Dogfennau tystysgrif cydnabod rhywedd tramor'
+TASK_LIST_BUTTON_NAME = 'Dogfennau priodas a phartneriaeth sifil'
+PAGE_URL = '/upload/marriage-documents'
+PAGE_H1_EN = 'Upload marriage or civil partnership documents'
+PAGE_H1_CY = 'Uwchlwytho dogfennau priodas neu bartneriaeth sifil'
 
 
 async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
+
     # ------------------------------------------------
     # ---- Task List page
     # ------------------------------------------------
@@ -19,11 +20,11 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Click "Overseas certificate documents" to go to the "Overseas certificate documents" page
+    # Click "Statutory declarations" to go to the "Statutory Declarations" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Overseas certificate documents page
+    # ---- Marriage Documents page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -73,7 +74,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.document_uploaded(file_name=DOCUMENT_ONE_NAME)
 
     # Return to Task List page
-    # "Overseas certificate documents" section should be marked as "NOT STARTED"
+    # "Statutory declarations" section should be marked as "NOT STARTED"
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -84,6 +85,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Status of "Overseas certificate documents" section should be "NOT STARTED"
+    # Status of "Statutory declarations" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau priodas a phartneriaeth sifil', expected_status="WEDI'I GWBLHAU")
