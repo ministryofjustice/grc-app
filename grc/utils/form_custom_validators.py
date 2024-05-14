@@ -330,7 +330,7 @@ def validate_hwf_reference_number(form, field):
         field.data
     )
     if match is None:
-        raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
+        raise LazyValidationError(c.INVALID_HWF_REFERENCE_NUMBER)
 
 
 def validate_single_date(form, field):

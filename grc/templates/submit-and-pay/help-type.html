@@ -2,11 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Applying for help with the fee{% endblock %}
+{% block title %}{{ _('Applying for help with the fee') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -16,16 +18,17 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Applying for help with the fee
+                {{ _('Applying for help with the fee') }}
             </h1>
             <p class="govuk-body">
-                You can
+                {{ _('You can') }}
                 <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees"
                    target="_blank" rel="external" class="govuk-link">
-                    apply online for help paying this fee (opens in a new tab)</a>.
+                    {{ _('apply online for help paying this fee (opens in a new tab)') }}
+                </a>.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                You can also download the EX160 form from that page and submit it with your application.
+                 {{ _('You can also download the EX160 form from that page and submit it with your application.') }}
             </p>
 
             <form method="POST" action="#">
@@ -34,11 +37,11 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='how_applying_for_fees',
-                    question="How are you applying for help paying the fee?",
+                    question=_("How are you applying for help paying the fee?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                         'hintOptions':{
-                            'htmlOrText': 'This will appear on your Gender Recognition Certificate'
+                            'htmlOrText': _('This will appear on your Gender Recognition Certificate')
                         },
                         'conditionalOptions': [
                             ('USING_ONLINE_SERVICE',
@@ -47,10 +50,10 @@
                                 fieldName='help_with_fees_reference_number',
                                 textInputForOptions={
                                     'labelOptions': {
-                                        'htmlOrText': 'What is your Help with Fees reference number?',
+                                        'htmlOrText': _('What is your Help with Fees reference number?'),
                                         'classes': 'govuk-label--s'
                                      },
-                                    'hintOptions': { 'htmlOrText': 'For example, HWF-123-456' },
+                                    'hintOptions': { 'htmlOrText': _('For example, HWF-123-456') },
                                     'classes': 'govuk-input--width-10'
                                 }
                             ))
@@ -58,14 +61,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>
