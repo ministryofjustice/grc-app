@@ -192,6 +192,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.task_list_section(section='Eich manylion personol', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Manylion eich priodas neu bartneriaeth sifil', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Datganiadau statudol', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Cyflwyno a thalu', expected_status='METHU DECHRAU ETO')
