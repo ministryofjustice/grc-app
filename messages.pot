@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 11:41+0100\n"
+"POT-Creation-Date: 2024-05-14 13:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -871,6 +871,14 @@ msgstr ""
 msgid "Yes, but I have lost my reference number"
 msgstr ""
 
+#: grc/submit_and_pay/constants.py:6
+msgid "No, I will pay now"
+msgstr ""
+
+#: grc/submit_and_pay/constants.py:9
+msgid "Select if you are applying for help paying the fee"
+msgstr ""
+
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
 msgstr ""
@@ -947,7 +955,7 @@ msgstr ""
 msgid "Your application is saved automatically as you progress"
 msgstr ""
 
-#: grc/templates/task-list.html:42
+#: grc/templates/submit-and-pay/method.html:27 grc/templates/task-list.html:42
 msgid "You can"
 msgstr ""
 
@@ -3306,6 +3314,36 @@ msgstr ""
 
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:7
+#: grc/templates/submit-and-pay/method.html:20
+msgid "Payment"
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:24
+msgid "Applying for a Gender Recognition Certificate costs &pound;5."
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:30
+msgid "apply online for help paying this fee (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:34
+msgid ""
+"You can also download the EX160 form from that page and submit it with "
+"your application."
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:43
+msgid "Are you applying for help paying the fee?"
+msgstr ""
+
+#: grc/templates/submit-and-pay/method.html:47
+msgid ""
+"If you select yes, your application for a Gender Recognition Certificate "
+"will only be reviewed if your application for help paying the fee is "
+"accepted."
 msgstr ""
 
 #: grc/templates/upload/_upload-files-section.html:11
