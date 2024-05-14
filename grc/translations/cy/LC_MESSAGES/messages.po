@@ -3862,12 +3862,12 @@ msgstr "at"
 #: grc/templates/upload/marriage-documents.html:25
 #: grc/templates/upload/medical-reports.html:25
 msgid "Find out more about the"
-msgstr "Rhagor o wybodaeth am yr"
+msgstr "Rhagor o wybodaeth am"
 
 #: grc/templates/upload/evidence.html:33
 msgid "evidence of living in your gender you need (opens in new tab)"
 msgstr ""
-"dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn tab"
+"y dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn tab"
 " newydd)"
 
 #: grc/templates/upload/evidence.html:37
@@ -3904,7 +3904,7 @@ msgid ""
 "documents you need if you’ve ever been married or in a civil partnership "
 "(opens in new tab)"
 msgstr ""
-"dogfennau sydd ei hangen arnoch os ydych erioed wedi bod yn briod neu "
+"y dogfennau sydd ei hangen arnoch os ydych erioed wedi bod yn briod neu "
 "mewn partneriaeth sifil (yn agor mewn tab newydd)"
 
 #: grc/templates/upload/medical-reports.html:6
@@ -3918,7 +3918,7 @@ msgstr "Dyma lle y gallwch uwchlwytho eich 2 adroddiad meddygol."
 
 #: grc/templates/upload/medical-reports.html:28
 msgid "medical reports you need (opens in new tab)"
-msgstr "adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
+msgstr "yr adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
 
 #: grc/templates/upload/medical-reports.html:32
 msgid ""
@@ -3953,11 +3953,11 @@ msgstr ""
 
 #: grc/templates/upload/overseas-certificate.html:25
 msgid "Find out more about documents you can submit"
-msgstr ""
+msgstr "Rhagor o wybodaeth am ddogfennau y gallwch eu cyflwyno"
 
 #: grc/templates/upload/overseas-certificate.html:28
 msgid "if you’re on the overseas route (opens in new tab)"
-msgstr ""
+msgstr "os ydych ar y llwybr tramor (yn agor mewn tab newydd)"
 
 #: grc/templates/upload/statutory-declarations.html:6
 #: grc/templates/upload/statutory-declarations.html:19
