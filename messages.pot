@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 16:41+0100\n"
+"POT-Creation-Date: 2024-05-14 11:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1384,16 +1384,19 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:34
 #: grc/templates/personal-details/previous-names-check.html:33
+#: grc/templates/upload/name-change.html:28
 msgid "deed poll documents, either enrolled or unenrolled"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:35
 #: grc/templates/personal-details/previous-names-check.html:34
+#: grc/templates/upload/name-change.html:29
 msgid "change of name documents (Scotland)"
 msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:36
 #: grc/templates/personal-details/previous-names-check.html:35
+#: grc/templates/upload/name-change.html:30
 msgid "statutory declarations"
 msgstr ""
 
@@ -3472,6 +3475,21 @@ msgstr ""
 
 #: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
+msgstr ""
+
+#: grc/templates/upload/name-change.html:6
+#: grc/templates/upload/name-change.html:19
+msgid "Upload name change documents"
+msgstr ""
+
+#: grc/templates/upload/name-change.html:22
+msgid ""
+"This is where you can upload copies of all documents that show when you "
+"have changed your name to reflect your gender."
+msgstr ""
+
+#: grc/templates/upload/name-change.html:25
+msgid "You can upload:"
 msgstr ""
 
 #: grc/templates/upload/overseas-certificate.html:6

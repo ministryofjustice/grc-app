@@ -20,7 +20,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Click "Statutory declarations" to go to the "Statutory Declarations" page
+    # Click "Marriage Documents page" to go to the "Marriage Documents page" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
@@ -74,7 +74,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.document_uploaded(file_name=DOCUMENT_ONE_NAME)
 
     # Return to Task List page
-    # "Statutory declarations" section should be marked as "NOT STARTED"
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -85,6 +84,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Status of "Statutory declarations" section should be "NOT STARTED"
+    # Status of "Marriage Documents page" section should be "COMPLETED"
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Dogfennau priodas a phartneriaeth sifil', expected_status="WEDI'I GWBLHAU")

@@ -4,10 +4,10 @@ from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 
 
-TASK_LIST_BUTTON_NAME = 'Dogfennau Tystysgrif o Dramor'
-PAGE_URL = '/upload/overseas-certificate'
-PAGE_H1_EN = 'Overseas gender recognition certificate documents'
-PAGE_H1_CY = 'Dogfennau tystysgrif cydnabod rhywedd tramor'
+TASK_LIST_BUTTON_NAME = 'Dogfennau newid enw'
+PAGE_URL = '/upload/name-change'
+PAGE_H1_EN = 'Upload name change documents'
+PAGE_H1_CY = 'Uwchlwytho dogfennau newid enw'
 
 
 async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
@@ -19,11 +19,11 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Click "Overseas certificate documents" to go to the "Overseas certificate documents" page
+    # Click "Name Change Documents page" to go to the "Name Change Documents page" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
 
     # ------------------------------------------------
-    # ---- Overseas certificate documents page
+    # ---- Name Change Documents page
     # ------------------------------------------------
     await asserts.url(PAGE_URL)
     await asserts.accessibility()
@@ -83,6 +83,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Status of "Overseas certificate documents" section should be "COMPLETED"
+    # Status of "Name Change Documents page" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau newid enw', expected_status="WEDI'I GWBLHAU")

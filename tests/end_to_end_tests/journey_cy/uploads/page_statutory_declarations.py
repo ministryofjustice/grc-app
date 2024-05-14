@@ -74,7 +74,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.document_uploaded(file_name=DOCUMENT_ONE_NAME)
 
     # Return to Task List page
-    # "Statutory declarations" section should be marked as "NOT STARTED"
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -85,6 +84,6 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.h1('Eich cais')
     await asserts.number_of_errors(0)
 
-    # Status of "Statutory declarations" section should be "NOT STARTED"
+    # Status of "Statutory declarations" section should be "COMPLETED"
     await asserts.task_list_sections(9)
     await asserts.task_list_section(section='Datganiadau statudol', expected_status="WEDI'I GWBLHAU")

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-13 16:41+0100\n"
+"POT-Creation-Date: 2024-05-14 11:41+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1517,6 +1517,7 @@ msgstr "Mae'r dogfennau hyn yn debygol o fod yn:"
 
 #: grc/templates/document-checker/previous-names-check.html:34
 #: grc/templates/personal-details/previous-names-check.html:33
+#: grc/templates/upload/name-change.html:28
 msgid "deed poll documents, either enrolled or unenrolled"
 msgstr ""
 "dogfennau gweithred newid enw, naill ai wedi'u cofrestru neu heb eu "
@@ -1524,11 +1525,13 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:35
 #: grc/templates/personal-details/previous-names-check.html:34
+#: grc/templates/upload/name-change.html:29
 msgid "change of name documents (Scotland)"
 msgstr "dogfennau newid enw (Yr Alban)"
 
 #: grc/templates/document-checker/previous-names-check.html:36
 #: grc/templates/personal-details/previous-names-check.html:35
+#: grc/templates/upload/name-change.html:30
 msgid "statutory declarations"
 msgstr "datganiadau statudol"
 
@@ -3867,8 +3870,8 @@ msgstr "Rhagor o wybodaeth am"
 #: grc/templates/upload/evidence.html:33
 msgid "evidence of living in your gender you need (opens in new tab)"
 msgstr ""
-"y dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn tab"
-" newydd)"
+"y dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn "
+"tab newydd)"
 
 #: grc/templates/upload/evidence.html:37
 msgid "Please upload a scan or good quality photograph of each piece of evidence."
@@ -3937,6 +3940,23 @@ msgstr ""
 #: grc/templates/upload/medical-reports.html:42
 msgid "Please upload the files in page order if you can."
 msgstr "Uwchlwythwch y ffeiliau yn eu trefn os yw’n bosibl."
+
+#: grc/templates/upload/name-change.html:6
+#: grc/templates/upload/name-change.html:19
+msgid "Upload name change documents"
+msgstr "Uwchlwytho dogfennau newid enw"
+
+#: grc/templates/upload/name-change.html:22
+msgid ""
+"This is where you can upload copies of all documents that show when you "
+"have changed your name to reflect your gender."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho copïau o’r holl ddogfennau sy’n dangos eich"
+" bod wedi newid eich enw i adlewyrchu eich rhywedd."
+
+#: grc/templates/upload/name-change.html:25
+msgid "You can upload:"
+msgstr "Gallwch uwchlwytho:"
 
 #: grc/templates/upload/overseas-certificate.html:6
 #: grc/templates/upload/overseas-certificate.html:19
