@@ -41,5 +41,5 @@ class HelpTypeForm(FlaskForm):
 
 class CheckYourAnswers(FlaskForm):
     certify = BooleanField(
-        validators=[DataRequired(message='You must certify that all information given in this application is correct and that you understand making a false application is an offence.')]
+        validators=[LazyDataRequired(lazy_message=c.CORRECT_INFO_DECLARATION_ERROR)]
     )

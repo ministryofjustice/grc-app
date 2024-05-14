@@ -1,4 +1,3 @@
-import os
 import threading
 from datetime import datetime
 from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response
@@ -9,6 +8,7 @@ import uuid
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.submit_and_pay_data import HelpWithFeesType
+from grc.partnership_details import get_context_check_your_answers
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus
 from grc.list_status import ListStatus
@@ -145,6 +145,7 @@ def checkYourAnswers():
     return render_template(
         'submit-and-pay/check-your-answers.html',
         form=form,
+        context=get_context_check_your_answers(application_data.partnership_details_data),
         application_data=application_data,
         back=get_previous_page(application_data, back_link)
     )
