@@ -3950,7 +3950,9 @@ msgstr "Uwchlwytho dogfennau newid enw"
 msgid ""
 "This is where you can upload copies of all documents that show when you "
 "have changed your name to reflect your gender."
-msgstr "Dyma lle y gallwch uwchlwytho copïau o’r holl ddogfennau sy’n dangos eich bod wedi newid eich enw i adlewyrchu eich rhywedd."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho copïau o’r holl ddogfennau sy’n dangos eich"
+" bod wedi newid eich enw i adlewyrchu eich rhywedd."
 
 #: grc/templates/upload/name-change.html:25
 msgid "You can upload:"
