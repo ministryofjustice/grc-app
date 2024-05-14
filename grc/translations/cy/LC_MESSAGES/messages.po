@@ -1104,11 +1104,11 @@ msgstr "Dogfennau newid enw"
 
 #: grc/templates/task-list.html:141
 msgid "Marriage and civil partnership documents"
-msgstr ""
+msgstr "Dogfennau priodas a phartneriaeth sifil"
 
 #: grc/templates/task-list.html:149
 msgid "Overseas certificate documents"
-msgstr ""
+msgstr "Dogfennau Tystysgrif o Dramor"
 
 #: grc/templates/task-list.html:156
 msgid "Statutory declarations"
@@ -3800,9 +3800,7 @@ msgstr ""
 
 #: grc/templates/upload/_upload-files-section.html:166
 msgid "You must upload a scan or good quality photograph of your documents."
-msgstr ""
-"Mae’n rhaid i chi uwchlwytho sgan neu lun o ansawdd da o’ch dogfennau "
-"newid enw."
+msgstr "Rhaid i chi uchlwytho sgan neu lun o ansawdd da o'ch dogfennau."
 
 #: grc/templates/upload/_upload-files-section.html:167
 msgid "If the document is longer than one page, you must upload every page."

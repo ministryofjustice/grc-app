@@ -4,7 +4,7 @@ from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 
 
-TASK_LIST_BUTTON_NAME = 'Overseas certificate documents'
+TASK_LIST_BUTTON_NAME = 'Dogfennau Tystysgrif o Dramor'
 PAGE_URL = '/upload/overseas-certificate'
 PAGE_H1_EN = 'Overseas gender recognition certificate documents'
 PAGE_H1_CY = 'Dogfennau tystysgrif cydnabod rhywedd tramor'
@@ -86,4 +86,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Overseas certificate documents" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="WEDI'I GWBLHAU")

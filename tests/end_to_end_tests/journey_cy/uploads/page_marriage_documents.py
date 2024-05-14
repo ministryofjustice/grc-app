@@ -4,7 +4,7 @@ from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_1.data as data
 
 
-TASK_LIST_BUTTON_NAME = 'Marriage and civil partnership documents'
+TASK_LIST_BUTTON_NAME = 'Dogfennau priodas a phartneriaeth sifil'
 PAGE_URL = '/upload/marriage-documents'
 PAGE_H1_EN = 'Upload marriage or civil partnership documents'
 PAGE_H1_CY = 'Uwchlwytho dogfennau priodas neu bartneriaeth sifil'
@@ -87,4 +87,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Statutory declarations" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau priodas a phartneriaeth sifil', expected_status="WEDI'I GWBLHAU")
