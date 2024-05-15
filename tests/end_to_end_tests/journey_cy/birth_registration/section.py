@@ -389,7 +389,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Change language
-    await asserts.url('/birth-registration/fathers-name-check')
+    await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
     await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
