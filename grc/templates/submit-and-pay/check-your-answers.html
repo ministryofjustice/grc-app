@@ -162,7 +162,7 @@
                         {% endif %}
                         {% if application_data.personal_details_data.contact_date_ranges_to_avoid %}
                             {% for from_date, to_date in application_data.personal_details_data.contact_date_ranges_to_avoid_formatted_DD_MM_YYYY %}
-                                <span style="white-space: pre-line;">{{ _('From') }} {{ from_date }} { _('to') }} {{ to_date }}</span>
+                                <span style="white-space: pre-line;">{{ _('From') }} {{ from_date }} {{ _('to') }} {{ to_date }}</span>
                             {% endfor %}
                         {% endif %}
                     {% endif %}
