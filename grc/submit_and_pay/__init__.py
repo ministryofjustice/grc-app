@@ -1,6 +1,6 @@
 import threading
 from datetime import datetime
-from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response
+from flask import Blueprint, g, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response
 import requests
 from requests.structures import CaseInsensitiveDict
 import json
@@ -114,7 +114,7 @@ def checkYourAnswers():
                 'description': 'Pay for Gender Recognition Certificate',
                 'return_url': return_link + 'submit-and-pay/payment-confirmation/' + random_uuid,
                 'delayed_capture': False,
-                'language': 'en'
+                'language': g.lang_code
             }
 
             headers = CaseInsensitiveDict()
