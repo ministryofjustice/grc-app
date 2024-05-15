@@ -355,9 +355,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='first_name', value=data.MOTHER_FIRST_NAME)
-    await helpers.fill_textbox(field='last_name', value=data.MOTHER_LAST_NAME)
-    await helpers.fill_textbox(field='maiden_name', value=data.MOTHER_MAIDEN_NAME)
+    await helpers.fill_textbox(field='first_name', value=data.MOTHERS_FIRST_NAME)
+    await helpers.fill_textbox(field='last_name', value=data.MOTHERS_LAST_NAME)
+    await helpers.fill_textbox(field='maiden_name', value=data.MOTHERS_MAIDEN_NAME)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
