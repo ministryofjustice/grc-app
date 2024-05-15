@@ -42,11 +42,12 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.BIRTH_FIRST_NAME)
+    await helpers.fill_textbox(field='middle_names', value=data.BIRTH_MIDDLE_NAME)
     await helpers.fill_textbox(field='last_name', value=data.BIRTH_LAST_NAME)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Dob page
+    # ---- Date of Birth page
     # ------------------------------------------------
     await asserts.url('/birth-registration/dob')
     await asserts.accessibility()
@@ -62,13 +63,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw’r dyddiad geni ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='day', value='1')
-    await helpers.fill_textbox(field='month', value='1')
-    await helpers.fill_textbox(field='year', value='1999')
+    await helpers.fill_textbox(field='day', value=data.DATE_OF_BIRTH_DAY)
+    await helpers.fill_textbox(field='month', value=data.DATE_OF_BIRTH_MONTH)
+    await helpers.fill_textbox(field='year', value=data.DATE_OF_BIRTH_YEAR)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- UK Check page
+    # ---- Birth Registered in UK page
     # ------------------------------------------------
     await asserts.url('/birth-registration/uk-check')
     await asserts.accessibility()
@@ -104,7 +105,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='place_of_birth', value=data.TOWN_OR_CITY)
+    await helpers.fill_textbox(field='place_of_birth', value=data.BIRTH_TOWN)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -124,13 +125,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='first_name', value=data.MOTHER_FIRST_NAME)
-    await helpers.fill_textbox(field='last_name', value=data.MOTHER_LAST_NAME)
-    await helpers.fill_textbox(field='maiden_name', value=data.MOTHER_MAIDEN_NAME)
+    await helpers.fill_textbox(field='first_name', value=data.MOTHERS_FIRST_NAME)
+    await helpers.fill_textbox(field='last_name', value=data.MOTHERS_LAST_NAME)
+    await helpers.fill_textbox(field='maiden_name', value=data.MOTHERS_MAIDEN_NAME)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Fathers Name Check page
+    # ---- Is Father's Name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
@@ -166,8 +167,8 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='first_name', value=data.FATHER_FIRST_NAME)
-    await helpers.fill_textbox(field='last_name', value=data.FATHER_LAST_NAME)
+    await helpers.fill_textbox(field='first_name', value=data.FATHERS_FIRST_NAME)
+    await helpers.fill_textbox(field='last_name', value=data.FATHERS_LAST_NAME)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -334,7 +335,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.fill_textbox(field='place_of_birth', value=data.TOWN_OR_CITY)
+    await helpers.fill_textbox(field='place_of_birth', value=data.BIRTH_TOWN)
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
