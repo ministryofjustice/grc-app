@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 15:51+0100\n"
+"POT-Creation-Date: 2024-05-15 10:35+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -899,6 +899,7 @@ msgstr "Dim dyddiadau"
 
 #: grc/personal_details/constants.py:11
 #: grc/templates/personal-details/check-your-answers.html:83
+#: grc/templates/submit-and-pay/check-your-answers.html:118
 msgid "Email"
 msgstr "E-bost"
 
@@ -908,6 +909,7 @@ msgstr "Galwad ffôn"
 
 #: grc/personal_details/constants.py:13
 #: grc/templates/personal-details/check-your-answers.html:93
+#: grc/templates/submit-and-pay/check-your-answers.html:128
 msgid "Post"
 msgstr "Post"
 
@@ -967,17 +969,33 @@ msgstr "Defnyddio’r gwasanaeth ar-lein"
 msgid "Using the EX160 form"
 msgstr "Defnyddio’r ffurflen EX160"
 
-#: grc/submit_and_pay/constants.py:11
+#: grc/submit_and_pay/constants.py:9
+msgid "Help"
+msgstr "Help"
+
+#: grc/submit_and_pay/constants.py:10
+msgid "Online"
+msgstr "Ar-lein"
+
+#: grc/submit_and_pay/constants.py:13
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/submit_and_pay/constants.py:12
+#: grc/submit_and_pay/constants.py:14
 msgid "Select how are you applying for help paying the fee"
 msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/submit_and_pay/constants.py:13
+#: grc/submit_and_pay/constants.py:15
 msgid "Enter your Help with Fees reference number"
 msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
+
+#: grc/submit_and_pay/constants.py:16
+msgid ""
+"You must certify that all information given in this application is "
+"correct and that you understand making a false application is an offence."
+msgstr ""
+"Rhaid i chi ardystio bod yr holl wybodaeth a roddwyd yn y cais hwn yn "
+"gywir a'ch bod yn deall bod gwneud cais ffug yn drosedd."
 
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
@@ -1091,6 +1109,7 @@ msgstr ""
 msgid "Before you start"
 msgstr "Cyn i chi ddechrau"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:28
 #: grc/templates/task-list.html:67
 msgid "Confirmation"
 msgstr "Cadarnhau"
@@ -1101,6 +1120,7 @@ msgstr "Rhoi eich manylion"
 
 #: grc/templates/personal-details/check-your-answers.html:10
 #: grc/templates/personal-details/check-your-answers.html:22
+#: grc/templates/submit-and-pay/check-your-answers.html:57
 #: grc/templates/task-list.html:82
 msgid "Your personal details"
 msgstr "Eich manylion personol"
@@ -1111,6 +1131,7 @@ msgstr "Gwybodaeth am gofrestru eich genedigaeth"
 
 #: grc/templates/partnership-details/check-your-answers.html:10
 #: grc/templates/partnership-details/check-your-answers.html:21
+#: grc/templates/submit-and-pay/check-your-answers.html:293
 #: grc/templates/task-list.html:98
 msgid "Marriage or civil partnership details"
 msgstr "Manylion eich priodas neu bartneriaeth sifil"
@@ -1119,14 +1140,17 @@ msgstr "Manylion eich priodas neu bartneriaeth sifil"
 msgid "Upload your documents"
 msgstr "Uwchlwytho eich dogfennau"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:384
 #: grc/templates/task-list.html:117
 msgid "Your medical reports"
 msgstr "Eich adroddiadau meddygol"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:393
 #: grc/templates/task-list.html:125
 msgid "Evidence of living in your gender"
 msgstr "Tystiolaeth o fyw yn eich rhywedd"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:402
 #: grc/templates/task-list.html:133
 msgid "Name change documents"
 msgstr "Dogfennau newid enw"
@@ -1135,10 +1159,12 @@ msgstr "Dogfennau newid enw"
 msgid "Marriage and civil partnership documents"
 msgstr "Dogfennau priodas a phartneriaeth sifil"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:420
 #: grc/templates/task-list.html:149
 msgid "Overseas certificate documents"
 msgstr "Dogfennau Tystysgrif o Dramor"
 
+#: grc/templates/submit-and-pay/check-your-answers.html:428
 #: grc/templates/task-list.html:156
 msgid "Statutory declarations"
 msgstr "Datganiadau statudol"
@@ -1201,42 +1227,52 @@ msgid "Check your answers:"
 msgstr "Gwiriwch eich atebion:"
 
 #: grc/templates/birth-registration/check-your-answers.html:20
+#: grc/templates/submit-and-pay/check-your-answers.html:197
 msgid "Birth registration details"
 msgstr "Manylion Cofrestru Genedigaeth"
 
 #: grc/templates/birth-registration/check-your-answers.html:25
+#: grc/templates/submit-and-pay/check-your-answers.html:202
 msgid "Birth name"
 msgstr "Enw adeg geni"
 
 #: grc/templates/birth-registration/check-your-answers.html:32
+#: grc/templates/submit-and-pay/check-your-answers.html:209
 msgid "Date of birth"
 msgstr "Dyddiad geni"
 
 #: grc/templates/birth-registration/check-your-answers.html:39
+#: grc/templates/submit-and-pay/check-your-answers.html:216
 msgid "Birth registered in UK"
 msgstr "Genedigaeth a gofrestrwyd yn y DU"
 
 #: grc/templates/birth-registration/check-your-answers.html:47
+#: grc/templates/submit-and-pay/check-your-answers.html:224
 msgid "Town or city of birth"
 msgstr "Tref neu ddinas geni"
 
 #: grc/templates/birth-registration/check-your-answers.html:59
+#: grc/templates/submit-and-pay/check-your-answers.html:236
 msgid "Mother's name"
 msgstr "Enw’r fam"
 
 #: grc/templates/birth-registration/check-your-answers.html:66
+#: grc/templates/submit-and-pay/check-your-answers.html:243
 msgid "Father's name listed"
 msgstr "Enw’r tad a restrwyd"
 
 #: grc/templates/birth-registration/check-your-answers.html:74
+#: grc/templates/submit-and-pay/check-your-answers.html:251
 msgid "Father's name"
 msgstr "Enw’r tad"
 
 #: grc/templates/birth-registration/check-your-answers.html:82
+#: grc/templates/submit-and-pay/check-your-answers.html:259
 msgid "Adopted"
 msgstr "Mabwysiadwyd"
 
 #: grc/templates/birth-registration/check-your-answers.html:90
+#: grc/templates/submit-and-pay/check-your-answers.html:267
 msgid "Adopted in UK"
 msgstr "Mabwysiadwyd yn y DU"
 
@@ -1250,6 +1286,7 @@ msgstr ""
 "dan ddarpariaethau Llongau Masnach neu Hedfan Sifil"
 
 #: grc/templates/birth-registration/check-your-answers.html:108
+#: grc/templates/submit-and-pay/check-your-answers.html:284
 msgid "Registered birth country"
 msgstr "Gwlad enedigol gofrestredig"
 
@@ -1996,7 +2033,6 @@ msgstr ""
 "fyddant yn llofnodi eu datganiad"
 
 #: grc/templates/document-checker/your-documents.html:238
-#, fuzzy
 msgid ""
 "Follow the guidance to find out who can act as a witness when they sign "
 "their declaration"
@@ -2107,10 +2143,12 @@ msgid "Send an original or"
 msgstr "Anfonwch gopi gwreiddiol"
 
 #: grc/templates/document-checker/your-documents.html:354
+#: grc/templates/submit-and-pay/check-your-answers.html:478
 msgid "certified copy (opens in a new tab)"
 msgstr "neu ardystiedig (yn agor mewn tab newydd)"
 
 #: grc/templates/document-checker/your-documents.html:356
+#: grc/templates/submit-and-pay/check-your-answers.html:480
 msgid "of your full birth or adoption certificate"
 msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
 
@@ -2203,6 +2241,7 @@ msgstr "Yn ôl i’r rhestr tasgau"
 
 #: grc/templates/govuk-design-system-templates/date-range.html:33
 #: grc/templates/govuk-design-system-templates/date-range.html:138
+#: grc/templates/submit-and-pay/check-your-answers.html:165
 msgid "From"
 msgstr "Oddi wrth"
 
@@ -2225,18 +2264,22 @@ msgid "There is a problem"
 msgstr "Mae yna broblem"
 
 #: grc/templates/partnership-details/check-your-answers.html:26
+#: grc/templates/submit-and-pay/check-your-answers.html:298
 msgid "Currently married or in a civil partnership"
 msgstr "Wedi priodi neu mewn partneriaeth sifil ar hyn o bryd"
 
 #: grc/templates/partnership-details/check-your-answers.html:34
+#: grc/templates/submit-and-pay/check-your-answers.html:306
 msgid "Spouse or partner has died"
 msgstr "Mae fy mhriod neu fy mhartner wedi marw"
 
 #: grc/templates/partnership-details/check-your-answers.html:41
+#: grc/templates/submit-and-pay/check-your-answers.html:313
 msgid "Marriage or civil partnership has ended"
 msgstr "Mae ein priodas neu bartneriaeth sifil wedi dod i ben"
 
 #: grc/templates/partnership-details/check-your-answers.html:87
+#: grc/templates/submit-and-pay/check-your-answers.html:359
 msgid "Interim GRC"
 msgstr "Tystysgrif Cydnabod Rhywedd Interim"
 
@@ -2359,43 +2402,54 @@ msgid "Name"
 msgstr "Enw"
 
 #: grc/templates/personal-details/check-your-answers.html:34
+#: grc/templates/submit-and-pay/check-your-answers.html:69
 msgid "Affirmed gender"
 msgstr "Rhywedd a gadarnhawyd"
 
 #: grc/templates/personal-details/check-your-answers.html:41
+#: grc/templates/submit-and-pay/check-your-answers.html:76
 msgid "When you transitioned"
 msgstr "Pan wnaethoch drawsnewid"
 
 #: grc/templates/personal-details/check-your-answers.html:48
+#: grc/templates/submit-and-pay/check-your-answers.html:83
 msgid "When you signed your statutory declaration"
 msgstr "Pan wnaethoch lofnodi eich datganiad statudol"
 
 #: grc/templates/personal-details/check-your-answers.html:55
+#: grc/templates/submit-and-pay/check-your-answers.html:90
 msgid "Ever changed name"
 msgstr "Erioed wedi newid enw"
 
 #: grc/templates/personal-details/check-your-answers.html:73
+#: grc/templates/submit-and-pay/check-your-answers.html:108
 msgid "Address"
 msgstr "Cyfeiriad"
 
 #: grc/templates/personal-details/check-your-answers.html:88
+#: grc/templates/submit-and-pay/check-your-answers.html:123
 msgid "Phone"
 msgstr "Ffôn"
 
 #: grc/templates/personal-details/check-your-answers.html:99
+#: grc/templates/submit-and-pay/check-your-answers.html:134
 msgid "Contact preferences"
 msgstr "Dewisiadau cyswllt"
 
 #: grc/templates/personal-details/check-your-answers.html:114
 #: grc/templates/personal-details/check-your-answers.html:137
+#: grc/templates/submit-and-pay/check-your-answers.html:149
+#: grc/templates/submit-and-pay/check-your-answers.html:172
 msgid "Unavailable over the next 6 months"
 msgstr "Ddim ar gael yn y 6 mis nesaf"
 
 #: grc/templates/personal-details/check-your-answers.html:145
+#: grc/templates/submit-and-pay/check-your-answers.html:180
 msgid "Notify HMRC"
 msgstr "Hysbysu HMRC"
 
 #: grc/templates/personal-details/check-your-answers.html:153
+#: grc/templates/submit-and-pay/check-your-answers.html:188
 msgid "National insurance number"
 msgstr "Rhif Yswiriant Gwladol"
 
@@ -3619,6 +3673,7 @@ msgstr ""
 "berthnasol, tystysgrif priodas neu dystysgrif partneriaeth sifil newydd"
 
 #: grc/templates/start-application/declaration.html:39
+#: grc/templates/submit-and-pay/check-your-answers.html:49
 msgid ""
 "Do you consent to the General Register Office contacting you about your "
 "application?"
@@ -3747,6 +3802,7 @@ msgstr ""
 
 #: grc/templates/start-application/overseas-check.html:7
 #: grc/templates/start-application/overseas-check.html:25
+#: grc/templates/submit-and-pay/check-your-answers.html:33
 msgid ""
 "Have you ever been issued a Gender Recognition Certificate (or its "
 "equivalent) in another country?"
@@ -3774,6 +3830,115 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:11
+#: grc/templates/submit-and-pay/check-your-answers.html:24
+msgid "Check your answers before sending your application"
+msgstr "Gwiriwch eich atebion cyn anfon eich cais"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:41
+msgid ""
+"Do you have official documentation that shows you have ever been issued a"
+" Gender Recognition Certificate (or its equivalent) in one of the allowed"
+" countries or territories?"
+msgstr ""
+"A oes gennych chi ddogfennaeth swyddogol sy'n dangos eich bod wedi cael "
+"Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) yn un o'r gwledydd "
+"neu diriogaethau a ganiateir?"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:62
+msgid ""
+"Name (as you would like it to appear on your Gender Recognition "
+"Certificate)"
+msgstr "Enw (fel yr hoffech iddo ymddangos ar eich Tystysgrif Cydnabod Rhywedd)"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:233
+msgid "Maiden name"
+msgstr "Enw cyn priodi"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:275
+msgid ""
+"Forces registering service, British Consul or High Commission, or under "
+"Merchant Shipping or Civil Aviation provisions"
+msgstr ""
+"Gwasanaeth cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu "
+"dan ddarpariaethau Llongau Masnach neu Hedfan Sifil"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:370
+msgid "Your uploaded documents"
+msgstr "Y dogfennau rydych wedi’u huwchlwytho"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:411
+msgid "Marriage documents"
+msgstr "Dogfennau priodas"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:436
+msgid "Payment details"
+msgstr "Manylion talu"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:441
+msgid "Payment method"
+msgstr "Dull talu"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:449
+msgid "Help type"
+msgstr "Math o help"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:457
+msgid "Help with Fees reference number"
+msgstr "Cyfeirnod Help i Dalu Ffioedd"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:468
+msgid "Documents you'll need to post"
+msgstr "Dogfennau y bydd angen i chi eu postio"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:471
+msgid "Based on your application the documents that will need to be posted are:"
+msgstr "Yn seiliedig ar eich cais, y dogfennau y bydd angen i chi eu postio yw:"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:476
+msgid "your original or a"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:485
+msgid "an"
+msgstr " "
+
+#: grc/templates/submit-and-pay/check-your-answers.html:488
+msgid "EX160 form (opens in a new tab)"
+msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:495
+msgid "Download your application"
+msgstr "Lawrlwytho eich cais"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:498
+msgid "If you want to keep a record of the details you are submitting, you can"
+msgstr "Os ydych eisiau cadw cofnod o’r manylion yr ydych yn eu cyflwyno, gallwch"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:500
+msgid "download a pdf copy"
+msgstr "lawrlwytho copi pdf"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:505
+msgid "Now send your application"
+msgstr "Nawr anfonwch eich cais"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:515
+msgid ""
+"I certify that all information given in this application is correct and "
+"that I understand making a false application is an offence."
+msgstr ""
+"Rwy’n ardystio bod yr holl wybodaeth a roddwyd yn y cais hwn yn gywir ac "
+"rwy’n deall bod gwneud cais ffug yn drosedd."
+
+#: grc/templates/submit-and-pay/check-your-answers.html:525
+msgid "Submit application"
+msgstr "Cyflwyno’r cais"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:527
+msgid "Submit application and pay online"
+msgstr ""
 
 #: grc/templates/submit-and-pay/help-type.html:8
 #: grc/templates/submit-and-pay/help-type.html:21
