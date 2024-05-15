@@ -11,3 +11,7 @@ class SubmitAndPayConstants(BaseConstants):
     HWF_ERROR = _l('Select if you are applying for help paying the fee')
     HWF_OPTION_ERROR = _l('Select how are you applying for help paying the fee')
     HWF_REFERENCE_NUMBER_ERROR = _l('Enter your Help with Fees reference number')
+
+
+    # Errors
+    HWF_ERROR = _l('Select if you are applying for help paying the fee')
