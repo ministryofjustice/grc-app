@@ -75,7 +75,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Gwiriwch eich atebion cyn anfon eich cais')
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(35)
+    await asserts.check_your_answers_rows(33)
     await asserts.check_your_answers_row(row_name='Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?', expected_value='Ydw')
     await asserts.check_your_answers_row(row_name="A oes gennych chi ddogfennaeth swyddogol sy’n dangos eich bod wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) yn un o’r gwledydd neu diriogaethau hyn?", expected_value='Ydw')
     await asserts.check_your_answers_row(row_name="Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi yngl?n â'ch cais?", expected_value='Ydw')
@@ -102,11 +102,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Mabwysiadwyd yn y DU', expected_value="Dydw i ddim yn gwybod")
     await asserts.check_your_answers_row(row_name="Gwasanaeth cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu dan ddarpariaethau Llongau Masnach neu Hedfan Sifil", expected_value='Nac ydw')
 
-    await asserts.check_your_answers_row(row_name='Wedi priodi neu mewn partneriaeth sifil ar hyn o bryd', expected_value='Mewn partneriaeth sifil')
-    await asserts.check_your_answers_row(row_name='Aros yn eich partneriaeth sifil', expected_value='Ydw')
-    await asserts.check_your_answers_row(row_name='Gallu darparu datganiad o gydsyniad gan eich partner sifil', expected_value='Ydw')
-    await asserts.check_your_answers_row(row_name="Enw’ch partner sifil", expected_value=f"{data.PARTNER_TITLE} {data.PARTNER_FIRST_NAME} {data.PARTNER_LAST_NAME}")
-    await asserts.check_your_answers_row(row_name="Cyfeiriad eich partner sifil ar gyfer postio", expected_value=data.PARTNER_POSTAL_ADDRESS)
+    await asserts.check_your_answers_row(row_name='Wedi priodi neu mewn partneriaeth sifil ar hyn o bryd', expected_value='Ddim un ohonynt')
+    await asserts.check_your_answers_row(row_name='Mae fy mhriod neu fy mhartner wedi marw', expected_value='Ydw')
+    await asserts.check_your_answers_row(row_name='Mae ein priodas neu bartneriaeth sifil wedi dod i ben', expected_value='Ydw')
 
     await asserts.check_your_answers_row(row_name='Dogfennau newid enw', expected_value='document_1.bmp')
     await asserts.check_your_answers_row(row_name='Dogfennau priodas', expected_value='document_1.bmp')
