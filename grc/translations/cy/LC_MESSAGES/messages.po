@@ -3923,7 +3923,15 @@ msgstr "Yn seiliedig ar eich cais, y dogfennau y bydd angen i chi eu postio yw:"
 
 #: grc/templates/submit-and-pay/check-your-answers.html:476
 msgid "your original or a"
-msgstr ""
+msgstr "copi gwreiddiol neu"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:478
+msgid "certified copy (opens in a new tab)"
+msgstr "gopi ardystiedig (yn agor mewn tab newydd)"
+
+#: grc/templates/submit-and-pay/check-your-answers.html:480
+msgid "of your full birth or adoption certificate"
+msgstr "o’ch tystysgrif geni llawn neu dystysgrif mabwysiadu"
 
 #: grc/templates/submit-and-pay/check-your-answers.html:485
 msgid "an"
