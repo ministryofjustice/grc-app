@@ -399,7 +399,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Enter valid values, click "Save and continue"
     await helpers.fill_textbox(field='first_name', value=data.FATHERS_FIRST_NAME)
     await helpers.fill_textbox(field='last_name', value=data.FATHERS_LAST_NAME)
-    await helpers.click_button('Save and continue')
+    await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
     # ---- Adopted page
