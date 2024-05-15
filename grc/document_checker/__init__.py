@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for
-from grc.document_checker.constants import DocumentCheckerConstants as c
+from grc.business_logic.constants.document_checker import DocumentCheckerConstants as c
 from grc.document_checker.doc_checker_data_store import DocCheckerDataStore
 from grc.document_checker.doc_checker_state import DocCheckerState, CurrentlyInAPartnershipEnum
 from grc.document_checker.forms import PreviousNamesCheck, MarriageCivilPartnershipForm, PlanToRemainInAPartnershipForm, \

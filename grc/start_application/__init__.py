@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for, session, g
-from grc.business_logic.constants import BaseConstants as c
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.models import Application, ApplicationStatus
