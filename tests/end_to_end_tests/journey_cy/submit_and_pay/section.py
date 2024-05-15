@@ -75,7 +75,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Gwiriwch eich atebion cyn anfon eich cais')
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(34)
+    await asserts.check_your_answers_rows(35)
     await asserts.check_your_answers_row(row_name='Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?', expected_value='Ydw')
     await asserts.check_your_answers_row(row_name="A oes gennych chi ddogfennaeth swyddogol sy’n dangos eich bod wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) yn un o’r gwledydd neu diriogaethau hyn?", expected_value='Ydw')
     await asserts.check_your_answers_row(row_name="Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi yngl?n â'ch cais?", expected_value='Ydw')
@@ -87,10 +87,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Erioed wedi newid enw', expected_value='Ydw')
     await asserts.check_your_answers_row(row_name='Cyfeiriad', expected_value=f"{data.ADDRESS_LINE_ONE}\n{data.ADDRESS_LINE_TWO}\n{data.TOWN}\n{data.POSTCODE}")
     await asserts.check_your_answers_row(row_name='Dewisiadau cyswllt', expected_value=f"E-bost: {data.EMAIL_ADDRESS}\nFfôn: {data.PHONE_NUMBER}\nPost: {data.ADDRESS_LINE_ONE}, {data.ADDRESS_LINE_TWO}, {data.TOWN}, {data.POSTCODE}")
-    await asserts.check_your_answers_row(row_name='Ddim ar gael yn y 6 mis nesaf', expected_value=f"Yes\n{data.DATES_TO_AVOID}")
-    await asserts.check_your_answers_row(row_name='Hysbysu HMRC', expected_value='Nac ydw')
+    await asserts.check_your_answers_row(row_name='Ddim ar gael yn y 6 mis nesaf', expected_value=f"Ydw\n{data.DATES_TO_AVOID}")
+    await asserts.check_your_answers_row(row_name='Hysbysu HMRC', expected_value='Ydw')
+    await asserts.check_your_answers_row(row_name='Rhif Yswiriant Gwladol', expected_value=data.NATIONAL_INSURANCE_NUMBER)
 
-    await asserts.check_your_answers_row(row_name='Enw adeg geni', expected_value=f"{data.BIRTH_FIRST_NAME} {data.BIRTH_LAST_NAME}")
+    await asserts.check_your_answers_row(row_name='Enw adeg geni', expected_value=f"{data.BIRTH_FIRST_NAME} {data.BIRTH_MIDDLE_NAME} {data.BIRTH_LAST_NAME}")
     await asserts.check_your_answers_row(row_name='Dyddiad geni', expected_value=data.DATE_OF_BIRTH_FORMATTED)
     await asserts.check_your_answers_row(row_name='Genedigaeth a gofrestrwyd yn y DU', expected_value='Ydw')
     await asserts.check_your_answers_row(row_name='Tref neu ddinas geni', expected_value=data.BIRTH_TOWN)

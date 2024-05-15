@@ -377,7 +377,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
 
     # Enter valid details, click Save and continue
-    await helpers.check_radio(field='fathers_name_on_certificate', value='False')
+    await helpers.check_radio(field='fathers_name_on_certificate', value='True')
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
@@ -397,7 +397,27 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('A gawsoch chi eich mabwysiadu?')
 
     # Enter valid details, click Save and continue
-    await helpers.check_radio(field='adopted', value='False')
+    await helpers.check_radio(field='adopted', value='True')
+    await helpers.click_button('Cadw a pharhau')
+
+    # ------------------------------------------------
+    # ---- Adopted in UK page
+    # ------------------------------------------------
+    await asserts.url('/birth-registration/adopted-uk')
+    await asserts.accessibility()
+    await asserts.h1('A gawsoch chi eich mabwysiadu yn y Deyrnas Unedig?')
+    await asserts.number_of_errors(0)
+
+    # Change language
+    await asserts.url('/birth-registration/adopted-uk')
+    await asserts.accessibility()
+    await helpers.click_button('English')
+    await asserts.h1("Were you adopted in the United Kingdom?")
+    await helpers.click_button('Cymraeg')
+    await asserts.h1('A gawsoch chi eich mabwysiadu yn y Deyrnas Unedig?')
+
+    # Enter valid details, click Save and continue
+    await helpers.check_radio(field='adopted_uk', value='ADOPTED_IN_THE_UK_DO_NOT_KNOW')
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
