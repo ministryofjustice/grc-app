@@ -318,16 +318,16 @@
 
                 {% else %}
                     {{ check_your_answers_row(
-                        title=content.stay_together_title,
-                        changeLinkHiddenText='if you plan to remain ' + content.in_your_partnership_name + ' after receiving your Gender Recognition Certificate',
+                        title=context.stay_together_title,
+                        changeLinkHiddenText='if you plan to remain ' + context.in_your_partnership_name + ' after receiving your Gender Recognition Certificate',
                         changeLinkUrlFor='partnershipDetails.stayTogether',
                         value=(application_data.partnership_details_data.plan_to_remain_in_a_partnership_formatted)
                     ) }}
 
                     {% if application_data.partnership_details_data.plan_to_remain_in_a_partnership %}
                         {{ check_your_answers_row(
-                            title=content.partner_agrees_title,
-                            changeLinkHiddenText='if you can provide a declaration of consent from your ' + content.partner_name,
+                            title=context.partner_agrees_title,
+                            changeLinkHiddenText='if you can provide a declaration of consent from your ' + context.partner_name,
                             changeLinkUrlFor='partnershipDetails.partnerAgrees',
                             value=(application_data.partnership_details_data.partner_agrees_formatted)
                         ) }}
@@ -335,8 +335,8 @@
 
                     {% if application_data.partnership_details_data.plan_to_remain_in_a_partnership and application_data.partnership_details_data.partner_agrees %}
                         {{ check_your_answers_row(
-                            title=content.partner_name_cap,
-                            changeLinkHiddenText='your ' + content.partner_name + "'s name",
+                            title=context.partner_name_cap,
+                            changeLinkHiddenText='your ' + context.partner_name + "'s name",
                             changeLinkUrlFor='partnershipDetails.partnerDetails',
                             value=(application_data.partnership_details_data.partner_title + ' ' +
                                    application_data.partnership_details_data.partner_first_name + ' ' +
@@ -348,8 +348,8 @@
                             <span style="white-space: pre-line;">{{ application_data.partnership_details_data.partner_postal_address }}</span>
                         {% endmacro %}
                         {{ check_your_answers_row(
-                            title=content.partner_name_post_code,
-                            changeLinkHiddenText='your ' + content.partner_name + "'s postal address",
+                            title=context.partner_name_post_code,
+                            changeLinkHiddenText='your ' + context.partner_name + "'s postal address",
                             changeLinkUrlFor='partnershipDetails.partnerDetails',
                             value=(partnerPostalAddressValue())
                         ) }}
