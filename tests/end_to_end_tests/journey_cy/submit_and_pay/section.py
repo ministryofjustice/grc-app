@@ -114,3 +114,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Dull talu', expected_value='Help')
     await asserts.check_your_answers_row(row_name='Math o help', expected_value='Defnyddio’r gwasanaeth ar-lein')
     await asserts.check_your_answers_row(row_name='Cyfeirnod Help i Dalu Ffioedd', expected_value=data.HELP_WITH_FEES_REFERENCE_NUMBER)
+
+    # Check the checkbox, click Save and continue
+    await helpers.check_checkbox(field='certify')
+    await helpers.click_button('Cyflwyno’r cais')
