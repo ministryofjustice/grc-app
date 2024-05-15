@@ -15,3 +15,7 @@ class SubmitAndPayConstants(BaseConstants):
     HWF_REFERENCE_NUMBER_ERROR = _l('Enter your Help with Fees reference number')
     CORRECT_INFO_DECLARATION_ERROR = _l('You must certify that all information given in this application is correct'
                                         ' and that you understand making a false application is an offence.')
+
+
+    # Errors
+    HWF_ERROR = _l('Select if you are applying for help paying the fee')
