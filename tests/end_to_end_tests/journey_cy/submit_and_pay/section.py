@@ -118,3 +118,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Check the checkbox, click Save and continue
     await helpers.check_checkbox(field='certify')
     await helpers.click_button('Cyflwyno’r cais')
+
+    # ------------------------------------------------
+    # ---- Confirmation page
+    # ------------------------------------------------
+    await asserts.url('/submit-and-pay/confirmation')
+    await asserts.accessibility()
+    await asserts.h1("Cais wedi'i gyflwyno")
+    await asserts.number_of_errors(0)
