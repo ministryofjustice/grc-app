@@ -24,18 +24,12 @@
             </h2>
             <p class="govuk-body">
                 {{ _('Post your birth or adoption certificate to us as soon as possible – include your name, address and application reference number so we can match it to your application.') }}
-                {{ _('Send either an original or a') }}
-                <a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">{{ _('certified copy (opens in a new tab)') }}</a>
-                {{ _('– it will be posted back to you.') }}
+                {{ context.birth_cert_copy_link }}
             </p>
 
             {% if application_data.submit_and_pay_data.is_using_ex160_form %}
                 <p class="govuk-body">
-                    {{ _('You also need to post an') }}
-                    <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees"
-                        rel="external" target="_blank" class="govuk-link">
-                        {{ _('EX160 form (opens in new tab)') }}
-                    </a>
+                    {{ context.ex160_link }}
                 </p>
             {% endif %}
 
@@ -53,21 +47,8 @@
             </p>
 
             <p class="govuk-body">
-                {{ _('You can') }}
-                <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"
-                   target="_blank" rel="external" class="govuk-link">
-                    {{ _('order a birth, death, marriage or civil partnership certificate (opens in a new tab)') }}
-                </a>
-                {{ _('online if you live in England and Wales.') }}
-                {{ _("There's a different process for") }}
-                <a href="http://www.nrscotland.gov.uk/registration/how-to-order-an-official-extract-from-the-registers"
-                   target="_blank" rel="external" class="govuk-link">
-                    {{ _('getting certificates in Scotland (opens in a new tab)') }}
-                </a>
-                {{ _('and') }}
-                <a href="http://www.nidirect.gov.uk/index/do-it-online/government-citizens-and-rights-online/order-a-birth-adoption-death-marriage-or-civil-partnership-certificate.htm"
-                   target="_blank" rel="external" class="govuk-link">
-                    {{ _('getting certificates in Northern Ireland (opens in a new tab)') }}</a>.
+                {{ context.copy_birth_death_marriage_link }}
+                {{ context.scotland_norther_ireland_cert_link }}
             </p>
 
             <div class="govuk-warning-text">
@@ -108,7 +89,7 @@
                     GRPenquiries@justice.gov.uk
                 </a><br>
                 {{ _('Telephone') }}: 020 3936 8968<br>
-                {{ _('Monday to Friday') }}, 9am to 5pm<br>
+                {{ _('Monday to Friday, 9am to 5pm') }}<br>
                 <a href=https://www.gov.uk/call-charges"
                    target="_blank" class="govuk-link">
                     {{ _('Find out about call charges (opens in a new tab)') }}

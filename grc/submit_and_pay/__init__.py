@@ -17,7 +17,6 @@ from grc.submit_and_pay.forms import MethodCheckForm, HelpTypeForm, CheckYourAns
 from grc.utils.application_files import ApplicationFiles
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 
@@ -230,11 +229,19 @@ def confirmation():
     for application_to_anonymise in applications_to_anonymise:
         anonymise_application(application_to_anonymise)
 
+    context = {
+        'birth_cert_copy_link': c.get_send_birth_cert_copy_link(),
+        'ex160_link': c.get_send_ex160_link(),
+        'copy_birth_death_marriage_link': c.get_copy_birth_death_marriage_cert_link(),
+        'scotland_norther_ireland_cert_link': c.get_scotland_and_northern_ireland_links()
+    }
+
     html = render_template(
         'submit-and-pay/confirmation.html',
-        application_data=application_data
+        application_data=application_data,
+        context=context
     )
-    # session.clear()
+    session.clear()
     return html
 
 
