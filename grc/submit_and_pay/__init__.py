@@ -8,6 +8,7 @@ import uuid
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.submit_and_pay_data import HelpWithFeesType
+from grc.business_logic.constants.submit_and_pay import SubmitAndPayConstants as c
 from grc.partnership_details import get_context_check_your_answers
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus
@@ -16,6 +17,7 @@ from grc.submit_and_pay.forms import MethodCheckForm, HelpTypeForm, CheckYourAns
 from grc.utils.application_files import ApplicationFiles
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
+from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 
@@ -142,10 +144,14 @@ def checkYourAnswers():
     else:
         back_link = 'submitAndPay.index'
 
+    context = get_context_check_your_answers(application_data.partnership_details_data)
+    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link
+    context['ex160_link'] = c.get_ex160_link
+
     return render_template(
         'submit-and-pay/check-your-answers.html',
         form=form,
-        context=get_context_check_your_answers(application_data.partnership_details_data),
+        context=context,
         application_data=application_data,
         back=get_previous_page(application_data, back_link)
     )

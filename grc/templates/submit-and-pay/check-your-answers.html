@@ -473,20 +473,12 @@
 
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
                 <li>
-                    {{ _('your original or a') }}
-                    <a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">
-                        {{ _("certified copy (opens in a new tab)") }}
-                    </a>
-                    {{ _('of your full birth or adoption certificate') }}
+                    {{ context.birth_cert_copy_link }}
                 </li>
 
                 {% if application_data.submit_and_pay_data.is_using_ex160_form %}
                     <li>
-                         {{ _('an') }}
-                        <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees"
-                           rel="external" target="_blank" class="govuk-link">
-                              {{ _('EX160 form (opens in a new tab)') }}
-                        </a>
+                         {{ context.ex160_link }}
                     </li>
                 {% endif %}
             </ul>
