@@ -159,8 +159,8 @@ def your_documents():
         return local_redirect(getUrlForNextUnansweredQuestion())
 
     context = get_context(doc_checker_state_)
-    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link,
-    context['birth_cert_uk_link'] = c.get_birth_cert_uk_link
+    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link()
+    context['birth_cert_uk_link'] = c.get_birth_cert_uk_link()
 
     return render_template(
         'document-checker/your-documents.html',

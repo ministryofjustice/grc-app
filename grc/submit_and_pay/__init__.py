@@ -145,8 +145,8 @@ def checkYourAnswers():
         back_link = 'submitAndPay.index'
 
     context = get_context_check_your_answers(application_data.partnership_details_data)
-    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link
-    context['ex160_link'] = c.get_ex160_link
+    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link()
+    context['ex160_link'] = c.get_ex160_link()
 
     return render_template(
         'submit-and-pay/check-your-answers.html',

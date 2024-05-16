@@ -34,13 +34,13 @@ class DocumentCheckerConstants(BaseConstants):
     def get_birth_cert_copy_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
-            before_link_text = 'Anfonwch gopi gwreiddiol'
+            before_link_text = 'Anfonwch gopi gwreiddiol '
             link_text = 'neu ardystiedig (yn agor mewn tab newydd)'
-            after_link_text = 'o’ch tystysgrif geni llawn neu dystysgrif mabwysiadu'
+            after_link_text = " o\'ch tystysgrif geni llawn neu dystysgrif mabwysiadu."
         else:
-            before_link_text = 'Send an original or'
+            before_link_text = 'Send an original or '
             link_text = 'certified copy (opens in a new tab)'
-            after_link_text = 'of your full birth or adoption certificate'
+            after_link_text = ' of your full birth or adoption certificate.'
         anchor = '<a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">'
         return LinkBuilder(anchor, link_text, before_link_text, after_link_text).get_link_with_text_safe()
 
@@ -48,13 +48,13 @@ class DocumentCheckerConstants(BaseConstants):
     def get_birth_cert_uk_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
-            before_link_text = 'Os cafodd eich genedigaeth neu eich mabwysiad ei chofrestru yn y DU, dewch o'
+            before_link_text = 'Os cafodd eich genedigaeth neu eich mabwysiad ei chofrestru yn y DU, dewch o '
             link_text = 'hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)'
-            after_link_text = 'os nad oes gennych un wrth law'
+            after_link_text = ' os nad oes gennych un wrth law.'
         else:
-            before_link_text = 'If your birth or adoption was registered in the UK, find out how to'
+            before_link_text = 'If your birth or adoption was registered in the UK, find out how to '
             link_text = 'order a certificate (opens in a new tab)'
-            after_link_text = 'if you do not have it available'
+            after_link_text = ' if you do not have it available.'
         anchor = '<a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" target="_blank" class="govuk-link">'
         return LinkBuilder(anchor, link_text, before_link_text, after_link_text).get_link_with_text_safe()
 

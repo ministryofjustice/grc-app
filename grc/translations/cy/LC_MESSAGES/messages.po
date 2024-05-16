@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-15 14:09+0100\n"
+"POT-Creation-Date: 2024-05-16 11:28+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -481,10 +481,6 @@ msgstr "Methu cyfathrebu â sganiwr feirws"
 msgid "The selected file contains a virus"
 msgstr "Mae’r ffeil a ddewiswyd yn cynnwys feirws"
 
-#: grc/business_logic/constants.py:121
-msgid "Enter a valid 'Help with fees' reference number"
-msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
-
 #: grc/business_logic/constants/base.py:121
 msgid "Enter a valid 'Help with fees' reference number"
 msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
@@ -559,27 +555,27 @@ msgstr ""
 "cofrestru’r Lluoedd, neu gan Gonswl Prydeinig neu Uchel Gomisiwn, neu dan"
 " ddarpariaethau Llongau Masnach neu Hedfan Sifil"
 
-#: grc/business_logic/constants/document_checker.py:7
+#: grc/business_logic/constants/document_checker.py:9
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
 
-#: grc/business_logic/constants/document_checker.py:8
+#: grc/business_logic/constants/document_checker.py:10
 msgid "Statutory declaration for applicants who are in a civil partnership"
 msgstr "Datganiad statudol ar gyfer ceiswyr sydd mewn partneriaeth sifil"
 
-#: grc/business_logic/constants/document_checker.py:10
+#: grc/business_logic/constants/document_checker.py:12
 msgid "Your spouse’s statutory declaration"
 msgstr "Datganiad statudol eich priod"
 
-#: grc/business_logic/constants/document_checker.py:11
+#: grc/business_logic/constants/document_checker.py:13
 msgid "Your civil partner’s statutory declaration"
 msgstr "Datganiad statudol eich partner sifil"
 
-#: grc/business_logic/constants/document_checker.py:12
+#: grc/business_logic/constants/document_checker.py:14
 msgid "If you intend to remain married, your spouse needs to fill in and sign a"
 msgstr "Os ydych yn bwriadu aros yn briod, mae angen i’ch priod lenwi a llofnodi"
 
-#: grc/business_logic/constants/document_checker.py:13
+#: grc/business_logic/constants/document_checker.py:15
 msgid ""
 "If you are currently married and your spouse does not provide a statutory"
 " declaration of consent, or you do not plan to stay married, then you can"
@@ -591,7 +587,7 @@ msgstr ""
 "briod, yna gallwch barhau i wneud cais am Dystysgrif Cydnabod Rhywedd "
 "hebddo, ond rhoddir Tystysgrif Cydnabod Rhywedd Interim i chi."
 
-#: grc/business_logic/constants/document_checker.py:17
+#: grc/business_logic/constants/document_checker.py:19
 msgid ""
 "This can be used to end your marriage after which you’ll receive a full "
 "certificate"
@@ -599,7 +595,7 @@ msgstr ""
 "Gallwch ddefnyddio’r dystysgrif hon i ddod â’ch priodas i ben ac yna fe "
 "gewch dystysgrif lawn"
 
-#: grc/business_logic/constants/document_checker.py:18
+#: grc/business_logic/constants/document_checker.py:20
 msgid ""
 "If you intend to remain in a civil partnership, your civil partner needs "
 "to fill in and sign a"
@@ -607,7 +603,7 @@ msgstr ""
 "Os ydych yn bwriadu aros mewn partneriaeth sifil, mae angen i'ch partner "
 "sifil lenwi a llofnodi"
 
-#: grc/business_logic/constants/document_checker.py:20
+#: grc/business_logic/constants/document_checker.py:22
 msgid ""
 "If you are currently in a civil partnership and your civil partner does "
 "not provide a statutory declaration of consent, or you do not plan to "
@@ -621,7 +617,7 @@ msgstr ""
 "Dystysgrif Cydnabod Rhywedd hebddo, ond rhoddir Tystysgrif Cydnabod "
 "Rhywedd Dros Dro i chi."
 
-#: grc/business_logic/constants/document_checker.py:24
+#: grc/business_logic/constants/document_checker.py:26
 msgid ""
 "This can be used to end your civil partnership after which you’ll receive"
 " a full certificate"
@@ -629,19 +625,19 @@ msgstr ""
 "Gellir defnyddio hyn i ddod â'ch partneriaeth sifil i ben ac ar ôl hynny "
 "byddwch yn derbyn tystysgrif lawn"
 
-#: grc/business_logic/constants/document_checker.py:26
+#: grc/business_logic/constants/document_checker.py:28
 msgid "Your marriage certificate"
 msgstr "Eich tystysgrif priodas"
 
-#: grc/business_logic/constants/document_checker.py:27
+#: grc/business_logic/constants/document_checker.py:29
 msgid "Your civil partnership certificate"
 msgstr "Eich tystysgrif partneriaeth sifil"
 
-#: grc/business_logic/constants/document_checker.py:28
+#: grc/business_logic/constants/document_checker.py:30
 msgid "Upload a scan or good quality photograph of your marriage certificate"
 msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’ch tystysgrif priodas"
 
-#: grc/business_logic/constants/document_checker.py:29
+#: grc/business_logic/constants/document_checker.py:31
 msgid ""
 "Upload a scan or good quality photograph of your civil partnership "
 "certificate"
@@ -947,40 +943,39 @@ msgstr "Do, ac mae gennyf fy nghyfeirnod"
 msgid "Yes, but I have lost my reference number"
 msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
 
-#: grc/business_logic/constants/submit_and_pay.py:6
+#: grc/business_logic/constants/submit_and_pay.py:8
 msgid "No, I will pay now"
 msgstr "Nac ydw, mi wnaf dalu’r ffi nawr"
 
-#: grc/business_logic/constants/submit_and_pay.py:7
+#: grc/business_logic/constants/submit_and_pay.py:9
 msgid "Using the online service"
 msgstr "Defnyddio’r gwasanaeth ar-lein"
 
-#: grc/business_logic/constants/submit_and_pay.py:8
+#: grc/business_logic/constants/submit_and_pay.py:10
 msgid "Using the EX160 form"
 msgstr "Defnyddio’r ffurflen EX160"
 
-#: grc/business_logic/constants/submit_and_pay.py:9
+#: grc/business_logic/constants/submit_and_pay.py:11
 msgid "Help"
 msgstr "Help"
 
-#: grc/business_logic/constants/submit_and_pay.py:10
+#: grc/business_logic/constants/submit_and_pay.py:12
 msgid "Online"
 msgstr "Ar-lein"
 
-#: grc/business_logic/constants/submit_and_pay.py:13
-#: grc/business_logic/constants/submit_and_pay.py:21
+#: grc/business_logic/constants/submit_and_pay.py:15
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:14
+#: grc/business_logic/constants/submit_and_pay.py:16
 msgid "Select how are you applying for help paying the fee"
 msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:15
+#: grc/business_logic/constants/submit_and_pay.py:17
 msgid "Enter your Help with Fees reference number"
 msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
 
-#: grc/business_logic/constants/submit_and_pay.py:16
+#: grc/business_logic/constants/submit_and_pay.py:18
 msgid ""
 "You must certify that all information given in this application is "
 "correct and that you understand making a false application is an offence."
@@ -2168,43 +2163,15 @@ msgstr "Dylech bostio'r dogfennau canlynol ar ôl i chi gyflwyno'ch cais"
 msgid "Birth or adoption certificate"
 msgstr "Tystysgrif geni neu fabwysiadu"
 
-#: grc/templates/document-checker/your-documents.html:352
-msgid "Send an original or"
-msgstr "Anfonwch gopi gwreiddiol"
-
-#: grc/templates/document-checker/your-documents.html:354
-#: grc/templates/submit-and-pay/check-your-answers.html:478
-msgid "certified copy (opens in a new tab)"
-msgstr "neu ardystiedig (yn agor mewn tab newydd)"
-
-#: grc/templates/document-checker/your-documents.html:356
-#: grc/templates/submit-and-pay/check-your-answers.html:480
-msgid "of your full birth or adoption certificate"
-msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
-
-#: grc/templates/document-checker/your-documents.html:357
-msgid "If your birth or adoption was registered in the UK, find out how to"
-msgstr ""
-"Os cafodd eich genedigaeth neu eich mabwysiad ei chofrestru yn y DU, "
-"dewch o"
-
-#: grc/templates/document-checker/your-documents.html:359
-msgid "order a certificate (opens in a new tab)"
-msgstr "hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)"
-
-#: grc/templates/document-checker/your-documents.html:361
-msgid "if you do not have it available"
-msgstr "os nad oes gennych un wrth law"
-
-#: grc/templates/document-checker/your-documents.html:368
+#: grc/templates/document-checker/your-documents.html:360
 msgid "If any of your documents are not in English"
 msgstr "Os nad yw unrhyw un o'ch dogfennau yn Saesneg"
 
-#: grc/templates/document-checker/your-documents.html:371
+#: grc/templates/document-checker/your-documents.html:363
 msgid "You’ll need to have your documents translated"
 msgstr "Bydd angen i'ch dogfennau gael eu cyfieithu"
 
-#: grc/templates/document-checker/your-documents.html:372
+#: grc/templates/document-checker/your-documents.html:364
 msgid ""
 "The translator does not need to have any qualifications, so the "
 "translation can be done by a friend or a family member"
@@ -2212,7 +2179,7 @@ msgstr ""
 "Nid oes angen i'r cyfieithydd feddu ar unrhyw gymwysterau, felly gall "
 "ffrind neu aelod o'r teulu wneud y cyfieithiad"
 
-#: grc/templates/document-checker/your-documents.html:375
+#: grc/templates/document-checker/your-documents.html:367
 msgid ""
 "Get the translator to sign the translated documents and write down their "
 "translation qualifications if they have any"
@@ -2220,23 +2187,23 @@ msgstr ""
 "Gofynnwch i'r cyfieithydd lofnodi'r dogfennau wedi'u cyfieithu ac "
 "ysgrifennu eu cymwysterau cyfieithu os oes ganddynt rai"
 
-#: grc/templates/document-checker/your-documents.html:378
+#: grc/templates/document-checker/your-documents.html:370
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr "Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom"
 
-#: grc/templates/document-checker/your-documents.html:381
+#: grc/templates/document-checker/your-documents.html:373
 msgid "Once you have your documents ready you can"
 msgstr "Unwaith y bydd eich dogfennau'n barod"
 
-#: grc/templates/document-checker/your-documents.html:383
+#: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
 msgstr "gallwch wneud cais am Dystysgrif Cydnabod Rhywedd"
 
-#: grc/templates/document-checker/your-documents.html:389
+#: grc/templates/document-checker/your-documents.html:381
 msgid "Get this list by email"
 msgstr "Cael y rhestr hon drwy e-bost"
 
-#: grc/templates/document-checker/your-documents.html:392
+#: grc/templates/document-checker/your-documents.html:384
 msgid ""
 "If you want us to email you the list of documents, please click this "
 "button"
@@ -2244,7 +2211,7 @@ msgstr ""
 "Os ydych chi eisiau i ni anfon y rhestr o ddogfennau atoch drwy e-bost, "
 "cliciwch y botwm hwn"
 
-#: grc/templates/document-checker/your-documents.html:396
+#: grc/templates/document-checker/your-documents.html:388
 msgid "Email documents list"
 msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
 
@@ -3925,43 +3892,23 @@ msgstr "Dogfennau y bydd angen i chi eu postio"
 msgid "Based on your application the documents that will need to be posted are:"
 msgstr "Yn seiliedig ar eich cais, y dogfennau y bydd angen i chi eu postio yw:"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:476
-msgid "your original or a"
-msgstr "copi gwreiddiol neu"
-
-#: grc/templates/submit-and-pay/check-your-answers.html:478
-msgid "certified copy (opens in a new tab)"
-msgstr "gopi ardystiedig (yn agor mewn tab newydd)"
-
-#: grc/templates/submit-and-pay/check-your-answers.html:480
-msgid "of your full birth or adoption certificate"
-msgstr "o’ch tystysgrif geni llawn neu dystysgrif mabwysiadu"
-
-#: grc/templates/submit-and-pay/check-your-answers.html:485
-msgid "an"
-msgstr " "
-
-#: grc/templates/submit-and-pay/check-your-answers.html:488
-msgid "EX160 form (opens in a new tab)"
-msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
-
-#: grc/templates/submit-and-pay/check-your-answers.html:495
+#: grc/templates/submit-and-pay/check-your-answers.html:487
 msgid "Download your application"
 msgstr "Lawrlwytho eich cais"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:498
+#: grc/templates/submit-and-pay/check-your-answers.html:490
 msgid "If you want to keep a record of the details you are submitting, you can"
 msgstr "Os ydych eisiau cadw cofnod o’r manylion yr ydych yn eu cyflwyno, gallwch"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:500
+#: grc/templates/submit-and-pay/check-your-answers.html:492
 msgid "download a pdf copy"
 msgstr "lawrlwytho copi pdf"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:505
+#: grc/templates/submit-and-pay/check-your-answers.html:497
 msgid "Now send your application"
 msgstr "Nawr anfonwch eich cais"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:515
+#: grc/templates/submit-and-pay/check-your-answers.html:507
 msgid ""
 "I certify that all information given in this application is correct and "
 "that I understand making a false application is an offence."
@@ -3969,11 +3916,11 @@ msgstr ""
 "Rwy’n ardystio bod yr holl wybodaeth a roddwyd yn y cais hwn yn gywir ac "
 "rwy’n deall bod gwneud cais ffug yn drosedd."
 
-#: grc/templates/submit-and-pay/check-your-answers.html:525
+#: grc/templates/submit-and-pay/check-your-answers.html:517
 msgid "Submit application"
 msgstr "Cyflwyno’r cais"
 
-#: grc/templates/submit-and-pay/check-your-answers.html:527
+#: grc/templates/submit-and-pay/check-your-answers.html:519
 msgid "Submit application and pay online"
 msgstr "Cyflwyno’r cais a thalu ar-lein"
 
@@ -4316,4 +4263,34 @@ msgid ""
 msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
+
+#~ msgid "Send an original or"
+#~ msgstr "Anfonwch gopi gwreiddiol"
+
+#~ msgid "certified copy (opens in a new tab)"
+#~ msgstr "neu ardystiedig (yn agor mewn tab newydd)"
+
+#~ msgid "of your full birth or adoption certificate"
+#~ msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
+
+#~ msgid "If your birth or adoption was registered in the UK, find out how to"
+#~ msgstr ""
+#~ "Os cafodd eich genedigaeth neu eich "
+#~ "mabwysiad ei chofrestru yn y DU, "
+#~ "dewch o"
+
+#~ msgid "order a certificate (opens in a new tab)"
+#~ msgstr "hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)"
+
+#~ msgid "if you do not have it available"
+#~ msgstr "os nad oes gennych un wrth law"
+
+#~ msgid "your original or a"
+#~ msgstr "copi gwreiddiol neu"
+
+#~ msgid "an"
+#~ msgstr " "
+
+#~ msgid "EX160 form (opens in a new tab)"
+#~ msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
 
