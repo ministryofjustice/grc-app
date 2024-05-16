@@ -1,4 +1,4 @@
-from psycopg2.errors import OperationalError
+from sqlalchemy.exc import SQLAlchemyError
 from unittest.mock import patch
 
 
@@ -47,7 +47,7 @@ class TestIsFirstVisit:
         with app.app_context():
             with client.session_transaction() as session:
                 session['validatedEmail'] = public_user_email
-            mock_data_store.create_new_application.side_effect = OperationalError
+            mock_data_store.create_new_application.side_effect = SQLAlchemyError
             response = client.post('/is-first-visit', data={'isFirstVisit': 'FIRST_VISIT'})
             assert response.status_code == 200
             assert 'There is a problem creating a new application' in response.text
