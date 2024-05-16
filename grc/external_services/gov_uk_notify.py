@@ -173,11 +173,9 @@ class GovUkNotify:
                 template_id=template_id,
                 personalisation=personalisation
             )
-            print(response)
             return response
 
         except HTTPError as error:
-            print(error)
             message = (f'Error sending email to user - {logger.mask_email_address(email_address)}: {error.status_code}'
                        f' - {error.message}')
             logger.log(LogLevel.ERROR, message=message)
