@@ -50,7 +50,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/is-first-visit')
     await asserts.accessibility()
-    await asserts.h1('Have you already started an application?')
+    await asserts.h1('Ydych chi eisoes wedi cychwyn gwneud cais?')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -59,7 +59,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('Have you already started an application?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Have you already started an application?')
+    await asserts.h1('Ydych chi eisoes wedi cychwyn gwneud cais?')
 
     # Choose the "No" (this is my first visit) option
     await helpers.check_radio(field='isFirstVisit', value='FIRST_VISIT')
@@ -188,10 +188,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Status of "Confirmation" section should be "COMPLETED"
     await asserts.task_list_sections(7)
-    await asserts.task_list_section(section='Cadarnhau', expected_status='COMPLETED')
+    await asserts.task_list_section(section='Cadarnhau', expected_status="WEDI'I GWBLHAU")
     await asserts.task_list_section(section='Eich manylion personol', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Manylion eich priodas neu bartneriaeth sifil', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='HEB DDECHRAU')
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Datganiadau statudol', expected_status='HEB DDECHRAU')
     await asserts.task_list_section(section='Cyflwyno a thalu', expected_status='METHU DECHRAU ETO')

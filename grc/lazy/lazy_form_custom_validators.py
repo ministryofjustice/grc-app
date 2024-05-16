@@ -2,7 +2,7 @@ import email_validator
 from .lazy_errors import LazyValidationError, LazyStopValidation
 from collections.abc import Iterable
 from flask_babel import LazyString
-from grc.utils.form_custom_validators import MultiFileAllowed
+from grc.utils.form_custom_validators import MultiFileAllowed, Integer
 from werkzeug.datastructures import FileStorage
 from wtforms.validators import DataRequired, ValidationError, StopValidation, Email
 
@@ -96,3 +96,39 @@ class LazyMultiFileAllowed(MultiFileAllowed):
                 raise StopValidation(self.message or field.gettext(
                     'File does not have an approved extension.'
                 ))
+
+
+class LazyInteger(Integer):
+    def __init__(self, min_=None, max_=None, lazy_message=None, message=None, validators=None):
+        super().__init__(message, validators)
+        self.min = min_
+        self.max = max_
+        self.message = message
+        self.validators = validators
+        self.lazy_message = lazy_message
+
+    def __call__(self, form, field):
+
+        string_value: str = field.data
+        message = self.lazy_message or self.message
+        try:
+            int_value = int(string_value)
+
+            if self.min and int_value < self.min:
+                raise ValidationError(
+                    message if message else f"{field} must be at least {self.min}"
+                )
+
+            if self.max and int_value > self.max:
+                raise ValidationError(
+                    message if message else f"{field} must be at most {self.max}"
+                )
+
+        except Exception as e:
+            raise ValidationError(
+                message if message else f"{field} must be a whole number"
+            )
+
+        if self.validators:
+            for validator in self.validators:
+                validator(form, field)

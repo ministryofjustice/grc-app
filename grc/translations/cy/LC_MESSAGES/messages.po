@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-22 15:42+0100\n"
+"POT-Creation-Date: 2024-05-14 15:51+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: grc/list_status.py:6
 msgid "COMPLETED"
-msgstr ""
+msgstr "WEDI'I GWBLHAU"
 
 #: grc/list_status.py:7
 msgid "IN PROGRESS"
@@ -37,11 +37,81 @@ msgstr "METHU DECHRAU ETO"
 
 #: grc/list_status.py:10
 msgid "IN REVIEW"
-msgstr ""
+msgstr "YN CAEL EI ADOLYGU"
 
 #: grc/list_status.py:11
 msgid "ERROR"
 msgstr ""
+
+#: grc/birth_registration/constants.py:8
+msgid ""
+"Enter your first name, as originally registered on your birth or adoption"
+" certificate"
+msgstr ""
+"Nodwch eich enw cyntaf, fel y’i cofrestrwyd yn wreiddiol ar eich "
+"tystysgrif geni neu dystysgrif mabwysiadu"
+
+#: grc/birth_registration/constants.py:9
+msgid ""
+"Enter your last name, as originally registered on your birth or adoption "
+"certificate"
+msgstr ""
+"Nodwch eich cyfenw, fel y’i cofrestrwyd yn wreiddiol ar eich tystysgrif "
+"geni neu dystysgrif mabwysiadu"
+
+#: grc/birth_registration/constants.py:10
+msgid "Select if your birth was registered in the UK"
+msgstr "Dewiswch os cafodd eich genedigaeth ei chofrestru yn y DU"
+
+#: grc/birth_registration/constants.py:11
+msgid "Enter your country of birth"
+msgstr "Nodwch eich gwlad enedigol"
+
+#: grc/birth_registration/constants.py:12
+msgid "Enter your town or city of birth"
+msgstr "Nodwch eich tref neu ddinas enedigol"
+
+#: grc/birth_registration/constants.py:13
+msgid "Enter your mother's first name"
+msgstr "Nodwch enw cyntaf eich mam"
+
+#: grc/birth_registration/constants.py:14
+msgid "Enter your mother's last name"
+msgstr "Nodwch gyfenw eich mam"
+
+#: grc/birth_registration/constants.py:15
+msgid "Enter your mother's maiden name"
+msgstr "Nodwch enw cyn priodi eich mam"
+
+#: grc/birth_registration/constants.py:16
+msgid "Select if your father's name is listed on the certificate"
+msgstr "Dewiswch os yw enw eich tad wedi’i nodi ar y dystysgrif"
+
+#: grc/birth_registration/constants.py:17
+msgid "Enter your father's first name"
+msgstr "Nodwch enw cyntaf eich tad"
+
+#: grc/birth_registration/constants.py:18
+msgid "Enter your father's last name"
+msgstr "Nodwch gyfenw eich tad"
+
+#: grc/birth_registration/constants.py:19
+msgid "Select if you were you adopted"
+msgstr "Dewiswch os cawsoch eich mabwysiadu"
+
+#: grc/birth_registration/constants.py:20
+msgid "Select if you were adopted in the United Kingdom"
+msgstr "Dewiswch os cawsoch eich mabwysiadu yn y Deyrnas Unedig"
+
+#: grc/birth_registration/constants.py:21
+msgid ""
+"Select if your birth was registered by a Forces registering service, or "
+"with a British Consul or High Commission, or under Merchant Shipping or "
+"Civil Aviation provisions"
+msgstr ""
+"Dewiswch os cafodd eich genedigaeth ei chofrestru gan wasanaeth "
+"cofrestru’r Lluoedd, neu gan Gonswl Prydeinig neu Uchel Gomisiwn, neu dan"
+" ddarpariaethau Llongau Masnach neu Hedfan Sifil"
 
 #: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
 msgid "Yes"
@@ -52,182 +122,186 @@ msgid "No"
 msgstr "Nac ydw"
 
 #: grc/business_logic/constants.py:7
+msgid "I don't know"
+msgstr "Dydw i ddim yn gwybod "
+
+#: grc/business_logic/constants.py:8
 msgid "Married"
 msgstr "Wedi priodi"
 
-#: grc/business_logic/constants.py:8
+#: grc/business_logic/constants.py:9
 msgid "Civil partnership"
 msgstr "Mewn partneriaeth sifil"
 
-#: grc/business_logic/constants.py:9
+#: grc/business_logic/constants.py:10
 msgid "Neither"
 msgstr "Ddim un ohonynt"
 
-#: grc/business_logic/constants.py:11
+#: grc/business_logic/constants.py:12
 msgid "Australia – not including the external territories"
 msgstr "Awstralia – heb gynnwys y tiriogaethau allanol"
 
-#: grc/business_logic/constants.py:12
+#: grc/business_logic/constants.py:13
 msgid "Austria"
 msgstr "Awstria"
 
-#: grc/business_logic/constants.py:13
+#: grc/business_logic/constants.py:14
 msgid "Belgium"
 msgstr "Gwlad Belg"
 
-#: grc/business_logic/constants.py:14
+#: grc/business_logic/constants.py:15
 msgid "Bulgaria"
 msgstr "Bwlgaria"
 
-#: grc/business_logic/constants.py:15
+#: grc/business_logic/constants.py:16
 msgid "Canada – not including Northwest Territories and Nunavut"
 msgstr "Canada - heb gynnwys Tiriogaethau'r Gogledd Orllewin a Nunavut"
 
-#: grc/business_logic/constants.py:16
+#: grc/business_logic/constants.py:17
 msgid "Croatia"
 msgstr "Croatia"
 
-#: grc/business_logic/constants.py:17
+#: grc/business_logic/constants.py:18
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: grc/business_logic/constants.py:18
+#: grc/business_logic/constants.py:19
 msgid "Czech Republic"
 msgstr "Gweriniaeth Tsiec"
 
-#: grc/business_logic/constants.py:19
+#: grc/business_logic/constants.py:20
 msgid "Denmark"
 msgstr "Denmarc"
 
-#: grc/business_logic/constants.py:20
+#: grc/business_logic/constants.py:21
 msgid "Estonia"
 msgstr "Estonia"
 
-#: grc/business_logic/constants.py:21
+#: grc/business_logic/constants.py:22
 msgid "Finland"
 msgstr "Ffindir"
 
-#: grc/business_logic/constants.py:22
+#: grc/business_logic/constants.py:23
 msgid "France"
 msgstr "Ffrainc"
 
-#: grc/business_logic/constants.py:23
+#: grc/business_logic/constants.py:24
 msgid "Germany"
 msgstr "Almaen"
 
-#: grc/business_logic/constants.py:24
+#: grc/business_logic/constants.py:25
 msgid "Greece"
 msgstr "Groeg"
 
-#: grc/business_logic/constants.py:25
+#: grc/business_logic/constants.py:26
 msgid "Iceland"
 msgstr "Gwlad yr Iâ"
 
-#: grc/business_logic/constants.py:26
+#: grc/business_logic/constants.py:27
 msgid "Italy"
 msgstr "Eidal"
 
-#: grc/business_logic/constants.py:27
+#: grc/business_logic/constants.py:28
 msgid "Japan"
 msgstr "Japan"
 
-#: grc/business_logic/constants.py:28
+#: grc/business_logic/constants.py:29
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: grc/business_logic/constants.py:29
+#: grc/business_logic/constants.py:30
 msgid "Luxembourg"
 msgstr "Lwcsembwrg"
 
-#: grc/business_logic/constants.py:30
+#: grc/business_logic/constants.py:31
 msgid "Malta"
 msgstr "Malta"
 
-#: grc/business_logic/constants.py:31
+#: grc/business_logic/constants.py:32
 msgid "Federal District of Mexico"
 msgstr "Ardal Ffederal Mecsico"
 
-#: grc/business_logic/constants.py:32
+#: grc/business_logic/constants.py:33
 msgid "Moldova"
 msgstr "Moldofa"
 
-#: grc/business_logic/constants.py:33
+#: grc/business_logic/constants.py:34
 msgid "Netherlands"
 msgstr "Iseldiroedd"
 
-#: grc/business_logic/constants.py:34
+#: grc/business_logic/constants.py:35
 msgid "New Zealand"
 msgstr "Seland Newydd"
 
-#: grc/business_logic/constants.py:35
+#: grc/business_logic/constants.py:36
 msgid "Norway"
 msgstr "Norwy"
 
-#: grc/business_logic/constants.py:36
+#: grc/business_logic/constants.py:37
 msgid "Poland"
 msgstr "Gwlad Pwyl"
 
-#: grc/business_logic/constants.py:37
+#: grc/business_logic/constants.py:38
 msgid "Romania"
 msgstr "Rwmania"
 
-#: grc/business_logic/constants.py:38
+#: grc/business_logic/constants.py:39
 msgid "Russian Federation"
 msgstr "Ffederasiwn Rwsia"
 
-#: grc/business_logic/constants.py:39
+#: grc/business_logic/constants.py:40
 msgid "Serbia"
 msgstr "Serbia"
 
-#: grc/business_logic/constants.py:40
+#: grc/business_logic/constants.py:41
 msgid "Singapore"
 msgstr "Singapôr"
 
-#: grc/business_logic/constants.py:41
+#: grc/business_logic/constants.py:42
 msgid "Slovakia"
 msgstr "Slofacia"
 
-#: grc/business_logic/constants.py:42
+#: grc/business_logic/constants.py:43
 msgid "Slovenia"
 msgstr "Slofenia"
 
-#: grc/business_logic/constants.py:43
+#: grc/business_logic/constants.py:44
 msgid "South Africa"
 msgstr "De Affrica"
 
-#: grc/business_logic/constants.py:44
+#: grc/business_logic/constants.py:45
 msgid "South Korea"
 msgstr "De Corea"
 
-#: grc/business_logic/constants.py:45
+#: grc/business_logic/constants.py:46
 msgid "Spain"
 msgstr "Sbaen"
 
-#: grc/business_logic/constants.py:46
+#: grc/business_logic/constants.py:47
 msgid "Sweden"
 msgstr "Sweden"
 
-#: grc/business_logic/constants.py:47
+#: grc/business_logic/constants.py:48
 msgid "Switzerland"
 msgstr "Swistir"
 
-#: grc/business_logic/constants.py:48
+#: grc/business_logic/constants.py:49
 msgid "Turkey"
 msgstr "Twrci"
 
-#: grc/business_logic/constants.py:49
+#: grc/business_logic/constants.py:50
 msgid "Ukraine"
 msgstr "Wcráin"
 
-#: grc/business_logic/constants.py:50
+#: grc/business_logic/constants.py:51
 msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
 msgstr "Unol Daleithiau America – heb gynnwys Idaho, Ohio, Tennessee a Texas"
 
-#: grc/business_logic/constants.py:51
+#: grc/business_logic/constants.py:52
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: grc/business_logic/constants.py:55
+#: grc/business_logic/constants.py:56
 msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
@@ -235,7 +309,7 @@ msgstr ""
 "Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod "
 "Rhywedd?"
 
-#: grc/business_logic/constants.py:56
+#: grc/business_logic/constants.py:57
 msgid ""
 "Do you plan to remain in your civil partnership after you receive your "
 "Gender Recognition Certificate?"
@@ -243,19 +317,21 @@ msgstr ""
 "Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich"
 " Tystysgrif Cydnabod Rhywedd?"
 
-#: grc/business_logic/constants.py:60
+#: grc/business_logic/constants.py:61
 msgid "We’ve resent you a security code. This can take a few minutes to arrive"
 msgstr ""
-
-#: grc/business_logic/constants.py:63
-msgid "Select if you have ever changed your name to reflect your gender"
-msgstr ""
+"Rydym wedi ail anfon cod diogelwch atoch. Gall gymryd ychydig o funudau i"
+" gyrraedd"
 
 #: grc/business_logic/constants.py:64
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr "Dewiswch os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
+
+#: grc/business_logic/constants.py:65
 msgid "Select if you are currently married or in a civil partnership"
 msgstr "Dewiswch os ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd"
 
-#: grc/business_logic/constants.py:65
+#: grc/business_logic/constants.py:66
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
@@ -263,7 +339,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil pan fu farw eich priod neu'ch partner"
 
-#: grc/business_logic/constants.py:67
+#: grc/business_logic/constants.py:68
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
@@ -271,7 +347,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil sydd wedi dod i ben"
 
-#: grc/business_logic/constants.py:69
+#: grc/business_logic/constants.py:70
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
@@ -279,7 +355,7 @@ msgstr ""
 "Dewiswch os ydych chi wedi cael cydnabyddiaeth rhywedd yn un o'r gwledydd"
 " neu'r tiriogaethau hyn"
 
-#: grc/business_logic/constants.py:71
+#: grc/business_logic/constants.py:72
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
@@ -287,45 +363,193 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif "
 "Cydnabod Rhywedd"
 
-#: grc/business_logic/constants.py:73
+#: grc/business_logic/constants.py:74
 msgid "Enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
-#: grc/business_logic/constants.py:74
+#: grc/business_logic/constants.py:75
 msgid "Enter a valid email address"
 msgstr "Nodwch gyfeiriad e-bost dilys"
 
-#: grc/business_logic/constants.py:75
+#: grc/business_logic/constants.py:76
 msgid "Enter a security code"
 msgstr "Nodwch god diogelwch"
 
-#: grc/business_logic/constants.py:76
+#: grc/business_logic/constants.py:77
 msgid "Enter the security code that we emailed you"
 msgstr "Nodwch y cod diogelwch y gwnaethom anfon atoch trwy e-bost"
 
-#: grc/business_logic/constants.py:77
+#: grc/business_logic/constants.py:78
 msgid "Select if you have already started an application"
 msgstr "Dewiswch a ydych eisoes wedi dechrau cais"
 
-#: grc/business_logic/constants.py:78
+#: grc/business_logic/constants.py:79
 msgid "Enter a reference number"
 msgstr "Nodwch gyfeirnod"
 
-#: grc/business_logic/constants.py:79
+#: grc/business_logic/constants.py:80
 msgid "Enter a valid reference number"
 msgstr "Nodwch gyfeirnod dilys"
 
-#: grc/business_logic/constants.py:80
+#: grc/business_logic/constants.py:81
 msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr "Dewiswch a roddwyd Tystysgrif Cydnabod Rhywedd ichi erioed"
 
-#: grc/business_logic/constants.py:81
+#: grc/business_logic/constants.py:82
 msgid "You must consent to the General Register Office contacting you"
 msgstr "Rhaid i chi roi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu â chi"
 
-#: grc/business_logic/constants.py:82
+#: grc/business_logic/constants.py:83
 msgid "Select if you have official documentation"
 msgstr "Dewiswch a oes gennych ddogfennaeth swyddogol"
+
+#: grc/business_logic/constants.py:84 grc/business_logic/constants.py:96
+msgid "Enter a day"
+msgstr "Nodwch ddiwrnod"
+
+#: grc/business_logic/constants.py:85 grc/business_logic/constants.py:97
+msgid "Enter a day as a number between 1 and 31"
+msgstr "Nodwch ddiwrnod fel rhif rhwng 1 ac 31"
+
+#: grc/business_logic/constants.py:86
+msgid "Enter a month"
+msgstr "Nodwch fis"
+
+#: grc/business_logic/constants.py:87
+msgid "Enter a month as a number between 1 and 12"
+msgstr "Nodwch fis fel rhif rhwng 1 a 12"
+
+#: grc/business_logic/constants.py:88
+msgid "Enter a year"
+msgstr "Nodwch flwyddyn"
+
+#: grc/business_logic/constants.py:89
+msgid "Enter a valid year"
+msgstr "Nodwch flwyddyn ddilys"
+
+#: grc/business_logic/constants.py:90
+msgid "Enter a valid date"
+msgstr "Nodwch ddyddiad dilys"
+
+#: grc/business_logic/constants.py:91
+msgid "Enter a year as a 4-digit number, like 2000"
+msgstr "Nodwch flwyddyn fel rhif 4 digid, fel 2000"
+
+#: grc/business_logic/constants.py:92
+msgid "Enter a date within the last 100 years"
+msgstr "Nodwch ddyddiad o fewn y 100 diwethaf"
+
+#: grc/business_logic/constants.py:93
+msgid "Enter a date in the past"
+msgstr "Nodwch ddyddiad yn y gorffennol"
+
+#: grc/business_logic/constants.py:94
+msgid "Enter a date in the future"
+msgstr "Nodwch ddyddiad yn y dyfodol"
+
+#: grc/business_logic/constants.py:95
+msgid "Enter a date at least 2 years before your application"
+msgstr "Nodwch ddyddiad o leiaf 2 o flynyddoedd cyn eich cais"
+
+#: grc/business_logic/constants.py:98
+msgid "Enter a date that does not precede your transition date"
+msgstr "Nodwch ddyddiad nad yw cyn dyddiad eich trawsnewidiad"
+
+#: grc/business_logic/constants.py:99
+msgid "'From' date is in the past"
+msgstr "'Mae'r 'o ddyddiad' yn y gorffennol"
+
+#: grc/business_logic/constants.py:100
+msgid "'To' date is in the past"
+msgstr "'Mae'r 'dyddiad diwedd' yn y gorffennol'"
+
+#: grc/business_logic/constants.py:101
+msgid "'From' date is after the 'To' date"
+msgstr "'Mae'r 'o ddyddiad' yw ar ôl mae'r 'dyddiad diwedd"
+
+#: grc/business_logic/constants.py:102
+msgid "Enter your address"
+msgstr "Nodwch eich cyfeiriad"
+
+#: grc/business_logic/constants.py:103
+msgid "Enter your town or city"
+msgstr "Nodwch eich tref neu ddinas"
+
+#: grc/business_logic/constants.py:104
+msgid "Enter a valid address line one"
+msgstr "Nodwch gyfeiriad llinell un dilys"
+
+#: grc/business_logic/constants.py:105
+msgid "Enter a valid address line two"
+msgstr "Nodwch gyfeiriad llinell dau dilys"
+
+#: grc/business_logic/constants.py:106
+msgid "Enter a valid town"
+msgstr "Nodwch dref ddilys"
+
+#: grc/business_logic/constants.py:107
+msgid "Enter your postcode"
+msgstr "Nodwch eich cod post"
+
+#: grc/business_logic/constants.py:108
+msgid "Enter a valid postcode"
+msgstr "Nodwch god post dilys"
+
+#: grc/business_logic/constants.py:109
+msgid "Enter your phone number"
+msgstr "Nodwch eich rhif ffôn"
+
+#: grc/business_logic/constants.py:110
+msgid "Enter a valid phone number"
+msgstr "Nodwch rif ffôn dilys"
+
+#: grc/business_logic/constants.py:111
+msgid "Enter your National Insurance number"
+msgstr "Nodwch eich rhif Yswiriant Gwladol"
+
+#: grc/business_logic/constants.py:112
+msgid "Enter a valid National Insurance number"
+msgstr "Nodwch rif Yswiriant Gwladol dilys"
+
+#: grc/business_logic/constants.py:113
+msgid "You need to be at least 18 years old to apply"
+msgstr "Mae angen i chi fod yn 18 oed o leiaf i wneud cais"
+
+#: grc/business_logic/constants.py:114
+msgid "You need to be less than 110 years old to apply"
+msgstr "Mae angen i chi fod yn iau na 110 oed i wneud cais"
+
+#: grc/business_logic/constants.py:115
+msgid ""
+"Your date of birth must be before your transition date and statutory "
+"declaration date"
+msgstr ""
+"Rhaid i’ch dyddiad geni fod cyn dyddiad eich trawsnewidiad a dyddiad eich"
+" datganiad statudol"
+
+#: grc/business_logic/constants.py:117
+msgid ""
+"The selected file is empty. Check that the file you are uploading has the"
+" content you expect"
+msgstr ""
+"Mae’r ffeil a ddewiswyd yn wag. Gwiriwch fod gan y ffeil rydych chi’n ei "
+"huwchlwytho y cynnwys rydych chi’n ei ddisgwyl"
+
+#: grc/business_logic/constants.py:118
+msgid "The selected file must be smaller than 10MB"
+msgstr "Rhaid i’r ffeil a ddewiswyd gennych fod yn llai na 10MB"
+
+#: grc/business_logic/constants.py:119
+msgid "Unable to communicate with virus scanner"
+msgstr "Methu cyfathrebu â sganiwr feirws"
+
+#: grc/business_logic/constants.py:120
+msgid "The selected file contains a virus"
+msgstr "Mae’r ffeil a ddewiswyd yn cynnwys feirws"
+
+#: grc/business_logic/constants.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
 
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
@@ -424,8 +648,8 @@ msgid "Invalid email address."
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:87
-#: grc/utils/form_custom_validators.py:434
-#: grc/utils/form_custom_validators.py:453
+#: grc/utils/form_custom_validators.py:440
+#: grc/utils/form_custom_validators.py:459
 msgid "File does not have an approved extension: {extensions}"
 msgstr ""
 
@@ -433,29 +657,295 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
-#: grc/personal_details/constants.py:5
+#: grc/partnership_details/constants.py:6
+#: grc/partnership_details/constants.py:18
+msgid "If you are in a same-sex civil partnership and want "
+msgstr "Os ydych mewn partneriaeth sifil o’r un rhyw ac rydych eisiau "
+
+#: grc/partnership_details/constants.py:7
+#: grc/partnership_details/constants.py:19
+msgid "convert your civil partnership to a marriage (opens in a new tab)"
+msgstr "newid eich partneriaeth sifil yn briodas (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:8
+#: grc/partnership_details/constants.py:20
+msgid ", you must do that before you apply for a Gender Recognition Certificate."
+msgstr ""
+", mae’n rhaid i chi wneud hynny cyn i chi wneud cais am Dystysgrif "
+"Cydnabod Rhywedd."
+
+#: grc/partnership_details/constants.py:10
+msgid ""
+"If you intend to remain in a civil partnership, your civil partner needs "
+"to fill in a "
+msgstr ""
+"Os ydych yn bwriadu aros mewn partneriaeth sifil, mae angen i’ch partner "
+"sifil lenwi "
+
+#: grc/partnership_details/constants.py:12
+msgid "If you intend to remain married, your spouse needs to fill in a "
+msgstr "Os ydych yn bwriadu parhau i fod yn briod, bydd angen i’ch priod lenwi "
+
+#: grc/partnership_details/constants.py:13
+msgid "statutory declaration for civil partners (opens in a new tab)"
+msgstr "datganiad statudol ar gyfer partneriaid sifil (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:14
+msgid "statutory declaration for spouses (opens in a new tab)"
+msgstr "datganiad statudol ar gyfer priod (yn agor mewn tab newydd)"
+
+#: grc/partnership_details/constants.py:15
+msgid ", and sign it in front of someone authorised to administer oaths."
+msgstr ""
+", a’i lofnodi ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu "
+"llwon."
+
+#: grc/partnership_details/constants.py:16
+msgid "Can you provide a statutory declaration from your civil partner?"
+msgstr "Allwch chi ddarparu datganiad statudol gan eich partner sifil?"
+
+#: grc/partnership_details/constants.py:17
+msgid "Can you provide a statutory declaration from your spouse?"
+msgstr "Allwch chi ddarparu datganiad statudol gan eich priod?"
+
+#: grc/partnership_details/constants.py:22
+msgid "Your civil partner's details"
+msgstr "Manylion eich partner sifil"
+
+#: grc/partnership_details/constants.py:23
+msgid "Your spouse's details"
+msgstr "Manylion eich priod"
+
+#: grc/partnership_details/constants.py:24
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying in a civil partnership."
+msgstr ""
+"Byddwn yn cysylltu â nhw i ddweud wrthynt beth allant wneud os byddant yn"
+" newid eu meddwl am aros mewn partneriaeth sifil."
+
+#: grc/partnership_details/constants.py:26
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying married."
+msgstr ""
+"Byddwn yn cysylltu â nhw i ddweud wrthynt beth allant wneud os byddant yn"
+" newid eu meddwl am aros yn briod."
+
+#: grc/partnership_details/constants.py:28
+msgid ""
+" We will also let them know how their pensions and benefits may be "
+"affected if you receive a Gender Recognition Certificate."
+msgstr ""
+" Byddwn hefyd yn rhoi gwybod iddynt sut y gall hyn effeithio ar eu "
+"pensiynau a’u budd-daliadau os byddwch yn cael Tystysgrif Cydnabod "
+"Rhywedd."
+
+#: grc/partnership_details/constants.py:31
+msgid "Remain married"
+msgstr "Aros yn briod"
+
+#: grc/partnership_details/constants.py:32
+msgid "Remain in your civil partnership"
+msgstr "Aros yn eich partneriaeth sifil"
+
+#: grc/partnership_details/constants.py:33
+msgid "Spouse's name"
+msgstr "Enw’ch priod"
+
+#: grc/partnership_details/constants.py:34
+msgid "Civil partner's name"
+msgstr "Enw’ch partner sifil"
+
+#: grc/partnership_details/constants.py:35
+msgid "Spouse's postal address"
+msgstr "Cyfeiriad eich priod ar gyfer postio"
+
+#: grc/partnership_details/constants.py:36
+msgid "Civil partner's postal address"
+msgstr "Cyfeiriad eich partner sifil ar gyfer postio"
+
+#: grc/partnership_details/constants.py:37
+msgid "Can provide a declaration of consent from your spouse"
+msgstr "Gallu darparu datganiad o gydsyniad gan eich priod"
+
+#: grc/partnership_details/constants.py:38
+msgid "Can provide a declaration of consent from your civil partner"
+msgstr "Gallu darparu datganiad o gydsyniad gan eich partner sifil"
+
+#: grc/partnership_details/constants.py:40
+msgid ""
+"When you apply for a certificate, your civil partner needs to sign a "
+"document if you want to stay in a civil partnership."
+msgstr ""
+"Pan fyddwch yn gwneud cais am dystysgrif, mae angen i'ch partner sifil "
+"lofnodi dogfen os ydych yn bwriadu aros mewn partneriaeth sifil."
+
+#: grc/partnership_details/constants.py:42
+msgid ""
+"If they do not sign the document, or you’re ending the civil partnership,"
+" you will get an ‘interim’ certificate if you continue with your "
+"application."
+msgstr ""
+"Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch "
+"partneriaeth sifil i ben, byddwch yn cael tystysgrif ‘interim’ os byddwch"
+" yn parhau â’ch cais."
+
+#: grc/partnership_details/constants.py:44
+msgid "You can only use the interim certificate to end your civil partnership."
+msgstr ""
+"Gallwch ond defnyddio’r dystysgrif interim i ddod â’ch partneriaeth sifil"
+" i ben."
+
+#: grc/partnership_details/constants.py:45
+msgid ""
+"You will get a full certificate once you’re no longer in a civil "
+"partnership."
+msgstr ""
+"Byddwch yn cael tystysgrif lawn pan na fyddwch yn partneriaeth sifil "
+"mwyach."
+
+#: grc/partnership_details/constants.py:46
+msgid ""
+"When you apply for a certificate, your spouse needs tosign a document if "
+"you want to stay married."
+msgstr ""
+"Pan fyddwch yn gwneud cais am dystysgrif, mae angen i’ch priod lofnodi "
+"dogfen os ydych eisiau aros yn briod."
+
+#: grc/partnership_details/constants.py:48
+msgid ""
+"If they do not sign the document, or you’re ending the marriage, you will"
+" get an ‘interim’ certificate if you continue with your application."
+msgstr ""
+"Os na fyddant yn llofnodi’r ddogfen, neu os ydych yn dod â’ch priodas i "
+"ben, byddwch yn cael tystysgrif ‘interim’ os byddwch yn parhau â’ch cais."
+
+#: grc/partnership_details/constants.py:50
+msgid "You can only use the interim certificate to end your marriage."
+msgstr "Gallwch ond defnyddio’r dystysgrif interim i ddod â’ch priodas i ben."
+
+#: grc/partnership_details/constants.py:51
+msgid "You will get a full certificate once you’re no longer married."
+msgstr "Byddwch yn cael tystysgrif lawn pan na fyddwch yn briod mwyach."
+
+#: grc/partnership_details/constants.py:52
+msgid ""
+"You have 6 months to apply for an annulment, divorce or dissolution from "
+"when you get your interim certificate."
+msgstr ""
+"Mae gennych 6 mis i wneud cais am ddirymiad, ysgariad neu ddiddymiad o’r "
+"adeg pan fyddwch yn cael eich tystysgrif interim."
+
+#: grc/partnership_details/constants.py:56
+msgid ""
+"Select if you plan to remain married or in your civil partnership after "
+"receiving your Gender Recognition Certificate"
+msgstr ""
+"Dewiswch os ydych chi’n bwriadu aros yn briod neu mewn partneriaeth sifil"
+" ar ôl cael eich Tystysgrif Cydnabod Rhywedd"
+
+#: grc/partnership_details/constants.py:58
+msgid ""
+"Select if you can provide a declaration of consent from your spouse or "
+"civil partner"
+msgstr ""
+"Dewiswch os ydych chi'n gallu darparu datganiad o gydsyniad gan eich "
+"priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:59
+msgid "Enter your spouse or civil partner's title"
+msgstr "Nodwch deitl eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:60
+msgid "Enter your spouse or civil partner's first name"
+msgstr "Nodwch enw cyntaf eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:61
+msgid "Enter your spouse or civil partner's last name"
+msgstr "Nodwch gyfenw eich priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:62
+msgid "Enter your spouse or civil partner's postal address"
+msgstr "Nodwch gyfeiriad post eich  priod neu bartner sifil"
+
+#: grc/partnership_details/constants.py:64
+msgid ""
+"Select if you were previously married or in a civil partnership, and your"
+" spouse or partner died"
+msgstr ""
+"Dewiswch os ydych chi wedi bod yn briod neu mewn partneriaeth sifil yn y "
+"gorffennol, a bu farw eich priod neu'ch partner"
+
+#: grc/personal_details/constants.py:6
 msgid "Male"
 msgstr "Gwryw"
 
-#: grc/personal_details/constants.py:6
+#: grc/personal_details/constants.py:7
 msgid "Female"
 msgstr "Benyw"
 
+#: grc/personal_details/constants.py:8
+msgid "A single date"
+msgstr "Dyddiad unigol"
+
 #: grc/personal_details/constants.py:9
+msgid "A range of dates"
+msgstr "Ystod o ddyddiadau"
+
+#: grc/personal_details/constants.py:10
+msgid "No dates"
+msgstr "Dim dyddiadau"
+
+#: grc/personal_details/constants.py:11
+#: grc/templates/personal-details/check-your-answers.html:83
+msgid "Email"
+msgstr "E-bost"
+
+#: grc/personal_details/constants.py:12
+msgid "Phone call"
+msgstr "Galwad ffôn"
+
+#: grc/personal_details/constants.py:13
+#: grc/templates/personal-details/check-your-answers.html:93
+msgid "Post"
+msgstr "Post"
+
+#: grc/personal_details/constants.py:16
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/personal_details/constants.py:10
+#: grc/personal_details/constants.py:17
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/personal_details/constants.py:11
+#: grc/personal_details/constants.py:18
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/personal_details/constants.py:12
+#: grc/personal_details/constants.py:19
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
+
+#: grc/personal_details/constants.py:20
+msgid ""
+"Select if you don't want us to contact you at any point in the next 6 "
+"months"
+msgstr ""
+"Dewiswch os nad ydych chi am i ni gysylltu â chi ar unrhyw adeg yn ystod "
+"y 6 mis nesaf"
+
+#: grc/personal_details/constants.py:21
+msgid "Select how would you like to be contacted"
+msgstr "Dewiswch sut hoffech chi inni gysylltu â chi"
+
+#: grc/personal_details/constants.py:22
+msgid ""
+"Select if you would like us to tell HMRC after you receive a Gender "
+"Recognition Certificate"
+msgstr ""
+"Dewiswch os hoffech chi i ni ddweud wrth HMRC ar ôl i chi gael eich "
+"Tystysgrif Cydnabod Rhywedd"
 
 #: grc/start_application/constants.py:6
 msgid "Yes, and I have my reference number"
@@ -465,9 +955,55 @@ msgstr "Do, ac mae gennyf fy nghyfeirnod"
 msgid "Yes, but I have lost my reference number"
 msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
 
+#: grc/submit_and_pay/constants.py:6
+msgid "No, I will pay now"
+msgstr "Nac ydw, mi wnaf dalu’r ffi nawr"
+
+#: grc/submit_and_pay/constants.py:7
+msgid "Using the online service"
+msgstr "Defnyddio’r gwasanaeth ar-lein"
+
+#: grc/submit_and_pay/constants.py:8
+msgid "Using the EX160 form"
+msgstr "Defnyddio’r ffurflen EX160"
+
+#: grc/submit_and_pay/constants.py:11
+msgid "Select if you are applying for help paying the fee"
+msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
+
+#: grc/submit_and_pay/constants.py:12
+msgid "Select how are you applying for help paying the fee"
+msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
+
+#: grc/submit_and_pay/constants.py:13
+msgid "Enter your Help with Fees reference number"
+msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
+
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
 msgstr "Gwneud cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/base.html:105 grc/templates/policies/cookies.html:12
+msgid "Success"
+msgstr "Llwydd"
+
+#: grc/templates/base.html:110
+msgid "Email resent"
+msgstr "E-bost wedi'i ail anfon"
+
+#: grc/templates/base.html:157 grc/templates/policies/privacy-policy.html:10
+msgid "Privacy policy"
+msgstr "Polisi Preifatrwydd"
+
+#: grc/templates/base.html:162
+#: grc/templates/policies/accessibility-statement.html:3
+msgid "Accessibility statement"
+msgstr "Datganiad hygyrchedd"
+
+#: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
+#: grc/templates/policies/cookies.html:20
+msgid "Cookies"
+msgstr "Cwyis"
 
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
@@ -521,7 +1057,8 @@ msgstr ""
 msgid "Your application is saved automatically as you progress"
 msgstr "Bydd eich cais yn cael ei gadw’n awtomatig wrth i chi ei gwblhau"
 
-#: grc/templates/task-list.html:42
+#: grc/templates/submit-and-pay/help-type.html:24
+#: grc/templates/submit-and-pay/method.html:27 grc/templates/task-list.html:42
 msgid "You can"
 msgstr "Gallwch"
 
@@ -562,6 +1099,8 @@ msgstr "Cadarnhau"
 msgid "Fill in your details"
 msgstr "Rhoi eich manylion"
 
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:22
 #: grc/templates/task-list.html:82
 msgid "Your personal details"
 msgstr "Eich manylion personol"
@@ -570,6 +1109,8 @@ msgstr "Eich manylion personol"
 msgid "Your birth registration information"
 msgstr "Gwybodaeth am gofrestru eich genedigaeth"
 
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:21
 #: grc/templates/task-list.html:98
 msgid "Marriage or civil partnership details"
 msgstr "Manylion eich priodas neu bartneriaeth sifil"
@@ -592,11 +1133,11 @@ msgstr "Dogfennau newid enw"
 
 #: grc/templates/task-list.html:141
 msgid "Marriage and civil partnership documents"
-msgstr ""
+msgstr "Dogfennau priodas a phartneriaeth sifil"
 
 #: grc/templates/task-list.html:149
 msgid "Overseas certificate documents"
-msgstr ""
+msgstr "Dogfennau Tystysgrif o Dramor"
 
 #: grc/templates/task-list.html:156
 msgid "Statutory declarations"
@@ -624,8 +1165,266 @@ msgstr "Dychwelyd i’ch cais"
 msgid "Exit and return later"
 msgstr "Gadael a dychwelyd yn hwyrach ymlaen"
 
+#: grc/templates/birth-registration/adopted-uk.html:7
+#: grc/templates/birth-registration/adopted-uk.html:25
+msgid "Were you adopted in the United Kingdom?"
+msgstr "A gawsoch chi eich mabwysiadu yn y Deyrnas Unedig?"
+
+#: grc/templates/birth-registration/adopted-uk.html:29
+#: grc/templates/birth-registration/adopted.html:29
+msgid "This information will help us find your original birth record."
+msgstr ""
+"Bydd yr wybodaeth hon yn ein helpu i ddod o hyd i’ch cofnod geni "
+"gwreiddiol."
+
+#: grc/templates/birth-registration/adopted-uk.html:32
+#: grc/templates/document-checker/currently_in_a_partnership.html:32
+#: grc/templates/partnership-details/current-check.html:40
+msgid "or"
+msgstr "neu"
+
+#: grc/templates/birth-registration/adopted.html:7
+#: grc/templates/birth-registration/adopted.html:25
+msgid "Were you adopted?"
+msgstr "A gawsoch chi eich mabwysiadu? "
+
+#: grc/templates/birth-registration/check-your-answers.html:10
+msgid "Check your answers: Birth registration details"
+msgstr "Gwiriwch eich atebion: Manylion Cofrestru Genedigaeth"
+
+#: grc/templates/birth-registration/check-your-answers.html:20
+#: grc/templates/partnership-details/check-your-answers.html:10
+#: grc/templates/partnership-details/check-your-answers.html:20
+#: grc/templates/personal-details/check-your-answers.html:10
+#: grc/templates/personal-details/check-your-answers.html:21
+msgid "Check your answers:"
+msgstr "Gwiriwch eich atebion:"
+
+#: grc/templates/birth-registration/check-your-answers.html:20
+msgid "Birth registration details"
+msgstr "Manylion Cofrestru Genedigaeth"
+
+#: grc/templates/birth-registration/check-your-answers.html:25
+msgid "Birth name"
+msgstr "Enw adeg geni"
+
+#: grc/templates/birth-registration/check-your-answers.html:32
+msgid "Date of birth"
+msgstr "Dyddiad geni"
+
+#: grc/templates/birth-registration/check-your-answers.html:39
+msgid "Birth registered in UK"
+msgstr "Genedigaeth a gofrestrwyd yn y DU"
+
+#: grc/templates/birth-registration/check-your-answers.html:47
+msgid "Town or city of birth"
+msgstr "Tref neu ddinas geni"
+
+#: grc/templates/birth-registration/check-your-answers.html:59
+msgid "Mother's name"
+msgstr "Enw’r fam"
+
+#: grc/templates/birth-registration/check-your-answers.html:66
+msgid "Father's name listed"
+msgstr "Enw’r tad a restrwyd"
+
+#: grc/templates/birth-registration/check-your-answers.html:74
+msgid "Father's name"
+msgstr "Enw’r tad"
+
+#: grc/templates/birth-registration/check-your-answers.html:82
+msgid "Adopted"
+msgstr "Mabwysiadwyd"
+
+#: grc/templates/birth-registration/check-your-answers.html:90
+msgid "Adopted in UK"
+msgstr "Mabwysiadwyd yn y DU"
+
+#: grc/templates/birth-registration/check-your-answers.html:98
+msgid ""
+"Forces registering service, British Consul or High Commission, or under\n"
+"                               Merchant Shipping or Civil Aviation "
+"provisions"
+msgstr ""
+"Gwasanaeth cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu "
+"dan ddarpariaethau Llongau Masnach neu Hedfan Sifil"
+
+#: grc/templates/birth-registration/check-your-answers.html:108
+msgid "Registered birth country"
+msgstr "Gwlad enedigol gofrestredig"
+
+#: grc/templates/birth-registration/country.html:7
+#: grc/templates/birth-registration/country.html:27
+msgid "What country was your birth registered in?"
+msgstr "Ym mha wlad cafodd eich genedigaeth ei chofrestru?"
+
+#: grc/templates/birth-registration/dob.html:7
+msgid "What is your date of birth?"
+msgstr "Beth yw eich dyddiad geni?"
+
+#: grc/templates/birth-registration/dob.html:27
+msgid "What is the date of birth on your birth or adoption certificate?"
+msgstr "Beth yw’r dyddiad geni ar eich tystysgrif geni neu dystysgrif mabwysiadu?"
+
+#: grc/templates/birth-registration/dob.html:32
+msgid "Enter the year in full - for example, 1987"
+msgstr "Rhowch y flwyddyn yn llawn, er enghraifft 1987"
+
+#: grc/templates/birth-registration/dob.html:53
+#: grc/templates/govuk-design-system-templates/date-range.html:41
+#: grc/templates/govuk-design-system-templates/date-range.html:88
+#: grc/templates/govuk-design-system-templates/date-range.html:146
+#: grc/templates/govuk-design-system-templates/date-range.html:191
+#: grc/templates/govuk-design-system-templates/date.html:32
+#: grc/templates/personal-details/statutory-declaration-date.html:53
+msgid "Day"
+msgstr "Diwrnod"
+
+#: grc/templates/birth-registration/dob.html:66
+#: grc/templates/govuk-design-system-templates/date-range.html:54
+#: grc/templates/govuk-design-system-templates/date-range.html:101
+#: grc/templates/govuk-design-system-templates/date-range.html:158
+#: grc/templates/govuk-design-system-templates/date-range.html:203
+#: grc/templates/govuk-design-system-templates/date.html:45
+#: grc/templates/personal-details/statutory-declaration-date.html:66
+#: grc/templates/personal-details/transition-date.html:56
+msgid "Month"
+msgstr "Mis"
+
+#: grc/templates/birth-registration/dob.html:79
+#: grc/templates/govuk-design-system-templates/date-range.html:67
+#: grc/templates/govuk-design-system-templates/date-range.html:114
+#: grc/templates/govuk-design-system-templates/date-range.html:170
+#: grc/templates/govuk-design-system-templates/date-range.html:215
+#: grc/templates/govuk-design-system-templates/date.html:58
+#: grc/templates/personal-details/statutory-declaration-date.html:79
+#: grc/templates/personal-details/transition-date.html:69
+msgid "Year"
+msgstr "Blwyddyn"
+
+#: grc/templates/birth-registration/fathers-name-check.html:7
+#: grc/templates/birth-registration/fathers-name-check.html:25
+msgid "Is your father's name listed on the certificate?"
+msgstr "A yw enw eich tad wedi'i nodi ar y dystysgrif?"
+
+#: grc/templates/birth-registration/fathers-name.html:7
+msgid "What is your father's name?"
+msgstr "Beth yw enw eich tad?"
+
+#: grc/templates/birth-registration/fathers-name.html:26
+msgid ""
+"What is your father's name as listed on your birth or adoption "
+"certificate?"
+msgstr ""
+"Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif "
+"mabwysiadu?"
+
+#: grc/templates/birth-registration/fathers-name.html:34
+#: grc/templates/birth-registration/mothers-name.html:34
+#: grc/templates/birth-registration/name.html:34
+#: grc/templates/partnership-details/partner-details.html:49
+#: grc/templates/personal-details/name.html:59
+msgid "First name"
+msgstr "Enw cyntaf"
+
+#: grc/templates/birth-registration/fathers-name.html:44
+#: grc/templates/birth-registration/mothers-name.html:44
+#: grc/templates/birth-registration/name.html:54
+#: grc/templates/partnership-details/partner-details.html:59
+#: grc/templates/personal-details/name.html:79
+msgid "Last name"
+msgstr "Cyfenw"
+
+#: grc/templates/birth-registration/forces.html:7
+msgid "Was your birth registered by a Forces registering service?"
+msgstr ""
+"A oedd eich genedigaeth wedi’i chofrestru gan wasanaeth cofrestru y "
+"Lluoedd?"
+
+#: grc/templates/birth-registration/forces.html:25
+msgid ""
+"Was your birth registered by a Forces registering service, or with a "
+"British Consul or\n"
+"                              High Commission, or under Merchant Shipping"
+" or Civil Aviation provisions?"
+msgstr ""
+"A oedd eich genedigaeth wedi’i chofrestru gan wasanaeth cofrestru y "
+"Lluoedd, neu gyda Chonswl Prydeinig neu Uwch Gomisiwn, neu dan "
+"ddarpariaethau Llongau Masnach neu Hedfan Sifil?"
+
+#: grc/templates/birth-registration/forces.html:30
+msgid "This information will help us locate your original birth record."
+msgstr ""
+"Bydd yr wybodaeth hon yn ein helpu i ddod o hyd i’ch cofnod geni "
+"gwreiddiol."
+
+#: grc/templates/birth-registration/mothers-name.html:7
+msgid "What is your mother’s name?"
+msgstr "Beth yw enw eich mam?"
+
+#: grc/templates/birth-registration/mothers-name.html:26
+msgid ""
+"What is your mother’s name as listed on your birth or adoption "
+"certificate?"
+msgstr ""
+"Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif "
+"mabwysiadu?"
+
+#: grc/templates/birth-registration/mothers-name.html:54
+msgid "Maiden name (her surname at birth - include even if same as last name)"
+msgstr ""
+"Enw cyn priodi (ei chyfenw pan gafodd ei geni - dylech ei roi hyd yn oed "
+"os yw’r un fath â’r enw olaf)"
+
+#: grc/templates/birth-registration/name.html:7
+#: grc/templates/birth-registration/name.html:26
+msgid "What name was originally registered on your birth or adoption certificate?"
+msgstr ""
+"Pa enw oedd wedi’i gofrestru’n wreiddiol ar eich tystysgrif geni neu’ch "
+"tystysgrif mabwysiadu?"
+
+#: grc/templates/birth-registration/name.html:44
+#: grc/templates/personal-details/name.html:69
+msgid "Middle names (only required if you have middle names)"
+msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
+
+#: grc/templates/birth-registration/name.html:55
+msgid ""
+"If there is no last name on the certificate, use the last name of a "
+"parent or adoptive parent."
+msgstr ""
+"Os nad oes yna enw olaf ar y dystysgrif, defnyddiwch enw olaf rhiant neu "
+"riant mabwysiadol."
+
+#: grc/templates/birth-registration/place-of-birth.html:5
+#: grc/templates/birth-registration/place-of-birth.html:28
+msgid "What is the town or city of birth on your birth or adoption certificate?"
+msgstr ""
+"Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu "
+"dystysgrif mabwysiadu? "
+
+#: grc/templates/birth-registration/uk-check.html:5
+#: grc/templates/birth-registration/uk-check.html:26
+msgid "Was your birth registered in the UK?"
+msgstr "A gafodd eich genedigaeth ei chofrestru yn y DU?"
+
+#: grc/templates/birth-registration/uk-check.html:30
+msgid ""
+"Select yes if you have a UK birth or adoption certificate or your birth\n"
+"                                           was registered by the Forces "
+"registering service, a British Consul or\n"
+"                                           High Commission, or under "
+"Merchant Shipping or Civil Aviation provisions."
+msgstr ""
+"Dewiswch ‘Oes’ os oes gennych dystysgrif geni neu dystysgrif mabwysiadu y"
+" DU neu os cafodd eich genedigaeth ei chofrestru gan wasanaeth "
+"cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu dan "
+"ddarpariaethau Llongau Masnach neu Hedfan Sifil."
+
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
+#: grc/templates/partnership-details/current-check.html:7
+#: grc/templates/partnership-details/current-check.html:33
 msgid "Are you currently married or in a civil partnership?"
 msgstr "Ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd?"
 
@@ -636,10 +1435,6 @@ msgid ""
 msgstr ""
 "Dewiswch eich statws cyfreithiol cyfredol, hyd yn oed os ydych yn bwriadu"
 " dod â'ch priodas neu bartneriaeth sifil i ben."
-
-#: grc/templates/document-checker/currently_in_a_partnership.html:32
-msgid "or"
-msgstr "neu"
 
 #: grc/templates/document-checker/doc-checker-base.html:80
 msgid "Check documents needed to apply for a Gender Recognition Certificate"
@@ -712,10 +1507,13 @@ msgstr ""
 
 #: grc/templates/document-checker/previous-names-check.html:7
 #: grc/templates/document-checker/previous-names-check.html:45
+#: grc/templates/personal-details/previous-names-check.html:44
 msgid "Have you ever changed your name to reflect your gender?"
 msgstr "Ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd?"
 
 #: grc/templates/document-checker/previous-names-check.html:20
+#: grc/templates/personal-details/previous-names-check.html:7
+#: grc/templates/personal-details/previous-names-check.html:20
 msgid "If you have ever changed your name to reflect your gender"
 msgstr "Os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
 
@@ -724,6 +1522,7 @@ msgid "You will need to send us documents that show this"
 msgstr "Bydd angen i chi anfon dogfennau atom sy'n dangos hynny"
 
 #: grc/templates/document-checker/previous-names-check.html:25
+#: grc/templates/personal-details/previous-names-check.html:24
 msgid ""
 "If you have changed your name more than once, we will need to see "
 "documents for each instance"
@@ -732,6 +1531,7 @@ msgstr ""
 "dogfennau ar gyfer pob achos"
 
 #: grc/templates/document-checker/previous-names-check.html:28
+#: grc/templates/personal-details/previous-names-check.html:27
 msgid ""
 "We ask for this so we can match your birth records after you receive a "
 "Gender Recognition Certificate"
@@ -740,20 +1540,27 @@ msgstr ""
 "gael Tystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/document-checker/previous-names-check.html:31
+#: grc/templates/personal-details/previous-names-check.html:30
 msgid "These documents are likely to be:"
 msgstr "Mae'r dogfennau hyn yn debygol o fod yn:"
 
 #: grc/templates/document-checker/previous-names-check.html:34
+#: grc/templates/personal-details/previous-names-check.html:33
+#: grc/templates/upload/name-change.html:28
 msgid "deed poll documents, either enrolled or unenrolled"
 msgstr ""
 "dogfennau gweithred newid enw, naill ai wedi'u cofrestru neu heb eu "
 "cofrestru"
 
 #: grc/templates/document-checker/previous-names-check.html:35
+#: grc/templates/personal-details/previous-names-check.html:34
+#: grc/templates/upload/name-change.html:29
 msgid "change of name documents (Scotland)"
 msgstr "dogfennau newid enw (Yr Alban)"
 
 #: grc/templates/document-checker/previous-names-check.html:36
+#: grc/templates/personal-details/previous-names-check.html:35
+#: grc/templates/upload/name-change.html:30
 msgid "statutory declarations"
 msgstr "datganiadau statudol"
 
@@ -1373,22 +2180,168 @@ msgstr ""
 msgid "Email documents list"
 msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
 
+#: grc/templates/govuk-design-system-templates/_summary-list-item.html:12
+msgid "Change"
+msgstr "Newid"
+
 #: grc/templates/govuk-design-system-templates/back_link.html:2
 #: grc/templates/govuk-design-system-templates/back_link.html:6
 msgid "Back"
 msgstr "Yn ôl"
 
 #: grc/templates/govuk-design-system-templates/continue.html:12
+#: grc/templates/upload/_upload-files-section.html:125
+#: grc/upload/constants.py:7
 msgid "Save and continue"
 msgstr "Cadw a pharhau"
 
 #: grc/templates/govuk-design-system-templates/continue.html:15
+#: grc/templates/upload/_upload-files-section.html:129
+#: grc/templates/upload/_upload-files-section.html:136
 msgid "Return to task list"
 msgstr "Yn ôl i’r rhestr tasgau"
 
+#: grc/templates/govuk-design-system-templates/date-range.html:33
+#: grc/templates/govuk-design-system-templates/date-range.html:138
+msgid "From"
+msgstr "Oddi wrth"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:80
+#: grc/templates/govuk-design-system-templates/date-range.html:183
+msgid "To"
+msgstr "At"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:127
+msgid "Remove date range"
+msgstr "Dileu'r ystod dyddiad"
+
+#: grc/templates/govuk-design-system-templates/date-range.html:229
+msgid "Add another date range"
+msgstr "Ychwanegu ystod dyddiad arall"
+
 #: grc/templates/govuk-design-system-templates/error-summary.html:6
+#: grc/templates/upload/_upload-files-section.html:6
 msgid "There is a problem"
 msgstr "Mae yna broblem"
+
+#: grc/templates/partnership-details/check-your-answers.html:26
+msgid "Currently married or in a civil partnership"
+msgstr "Wedi priodi neu mewn partneriaeth sifil ar hyn o bryd"
+
+#: grc/templates/partnership-details/check-your-answers.html:34
+msgid "Spouse or partner has died"
+msgstr "Mae fy mhriod neu fy mhartner wedi marw"
+
+#: grc/templates/partnership-details/check-your-answers.html:41
+msgid "Marriage or civil partnership has ended"
+msgstr "Mae ein priodas neu bartneriaeth sifil wedi dod i ben"
+
+#: grc/templates/partnership-details/check-your-answers.html:87
+msgid "Interim GRC"
+msgstr "Tystysgrif Cydnabod Rhywedd Interim"
+
+#: grc/templates/partnership-details/current-check.html:20
+msgid "Marriages and civil partnerships"
+msgstr "Priodasau a phartneriaethau sifil"
+
+#: grc/templates/partnership-details/current-check.html:24
+msgid ""
+"If you’ve ever been married or in a civil partnership, you need to upload"
+" a scan or good quality photograph of your marriage or civil partnership "
+"certificates."
+msgstr ""
+"Os ydych erioed wedi bod yn briod neu mewn partneriaeth sifil, bydd angen"
+" i chi uwchlwytho sgan neu lun o ansawdd da o’ch tystysgrif priodas "
+"neu’ch tystysgrif partneriaeth sifil."
+
+#: grc/templates/partnership-details/current-check.html:37
+msgid ""
+"If you are in the process of ending, or you plan to end your marriage or "
+"civil partnership, you should select your current legal status"
+msgstr ""
+"Os ydych yn y broses o ddod â’ch priodas neu bartneriaeth sifil i ben, "
+"neu os ydych yn bwriadu dod â’ch priodas neu bartneriaeth sifil i ben, "
+"dylech ddewis eich statws cyfreithiol ar hyn o bryd."
+
+#: grc/templates/partnership-details/ended-check.html:7
+#: grc/templates/partnership-details/ended-check.html:25
+msgid "Have you ever been married or in a civil partnership that ended?"
+msgstr ""
+"A ydych chi erioed wedi bod yn briod neu mewn partneriaeth sifil a ddaeth"
+" i ben?"
+
+#: grc/templates/partnership-details/ended-check.html:29
+msgid ""
+"If yes, you will need to provide a copy of your decree(s) dissolving the "
+"marriage or civil partnership"
+msgstr ""
+"Os ‘Ydw’ bydd angen i chi ddarparu copi o’ch datganiad(au) yn diddymu’r "
+"briodas neu bartneriaeth sifil"
+
+#: grc/templates/partnership-details/interim-check.html:5
+#: grc/templates/partnership-details/interim-check.html:17
+msgid "Interim Gender Recognition Certificate"
+msgstr "Tystysgrif Cydnabod Rhywedd Interim"
+
+#: grc/templates/partnership-details/partner-agrees.html:7
+#: grc/templates/partnership-details/partner-agrees.html:20
+msgid "Declaration of consent"
+msgstr "Datganiad o gydsyniad"
+
+#: grc/templates/partnership-details/partner-details.html:39
+#: grc/templates/personal-details/name.html:48
+msgid "Title"
+msgstr "Teitl"
+
+#: grc/templates/partnership-details/partner-details.html:70
+msgid "Postal address – including postcode or zip code"
+msgstr "Cyfeiriad ar gyfer postio - gan gynnwys cod post neu god sip"
+
+#: grc/templates/partnership-details/partner-died.html:7
+#: grc/templates/partnership-details/partner-died.html:25
+msgid ""
+"Were you previously married or in a civil partnership and your spouse or "
+"partner died?"
+msgstr ""
+"A oeddech chi’n arfer bod yn briod neu mewn partneriaeth sifil, ond bod "
+"eich priod neu bartner sifil wedi marw?"
+
+#: grc/templates/partnership-details/partner-died.html:29
+msgid "If yes, you will need to provide a copy of their death certificate"
+msgstr "Os ‘Ydw’, bydd angen i chi ddarparu copi o’u tystysgrif marwolaeth"
+
+#: grc/templates/personal-details/address.html:8
+#: grc/templates/personal-details/address.html:27
+msgid "What is your address?"
+msgstr "Beth yw eich cyfeiriad?"
+
+#: grc/templates/personal-details/address.html:31
+msgid ""
+"This should be the address that you want us to send your Gender "
+"Recognition Certificate to"
+msgstr ""
+"Dylech roi’r cyfeiriad yr ydych eisiau i ni ei ddefnyddio i anfon eich "
+"Tystysgrif Cydnabod Rhywedd iddo"
+
+#: grc/templates/personal-details/address.html:38
+msgid "Address line 1"
+msgstr "Llinell gyntaf y cyfeiriad"
+
+#: grc/templates/personal-details/address.html:47
+msgid "Address line 2 (optional)"
+msgstr "Ail linell y cyfeiriad (dewisol)"
+
+#: grc/templates/personal-details/address.html:56
+msgid "Town or city"
+msgstr "Tref neu ddinas"
+
+#: grc/templates/personal-details/address.html:66
+msgid "Country (optional)"
+msgstr "Gwlad (dewisol)"
+
+#: grc/templates/personal-details/address.html:75
+msgid "Postcode or zipcode"
+msgstr "Cod post neu god sip"
 
 #: grc/templates/personal-details/affirmed-gender.html:7
 #: grc/templates/personal-details/affirmed-gender.html:25
@@ -1398,6 +2351,165 @@ msgstr "Beth yw eich rhywedd a gadarnhawyd?"
 #: grc/templates/personal-details/affirmed-gender.html:29
 msgid "This will appear on your Gender Recognition Certificate."
 msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/check-your-answers.html:27
+#: grc/templates/policies/cookies.html:40
+#: grc/templates/policies/cookies.html:81
+msgid "Name"
+msgstr "Enw"
+
+#: grc/templates/personal-details/check-your-answers.html:34
+msgid "Affirmed gender"
+msgstr "Rhywedd a gadarnhawyd"
+
+#: grc/templates/personal-details/check-your-answers.html:41
+msgid "When you transitioned"
+msgstr "Pan wnaethoch drawsnewid"
+
+#: grc/templates/personal-details/check-your-answers.html:48
+msgid "When you signed your statutory declaration"
+msgstr "Pan wnaethoch lofnodi eich datganiad statudol"
+
+#: grc/templates/personal-details/check-your-answers.html:55
+msgid "Ever changed name"
+msgstr "Erioed wedi newid enw"
+
+#: grc/templates/personal-details/check-your-answers.html:73
+msgid "Address"
+msgstr "Cyfeiriad"
+
+#: grc/templates/personal-details/check-your-answers.html:88
+msgid "Phone"
+msgstr "Ffôn"
+
+#: grc/templates/personal-details/check-your-answers.html:99
+msgid "Contact preferences"
+msgstr "Dewisiadau cyswllt"
+
+#: grc/templates/personal-details/check-your-answers.html:114
+#: grc/templates/personal-details/check-your-answers.html:137
+msgid "Unavailable over the next 6 months"
+msgstr "Ddim ar gael yn y 6 mis nesaf"
+
+#: grc/templates/personal-details/check-your-answers.html:145
+msgid "Notify HMRC"
+msgstr "Hysbysu HMRC"
+
+#: grc/templates/personal-details/check-your-answers.html:153
+msgid "National insurance number"
+msgstr "Rhif Yswiriant Gwladol"
+
+#: grc/templates/personal-details/contact-dates.html:11
+#: grc/templates/personal-details/contact-dates.html:33
+msgid ""
+"If we need to contact you by post in the next 6 months, are there any "
+"dates we should avoid?"
+msgstr ""
+"Os bydd arnom angen cysylltu â chi drwy’r post yn y 6 mis nesaf, a oes "
+"unrhyw ddyddiadau y dylid eu hosgoi? "
+
+#: grc/templates/personal-details/contact-dates.html:27
+msgid "For example, 31 8 2023"
+msgstr "Er enghraifft, 31 8 2023"
+
+#: grc/templates/personal-details/contact-dates.html:37
+msgid ""
+"For example, if you are away on holiday. The Gender Recognition Panel "
+"admin team will not contact you during this time - but other government "
+"departments such as HMRC might still contact you."
+msgstr ""
+"Er enghraifft, os ydych i ffwrdd ar wyliau. Ni fydd tîm gweinyddol y "
+"Panel Cydnabod Rhywedd yn cysylltu â chi yn ystod y cyfnod hwn - ond "
+"efallai y bydd adrannau eraill y llywodraeth, megis HMRC yn cysylltu â "
+"chi."
+
+#: grc/templates/personal-details/contact-dates.html:44
+msgid "Insert date to avoid"
+msgstr "Rhowch ddyddiad i’w osgoi"
+
+#: grc/templates/personal-details/contact-dates.html:53
+msgid "Insert dates to avoid"
+msgstr "Rhowch ddyddiadau i'w hosgoi"
+
+#: grc/templates/personal-details/contact-preferences.html:8
+#: grc/templates/personal-details/contact-preferences.html:33
+msgid ""
+"How would you like to be contacted if we have any questions about your "
+"application?"
+msgstr "Sut yr hoffech i ni gysylltu â chi ynghylch eich cais? "
+
+#: grc/templates/personal-details/contact-preferences.html:42
+#: grc/templates/start-application/email-address.html:6
+#: grc/templates/start-application/email-address.html:15
+msgid "Email address"
+msgstr "Cyfeiriad e-bost"
+
+#: grc/templates/personal-details/contact-preferences.html:53
+msgid "Phone number"
+msgstr "Rhif ffôn"
+
+#: grc/templates/personal-details/hmrc.html:8
+#: grc/templates/personal-details/hmrc.html:21
+msgid "Notifying HMRC"
+msgstr "Hysbysu HMRC"
+
+#: grc/templates/personal-details/hmrc.html:25
+msgid "HMRC must be told if you have received a Gender Recognition Certificate."
+msgstr "Rhaid dweud wrth HMRC os ydych wedi cael Tystysgrif Cydnabod Rhywedd."
+
+#: grc/templates/personal-details/hmrc.html:28
+msgid "If you usually pay tax in the UK, we can tell HMRC on your behalf."
+msgstr ""
+"Os ydych fel arfer yn talu treth yn y DU, yna gallwn ni ddweud wrth HMRC "
+"ar eich rhan."
+
+#: grc/templates/personal-details/hmrc.html:29
+msgid ""
+"HMRC will update its records with your gender and any name change, and "
+"they will tell the Department for Work and Pensions."
+msgstr ""
+"Bydd HMRC yn diweddaru ei gofnodion gyda’ch rhywedd a’ch newid enw, a "
+"byddant yn dweud wrth yr Adran Gwaith a Phensiynau."
+
+#: grc/templates/personal-details/hmrc.html:30
+msgid "They will send you a letter to confirm the changes."
+msgstr "Byddant yn anfon llythyr atoch i gadarnhau’r newidiadau."
+
+#: grc/templates/personal-details/hmrc.html:33
+msgid "If you prefer,"
+msgstr "Os byddai’n well gennych,"
+
+#: grc/templates/personal-details/hmrc.html:35
+msgid "you can tell HMRC yourself (opens in a new tab)"
+msgstr "gallwch chi ddweud wrth HMRC eich hun (yn agor mewn tab newydd)"
+
+#: grc/templates/personal-details/hmrc.html:39
+msgid ""
+"If you pay tax in the Isle of Man or Channel Islands, please select ‘No’ "
+"and tell HMRC yourself."
+msgstr ""
+"Os ydych chi’n talu treth yn Ynys Manaw neu Ynysoedd y Sianel, dewiswch "
+"‘Na’ a dywedwch wrth HMRC eich hun."
+
+#: grc/templates/personal-details/hmrc.html:48
+msgid ""
+"Would you like us to tell HMRC after you receive a Gender Recognition "
+"Certificate?"
+msgstr ""
+"A hoffech i ni ddweud wrth HMRC ar ôl i chi gael eich Tystysgrif Cydnabod"
+" Rhywedd?"
+
+#: grc/templates/personal-details/hmrc.html:58
+msgid "What is your National Insurance number?"
+msgstr "Beth yw eich rhif Yswiriant Gwladol?"
+
+#: grc/templates/personal-details/hmrc.html:62
+msgid ""
+"It’s on your National Insurance card, benefit letter, payslip or P60. For"
+" example, ‘QQ 12 34 56 C’."
+msgstr ""
+"Bydd ar eich cerdyn Yswiriant Gwladol, llythyrau budd-daliadau, slip "
+"cyflog neu P60. Er enghraifft, ‘QQ 12 34 56 C’"
 
 #: grc/templates/personal-details/name.html:7
 #: grc/templates/personal-details/name.html:26
@@ -1432,10 +2544,6 @@ msgstr "newid eich enw drwy weithred newid enw (yn agor mewn tab newydd)"
 msgid "before you apply for a Gender Recognition Certificate"
 msgstr "cyn i chi wneud cais am Dystysgrif Cydnabod Rhywedd"
 
-#: grc/templates/personal-details/name.html:48
-msgid "Title"
-msgstr "Teitl"
-
 #: grc/templates/personal-details/name.html:49
 msgid ""
 "For internal use only. This will not appear on your Gender Recognition "
@@ -1444,22 +2552,56 @@ msgstr ""
 "At ddefnydd mewnol yn unig. Ni fydd hwn yn ymddangos ar eich Tystysgrif "
 "Cydnabod Rhywedd."
 
-#: grc/templates/personal-details/name.html:59
-msgid "First name"
-msgstr "Enw cyntaf"
+#: grc/templates/personal-details/previous-names-check.html:23
+msgid "You will need to upload documents that show this"
+msgstr "Bydd angen i chi uwchlwytho dogfennau sy'n dangos hynny"
 
-#: grc/templates/personal-details/name.html:69
-msgid "Middle names (only required if you have middle names)"
-msgstr "Enwau canol (dim ond os oes gennych enwau canol)"
+#: grc/templates/personal-details/statutory-declaration-date.html:7
+#: grc/templates/personal-details/statutory-declaration-date.html:27
+msgid "When did you sign your statutory declaration?"
+msgstr "Pryd wnaethoch chi arwyddo eich Datganiad Statudol?"
 
-#: grc/templates/personal-details/name.html:79
-msgid "Last name"
-msgstr "Cyfenw"
+#: grc/templates/personal-details/statutory-declaration-date.html:32
+msgid ""
+"Enter the date you signed your gender recognition statutory declaration "
+"in front of someone authorised to administer oaths."
+msgstr ""
+"Rhowch y dyddiad pan wnaethoch lofnodi eich datganiad statudol cydnabod "
+"rhywedd ym mhresenoldeb rhywun sydd wedi’i awdurdodi i weinyddu llwon."
 
-#: grc/templates/policies/accessibility-statement.html:3
-#, fuzzy
-msgid "Accessibility statement"
-msgstr "Datganiadau academaidd"
+#: grc/templates/personal-details/transition-date.html:7
+#: grc/templates/personal-details/transition-date.html:27
+msgid "When did you transition?"
+msgstr "Pryd wnaethoch chi drawsnewid o un rhywedd i’r llall?   "
+
+#: grc/templates/personal-details/transition-date.html:32
+msgid "Enter the month and year of your transition"
+msgstr "Rhowch fis a blwyddyn eich trawsnewidiad"
+
+#: grc/templates/personal-details/transition-date.html:33
+msgid ""
+"For example, this could be when you changed your name by deed poll, or "
+"when you told friends or family you were changing your gender"
+msgstr ""
+"Er enghraifft, gallai hyn fod yr adeg pan wnaethoch newid eich enw drwy "
+"weithred newid enw, neu pam ddywedoch wrth eich teulu neu ffrindiau eich "
+"bod yn newid eich rhywedd"
+
+#: grc/templates/personal-details/transition-date.html:34
+msgid ""
+"The date must be the same as on your gender recognition statutory "
+"declaration"
+msgstr ""
+"Rhaid i’r dyddiad fod yr un fath â’r dyddiad sydd ar eich datganiad "
+"statudol cydnabod rhywedd"
+
+#: grc/templates/personal-details/transition-date.html:35
+msgid ""
+"It must be at least 2 years before you submit your application for a "
+"Gender Recognition Certificate"
+msgstr ""
+"Rhaid iddo fod o leiaf 2 flynedd cyn i chi gyflwyno’ch cais am Dystysgrif"
+" Cydnabod Rhywedd."
 
 #: grc/templates/policies/accessibility-statement.html:10
 msgid ""
@@ -1819,14 +2961,6 @@ msgstr "Profwyd y wefan hon ddiwethaf ar 26 Mai 2022"
 msgid "The test was carried out by the Digital Accessibility Centre"
 msgstr "Cynhaliwyd y prawf gan y Ganolfan Hygyrchedd Digidol"
 
-#: grc/templates/policies/cookies.html:3 grc/templates/policies/cookies.html:20
-msgid "Cookies"
-msgstr "Cwyis"
-
-#: grc/templates/policies/cookies.html:12
-msgid "Success"
-msgstr "Llwydd"
-
 #: grc/templates/policies/cookies.html:16
 msgid "You’ve set your cookie preferences"
 msgstr "Rydych wedi cadw eich dewisiadau cwcis"
@@ -1896,11 +3030,6 @@ msgstr ""
 #: grc/templates/policies/cookies.html:37
 msgid "Essential cookies we use"
 msgstr "Cwcis hanfodol yr ydym yn eu defnyddio"
-
-#: grc/templates/policies/cookies.html:40
-#: grc/templates/policies/cookies.html:81
-msgid "Name"
-msgstr "Enw"
 
 #: grc/templates/policies/cookies.html:41
 #: grc/templates/policies/cookies.html:82
@@ -2026,10 +3155,6 @@ msgstr "Cadw gosodiadau cwcis"
 
 #: grc/templates/policies/privacy-policy.html:3
 msgid "Privacy Policy"
-msgstr "Polisi Preifatrwydd"
-
-#: grc/templates/policies/privacy-policy.html:10
-msgid "Privacy policy"
 msgstr "Polisi Preifatrwydd"
 
 #: grc/templates/policies/privacy-policy.html:13
@@ -2498,15 +3623,12 @@ msgid ""
 "Do you consent to the General Register Office contacting you about your "
 "application?"
 msgstr ""
+"Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi "
+"yngl?n â'ch cais?"
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
-msgstr ""
-
-#: grc/templates/start-application/email-address.html:6
-#: grc/templates/start-application/email-address.html:15
-msgid "Email address"
-msgstr "Cyfeiriad e-bost"
+msgstr "Rwy’n rhoi caniatâd"
 
 #: grc/templates/start-application/email-address.html:19
 msgid ""
@@ -2557,7 +3679,7 @@ msgstr "wneud cais am Dystysgrif Cydnabod Rhywedd (yn agor mewn tab newydd)"
 #: grc/templates/start-application/is-first-visit.html:8
 #: grc/templates/start-application/is-first-visit.html:31
 msgid "Have you already started an application?"
-msgstr ""
+msgstr "Ydych chi eisoes wedi cychwyn gwneud cais?"
 
 #: grc/templates/start-application/is-first-visit.html:25
 msgid "You will need to start a new application"
@@ -2652,4 +3774,363 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
+
+#: grc/templates/submit-and-pay/help-type.html:8
+#: grc/templates/submit-and-pay/help-type.html:21
+msgid "Applying for help with the fee"
+msgstr "Gwneud cais am help i dalu’r ffi"
+
+#: grc/templates/submit-and-pay/help-type.html:27
+#: grc/templates/submit-and-pay/method.html:30
+msgid "apply online for help paying this fee (opens in a new tab)"
+msgstr "wneud cais ar-lein am help i dalu’r ffi hon (yn agor mewn tab newydd)"
+
+#: grc/templates/submit-and-pay/help-type.html:31
+#: grc/templates/submit-and-pay/method.html:34
+msgid ""
+"You can also download the EX160 form from that page and submit it with "
+"your application."
+msgstr ""
+"Gallwch hefyd lawrlwytho ffurflen EX160 o’r dudalen honno a’i chyflwyno "
+"gyda’ch cais."
+
+#: grc/templates/submit-and-pay/help-type.html:40
+msgid "How are you applying for help paying the fee?"
+msgstr "Sut ydych chi’n gwneud cais am help i dalu’r ffi?"
+
+#: grc/templates/submit-and-pay/help-type.html:44
+msgid "This will appear on your Gender Recognition Certificate"
+msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/submit-and-pay/help-type.html:53
+msgid "What is your Help with Fees reference number?"
+msgstr "Beth yw eich cyfeirnod Help i Dalu Ffioedd?"
+
+#: grc/templates/submit-and-pay/help-type.html:56
+msgid "For example, HWF-123-456"
+msgstr "Er enghraifft, HWF-123-456"
+
+#: grc/templates/submit-and-pay/method.html:7
+#: grc/templates/submit-and-pay/method.html:20
+msgid "Payment"
+msgstr "Talu"
+
+#: grc/templates/submit-and-pay/method.html:24
+msgid "Applying for a Gender Recognition Certificate costs &pound;5."
+msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;5."
+
+#: grc/templates/submit-and-pay/method.html:43
+msgid "Are you applying for help paying the fee?"
+msgstr "Ydych chi’n gwneud cais am help i dalu’r ffi?"
+
+#: grc/templates/submit-and-pay/method.html:47
+msgid ""
+"If you select yes, your application for a Gender Recognition Certificate "
+"will only be reviewed if your application for help paying the fee is "
+"accepted."
+msgstr ""
+"Os byddwch yn dewis ‘Ydw’, bydd eich cais am Dystysgrif Cydnabod Rhywedd "
+"ond yn cael ei adolygu os bydd eich cais am help i dalu’r ffi yn cael ei "
+"dderbyn."
+
+#: grc/templates/upload/_upload-files-section.html:11
+msgid "The upload failed. Please remove your files and re-upload."
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:18
+msgid "Remove all files"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:26
+msgid "Uploaded files"
+msgstr "Ffeiliau sydd wedi cael eu huwchlwytho"
+
+#: grc/templates/upload/_upload-files-section.html:50
+msgid "Remove file"
+msgstr "Dileu ffeil"
+
+#: grc/templates/upload/_upload-files-section.html:67
+msgid "file is password protected"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:69
+msgid "files are password protected"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:71
+msgid "Click here to manage passwords"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:84
+msgid "Upload files"
+msgstr "Uwchlwytho ffeiliau"
+
+#: grc/templates/upload/_upload-files-section.html:87
+msgid "The files must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB"
+msgstr ""
+"Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG, TIF neu PDF a bod yn llai "
+"na 10MB o ran maint"
+
+#: grc/templates/upload/_upload-files-section.html:98
+msgid "Error:"
+msgstr ""
+
+#: grc/templates/upload/_upload-files-section.html:113
+#: grc/upload/constants.py:6
+msgid "Upload file"
+msgstr "Uwchlwytho ffeil"
+
+#: grc/templates/upload/_upload-files-section.html:118
+msgid ""
+"Once you have uploaded all your files, click the \"Save and continue\" "
+"button"
+msgstr ""
+"Unwaith y byddwch wedi uwchlwytho eich holl ffeiliau, cliciwch y botwm "
+"\"Cadw a pharhau\""
+
+#: grc/templates/upload/_upload-files-section.html:166
+msgid "You must upload a scan or good quality photograph of your documents."
+msgstr "Rhaid i chi uchlwytho sgan neu lun o ansawdd da o'ch dogfennau."
+
+#: grc/templates/upload/_upload-files-section.html:167
+msgid "If the document is longer than one page, you must upload every page."
+msgstr ""
+"Os yw’r ddogfen yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
+"pob tudalen."
+
+#: grc/templates/upload/_upload-files-section.html:175
+msgid "Warning"
+msgstr "Rhybudd"
+
+#: grc/templates/upload/_upload-files-section.html:176
+msgid "We will only accept clear images of full pages."
+msgstr "Byddwn ond yn derbyn delweddau clir o dudalennau llawn."
+
+#: grc/templates/upload/_upload-files-section.html:177
+msgid ""
+"If you take a photograph, please make sure all 4 corners of each page are"
+" visible."
+msgstr ""
+"Os byddwch yn tynnu llun, gwnewch yn siŵr bod pob 4 cornel o bob tudalen "
+"yn weladwy."
+
+#: grc/templates/upload/_upload-files-section.html:184
+msgid "We process and protect all documents you upload in accordance with our"
+msgstr ""
+"Rydym yn prosesu ac yn diogelu pob dogfen rydych chi'n ei huwchlwytho yn "
+"unol â'n"
+
+#: grc/templates/upload/_upload-files-section.html:186
+msgid "privacy policy (opens in a new tab)"
+msgstr "polisi preifatrwydd (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/evidence.html:6 grc/templates/upload/evidence.html:19
+msgid "Upload evidence of living in your gender"
+msgstr "Uwchlwytho tystiolaeth o fyw yn eich rhywedd"
+
+#: grc/templates/upload/evidence.html:22
+msgid ""
+"This is where you can upload evidence to show you’ve been living in your "
+"affirmed gender for the last 2 years."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho tystiolaeth i ddangos eich bod wedi bod yn "
+"byw yn eich rhywedd a gadarnhawyd am y 2 flynedd diwethaf."
+
+#: grc/templates/upload/evidence.html:25
+msgid ""
+"For example, if you submit your application today, you will need evidence"
+" from"
+msgstr ""
+"Er enghraifft, os byddwch yn cyflwyno eich cais heddiw, byddwch angen "
+"tystiolaeth o"
+
+#: grc/templates/upload/evidence.html:27
+msgid "to"
+msgstr "at"
+
+#: grc/templates/upload/evidence.html:31
+#: grc/templates/upload/marriage-documents.html:25
+#: grc/templates/upload/medical-reports.html:25
+msgid "Find out more about the"
+msgstr "Rhagor o wybodaeth am"
+
+#: grc/templates/upload/evidence.html:33
+msgid "evidence of living in your gender you need (opens in new tab)"
+msgstr ""
+"y dystiolaeth o fyw yn eich rhywedd sydd ei hangen arnoch (yn agor mewn "
+"tab newydd)"
+
+#: grc/templates/upload/evidence.html:37
+msgid "Please upload a scan or good quality photograph of each piece of evidence."
+msgstr ""
+
+#: grc/templates/upload/evidence.html:46
+msgid "Do not upload more than 4 pieces of evidence for each year."
+msgstr "Peidiwch ag uwchlwytho mwy na 4 darn o dystiolaeth ar gyfer pob blwyddyn."
+
+#: grc/templates/upload/evidence.html:47
+msgid ""
+"Do not upload a document you have already submitted, such as a medical "
+"report."
+msgstr ""
+"Peidiwch ag uwchlwytho dogfen rydych eisoes wedi’i chyflwyno, megis "
+"adroddiad meddygol."
+
+#: grc/templates/upload/marriage-documents.html:6
+#: grc/templates/upload/marriage-documents.html:19
+msgid "Upload marriage or civil partnership documents"
+msgstr "Uwchlwytho dogfennau priodas neu bartneriaeth sifil"
+
+#: grc/templates/upload/marriage-documents.html:22
+msgid ""
+"This is where you can upload copies of your marriage or civil partnership"
+" documents."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho copïau o’ch dogfennau priodas neu "
+"bartneriaeth sifil."
+
+#: grc/templates/upload/marriage-documents.html:28
+msgid ""
+"documents you need if you’ve ever been married or in a civil partnership "
+"(opens in new tab)"
+msgstr ""
+"y dogfennau sydd ei hangen arnoch os ydych erioed wedi bod yn briod neu "
+"mewn partneriaeth sifil (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/medical-reports.html:6
+#: grc/templates/upload/medical-reports.html:19
+msgid "Upload your medical reports"
+msgstr "Uwchlwythwch eich adroddiadau meddygol"
+
+#: grc/templates/upload/medical-reports.html:22
+msgid "This is where you can upload your 2 medical reports."
+msgstr "Dyma lle y gallwch uwchlwytho eich 2 adroddiad meddygol."
+
+#: grc/templates/upload/medical-reports.html:28
+msgid "medical reports you need (opens in new tab)"
+msgstr "yr adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/medical-reports.html:32
+msgid ""
+"You must upload a scan or good quality photograph of the whole medical "
+"report."
+msgstr ""
+"Mae’n rhaid i chi uwchlwytho sgan neu lun o ansawdd da o’r adroddiad "
+"meddygol cyfan."
+
+#: grc/templates/upload/medical-reports.html:33
+msgid "If the report is longer than one page, you must upload every page."
+msgstr ""
+"Os yw’r adroddiad yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
+"pob tudalen."
+
+#: grc/templates/upload/medical-reports.html:42
+msgid "Please upload the files in page order if you can."
+msgstr "Uwchlwythwch y ffeiliau yn eu trefn os yw’n bosibl."
+
+#: grc/templates/upload/name-change.html:6
+#: grc/templates/upload/name-change.html:19
+msgid "Upload name change documents"
+msgstr "Uwchlwytho dogfennau newid enw"
+
+#: grc/templates/upload/name-change.html:22
+msgid ""
+"This is where you can upload copies of all documents that show when you "
+"have changed your name to reflect your gender."
+msgstr ""
+"Dyma lle y gallwch uwchlwytho copïau o’r holl ddogfennau sy’n dangos eich"
+" bod wedi newid eich enw i adlewyrchu eich rhywedd."
+
+#: grc/templates/upload/name-change.html:25
+msgid "You can upload:"
+msgstr "Gallwch uwchlwytho:"
+
+#: grc/templates/upload/overseas-certificate.html:6
+#: grc/templates/upload/overseas-certificate.html:19
+msgid "Overseas gender recognition certificate documents"
+msgstr "Dogfennau tystysgrif cydnabod rhywedd tramor"
+
+#: grc/templates/upload/overseas-certificate.html:22
+msgid ""
+"This is where you can upload copies of your overseas gender recognition "
+"certificate documents."
+msgstr ""
+"Dyma lle gallwch uwchlwytho copïau o’ch dogfennau tystysgrif cydnabod "
+"rhywedd tramor."
+
+#: grc/templates/upload/overseas-certificate.html:25
+msgid "Find out more about documents you can submit"
+msgstr "Rhagor o wybodaeth am ddogfennau y gallwch eu cyflwyno"
+
+#: grc/templates/upload/overseas-certificate.html:28
+msgid "if you’re on the overseas route (opens in new tab)"
+msgstr "os ydych ar y llwybr tramor (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/statutory-declarations.html:6
+#: grc/templates/upload/statutory-declarations.html:19
+msgid "Statutory declarations documents"
+msgstr "Dogfennau datganiadau statudol"
+
+#: grc/templates/upload/statutory-declarations.html:22
+msgid ""
+"This is where you can upload copies of all required statutory "
+"declarations."
+msgstr ""
+"Dyma ble y gallwch uwchlwytho copïau o’r holl ddatganiadau statudol "
+"gofynnol."
+
+#: grc/templates/upload/statutory-declarations.html:25
+msgid "You must upload either:"
+msgstr "Mae’n rhaid i chi uwchlwytho naill ai:"
+
+#: grc/templates/upload/statutory-declarations.html:28
+msgid "a statutory declaration for single applicants"
+msgstr "datganiad statudol ar gyfer ceiswyr sengl"
+
+#: grc/templates/upload/statutory-declarations.html:29
+msgid ""
+"a statutory declaration for applicants who are married or in a civil "
+"partnership"
+msgstr "datganiad statudol ar gyfer ceiswyr sy’n briod neu mewn partneriaeth sifil"
+
+#: grc/templates/upload/statutory-declarations.html:32
+msgid ""
+"If you fill out the statutory declaration for applicants who are married "
+"or in a civil partnership\n"
+"                and you intend to stay in that marriage or civil "
+"partnership after you receive a certificate,\n"
+"                you must also upload a statutory declaration signed by "
+"your spouse or civil partner."
+msgstr ""
+"Os ydych chi’n llenwi’r datganiad statudol ar gyfer ceiswyr sy’n briod "
+"neu mewn partneriaeth sifil a’ch bod yn bwriadu aros yn y briodas neu’r "
+"bartneriaeth sifil ar ôl i chi gael tystysgrif, mae’n rhaid i chi hefyd "
+"uwchlwytho datganiad statudol wedi’i lofnodi gan eich priod neu bartner "
+"sifil."
+
+#: grc/templates/upload/statutory-declarations.html:37
+msgid "Follow the"
+msgstr "Dilynwch y"
+
+#: grc/templates/upload/statutory-declarations.html:40
+msgid "guidance on statutory declarations (opens in a new tab)"
+msgstr "cyfarwyddyd ar ddatganiadau statudol (yn agor mewn tab newydd)"
+
+#: grc/templates/upload/statutory-declarations.html:42
+msgid ""
+"to find out which declaration is right for you and who can act as a "
+"witness when you sign your declaration."
+msgstr ""
+"i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
+"weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
+
+#: grc/upload/constants.py:10
+msgid "Click on either the 'Upload file' button or 'Save and continue' button"
+msgstr "Cliciwch ar naill ai’r botwm ‘Uwchlwytho ffeil’ neu ‘Cadw a pharhau’"
+
+#: grc/upload/constants.py:11
+msgid "Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB"
+msgstr ""
+"Dewiswch ffeil JPG, BMP, PNG, TIF neu ffeil PDF sy'n llai na 10MB o ran "
+"maint"
 
