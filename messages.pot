@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 15:51+0100\n"
+"POT-Creation-Date: 2024-05-16 15:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -887,7 +887,7 @@ msgstr ""
 msgid "Using the EX160 form"
 msgstr ""
 
-#: grc/submit_and_pay/constants.py:11
+#: grc/submit_and_pay/constants.py:11 grc/submit_and_pay/constants.py:17
 msgid "Select if you are applying for help paying the fee"
 msgstr ""
 
@@ -1343,7 +1343,28 @@ msgid "Continue"
 msgstr ""
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+msgid "Email sent"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:22
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:27
+msgid "apply for a certificate"
 msgstr ""
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
@@ -1939,10 +1960,6 @@ msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:378
 msgid "You’ll need to send in both the original documents and the translations"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:381
-msgid "Once you have your documents ready you can"
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:383
