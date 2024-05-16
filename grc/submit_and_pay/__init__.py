@@ -111,7 +111,7 @@ def checkYourAnswers():
                 return_link = return_link.replace('http:', 'https:')
 
             description = 'Pay for Gender Recognition Certificate'
-            if g.lang == 'cy':
+            if g.lang_code == 'cy':
                 description = 'Talu am Tystysgrif Cydnabod Rhywedd'
 
             data = {
