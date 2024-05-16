@@ -963,19 +963,19 @@ msgstr "Help"
 msgid "Online"
 msgstr "Ar-lein"
 
-#: grc/business_logic/constants/submit_and_pay.py:15
+#: grc/business_logic/constants/submit_and_pay.py:20
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:16
+#: grc/business_logic/constants/submit_and_pay.py:21
 msgid "Select how are you applying for help paying the fee"
 msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:17
+#: grc/business_logic/constants/submit_and_pay.py:22
 msgid "Enter your Help with Fees reference number"
 msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
 
-#: grc/business_logic/constants/submit_and_pay.py:18
+#: grc/business_logic/constants/submit_and_pay.py:23
 msgid ""
 "You must certify that all information given in this application is "
 "correct and that you understand making a false application is an offence."
