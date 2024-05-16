@@ -481,6 +481,10 @@ msgstr "Methu cyfathrebu â sganiwr feirws"
 msgid "The selected file contains a virus"
 msgstr "Mae’r ffeil a ddewiswyd yn cynnwys feirws"
 
+#: grc/business_logic/constants.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
+
 #: grc/business_logic/constants/base.py:121
 msgid "Enter a valid 'Help with fees' reference number"
 msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"

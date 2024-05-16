@@ -461,6 +461,10 @@ msgstr ""
 msgid "The selected file contains a virus"
 msgstr ""
 
+#: grc/business_logic/constants.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr ""
+
 #: grc/business_logic/constants/base.py:121
 msgid "Enter a valid 'Help with fees' reference number"
 msgstr ""
