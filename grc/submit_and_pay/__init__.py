@@ -113,7 +113,7 @@ def checkYourAnswers():
             data = {
                 'amount': 500,
                 'reference': application_data.reference_number,
-                'description': 'Pay for Gender Recognition Certificate',
+                'description': c.GOV_PAY_SERVICE_DESCRIPTION,
                 'return_url': return_link + 'submit-and-pay/payment-confirmation/' + random_uuid,
                 'delayed_capture': False,
                 'language': g.lang_code
