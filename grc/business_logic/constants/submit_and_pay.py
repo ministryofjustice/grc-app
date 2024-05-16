@@ -10,7 +10,11 @@ class SubmitAndPayConstants(BaseConstants):
     EX160_FORM = _l('Using the EX160 form')
     HELP = _l('Help')
     ONLINE = _l('Online')
-    GOV_PAY_SERVICE_DESCRIPTION = _l('Pay for Gender Recognition Certificate')
+
+    if g.lang_code and g.lang_code == 'cy':
+        GOV_PAY_SERVICE_DESCRIPTION = 'Talu am Tystysgrif Cydnabod Rhywedd'
+    else:
+        GOV_PAY_SERVICE_DESCRIPTION = 'Pay for Gender Recognition Certificate'
 
     # Errors
     HWF_ERROR = _l('Select if you are applying for help paying the fee')
