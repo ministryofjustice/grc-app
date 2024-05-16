@@ -58,8 +58,6 @@ spec:
                 key: govuk-pay-api-key
           - name: LOG_LEVEL
             value: DEBUG
-          - name: NOTIFY_OVERRIDE_EMAIL
-            value: ivan.touloumbadjian@hmcts.net
           - name: NOTIFY_API
             valueFrom:
               secretKeyRef:
