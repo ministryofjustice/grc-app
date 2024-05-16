@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 13:59+0100\n"
+"POT-Creation-Date: 2024-05-14 15:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -520,6 +520,10 @@ msgstr ""
 msgid "The selected file contains a virus"
 msgstr ""
 
+#: grc/business_logic/constants.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr ""
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
@@ -875,8 +879,24 @@ msgstr ""
 msgid "No, I will pay now"
 msgstr ""
 
-#: grc/submit_and_pay/constants.py:9
+#: grc/submit_and_pay/constants.py:7
+msgid "Using the online service"
+msgstr ""
+
+#: grc/submit_and_pay/constants.py:8
+msgid "Using the EX160 form"
+msgstr ""
+
+#: grc/submit_and_pay/constants.py:11
 msgid "Select if you are applying for help paying the fee"
+msgstr ""
+
+#: grc/submit_and_pay/constants.py:12
+msgid "Select how are you applying for help paying the fee"
+msgstr ""
+
+#: grc/submit_and_pay/constants.py:13
+msgid "Enter your Help with Fees reference number"
 msgstr ""
 
 #: grc/templates/base.html:66
@@ -955,6 +975,7 @@ msgstr ""
 msgid "Your application is saved automatically as you progress"
 msgstr ""
 
+#: grc/templates/submit-and-pay/help-type.html:24
 #: grc/templates/submit-and-pay/method.html:27 grc/templates/task-list.html:42
 msgid "You can"
 msgstr ""
@@ -3316,6 +3337,39 @@ msgstr ""
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr ""
 
+#: grc/templates/submit-and-pay/help-type.html:8
+#: grc/templates/submit-and-pay/help-type.html:21
+msgid "Applying for help with the fee"
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:27
+#: grc/templates/submit-and-pay/method.html:30
+msgid "apply online for help paying this fee (opens in a new tab)"
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:31
+#: grc/templates/submit-and-pay/method.html:34
+msgid ""
+"You can also download the EX160 form from that page and submit it with "
+"your application."
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:40
+msgid "How are you applying for help paying the fee?"
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:44
+msgid "This will appear on your Gender Recognition Certificate"
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:53
+msgid "What is your Help with Fees reference number?"
+msgstr ""
+
+#: grc/templates/submit-and-pay/help-type.html:56
+msgid "For example, HWF-123-456"
+msgstr ""
+
 #: grc/templates/submit-and-pay/method.html:7
 #: grc/templates/submit-and-pay/method.html:20
 msgid "Payment"
@@ -3323,16 +3377,6 @@ msgstr ""
 
 #: grc/templates/submit-and-pay/method.html:24
 msgid "Applying for a Gender Recognition Certificate costs &pound;5."
-msgstr ""
-
-#: grc/templates/submit-and-pay/method.html:30
-msgid "apply online for help paying this fee (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/submit-and-pay/method.html:34
-msgid ""
-"You can also download the EX160 form from that page and submit it with "
-"your application."
 msgstr ""
 
 #: grc/templates/submit-and-pay/method.html:43
