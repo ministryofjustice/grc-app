@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 13:59+0100\n"
+"POT-Creation-Date: 2024-05-14 15:51+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -547,6 +547,10 @@ msgstr "Methu cyfathrebu â sganiwr feirws"
 msgid "The selected file contains a virus"
 msgstr "Mae’r ffeil a ddewiswyd yn cynnwys feirws"
 
+#: grc/business_logic/constants.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
+
 #: grc/document_checker/constants.py:7
 msgid "Statutory declaration for applicants who are married"
 msgstr "Datganiad statudol ar gyfer ceiswyr sy’n briod"
@@ -955,9 +959,25 @@ msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
 msgid "No, I will pay now"
 msgstr "Nac ydw, mi wnaf dalu’r ffi nawr"
 
-#: grc/submit_and_pay/constants.py:9
+#: grc/submit_and_pay/constants.py:7
+msgid "Using the online service"
+msgstr "Defnyddio’r gwasanaeth ar-lein"
+
+#: grc/submit_and_pay/constants.py:8
+msgid "Using the EX160 form"
+msgstr "Defnyddio’r ffurflen EX160"
+
+#: grc/submit_and_pay/constants.py:11
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
+
+#: grc/submit_and_pay/constants.py:12
+msgid "Select how are you applying for help paying the fee"
+msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
+
+#: grc/submit_and_pay/constants.py:13
+msgid "Enter your Help with Fees reference number"
+msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
 
 #: grc/templates/base.html:66
 msgid "Apply for a Gender Recognition Certificate"
@@ -1037,6 +1057,7 @@ msgstr ""
 msgid "Your application is saved automatically as you progress"
 msgstr "Bydd eich cais yn cael ei gadw’n awtomatig wrth i chi ei gwblhau"
 
+#: grc/templates/submit-and-pay/help-type.html:24
 #: grc/templates/submit-and-pay/method.html:27 grc/templates/task-list.html:42
 msgid "You can"
 msgstr "Gallwch"
@@ -3754,6 +3775,41 @@ msgstr "Byddwch angen eich cyfeirnod i ddychwelyd i’ch cais"
 msgid "Keep a record of it – it can't be recovered if you lose it"
 msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli"
 
+#: grc/templates/submit-and-pay/help-type.html:8
+#: grc/templates/submit-and-pay/help-type.html:21
+msgid "Applying for help with the fee"
+msgstr "Gwneud cais am help i dalu’r ffi"
+
+#: grc/templates/submit-and-pay/help-type.html:27
+#: grc/templates/submit-and-pay/method.html:30
+msgid "apply online for help paying this fee (opens in a new tab)"
+msgstr "wneud cais ar-lein am help i dalu’r ffi hon (yn agor mewn tab newydd)"
+
+#: grc/templates/submit-and-pay/help-type.html:31
+#: grc/templates/submit-and-pay/method.html:34
+msgid ""
+"You can also download the EX160 form from that page and submit it with "
+"your application."
+msgstr ""
+"Gallwch hefyd lawrlwytho ffurflen EX160 o’r dudalen honno a’i chyflwyno "
+"gyda’ch cais."
+
+#: grc/templates/submit-and-pay/help-type.html:40
+msgid "How are you applying for help paying the fee?"
+msgstr "Sut ydych chi’n gwneud cais am help i dalu’r ffi?"
+
+#: grc/templates/submit-and-pay/help-type.html:44
+msgid "This will appear on your Gender Recognition Certificate"
+msgstr "Bydd hwn yn ymddangos ar eich Tystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/submit-and-pay/help-type.html:53
+msgid "What is your Help with Fees reference number?"
+msgstr "Beth yw eich cyfeirnod Help i Dalu Ffioedd?"
+
+#: grc/templates/submit-and-pay/help-type.html:56
+msgid "For example, HWF-123-456"
+msgstr "Er enghraifft, HWF-123-456"
+
 #: grc/templates/submit-and-pay/method.html:7
 #: grc/templates/submit-and-pay/method.html:20
 msgid "Payment"
@@ -3762,18 +3818,6 @@ msgstr "Talu"
 #: grc/templates/submit-and-pay/method.html:24
 msgid "Applying for a Gender Recognition Certificate costs &pound;5."
 msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;5."
-
-#: grc/templates/submit-and-pay/method.html:30
-msgid "apply online for help paying this fee (opens in a new tab)"
-msgstr "wneud cais ar-lein am help i dalu’r ffi hon (yn agor mewn tab newydd)"
-
-#: grc/templates/submit-and-pay/method.html:34
-msgid ""
-"You can also download the EX160 form from that page and submit it with "
-"your application."
-msgstr ""
-"Gallwch hefyd lawrlwytho ffurflen EX160 o’r dudalen honno a’i chyflwyno "
-"gyda’ch cais."
 
 #: grc/templates/submit-and-pay/method.html:43
 msgid "Are you applying for help paying the fee?"
