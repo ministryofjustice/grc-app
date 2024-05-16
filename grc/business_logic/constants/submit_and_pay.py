@@ -18,8 +18,8 @@ class SubmitAndPayConstants(BaseConstants):
     CORRECT_INFO_DECLARATION_ERROR = _l('You must certify that all information given in this application is correct'
                                         ' and that you understand making a false application is an offence.')
 
-    @property
-    def get_birth_cert_copy_link(self) -> str:
+    @staticmethod
+    def get_birth_cert_copy_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
             before_link_text = 'copi gwreiddiol neu'
@@ -32,8 +32,8 @@ class SubmitAndPayConstants(BaseConstants):
         anchor = '<a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">'
         return LinkBuilder(anchor, link_text, before_link_text, after_link_text).get_link_with_text_safe()
 
-    @property
-    def get_ex160_link(self):
+    @staticmethod
+    def get_ex160_link():
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
             before_link_text = ''

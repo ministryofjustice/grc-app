@@ -30,8 +30,8 @@ class DocumentCheckerConstants(BaseConstants):
     PARTNER_MARRIAGE_CERT_P1 = _l('Upload a scan or good quality photograph of your marriage certificate')
     PARTNER_CP_CERT_P1 = _l('Upload a scan or good quality photograph of your civil partnership certificate')
 
-    @property
-    def get_birth_cert_copy_link(self) -> str:
+    @staticmethod
+    def get_birth_cert_copy_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
             before_link_text = 'Anfonwch gopi gwreiddiol'
@@ -44,8 +44,8 @@ class DocumentCheckerConstants(BaseConstants):
         anchor = '<a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">'
         return LinkBuilder(anchor, link_text, before_link_text, after_link_text).get_link_with_text_safe()
 
-    @property
-    def get_birth_cert_uk_link(self) -> str:
+    @staticmethod
+    def get_birth_cert_uk_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
             before_link_text = 'Os cafodd eich genedigaeth neu eich mabwysiad ei chofrestru yn y DU, dewch o'
