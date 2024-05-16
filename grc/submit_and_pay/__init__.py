@@ -110,10 +110,14 @@ def checkYourAnswers():
             else:
                 return_link = return_link.replace('http:', 'https:')
 
+            description = 'Pay for Gender Recognition Certificate'
+            if g.lang == 'cy':
+                description = 'Talu am Tystysgrif Cydnabod Rhywedd'
+
             data = {
                 'amount': 500,
                 'reference': application_data.reference_number,
-                'description': c.GOV_PAY_SERVICE_DESCRIPTION,
+                'description': description,
                 'return_url': return_link + 'submit-and-pay/payment-confirmation/' + random_uuid,
                 'delayed_capture': False,
                 'language': g.lang_code
