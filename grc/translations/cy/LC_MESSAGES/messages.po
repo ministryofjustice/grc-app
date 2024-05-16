@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-16 15:15+0100\n"
+"POT-Creation-Date: 2024-05-16 15:23+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -967,7 +967,7 @@ msgstr "Defnyddio’r gwasanaeth ar-lein"
 msgid "Using the EX160 form"
 msgstr "Defnyddio’r ffurflen EX160"
 
-#: grc/submit_and_pay/constants.py:11 grc/submit_and_pay/constants.py:17
+#: grc/submit_and_pay/constants.py:11
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
 
@@ -1477,7 +1477,9 @@ msgstr "E-bost wedi’i anfon"
 msgid ""
 "You should shortly receive an email with the required documents for "
 "applying for a gender recognition certification."
-msgstr "Dylech gael neges e-bost yn fuan gyda’r dogfennau angenrheidiol ar gyfer gwneud cais am ardystiad cydnabod rhywedd."
+msgstr ""
+"Dylech gael neges e-bost yn fuan gyda’r dogfennau angenrheidiol ar gyfer "
+"gwneud cais am ardystiad cydnabod rhywedd."
 
 #: grc/templates/document-checker/email-sent.html:25
 #: grc/templates/document-checker/your-documents.html:381

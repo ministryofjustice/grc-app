@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-16 15:15+0100\n"
+"POT-Creation-Date: 2024-05-16 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -887,7 +887,7 @@ msgstr ""
 msgid "Using the EX160 form"
 msgstr ""
 
-#: grc/submit_and_pay/constants.py:11 grc/submit_and_pay/constants.py:17
+#: grc/submit_and_pay/constants.py:11
 msgid "Select if you are applying for help paying the fee"
 msgstr ""
 
