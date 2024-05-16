@@ -1401,7 +1401,28 @@ msgid "Continue"
 msgstr ""
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+msgid "Email sent"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:22
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:27
+msgid "apply for a certificate"
 msgstr ""
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
@@ -1973,10 +1994,6 @@ msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:370
 msgid "You’ll need to send in both the original documents and the translations"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:373
-msgid "Once you have your documents ready you can"
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:375

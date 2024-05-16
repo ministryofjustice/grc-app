@@ -1526,8 +1526,31 @@ msgid "Continue"
 msgstr "Parhau"
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
 msgstr "Dychwelyd at eich rhestr o ddogfennau"
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+msgid "Email sent"
+msgstr "E-bost wedi’i anfon"
+
+#: grc/templates/document-checker/email-sent.html:22
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+"Dylech gael neges e-bost yn fuan gyda’r dogfennau angenrheidiol ar gyfer "
+"gwneud cais am ardystiad cydnabod rhywedd."
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr "Unwaith y bydd eich dogfennau'n barod"
+
+#: grc/templates/document-checker/email-sent.html:27
+msgid "apply for a certificate"
+msgstr "gallwch wneud cais am dystysgrif"
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:23
@@ -2191,11 +2214,7 @@ msgstr ""
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr "Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom"
 
-#: grc/templates/document-checker/your-documents.html:373
-msgid "Once you have your documents ready you can"
-msgstr "Unwaith y bydd eich dogfennau'n barod"
-
-#: grc/templates/document-checker/your-documents.html:375
+#: grc/templates/document-checker/your-documents.html:383
 msgid "apply for a Gender Recognition Certificate"
 msgstr "gallwch wneud cais am Dystysgrif Cydnabod Rhywedd"
 
