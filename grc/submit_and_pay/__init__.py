@@ -234,7 +234,7 @@ def confirmation():
         'submit-and-pay/confirmation.html',
         application_data=application_data
     )
-    session.clear()
+    # session.clear()
     return html
 
 
