@@ -2,14 +2,12 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
 
-{% block title %}This application has already been submitted{% endblock %}
+{% block title %}{{ _('This application has already been submitted') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('startApplication.isFirstVisit') }}"
-       class="govuk-back-link">
-        Back
-    </a>
+    {{ back.renderFor('startApplication.isFirstVisit') }}
 {% endblock %}
 
 {% block content %}
@@ -18,22 +16,22 @@
 
             <div class="govuk-panel govuk-panel--confirmation">
                 <h1 class="govuk-panel__title">
-                    An application with this reference number has already been submitted
+                    {{ _('An application with this reference number has already been submitted') }}
                 </h1>
             </div>
 
             <p class="govuk-body">
-                Contact the admin team if you need help with your application.
+                {{ _('Contact the admin team if you need help with your application.') }}
             </p>
             <p class="govuk-body">
                 <a href="mailto:GRPenquiries@justice.gov.uk" class="govuk-link">
                     GRPenquiries@justice.gov.uk
                 </a><br>
-                Telephone: 020 3936 8968<br>
-                Monday to Friday, 9am to 5pm<br>
+                {{ _('Telephone:') }} 020 3936 8968<br>
+                {{ _('Monday to Friday, 9am to 5pm') }}<br>
                 <a href=https://www.gov.uk/call-charges"
                    target="_blank" class="govuk-link">
-                    Find out about call charges (opens in a new tab)
+                    {{ _('Find out about call charges (opens in a new tab)') }}
                 </a>
             </p>
 
