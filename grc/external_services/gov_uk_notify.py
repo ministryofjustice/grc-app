@@ -1,7 +1,7 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
 from notifications_python_client.errors import HTTPError
-from grc.external_services.gov_uk_notify_templates import GovUkNotifyTemplates
+from grc.external_services.gov_uk_notify_templates import GovUkNotifyTemplateManager
 from grc.utils.security_code import generate_security_code_and_expiry
 from grc.utils.logger import LogLevel, Logger
 from werkzeug.exceptions import HTTPException
@@ -16,7 +16,7 @@ class GovUkNotify:
         self.is_production = self.space == 'production'
         self.notify_override_email = current_app.config['NOTIFY_OVERRIDE_EMAIL']
         self.gov_uk_notify_client = NotificationsAPIClient(gov_uk_notify_api_key)
-        self.templateHelper = GovUkNotifyTemplates()
+        self.template_manager = GovUkNotifyTemplateManager(current_app.config.get('FLASK_APP'))
 
     def send_email_security_code(self, email_address: str):
         security_code, security_code_timeout = generate_security_code_and_expiry(email_address)
@@ -27,7 +27,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_security_code_template_id(),
+            template_id=self.template_manager.SECURITY_CODE_LOGIN,
             personalisation=personalisation
         )
 
@@ -38,7 +38,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_unfinished_app_template_id(),
+            template_id=self.template_manager.UNFINISHED_APPLICATION,
             personalisation=personalisation
         )
 
@@ -49,14 +49,14 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_app_recd_30_weeks_template_id(),
+            template_id=self.template_manager.APPLICATION_RECEIVED_30_WEEKS,
             personalisation=personalisation
         )
 
     def send_email_documents_you_need_for_your_grc_application(self, email_address: str, documents_required: dict):
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_docs_for_grc_app_template_id(),
+            template_id=self.template_manager.DOCUMENTS_REQUIRED_TEMPLATE,
             personalisation=documents_required
         )
 
@@ -84,7 +84,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address='grc-service-feedback@cabinetoffice.gov.uk',
-            template_id=self.templateHelper.get_feedback_template_id(),
+            template_id=self.template_manager.FEEDBACK_TEMPLATE,
             personalisation=personalisation
         )
 
@@ -97,7 +97,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_admin_login_sc_template_id(),
+            template_id=self.template_manager.ADMIN_LOGIN_SECURITY_CODE_TEMPLATE,
             personalisation=personalisation
         )
 
@@ -110,7 +110,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_admin_forget_password_template_id(),
+            template_id=self.template_manager.ADMIN_FORGET_PASSWORD_TEMPLATE,
             personalisation=personalisation
         )
 
@@ -122,7 +122,7 @@ class GovUkNotify:
 
         return self.send_email(
             email_address=email_address,
-            template_id=self.templateHelper.get_admin_new_user_template_id(),
+            template_id=self.template_manager.ADMIN_NEW_USER_TEMPLATE,
             personalisation=personalisation
         )
 
