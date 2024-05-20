@@ -1526,8 +1526,32 @@ msgid "Continue"
 msgstr "Parhau"
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
 msgstr "Dychwelyd at eich rhestr o ddogfennau"
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+msgid "Email sent"
+msgstr "E-bost wedi’i anfon"
+
+#: grc/templates/document-checker/email-sent.html:22
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+"Dylech gael neges e-bost yn fuan gyda’r dogfennau angenrheidiol ar gyfer "
+"gwneud cais am ardystiad cydnabod rhywedd."
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:373
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr "Unwaith y bydd eich dogfennau'n barod"
+
+#: grc/templates/document-checker/email-sent.html:27
+msgid "apply for a certificate"
+msgstr "gallwch wneud cais am dystysgrif"
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:23
@@ -2190,10 +2214,6 @@ msgstr ""
 #: grc/templates/document-checker/your-documents.html:370
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr "Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom"
-
-#: grc/templates/document-checker/your-documents.html:373
-msgid "Once you have your documents ready you can"
-msgstr "Unwaith y bydd eich dogfennau'n barod"
 
 #: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
@@ -4387,37 +4407,4 @@ msgid ""
 msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
-
-#~ msgid "Send an original or"
-#~ msgstr "Anfonwch gopi gwreiddiol"
-
-#~ msgid "certified copy (opens in a new tab)"
-#~ msgstr "neu ardystiedig (yn agor mewn tab newydd)"
-
-#~ msgid "of your full birth or adoption certificate"
-#~ msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
-
-#~ msgid "If your birth or adoption was registered in the UK, find out how to"
-#~ msgstr ""
-#~ "Os cafodd eich genedigaeth neu eich "
-#~ "mabwysiad ei chofrestru yn y DU, "
-#~ "dewch o"
-
-#~ msgid "order a certificate (opens in a new tab)"
-#~ msgstr "hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)"
-
-#~ msgid "if you do not have it available"
-#~ msgstr "os nad oes gennych un wrth law"
-
-#~ msgid "your original or a"
-#~ msgstr "copi gwreiddiol neu"
-
-#~ msgid "an"
-#~ msgstr " "
-
-#~ msgid "EX160 form (opens in a new tab)"
-#~ msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
-
-#~ msgid "Monday to Friday"
-#~ msgstr ""
 
