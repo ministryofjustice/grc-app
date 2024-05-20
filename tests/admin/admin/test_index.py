@@ -15,8 +15,6 @@ class TestAdminIndex:
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
     def test_index_add_default_admin_not_required(self, mock_send_email, mock_db_session, app, client):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             mock_db_session.query.return_value.count.return_value = 1
             response = client.get('/')
             mock_send_email.assert_not_called()
@@ -71,8 +69,6 @@ class TestAdminIndex:
     def test_index_post_email_valid_password_security_code_required(self, mock_send_security_code_email, app, client,
                                                                     admin):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
             mock_send_security_code_email.assert_called_once_with(email_address='test.email@example.com')
@@ -84,8 +80,6 @@ class TestAdminIndex:
                                                                                      mock_send_security_code_email,
                                                                                      app, client, new_admin):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
             mock_send_security_code_email.assert_called_once_with(email_address='test.email@example.com')
@@ -97,8 +91,6 @@ class TestAdminIndex:
                                                                                 app, client, admin,
                                                                                 expired_security_code):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
             mock_send_security_code_email.assert_called_with(email_address='test.email@example.com')
@@ -112,8 +104,6 @@ class TestAdminIndex:
             client, admin, security_code
     ):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             mock_last_security_code_been_used.return_value = False
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
@@ -128,8 +118,6 @@ class TestAdminIndex:
             client, admin, security_code
     ):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['lang_code'] = 'en'
             mock_last_security_code_been_used.return_value = True
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
