@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-14 15:51+0100\n"
+"POT-Creation-Date: 2024-05-16 16:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,510 +41,514 @@ msgstr ""
 msgid "ERROR"
 msgstr ""
 
-#: grc/birth_registration/constants.py:8
+#: grc/business_logic/constants/base.py:5
+#: grc/templates/policies/cookies.html:114
+msgid "Yes"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:6
+#: grc/templates/policies/cookies.html:120
+msgid "No"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:7
+msgid "I don't know"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:8
+msgid "Married"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:9
+msgid "Civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:10
+msgid "Neither"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:12
+msgid "Australia – not including the external territories"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:13
+msgid "Austria"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:14
+msgid "Belgium"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:15
+msgid "Bulgaria"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:16
+msgid "Canada – not including Northwest Territories and Nunavut"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:17
+msgid "Croatia"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:18
+msgid "Cyprus"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:19
+msgid "Czech Republic"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:20
+msgid "Denmark"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:21
+msgid "Estonia"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:22
+msgid "Finland"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:23
+msgid "France"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:24
+msgid "Germany"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:25
+msgid "Greece"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:26
+msgid "Iceland"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:27
+msgid "Italy"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:28
+msgid "Japan"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:29
+msgid "Liechtenstein"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:30
+msgid "Luxembourg"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:31
+msgid "Malta"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:32
+msgid "Federal District of Mexico"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:33
+msgid "Moldova"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:34
+msgid "Netherlands"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:35
+msgid "New Zealand"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:36
+msgid "Norway"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:37
+msgid "Poland"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:38
+msgid "Romania"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:39
+msgid "Russian Federation"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:40
+msgid "Serbia"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:41
+msgid "Singapore"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:42
+msgid "Slovakia"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:43
+msgid "Slovenia"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:44
+msgid "South Africa"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:45
+msgid "South Korea"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:46
+msgid "Spain"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:47
+msgid "Sweden"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:48
+msgid "Switzerland"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:49
+msgid "Turkey"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:50
+msgid "Ukraine"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:51
+msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:52
+msgid "Uruguay"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:56
+msgid ""
+"Do you plan to remain married after you receive your Gender Recognition "
+"Certificate?"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:57
+msgid ""
+"Do you plan to remain in your civil partnership after you receive your "
+"Gender Recognition Certificate?"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:61
+msgid "We’ve resent you a security code. This can take a few minutes to arrive"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:64
+msgid "Select if you have ever changed your name to reflect your gender"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:65
+msgid "Select if you are currently married or in a civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:66
+msgid ""
+"Select if you have ever been married or in a civil partnership where your"
+" spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:68
+msgid ""
+"Select if you have ever been married or in a civil partnership that has "
+"ended"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:70
+msgid ""
+"Select if you have received gender recognition in one of these countries "
+"or territories"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:72
+msgid ""
+"Select if you plan to remain married after receiving your Gender "
+"Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:74
+msgid "Enter your email address"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:75
+msgid "Enter a valid email address"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:76
+msgid "Enter a security code"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:77
+msgid "Enter the security code that we emailed you"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:78
+msgid "Select if you have already started an application"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:79
+msgid "Enter a reference number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:80
+msgid "Enter a valid reference number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:81
+msgid "Select if you have ever been issued a Gender Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:82
+msgid "You must consent to the General Register Office contacting you"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:83
+msgid "Select if you have official documentation"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:84
+#: grc/business_logic/constants/base.py:96
+msgid "Enter a day"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:85
+#: grc/business_logic/constants/base.py:97
+msgid "Enter a day as a number between 1 and 31"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:86
+msgid "Enter a month"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:87
+msgid "Enter a month as a number between 1 and 12"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:88
+msgid "Enter a year"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:89
+msgid "Enter a valid year"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:90
+msgid "Enter a valid date"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:91
+msgid "Enter a year as a 4-digit number, like 2000"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:92
+msgid "Enter a date within the last 100 years"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:93
+msgid "Enter a date in the past"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:94
+msgid "Enter a date in the future"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:95
+msgid "Enter a date at least 2 years before your application"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:98
+msgid "Enter a date that does not precede your transition date"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:99
+msgid "'From' date is in the past"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:100
+msgid "'To' date is in the past"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:101
+msgid "'From' date is after the 'To' date"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:102
+msgid "Enter your address"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:103
+msgid "Enter your town or city"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:104
+msgid "Enter a valid address line one"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:105
+msgid "Enter a valid address line two"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:106
+msgid "Enter a valid town"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:107
+msgid "Enter your postcode"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:108
+msgid "Enter a valid postcode"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:109
+msgid "Enter your phone number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:110
+msgid "Enter a valid phone number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:111
+msgid "Enter your National Insurance number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:112
+msgid "Enter a valid National Insurance number"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:113
+msgid "You need to be at least 18 years old to apply"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:114
+msgid "You need to be less than 110 years old to apply"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:115
+msgid ""
+"Your date of birth must be before your transition date and statutory "
+"declaration date"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:117
+msgid ""
+"The selected file is empty. Check that the file you are uploading has the"
+" content you expect"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:118
+msgid "The selected file must be smaller than 10MB"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:119
+msgid "Unable to communicate with virus scanner"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:120
+msgid "The selected file contains a virus"
+msgstr ""
+
+#: grc/business_logic/constants/base.py:121
+msgid "Enter a valid 'Help with fees' reference number"
+msgstr ""
+
+#: grc/business_logic/constants/birth_and_registration.py:8
 msgid ""
 "Enter your first name, as originally registered on your birth or adoption"
 " certificate"
 msgstr ""
 
-#: grc/birth_registration/constants.py:9
+#: grc/business_logic/constants/birth_and_registration.py:9
 msgid ""
 "Enter your last name, as originally registered on your birth or adoption "
 "certificate"
 msgstr ""
 
-#: grc/birth_registration/constants.py:10
+#: grc/business_logic/constants/birth_and_registration.py:10
 msgid "Select if your birth was registered in the UK"
 msgstr ""
 
-#: grc/birth_registration/constants.py:11
+#: grc/business_logic/constants/birth_and_registration.py:11
 msgid "Enter your country of birth"
 msgstr ""
 
-#: grc/birth_registration/constants.py:12
+#: grc/business_logic/constants/birth_and_registration.py:12
 msgid "Enter your town or city of birth"
 msgstr ""
 
-#: grc/birth_registration/constants.py:13
+#: grc/business_logic/constants/birth_and_registration.py:13
 msgid "Enter your mother's first name"
 msgstr ""
 
-#: grc/birth_registration/constants.py:14
+#: grc/business_logic/constants/birth_and_registration.py:14
 msgid "Enter your mother's last name"
 msgstr ""
 
-#: grc/birth_registration/constants.py:15
+#: grc/business_logic/constants/birth_and_registration.py:15
 msgid "Enter your mother's maiden name"
 msgstr ""
 
-#: grc/birth_registration/constants.py:16
+#: grc/business_logic/constants/birth_and_registration.py:16
 msgid "Select if your father's name is listed on the certificate"
 msgstr ""
 
-#: grc/birth_registration/constants.py:17
+#: grc/business_logic/constants/birth_and_registration.py:17
 msgid "Enter your father's first name"
 msgstr ""
 
-#: grc/birth_registration/constants.py:18
+#: grc/business_logic/constants/birth_and_registration.py:18
 msgid "Enter your father's last name"
 msgstr ""
 
-#: grc/birth_registration/constants.py:19
+#: grc/business_logic/constants/birth_and_registration.py:19
 msgid "Select if you were you adopted"
 msgstr ""
 
-#: grc/birth_registration/constants.py:20
+#: grc/business_logic/constants/birth_and_registration.py:20
 msgid "Select if you were adopted in the United Kingdom"
 msgstr ""
 
-#: grc/birth_registration/constants.py:21
+#: grc/business_logic/constants/birth_and_registration.py:21
 msgid ""
 "Select if your birth was registered by a Forces registering service, or "
 "with a British Consul or High Commission, or under Merchant Shipping or "
 "Civil Aviation provisions"
 msgstr ""
 
-#: grc/business_logic/constants.py:5 grc/templates/policies/cookies.html:114
-msgid "Yes"
-msgstr ""
-
-#: grc/business_logic/constants.py:6 grc/templates/policies/cookies.html:120
-msgid "No"
-msgstr ""
-
-#: grc/business_logic/constants.py:7
-msgid "I don't know"
-msgstr ""
-
-#: grc/business_logic/constants.py:8
-msgid "Married"
-msgstr ""
-
-#: grc/business_logic/constants.py:9
-msgid "Civil partnership"
-msgstr ""
-
-#: grc/business_logic/constants.py:10
-msgid "Neither"
-msgstr ""
-
-#: grc/business_logic/constants.py:12
-msgid "Australia – not including the external territories"
-msgstr ""
-
-#: grc/business_logic/constants.py:13
-msgid "Austria"
-msgstr ""
-
-#: grc/business_logic/constants.py:14
-msgid "Belgium"
-msgstr ""
-
-#: grc/business_logic/constants.py:15
-msgid "Bulgaria"
-msgstr ""
-
-#: grc/business_logic/constants.py:16
-msgid "Canada – not including Northwest Territories and Nunavut"
-msgstr ""
-
-#: grc/business_logic/constants.py:17
-msgid "Croatia"
-msgstr ""
-
-#: grc/business_logic/constants.py:18
-msgid "Cyprus"
-msgstr ""
-
-#: grc/business_logic/constants.py:19
-msgid "Czech Republic"
-msgstr ""
-
-#: grc/business_logic/constants.py:20
-msgid "Denmark"
-msgstr ""
-
-#: grc/business_logic/constants.py:21
-msgid "Estonia"
-msgstr ""
-
-#: grc/business_logic/constants.py:22
-msgid "Finland"
-msgstr ""
-
-#: grc/business_logic/constants.py:23
-msgid "France"
-msgstr ""
-
-#: grc/business_logic/constants.py:24
-msgid "Germany"
-msgstr ""
-
-#: grc/business_logic/constants.py:25
-msgid "Greece"
-msgstr ""
-
-#: grc/business_logic/constants.py:26
-msgid "Iceland"
-msgstr ""
-
-#: grc/business_logic/constants.py:27
-msgid "Italy"
-msgstr ""
-
-#: grc/business_logic/constants.py:28
-msgid "Japan"
-msgstr ""
-
-#: grc/business_logic/constants.py:29
-msgid "Liechtenstein"
-msgstr ""
-
-#: grc/business_logic/constants.py:30
-msgid "Luxembourg"
-msgstr ""
-
-#: grc/business_logic/constants.py:31
-msgid "Malta"
-msgstr ""
-
-#: grc/business_logic/constants.py:32
-msgid "Federal District of Mexico"
-msgstr ""
-
-#: grc/business_logic/constants.py:33
-msgid "Moldova"
-msgstr ""
-
-#: grc/business_logic/constants.py:34
-msgid "Netherlands"
-msgstr ""
-
-#: grc/business_logic/constants.py:35
-msgid "New Zealand"
-msgstr ""
-
-#: grc/business_logic/constants.py:36
-msgid "Norway"
-msgstr ""
-
-#: grc/business_logic/constants.py:37
-msgid "Poland"
-msgstr ""
-
-#: grc/business_logic/constants.py:38
-msgid "Romania"
-msgstr ""
-
-#: grc/business_logic/constants.py:39
-msgid "Russian Federation"
-msgstr ""
-
-#: grc/business_logic/constants.py:40
-msgid "Serbia"
-msgstr ""
-
-#: grc/business_logic/constants.py:41
-msgid "Singapore"
-msgstr ""
-
-#: grc/business_logic/constants.py:42
-msgid "Slovakia"
-msgstr ""
-
-#: grc/business_logic/constants.py:43
-msgid "Slovenia"
-msgstr ""
-
-#: grc/business_logic/constants.py:44
-msgid "South Africa"
-msgstr ""
-
-#: grc/business_logic/constants.py:45
-msgid "South Korea"
-msgstr ""
-
-#: grc/business_logic/constants.py:46
-msgid "Spain"
-msgstr ""
-
-#: grc/business_logic/constants.py:47
-msgid "Sweden"
-msgstr ""
-
-#: grc/business_logic/constants.py:48
-msgid "Switzerland"
-msgstr ""
-
-#: grc/business_logic/constants.py:49
-msgid "Turkey"
-msgstr ""
-
-#: grc/business_logic/constants.py:50
-msgid "Ukraine"
-msgstr ""
-
-#: grc/business_logic/constants.py:51
-msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
-msgstr ""
-
-#: grc/business_logic/constants.py:52
-msgid "Uruguay"
-msgstr ""
-
-#: grc/business_logic/constants.py:56
-msgid ""
-"Do you plan to remain married after you receive your Gender Recognition "
-"Certificate?"
-msgstr ""
-
-#: grc/business_logic/constants.py:57
-msgid ""
-"Do you plan to remain in your civil partnership after you receive your "
-"Gender Recognition Certificate?"
-msgstr ""
-
-#: grc/business_logic/constants.py:61
-msgid "We’ve resent you a security code. This can take a few minutes to arrive"
-msgstr ""
-
-#: grc/business_logic/constants.py:64
-msgid "Select if you have ever changed your name to reflect your gender"
-msgstr ""
-
-#: grc/business_logic/constants.py:65
-msgid "Select if you are currently married or in a civil partnership"
-msgstr ""
-
-#: grc/business_logic/constants.py:66
-msgid ""
-"Select if you have ever been married or in a civil partnership where your"
-" spouse or partner died"
-msgstr ""
-
-#: grc/business_logic/constants.py:68
-msgid ""
-"Select if you have ever been married or in a civil partnership that has "
-"ended"
-msgstr ""
-
-#: grc/business_logic/constants.py:70
-msgid ""
-"Select if you have received gender recognition in one of these countries "
-"or territories"
-msgstr ""
-
-#: grc/business_logic/constants.py:72
-msgid ""
-"Select if you plan to remain married after receiving your Gender "
-"Recognition Certificate"
-msgstr ""
-
-#: grc/business_logic/constants.py:74
-msgid "Enter your email address"
-msgstr ""
-
-#: grc/business_logic/constants.py:75
-msgid "Enter a valid email address"
-msgstr ""
-
-#: grc/business_logic/constants.py:76
-msgid "Enter a security code"
-msgstr ""
-
-#: grc/business_logic/constants.py:77
-msgid "Enter the security code that we emailed you"
-msgstr ""
-
-#: grc/business_logic/constants.py:78
-msgid "Select if you have already started an application"
-msgstr ""
-
-#: grc/business_logic/constants.py:79
-msgid "Enter a reference number"
-msgstr ""
-
-#: grc/business_logic/constants.py:80
-msgid "Enter a valid reference number"
-msgstr ""
-
-#: grc/business_logic/constants.py:81
-msgid "Select if you have ever been issued a Gender Recognition Certificate"
-msgstr ""
-
-#: grc/business_logic/constants.py:82
-msgid "You must consent to the General Register Office contacting you"
-msgstr ""
-
-#: grc/business_logic/constants.py:83
-msgid "Select if you have official documentation"
-msgstr ""
-
-#: grc/business_logic/constants.py:84 grc/business_logic/constants.py:96
-msgid "Enter a day"
-msgstr ""
-
-#: grc/business_logic/constants.py:85 grc/business_logic/constants.py:97
-msgid "Enter a day as a number between 1 and 31"
-msgstr ""
-
-#: grc/business_logic/constants.py:86
-msgid "Enter a month"
-msgstr ""
-
-#: grc/business_logic/constants.py:87
-msgid "Enter a month as a number between 1 and 12"
-msgstr ""
-
-#: grc/business_logic/constants.py:88
-msgid "Enter a year"
-msgstr ""
-
-#: grc/business_logic/constants.py:89
-msgid "Enter a valid year"
-msgstr ""
-
-#: grc/business_logic/constants.py:90
-msgid "Enter a valid date"
-msgstr ""
-
-#: grc/business_logic/constants.py:91
-msgid "Enter a year as a 4-digit number, like 2000"
-msgstr ""
-
-#: grc/business_logic/constants.py:92
-msgid "Enter a date within the last 100 years"
-msgstr ""
-
-#: grc/business_logic/constants.py:93
-msgid "Enter a date in the past"
-msgstr ""
-
-#: grc/business_logic/constants.py:94
-msgid "Enter a date in the future"
-msgstr ""
-
-#: grc/business_logic/constants.py:95
-msgid "Enter a date at least 2 years before your application"
-msgstr ""
-
-#: grc/business_logic/constants.py:98
-msgid "Enter a date that does not precede your transition date"
-msgstr ""
-
-#: grc/business_logic/constants.py:99
-msgid "'From' date is in the past"
-msgstr ""
-
-#: grc/business_logic/constants.py:100
-msgid "'To' date is in the past"
-msgstr ""
-
-#: grc/business_logic/constants.py:101
-msgid "'From' date is after the 'To' date"
-msgstr ""
-
-#: grc/business_logic/constants.py:102
-msgid "Enter your address"
-msgstr ""
-
-#: grc/business_logic/constants.py:103
-msgid "Enter your town or city"
-msgstr ""
-
-#: grc/business_logic/constants.py:104
-msgid "Enter a valid address line one"
-msgstr ""
-
-#: grc/business_logic/constants.py:105
-msgid "Enter a valid address line two"
-msgstr ""
-
-#: grc/business_logic/constants.py:106
-msgid "Enter a valid town"
-msgstr ""
-
-#: grc/business_logic/constants.py:107
-msgid "Enter your postcode"
-msgstr ""
-
-#: grc/business_logic/constants.py:108
-msgid "Enter a valid postcode"
-msgstr ""
-
-#: grc/business_logic/constants.py:109
-msgid "Enter your phone number"
-msgstr ""
-
-#: grc/business_logic/constants.py:110
-msgid "Enter a valid phone number"
-msgstr ""
-
-#: grc/business_logic/constants.py:111
-msgid "Enter your National Insurance number"
-msgstr ""
-
-#: grc/business_logic/constants.py:112
-msgid "Enter a valid National Insurance number"
-msgstr ""
-
-#: grc/business_logic/constants.py:113
-msgid "You need to be at least 18 years old to apply"
-msgstr ""
-
-#: grc/business_logic/constants.py:114
-msgid "You need to be less than 110 years old to apply"
-msgstr ""
-
-#: grc/business_logic/constants.py:115
-msgid ""
-"Your date of birth must be before your transition date and statutory "
-"declaration date"
-msgstr ""
-
-#: grc/business_logic/constants.py:117
-msgid ""
-"The selected file is empty. Check that the file you are uploading has the"
-" content you expect"
-msgstr ""
-
-#: grc/business_logic/constants.py:118
-msgid "The selected file must be smaller than 10MB"
-msgstr ""
-
-#: grc/business_logic/constants.py:119
-msgid "Unable to communicate with virus scanner"
-msgstr ""
-
-#: grc/business_logic/constants.py:120
-msgid "The selected file contains a virus"
-msgstr ""
-
-#: grc/business_logic/constants.py:121
-msgid "Enter a valid 'Help with fees' reference number"
-msgstr ""
-
-#: grc/document_checker/constants.py:7
+#: grc/business_logic/constants/document_checker.py:9
 msgid "Statutory declaration for applicants who are married"
 msgstr ""
 
-#: grc/document_checker/constants.py:8
+#: grc/business_logic/constants/document_checker.py:10
 msgid "Statutory declaration for applicants who are in a civil partnership"
 msgstr ""
 
-#: grc/document_checker/constants.py:10
+#: grc/business_logic/constants/document_checker.py:12
 msgid "Your spouse’s statutory declaration"
 msgstr ""
 
-#: grc/document_checker/constants.py:11
+#: grc/business_logic/constants/document_checker.py:13
 msgid "Your civil partner’s statutory declaration"
 msgstr ""
 
-#: grc/document_checker/constants.py:12
+#: grc/business_logic/constants/document_checker.py:14
 msgid "If you intend to remain married, your spouse needs to fill in and sign a"
 msgstr ""
 
-#: grc/document_checker/constants.py:13
+#: grc/business_logic/constants/document_checker.py:15
 msgid ""
 "If you are currently married and your spouse does not provide a statutory"
 " declaration of consent, or you do not plan to stay married, then you can"
@@ -552,19 +556,19 @@ msgid ""
 "will be given an Interim Gender Recognition Certificate."
 msgstr ""
 
-#: grc/document_checker/constants.py:17
+#: grc/business_logic/constants/document_checker.py:19
 msgid ""
 "This can be used to end your marriage after which you’ll receive a full "
 "certificate"
 msgstr ""
 
-#: grc/document_checker/constants.py:18
+#: grc/business_logic/constants/document_checker.py:20
 msgid ""
 "If you intend to remain in a civil partnership, your civil partner needs "
 "to fill in and sign a"
 msgstr ""
 
-#: grc/document_checker/constants.py:20
+#: grc/business_logic/constants/document_checker.py:22
 msgid ""
 "If you are currently in a civil partnership and your civil partner does "
 "not provide a statutory declaration of consent, or you do not plan to "
@@ -573,28 +577,347 @@ msgid ""
 "Gender Recognition Certificate."
 msgstr ""
 
-#: grc/document_checker/constants.py:24
+#: grc/business_logic/constants/document_checker.py:26
 msgid ""
 "This can be used to end your civil partnership after which you’ll receive"
 " a full certificate"
 msgstr ""
 
-#: grc/document_checker/constants.py:26
+#: grc/business_logic/constants/document_checker.py:28
 msgid "Your marriage certificate"
 msgstr ""
 
-#: grc/document_checker/constants.py:27
+#: grc/business_logic/constants/document_checker.py:29
 msgid "Your civil partnership certificate"
 msgstr ""
 
-#: grc/document_checker/constants.py:28
+#: grc/business_logic/constants/document_checker.py:30
 msgid "Upload a scan or good quality photograph of your marriage certificate"
 msgstr ""
 
-#: grc/document_checker/constants.py:29
+#: grc/business_logic/constants/document_checker.py:31
 msgid ""
 "Upload a scan or good quality photograph of your civil partnership "
 "certificate"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:6
+#: grc/business_logic/constants/partnership_details.py:18
+msgid "If you are in a same-sex civil partnership and want "
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:7
+#: grc/business_logic/constants/partnership_details.py:19
+msgid "convert your civil partnership to a marriage (opens in a new tab)"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:8
+#: grc/business_logic/constants/partnership_details.py:20
+msgid ", you must do that before you apply for a Gender Recognition Certificate."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:10
+msgid ""
+"If you intend to remain in a civil partnership, your civil partner needs "
+"to fill in a "
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:12
+msgid "If you intend to remain married, your spouse needs to fill in a "
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:13
+msgid "statutory declaration for civil partners (opens in a new tab)"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:14
+msgid "statutory declaration for spouses (opens in a new tab)"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:15
+msgid ", and sign it in front of someone authorised to administer oaths."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:16
+msgid "Can you provide a statutory declaration from your civil partner?"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:17
+msgid "Can you provide a statutory declaration from your spouse?"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:22
+msgid "Your civil partner's details"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:23
+msgid "Your spouse's details"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:24
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying in a civil partnership."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:26
+msgid ""
+"We will contact them about what to do if they change their mind about "
+"staying married."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:28
+msgid ""
+" We will also let them know how their pensions and benefits may be "
+"affected if you receive a Gender Recognition Certificate."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:31
+msgid "Remain married"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:32
+msgid "Remain in your civil partnership"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:33
+msgid "Spouse's name"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:34
+msgid "Civil partner's name"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:35
+msgid "Spouse's postal address"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:36
+msgid "Civil partner's postal address"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:37
+msgid "Can provide a declaration of consent from your spouse"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:38
+msgid "Can provide a declaration of consent from your civil partner"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:40
+msgid ""
+"When you apply for a certificate, your civil partner needs to sign a "
+"document if you want to stay in a civil partnership."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:42
+msgid ""
+"If they do not sign the document, or you’re ending the civil partnership,"
+" you will get an ‘interim’ certificate if you continue with your "
+"application."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:44
+msgid "You can only use the interim certificate to end your civil partnership."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:45
+msgid ""
+"You will get a full certificate once you’re no longer in a civil "
+"partnership."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:46
+msgid ""
+"When you apply for a certificate, your spouse needs tosign a document if "
+"you want to stay married."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:48
+msgid ""
+"If they do not sign the document, or you’re ending the marriage, you will"
+" get an ‘interim’ certificate if you continue with your application."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:50
+msgid "You can only use the interim certificate to end your marriage."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:51
+msgid "You will get a full certificate once you’re no longer married."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:52
+msgid ""
+"You have 6 months to apply for an annulment, divorce or dissolution from "
+"when you get your interim certificate."
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:56
+msgid ""
+"Select if you plan to remain married or in your civil partnership after "
+"receiving your Gender Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:58
+msgid ""
+"Select if you can provide a declaration of consent from your spouse or "
+"civil partner"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:59
+msgid "Enter your spouse or civil partner's title"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:60
+msgid "Enter your spouse or civil partner's first name"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:61
+msgid "Enter your spouse or civil partner's last name"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:62
+msgid "Enter your spouse or civil partner's postal address"
+msgstr ""
+
+#: grc/business_logic/constants/partnership_details.py:64
+msgid ""
+"Select if you were previously married or in a civil partnership, and your"
+" spouse or partner died"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:6
+msgid "Male"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:7
+msgid "Female"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:8
+msgid "A single date"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:9
+msgid "A range of dates"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:10
+msgid "No dates"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:11
+#: grc/templates/personal-details/check-your-answers.html:83
+#: grc/templates/submit-and-pay/check-your-answers.html:118
+msgid "Email"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:12
+msgid "Phone call"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:13
+#: grc/templates/personal-details/check-your-answers.html:93
+#: grc/templates/submit-and-pay/check-your-answers.html:128
+msgid "Post"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:16
+msgid "Enter your title"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:17
+msgid "Enter your first name(s)"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:18
+msgid "Enter your last name"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:19
+msgid "Select your affirmed gender"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:20
+msgid ""
+"Select if you don't want us to contact you at any point in the next 6 "
+"months"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:21
+msgid "Select how would you like to be contacted"
+msgstr ""
+
+#: grc/business_logic/constants/personal_details.py:22
+msgid ""
+"Select if you would like us to tell HMRC after you receive a Gender "
+"Recognition Certificate"
+msgstr ""
+
+#: grc/business_logic/constants/start_application.py:6
+msgid "Yes, and I have my reference number"
+msgstr ""
+
+#: grc/business_logic/constants/start_application.py:7
+msgid "Yes, but I have lost my reference number"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:8
+msgid "No, I will pay now"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:9
+msgid "Using the online service"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:10
+msgid "Using the EX160 form"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:11
+msgid "Help"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:12
+msgid "Online"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:20
+msgid "Select if you are applying for help paying the fee"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:21
+msgid "Select how are you applying for help paying the fee"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:22
+msgid "Enter your Help with Fees reference number"
+msgstr ""
+
+#: grc/business_logic/constants/submit_and_pay.py:23
+msgid ""
+"You must certify that all information given in this application is "
+"correct and that you understand making a false application is an offence."
+msgstr ""
+
+#: grc/business_logic/constants/uploads.py:6
+#: grc/templates/upload/_upload-files-section.html:113
+msgid "Upload file"
+msgstr ""
+
+#: grc/business_logic/constants/uploads.py:7
+#: grc/templates/govuk-design-system-templates/continue.html:12
+#: grc/templates/upload/_upload-files-section.html:125
+msgid "Save and continue"
+msgstr ""
+
+#: grc/business_logic/constants/uploads.py:10
+msgid "Click on either the 'Upload file' button or 'Save and continue' button"
+msgstr ""
+
+#: grc/business_logic/constants/uploads.py:11
+msgid "Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB"
 msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:28
@@ -613,290 +936,6 @@ msgstr ""
 
 #: grc/lazy/lazy_form_custom_validators.py:96
 msgid "File does not have an approved extension."
-msgstr ""
-
-#: grc/partnership_details/constants.py:6
-#: grc/partnership_details/constants.py:18
-msgid "If you are in a same-sex civil partnership and want "
-msgstr ""
-
-#: grc/partnership_details/constants.py:7
-#: grc/partnership_details/constants.py:19
-msgid "convert your civil partnership to a marriage (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:8
-#: grc/partnership_details/constants.py:20
-msgid ", you must do that before you apply for a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:10
-msgid ""
-"If you intend to remain in a civil partnership, your civil partner needs "
-"to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:12
-msgid "If you intend to remain married, your spouse needs to fill in a "
-msgstr ""
-
-#: grc/partnership_details/constants.py:13
-msgid "statutory declaration for civil partners (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:14
-msgid "statutory declaration for spouses (opens in a new tab)"
-msgstr ""
-
-#: grc/partnership_details/constants.py:15
-msgid ", and sign it in front of someone authorised to administer oaths."
-msgstr ""
-
-#: grc/partnership_details/constants.py:16
-msgid "Can you provide a statutory declaration from your civil partner?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:17
-msgid "Can you provide a statutory declaration from your spouse?"
-msgstr ""
-
-#: grc/partnership_details/constants.py:22
-msgid "Your civil partner's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:23
-msgid "Your spouse's details"
-msgstr ""
-
-#: grc/partnership_details/constants.py:24
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying in a civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:26
-msgid ""
-"We will contact them about what to do if they change their mind about "
-"staying married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:28
-msgid ""
-" We will also let them know how their pensions and benefits may be "
-"affected if you receive a Gender Recognition Certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:31
-msgid "Remain married"
-msgstr ""
-
-#: grc/partnership_details/constants.py:32
-msgid "Remain in your civil partnership"
-msgstr ""
-
-#: grc/partnership_details/constants.py:33
-msgid "Spouse's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:34
-msgid "Civil partner's name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:35
-msgid "Spouse's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:36
-msgid "Civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:37
-msgid "Can provide a declaration of consent from your spouse"
-msgstr ""
-
-#: grc/partnership_details/constants.py:38
-msgid "Can provide a declaration of consent from your civil partner"
-msgstr ""
-
-#: grc/partnership_details/constants.py:40
-msgid ""
-"When you apply for a certificate, your civil partner needs to sign a "
-"document if you want to stay in a civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:42
-msgid ""
-"If they do not sign the document, or you’re ending the civil partnership,"
-" you will get an ‘interim’ certificate if you continue with your "
-"application."
-msgstr ""
-
-#: grc/partnership_details/constants.py:44
-msgid "You can only use the interim certificate to end your civil partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:45
-msgid ""
-"You will get a full certificate once you’re no longer in a civil "
-"partnership."
-msgstr ""
-
-#: grc/partnership_details/constants.py:46
-msgid ""
-"When you apply for a certificate, your spouse needs tosign a document if "
-"you want to stay married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:48
-msgid ""
-"If they do not sign the document, or you’re ending the marriage, you will"
-" get an ‘interim’ certificate if you continue with your application."
-msgstr ""
-
-#: grc/partnership_details/constants.py:50
-msgid "You can only use the interim certificate to end your marriage."
-msgstr ""
-
-#: grc/partnership_details/constants.py:51
-msgid "You will get a full certificate once you’re no longer married."
-msgstr ""
-
-#: grc/partnership_details/constants.py:52
-msgid ""
-"You have 6 months to apply for an annulment, divorce or dissolution from "
-"when you get your interim certificate."
-msgstr ""
-
-#: grc/partnership_details/constants.py:56
-msgid ""
-"Select if you plan to remain married or in your civil partnership after "
-"receiving your Gender Recognition Certificate"
-msgstr ""
-
-#: grc/partnership_details/constants.py:58
-msgid ""
-"Select if you can provide a declaration of consent from your spouse or "
-"civil partner"
-msgstr ""
-
-#: grc/partnership_details/constants.py:59
-msgid "Enter your spouse or civil partner's title"
-msgstr ""
-
-#: grc/partnership_details/constants.py:60
-msgid "Enter your spouse or civil partner's first name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:61
-msgid "Enter your spouse or civil partner's last name"
-msgstr ""
-
-#: grc/partnership_details/constants.py:62
-msgid "Enter your spouse or civil partner's postal address"
-msgstr ""
-
-#: grc/partnership_details/constants.py:64
-msgid ""
-"Select if you were previously married or in a civil partnership, and your"
-" spouse or partner died"
-msgstr ""
-
-#: grc/personal_details/constants.py:6
-msgid "Male"
-msgstr ""
-
-#: grc/personal_details/constants.py:7
-msgid "Female"
-msgstr ""
-
-#: grc/personal_details/constants.py:8
-msgid "A single date"
-msgstr ""
-
-#: grc/personal_details/constants.py:9
-msgid "A range of dates"
-msgstr ""
-
-#: grc/personal_details/constants.py:10
-msgid "No dates"
-msgstr ""
-
-#: grc/personal_details/constants.py:11
-#: grc/templates/personal-details/check-your-answers.html:83
-msgid "Email"
-msgstr ""
-
-#: grc/personal_details/constants.py:12
-msgid "Phone call"
-msgstr ""
-
-#: grc/personal_details/constants.py:13
-#: grc/templates/personal-details/check-your-answers.html:93
-msgid "Post"
-msgstr ""
-
-#: grc/personal_details/constants.py:16
-msgid "Enter your title"
-msgstr ""
-
-#: grc/personal_details/constants.py:17
-msgid "Enter your first name(s)"
-msgstr ""
-
-#: grc/personal_details/constants.py:18
-msgid "Enter your last name"
-msgstr ""
-
-#: grc/personal_details/constants.py:19
-msgid "Select your affirmed gender"
-msgstr ""
-
-#: grc/personal_details/constants.py:20
-msgid ""
-"Select if you don't want us to contact you at any point in the next 6 "
-"months"
-msgstr ""
-
-#: grc/personal_details/constants.py:21
-msgid "Select how would you like to be contacted"
-msgstr ""
-
-#: grc/personal_details/constants.py:22
-msgid ""
-"Select if you would like us to tell HMRC after you receive a Gender "
-"Recognition Certificate"
-msgstr ""
-
-#: grc/start_application/constants.py:6
-msgid "Yes, and I have my reference number"
-msgstr ""
-
-#: grc/start_application/constants.py:7
-msgid "Yes, but I have lost my reference number"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:6
-msgid "No, I will pay now"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:7
-msgid "Using the online service"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:8
-msgid "Using the EX160 form"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:11
-msgid "Select if you are applying for help paying the fee"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:12
-msgid "Select how are you applying for help paying the fee"
-msgstr ""
-
-#: grc/submit_and_pay/constants.py:13
-msgid "Enter your Help with Fees reference number"
 msgstr ""
 
 #: grc/templates/base.html:66
@@ -1005,6 +1044,7 @@ msgstr ""
 msgid "Before you start"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:28
 #: grc/templates/task-list.html:67
 msgid "Confirmation"
 msgstr ""
@@ -1015,6 +1055,7 @@ msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:10
 #: grc/templates/personal-details/check-your-answers.html:22
+#: grc/templates/submit-and-pay/check-your-answers.html:57
 #: grc/templates/task-list.html:82
 msgid "Your personal details"
 msgstr ""
@@ -1025,6 +1066,7 @@ msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:10
 #: grc/templates/partnership-details/check-your-answers.html:21
+#: grc/templates/submit-and-pay/check-your-answers.html:293
 #: grc/templates/task-list.html:98
 msgid "Marriage or civil partnership details"
 msgstr ""
@@ -1033,14 +1075,17 @@ msgstr ""
 msgid "Upload your documents"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:384
 #: grc/templates/task-list.html:117
 msgid "Your medical reports"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:393
 #: grc/templates/task-list.html:125
 msgid "Evidence of living in your gender"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:402
 #: grc/templates/task-list.html:133
 msgid "Name change documents"
 msgstr ""
@@ -1049,10 +1094,12 @@ msgstr ""
 msgid "Marriage and civil partnership documents"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:420
 #: grc/templates/task-list.html:149
 msgid "Overseas certificate documents"
 msgstr ""
 
+#: grc/templates/submit-and-pay/check-your-answers.html:428
 #: grc/templates/task-list.html:156
 msgid "Statutory declarations"
 msgstr ""
@@ -1111,42 +1158,52 @@ msgid "Check your answers:"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:20
+#: grc/templates/submit-and-pay/check-your-answers.html:197
 msgid "Birth registration details"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:25
+#: grc/templates/submit-and-pay/check-your-answers.html:202
 msgid "Birth name"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:32
+#: grc/templates/submit-and-pay/check-your-answers.html:209
 msgid "Date of birth"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:39
+#: grc/templates/submit-and-pay/check-your-answers.html:216
 msgid "Birth registered in UK"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:47
+#: grc/templates/submit-and-pay/check-your-answers.html:224
 msgid "Town or city of birth"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:59
+#: grc/templates/submit-and-pay/check-your-answers.html:236
 msgid "Mother's name"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:66
+#: grc/templates/submit-and-pay/check-your-answers.html:243
 msgid "Father's name listed"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:74
+#: grc/templates/submit-and-pay/check-your-answers.html:251
 msgid "Father's name"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:82
+#: grc/templates/submit-and-pay/check-your-answers.html:259
 msgid "Adopted"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:90
+#: grc/templates/submit-and-pay/check-your-answers.html:267
 msgid "Adopted in UK"
 msgstr ""
 
@@ -1158,6 +1215,7 @@ msgid ""
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:108
+#: grc/templates/submit-and-pay/check-your-answers.html:284
 msgid "Registered birth country"
 msgstr ""
 
@@ -1343,7 +1401,28 @@ msgid "Continue"
 msgstr ""
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+msgid "Email sent"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:22
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:381
+msgid "Once you have your documents ready you can"
+msgstr ""
+
+#: grc/templates/document-checker/email-sent.html:27
+msgid "apply for a certificate"
 msgstr ""
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
@@ -1893,73 +1972,45 @@ msgstr ""
 msgid "Birth or adoption certificate"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:352
-msgid "Send an original or"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:354
-msgid "certified copy (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:356
-msgid "of your full birth or adoption certificate"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:357
-msgid "If your birth or adoption was registered in the UK, find out how to"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:359
-msgid "order a certificate (opens in a new tab)"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:361
-msgid "if you do not have it available"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:368
+#: grc/templates/document-checker/your-documents.html:360
 msgid "If any of your documents are not in English"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:371
+#: grc/templates/document-checker/your-documents.html:363
 msgid "You’ll need to have your documents translated"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:372
+#: grc/templates/document-checker/your-documents.html:364
 msgid ""
 "The translator does not need to have any qualifications, so the "
 "translation can be done by a friend or a family member"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:375
+#: grc/templates/document-checker/your-documents.html:367
 msgid ""
 "Get the translator to sign the translated documents and write down their "
 "translation qualifications if they have any"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:378
+#: grc/templates/document-checker/your-documents.html:370
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:381
-msgid "Once you have your documents ready you can"
-msgstr ""
-
-#: grc/templates/document-checker/your-documents.html:383
+#: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:389
+#: grc/templates/document-checker/your-documents.html:381
 msgid "Get this list by email"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:392
+#: grc/templates/document-checker/your-documents.html:384
 msgid ""
 "If you want us to email you the list of documents, please click this "
 "button"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:396
+#: grc/templates/document-checker/your-documents.html:388
 msgid "Email documents list"
 msgstr ""
 
@@ -1972,12 +2023,6 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: grc/templates/govuk-design-system-templates/continue.html:12
-#: grc/templates/upload/_upload-files-section.html:125
-#: grc/upload/constants.py:7
-msgid "Save and continue"
-msgstr ""
-
 #: grc/templates/govuk-design-system-templates/continue.html:15
 #: grc/templates/upload/_upload-files-section.html:129
 #: grc/templates/upload/_upload-files-section.html:136
@@ -1986,6 +2031,7 @@ msgstr ""
 
 #: grc/templates/govuk-design-system-templates/date-range.html:33
 #: grc/templates/govuk-design-system-templates/date-range.html:138
+#: grc/templates/submit-and-pay/check-your-answers.html:165
 msgid "From"
 msgstr ""
 
@@ -2008,18 +2054,22 @@ msgid "There is a problem"
 msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:26
+#: grc/templates/submit-and-pay/check-your-answers.html:298
 msgid "Currently married or in a civil partnership"
 msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:34
+#: grc/templates/submit-and-pay/check-your-answers.html:306
 msgid "Spouse or partner has died"
 msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:41
+#: grc/templates/submit-and-pay/check-your-answers.html:313
 msgid "Marriage or civil partnership has ended"
 msgstr ""
 
 #: grc/templates/partnership-details/check-your-answers.html:87
+#: grc/templates/submit-and-pay/check-your-answers.html:359
 msgid "Interim GRC"
 msgstr ""
 
@@ -2128,43 +2178,54 @@ msgid "Name"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:34
+#: grc/templates/submit-and-pay/check-your-answers.html:69
 msgid "Affirmed gender"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:41
+#: grc/templates/submit-and-pay/check-your-answers.html:76
 msgid "When you transitioned"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:48
+#: grc/templates/submit-and-pay/check-your-answers.html:83
 msgid "When you signed your statutory declaration"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:55
+#: grc/templates/submit-and-pay/check-your-answers.html:90
 msgid "Ever changed name"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:73
+#: grc/templates/submit-and-pay/check-your-answers.html:108
 msgid "Address"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:88
+#: grc/templates/submit-and-pay/check-your-answers.html:123
 msgid "Phone"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:99
+#: grc/templates/submit-and-pay/check-your-answers.html:134
 msgid "Contact preferences"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:114
 #: grc/templates/personal-details/check-your-answers.html:137
+#: grc/templates/submit-and-pay/check-your-answers.html:149
+#: grc/templates/submit-and-pay/check-your-answers.html:172
 msgid "Unavailable over the next 6 months"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:145
+#: grc/templates/submit-and-pay/check-your-answers.html:180
 msgid "Notify HMRC"
 msgstr ""
 
 #: grc/templates/personal-details/check-your-answers.html:153
+#: grc/templates/submit-and-pay/check-your-answers.html:188
 msgid "National insurance number"
 msgstr ""
 
@@ -3203,6 +3264,7 @@ msgid ""
 msgstr ""
 
 #: grc/templates/start-application/declaration.html:39
+#: grc/templates/submit-and-pay/check-your-answers.html:49
 msgid ""
 "Do you consent to the General Register Office contacting you about your "
 "application?"
@@ -3311,6 +3373,7 @@ msgstr ""
 
 #: grc/templates/start-application/overseas-check.html:7
 #: grc/templates/start-application/overseas-check.html:25
+#: grc/templates/submit-and-pay/check-your-answers.html:33
 msgid ""
 "Have you ever been issued a Gender Recognition Certificate (or its "
 "equivalent) in another country?"
@@ -3335,6 +3398,101 @@ msgstr ""
 
 #: grc/templates/start-application/reference-number.html:27
 msgid "Keep a record of it – it can't be recovered if you lose it"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:11
+#: grc/templates/submit-and-pay/check-your-answers.html:24
+msgid "Check your answers before sending your application"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:41
+msgid ""
+"Do you have official documentation that shows you have ever been issued a"
+" Gender Recognition Certificate (or its equivalent) in one of the allowed"
+" countries or territories?"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:62
+msgid ""
+"Name (as you would like it to appear on your Gender Recognition "
+"Certificate)"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:165
+#: grc/templates/upload/evidence.html:27
+msgid "to"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:233
+msgid "Maiden name"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:275
+msgid ""
+"Forces registering service, British Consul or High Commission, or under "
+"Merchant Shipping or Civil Aviation provisions"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:370
+msgid "Your uploaded documents"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:411
+msgid "Marriage documents"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:436
+msgid "Payment details"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:441
+msgid "Payment method"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:449
+msgid "Help type"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:457
+msgid "Help with Fees reference number"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:468
+msgid "Documents you'll need to post"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:471
+msgid "Based on your application the documents that will need to be posted are:"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:487
+msgid "Download your application"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:490
+msgid "If you want to keep a record of the details you are submitting, you can"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:492
+msgid "download a pdf copy"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:497
+msgid "Now send your application"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:507
+msgid ""
+"I certify that all information given in this application is correct and "
+"that I understand making a false application is an offence."
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:517
+msgid "Submit application"
+msgstr ""
+
+#: grc/templates/submit-and-pay/check-your-answers.html:519
+msgid "Submit application and pay online"
 msgstr ""
 
 #: grc/templates/submit-and-pay/help-type.html:8
@@ -3430,11 +3588,6 @@ msgstr ""
 msgid "Error:"
 msgstr ""
 
-#: grc/templates/upload/_upload-files-section.html:113
-#: grc/upload/constants.py:6
-msgid "Upload file"
-msgstr ""
-
 #: grc/templates/upload/_upload-files-section.html:118
 msgid ""
 "Once you have uploaded all your files, click the \"Save and continue\" "
@@ -3485,10 +3638,6 @@ msgstr ""
 msgid ""
 "For example, if you submit your application today, you will need evidence"
 " from"
-msgstr ""
-
-#: grc/templates/upload/evidence.html:27
-msgid "to"
 msgstr ""
 
 #: grc/templates/upload/evidence.html:31
@@ -3640,13 +3789,5 @@ msgstr ""
 msgid ""
 "to find out which declaration is right for you and who can act as a "
 "witness when you sign your declaration."
-msgstr ""
-
-#: grc/upload/constants.py:10
-msgid "Click on either the 'Upload file' button or 'Save and continue' button"
-msgstr ""
-
-#: grc/upload/constants.py:11
-msgid "Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB"
 msgstr ""
 

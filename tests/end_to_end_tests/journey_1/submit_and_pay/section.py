@@ -259,7 +259,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
 
     await asserts.change_links_to_url(link_text='Change payment method', expected_url='/submit-and-pay')
-    await asserts.change_links_to_url(link_text='Change the way your are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')
+    await asserts.change_links_to_url(link_text='Change the way you are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')
     await asserts.change_links_to_url(link_text='Change your Help with Fees reference number', expected_url='/submit-and-pay/help-type')
 
 
