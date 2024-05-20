@@ -7,7 +7,7 @@ from flask import session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
 from werkzeug.datastructures import FileStorage
 from datetime import date
-from grc.business_logic.constants import BaseConstants as c
+from grc.business_logic.constants.base import BaseConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.lazy.lazy_errors import LazyValidationError
 from grc.models import db, Application

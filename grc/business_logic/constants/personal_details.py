@@ -1,5 +1,5 @@
 from flask_babel import lazy_gettext as _l
-from grc.business_logic.constants import BaseConstants
+from .base import BaseConstants
 
 
 class PersonalDetailsConstants(BaseConstants):

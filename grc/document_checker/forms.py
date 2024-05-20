@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import EmailField
-from grc.business_logic.constants import BaseConstants as c
+from grc.business_logic.constants.document_checker import DocumentCheckerConstants as c
 from grc.document_checker.doc_checker_state import CurrentlyInAPartnershipEnum
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail

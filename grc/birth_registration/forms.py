@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from grc.birth_registration.constants import BirthRegistrationConstants as c
-from wtforms import StringField, RadioField
-from wtforms.validators import DataRequired
+from grc.business_logic.constants.birth_and_registration import BirthRegistrationConstants as c
+from wtforms import StringField
 from grc.business_logic.data_structures.birth_registration_data import AdoptedInTheUkEnum
 from grc.utils.form_custom_validators import validate_date_of_birth, Integer
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger
