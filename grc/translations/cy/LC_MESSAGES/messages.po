@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-16 16:05+0100\n"
+"POT-Creation-Date: 2024-05-16 14:52+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1544,6 +1544,7 @@ msgstr ""
 "gwneud cais am ardystiad cydnabod rhywedd."
 
 #: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:373
 #: grc/templates/document-checker/your-documents.html:381
 msgid "Once you have your documents ready you can"
 msgstr "Unwaith y bydd eich dogfennau'n barod"
@@ -2214,7 +2215,7 @@ msgstr ""
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr "Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom"
 
-#: grc/templates/document-checker/your-documents.html:383
+#: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
 msgstr "gallwch wneud cais am Dystysgrif Cydnabod Rhywedd"
 
@@ -3943,6 +3944,134 @@ msgstr "Cyflwyno’r cais"
 msgid "Submit application and pay online"
 msgstr "Cyflwyno’r cais a thalu ar-lein"
 
+#: grc/templates/submit-and-pay/confirmation.html:3
+#: grc/templates/submit-and-pay/confirmation.html:11
+msgid "Application submitted"
+msgstr "Cais wedi'i gyflwyno"
+
+#: grc/templates/submit-and-pay/confirmation.html:14
+msgid "You should post all remaining documents to us as soon as possible"
+msgstr "Dylech bostio’r holl ddogfennau eraill atom cyn gynted â phosibl"
+
+#: grc/templates/submit-and-pay/confirmation.html:19
+msgid "We have sent you a confirmation email."
+msgstr "Rydym wedi anfon e-bost cadarnhau atoch."
+
+#: grc/templates/submit-and-pay/confirmation.html:23
+msgid "What you need to do next"
+msgstr "Beth sydd angen i chi ei wneud nesaf"
+
+#: grc/templates/submit-and-pay/confirmation.html:26
+msgid ""
+"Post your birth or adoption certificate to us as soon as possible – "
+"include your name, address and application reference number so we can "
+"match it to your application."
+msgstr ""
+"Postiwch eich tystysgrif geni neu dystysgrif mabwysiadu atom cyn gynted â"
+" phosibl - dylech gynnwys eich enw, cyfeiriad a chyfeirnod eich cais fel "
+"y gallwn ei pharu â’ch cais."
+
+#: grc/templates/submit-and-pay/confirmation.html:37
+msgid ""
+"If you are sending documents by Royal Mail (including tracked, special "
+"delivery, signed for, and Parcelforce), send to:"
+msgstr ""
+"Os ydych yn defnyddio’r Post Brenhinol i anfon dogfennau (gan gynnwys y "
+"gwasanaeth olrhain, danfoniad arbennig, wedi arwyddo amdano, a "
+"Parcelforce), anfonwch nhw i: "
+
+#: grc/templates/submit-and-pay/confirmation.html:46
+msgid ""
+"If you are sending documents by courier (for example, DPD, Evri, Fedex), "
+"please contact us first (details below)."
+msgstr ""
+"Os ydych yn defnyddio gwasanaeth cludo (er enghraifft, DPD, Evri, Fedex),"
+" cysylltwch â ni yn gyntaf (manylion isod)."
+
+#: grc/templates/submit-and-pay/confirmation.html:57
+#: grc/templates/upload/_upload-files-section.html:175
+msgid "Warning"
+msgstr "Rhybudd"
+
+#: grc/templates/submit-and-pay/confirmation.html:58
+msgid "Do not send us any other documents unless we ask you to."
+msgstr ""
+"Peidiwch ag anfon unrhyw ddogfennau eraill atom oni bai ein bod yn gofyn "
+"i chi wneud hynny."
+
+#: grc/templates/submit-and-pay/confirmation.html:63
+msgid "What happens next with your application"
+msgstr "Beth fydd yn digwydd nesaf gyda’ch cais"
+
+#: grc/templates/submit-and-pay/confirmation.html:67
+msgid ""
+"Once you’ve sent your documents, your application will be reviewed by the"
+" Gender Recognition Panel."
+msgstr ""
+"Unwaith y byddwch wedi anfon eich dogfennau atom, bydd eich cais yn cael "
+"ei adolygu gan y Panel Cydnabod Rhywedd."
+
+#: grc/templates/submit-and-pay/confirmation.html:68
+msgid "This usually happens within 30 weeks of you applying."
+msgstr "Gan amlaf bydd hyn yn digwydd o fewn 30 wythnos i chi wneud cais."
+
+#: grc/templates/submit-and-pay/confirmation.html:71
+msgid ""
+"We will let you know if your application has any errors or missing "
+"documents, or if the Panel needs any more information."
+msgstr ""
+"Byddwn yn gadael i chi wybod os bydd unrhyw gamgymeriadau yn eich cais "
+"neu ddogfennau ar goll, neu os bydd y Panel angen rhagor o wybodaeth. "
+
+#: grc/templates/submit-and-pay/confirmation.html:72
+msgid ""
+"We will ensure you have the time you need to provide any missing or "
+"additional information."
+msgstr ""
+"Byddwn yn sicrhau eich bod yn cael yr amser sydd ei angen arnoch i "
+"ddarparu unrhyw wybodaeth sydd ar goll neu wybodaeth ychwanegol."
+
+#: grc/templates/submit-and-pay/confirmation.html:75
+msgid ""
+"You will then be told if you will be issued with a Gender Recognition "
+"Certificate, and what you can do if your application has not been "
+"accepted."
+msgstr ""
+"Yna fe ddywedir wrthych os byddwch yn cael Tystysgrif Cydnabod Rhywedd, a"
+" beth allwch wneud os na fydd eich cais wedi’i dderbyn."
+
+#: grc/templates/submit-and-pay/confirmation.html:79
+msgid "If you need to contact us"
+msgstr "Os byddwch angen cysylltu â ni"
+
+#: grc/templates/submit-and-pay/confirmation.html:82
+msgid ""
+"Include your application reference number – we will send this to you by "
+"post when we have received your application."
+msgstr ""
+"Bydd angen i chi gynnwys cyfeirnod eich cais - byddwn yn anfon hwn atoch "
+"drwy’r post pan fydd eich cais wedi ein cyrraedd."
+
+#: grc/templates/submit-and-pay/confirmation.html:85
+msgid ""
+"If you need to contact us before you have received your application "
+"reference number, include your full name and postcode."
+msgstr ""
+"Os byddwch angen cysylltu â ni cyn i chi gael cyfeirnod eich cais, dylech"
+" gynnwys eich enw llawn a’ch cod post."
+
+#: grc/templates/submit-and-pay/confirmation.html:91
+msgid "Telephone"
+msgstr "Rhif ffôn"
+
+#: grc/templates/submit-and-pay/confirmation.html:92
+msgid "Monday to Friday, 9am to 5pm"
+msgstr "Dydd Llun i ddydd Iau 9am i 5pm, dydd Gwener 9am i 4.30pm"
+
+#: grc/templates/submit-and-pay/confirmation.html:95
+msgid "Find out about call charges (opens in a new tab)"
+msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
+
 #: grc/templates/submit-and-pay/help-type.html:8
 #: grc/templates/submit-and-pay/help-type.html:21
 msgid "Applying for help with the fee"
@@ -4060,10 +4189,6 @@ msgid "If the document is longer than one page, you must upload every page."
 msgstr ""
 "Os yw’r ddogfen yn hirach nag un tudalen, mae’n rhaid i chi uwchlwytho "
 "pob tudalen."
-
-#: grc/templates/upload/_upload-files-section.html:175
-msgid "Warning"
-msgstr "Rhybudd"
 
 #: grc/templates/upload/_upload-files-section.html:176
 msgid "We will only accept clear images of full pages."
@@ -4282,34 +4407,4 @@ msgid ""
 msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
-
-#~ msgid "Send an original or"
-#~ msgstr "Anfonwch gopi gwreiddiol"
-
-#~ msgid "certified copy (opens in a new tab)"
-#~ msgstr "neu ardystiedig (yn agor mewn tab newydd)"
-
-#~ msgid "of your full birth or adoption certificate"
-#~ msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
-
-#~ msgid "If your birth or adoption was registered in the UK, find out how to"
-#~ msgstr ""
-#~ "Os cafodd eich genedigaeth neu eich "
-#~ "mabwysiad ei chofrestru yn y DU, "
-#~ "dewch o"
-
-#~ msgid "order a certificate (opens in a new tab)"
-#~ msgstr "hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)"
-
-#~ msgid "if you do not have it available"
-#~ msgstr "os nad oes gennych un wrth law"
-
-#~ msgid "your original or a"
-#~ msgstr "copi gwreiddiol neu"
-
-#~ msgid "an"
-#~ msgstr " "
-
-#~ msgid "EX160 form (opens in a new tab)"
-#~ msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
 
