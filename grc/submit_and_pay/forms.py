@@ -1,11 +1,10 @@
 from flask_wtf import FlaskForm
 from grc.business_logic.data_structures.submit_and_pay_data import HelpWithFeesType
-from grc.submit_and_pay.constants import SubmitAndPayConstants as c
+from grc.business_logic.constants.submit_and_pay import SubmitAndPayConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 from grc.utils.form_custom_validators import StrictRequiredIf, validate_hwf_reference_number
 from wtforms import StringField, BooleanField
-from wtforms.validators import DataRequired
 
 
 class MethodCheckForm(FlaskForm):
@@ -41,5 +40,5 @@ class HelpTypeForm(FlaskForm):
 
 class CheckYourAnswers(FlaskForm):
     certify = BooleanField(
-        validators=[DataRequired(message='You must certify that all information given in this application is correct and that you understand making a false application is an offence.')]
+        validators=[LazyDataRequired(lazy_message=c.CORRECT_INFO_DECLARATION_ERROR)]
     )

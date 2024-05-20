@@ -1,5 +1,5 @@
 from enum import auto
-from grc.business_logic.constants import BaseConstants as c
+from grc.business_logic.constants.partnership_details import PartnershipDetailsConstants as c
 from grc.business_logic.data_structures.grc_enum import GrcEnum
 from grc.list_status import ListStatus
 
