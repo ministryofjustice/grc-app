@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-16 16:05+0100\n"
+"POT-Creation-Date: 2024-05-16 14:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1996,6 +1996,10 @@ msgstr ""
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr ""
 
+#: grc/templates/document-checker/your-documents.html:373
+msgid "Once you have your documents ready you can"
+msgstr ""
+
 #: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
 msgstr ""
@@ -3495,6 +3499,112 @@ msgstr ""
 msgid "Submit application and pay online"
 msgstr ""
 
+#: grc/templates/submit-and-pay/confirmation.html:3
+#: grc/templates/submit-and-pay/confirmation.html:11
+msgid "Application submitted"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:14
+msgid "You should post all remaining documents to us as soon as possible"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:19
+msgid "We have sent you a confirmation email."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:23
+msgid "What you need to do next"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:26
+msgid ""
+"Post your birth or adoption certificate to us as soon as possible – "
+"include your name, address and application reference number so we can "
+"match it to your application."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:37
+msgid ""
+"If you are sending documents by Royal Mail (including tracked, special "
+"delivery, signed for, and Parcelforce), send to:"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:46
+msgid ""
+"If you are sending documents by courier (for example, DPD, Evri, Fedex), "
+"please contact us first (details below)."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:57
+#: grc/templates/upload/_upload-files-section.html:175
+msgid "Warning"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:58
+msgid "Do not send us any other documents unless we ask you to."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:63
+msgid "What happens next with your application"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:67
+msgid ""
+"Once you’ve sent your documents, your application will be reviewed by the"
+" Gender Recognition Panel."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:68
+msgid "This usually happens within 30 weeks of you applying."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:71
+msgid ""
+"We will let you know if your application has any errors or missing "
+"documents, or if the Panel needs any more information."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:72
+msgid ""
+"We will ensure you have the time you need to provide any missing or "
+"additional information."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:75
+msgid ""
+"You will then be told if you will be issued with a Gender Recognition "
+"Certificate, and what you can do if your application has not been "
+"accepted."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:79
+msgid "If you need to contact us"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:82
+msgid ""
+"Include your application reference number – we will send this to you by "
+"post when we have received your application."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:85
+msgid ""
+"If you need to contact us before you have received your application "
+"reference number, include your full name and postcode."
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:91
+msgid "Telephone"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:92
+msgid "Monday to Friday, 9am to 5pm"
+msgstr ""
+
+#: grc/templates/submit-and-pay/confirmation.html:95
+msgid "Find out about call charges (opens in a new tab)"
+msgstr ""
+
 #: grc/templates/submit-and-pay/help-type.html:8
 #: grc/templates/submit-and-pay/help-type.html:21
 msgid "Applying for help with the fee"
@@ -3600,10 +3710,6 @@ msgstr ""
 
 #: grc/templates/upload/_upload-files-section.html:167
 msgid "If the document is longer than one page, you must upload every page."
-msgstr ""
-
-#: grc/templates/upload/_upload-files-section.html:175
-msgid "Warning"
 msgstr ""
 
 #: grc/templates/upload/_upload-files-section.html:176
