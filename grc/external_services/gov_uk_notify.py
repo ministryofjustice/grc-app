@@ -1,5 +1,11 @@
 from flask import current_app
 from notifications_python_client.notifications import NotificationsAPIClient
+from notifications_python_client.errors import HTTPError
+from grc.utils.security_code import generate_security_code_and_expiry
+from grc.utils.logger import LogLevel, Logger
+from werkzeug.exceptions import HTTPException
+
+logger = Logger()
 
 
 class GovUkNotify:
@@ -10,7 +16,8 @@ class GovUkNotify:
         self.notify_override_email = current_app.config['NOTIFY_OVERRIDE_EMAIL']
         self.gov_uk_notify_client = NotificationsAPIClient(gov_uk_notify_api_key)
 
-    def send_email_security_code(self, email_address: str, security_code: str, security_code_timeout: str):
+    def send_email_security_code(self, email_address: str):
+        security_code, security_code_timeout = generate_security_code_and_expiry(email_address)
         personalisation = {
             'security_code': security_code,
             'security_code_timeout': security_code_timeout,
@@ -22,10 +29,9 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-    def send_email_unfinished_application(self, email_address: str, expiry_days: str, grc_return_link: str):
+    def send_email_unfinished_application(self, email_address: str, expiry_days: str):
         personalisation = {
             'expiry_days': expiry_days,
-            'grc_return_link': grc_return_link,
         }
 
         return self.send_email(
@@ -112,7 +118,8 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-    def send_email_admin_login_security_code(self, email_address: str, expires: str, security_code: str):
+    def send_email_admin_login_security_code(self, email_address: str):
+        security_code, expires = generate_security_code_and_expiry(email_address)
         personalisation = {
             'expires': expires,
             'security_code': security_code,
@@ -124,7 +131,8 @@ class GovUkNotify:
             personalisation=personalisation
         )
 
-    def send_email_admin_forgot_password(self, email_address: str, expires: str, security_code: str):
+    def send_email_admin_forgot_password(self, email_address: str):
+        security_code, expires = generate_security_code_and_expiry(email_address)
         personalisation = {
             'expires': expires,
             'security_code': security_code,
@@ -159,10 +167,23 @@ class GovUkNotify:
             if self.notify_override_email:
                 email_address = self.notify_override_email
 
-        response = self.gov_uk_notify_client.send_email_notification(
-            email_address=email_address,
-            template_id=template_id,
-            personalisation=personalisation
-        )
+        try:
+            response = self.gov_uk_notify_client.send_email_notification(
+                email_address=email_address,
+                template_id=template_id,
+                personalisation=personalisation
+            )
+            return response
 
-        return response
+        except HTTPError as error:
+            message = (f'Error sending email to user - {logger.mask_email_address(email_address)}: {error.status_code}'
+                       f' - {error.message}')
+            logger.log(LogLevel.ERROR, message=message)
+            raise GovUkNotifyException(error.status_code, message)
+
+
+class GovUkNotifyException(HTTPException):
+    def __init__(self, error_code, message=None):
+        self.code = error_code
+        self.default_message = 'Error sending email notification via notify'
+        self.description = message if message else self.default_message
