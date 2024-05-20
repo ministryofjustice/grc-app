@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-16 14:52+0100\n"
+"POT-Creation-Date: 2024-05-20 11:16+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -963,19 +963,19 @@ msgstr "Help"
 msgid "Online"
 msgstr "Ar-lein"
 
-#: grc/business_logic/constants/submit_and_pay.py:20
+#: grc/business_logic/constants/submit_and_pay.py:15
 msgid "Select if you are applying for help paying the fee"
 msgstr "Dewiswch os ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:21
+#: grc/business_logic/constants/submit_and_pay.py:16
 msgid "Select how are you applying for help paying the fee"
 msgstr "Dewiswch sut ydych chi’n gwneud cais am help i dalu’r ffi"
 
-#: grc/business_logic/constants/submit_and_pay.py:22
+#: grc/business_logic/constants/submit_and_pay.py:17
 msgid "Enter your Help with Fees reference number"
 msgstr "Nodwch eich cyfeirnod Help i Dalu Ffioedd"
 
-#: grc/business_logic/constants/submit_and_pay.py:23
+#: grc/business_logic/constants/submit_and_pay.py:18
 msgid ""
 "You must certify that all information given in this application is "
 "correct and that you understand making a false application is an offence."
@@ -1526,8 +1526,34 @@ msgid "Continue"
 msgstr "Parhau"
 
 #: grc/templates/document-checker/email-address.html:45
+#: grc/templates/document-checker/email-sent.html:33
 msgid "Return to your documents list"
 msgstr "Dychwelyd at eich rhestr o ddogfennau"
+
+#: grc/templates/document-checker/email-sent.html:5
+#: grc/templates/document-checker/email-sent.html:17
+#, fuzzy
+msgid "Email sent"
+msgstr "E-bost wedi'i ail anfon"
+
+#: grc/templates/document-checker/email-sent.html:22
+#, fuzzy
+msgid ""
+"You should shortly receive an email with the required documents for "
+"applying for a gender recognition certification."
+msgstr ""
+"Mae angen i chi ddarparu cyfeiriad e-bost i ddefnyddio’r gwasanaeth hwn i"
+" wneud cais am Dystysgrif Cydnabod Rhywedd"
+
+#: grc/templates/document-checker/email-sent.html:25
+#: grc/templates/document-checker/your-documents.html:373
+msgid "Once you have your documents ready you can"
+msgstr "Unwaith y bydd eich dogfennau'n barod"
+
+#: grc/templates/document-checker/email-sent.html:27
+#, fuzzy
+msgid "apply for a certificate"
+msgstr "Eich tystysgrif priodas"
 
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:7
 #: grc/templates/document-checker/gender-recognition-outside-uk.html:23
@@ -2190,10 +2216,6 @@ msgstr ""
 #: grc/templates/document-checker/your-documents.html:370
 msgid "You’ll need to send in both the original documents and the translations"
 msgstr "Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom"
-
-#: grc/templates/document-checker/your-documents.html:373
-msgid "Once you have your documents ready you can"
-msgstr "Unwaith y bydd eich dogfennau'n barod"
 
 #: grc/templates/document-checker/your-documents.html:375
 msgid "apply for a Gender Recognition Certificate"
@@ -3628,6 +3650,33 @@ msgstr ""
 msgid "You can contact the Information Commissioner at:"
 msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
 
+#: grc/templates/start-application/application-already-submitted.html:7
+msgid "This application has already been submitted"
+msgstr ""
+
+#: grc/templates/start-application/application-already-submitted.html:19
+msgid "An application with this reference number has already been submitted"
+msgstr ""
+
+#: grc/templates/start-application/application-already-submitted.html:24
+msgid "Contact the admin team if you need help with your application."
+msgstr ""
+
+#: grc/templates/start-application/application-already-submitted.html:30
+#: grc/templates/submit-and-pay/confirmation.html:91
+msgid "Telephone"
+msgstr "Rhif ffôn"
+
+#: grc/templates/start-application/application-already-submitted.html:31
+#: grc/templates/submit-and-pay/confirmation.html:92
+msgid "Monday to Friday, 9am to 5pm"
+msgstr "Dydd Llun i ddydd Iau 9am i 5pm, dydd Gwener 9am i 4.30pm"
+
+#: grc/templates/start-application/application-already-submitted.html:34
+#: grc/templates/submit-and-pay/confirmation.html:95
+msgid "Find out about call charges (opens in a new tab)"
+msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
+
 #: grc/templates/start-application/declaration.html:7
 #: grc/templates/start-application/declaration.html:20
 msgid "Notifying the General Register Office"
@@ -4040,18 +4089,6 @@ msgstr ""
 "Os byddwch angen cysylltu â ni cyn i chi gael cyfeirnod eich cais, dylech"
 " gynnwys eich enw llawn a’ch cod post."
 
-#: grc/templates/submit-and-pay/confirmation.html:91
-msgid "Telephone"
-msgstr "Rhif ffôn"
-
-#: grc/templates/submit-and-pay/confirmation.html:92
-msgid "Monday to Friday, 9am to 5pm"
-msgstr "Dydd Llun i ddydd Iau 9am i 5pm, dydd Gwener 9am i 4.30pm"
-
-#: grc/templates/submit-and-pay/confirmation.html:95
-msgid "Find out about call charges (opens in a new tab)"
-msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
-
 #: grc/templates/submit-and-pay/help-type.html:8
 #: grc/templates/submit-and-pay/help-type.html:21
 msgid "Applying for help with the fee"
@@ -4420,4 +4457,7 @@ msgstr ""
 
 #~ msgid "Monday to Friday"
 #~ msgstr ""
+
+#~ msgid "Telephone:"
+#~ msgstr "Rhif ffôn"
 
