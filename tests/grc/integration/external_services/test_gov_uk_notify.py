@@ -75,8 +75,9 @@ class TestGovNotifyEmails:
             assert 'http://app-link' in response['content']['body']
             assert 'Your temporary password is 123ABC' in response['content']['body']
 
-    def test_send_email_bad_request(self, admin_app, public_user_email):
-        with admin_app.test_request_context():
+    def test_send_email_bad_request(self, app, public_user_email):
+        with app.test_request_context():
+            app.preprocess_request()
             mock_response = MagicMock(status_code=400)
             test_client = GovUkNotify()
             test_client.gov_uk_notify_client = MagicMock()
@@ -141,8 +142,12 @@ class TestGovNotifyEmailsWelsh:
             assert 'Good experience using doc checker' in response['content']['body']
             assert 'No other suggestions' in response['content']['body']
 
-    def test_send_email_bad_request(self, admin_app, public_user_email):
-        with admin_app.test_request_context():
+    def test_send_email_bad_request(self, app, client, public_user_email):
+        with app.test_request_context():
+            with client.session_transaction() as session:
+                session['lang_code'] = 'cy'
+            client.get('/')
+            assert g.lang_code == 'cy'
             mock_response = MagicMock(status_code=400)
             test_client = GovUkNotify()
             test_client.gov_uk_notify_client = MagicMock()
