@@ -8,7 +8,7 @@ class TestGovNotifyEmails:
 
     @patch('grc.external_services.gov_uk_notify.generate_security_code_and_expiry')
     def test_send_email_security_code(self, mock_security_code, app, client, public_user_email):
-        with app.test_request_context():
+        with app.app_context():
             with client.session_transaction() as session:
                 session['lang_code'] = 'en'
             mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
@@ -17,14 +17,14 @@ class TestGovNotifyEmails:
             assert 'until 12:45 on 29 Mar 2024' in response['content']['body']
 
     def test_send_email_unfinished_application(self, app, client, public_user_email):
-        with app.test_request_context():
+        with app.app_context():
             with client.session_transaction() as session:
                 session['lang_code'] = 'en'
             response = GovUkNotify().send_email_unfinished_application(public_user_email, '30')
             assert 'Your Gender Recognition Certificate application expires in 30' in response['content']['subject']
 
     def test_send_email_completed_application(self, app, client, public_user_email):
-        with app.test_request_context():
+        with app.app_context():
             with client.session_transaction() as session:
                 session['lang_code'] = 'en'
             response = GovUkNotify().send_email_completed_application(public_user_email, 'list of docs')
@@ -32,7 +32,7 @@ class TestGovNotifyEmails:
             assert 'list of docs' in response['content']['body']
 
     def test_send_email_feedback(self, app, client, public_user_email):
-        with app.test_request_context():
+        with app.app_context():
             with client.session_transaction() as session:
                 session['lang_code'] = 'en'
             response = GovUkNotify().send_email_feedback(
@@ -55,7 +55,7 @@ class TestGovNotifyEmails:
 
     @patch('grc.external_services.gov_uk_notify.generate_security_code_and_expiry')
     def test_send_email_admin_login_security_code(self, mock_security_code, app, public_user_email):
-        with app.test_request_context():
+        with app.app_context():
             mock_security_code.return_value = ('12345', '12:45 on 29 Mar 2024')
             response = GovUkNotify().send_email_admin_login_security_code(public_user_email)
             assert 'Your login link for GRC admin' in response['content']['subject']

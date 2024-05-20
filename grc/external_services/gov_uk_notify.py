@@ -8,6 +8,7 @@ from werkzeug.exceptions import HTTPException
 
 logger = Logger()
 
+
 class GovUkNotify:
     def __init__(self):
         gov_uk_notify_api_key = current_app.config['NOTIFY_API']
