@@ -1,3 +1,4 @@
+from admin.config import TestConfig
 from unittest.mock import patch
 
 
@@ -29,9 +30,13 @@ class TestAdminIndex:
             mock_db_session.query.return_value.count.return_value = 0
             mock_temp_password.return_value = '123ABC'
             response = client.get('/')
-            assert mock_db_session.add.called
-            assert mock_db_session.commit.called
-            assert mock_send_email.assert_called
+            mock_db_session.add.assert_called()
+            mock_db_session.commit.assert_called()
+            mock_send_email.assert_called_once_with(
+                email_address='test.email@example.com',
+                temporary_password='123ABC',
+                application_link='http://localhost/'
+            )
             assert response.status_code == 200
 
     def test_index_user_signed_in(self, app, client):
