@@ -4422,39 +4422,3 @@ msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
 
-#~ msgid "Send an original or"
-#~ msgstr "Anfonwch gopi gwreiddiol"
-
-#~ msgid "certified copy (opens in a new tab)"
-#~ msgstr "neu ardystiedig (yn agor mewn tab newydd)"
-
-#~ msgid "of your full birth or adoption certificate"
-#~ msgstr "o'ch tystysgrif geni neu fabwysiadu llawn"
-
-#~ msgid "If your birth or adoption was registered in the UK, find out how to"
-#~ msgstr ""
-#~ "Os cafodd eich genedigaeth neu eich "
-#~ "mabwysiad ei chofrestru yn y DU, "
-#~ "dewch o"
-
-#~ msgid "order a certificate (opens in a new tab)"
-#~ msgstr "hyd i wybodaeth am sut i archebu tystysgrif (yn agor mewn tab newydd)"
-
-#~ msgid "if you do not have it available"
-#~ msgstr "os nad oes gennych un wrth law"
-
-#~ msgid "your original or a"
-#~ msgstr "copi gwreiddiol neu"
-
-#~ msgid "an"
-#~ msgstr " "
-
-#~ msgid "EX160 form (opens in a new tab)"
-#~ msgstr "ffurflen EX160 (yn agor mewn tab newydd)"
-
-#~ msgid "Monday to Friday"
-#~ msgstr ""
-
-#~ msgid "Telephone:"
-#~ msgstr "Rhif ffôn"
-
