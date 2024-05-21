@@ -11,7 +11,7 @@ from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.strtobool import strtobool
-from psycopg2.errors import OperationalError
+from sqlalchemy.exc import SQLAlchemyError
 
 startApplication = Blueprint('startApplication', __name__)
 logger = Logger()
@@ -73,7 +73,8 @@ def isFirstVisit():
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('startApplication.reference'))
 
-                except OperationalError:
+                except SQLAlchemyError as err:
+                    logger.log(LogLevel.ERROR, message=f'Error incrementing app session with error: {err}')
                     flash('There is a problem creating a new application', 'error')
                     return render_template('start-application/is-first-visit.html', form=form)
 
