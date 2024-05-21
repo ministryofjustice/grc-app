@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-21 10:14+0100\n"
+"POT-Creation-Date: 2024-05-21 14:06+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1048,6 +1048,18 @@ msgstr "Datganiad hygyrchedd"
 msgid "Cookies"
 msgstr "Cwyis"
 
+#: grc/templates/contact-admin.html:6
+msgid "Telephone"
+msgstr "Rhif ffôn"
+
+#: grc/templates/contact-admin.html:7
+msgid "Monday to Friday, 9am to 5pm"
+msgstr "Dydd Llun i ddydd Iau 9am i 5pm, dydd Gwener 9am i 4.30pm"
+
+#: grc/templates/contact-admin.html:10
+msgid "Find out about call charges (opens in a new tab)"
+msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
+
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
 msgstr "Rhowch cod diogelwch"
@@ -1482,6 +1494,30 @@ msgstr ""
 " DU neu os cafodd eich genedigaeth ei chofrestru gan wasanaeth "
 "cofrestru’r Lluoedd, Conswl Prydeinig neu Uchel Gomisiwn, neu dan "
 "ddarpariaethau Llongau Masnach neu Hedfan Sifil."
+
+#: grc/templates/custom-error-templates/404.html:4
+#: grc/templates/custom-error-templates/404.html:11
+msgid "Page not found"
+msgstr "Ni ellir dod o hyd i’r dudalen"
+
+#: grc/templates/custom-error-templates/404.html:14
+msgid "If you typed the web address, check it is correct."
+msgstr "Os bu ichi deipio cyfeiriad y wefan, gwiriwch ei fod yn gywir."
+
+#: grc/templates/custom-error-templates/404.html:17
+msgid "If you pasted the web address, check you copied the entire address."
+msgstr ""
+"Os bu ichi ludo cyfeiriad y wefan, gwiriwch eich bod wedi copïo’r "
+"cyfeiriad cyfan."
+
+#: grc/templates/custom-error-templates/404.html:20
+msgid ""
+"If the web address is correct or you selected a link or button, contact "
+"the admin team if you need help with your application."
+msgstr ""
+"Os yw cyfeiriad y wefan yn gywir, neu os gwnaethoch glicio ar ddolen neu "
+"fotwm, cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch "
+"cais."
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
@@ -3647,32 +3683,17 @@ msgstr ""
 msgid "You can contact the Information Commissioner at:"
 msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
 
-#: grc/templates/start-application/application-already-submitted.html:7
+#: grc/templates/start-application/application-already-submitted.html:8
 msgid "This application has already been submitted"
 msgstr "Mae'r cais hwn eisoes wedi'i gyflwyno"
 
-#: grc/templates/start-application/application-already-submitted.html:19
+#: grc/templates/start-application/application-already-submitted.html:20
 msgid "An application with this reference number has already been submitted"
 msgstr "Mae cais gyda'r cyfeirnod hwn eisoes wedi'i gyflwyno"
 
-#: grc/templates/start-application/application-already-submitted.html:24
+#: grc/templates/start-application/application-already-submitted.html:25
 msgid "Contact the admin team if you need help with your application."
 msgstr "Cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch cais."
-
-#: grc/templates/start-application/application-already-submitted.html:30
-#: grc/templates/submit-and-pay/confirmation.html:91
-msgid "Telephone"
-msgstr "Rhif ffôn"
-
-#: grc/templates/start-application/application-already-submitted.html:31
-#: grc/templates/submit-and-pay/confirmation.html:92
-msgid "Monday to Friday, 9am to 5pm"
-msgstr "Dydd Llun i ddydd Iau 9am i 5pm, dydd Gwener 9am i 4.30pm"
-
-#: grc/templates/start-application/application-already-submitted.html:34
-#: grc/templates/submit-and-pay/confirmation.html:95
-msgid "Find out about call charges (opens in a new tab)"
-msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
 
 #: grc/templates/start-application/declaration.html:7
 #: grc/templates/start-application/declaration.html:20
@@ -3970,24 +3991,24 @@ msgstr "Cyflwyno’r cais"
 msgid "Submit application and pay online"
 msgstr "Cyflwyno’r cais a thalu ar-lein"
 
-#: grc/templates/submit-and-pay/confirmation.html:3
-#: grc/templates/submit-and-pay/confirmation.html:11
+#: grc/templates/submit-and-pay/confirmation.html:4
+#: grc/templates/submit-and-pay/confirmation.html:12
 msgid "Application submitted"
 msgstr "Cais wedi'i gyflwyno"
 
-#: grc/templates/submit-and-pay/confirmation.html:14
+#: grc/templates/submit-and-pay/confirmation.html:15
 msgid "You should post all remaining documents to us as soon as possible"
 msgstr "Dylech bostio’r holl ddogfennau eraill atom cyn gynted â phosibl"
 
-#: grc/templates/submit-and-pay/confirmation.html:19
+#: grc/templates/submit-and-pay/confirmation.html:20
 msgid "We have sent you a confirmation email."
 msgstr "Rydym wedi anfon e-bost cadarnhau atoch."
 
-#: grc/templates/submit-and-pay/confirmation.html:23
+#: grc/templates/submit-and-pay/confirmation.html:24
 msgid "What you need to do next"
 msgstr "Beth sydd angen i chi ei wneud nesaf"
 
-#: grc/templates/submit-and-pay/confirmation.html:26
+#: grc/templates/submit-and-pay/confirmation.html:27
 msgid ""
 "Post your birth or adoption certificate to us as soon as possible – "
 "include your name, address and application reference number so we can "
@@ -3997,7 +4018,7 @@ msgstr ""
 " phosibl - dylech gynnwys eich enw, cyfeiriad a chyfeirnod eich cais fel "
 "y gallwn ei pharu â’ch cais."
 
-#: grc/templates/submit-and-pay/confirmation.html:37
+#: grc/templates/submit-and-pay/confirmation.html:38
 msgid ""
 "If you are sending documents by Royal Mail (including tracked, special "
 "delivery, signed for, and Parcelforce), send to:"
@@ -4006,7 +4027,7 @@ msgstr ""
 "gwasanaeth olrhain, danfoniad arbennig, wedi arwyddo amdano, a "
 "Parcelforce), anfonwch nhw i: "
 
-#: grc/templates/submit-and-pay/confirmation.html:46
+#: grc/templates/submit-and-pay/confirmation.html:47
 msgid ""
 "If you are sending documents by courier (for example, DPD, Evri, Fedex), "
 "please contact us first (details below)."
@@ -4014,22 +4035,22 @@ msgstr ""
 "Os ydych yn defnyddio gwasanaeth cludo (er enghraifft, DPD, Evri, Fedex),"
 " cysylltwch â ni yn gyntaf (manylion isod)."
 
-#: grc/templates/submit-and-pay/confirmation.html:57
+#: grc/templates/submit-and-pay/confirmation.html:58
 #: grc/templates/upload/_upload-files-section.html:175
 msgid "Warning"
 msgstr "Rhybudd"
 
-#: grc/templates/submit-and-pay/confirmation.html:58
+#: grc/templates/submit-and-pay/confirmation.html:59
 msgid "Do not send us any other documents unless we ask you to."
 msgstr ""
 "Peidiwch ag anfon unrhyw ddogfennau eraill atom oni bai ein bod yn gofyn "
 "i chi wneud hynny."
 
-#: grc/templates/submit-and-pay/confirmation.html:63
+#: grc/templates/submit-and-pay/confirmation.html:64
 msgid "What happens next with your application"
 msgstr "Beth fydd yn digwydd nesaf gyda’ch cais"
 
-#: grc/templates/submit-and-pay/confirmation.html:67
+#: grc/templates/submit-and-pay/confirmation.html:68
 msgid ""
 "Once you’ve sent your documents, your application will be reviewed by the"
 " Gender Recognition Panel."
@@ -4037,11 +4058,11 @@ msgstr ""
 "Unwaith y byddwch wedi anfon eich dogfennau atom, bydd eich cais yn cael "
 "ei adolygu gan y Panel Cydnabod Rhywedd."
 
-#: grc/templates/submit-and-pay/confirmation.html:68
+#: grc/templates/submit-and-pay/confirmation.html:69
 msgid "This usually happens within 30 weeks of you applying."
 msgstr "Gan amlaf bydd hyn yn digwydd o fewn 30 wythnos i chi wneud cais."
 
-#: grc/templates/submit-and-pay/confirmation.html:71
+#: grc/templates/submit-and-pay/confirmation.html:72
 msgid ""
 "We will let you know if your application has any errors or missing "
 "documents, or if the Panel needs any more information."
@@ -4049,7 +4070,7 @@ msgstr ""
 "Byddwn yn gadael i chi wybod os bydd unrhyw gamgymeriadau yn eich cais "
 "neu ddogfennau ar goll, neu os bydd y Panel angen rhagor o wybodaeth. "
 
-#: grc/templates/submit-and-pay/confirmation.html:72
+#: grc/templates/submit-and-pay/confirmation.html:73
 msgid ""
 "We will ensure you have the time you need to provide any missing or "
 "additional information."
@@ -4057,7 +4078,7 @@ msgstr ""
 "Byddwn yn sicrhau eich bod yn cael yr amser sydd ei angen arnoch i "
 "ddarparu unrhyw wybodaeth sydd ar goll neu wybodaeth ychwanegol."
 
-#: grc/templates/submit-and-pay/confirmation.html:75
+#: grc/templates/submit-and-pay/confirmation.html:76
 msgid ""
 "You will then be told if you will be issued with a Gender Recognition "
 "Certificate, and what you can do if your application has not been "
@@ -4066,11 +4087,11 @@ msgstr ""
 "Yna fe ddywedir wrthych os byddwch yn cael Tystysgrif Cydnabod Rhywedd, a"
 " beth allwch wneud os na fydd eich cais wedi’i dderbyn."
 
-#: grc/templates/submit-and-pay/confirmation.html:79
+#: grc/templates/submit-and-pay/confirmation.html:80
 msgid "If you need to contact us"
 msgstr "Os byddwch angen cysylltu â ni"
 
-#: grc/templates/submit-and-pay/confirmation.html:82
+#: grc/templates/submit-and-pay/confirmation.html:83
 msgid ""
 "Include your application reference number – we will send this to you by "
 "post when we have received your application."
@@ -4078,7 +4099,7 @@ msgstr ""
 "Bydd angen i chi gynnwys cyfeirnod eich cais - byddwn yn anfon hwn atoch "
 "drwy’r post pan fydd eich cais wedi ein cyrraedd."
 
-#: grc/templates/submit-and-pay/confirmation.html:85
+#: grc/templates/submit-and-pay/confirmation.html:86
 msgid ""
 "If you need to contact us before you have received your application "
 "reference number, include your full name and postcode."

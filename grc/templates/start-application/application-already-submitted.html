@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import "contact-admin.html" as contact_admin %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
@@ -23,17 +24,7 @@
             <p class="govuk-body">
                 {{ _('Contact the admin team if you need help with your application.') }}
             </p>
-            <p class="govuk-body">
-                <a href="mailto:GRPenquiries@justice.gov.uk" class="govuk-link">
-                    GRPenquiries@justice.gov.uk
-                </a><br>
-                {{ _('Telephone') }}: 020 3936 8968<br>
-                {{ _('Monday to Friday, 9am to 5pm') }}<br>
-                <a href=https://www.gov.uk/call-charges"
-                   target="_blank" class="govuk-link">
-                    {{ _('Find out about call charges (opens in a new tab)') }}
-                </a>
-            </p>
+            {{ contact_admin.render() }}
 
         </div>
     </div>
