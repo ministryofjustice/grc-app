@@ -3649,15 +3649,15 @@ msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
 
 #: grc/templates/start-application/application-already-submitted.html:7
 msgid "This application has already been submitted"
-msgstr ""
+msgstr "Mae'r cais hwn eisoes wedi'i gyflwyno"
 
 #: grc/templates/start-application/application-already-submitted.html:19
 msgid "An application with this reference number has already been submitted"
-msgstr ""
+msgstr "Mae cais gyda'r cyfeirnod hwn eisoes wedi'i gyflwyno"
 
 #: grc/templates/start-application/application-already-submitted.html:24
 msgid "Contact the admin team if you need help with your application."
-msgstr ""
+msgstr "Cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch cais."
 
 #: grc/templates/start-application/application-already-submitted.html:30
 #: grc/templates/submit-and-pay/confirmation.html:91
