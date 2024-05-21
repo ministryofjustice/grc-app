@@ -17,6 +17,7 @@ from grc.submit_and_pay.forms import MethodCheckForm, HelpTypeForm, CheckYourAns
 from grc.utils.application_files import ApplicationFiles
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
+from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 
