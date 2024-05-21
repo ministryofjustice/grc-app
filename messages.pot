@@ -976,6 +976,18 @@ msgstr ""
 msgid "Find out about call charges (opens in a new tab)"
 msgstr ""
 
+#: grc/templates/contact-admin.html:6
+msgid "Telephone"
+msgstr ""
+
+#: grc/templates/contact-admin.html:7
+msgid "Monday to Friday, 9am to 5pm"
+msgstr ""
+
+#: grc/templates/contact-admin.html:10
+msgid "Find out about call charges (opens in a new tab)"
+msgstr ""
+
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
 msgstr ""
@@ -1374,6 +1386,25 @@ msgid ""
 "registering service, a British Consul or\n"
 "                                           High Commission, or under "
 "Merchant Shipping or Civil Aviation provisions."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:4
+#: grc/templates/custom-error-templates/404.html:11
+msgid "Page not found"
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:14
+msgid "If you typed the web address, check it is correct."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:17
+msgid "If you pasted the web address, check you copied the entire address."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:20
+msgid ""
+"If the web address is correct or you selected a link or button, contact "
+"the admin team if you need help with your application."
 msgstr ""
 
 #: grc/templates/custom-error-templates/404.html:4
