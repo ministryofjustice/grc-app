@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import "contact-admin.html" as contact_admin %}
 
 {% block title %}{{ _('Application submitted') }}{% endblock %}
 
@@ -84,17 +85,7 @@
             <p class="govuk-body">
                 {{ _('If you need to contact us before you have received your application reference number, include your full name and postcode.') }}
             </p>
-            <p class="govuk-body">
-                <a href="mailto:GRPenquiries@justice.gov.uk" class="govuk-link">
-                    GRPenquiries@justice.gov.uk
-                </a><br>
-                {{ _('Telephone') }}: 020 3936 8968<br>
-                {{ _('Monday to Friday, 9am to 5pm') }}<br>
-                <a href=https://www.gov.uk/call-charges"
-                   target="_blank" class="govuk-link">
-                    {{ _('Find out about call charges (opens in a new tab)') }}
-                </a>
-            </p>
+            {{ contact_admin.render() }}
 
         </div>
     </div>
