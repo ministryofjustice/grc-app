@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-21 10:14+0100\n"
+"POT-Creation-Date: 2024-05-21 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -964,6 +964,18 @@ msgstr ""
 msgid "Cookies"
 msgstr ""
 
+#: grc/templates/contact-admin.html:6
+msgid "Telephone"
+msgstr ""
+
+#: grc/templates/contact-admin.html:7
+msgid "Monday to Friday, 9am to 5pm"
+msgstr ""
+
+#: grc/templates/contact-admin.html:10
+msgid "Find out about call charges (opens in a new tab)"
+msgstr ""
+
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
 msgstr ""
@@ -1362,6 +1374,25 @@ msgid ""
 "registering service, a British Consul or\n"
 "                                           High Commission, or under "
 "Merchant Shipping or Civil Aviation provisions."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:4
+#: grc/templates/custom-error-templates/404.html:11
+msgid "Page not found"
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:14
+msgid "If you typed the web address, check it is correct."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:17
+msgid "If you pasted the web address, check you copied the entire address."
+msgstr ""
+
+#: grc/templates/custom-error-templates/404.html:20
+msgid ""
+"If the web address is correct or you selected a link or button, contact "
+"the admin team if you need help with your application."
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
@@ -3237,31 +3268,16 @@ msgstr ""
 msgid "You can contact the Information Commissioner at:"
 msgstr ""
 
-#: grc/templates/start-application/application-already-submitted.html:7
+#: grc/templates/start-application/application-already-submitted.html:8
 msgid "This application has already been submitted"
 msgstr ""
 
-#: grc/templates/start-application/application-already-submitted.html:19
+#: grc/templates/start-application/application-already-submitted.html:20
 msgid "An application with this reference number has already been submitted"
 msgstr ""
 
-#: grc/templates/start-application/application-already-submitted.html:24
+#: grc/templates/start-application/application-already-submitted.html:25
 msgid "Contact the admin team if you need help with your application."
-msgstr ""
-
-#: grc/templates/start-application/application-already-submitted.html:30
-#: grc/templates/submit-and-pay/confirmation.html:91
-msgid "Telephone"
-msgstr ""
-
-#: grc/templates/start-application/application-already-submitted.html:31
-#: grc/templates/submit-and-pay/confirmation.html:92
-msgid "Monday to Friday, 9am to 5pm"
-msgstr ""
-
-#: grc/templates/start-application/application-already-submitted.html:34
-#: grc/templates/submit-and-pay/confirmation.html:95
-msgid "Find out about call charges (opens in a new tab)"
 msgstr ""
 
 #: grc/templates/start-application/declaration.html:7
@@ -3522,95 +3538,95 @@ msgstr ""
 msgid "Submit application and pay online"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:3
-#: grc/templates/submit-and-pay/confirmation.html:11
+#: grc/templates/submit-and-pay/confirmation.html:4
+#: grc/templates/submit-and-pay/confirmation.html:12
 msgid "Application submitted"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:14
+#: grc/templates/submit-and-pay/confirmation.html:15
 msgid "You should post all remaining documents to us as soon as possible"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:19
+#: grc/templates/submit-and-pay/confirmation.html:20
 msgid "We have sent you a confirmation email."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:23
+#: grc/templates/submit-and-pay/confirmation.html:24
 msgid "What you need to do next"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:26
+#: grc/templates/submit-and-pay/confirmation.html:27
 msgid ""
 "Post your birth or adoption certificate to us as soon as possible – "
 "include your name, address and application reference number so we can "
 "match it to your application."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:37
+#: grc/templates/submit-and-pay/confirmation.html:38
 msgid ""
 "If you are sending documents by Royal Mail (including tracked, special "
 "delivery, signed for, and Parcelforce), send to:"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:46
+#: grc/templates/submit-and-pay/confirmation.html:47
 msgid ""
 "If you are sending documents by courier (for example, DPD, Evri, Fedex), "
 "please contact us first (details below)."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:57
+#: grc/templates/submit-and-pay/confirmation.html:58
 #: grc/templates/upload/_upload-files-section.html:175
 msgid "Warning"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:58
+#: grc/templates/submit-and-pay/confirmation.html:59
 msgid "Do not send us any other documents unless we ask you to."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:63
+#: grc/templates/submit-and-pay/confirmation.html:64
 msgid "What happens next with your application"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:67
+#: grc/templates/submit-and-pay/confirmation.html:68
 msgid ""
 "Once you’ve sent your documents, your application will be reviewed by the"
 " Gender Recognition Panel."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:68
+#: grc/templates/submit-and-pay/confirmation.html:69
 msgid "This usually happens within 30 weeks of you applying."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:71
+#: grc/templates/submit-and-pay/confirmation.html:72
 msgid ""
 "We will let you know if your application has any errors or missing "
 "documents, or if the Panel needs any more information."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:72
+#: grc/templates/submit-and-pay/confirmation.html:73
 msgid ""
 "We will ensure you have the time you need to provide any missing or "
 "additional information."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:75
+#: grc/templates/submit-and-pay/confirmation.html:76
 msgid ""
 "You will then be told if you will be issued with a Gender Recognition "
 "Certificate, and what you can do if your application has not been "
 "accepted."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:79
+#: grc/templates/submit-and-pay/confirmation.html:80
 msgid "If you need to contact us"
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:82
+#: grc/templates/submit-and-pay/confirmation.html:83
 msgid ""
 "Include your application reference number – we will send this to you by "
 "post when we have received your application."
 msgstr ""
 
-#: grc/templates/submit-and-pay/confirmation.html:85
+#: grc/templates/submit-and-pay/confirmation.html:86
 msgid ""
 "If you need to contact us before you have received your application "
 "reference number, include your full name and postcode."
