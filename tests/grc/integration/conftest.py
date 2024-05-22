@@ -1,24 +1,15 @@
 import pytest
-import grc
-import admin
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from admin.config import TestConfig as AdminTestConfig
-from grc.business_logic.data_structures.application_data import ApplicationData
-from grc.config import TestConfig as GRCTestConfig
+from grc import create_app
+from grc.config import TestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import generate_security_code_and_expiry
-from tests.grc.helpers.data.application_data import ApplicationDataHelpers
-
-
-@pytest.fixture()
-def admin_app():
-    yield admin.create_app(AdminTestConfig)
 
 
 @pytest.fixture()
 def app():
-    yield grc.create_app(GRCTestConfig)
+    yield create_app(TestConfig)
 
 
 @pytest.fixture()
@@ -32,7 +23,7 @@ def public_user_email(app):
 
 
 @pytest.fixture()
-def security_code_(app, public_user_email) -> SecurityCode:
+def security_code(app, public_user_email) -> SecurityCode:
     with app.app_context():
         code, _ = generate_security_code_and_expiry(public_user_email)
         security_code_ = SecurityCode.query.filter(
@@ -67,10 +58,21 @@ def test_application(app, public_user_email):
         db.session.add(application_record)
         db.session.commit()
 
-        data = ApplicationData()
-        data.reference_number = application_record.reference_number
-        data.email_address = application_record.email
-        ApplicationDataHelpers.save_test_data(data)
+        yield application_record
+
+        db.session.delete(application_record)
+        db.session.commit()
+
+
+@pytest.fixture()
+def test_application_no_email(app, public_user_email):
+    with app.app_context():
+        application_record = Application(
+            reference_number='ABCD1234',
+            email=''
+        )
+        db.session.add(application_record)
+        db.session.commit()
 
         yield application_record
 
@@ -79,46 +81,29 @@ def test_application(app, public_user_email):
 
 
 @pytest.fixture()
-def test_submitted_application(app, public_user_email):
+def test_application_deleted(app, public_user_email):
+    with app.app_context():
+        application_record = Application(
+            reference_number='ABCD1234',
+            email=public_user_email,
+            status=ApplicationStatus.DELETED
+        )
+        db.session.add(application_record)
+        db.session.commit()
+
+        yield application_record
+
+        db.session.delete(application_record)
+        db.session.commit()
+
+
+@pytest.fixture()
+def test_application_submitted(app, public_user_email):
     with app.app_context():
         application_record = Application(
             reference_number='ABCD1234',
             email=public_user_email,
             status=ApplicationStatus.SUBMITTED
-        )
-        db.session.add(application_record)
-        db.session.commit()
-
-        yield application_record
-
-        db.session.delete(application_record)
-        db.session.commit()
-
-
-@pytest.fixture()
-def test_downloaded_application(app, public_user_email):
-    with app.app_context():
-        application_record = Application(
-            reference_number='ABCD1234',
-            email=public_user_email,
-            status=ApplicationStatus.DOWNLOADED
-        )
-        db.session.add(application_record)
-        db.session.commit()
-
-        yield application_record
-
-        db.session.delete(application_record)
-        db.session.commit()
-
-
-@pytest.fixture()
-def test_completed_application(app, public_user_email):
-    with app.app_context():
-        application_record = Application(
-            reference_number='ABCD1234',
-            email=public_user_email,
-            status=ApplicationStatus.COMPLETED
         )
         db.session.add(application_record)
         db.session.commit()
