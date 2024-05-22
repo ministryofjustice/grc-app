@@ -1,6 +1,6 @@
 import datetime
 from flask import Blueprint, render_template, request, url_for
-from grc.business_logic.constants import BaseConstants as c
+from grc.business_logic.constants.personal_details import PersonalDetailsConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid

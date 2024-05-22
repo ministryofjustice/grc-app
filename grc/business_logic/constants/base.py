@@ -118,3 +118,4 @@ class BaseConstants:
     FILE_SIZE_LIMIT_ERROR = _l('The selected file must be smaller than 10MB')
     VIRUS_SCANNER_ERROR = _l('Unable to communicate with virus scanner')
     FILE_HAS_VIRUS_ERROR = _l('The selected file contains a virus')
+    INVALID_HWF_REFERENCE_NUMBER = _l('Enter a valid \'Help with fees\' reference number')

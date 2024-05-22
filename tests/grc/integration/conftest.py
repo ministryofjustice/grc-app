@@ -1,15 +1,22 @@
 import pytest
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from grc import create_app
-from grc.config import TestConfig
+from admin import create_app as create_admin_app
+from admin.config import TestConfig as AdminTestConfig
+from grc import create_app as create_grc_app
+from grc.config import TestConfig as GRCTestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import generate_security_code_and_expiry
 
 
 @pytest.fixture()
 def app():
-    yield create_app(TestConfig)
+    yield create_grc_app(GRCTestConfig)
+
+
+@pytest.fixture()
+def admin_app():
+    yield create_admin_app(AdminTestConfig)
 
 
 @pytest.fixture()

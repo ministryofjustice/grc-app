@@ -9,7 +9,7 @@ from PIL import Image
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import any_duplicate_aws_file_names
 from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
-from grc.upload.constants import UploadsConstants as c
+from grc.business_logic.constants.uploads import UploadsConstants as c
 from grc.upload.forms import UploadForm, DeleteForm, PasswordsForm, DeleteAllFilesInSectionForm
 from grc.utils.decorators import LoginRequired
 from grc.external_services.aws_s3_client import AwsS3Client

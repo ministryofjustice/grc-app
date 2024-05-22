@@ -3,7 +3,7 @@ from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
 from grc.list_status import ListStatus
-from grc.partnership_details.constants import PartnershipDetailsConstants as c
+from grc.business_logic.constants.partnership_details import PartnershipDetailsConstants as c
 from grc.partnership_details.forms import MarriageCivilPartnershipForm, StayTogetherForm, PartnerAgreesForm, \
     PartnerDiedForm, PreviousPartnershipEndedForm, InterimCheckForm, CheckYourAnswers, PartnerDetailsForm
 from grc.utils.decorators import LoginRequired

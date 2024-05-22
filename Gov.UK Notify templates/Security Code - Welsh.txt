@@ -1,0 +1,22 @@
+<templateId>
+1e5f89f3-44ea-4f08-8458-b4f1ef369e74
+</templateId>
+<TemplateName>
+ Security Code - Welsh
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Eich cod diogelwch:((security_code))
+</Subject>
+<Message>
+Eich cod diogelwch yw:
+
+^ ((security_code))
+
+Mae’n ddilys am 24 awr, tan ((security_code_timeout)).
+</message>

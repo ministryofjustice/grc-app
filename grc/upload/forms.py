@@ -1,10 +1,10 @@
 import enum
 
 from flask_wtf import Form, FlaskForm
+from grc.business_logic.constants.uploads import UploadsConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyMultiFileAllowed
 from grc.utils.form_custom_validators import validate_multiple_files_size_limit, file_virus_scan, StrictRequiredIf
-from grc.upload.constants import UploadsConstants as c
 from wtforms import MultipleFileField, HiddenField, PasswordField, SubmitField, FormField, FieldList
 from wtforms.validators import DataRequired
 

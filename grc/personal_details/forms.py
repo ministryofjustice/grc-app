@@ -1,12 +1,11 @@
 from flask_wtf import FlaskForm
-from .constants import PersonalDetailsConstants as c
+from grc.business_logic.constants.personal_details import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 from grc.lazy.lazy_fields import LazyRadioField, LazyMultiSelectField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger, LazyEmail
-from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
-from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date
+from wtforms import EmailField, StringField, TelField, SelectField, FieldList, FormField, SubmitField
 from wtforms.form import Form
-from wtforms.validators import DataRequired, Email
 
 
 class NameForm(FlaskForm):

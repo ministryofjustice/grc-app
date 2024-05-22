@@ -3,7 +3,7 @@ from markupsafe import Markup
 
 class LinkBuilder:
 
-    def __init__(self, opening_anchor_tag, link_text, before_link_text=None, after_link_text=None):
+    def __init__(self, opening_anchor_tag, link_text, before_link_text='', after_link_text=''):
         self.opening_anchor_tag = opening_anchor_tag
         self.link_text = link_text
         self.before_link_text = before_link_text

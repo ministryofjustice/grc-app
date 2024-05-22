@@ -349,16 +349,8 @@
                 </summary>
                 <div class="govuk-details__text">
                     <p class="govuk-body">
-                        {{ _('Send an original or') }}
-                        <a href="https://www.gov.uk/certifying-a-document" target="_blank" class="govuk-link">
-                        {{ _('certified copy (opens in a new tab)') }}
-                        </a>
-                        {{ _('of your full birth or adoption certificate') }}.
-                        {{ _('If your birth or adoption was registered in the UK, find out how to') }}
-                        <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" target="_blank" class="govuk-link">
-                        {{ _('order a certificate (opens in a new tab)') }}
-                        </a>
-                        {{ _('if you do not have it available') }}.
+                        {{ context.birth_cert_copy_link }}
+                        {{ context.birth_cert_uk_link }}
                     </p>
                 </div>
             </details>

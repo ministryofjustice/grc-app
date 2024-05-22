@@ -1,9 +1,8 @@
 from flask_wtf import FlaskForm
-from grc.start_application.constants import StartApplicationConstants as c
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
-from wtforms import EmailField, StringField, RadioField, BooleanField
-from wtforms.validators import DataRequired
+from wtforms import EmailField, StringField, BooleanField
 from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf
 
 

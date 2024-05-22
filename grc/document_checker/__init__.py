@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request, url_for
-from grc.document_checker.constants import DocumentCheckerConstants as c
+from grc.business_logic.constants.document_checker import DocumentCheckerConstants as c
 from grc.document_checker.doc_checker_data_store import DocCheckerDataStore
 from grc.document_checker.doc_checker_state import DocCheckerState, CurrentlyInAPartnershipEnum
 from grc.document_checker.forms import PreviousNamesCheck, MarriageCivilPartnershipForm, PlanToRemainInAPartnershipForm, \
@@ -158,10 +158,14 @@ def your_documents():
     if not hasUserAnswersAllTheQuestions():
         return local_redirect(getUrlForNextUnansweredQuestion())
 
+    context = get_context(doc_checker_state_)
+    context['birth_cert_copy_link'] = c.get_birth_cert_copy_link()
+    context['birth_cert_uk_link'] = c.get_birth_cert_uk_link()
+
     return render_template(
         'document-checker/your-documents.html',
         doc_checker_state=doc_checker_state_,
-        context=get_context(doc_checker_state_)
+        context=context
     )
 
 

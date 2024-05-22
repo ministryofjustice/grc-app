@@ -1,10 +1,19 @@
-SUBJECT
--------
+<templateId>
+a992b8c5-17e6-4dca-820c-5aa4bdd67b58
+</templateId>
+<TemplateName>
+Documents you need for your Gender Recognition Certificate application
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
 ((environment_and_email_address))Documents you need for your Gender Recognition Certificate application
-
-
-MESSAGE
--------
+</Subject>
+<Message>
 Thank you for checking which documents you need for your Gender Recognition Certificate application.
 
 Based on your answers, these are the documents you need for your application.
@@ -41,7 +50,7 @@ This first report needs to be written by a registered doctor or clinical psychol
 * contacting someone on the list of specialists in the field of gender dysphoria
 
 See the following link for a list of specialists in the field of gender dysphoria:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-dysphoria-list-of-specialists-t493
+https://www.gov.uk/government/publications/gender-recognition-certificate-list-of-medical-practitioners-in-gender-dysphoria
 Note: this is not a complete list and it’s not always up-to-date
 
 The second report can be written by any registered doctor or clinical psychologist, including your GP, a surgeon or an endocrinologist.
@@ -53,7 +62,7 @@ The reports do not need to be specially written for your application, so long as
 If you do need new reports written, you’ll probably need to pay for them even if you use NHS medical practitioners.
 
 There is a form that medical practitioners can use to write either of these reports. See the following link for this form:
-https://draft-origin.publishing.service.gov.uk/government/publications/form-t452-guidelines-for-registered-medical-practitioners-and-registered-psychologists-to-facilitate-completion-of-the-medical-report-proforma-for-g))
+https://www.gov.uk/government/publications/gender-recognition-certificate-writing-medical-reports))
 
 
 ((need_to_send_evidence_of_living_in_gender??# Evidence of living in your affirmed gender for 2 years))
@@ -90,40 +99,39 @@ You might be asked to send in more evidence after you submit your application.))
 
 ((need_to_send_statutory_declaration_for_single_applicant??# Statutory declaration for single applicants))
 
-((need_to_send_statutory_declaration_for_single_applicant??Download and fill in a statutory declaration.
+((need_to_send_statutory_declaration_for_single_applicant??Fill in and sign a statutory declaration.
 
 The statutory declaration can be downloaded from the following link:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
 
 Follow the guidance to find out who can act as a witness when you sign your declaration.))
 
-
 ((need_to_send_statutory_declaration_for_married_applicant??# Statutory declaration for applicants who are married))
 
-((need_to_send_statutory_declaration_for_married_applicant??Download and fill in a statutory declaration.
+((need_to_send_statutory_declaration_for_married_applicant??Fill in and sign a statutory declaration.
 
 The statutory declaration can be downloaded from the following link:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
 
 Follow the guidance to find out who can act as a witness when you sign your declaration.))
 
 
 ((need_to_send_statutory_declaration_for_applicant_in_civil_partnership??# Statutory declaration for applicants who are married))
 
-((need_to_send_statutory_declaration_for_applicant_in_civil_partnership??Download and fill in a statutory declaration.
+((need_to_send_statutory_declaration_for_applicant_in_civil_partnership??Fill in and sign a statutory declaration.
 
 The statutory declaration can be downloaded from the following link:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
 
 Follow the guidance to find out who can act as a witness when you sign your declaration.))
 
 
 ((need_to_send_spouses_statutory_declaration??# Your spouse’s statutory declaration))
 
-((need_to_send_spouses_statutory_declaration??If you intend to remain married, your spouse needs to download and fill in a statutory declaration.
+((need_to_send_spouses_statutory_declaration??If you intend to remain married, your spouse needs to fill in and sign a statutory declaration.
 
 The statutory declaration can be downloaded from the following link:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
 
 Follow the guidance to find out who can act as a witness when you sign your declaration.
 
@@ -132,10 +140,10 @@ If you are currently married and your spouse does not provide a statutory declar
 
 ((need_to_send_civil_partners_statutory_declaration??# Your civil partner’s statutory declaration))
 
-((need_to_send_civil_partners_statutory_declaration??If you intend to remain in a civil partnership, your civil partner needs to download and fill in a statutory declaration.
+((need_to_send_civil_partners_statutory_declaration??If you intend to remain in a civil partnership, your civil partner needs to fill in and sign a statutory declaration.
 
 The statutory declaration can be downloaded from the following link:
-https://draft-origin.publishing.service.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
 
 Follow the guidance to find out who can act as a witness when you sign your declaration.
 
@@ -157,7 +165,7 @@ If you are currently in a civil partnership and your civil partner does not prov
 ((need_to_send_death_certificate??Upload a death certificate for your partner if their death ended the marriage or civil partnership.
 
 You can order a death certificate if their death was registered in the UK. See the following link for guidance about this:
-https://draft-origin.publishing.service.gov.uk/order-copy-birth-death-marriage-certificate))
+https://www.gov.uk/order-copy-birth-death-marriage-certificate))
 
 
 ((need_to_send_decree_absolute??# Decree absolute or final order))
@@ -167,7 +175,7 @@ https://draft-origin.publishing.service.gov.uk/order-copy-birth-death-marriage-c
 If you have been married or in a civil partnership more than once, you need a separate certificate for each marriage or civil partnership.
 
 See the following link for guidance about this:
-https://draft-origin.publishing.service.gov.uk/copy-decree-absolute-final-order))
+https://www.gov.uk/copy-decree-absolute-final-order))
 
 
 ((need_to_send_proof_gender_recognised_outside_uk??# Proof that your affirmed gender is recognised outside the UK))
@@ -181,7 +189,7 @@ https://draft-origin.publishing.service.gov.uk/copy-decree-absolute-final-order)
 * an entry in a legal register
 
 See the following link for a list of the approved countries or territories:
-https://draft-origin.publishing.service.gov.uk/government/publications/overseas-gender-recognition-2011-t491))
+https://www.gov.uk/government/publications/gender-recognition-certificate-list-of-approved-countries-and-territories))
 
 
 # Birth or adoption certificate
@@ -189,10 +197,10 @@ https://draft-origin.publishing.service.gov.uk/government/publications/overseas-
 Send an original or certified copy of your full birth or adoption certificate.
 
 You can order a birth certificate if your birth was registered in the UK. See the following link for guidance about this:
-https://draft-origin.publishing.service.gov.uk/order-copy-birth-death-marriage-certificate
+https://www.gov.uk/order-copy-birth-death-marriage-certificate
 
 See the following link for guidance about certifying copies of documents:
-https://draft-origin.publishing.service.gov.uk/certifying-a-document
+https://www.gov.uk/certifying-a-document
 
 
 # If any of your documents are not in English
@@ -207,3 +215,4 @@ You’ll need to send in both the original documents and the translations.
 # Once you have your documents ready
 Once you have your documents ready you can apply for a Gender Recognition Certificate, using this link:
 https://www.gov.uk/apply-gender-recognition-certificate
+</Message>
