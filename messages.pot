@@ -1432,7 +1432,7 @@ msgid "Sorry, the service is unavailable"
 msgstr ""
 
 #: grc/templates/custom-error-templates/429.html:14
-msgid "The rate limit for this page has been exceeded. Please try again later"
+msgid "The rate limit for this page has been exceeded. Please try again later."
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
