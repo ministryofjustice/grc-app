@@ -1,0 +1,22 @@
+<templateId>
+d93108b9-4a5b-4268-91ee-2bb59686e702
+</templateId>
+<TemplateName>
+Security code
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Your security code: ((security_code))
+</Subject>
+<Message>
+Your security code is:
+
+^ ((security_code))
+
+It is valid for 24 hours, until ((security_code_timeout)).
+</Message>

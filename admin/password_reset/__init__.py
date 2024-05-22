@@ -14,9 +14,6 @@ logger = Logger()
 @password_reset.route('/password_reset', methods=['GET', 'POST'])
 def index():
 
-    for key, value in session.items():
-            logger.log(LogLevel.INFO, f"Session entry: {key} = {value}")
-
     if 'email' not in session:
         logger.log(LogLevel.WARN, f"Forgotten password accessed for no user")
         return local_redirect(url_for('forgot_password.index'))
@@ -64,13 +61,8 @@ def reset_password_security_code():
             return local_redirect(url_for('password_reset.index'))
 
     if request.method == 'GET' and request.args.get('resend') == 'true':
-        try:
-            GovUkNotify().send_email_admin_login_security_code(session['email'])
-            flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
-        except BaseException as err:
-            error = err.args[0].json()
-            flash(error['errors'][0]['message'], 'error')
-
+        GovUkNotify().send_email_admin_login_security_code(session['email'])
+        flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
     return render_template(
         'password_reset/password-reset-security-code.html',
         form=form

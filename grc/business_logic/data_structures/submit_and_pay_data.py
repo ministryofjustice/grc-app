@@ -1,5 +1,6 @@
 from enum import auto
 from grc.business_logic.data_structures.grc_enum import GrcEnum
+from grc.business_logic.constants.submit_and_pay import SubmitAndPayConstants as c
 
 
 class HelpWithFeesType(GrcEnum):
@@ -31,13 +32,13 @@ class SubmitAndPayData:
 
     @property
     def applying_for_help_with_fee_formatted(self) -> str:
-        return 'Help' if self.applying_for_help_with_fee else 'Online'
+        return c.HELP if self.applying_for_help_with_fee else c.ONLINE
 
     @property
     def how_applying_for_help_with_fees_formatted(self) -> str:
-        return ('Using the online service'
+        return (c.ONLINE_SERVICE
                 if self.how_applying_for_help_with_fees == HelpWithFeesType.USING_ONLINE_SERVICE
-                else 'Using the EX160 form')
+                else c.EX160_FORM)
 
     @property
     def is_using_online_service(self) -> bool:
