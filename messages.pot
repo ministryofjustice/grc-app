@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-22 10:56+0100\n"
+"POT-Creation-Date: 2024-05-22 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1397,11 +1397,18 @@ msgstr ""
 
 #: grc/templates/custom-error-templates/429.html:4
 #: grc/templates/custom-error-templates/429.html:11
+#: grc/templates/custom-error-templates/503.html:4
+#: grc/templates/custom-error-templates/503.html:11
 msgid "Sorry, the service is unavailable"
 msgstr ""
 
 #: grc/templates/custom-error-templates/429.html:14
 msgid "The rate limit for this page has been exceeded. Please try again later."
+msgstr ""
+
+#: grc/templates/custom-error-templates/503.html:14
+#: grc/templates/start-application/application-already-submitted.html:25
+msgid "Contact the admin team if you need help with your application."
 msgstr ""
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
@@ -3283,10 +3290,6 @@ msgstr ""
 
 #: grc/templates/start-application/application-already-submitted.html:20
 msgid "An application with this reference number has already been submitted"
-msgstr ""
-
-#: grc/templates/start-application/application-already-submitted.html:25
-msgid "Contact the admin team if you need help with your application."
 msgstr ""
 
 #: grc/templates/start-application/declaration.html:7
