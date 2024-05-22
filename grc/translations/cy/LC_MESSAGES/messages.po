@@ -1525,7 +1525,7 @@ msgid "Sorry, the service is unavailable"
 msgstr "Yn anffodus, nid yw’r gwasanaeth ar gael"
 
 #: grc/templates/custom-error-templates/429.html:14
-msgid "The rate limit for this page has been exceeded. Please try again later"
+msgid "The rate limit for this page has been exceeded. Please try again later."
 msgstr ""
 "Aethpwyd y tu hwnt i derfyn y gyfradd ar gyfer y dudalen hon. Rhowch "
 "gynnig arall arni hwyrach ymlaen."
