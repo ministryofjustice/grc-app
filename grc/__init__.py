@@ -1,10 +1,10 @@
 import json
-import os
 from datetime import timedelta
 from flask import Flask, g, session
 from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
+from grc.external_services.gov_uk_notify import GovUkNotifyException
 from grc.models import db
 from grc.utils import filters, limiter
 from grc.config import Config, TestConfig
@@ -124,14 +124,13 @@ def create_app(test_config=None):
     from grc.policies import policies
     app.register_blueprint(policies)
 
-    @app.route('/503')
-    def error_503():
+    @app.route('/error')
+    def error_default():
         """
         NOT TO BE MERGED
-        Just a means for QAs to invoke the 503 error page
+        Just a means for QAs to invoke the default error page
         """
-        from flask import abort
-        abort(503)
+        raise GovUkNotifyException(500)
 
     # Feedback
     from grc.feedback import feedback
