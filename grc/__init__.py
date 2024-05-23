@@ -1,5 +1,4 @@
 import json
-import os
 from datetime import timedelta
 from flask import Flask, g, session
 from flask_babel import Babel
@@ -27,9 +26,9 @@ def create_app(test_config=None):
     else:
         app.config.from_object(Config)
 
-    # if os.environ['FLASK_ENV'] != 'local' and os.environ['FLASK_ENV'] != 'test':
-    #     app.config['PROPAGATE_EXCEPTIONS'] = True
-    CustomErrorHandlers(app)
+    if app.config['ENVIRONMENT'] != 'local' and app.config['ENVIRONMENT'] != 'test':
+        app.config['PROPAGATE_EXCEPTIONS'] = True
+        CustomErrorHandlers(app)
 
     # Show "Service unavailable" page if the config setting it set
     if app.config['MAINTENANCE_MODE'] == 'ON':
@@ -123,15 +122,6 @@ def create_app(test_config=None):
     # Policies
     from grc.policies import policies
     app.register_blueprint(policies)
-
-    @app.route('/503')
-    def error_503():
-        """
-        NOT TO BE MERGED
-        Just a means for QAs to invoke the 503 error page
-        """
-        from flask import abort
-        abort(503)
 
     # Feedback
     from grc.feedback import feedback
