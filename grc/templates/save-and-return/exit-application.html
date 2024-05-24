@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Application saved{% endblock %}
+{% block title %}{{ _('Application saved') }}{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                Application saved
+                {{ _('Application saved') }}
             </h1>
 
             <div class="govuk-inset-text callout govuk-!-margin-bottom-4">
                 <p class="govuk-body">
-                    Your reference number is: <br>
+                    {{ _('Your reference number is:') }} <br>
                     <span id="reference-number" class="callout__title">
                         {{ reference_number }}
                     </span>
@@ -20,14 +20,14 @@
             </div>
 
             <p class="govuk-body govuk-!-margin-bottom-8">
-                You will need your reference number to
+                {{ _('You will need your reference number to') }}
                 <a href="{{ url_for('startApplication.index') }}">
-                    return to your application</a>.
-                Keep a record of it – it can't be recovered if you lose it.
+                    {{ _('return to your application') }}.</a>
+                {{ _("Keep a record of it – it can't be recovered if you lose it.") }}
             </p>
 
             <p class="govuk-body">
-                It's safe to close this window.
+                {{ _("It's safe to close this window.") }}
             </p>
 
         </div>
