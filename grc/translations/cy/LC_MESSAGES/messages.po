@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-21 14:06+0100\n"
+"POT-Creation-Date: 2024-05-23 10:41+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -1518,6 +1518,38 @@ msgstr ""
 "Os yw cyfeiriad y wefan yn gywir, neu os gwnaethoch glicio ar ddolen neu "
 "fotwm, cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch "
 "cais."
+
+#: grc/templates/custom-error-templates/429.html:4
+#: grc/templates/custom-error-templates/429.html:11
+#: grc/templates/custom-error-templates/503.html:4
+#: grc/templates/custom-error-templates/503.html:11
+msgid "Sorry, the service is unavailable"
+msgstr "Yn anffodus, nid yw’r gwasanaeth ar gael"
+
+#: grc/templates/custom-error-templates/429.html:14
+msgid "The rate limit for this page has been exceeded. Please try again later."
+msgstr ""
+"Aethpwyd y tu hwnt i derfyn y gyfradd ar gyfer y dudalen hon. Rhowch "
+"gynnig arall arni hwyrach ymlaen."
+
+#: grc/templates/custom-error-templates/503.html:14
+#: grc/templates/custom-error-templates/error-default.html:20
+#: grc/templates/start-application/application-already-submitted.html:25
+msgid "Contact the admin team if you need help with your application."
+msgstr "Cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch cais."
+
+#: grc/templates/custom-error-templates/error-default.html:4
+#: grc/templates/custom-error-templates/error-default.html:11
+msgid "Sorry, there is a problem with the service"
+msgstr "Mae'n ddrwg gennym, mae problem gyda'r gwasanaeth"
+
+#: grc/templates/custom-error-templates/error-default.html:14
+msgid "Please try again later."
+msgstr "Rhowch gynnig arall arni hwyrach ymlaen."
+
+#: grc/templates/custom-error-templates/error-default.html:17
+msgid "We have saved your answers. They will be available for 6 months."
+msgstr "Rydym wedi cadw eich atebion. Cedwir yr wybodaeth am 6 mis."
 
 #: grc/templates/document-checker/currently_in_a_partnership.html:7
 #: grc/templates/document-checker/currently_in_a_partnership.html:25
@@ -3683,6 +3715,31 @@ msgstr ""
 msgid "You can contact the Information Commissioner at:"
 msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
 
+#: grc/templates/save-and-return/exit-application.html:3
+#: grc/templates/save-and-return/exit-application.html:10
+msgid "Application saved"
+msgstr "Mae eich cais wedi’i gadw"
+
+#: grc/templates/save-and-return/exit-application.html:15
+msgid "Your reference number is:"
+msgstr "Eich cyfeirnod yw:"
+
+#: grc/templates/save-and-return/exit-application.html:23
+msgid "You will need your reference number to"
+msgstr "Byddwch angen eich"
+
+#: grc/templates/save-and-return/exit-application.html:25
+msgid "return to your application"
+msgstr "cyfeirnod i ddychwelyd i’ch cais"
+
+#: grc/templates/save-and-return/exit-application.html:26
+msgid "Keep a record of it – it can't be recovered if you lose it."
+msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli."
+
+#: grc/templates/save-and-return/exit-application.html:30
+msgid "It's safe to close this window."
+msgstr "Mae'n saff i chi gau'r ffenestr hon yn awr."
+
 #: grc/templates/start-application/application-already-submitted.html:8
 msgid "This application has already been submitted"
 msgstr "Mae'r cais hwn eisoes wedi'i gyflwyno"
@@ -3690,10 +3747,6 @@ msgstr "Mae'r cais hwn eisoes wedi'i gyflwyno"
 #: grc/templates/start-application/application-already-submitted.html:20
 msgid "An application with this reference number has already been submitted"
 msgstr "Mae cais gyda'r cyfeirnod hwn eisoes wedi'i gyflwyno"
-
-#: grc/templates/start-application/application-already-submitted.html:25
-msgid "Contact the admin team if you need help with your application."
-msgstr "Cysylltwch â'r tîm gweinyddol os oes angen help arnoch gyda'ch cais."
 
 #: grc/templates/start-application/declaration.html:7
 #: grc/templates/start-application/declaration.html:20

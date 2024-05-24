@@ -1,8 +1,9 @@
 import pytest
 from flask import g
-from grc.external_services.gov_uk_notify import GovUkNotify, GovUkNotifyException
+from grc.external_services.gov_uk_notify import GovUkNotify
 from notifications_python_client.errors import HTTPError
 from unittest.mock import patch, MagicMock
+from werkzeug.exceptions import HTTPException
 
 
 class TestGovNotifyEmails:
@@ -82,7 +83,7 @@ class TestGovNotifyEmails:
             test_client = GovUkNotify()
             test_client.gov_uk_notify_client = MagicMock()
             test_client.gov_uk_notify_client.send_email_notification.side_effect = HTTPError(mock_response)
-            with pytest.raises(GovUkNotifyException):
+            with pytest.raises(HTTPException):
                 test_client.send_email(public_user_email, 'some template', {})
 
 
@@ -152,6 +153,6 @@ class TestGovNotifyEmailsWelsh:
             test_client = GovUkNotify()
             test_client.gov_uk_notify_client = MagicMock()
             test_client.gov_uk_notify_client.send_email_notification.side_effect = HTTPError(mock_response)
-            with pytest.raises(GovUkNotifyException):
+            with pytest.raises(HTTPException):
                 test_client.send_email(public_user_email, 'some template', {})
 
