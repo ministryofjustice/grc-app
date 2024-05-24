@@ -1,5 +1,4 @@
 import json
-import os
 from datetime import timedelta
 from flask import Flask, g, session
 from flask_babel import Babel
@@ -27,7 +26,7 @@ def create_app(test_config=None):
     else:
         app.config.from_object(Config)
 
-    if os.environ['FLASK_ENV'] != 'local' and os.environ['FLASK_ENV'] != 'test':
+    if app.config['ENVIRONMENT'] != 'local' and app.config['ENVIRONMENT'] != 'test':
         app.config['PROPAGATE_EXCEPTIONS'] = True
         CustomErrorHandlers(app)
 
