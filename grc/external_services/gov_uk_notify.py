@@ -1,10 +1,9 @@
-from flask import current_app
+from flask import current_app, abort
 from notifications_python_client.notifications import NotificationsAPIClient
 from notifications_python_client.errors import HTTPError
 from grc.external_services.gov_uk_notify_templates import GovUkNotifyTemplateManager
 from grc.utils.security_code import generate_security_code_and_expiry
 from grc.utils.logger import LogLevel, Logger
-from werkzeug.exceptions import HTTPException
 
 logger = Logger()
 
@@ -149,11 +148,4 @@ class GovUkNotify:
             message = (f'Error sending email to user - {logger.mask_email_address(email_address)}: {error.status_code}'
                        f' - {error.message}')
             logger.log(LogLevel.ERROR, message=message)
-            raise GovUkNotifyException(error.status_code, message)
-
-
-class GovUkNotifyException(HTTPException):
-    def __init__(self, error_code, message=None):
-        self.code = error_code
-        self.default_message = 'Error sending email notification via notify'
-        self.description = message if message else self.default_message
+            abort(error.status_code)
