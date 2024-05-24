@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-22 13:21+0100\n"
+"POT-Creation-Date: 2024-05-23 10:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3296,6 +3296,31 @@ msgstr ""
 
 #: grc/templates/policies/privacy-policy.html:195
 msgid "You can contact the Information Commissioner at:"
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:3
+#: grc/templates/save-and-return/exit-application.html:10
+msgid "Application saved"
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:15
+msgid "Your reference number is:"
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:23
+msgid "You will need your reference number to"
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:25
+msgid "return to your application"
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:26
+msgid "Keep a record of it – it can't be recovered if you lose it."
+msgstr ""
+
+#: grc/templates/save-and-return/exit-application.html:30
+msgid "It's safe to close this window."
 msgstr ""
 
 #: grc/templates/start-application/application-already-submitted.html:8
