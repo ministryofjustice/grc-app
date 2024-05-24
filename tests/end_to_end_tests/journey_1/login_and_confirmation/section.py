@@ -335,7 +335,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     assert reference_number_on_application_saved_page == reference_number_on_reference_number_page
 
     # Click "return to your application"
-    await helpers.click_button('return to your application')
+    await helpers.click_button('return to your application.')
 
     # ------------------------------------------------
     # ---- Homepage / Email address page

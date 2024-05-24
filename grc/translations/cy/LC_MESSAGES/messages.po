@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-22 13:21+0100\n"
+"POT-Creation-Date: 2024-05-23 10:41+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -3714,6 +3714,31 @@ msgstr ""
 #: grc/templates/policies/privacy-policy.html:195
 msgid "You can contact the Information Commissioner at:"
 msgstr "Gallwch gysylltu â’r Comisiynydd Gwybodaeth yn:"
+
+#: grc/templates/save-and-return/exit-application.html:3
+#: grc/templates/save-and-return/exit-application.html:10
+msgid "Application saved"
+msgstr "Mae eich cais wedi’i gadw"
+
+#: grc/templates/save-and-return/exit-application.html:15
+msgid "Your reference number is:"
+msgstr "Eich cyfeirnod yw:"
+
+#: grc/templates/save-and-return/exit-application.html:23
+msgid "You will need your reference number to"
+msgstr "Byddwch angen eich"
+
+#: grc/templates/save-and-return/exit-application.html:25
+msgid "return to your application"
+msgstr "cyfeirnod i ddychwelyd i’ch cais"
+
+#: grc/templates/save-and-return/exit-application.html:26
+msgid "Keep a record of it – it can't be recovered if you lose it."
+msgstr "Cadwch gofnod ohono - ni allwch ei gael yn ôl os byddwch yn ei golli."
+
+#: grc/templates/save-and-return/exit-application.html:30
+msgid "It's safe to close this window."
+msgstr "Mae'n saff i chi gau'r ffenestr hon yn awr."
 
 #: grc/templates/start-application/application-already-submitted.html:8
 msgid "This application has already been submitted"
