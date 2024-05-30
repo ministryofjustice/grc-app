@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-23 10:41+0100\n"
+"POT-Creation-Date: 2024-05-28 10:42+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -642,6 +642,48 @@ msgid ""
 "Upload a scan or good quality photograph of your civil partnership "
 "certificate"
 msgstr "Llwythwch sgan neu lun o ansawdd da o'ch tystysgrif partneriaeth sifil"
+
+#: grc/business_logic/constants/feedback.py:6
+msgid "Very easy"
+msgstr "Hawdd iawn"
+
+#: grc/business_logic/constants/feedback.py:7
+msgid "Easy"
+msgstr "Hawdd"
+
+#: grc/business_logic/constants/feedback.py:8
+msgid "Neither easy nor difficult"
+msgstr "Ddim yn hawdd nac yn anodd"
+
+#: grc/business_logic/constants/feedback.py:9
+msgid "Difficult"
+msgstr "Anodd"
+
+#: grc/business_logic/constants/feedback.py:10
+msgid "Very difficult"
+msgstr "Anodd iawn"
+
+#: grc/business_logic/constants/feedback.py:11
+msgid "I couldn't complete  my application"
+msgstr "Nid oeddwn yn gallu cwblhau fy nghais"
+
+#: grc/business_logic/constants/feedback.py:14
+msgid "Select how easy it was to complete your application"
+msgstr ""
+
+#: grc/business_logic/constants/feedback.py:15
+msgid "Select if you found any of the questions difficult to answer"
+msgstr ""
+
+#: grc/business_logic/constants/feedback.py:16
+msgid "Select if you needed to call the admin team for help with your application"
+msgstr ""
+
+#: grc/business_logic/constants/feedback.py:17
+msgid ""
+"Select if you used the tool to check which documents you needed to submit"
+" with your application"
+msgstr ""
 
 #: grc/business_logic/constants/partnership_details.py:6
 #: grc/business_logic/constants/partnership_details.py:18
@@ -2301,6 +2343,99 @@ msgstr ""
 #: grc/templates/document-checker/your-documents.html:388
 msgid "Email documents list"
 msgstr "Anfon y rhestr o ddogfennau drwy e-bost"
+
+#: grc/templates/feedback/feedback-form.html:7
+#: grc/templates/feedback/feedback-form.html:16
+msgid "Share your feedback"
+msgstr "Rhannu eich adborth"
+
+#: grc/templates/feedback/feedback-form.html:19
+msgid ""
+"Please tell us about your experience filling in your Gender Recognition "
+"Certificate application using this digital service."
+msgstr "Dywedwch wrthym am eich profiad o gwblhau cais am Dystysgrif Cydnabod Rhywedd gan ddefnyddio’r gwasanaeth digidol hwn."
+
+#: grc/templates/feedback/feedback-form.html:24
+#: grc/templates/submit-and-pay/confirmation.html:58
+#: grc/templates/upload/_upload-files-section.html:175
+msgid "Warning"
+msgstr "Rhybudd"
+
+#: grc/templates/feedback/feedback-form.html:25
+msgid "Please don’t include any information that could be used to identify you."
+msgstr "Peidiwch â chynnwys unrhyw wybodaeth a allai eich adnabod."
+
+#: grc/templates/feedback/feedback-form.html:26
+msgid ""
+"If you have any questions about your application, please contact the "
+"admin team."
+msgstr "Os oes gennych unrhyw gwestiynau am eich cais, cysylltwch â’r tîm gweinyddol."
+
+#: grc/templates/feedback/feedback-form.html:37
+msgid "How easy was it to complete your application?"
+msgstr "Pa mor hawdd oedd cwblhau eich cais?"
+
+#: grc/templates/feedback/feedback-form.html:48
+msgid "Did you find any of the questions difficult to answer?"
+msgstr "A oedd unrhyw un o’r cwestiynau yn anodd i’w hateb?"
+
+#: grc/templates/feedback/feedback-form.html:57
+msgid "Which questions did you find difficult, and why?"
+msgstr "Pa gwestiynau oedd yn anodd i chi, a pham?"
+
+#: grc/templates/feedback/feedback-form.html:70
+msgid "Did you need to call the admin team for help with your application?"
+msgstr "A oedd rhaid i chi ffonio’r tîm gweinyddol i gael help gyda’ch cais?"
+
+#: grc/templates/feedback/feedback-form.html:79
+msgid "What did you need help with?"
+msgstr "Ar gyfer beth oedd arnoch chi angen cymorth?"
+
+#: grc/templates/feedback/feedback-form.html:92
+msgid ""
+"Did you use the tool to check which documents you needed to submit with "
+"your application?"
+msgstr "A wnaethoch chi ddefnyddio’r adnodd i wirio pa ddogfennau yr oedd angen i chi eu cyflwyno gyda’ch cais?"
+
+#: grc/templates/feedback/feedback-form.html:101
+msgid "How was your experience using the tool?"
+msgstr "Sut oedd eich profiad o ddefnyddio'r offeryn?"
+
+#: grc/templates/feedback/feedback-form.html:116
+msgid "Do you have any other suggestions for improving the digital service?"
+msgstr "A oes gennych chi unrhyw awgrymiadau eraill ar gyfer gwella’r gwasanaeth digidol?"
+
+#: grc/templates/feedback/feedback-form.html:126
+msgid "Send feedback"
+msgstr "Anfon adborth"
+
+#: grc/templates/feedback/feedback-received.html:5
+msgid "Feedback received"
+msgstr ""
+
+#: grc/templates/feedback/feedback-received.html:12
+msgid "Thank you for your feedback"
+msgstr ""
+
+#: grc/templates/feedback/feedback-received.html:17
+msgid "Return to your application"
+msgstr ""
+
+#: grc/templates/feedback/feedback-received.html:21
+msgid "Return to the Gender Recognition Certificate service"
+msgstr ""
+
+#: grc/templates/feedback/feedback-received.html:27
+msgid ""
+"Return to your list of documents needed to apply for a Gender Recognition"
+" Certificate"
+msgstr ""
+
+#: grc/templates/feedback/feedback-received.html:31
+msgid ""
+"Return to check documents needed to apply for a Gender Recognition "
+"Certificate"
+msgstr ""
 
 #: grc/templates/govuk-design-system-templates/_summary-list-item.html:12
 msgid "Change"
@@ -4087,11 +4222,6 @@ msgid ""
 msgstr ""
 "Os ydych yn defnyddio gwasanaeth cludo (er enghraifft, DPD, Evri, Fedex),"
 " cysylltwch â ni yn gyntaf (manylion isod)."
-
-#: grc/templates/submit-and-pay/confirmation.html:58
-#: grc/templates/upload/_upload-files-section.html:175
-msgid "Warning"
-msgstr "Rhybudd"
 
 #: grc/templates/submit-and-pay/confirmation.html:59
 msgid "Do not send us any other documents unless we ask you to."
