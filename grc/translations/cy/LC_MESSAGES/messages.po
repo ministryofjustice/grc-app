@@ -46,12 +46,12 @@ msgstr ""
 #: grc/business_logic/constants/base.py:5
 #: grc/templates/policies/cookies.html:114
 msgid "Yes"
-msgstr "Ydw"
+msgstr "Oes"
 
 #: grc/business_logic/constants/base.py:6
 #: grc/templates/policies/cookies.html:120
 msgid "No"
-msgstr "Nac ydw"
+msgstr "Nac oes"
 
 #: grc/business_logic/constants/base.py:7
 msgid "I don't know"
@@ -1046,7 +1046,7 @@ msgstr "Datganiad hygyrchedd"
 #: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
 #: grc/templates/policies/cookies.html:20
 msgid "Cookies"
-msgstr "Cwyis"
+msgstr "Cwcis"
 
 #: grc/templates/contact-admin.html:6
 msgid "Telephone"
@@ -1062,7 +1062,7 @@ msgstr "Rhagor o wybodaeth am gost galwadau (yn agor mewn tab newydd)"
 
 #: grc/templates/security-code.html:7 grc/templates/security-code.html:20
 msgid "Enter security code"
-msgstr "Rhowch cod diogelwch"
+msgstr "Rhowch y cod diogelwch"
 
 #: grc/templates/security-code.html:24
 msgid "We’ve sent a security code to"
@@ -3790,7 +3790,7 @@ msgid ""
 "application?"
 msgstr ""
 "Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi "
-"yngl?n â'ch cais?"
+"ynglŷn â'ch cais?"
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
@@ -3836,7 +3836,7 @@ msgstr "Os ydych wedi’i golli neu ei anghofio, gallwch ddechrau cais newydd"
 
 #: grc/templates/start-application/email-address.html:32
 msgid "Before you start, make sure you have read the guidance on"
-msgstr "Cyn i chi ddechrau gwnewch yn siwr eich bod wedi darllen y cyfarwyddyd ar"
+msgstr "Cyn i chi ddechrau gwnewch yn siŵr eich bod wedi darllen y cyfarwyddyd ar"
 
 #: grc/templates/start-application/email-address.html:34
 msgid "applying for a Gender Recognition Certificate (opens in a new tab)"
