@@ -669,21 +669,25 @@ msgstr "Nid oeddwn yn gallu cwblhau fy nghais"
 
 #: grc/business_logic/constants/feedback.py:14
 msgid "Select how easy it was to complete your application"
-msgstr ""
+msgstr "Dewiswch pa mor hawdd ydoedd i gwblhau eich cais"
 
 #: grc/business_logic/constants/feedback.py:15
 msgid "Select if you found any of the questions difficult to answer"
-msgstr ""
+msgstr "Dewiswch os oedd unrhyw un o’r cwestiynau yn anodd i’w hateb"
 
 #: grc/business_logic/constants/feedback.py:16
 msgid "Select if you needed to call the admin team for help with your application"
 msgstr ""
+"Dewiswch os oedd angen i chi ffonio’r tîm gweinyddol i gael help gyda’ch "
+"cais"
 
 #: grc/business_logic/constants/feedback.py:17
 msgid ""
 "Select if you used the tool to check which documents you needed to submit"
 " with your application"
 msgstr ""
+"Dewiswch os wnaethoch chi ddefnyddio’r adnodd i wirio pa ddogfennau yr "
+"oedd angen i chi eu cyflwyno gyda’ch cais"
 
 #: grc/business_logic/constants/partnership_details.py:6
 #: grc/business_logic/constants/partnership_details.py:18
@@ -2353,7 +2357,9 @@ msgstr "Rhannu eich adborth"
 msgid ""
 "Please tell us about your experience filling in your Gender Recognition "
 "Certificate application using this digital service."
-msgstr "Dywedwch wrthym am eich profiad o gwblhau cais am Dystysgrif Cydnabod Rhywedd gan ddefnyddio’r gwasanaeth digidol hwn."
+msgstr ""
+"Dywedwch wrthym am eich profiad o gwblhau cais am Dystysgrif Cydnabod "
+"Rhywedd gan ddefnyddio’r gwasanaeth digidol hwn."
 
 #: grc/templates/feedback/feedback-form.html:24
 #: grc/templates/submit-and-pay/confirmation.html:58
@@ -2369,7 +2375,9 @@ msgstr "Peidiwch â chynnwys unrhyw wybodaeth a allai eich adnabod."
 msgid ""
 "If you have any questions about your application, please contact the "
 "admin team."
-msgstr "Os oes gennych unrhyw gwestiynau am eich cais, cysylltwch â’r tîm gweinyddol."
+msgstr ""
+"Os oes gennych unrhyw gwestiynau am eich cais, cysylltwch â’r tîm "
+"gweinyddol."
 
 #: grc/templates/feedback/feedback-form.html:37
 msgid "How easy was it to complete your application?"
@@ -2395,7 +2403,9 @@ msgstr "Ar gyfer beth oedd arnoch chi angen cymorth?"
 msgid ""
 "Did you use the tool to check which documents you needed to submit with "
 "your application?"
-msgstr "A wnaethoch chi ddefnyddio’r adnodd i wirio pa ddogfennau yr oedd angen i chi eu cyflwyno gyda’ch cais?"
+msgstr ""
+"A wnaethoch chi ddefnyddio’r adnodd i wirio pa ddogfennau yr oedd angen i"
+" chi eu cyflwyno gyda’ch cais?"
 
 #: grc/templates/feedback/feedback-form.html:101
 msgid "How was your experience using the tool?"
@@ -2403,7 +2413,9 @@ msgstr "Sut oedd eich profiad o ddefnyddio'r offeryn?"
 
 #: grc/templates/feedback/feedback-form.html:116
 msgid "Do you have any other suggestions for improving the digital service?"
-msgstr "A oes gennych chi unrhyw awgrymiadau eraill ar gyfer gwella’r gwasanaeth digidol?"
+msgstr ""
+"A oes gennych chi unrhyw awgrymiadau eraill ar gyfer gwella’r gwasanaeth "
+"digidol?"
 
 #: grc/templates/feedback/feedback-form.html:126
 msgid "Send feedback"
@@ -2411,31 +2423,35 @@ msgstr "Anfon adborth"
 
 #: grc/templates/feedback/feedback-received.html:5
 msgid "Feedback received"
-msgstr ""
+msgstr "Adborth wedi’i dderbyn"
 
 #: grc/templates/feedback/feedback-received.html:12
 msgid "Thank you for your feedback"
-msgstr ""
+msgstr "Diolch am eich adborth"
 
 #: grc/templates/feedback/feedback-received.html:17
 msgid "Return to your application"
-msgstr ""
+msgstr "Dychwelyd i’ch cais"
 
 #: grc/templates/feedback/feedback-received.html:21
 msgid "Return to the Gender Recognition Certificate service"
-msgstr ""
+msgstr "Dychwelyd i’r gwasanaeth Tystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/feedback/feedback-received.html:27
 msgid ""
 "Return to your list of documents needed to apply for a Gender Recognition"
 " Certificate"
 msgstr ""
+"Dychwelyd at eich rhestr o ddogfennau sydd eu hangen i wneud cais am "
+"Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/feedback/feedback-received.html:31
 msgid ""
 "Return to check documents needed to apply for a Gender Recognition "
 "Certificate"
 msgstr ""
+"Dychwelyd i wirio’r dogfennau sydd eu hangen i wneud cais am Dystysgrif "
+"Cydnabod Rhywedd"
 
 #: grc/templates/govuk-design-system-templates/_summary-list-item.html:12
 msgid "Change"
