@@ -1,4 +1,5 @@
 import datetime
+from grc.list_status import ListStatus
 from grc.business_logic.data_structures.birth_registration_data import AdoptedInTheUkEnum as AdoptEnum
 from tests.grc.integration.conftest import save_test_data, load_test_data
 
@@ -75,7 +76,7 @@ class TestAdoptedUK:
             test_app_data = load_test_data(test_application.reference_number)
             assert response.status_code == 302
             assert response.location == '/birth-registration/check-your-answers'
-            assert test_app_data.birth_registration_data.section_status == 'COMPLETED'
+            assert test_app_data.birth_registration_data.section_status == ListStatus.COMPLETED
 
     def test_adopted_uk_no_data(self, app, client, test_application):
         with app.app_context():
