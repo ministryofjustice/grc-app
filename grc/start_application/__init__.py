@@ -218,13 +218,6 @@ def declaration():
     )
 
 
-@startApplication.route('/clearsession', methods=['GET'])
-@LoginRequired
-def clearsession():
-    session.clear()
-    return local_redirect(url_for('startApplication.index'))
-
-
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):
     return get_next_page_global(
         next_page_in_journey=next_page_in_journey,
