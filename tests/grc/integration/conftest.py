@@ -1,10 +1,12 @@
 import pytest
+import jsonpickle
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from admin import create_app as create_admin_app
 from admin.config import TestConfig as AdminTestConfig
 from grc import create_app as create_grc_app
 from grc.config import TestConfig as GRCTestConfig
+from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import generate_security_code_and_expiry
 
@@ -62,8 +64,14 @@ def test_application(app, public_user_email):
             reference_number='ABCD1234',
             email=public_user_email
         )
+
         db.session.add(application_record)
         db.session.commit()
+
+        data = ApplicationData()
+        data.reference_number = application_record.reference_number
+        data.email_address = application_record.email
+        save_test_data(data)
 
         yield application_record
 
@@ -119,3 +127,20 @@ def test_application_submitted(app, public_user_email):
 
         db.session.delete(application_record)
         db.session.commit()
+
+
+def load_test_data(reference_number):
+    application_record: Application = Application.query.filter_by(
+        reference_number=reference_number
+    ).first()
+    return application_record.application_data()
+
+
+def save_test_data(data):
+    application_record: Application = Application.query.filter_by(
+        reference_number=data.reference_number
+    ).first()
+    user_input: str = jsonpickle.encode(data)
+    application_record.user_input = user_input
+    application_record.updated = datetime.now()
+    db.session.commit()
