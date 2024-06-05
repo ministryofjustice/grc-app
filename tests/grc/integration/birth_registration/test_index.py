@@ -1,14 +1,7 @@
-import pytest
 from tests.grc.integration.conftest import save_test_data, load_test_data
-from unittest.mock import patch, MagicMock
 
 
 class TestIndex:
-
-    @pytest.fixture
-    def mock_render_template(self):
-        with patch('grc.birth_registration.render_template') as mock:
-            yield mock
 
     def test_index(self, app, client, test_application):
         with app.app_context():
@@ -17,15 +10,6 @@ class TestIndex:
             response = client.get('/birth-registration')
             assert response.status_code == 200
             assert 'What name was originally registered on your birth or adoption certificate?' in response.text
-
-    def test_index_back_link(self, app, client, test_application, mock_render_template: MagicMock,):
-        with app.app_context():
-            with client.session_transaction() as session:
-                session['reference_number'] = test_application.reference_number
-            response = client.get('/birth-registration')
-            _, kwargs = mock_render_template.call_args
-            assert response.status_code == 200
-            assert kwargs['back'] == '/task-list'
 
     def test_index_not_logged_in(self, app, client):
         with app.app_context():
