@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-05-28 10:42+0100\n"
+"POT-Creation-Date: 2024-06-05 13:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1360,12 +1360,11 @@ msgstr ""
 #: grc/templates/birth-registration/forces.html:25
 msgid ""
 "Was your birth registered by a Forces registering service, or with a "
-"British Consul or\n"
-"                              High Commission, or under Merchant Shipping"
-" or Civil Aviation provisions?"
+"British Consul or High Commission, or under Merchant Shipping or Civil "
+"Aviation provisions?"
 msgstr ""
 
-#: grc/templates/birth-registration/forces.html:30
+#: grc/templates/birth-registration/forces.html:29
 msgid "This information will help us locate your original birth record."
 msgstr ""
 
