@@ -15,12 +15,15 @@ class PDFUtils():
 
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
-        pisa.CreatePDF(html, dest=pdf_stream)
+        pisa_status = pisa.CreatePDF(html, dest=pdf_stream)
 
         pdf_stream.seek(0)
 
         if title:
             pdf_stream = self.add_pdf_toc(pdf_stream, title)
+
+        print(pisa_status.err)
+        print(pisa_status.log)
 
         return pdf_stream
 
