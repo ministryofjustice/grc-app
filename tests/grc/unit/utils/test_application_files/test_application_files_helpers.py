@@ -100,11 +100,13 @@ class TestApplicationFilesHelpers:
         assert test_stat_dec_files[1].original_file_name == 'original_statutorydeclarations_name_1.pdf'
         assert test_stat_dec_files[1].password_required is False
 
-    def test_get_section_name(self):
-        assert ApplicationFiles()._get_section_name('medicalReports') == 'Medical Reports'
-        assert ApplicationFiles()._get_section_name('genderEvidence') == 'Gender Evidence'
-        assert ApplicationFiles()._get_section_name('nameChange') == 'Name Change'
-        assert ApplicationFiles()._get_section_name('marriageDocuments') == 'Marriage Documents'
-        assert ApplicationFiles()._get_section_name('overseasCertificate') == 'Overseas Certificate'
-        assert ApplicationFiles()._get_section_name('statutoryDeclarations') == 'Statutory Declarations'
+    def test_get_section_name(self, app):
+        with app.app_context():
+            app_files = ApplicationFiles()
+            assert app_files._get_section_name('medicalReports') == 'Medical Reports'
+            assert app_files._get_section_name('genderEvidence') == 'Gender Evidence'
+            assert app_files._get_section_name('nameChange') == 'Name Change'
+            assert app_files._get_section_name('marriageDocuments') == 'Marriage Documents'
+            assert app_files._get_section_name('overseasCertificate') == 'Overseas Certificate'
+            assert app_files._get_section_name('statutoryDeclarations') == 'Statutory Declarations'
 
