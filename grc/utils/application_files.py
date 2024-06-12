@@ -24,10 +24,8 @@ class ApplicationFiles:
     }
 
     def __init__(self):
-        print("INITTTTTT")
         self.s3_client = AwsS3Client()
         self.pdf_utils = PDFUtils()
-        print(self.s3_client)
 
     def _get_files_for_section(self, section: str, application_data: ApplicationData) -> list:
         return self.section_files[section](application_data.uploads_data)
@@ -42,7 +40,6 @@ class ApplicationFiles:
                 files = self._get_files_for_section(section, application_data)
                 for file_index, evidence_file in enumerate(files):
                     data = self.s3_client.download_object(evidence_file.aws_file_name)
-                    print('DATA', data)
                     if data is not None:
                         attachment_file_name = (f"{application_data.reference_number}__{section}__{(file_index + 1)}_"
                                                 f"{evidence_file.original_file_name}")
@@ -75,7 +72,6 @@ class ApplicationFiles:
         if attachments_pdf:
             pdfs.append(attachments_pdf)
         output_pdf_document = self.pdf_utils.merge_pdfs(pdfs)
-        print('TYPE', type(output_pdf_document))
         return output_pdf_document
 
     def create_and_upload_attachments(self, reference_number: str, application_data: ApplicationData):
@@ -119,7 +115,7 @@ class ApplicationFiles:
         file_name = application_data.reference_number + '.pdf'
         return self.s3_client.upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
 
-    def download_pdf_admin(self, application_data: ApplicationData) -> BytesIO:
+    def download_pdf_admin(self, application_data: ApplicationData) -> bytes:
         file_name = application_data.reference_number + '.pdf'
         return self.s3_client.download_object(file_name)
 
