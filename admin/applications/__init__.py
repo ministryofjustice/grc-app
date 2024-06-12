@@ -1,5 +1,6 @@
+import os
 from datetime import datetime
-from flask import Blueprint, abort, render_template, url_for, session, make_response, request
+from flask import Blueprint, abort, render_template, url_for, session, make_response, request, send_file
 from admin.applications.forms import SearchForm, ReferenceNumberForm
 from grc.business_logic.data_store import DataStore
 from grc.utils.decorators import AdminViewerRequired, AdminRequired
@@ -178,17 +179,17 @@ def download(reference_number):
         db.session.commit()
 
         from grc.utils.application_files import ApplicationFiles
-        bytes_, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
 
+        output, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
-
-        if bytes_ is None:
-            return abort(404)
-
-        response = make_response(bytes_)
-        response.headers.set('Content-Type', 'application/pdf')
-        response.headers.set('Content-Disposition', 'attachment', filename=file_name)
-        return response
+        try:
+            return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
+        finally:
+            print("FIRING", flush=True)
+            print(file_name, output)
+            os.remove(file_name)
+            print("Removed file from system", flush=True)
+            print(file_name, output)
 
     session['message'] = message
     return local_redirect(url_for('applications.index', _anchor='downloaded'))
@@ -233,19 +234,20 @@ def attachments(reference_number):
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} attempted to download files for application {reference_number} which cannot be found")
     else:
         from grc.utils.application_files import ApplicationFiles
-        bytes_, file_name = ApplicationFiles().download_attachments(
+        output, file_name = ApplicationFiles().download_attachments(
             application.reference_number,
             application.application_data()
         )
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded files for application {reference_number}")
         session['message'] = "attachments zipped"
-        if bytes_ is None:
-            return abort(404)
-
-        response = make_response(bytes_)
-        response.headers.set('Content-Type', 'application/zip')
-        response.headers.set('Content-Disposition', 'attachment', filename=file_name)
-        return response
+        try:
+            return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/zip')
+        finally:
+            print("FIRING", flush=True)
+            print(file_name, output)
+            os.remove(file_name)
+            print("Removed file from system", flush=True)
+            print(file_name, output)
 
     session['message'] = message
     return local_redirect(url_for('applications.index', _anchor='completed'))
