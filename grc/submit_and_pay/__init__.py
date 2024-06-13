@@ -217,10 +217,16 @@ def confirmation():
     @copy_current_request_context
     def create_files(reference_number, application_data_):
         app_files_util = ApplicationFiles()
+        print('BEFORE ZIP CREATE AND UPLOAD')
+        print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+        print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
         if app_files_util.create_and_upload_attachments(reference_number, application_data_) and \
                 app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
             mark_files_created(reference_number)
 
+        print('AFTER ZIP CREATE AND UPLOAD')
+        print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+        print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
 
     GovUkNotify().send_email_completed_application(
