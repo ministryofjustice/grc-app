@@ -160,9 +160,8 @@ def download():
     finally:
         print("FIRING", flush=True)
         print(file_name, output, flush=True)
-        os.remove(output.read())
+        del output, file_name
         print("Removed file from system", flush=True)
-        print(file_name, output, flush=True)
 
 
 @submitAndPay.route('/submit-and-pay/payment-confirmation/<uuid:id>', methods=['GET', 'POST'])
