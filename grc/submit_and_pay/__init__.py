@@ -160,7 +160,7 @@ def download():
     finally:
         print("FIRING", flush=True)
         print(file_name, output)
-        os.remove(file_name)
+        os.remove(output.read())
         print("Removed file from system", flush=True)
         print(file_name, output)
 
