@@ -159,10 +159,10 @@ def download():
         return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
     finally:
         print("FIRING", flush=True)
-        print(file_name, output)
+        print(file_name, output, flush=True)
         os.remove(output.read())
         print("Removed file from system", flush=True)
-        print(file_name, output)
+        print(file_name, output, flush=True)
 
 
 @submitAndPay.route('/submit-and-pay/payment-confirmation/<uuid:id>', methods=['GET', 'POST'])
