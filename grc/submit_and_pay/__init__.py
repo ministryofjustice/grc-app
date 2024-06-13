@@ -1,4 +1,4 @@
-import os
+import psutil
 import threading
 from datetime import datetime
 from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response, send_file
@@ -153,14 +153,27 @@ def checkYourAnswers():
 @submitAndPay.route('/submit-and-pay/download', methods=['GET'])
 @LoginRequired
 def download():
+    print('BEFORE FILE DOWNLOAD')
+    print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+    print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
     application_data = DataStore.load_application_by_session_reference_number()
     output, file_name = ApplicationFiles().create_pdf_public(application_data)
+    print('AFTER FILE DOWNLOAD')
+    print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+    print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
     try:
         return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
     finally:
+        print('AFTER FILE SENT')
+        print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+        print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
+        print("Removed file from system", flush=True)
         print("FIRING", flush=True)
         print(file_name, output, flush=True)
         del output, file_name
+        print('AFTER FILE DELETED')
+        print('RAM memory % used:', psutil.virtual_memory()[2], flush=True)
+        print('RAM Used (GB):', psutil.virtual_memory()[3] / 1000000000, flush=True)
         print("Removed file from system", flush=True)
 
 
