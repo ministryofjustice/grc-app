@@ -132,6 +132,7 @@ class ApplicationFiles:
     def create_application_cover_sheet_pdf(self, application_data: ApplicationData, is_admin: bool) -> BytesIO:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
+        print("CREATING COVER SHEET", flush=True)
         return self.pdf_utils.create_pdf_from_html(html, title='Application')
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
