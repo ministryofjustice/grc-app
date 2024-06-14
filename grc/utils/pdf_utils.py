@@ -29,8 +29,9 @@ class PDFUtils():
 
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
+        print("MERGING FILES", flush=True)
         output_fitz_pdf_document: fitz.Document = fitz.open()
-
+        print("OUTPUT PDF", flush=True)
         page_count = 1
         new_toc = []
         current_section = ''
@@ -39,7 +40,10 @@ class PDFUtils():
             input_pdf_stream.seek(0)
             input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
 
+            print("IN LOOP", flush=True)
+
             if update_toc:
+                print("UPDTING TOC", flush=True)
                 toc = input_fitz_pdf_document.get_toc()
                 for t in toc:
                     if t[1][: 2] == '__':
@@ -59,12 +63,14 @@ class PDFUtils():
                 page_count += len(input_fitz_pdf_document)
 
             if input_fitz_pdf_document.is_form_pdf:
+                print("IS FORM PDF", flush=True)
                 input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
 
             output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
             input_fitz_pdf_document.close()
 
         if update_toc:
+            print("SET TOC", flush=True)
             output_fitz_pdf_document.set_toc(new_toc)
 
         output_pdf_stream: BytesIO = BytesIO()
@@ -72,6 +78,7 @@ class PDFUtils():
         output_fitz_pdf_document.close()
 
         output_pdf_stream.seek(0)
+        print("MERGED PDFS", flush=True)
         return output_pdf_stream
 
 
@@ -149,6 +156,7 @@ class PDFUtils():
 
 
     def flatten_form_pdf(self, input_fitz_pdf_document: fitz.Document) -> fitz.Document:
+        print("FLATTEN FORM PDF", flush=True)
         output_fitz_pdf_document: fitz.Document = fitz.open()
 
         for page in input_fitz_pdf_document:
