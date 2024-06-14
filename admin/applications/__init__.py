@@ -182,14 +182,7 @@ def download(reference_number):
 
         output, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
-        try:
-            return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
-        finally:
-            print("FIRING", flush=True)
-            print(file_name, output)
-            os.remove(file_name)
-            print("Removed file from system", flush=True)
-            print(file_name, output)
+        return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
 
     session['message'] = message
     return local_redirect(url_for('applications.index', _anchor='downloaded'))
@@ -240,14 +233,7 @@ def attachments(reference_number):
         )
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded files for application {reference_number}")
         session['message'] = "attachments zipped"
-        try:
-            return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/zip')
-        finally:
-            print("FIRING", flush=True)
-            print(file_name, output)
-            os.remove(file_name)
-            print("Removed file from system", flush=True)
-            print(file_name, output)
+        return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/zip')
 
     session['message'] = message
     return local_redirect(url_for('applications.index', _anchor='completed'))
