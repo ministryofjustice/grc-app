@@ -44,7 +44,6 @@ class ApplicationFiles:
                         attachment_file_name = (f"{application_data.reference_number}__{section}__{(file_index + 1)}_"
                                                 f"{evidence_file.original_file_name}")
                         zipper.writestr(attachment_file_name, data.getvalue())
-                        del data
 
                     file_name, file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
                     if file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
@@ -54,14 +53,13 @@ class ApplicationFiles:
                             attachment_file_name = (f"{application_data.reference_number}__{section}__"
                                                     f"{(file_index + 1)}_{file_name}_original{file_ext}")
                             zipper.writestr(attachment_file_name, data.getvalue())
-                            del data
 
             application_pdf = self.download_pdf_admin(application_data)
             if not application_pdf:
                 application_pdf, _ = self.create_pdf_admin_with_filenames(application_data)
 
             zipper.writestr('application.pdf', application_pdf.getvalue())
-            del application_pdf
+
         zip_buffer.seek(0)
         return zip_buffer
 
