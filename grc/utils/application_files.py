@@ -96,6 +96,7 @@ class ApplicationFiles:
         file_name = 'grc_' + str(application_data.email_address).replace('@', '_').replace('.', '_') + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, False)]
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
+        print('output_pdf_document FILE IS CLOSED => ', output_pdf_document.closed, flush=True)
         return output_pdf_document, file_name
 
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[BytesIO, str]:
