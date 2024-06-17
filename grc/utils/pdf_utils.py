@@ -15,7 +15,7 @@ class PDFUtils():
 
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
-        pisa_status = pisa.CreatePDF(html, dest=pdf_stream)
+        pisa_status = pisa.CreatePDF(html, dest=pdf_stream, default_css='')
 
         pdf_stream.seek(0)
 
@@ -24,6 +24,9 @@ class PDFUtils():
 
         print(pisa_status.err)
         print(pisa_status.log)
+
+        print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
+        # pdf_stream.close()
 
         return pdf_stream
 
@@ -68,6 +71,7 @@ class PDFUtils():
 
             output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
             input_fitz_pdf_document.close()
+            print('INPUT FILE PDF FILE IS CLOSED => ', input_fitz_pdf_document.is_closed, flush=True)
 
         if update_toc:
             print("SET TOC", flush=True)
@@ -79,6 +83,7 @@ class PDFUtils():
 
         output_pdf_stream.seek(0)
         print("MERGED PDFS", flush=True)
+        print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
         return output_pdf_stream
 
 
@@ -166,7 +171,7 @@ class PDFUtils():
                 new_page.insert_image(rect=new_page.bound(), pixmap=pix)
             except Exception as e:
                 logger.log(LogLevel.ERROR, e)
-
+        print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
         return output_fitz_pdf_document
 
 
