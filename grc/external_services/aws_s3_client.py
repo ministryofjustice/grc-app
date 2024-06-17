@@ -49,14 +49,14 @@ class AwsS3Client:
                     img = Image.open(byte_value)
                     width, height = img.size
 
-                    byte_value = byte_value.getvalue()
-
                     if file_type in ['tif', 'tiff', 'bmp']:
                         jpg = io.BytesIO()
                         img.save(jpg, 'JPEG', quality=80)
                         byte_value = jpg.getvalue()
                         jpg.close()
                         file_type = 'jpeg'
+                    else:
+                        byte_value = byte_value.getvalue()
 
                     byte_base64 = base64.b64encode(byte_value)
                     data = byte_base64.decode('utf-8')

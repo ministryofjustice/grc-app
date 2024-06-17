@@ -44,6 +44,7 @@ class ApplicationFiles:
                         attachment_file_name = (f"{application_data.reference_number}__{section}__{(file_index + 1)}_"
                                                 f"{evidence_file.original_file_name}")
                         zipper.writestr(attachment_file_name, data.getvalue())
+                        data.close()
 
                     file_name, file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
                     if file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
@@ -53,6 +54,7 @@ class ApplicationFiles:
                             attachment_file_name = (f"{application_data.reference_number}__{section}__"
                                                     f"{(file_index + 1)}_{file_name}_original{file_ext}")
                             zipper.writestr(attachment_file_name, data.getvalue())
+                            data.close()
 
             application_pdf = self.download_pdf_admin(application_data)
             if not application_pdf:
@@ -163,9 +165,9 @@ class ApplicationFiles:
 
             if file_type == 'pdf':
                 try:
-                    data = self.s3_client.download_object(aws_file_name)
-                    if data is not None:
-                        if self.pdf_utils.is_pdf_password_protected(data):
+                    output = self.s3_client.download_object(aws_file_name)
+                    if output is not None:
+                        if self.pdf_utils.is_pdf_password_protected(output):
                             # We can check the type of password (user/owner):
                             # doc.authenticate('') == 2
                             # https://pymupdf.readthedocs.io/en/latest/document.html#Document.authenticate
@@ -173,8 +175,9 @@ class ApplicationFiles:
                             pdfs.append(self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
                             logger.log(LogLevel.ERROR, f"file {aws_file_name} needs a password!")
                         else:
-                            pdfs.append(self.pdf_utils.add_pdf_toc(data, f'{self._get_section_name(section)}:{original_file_name}'))
+                            pdfs.append(self.pdf_utils.add_pdf_toc(output, f'{self._get_section_name(section)}:{original_file_name}'))
                             logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
+                        output.close()
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
