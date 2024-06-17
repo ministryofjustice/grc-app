@@ -39,52 +39,54 @@ class PDFUtils():
         current_section = ''
 
         for input_pdf_stream in input_pdf_streams:
-            with input_pdf_stream as stream:
-                stream.seek(0)
-                input_fitz_pdf_document: fitz.Document = fitz.open(stream=stream, filetype='pdf')
 
-                print("IN LOOP", flush=True)
+            input_pdf_stream.seek(0)
+            input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
 
-                if update_toc:
-                    print("UPDTING TOC", flush=True)
-                    toc = input_fitz_pdf_document.get_toc()
-                    for t in toc:
-                        if t[1][: 2] == '__':
-                            this_section = t[1][2: ]
-                            this_file = ''
-                            if ':' in this_section:
-                                this_file = this_section[this_section.index(':') + 1:]
-                                this_section = this_section[: this_section.index(':')]
+            print("IN LOOP", flush=True)
 
-                            if current_section != this_section:
-                                new_toc.append([1, this_section, t[2] + page_count - 1])
-                            if this_file != '':
-                                new_toc.append([2, this_file, t[2] + page_count - 1])
+            if update_toc:
+                print("UPDTING TOC", flush=True)
+                toc = input_fitz_pdf_document.get_toc()
+                for t in toc:
+                    if t[1][: 2] == '__':
+                        this_section = t[1][2: ]
+                        this_file = ''
+                        if ':' in this_section:
+                            this_file = this_section[this_section.index(':') + 1:]
+                            this_section = this_section[: this_section.index(':')]
 
-                            current_section = this_section
+                        if current_section != this_section:
+                            new_toc.append([1, this_section, t[2] + page_count - 1])
+                        if this_file != '':
+                            new_toc.append([2, this_file, t[2] + page_count - 1])
 
-                    page_count += len(input_fitz_pdf_document)
+                        current_section = this_section
 
-                if input_fitz_pdf_document.is_form_pdf:
-                    print("IS FORM PDF", flush=True)
-                    input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
+                page_count += len(input_fitz_pdf_document)
 
-                output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
-                input_fitz_pdf_document.close()
-                print('INPUT FILE PDF FILE IS CLOSED => ', input_fitz_pdf_document.is_closed, flush=True)
+            if input_fitz_pdf_document.is_form_pdf:
+                print("IS FORM PDF", flush=True)
+                input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
+
+            output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
+            input_fitz_pdf_document.close()
+            input_pdf_stream.close()
+            print('INPUT FILE PDF FILE IS CLOSED => ', input_fitz_pdf_document.is_closed, flush=True)
 
         if update_toc:
             print("SET TOC", flush=True)
             output_fitz_pdf_document.set_toc(new_toc)
 
-        with BytesIO() as output_pdf_stream:
-            output_fitz_pdf_document.ez_save(output_pdf_stream)
-            output_fitz_pdf_document.close()
+        output_pdf_stream: BytesIO = BytesIO()
+        output_fitz_pdf_document.ez_save(output_pdf_stream)
+        output_fitz_pdf_document.close()
 
-            output_pdf_stream.seek(0)
-            print("MERGED PDFS", flush=True)
-            print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
-            return output_pdf_stream
+        output_pdf_stream.seek(0)
+        print("MERGED PDFS", flush=True)
+        print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
+        output_pdf_stream.close()
+        return output_pdf_stream
 
 
     def is_pdf_password_protected(self, pdf_stream: BytesIO) -> bool:
