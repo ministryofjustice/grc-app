@@ -14,21 +14,20 @@ class PDFUtils():
 
 
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
-        pdf_stream: BytesIO = BytesIO()
-        pisa_status = pisa.CreatePDF(html, dest=pdf_stream, default_css='')
+        with BytesIO() as pdf_stream:
+            pisa_status = pisa.CreatePDF(html, dest=pdf_stream, default_css='')
 
-        pdf_stream.seek(0)
+            pdf_stream.seek(0)
 
-        if title:
-            pdf_stream = self.add_pdf_toc(pdf_stream, title)
+            if title:
+                pdf_stream = self.add_pdf_toc(pdf_stream, title)
 
-        print(pisa_status.err)
-        print(pisa_status.log)
+            print(pisa_status.err)
+            print(pisa_status.log)
 
-        print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
-        pdf_stream.close()
+            print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
 
-        return pdf_stream
+            return pdf_stream
 
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
@@ -40,54 +39,52 @@ class PDFUtils():
         current_section = ''
 
         for input_pdf_stream in input_pdf_streams:
-            if input_pdf_stream.closed:
-                input_pdf_stream = open(input_pdf_stream.name, 'rb')
-            input_pdf_stream.seek(0)
-            input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
+            with input_pdf_stream as stream:
+                stream.seek(0)
+                input_fitz_pdf_document: fitz.Document = fitz.open(stream=stream, filetype='pdf')
 
-            print("IN LOOP", flush=True)
+                print("IN LOOP", flush=True)
 
-            if update_toc:
-                print("UPDTING TOC", flush=True)
-                toc = input_fitz_pdf_document.get_toc()
-                for t in toc:
-                    if t[1][: 2] == '__':
-                        this_section = t[1][2: ]
-                        this_file = ''
-                        if ':' in this_section:
-                            this_file = this_section[this_section.index(':') + 1:]
-                            this_section = this_section[: this_section.index(':')]
+                if update_toc:
+                    print("UPDTING TOC", flush=True)
+                    toc = input_fitz_pdf_document.get_toc()
+                    for t in toc:
+                        if t[1][: 2] == '__':
+                            this_section = t[1][2: ]
+                            this_file = ''
+                            if ':' in this_section:
+                                this_file = this_section[this_section.index(':') + 1:]
+                                this_section = this_section[: this_section.index(':')]
 
-                        if current_section != this_section:
-                            new_toc.append([1, this_section, t[2] + page_count - 1])
-                        if this_file != '':
-                            new_toc.append([2, this_file, t[2] + page_count - 1])
+                            if current_section != this_section:
+                                new_toc.append([1, this_section, t[2] + page_count - 1])
+                            if this_file != '':
+                                new_toc.append([2, this_file, t[2] + page_count - 1])
 
-                        current_section = this_section
+                            current_section = this_section
 
-                page_count += len(input_fitz_pdf_document)
+                    page_count += len(input_fitz_pdf_document)
 
-            if input_fitz_pdf_document.is_form_pdf:
-                print("IS FORM PDF", flush=True)
-                input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
+                if input_fitz_pdf_document.is_form_pdf:
+                    print("IS FORM PDF", flush=True)
+                    input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
 
-            output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
-            input_fitz_pdf_document.close()
-            print('INPUT FILE PDF FILE IS CLOSED => ', input_fitz_pdf_document.is_closed, flush=True)
+                output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
+                input_fitz_pdf_document.close()
+                print('INPUT FILE PDF FILE IS CLOSED => ', input_fitz_pdf_document.is_closed, flush=True)
 
         if update_toc:
             print("SET TOC", flush=True)
             output_fitz_pdf_document.set_toc(new_toc)
 
-        output_pdf_stream: BytesIO = BytesIO()
-        output_fitz_pdf_document.ez_save(output_pdf_stream)
-        output_fitz_pdf_document.close()
+        with BytesIO() as output_pdf_stream:
+            output_fitz_pdf_document.ez_save(output_pdf_stream)
+            output_fitz_pdf_document.close()
 
-        output_pdf_stream.seek(0)
-        print("MERGED PDFS", flush=True)
-        print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
-        output_pdf_stream.close()
-        return output_pdf_stream
+            output_pdf_stream.seek(0)
+            print("MERGED PDFS", flush=True)
+            print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
+            return output_pdf_stream
 
 
     def is_pdf_password_protected(self, pdf_stream: BytesIO) -> bool:
