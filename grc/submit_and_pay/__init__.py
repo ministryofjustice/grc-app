@@ -154,7 +154,10 @@ def checkYourAnswers():
 def download():
     application_data = DataStore.load_application_by_session_reference_number()
     output, file_name = ApplicationFiles().create_pdf_public(application_data)
-    return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
+    response = send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
+    output.close()
+    return response
+
 
 
 @submitAndPay.route('/submit-and-pay/payment-confirmation/<uuid:id>', methods=['GET', 'POST'])
