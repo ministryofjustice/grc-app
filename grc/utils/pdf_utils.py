@@ -172,9 +172,9 @@ class PDFUtils():
                 new_page.insert_image(rect=new_page.bound(), pixmap=pix)
             except Exception as e:
                 logger.log(LogLevel.ERROR, e)
-            finally:
-                page.
+
         print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
+        output_fitz_pdf_document.close()
         return output_fitz_pdf_document
 
 
