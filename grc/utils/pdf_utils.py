@@ -14,20 +14,15 @@ class PDFUtils():
 
 
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
-        with BytesIO() as pdf_stream:
-            pisa_status = pisa.CreatePDF(html, dest=pdf_stream, default_css='')
+        pdf_stream: BytesIO = BytesIO()
+        pisa.CreatePDF(html, dest=pdf_stream)
 
-            pdf_stream.seek(0)
+        pdf_stream.seek(0)
 
-            if title:
-                pdf_stream = self.add_pdf_toc(pdf_stream, title)
+        if title:
+            pdf_stream = self.add_pdf_toc(pdf_stream, title)
 
-            print(pisa_status.err)
-            print(pisa_status.log)
-
-            print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
-
-            return pdf_stream
+        return pdf_stream
 
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
@@ -39,7 +34,6 @@ class PDFUtils():
         current_section = ''
 
         for input_pdf_stream in input_pdf_streams:
-
             input_pdf_stream.seek(0)
             input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
 
@@ -174,7 +168,6 @@ class PDFUtils():
                 logger.log(LogLevel.ERROR, e)
 
         print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
-        output_fitz_pdf_document.close()
         return output_fitz_pdf_document
 
 
