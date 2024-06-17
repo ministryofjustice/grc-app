@@ -135,7 +135,7 @@ class ApplicationFiles:
         print("CREATING COVER SHEET", flush=True)
         coversheet = self.pdf_utils.create_pdf_from_html(html, title='Application')
         print('COVERSHEET FILE IS CLOSED => ', coversheet.closed, flush=True)
-        return self.pdf_utils.create_pdf_from_html(html, title='Application')
+        return coversheet
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''
@@ -201,7 +201,10 @@ class ApplicationFiles:
 
     def create_pdf_for_attachment_error(self, section: str, file_name: str) -> BytesIO:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
-        return self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
+        print("CREATING ERROR PDF", flush=True)
+        error_pdf = self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
+        print('CREATING ERROR PDF FILE IS CLOSED => ', error_pdf.closed, flush=True)
+        return error_pdf
 
     def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
         file_ext = ''
