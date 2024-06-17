@@ -85,7 +85,6 @@ class PDFUtils():
         output_pdf_stream.seek(0)
         print("MERGED PDFS", flush=True)
         print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
-        output_pdf_stream.close()
         return output_pdf_stream
 
 
@@ -173,6 +172,8 @@ class PDFUtils():
                 new_page.insert_image(rect=new_page.bound(), pixmap=pix)
             except Exception as e:
                 logger.log(LogLevel.ERROR, e)
+            finally:
+                page.
         print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
         return output_fitz_pdf_document
 
