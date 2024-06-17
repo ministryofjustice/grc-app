@@ -26,7 +26,7 @@ class PDFUtils():
         print(pisa_status.log)
 
         print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
-
+        # pdf_stream.close()
 
         return pdf_stream
 
@@ -40,6 +40,8 @@ class PDFUtils():
         current_section = ''
 
         for input_pdf_stream in input_pdf_streams:
+            # if input_pdf_stream.closed:
+            #     input_pdf_stream = open(input_pdf_stream.name, 'rb')
             input_pdf_stream.seek(0)
             input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
 
@@ -84,6 +86,7 @@ class PDFUtils():
         output_pdf_stream.seek(0)
         print("MERGED PDFS", flush=True)
         print('OUTPUT FILE PDF FILE IS CLOSED => ', output_fitz_pdf_document.is_closed, flush=True)
+        # output_pdf_stream.close()
         return output_pdf_stream
 
 
