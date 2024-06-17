@@ -154,12 +154,6 @@ def checkYourAnswers():
 def download():
     application_data = DataStore.load_application_by_session_reference_number()
     output, file_name = ApplicationFiles().create_pdf_public(application_data)
-
-    @after_this_request
-    def cleanup(response):
-        output.close()
-        return response
-
     return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
 
 
