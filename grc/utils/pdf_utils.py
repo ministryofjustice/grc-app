@@ -26,7 +26,7 @@ class PDFUtils():
         print(pisa_status.log)
 
         print('CREATE FILE PDF FILE IS CLOSED => ', pdf_stream.closed, flush=True)
-        # pdf_stream.close()
+        pdf_stream.close()
 
         return pdf_stream
 
