@@ -1,3 +1,4 @@
+import gc
 import threading
 from datetime import datetime
 from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, after_this_request, send_file
@@ -154,6 +155,12 @@ def checkYourAnswers():
 def download():
     application_data = DataStore.load_application_by_session_reference_number()
     output, file_name = ApplicationFiles().create_pdf_public(application_data)
+
+    @after_this_request
+    def cleanup(response):
+        gc.collect()
+        return response
+
     return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
 
 
