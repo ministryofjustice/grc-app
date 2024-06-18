@@ -98,7 +98,6 @@ class ApplicationFiles:
         file_name = 'grc_' + str(application_data.email_address).replace('@', '_').replace('.', '_') + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, False)]
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
-        print('output_pdf_document FILE IS CLOSED => ', output_pdf_document.closed, flush=True)
         return output_pdf_document, file_name
 
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[BytesIO, str]:
@@ -135,10 +134,7 @@ class ApplicationFiles:
     def create_application_cover_sheet_pdf(self, application_data: ApplicationData, is_admin: bool) -> BytesIO:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
-        print("CREATING COVER SHEET", flush=True)
-        coversheet = self.pdf_utils.create_pdf_from_html(html, title='Application')
-        print('COVERSHEET FILE IS CLOSED => ', coversheet.closed, flush=True)
-        return coversheet
+        return self.pdf_utils.create_pdf_from_html(html, title='Application')
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''

@@ -169,6 +169,7 @@ class PDFUtils:
         output_pdf_stream: BytesIO = BytesIO()
         fitz_pdf_document.ez_save(output_pdf_stream)
         fitz_pdf_document.close()
+        input_pdf_document.close()
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
