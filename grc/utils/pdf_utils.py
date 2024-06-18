@@ -75,6 +75,7 @@ class PDFUtils:
         needs_password = fitz_pdf_document.needs_pass
 
         fitz_pdf_document.close()
+        pdf_stream.close()
         return needs_password
 
     def is_pdf_form(self, pdf_stream: BytesIO) -> bool:
@@ -84,6 +85,7 @@ class PDFUtils:
         is_form_pdf = fitz_pdf_document.is_form_pdf
 
         fitz_pdf_document.close()
+        pdf_stream.close()
         return is_form_pdf
 
     def is_pdf_password_correct(self, pdf_stream: BytesIO, password: str) -> bool:
@@ -97,6 +99,7 @@ class PDFUtils:
             password_correct = fitz_pdf_document.authenticate(password)
 
         fitz_pdf_document.close()
+        pdf_stream.close()
         return needs_password and password_correct
 
     def remove_pdf_password_protection(self, input_pdf_stream: BytesIO, password: str) -> BytesIO:
@@ -110,6 +113,7 @@ class PDFUtils:
             input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
         output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
         input_fitz_pdf_document.close()
+        input_pdf_stream.close()
 
         output_pdf_stream: BytesIO = BytesIO()
         output_fitz_pdf_document.ez_save(output_pdf_stream)
@@ -128,6 +132,7 @@ class PDFUtils:
             input_fitz_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
         output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
         input_fitz_pdf_document.close()
+        input_pdf_stream.close()
 
         output_pdf_stream: BytesIO = BytesIO()
         output_fitz_pdf_document.ez_save(output_pdf_stream)
@@ -147,6 +152,7 @@ class PDFUtils:
             except Exception as e:
                 logger.log(LogLevel.ERROR, e)
 
+        input_fitz_pdf_document.close()
         return output_fitz_pdf_document
 
     def flatten_form_pdf_stream(self, input_pdf_stream: BytesIO) -> BytesIO:
@@ -154,6 +160,7 @@ class PDFUtils:
 
         input_fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_stream, filetype='pdf')
         flattened_pdf_document = self.flatten_form_pdf(input_fitz_pdf_document)
+        input_pdf_stream.close()
 
         output_pdf_stream: BytesIO = BytesIO()
         flattened_pdf_document.ez_save(output_pdf_stream)
