@@ -173,7 +173,6 @@ class ApplicationFiles:
                         else:
                             pdfs.append(self.pdf_utils.add_pdf_toc(output, f'{self._get_section_name(section)}:{original_file_name}'))
                             logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
-                        output.close()
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
