@@ -13,12 +13,7 @@ class PDFUtils:
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
         pisa.CreatePDF(html, dest=pdf_stream)
-
         pdf_stream.seek(0)
-
-        if title:
-            pdf_stream = self.add_pdf_toc(pdf_stream, title)
-
         return pdf_stream
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
@@ -173,19 +168,6 @@ class PDFUtils:
         output_pdf_stream: BytesIO = BytesIO()
         flattened_pdf_document.ez_save(output_pdf_stream)
         flattened_pdf_document.close()
-
-        output_pdf_stream.seek(0)
-        return output_pdf_stream
-
-    def add_pdf_toc(self, input_pdf_document: BytesIO, title: str) -> BytesIO:
-        fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_document, filetype='pdf')
-        fitz_pdf_document.set_toc([[1, f'__{title}', 1]])
-
-        output_pdf_stream: BytesIO = BytesIO()
-        fitz_pdf_document.ez_save(output_pdf_stream)
-        fitz_pdf_document.close()
-        input_pdf_document.close()
-        del input_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
