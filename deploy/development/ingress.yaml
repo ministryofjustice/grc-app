@@ -6,7 +6,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-dev-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/whitelist-source-range: "194.33.196.0/24, 194.33.192.0/24, 81.134.202.29/32, 95.147.221.25"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "194.33.196.0/24, 194.33.192.0/24, 81.134.202.29/32, 95.147.16.83"
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
         return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
