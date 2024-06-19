@@ -171,6 +171,7 @@ class ApplicationFiles:
                             pdfs.append(self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
                             logger.log(LogLevel.ERROR, f"file {aws_file_name} needs a password!")
                         else:
+                            output.seek(0)
                             pdfs.append(output)
                             logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
                     else:
