@@ -190,6 +190,7 @@ class ApplicationFiles:
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
+                    del data
 
                 except Exception as e:
                     self.create_pdf_for_attachment_error(section, original_file_name)
@@ -200,10 +201,7 @@ class ApplicationFiles:
 
     def create_pdf_for_attachment_error(self, section: str, file_name: str) -> BytesIO:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
-        print("CREATING ERROR PDF", flush=True)
-        error_pdf = self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
-        print('CREATING ERROR PDF FILE IS CLOSED => ', error_pdf.closed, flush=True)
-        return error_pdf
+        return self.pdf_utils.create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
 
     def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
         file_ext = ''
