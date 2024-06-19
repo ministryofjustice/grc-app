@@ -73,6 +73,7 @@ class PDFUtils:
         needs_password = fitz_pdf_document.needs_pass
 
         fitz_pdf_document.close()
+        del fitz_pdf_document
         return needs_password
 
     def is_pdf_form(self, pdf_stream: BytesIO) -> bool:
