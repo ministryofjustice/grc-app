@@ -13,7 +13,9 @@ class PDFUtils:
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
         pisa.CreatePDF(html, dest=pdf_stream)
+
         pdf_stream.seek(0)
+
         return pdf_stream
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
@@ -71,8 +73,6 @@ class PDFUtils:
         needs_password = fitz_pdf_document.needs_pass
 
         fitz_pdf_document.close()
-        pdf_stream.close()
-        del pdf_stream
         return needs_password
 
     def is_pdf_form(self, pdf_stream: BytesIO) -> bool:
@@ -168,6 +168,19 @@ class PDFUtils:
         output_pdf_stream: BytesIO = BytesIO()
         flattened_pdf_document.ez_save(output_pdf_stream)
         flattened_pdf_document.close()
+
+        output_pdf_stream.seek(0)
+        return output_pdf_stream
+
+    def add_pdf_toc(self, input_pdf_document: BytesIO, title: str) -> BytesIO:
+        fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_document, filetype='pdf')
+        fitz_pdf_document.set_toc([[1, f'__{title}', 1]])
+
+        output_pdf_stream: BytesIO = BytesIO()
+        fitz_pdf_document.ez_save(output_pdf_stream)
+        fitz_pdf_document.close()
+        input_pdf_document.close()
+        del input_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
