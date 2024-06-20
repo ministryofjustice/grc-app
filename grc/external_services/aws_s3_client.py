@@ -5,6 +5,7 @@ import boto3
 from flask import current_app
 from botocore.client import Config
 from grc.utils.logger import LogLevel, Logger
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -32,6 +33,7 @@ class AwsS3Client:
 
         return True
 
+    @profile
     def download_object_data(self, object_name):
         data = None
         width = 0

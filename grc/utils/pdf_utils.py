@@ -13,7 +13,6 @@ class PDFUtils():
     def __init__(self):
         pass
 
-    @profile
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
         pisa.CreatePDF(html, dest=pdf_stream)
@@ -25,7 +24,6 @@ class PDFUtils():
 
         return pdf_stream
 
-    @profile
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
         output_fitz_pdf_document: fitz.Document = fitz.open()
 
@@ -173,7 +171,6 @@ class PDFUtils():
         output_pdf_stream.seek(0)
         return output_pdf_stream
 
-    @profile
     def add_pdf_toc(self, input_pdf_document: BytesIO, title: str) -> BytesIO:
         fitz_pdf_document: fitz.Document = fitz.open(stream=input_pdf_document, filetype='pdf')
         fitz_pdf_document.set_toc([[1, f'__{title}', 1]])
