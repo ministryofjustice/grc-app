@@ -1,7 +1,6 @@
-import os
 import threading
 from datetime import datetime
-from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, make_response
+from flask import Blueprint, flash, render_template, request, current_app, url_for, session, copy_current_request_context, send_file
 import requests
 from requests.structures import CaseInsensitiveDict
 import json
@@ -154,13 +153,8 @@ def checkYourAnswers():
 @LoginRequired
 def download():
     application_data = DataStore.load_application_by_session_reference_number()
-
-    bytes_, file_name = ApplicationFiles().create_pdf_public(application_data)
-
-    response = make_response(bytes_)
-    response.headers.set('Content-Type', 'application/pdf')
-    response.headers.set('Content-Disposition', 'attachment', filename=file_name)
-    return response
+    output, file_name = ApplicationFiles().create_pdf_public(application_data)
+    return send_file(output, as_attachment=True, download_name=file_name, mimetype='application/pdf')
 
 
 @submitAndPay.route('/submit-and-pay/payment-confirmation/<uuid:id>', methods=['GET', 'POST'])
