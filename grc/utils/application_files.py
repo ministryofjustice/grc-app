@@ -152,6 +152,7 @@ class ApplicationFiles:
             for file_index, evidence_file in enumerate(files):
                 self.add_object(pdfs, section, evidence_file.aws_file_name, evidence_file.original_file_name)
 
+    @profile
     def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str) -> None:
         if '.' in aws_file_name:
             file_type = aws_file_name[aws_file_name.rindex('.') + 1:].lower()
