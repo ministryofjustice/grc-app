@@ -9,6 +9,7 @@ from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.reference_number import reference_number_is_valid_admin
 from sqlalchemy import or_
+from memory_profiler import profile
 
 applications = Blueprint('applications', __name__)
 logger = Logger()
