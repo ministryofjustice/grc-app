@@ -7,6 +7,7 @@ from grc.business_logic.data_structures.uploads_data import UploadsData, Evidenc
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.pdf_utils import PDFUtils
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -144,6 +145,7 @@ class ApplicationFiles:
             logger.log(LogLevel.INFO, "Adding attachments pdf")
             return PDFUtils().create_pdf_from_html(attachments_html, title='Attachments')
 
+    @profile
     def attach_all_files(self, pdfs: list, all_sections: list, application_data: ApplicationData) -> None:
         for section in all_sections:
             files = self._get_files_for_section(section, application_data)

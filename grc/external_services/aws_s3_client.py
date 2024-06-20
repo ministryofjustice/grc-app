@@ -33,7 +33,6 @@ class AwsS3Client:
 
         return True
 
-    @profile
     def download_object_data(self, object_name):
         data = None
         width = 0
