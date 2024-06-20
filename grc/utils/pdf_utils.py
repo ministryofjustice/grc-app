@@ -54,6 +54,7 @@ class PDFUtils:
             output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
             input_fitz_pdf_document.close()
             input_pdf_stream.close()
+            del input_fitz_pdf_document
             del input_pdf_stream
 
         if update_toc:
@@ -62,6 +63,7 @@ class PDFUtils:
         output_pdf_stream: BytesIO = BytesIO()
         output_fitz_pdf_document.ez_save(output_pdf_stream)
         output_fitz_pdf_document.close()
+        del output_fitz_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
@@ -83,8 +85,7 @@ class PDFUtils:
         is_form_pdf = fitz_pdf_document.is_form_pdf
 
         fitz_pdf_document.close()
-        pdf_stream.close()
-        del pdf_stream
+        del fitz_pdf_document
         return is_form_pdf
 
     def is_pdf_password_correct(self, pdf_stream: BytesIO, password: str) -> bool:
@@ -98,8 +99,7 @@ class PDFUtils:
             password_correct = fitz_pdf_document.authenticate(password)
 
         fitz_pdf_document.close()
-        pdf_stream.close()
-        del pdf_stream
+        del fitz_pdf_document
         return needs_password and password_correct
 
     def remove_pdf_password_protection(self, input_pdf_stream: BytesIO, password: str) -> BytesIO:
@@ -115,10 +115,12 @@ class PDFUtils:
         input_fitz_pdf_document.close()
         input_pdf_stream.close()
         del input_pdf_stream
+        del input_fitz_pdf_document
 
         output_pdf_stream: BytesIO = BytesIO()
         output_fitz_pdf_document.ez_save(output_pdf_stream)
         output_fitz_pdf_document.close()
+        del output_fitz_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
@@ -135,10 +137,12 @@ class PDFUtils:
         input_fitz_pdf_document.close()
         input_pdf_stream.close()
         del input_pdf_stream
+        del input_fitz_pdf_document
 
         output_pdf_stream: BytesIO = BytesIO()
         output_fitz_pdf_document.ez_save(output_pdf_stream)
         output_fitz_pdf_document.close()
+        del output_fitz_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
@@ -153,6 +157,8 @@ class PDFUtils:
                 new_page.insert_image(rect=new_page.bound(), pixmap=pix)
             except Exception as e:
                 logger.log(LogLevel.ERROR, e)
+            finally:
+                del page
 
         input_fitz_pdf_document.close()
         del input_fitz_pdf_document
@@ -169,6 +175,7 @@ class PDFUtils:
         output_pdf_stream: BytesIO = BytesIO()
         flattened_pdf_document.ez_save(output_pdf_stream)
         flattened_pdf_document.close()
+        del flattened_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
@@ -182,6 +189,7 @@ class PDFUtils:
         fitz_pdf_document.close()
         input_pdf_document.close()
         del input_pdf_document
+        del fitz_pdf_document
 
         output_pdf_stream.seek(0)
         return output_pdf_stream
