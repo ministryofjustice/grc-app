@@ -75,6 +75,7 @@ class AwsS3Client:
 
         return data, width, height
 
+    @profile
     def download_object(self, object_name):
         logger.log(LogLevel.INFO, f"Downloading {object_name}")
         data = None
