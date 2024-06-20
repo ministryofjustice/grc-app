@@ -20,8 +20,6 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
-RUN pip3 install memory-profiler
-
 COPY . .
 
 # RUN pip install pre-commit
