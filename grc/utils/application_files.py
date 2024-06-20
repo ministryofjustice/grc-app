@@ -7,6 +7,7 @@ from grc.business_logic.data_structures.uploads_data import UploadsData, Evidenc
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.pdf_utils import PDFUtils
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -58,6 +59,7 @@ class ApplicationFiles:
         zip_buffer.seek(0)
         return zip_buffer
 
+    @profile
     def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
         self.attach_all_files(pdfs, sections, application_data)
         output_pdf_document = PDFUtils().merge_pdfs(pdfs)
@@ -93,6 +95,7 @@ class ApplicationFiles:
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
         return output_pdf_document.read(), file_name
 
+    @profile
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
@@ -126,6 +129,7 @@ class ApplicationFiles:
             for evidence_file in files:
                 AwsS3Client().delete_object(evidence_file.aws_file_name)
 
+    @profile
     def create_application_cover_sheet_pdf(self, application_data: ApplicationData, is_admin: bool) -> BytesIO:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
@@ -144,12 +148,14 @@ class ApplicationFiles:
             logger.log(LogLevel.INFO, "Adding attachments pdf")
             return PDFUtils().create_pdf_from_html(attachments_html, title='Attachments')
 
+    @profile
     def attach_all_files(self, pdfs: list, all_sections: list, application_data: ApplicationData) -> None:
         for section in all_sections:
             files = self._get_files_for_section(section, application_data)
             for file_index, evidence_file in enumerate(files):
                 self.add_object(pdfs, section, evidence_file.aws_file_name, evidence_file.original_file_name)
 
+    @profile
     def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str) -> None:
         if '.' in aws_file_name:
             file_type = aws_file_name[aws_file_name.rindex('.') + 1:].lower()
