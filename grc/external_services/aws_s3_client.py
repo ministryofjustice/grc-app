@@ -66,6 +66,10 @@ class AwsS3Client:
                             file_type = 'jpeg'
                         data = 'data:image/' + file_type + ';base64, ' + data
 
+                    if img is not None:
+                        logger.log(LogLevel.INFO, message=f"Closing image")
+                        img.close()
+
         except Exception as e:
             logging.error(e)
             logger.log(LogLevel.ERROR, e)
