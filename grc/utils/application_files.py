@@ -183,10 +183,12 @@ class ApplicationFiles:
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
                         html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
-                        appendImageData = PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}')
-                        pdfs.append(appendImageData)
-                        appendImageData.close()
+                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
+                        #appendImageData.close() - Trying to close the stream returned by create_pdf caused an operation on closed object Exception
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
+                        # Try to close data instead as it has been transferred to 'html' object
+                        logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
+                        data.close()
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
