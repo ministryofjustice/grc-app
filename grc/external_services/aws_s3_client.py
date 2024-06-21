@@ -70,15 +70,6 @@ class AwsS3Client:
                         logger.log(LogLevel.INFO, message=f"Closing image")
                         img.close()
 
-                    if byte_value is not None:
-                        logger.log(LogLevel.INFO, message=f"Closing byte_value object")
-                        byte_value.close()
-
-                    if byte_base64 is not None:
-                        logger.log(LogLevel.INFO, message=f"Closing byte_base64 object")
-                        byte_base64.close()
-
-
         except Exception as e:
             logging.error(e)
             logger.log(LogLevel.ERROR, e)
