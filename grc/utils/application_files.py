@@ -183,7 +183,9 @@ class ApplicationFiles:
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
                         html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
-                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
+                        appendImageData = PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}')
+                        pdfs.append(appendImageData)
+                        appendImageData.close()
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
