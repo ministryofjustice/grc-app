@@ -61,7 +61,7 @@ class PDFUtils():
             output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
             input_fitz_pdf_document.close()
 
-            logger.log(LogLevel.INFO, f"Image input stream buffer size {input_pdf_stream.getbuffer().nbytes}")
+            print(f"Image input stream buffer size {input_pdf_stream.getbuffer().nbytes}", flush=True)
             input_pdf_stream.close()
 
         if update_toc:
