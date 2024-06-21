@@ -13,6 +13,7 @@ class PDFUtils():
     def __init__(self):
         pass
 
+    @profile
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
         pdf_stream: BytesIO = BytesIO()
         pisa.CreatePDF(html, dest=pdf_stream)
