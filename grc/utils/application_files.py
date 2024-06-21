@@ -59,6 +59,7 @@ class ApplicationFiles:
         zip_buffer.seek(0)
         return zip_buffer
 
+    @profile
     def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
         self.attach_all_files(pdfs, sections, application_data)
         output_pdf_document = PDFUtils().merge_pdfs(pdfs)
@@ -145,7 +146,6 @@ class ApplicationFiles:
             logger.log(LogLevel.INFO, "Adding attachments pdf")
             return PDFUtils().create_pdf_from_html(attachments_html, title='Attachments')
 
-    @profile
     def attach_all_files(self, pdfs: list, all_sections: list, application_data: ApplicationData) -> None:
         for section in all_sections:
             files = self._get_files_for_section(section, application_data)
@@ -184,7 +184,6 @@ class ApplicationFiles:
                     if data is not None:
                         html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
                         pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
-                        #appendImageData.close() - Trying to close the stream returned by create_pdf caused an operation on closed object Exception
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                         # Try to close data instead as it has been transferred to 'html' object
                         logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
