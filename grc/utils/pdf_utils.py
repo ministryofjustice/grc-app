@@ -15,6 +15,9 @@ class PDFUtils():
 
     @profile
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
+
+        print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
+
         pdf_stream: BytesIO = BytesIO()
         pisa.CreatePDF(html, dest=pdf_stream)
 
@@ -22,6 +25,8 @@ class PDFUtils():
 
         if title:
             pdf_stream = self.add_pdf_toc(pdf_stream, title)
+
+        print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
 
         return pdf_stream
 
