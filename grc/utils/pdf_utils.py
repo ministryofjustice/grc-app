@@ -20,7 +20,7 @@ class PDFUtils():
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
 
         pdf_stream: BytesIO = BytesIO()
-        data = pdfkit.from_string(html)
+        data = pdfkit.from_string(html, options={"enable-local-file-access": ""})
         pdf_stream.write(data)
         pdf_stream.seek(0)
 
