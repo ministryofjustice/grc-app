@@ -14,7 +14,6 @@ class PDFUtils():
     def __init__(self):
         pass
 
-    @profile
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
 
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)

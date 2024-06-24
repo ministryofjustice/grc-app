@@ -59,7 +59,6 @@ class ApplicationFiles:
         zip_buffer.seek(0)
         return zip_buffer
 
-    @profile
     def _create_pdf_attach_files(self, application_data: ApplicationData, pdfs, sections) -> BytesIO:
         self.attach_all_files(pdfs, sections, application_data)
         output_pdf_document = PDFUtils().merge_pdfs(pdfs)
@@ -95,6 +94,7 @@ class ApplicationFiles:
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
         return output_pdf_document.read(), file_name
 
+    @profile
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
@@ -152,7 +152,6 @@ class ApplicationFiles:
             for file_index, evidence_file in enumerate(files):
                 self.add_object(pdfs, section, evidence_file.aws_file_name, evidence_file.original_file_name)
 
-    @profile
     def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str) -> None:
         if '.' in aws_file_name:
             file_type = aws_file_name[aws_file_name.rindex('.') + 1:].lower()
