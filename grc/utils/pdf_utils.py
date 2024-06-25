@@ -2,7 +2,7 @@ import fitz
 import pdfkit
 from io import BytesIO
 from typing import Any, List
-from flask import make_response, url_for
+from flask import make_response, url_for, send_from_directory
 # from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
 from memory_profiler import profile
@@ -22,7 +22,7 @@ class PDFUtils():
         data = pdfkit.from_string(
             html,
             options={"enable-local-file-access": ""},
-            css=url_for('static', filename='app.css')
+            css=f'grc/{url_for("static", filename="app.css")}'
         )
         pdf_stream.write(data)
         pdf_stream.seek(0)
