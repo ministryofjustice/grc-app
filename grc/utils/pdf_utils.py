@@ -2,7 +2,7 @@ import fitz
 import pdfkit
 from io import BytesIO
 from typing import Any, List
-from flask import make_response
+from flask import make_response, url_for
 # from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
 from memory_profiler import profile
@@ -19,7 +19,11 @@ class PDFUtils():
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
 
         pdf_stream: BytesIO = BytesIO()
-        data = pdfkit.from_string(html, options={"enable-local-file-access": ""})
+        data = pdfkit.from_string(
+            html,
+            options={"enable-local-file-access": ""},
+            css=url_for('static', filename='app.css')
+        )
         pdf_stream.write(data)
         pdf_stream.seek(0)
 
