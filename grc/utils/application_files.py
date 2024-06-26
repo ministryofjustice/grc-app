@@ -201,7 +201,6 @@ class ApplicationFiles:
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                         # Try to close data instead as it has been transferred to 'html' object
                         logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
-                        data.close()
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
