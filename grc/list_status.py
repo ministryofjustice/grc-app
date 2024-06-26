@@ -1,10 +1,11 @@
 import enum
+from flask_babel import lazy_gettext as _l
 
 
 class ListStatus(enum.Enum):
-    COMPLETED = "COMPLETED"
-    IN_PROGRESS = "IN PROGRESS"
-    NOT_STARTED = "NOT STARTED"
-    CANNOT_START_YET = "CANNOT START YET"
-    IN_REVIEW = "IN REVIEW"  # Value 'in progress' is used only at task list
-    ERROR = "ERROR"
+    COMPLETED = _l("COMPLETED")
+    IN_PROGRESS = _l("IN PROGRESS")
+    NOT_STARTED = _l("NOT STARTED")
+    CANNOT_START_YET = _l("CANNOT START YET")
+    IN_REVIEW = _l("IN REVIEW")  # Value 'in progress' is used only at task list
+    ERROR = _l("ERROR")

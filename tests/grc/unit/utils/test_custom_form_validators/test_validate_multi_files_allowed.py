@@ -9,7 +9,7 @@ from wtforms.validators import StopValidation
 
 class TestValidateMultiFileAllowed:
     def test_multi_file_allowed_public_file_upload_valid(self, app):
-        with app.app_context():
+        with app.test_request_context():
             test_files_uploaded = [
                 FileStorage(filename='test_file1.pdf', stream=MagicMock(), content_type='text/plain'),
                 FileStorage(filename='test_file2.jpg', stream=MagicMock(), content_type='text/plain'),
@@ -25,7 +25,7 @@ class TestValidateMultiFileAllowed:
             assert validator.__call__(form, form.documents) is None
 
     def test_multi_file_allowed_public_file_upload_invalid_file_extension_with_message(self, app):
-        with app.app_context():
+        with app.test_request_context():
             invalid_test_files_uploaded = [
                 FileStorage(filename='test_file1.pdf', stream=MagicMock(), content_type='text/plain'),
                 FileStorage(filename='test_file2.jpg', stream=MagicMock(), content_type='text/plain'),
@@ -43,7 +43,7 @@ class TestValidateMultiFileAllowed:
                 validator.__call__(form, form.documents)
 
     def test_multi_file_allowed_public_file_upload_invalid_file_extension_without_message(self, app):
-        with app.app_context():
+        with app.test_request_context():
             invalid_test_files_uploaded = [
                 FileStorage(filename='test_file1.pdf', stream=MagicMock(), content_type='text/plain'),
                 FileStorage(filename='test_file2.jpg', stream=MagicMock(), content_type='text/plain'),
@@ -62,7 +62,7 @@ class TestValidateMultiFileAllowed:
                 validator.__call__(form, form.documents)
 
     def test_multi_file_allowed_public_file_upload_invalid_file_data_not_iterable(self, app):
-        with app.app_context():
+        with app.test_request_context():
             invalid_test_files_uploaded = FileStorage(filename='test_file1.pdf', stream=MagicMock(),
                                                       content_type='text/plain'),
 

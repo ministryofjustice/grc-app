@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Declaration of consent{% endblock %}
+{% block title %}{{ _('Declaration of consent') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,25 +17,11 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Declaration of consent
+                {{ _('Declaration of consent') }}
             </h1>
 
-            {%  set partnerName = 'civil partner'
-                if application_data.partnership_details_data.is_in_civil_partnership
-                else 'spouse' %}
-            {%  set partnerNamePlural = 'civil partners'
-                if application_data.partnership_details_data.is_in_civil_partnership
-                else 'spouses' %}
-            {%  set inPartnershipName = 'in a civil partnership'
-                if application_data.partnership_details_data.is_in_civil_partnership
-                else 'married' %}
-
             <p class="govuk-body">
-                If you intend to remain {{ inPartnershipName }}, your {{ partnerName }} needs to fill in a
-                <a href="https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants"
-                    rel="noreferrer noopener" target="_blank" class="govuk-link">
-                    statutory declaration for {{ partnerNamePlural }} (opens in a new tab)</a>,
-                and sign it in front of someone authorised to administer oaths.
+                {{ context.link }}
             </p>
 
             <form method="POST" action="#">
@@ -42,20 +30,13 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='partner_agrees',
-                    question="Can you provide a statutory declaration from your " + partnerName + "?",
+                    question=context.question,
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m'
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

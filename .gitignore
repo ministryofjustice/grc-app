@@ -30,3 +30,6 @@ instance/config.py
 .unotes/*
 Notes/*
 notes/*
+
+# Translations
+*.mo
