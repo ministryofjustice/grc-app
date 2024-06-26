@@ -38,8 +38,9 @@ class TestValidateStatutoryDeclarationDate:
             form.statutory_declaration_date_day.data = '24'
             form.statutory_declaration_date_month.data = '3'
             form.statutory_declaration_date_year.data = 'ABCSSD'
-            with pytest.raises(ValidationError, match='Enter a valid year'):
-                validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a valid year'):
+                    validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
 
     def test_validate_statutory_declaration_date_invalid_date_before_earliest_possible_year(self, app):
         with app.app_context():
@@ -47,8 +48,9 @@ class TestValidateStatutoryDeclarationDate:
             form.statutory_declaration_date_day.data = '4'
             form.statutory_declaration_date_month.data = '3'
             form.statutory_declaration_date_year.data = '1900'
-            with pytest.raises(ValidationError, match='Enter a date within the last 100 years'):
-                validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a date within the last 100 years'):
+                    validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
 
     def test_validate_statutory_declaration_date_invalid_date_in_future(self, app):
         with app.app_context():
@@ -57,8 +59,9 @@ class TestValidateStatutoryDeclarationDate:
             form.statutory_declaration_date_day.data = '4'
             form.statutory_declaration_date_month.data = f'{future_date.month}'
             form.statutory_declaration_date_year.data = f'{future_date.year}'
-            with pytest.raises(ValidationError, match='Enter a date in the past'):
-                validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a date in the past'):
+                    validate_statutory_declaration_date(form, form.statutory_declaration_date_year)
 
     @patch('grc.business_logic.data_store.DataStore.load_application')
     def test_validate_statutory_declaration_date_invalid_date_before_transition_date(self, mock_load_application, app):
