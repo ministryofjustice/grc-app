@@ -22,7 +22,7 @@ class PDFUtils():
         data = pdfkit.from_string(
             html,
             options={"enable-local-file-access": ""},
-            css=f'grc/{url_for("static", filename="app.css")}'
+            css='example.css'
         )
         pdf_stream.write(data)
         pdf_stream.seek(0)
