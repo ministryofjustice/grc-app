@@ -1,5 +1,6 @@
 import fitz
 import pdfkit
+import os
 from io import BytesIO
 from typing import Any, List
 from flask import make_response, url_for, send_from_directory
