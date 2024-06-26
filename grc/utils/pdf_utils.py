@@ -17,6 +17,7 @@ class PDFUtils():
     def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
 
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
+        print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
