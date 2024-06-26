@@ -3940,7 +3940,7 @@ msgid ""
 "application?"
 msgstr ""
 "Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi "
-"ynglŷn â'ch cais?"
+"ynglŷ â'ch cais?"
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
