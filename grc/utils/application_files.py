@@ -104,7 +104,7 @@ class ApplicationFiles:
 
     def _create_pdf_attach_files_with_html(self, html_strings, pdfs) -> BytesIO:
         coversheet_and_images_pdf = PDFUtils().create_pdf_doc(html_strings)
-        full_application_pdf = PDFUtils().merge_pdfs([coversheet_and_images_pdf] + pdfs)
+        full_application_pdf = PDFUtils().append_pdfs(coversheet_and_images_pdf, pdfs)
         return full_application_pdf
 
     @profile

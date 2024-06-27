@@ -1,3 +1,5 @@
+import io
+
 import fitz
 import os
 from io import BytesIO
@@ -6,6 +8,9 @@ from flask import make_response, url_for, send_from_directory
 from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
 from grc.external_services.aws_s3_client import AwsS3Client
+from PyPDF2 import PdfReader, PdfWriter
+
+
 logger = Logger()
 
 
@@ -48,6 +53,27 @@ class PDFUtils():
 
         # Return pisa status
         return pdf_buffer
+
+    def append_pdfs(self, base_pdf, pdfs_to_append):
+        # Create a PdfReader object for both PDFs
+        reader_base = PdfReader(base_pdf)
+
+        # Create a PdfWriter object
+        writer = PdfWriter()
+
+        # Add all pages from the base PDF
+        for page in reader_base.pages:
+            writer.add_page(page)
+
+        # Add all pages from the PDF to append
+        for pdf in pdfs_to_append:
+            reader_append = PdfReader(pdf)
+            for page in reader_append.pages:
+                writer.add_page(page)
+
+        pdf_stream = io.BytesIO()
+        writer.write_stream(pdf_stream)
+        return pdf_stream
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
         output_fitz_pdf_document: fitz.Document = fitz.open()
