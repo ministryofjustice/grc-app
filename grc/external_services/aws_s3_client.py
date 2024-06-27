@@ -83,8 +83,8 @@ class AwsS3Client:
     def download_object(self, object_name):
         logger.log(LogLevel.INFO, f"Downloading {object_name}")
         data = None
+        bytes_buffer = io.BytesIO()
         try:
-            bytes_buffer = io.BytesIO()
             self.s3.download_fileobj(Bucket=self.bucket_name, Key=object_name, Fileobj=bytes_buffer)
             data = bytes_buffer
 
@@ -92,6 +92,8 @@ class AwsS3Client:
             logging.error(e)
             logger.log(LogLevel.ERROR, message=f'{e}')
             data = None
+        finally:
+            bytes_buffer.close()
 
         return data
 

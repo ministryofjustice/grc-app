@@ -162,6 +162,7 @@ def downloadfile(file_name):
 
 @applications.route('/applications/<reference_number>/download', methods=['GET'])
 @AdminViewerRequired
+@profile
 def download(reference_number):
     message = ""
 
