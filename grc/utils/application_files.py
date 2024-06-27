@@ -119,18 +119,20 @@ class ApplicationFiles:
         return self._create_pdf_attach_files_with_html(html_strings, pdfs_uploaded).read(), file_name
 
     def get_all_file_html_strings(self, application_data, html_strings, all_sections):
+        non_pdf_files = []
         for section in all_sections:
-            files = filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
-            for file_index, evidence_file in enumerate(files):
-                self.add_html_img_string(html_strings, section, evidence_file.aws_file_name, evidence_file.original_file_name)
+            non_pdf_files += filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+        for evidence_file in non_pdf_files:
+            self.add_html_img_string(html_strings, evidence_file.aws_file_name, evidence_file.original_file_name)
 
     def get_all_pdfs_uploaded(self, application_data, pdfs_uploaded, html_strings, all_sections):
+        pdf_files = []
         for section in all_sections:
-            files = filter(lambda x: x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
-            for file_index, evidence_file in enumerate(files):
-                self.add_pdf_document(pdfs_uploaded, html_strings, section, evidence_file.aws_file_name, evidence_file.original_file_name)
+            pdf_files += filter(lambda x: x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+        for evidence_file in pdf_files:
+            self.add_pdf_document(pdfs_uploaded, html_strings, evidence_file.aws_file_name, evidence_file.original_file_name)
 
-    def add_pdf_document(self, pdfs_uploaded, html_strings, section, aws_file_name, original_file_name):
+    def add_pdf_document(self, pdfs_uploaded, html_strings, aws_file_name, original_file_name):
         try:
             data = AwsS3Client().download_object(aws_file_name)
             if data is not None:
@@ -145,14 +147,14 @@ class ApplicationFiles:
                     pdfs_uploaded.append(data)
                     logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
             else:
-                html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+                html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
                 logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
 
         except Exception as e:
-            html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+            html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
 
-    def add_html_img_string(self, html_strings, section, aws_file_name, original_file_name):
+    def add_html_img_string(self, html_strings, aws_file_name, original_file_name):
         try:
             data, width, height = AwsS3Client().download_object_data(aws_file_name)
             if data is not None:
@@ -165,11 +167,11 @@ class ApplicationFiles:
                 # Try to close data instead as it has been transferred to 'html' object
                 logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
             else:
-                html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+                html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
                 logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
 
         except Exception as e:
-            self.create_pdf_for_attachment_error_html(section, original_file_name)
+            self.create_pdf_for_attachment_error_html(original_file_name)
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
 
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
@@ -282,7 +284,7 @@ class ApplicationFiles:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
         return PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
 
-    def create_pdf_for_attachment_error_html(self, section: str, file_name: str) -> str:
+    def create_pdf_for_attachment_error_html(self, file_name: str) -> str:
         return f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
 
     def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
