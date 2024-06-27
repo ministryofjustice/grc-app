@@ -1,13 +1,11 @@
 import fitz
-import pdfkit
 import os
 from io import BytesIO
 from typing import Any, List
 from flask import make_response, url_for, send_from_directory
-# from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
-from memory_profiler import profile
-
+from grc.external_services.aws_s3_client import AwsS3Client
 logger = Logger()
 
 
@@ -21,12 +19,7 @@ class PDFUtils():
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
         pdf_stream: BytesIO = BytesIO()
-        data = pdfkit.from_string(
-            html,
-            options={"enable-local-file-access": ""},
-            css='example.css'
-        )
-        pdf_stream.write(data)
+        pisa.CreatePDF(html, dest=pdf_stream)
         pdf_stream.seek(0)
 
         if title:
@@ -35,6 +28,26 @@ class PDFUtils():
         print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
 
         return pdf_stream
+
+    def create_pdf_doc(self, html_strings) -> BytesIO:
+        html_with_page_breaks = ''
+        for i, html_string in enumerate(html_strings):
+            html_with_page_breaks += html_string
+            if i < len(html_strings) - 1:
+                html_with_page_breaks += '<div style="page-break-after: always;"></div>'
+
+        print(html_with_page_breaks)
+
+        # Create a BytesIO object to hold the PDF data
+        pdf_buffer = BytesIO()
+
+        # Convert HTML to PDF
+        pisa_status = pisa.CreatePDF(html_with_page_breaks, dest=pdf_buffer)
+        print(pisa_status.err, flush=True)
+        print(pisa_status.log, flush=True)
+
+        # Return pisa status
+        return pdf_buffer
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
         output_fitz_pdf_document: fitz.Document = fitz.open()

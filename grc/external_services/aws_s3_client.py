@@ -4,6 +4,7 @@ import logging
 import boto3
 from flask import current_app
 from botocore.client import Config
+from botocore.exceptions import ClientError
 from grc.utils.logger import LogLevel, Logger
 from memory_profiler import profile
 
@@ -70,9 +71,9 @@ class AwsS3Client:
                         logger.log(LogLevel.INFO, message=f"Closing image")
                         img.close()
 
-        except Exception as e:
+        except ClientError as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, e)
+            logger.log(LogLevel.ERROR, message=f'{e}')
             data = None
             width = 0
             height = 0
@@ -87,9 +88,9 @@ class AwsS3Client:
             self.s3.download_fileobj(Bucket=self.bucket_name, Key=object_name, Fileobj=bytes_buffer)
             data = bytes_buffer
 
-        except Exception as e:
+        except ClientError as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, e)
+            logger.log(LogLevel.ERROR, message=f'{e}')
             data = None
 
         return data

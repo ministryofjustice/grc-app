@@ -102,6 +102,76 @@ class ApplicationFiles:
                         'overseasCertificate']
         return self._create_pdf_attach_files(application_data, pdfs, all_sections).read(), file_name
 
+    def _create_pdf_attach_files_with_html(self, html_strings, pdfs) -> BytesIO:
+        coversheet_and_images_pdf = PDFUtils().create_pdf_doc(html_strings)
+        full_application_pdf = PDFUtils().merge_pdfs([coversheet_and_images_pdf] + pdfs)
+        return full_application_pdf
+
+    @profile
+    def create_pdf_admin_with_files_attached_new(self, application_data) -> Tuple[bytes, str]:
+        file_name = application_data.reference_number + '.pdf'
+        html_strings = [self.create_application_cover_sheet_pdf_string(application_data, True)]
+        pdfs_uploaded = []
+        all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
+                        'overseasCertificate']
+        self.get_all_file_html_strings(application_data, html_strings, all_sections)
+        self.get_all_pdfs_uploaded(application_data, pdfs_uploaded, html_strings, all_sections)
+        return self._create_pdf_attach_files_with_html(html_strings, pdfs_uploaded).read(), file_name
+
+    def get_all_file_html_strings(self, application_data, html_strings, all_sections):
+        for section in all_sections:
+            files = filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+            for file_index, evidence_file in enumerate(files):
+                self.add_html_img_string(html_strings, section, evidence_file.aws_file_name, evidence_file.original_file_name)
+
+    def get_all_pdfs_uploaded(self, application_data, pdfs_uploaded, html_strings, all_sections):
+        for section in all_sections:
+            files = filter(lambda x: x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+            for file_index, evidence_file in enumerate(files):
+                self.add_pdf_document(pdfs_uploaded, html_strings, section, evidence_file.aws_file_name, evidence_file.original_file_name)
+
+    def add_pdf_document(self, pdfs_uploaded, html_strings, section, aws_file_name, original_file_name):
+        try:
+            data = AwsS3Client().download_object(aws_file_name)
+            if data is not None:
+                if PDFUtils().is_pdf_password_protected(data):
+                    # We can check the type of password (user/owner):
+                    # doc.authenticate('') == 2
+                    # https://pymupdf.readthedocs.io/en/latest/document.html#Document.authenticate
+                    html = f'<h3 style="font-size: 14px; color: red;">Unable to add {original_file_name}. A password is required.</h3>'
+                    html_strings.append(html)
+                    logger.log(LogLevel.ERROR, f"file {aws_file_name} needs a password!")
+                else:
+                    pdfs_uploaded.append(data)
+                    logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
+            else:
+                html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+                logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
+
+        except Exception as e:
+            html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+            logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
+
+    def add_html_img_string(self, html_strings, section, aws_file_name, original_file_name):
+        try:
+            data, width, height = AwsS3Client().download_object_data(aws_file_name)
+            if data is not None:
+
+                html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
+
+                logger.log(LogLevel.INFO, f"Size of data returned by download_object_data {len(data)}")
+                html_strings.append(html)
+                logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
+                # Try to close data instead as it has been transferred to 'html' object
+                logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
+            else:
+                html_strings.append(self.create_pdf_for_attachment_error_html(section, original_file_name))
+                logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
+
+        except Exception as e:
+            self.create_pdf_for_attachment_error_html(section, original_file_name)
+            logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
+
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
@@ -132,6 +202,10 @@ class ApplicationFiles:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
         return PDFUtils().create_pdf_from_html(html, title='Application')
+
+    def create_application_cover_sheet_pdf_string(self, application_data: ApplicationData, is_admin: bool) -> str:
+        html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
+        return render_template(html_template, application_data=application_data)
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''
@@ -207,6 +281,9 @@ class ApplicationFiles:
     def create_pdf_for_attachment_error(self, section: str, file_name: str) -> BytesIO:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
         return PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
+
+    def create_pdf_for_attachment_error_html(self, section: str, file_name: str) -> str:
+        return f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
 
     def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
         file_ext = ''
