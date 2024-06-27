@@ -183,17 +183,9 @@ class ApplicationFiles:
                     if data is not None:
 
                         html_template = f"""
-                            <html>
-                            <head>
-                                <meta charset="UTF-8">
-                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            </head>
-                            <body>
                                 <div class="image-container">
                                     <img src="data:image/jpg;base64,{data}">
                                 </div>
-                            </body>
-                            </html>
                             """
 
                         logger.log(LogLevel.INFO, f"Size of data returned by download_object_data {len(data)}")
