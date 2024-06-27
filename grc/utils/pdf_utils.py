@@ -23,7 +23,8 @@ class PDFUtils():
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
             html,
-            options={"enable-local-file-access": ""}
+            options={"enable-local-file-access": ""},
+            css='grc/static/app.css'
         )
         pdf_stream.write(data)
         pdf_stream.seek(0)
