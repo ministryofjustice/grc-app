@@ -66,7 +66,6 @@ class AwsS3Client:
                         if file_type == 'jpg':
                             file_type = 'jpeg'
                         data = 'data:image/' + file_type + ';base64, ' + data
-                    img.convert('RGB')
 
                     if img is not None:
                         logger.log(LogLevel.INFO, message=f"Closing image")
@@ -80,6 +79,31 @@ class AwsS3Client:
             height = 0
 
         return data, width, height
+
+    def download_image(self, object_name):
+        file_type = ''
+        if '.' in object_name:
+            file_type = object_name[object_name.rindex('.') + 1:].lower()
+
+        if file_type not in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
+            return
+
+        image_stream = self.download_object(object_name)
+        if image_stream is None:
+            return
+
+        from PIL import Image
+        image_stream.seek(0)
+        image = Image.open(image_stream)
+
+        if file_type in ['tif', 'tiff', 'bmp']:
+            image = image.convert('RGB')
+            jpg_stream = io.BytesIO()
+            image.save(jpg_stream, 'JPEG', quality=80)
+            jpg_stream.seek(0)
+            image = Image.open(jpg_stream)
+
+        return image
 
     def download_object(self, object_name):
         logger.log(LogLevel.INFO, f"Downloading {object_name}")

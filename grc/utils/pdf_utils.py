@@ -54,7 +54,7 @@ class PDFUtils():
         # Return pisa status
         return pdf_buffer
 
-    def convert_images_to_pdf(self, images: [Tuple[Image, int, int]]):
+    def convert_images_to_pdf(self, images: [Image.Image]):
         if not images:
             raise ValueError('No images found to convert to PDF')
 
@@ -65,9 +65,9 @@ class PDFUtils():
 
         pdf_images = []
 
-        for img, width, height in rgb_images:
-            width_percent = max_image_width / float(width)
-            new_height = int(float(height) * float(width_percent))
+        for img in rgb_images:
+            width_percent = max_image_width / float(img[0])
+            new_height = int(float(img[1]) * float(width_percent))
             new_size = (int(max_image_width), new_height)
             resized_img = img.resize(new_size)
             page = Image.new('RGB', (int(page_width), new_height + 100), 'white')

@@ -162,10 +162,9 @@ class ApplicationFiles:
 
     def add_img_buffers_and_html_errors(self, downloaded_images, html_errors, aws_file_name, original_file_name):
         try:
-            data, width, height = AwsS3Client().download_object_data(aws_file_name)
-            if data is not None:
-                logger.log(LogLevel.INFO, f"Size of data returned by download_object_data {len(data)}")
-                downloaded_images.append((data, width, height))
+            image = AwsS3Client().download_image(aws_file_name)
+            if image is not None:
+                downloaded_images.append(image)
                 logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                 # Try to close data instead as it has been transferred to 'html' object
                 logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
