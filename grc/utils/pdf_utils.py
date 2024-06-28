@@ -8,7 +8,7 @@ from flask import make_response, url_for, send_from_directory
 from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
 from grc.external_services.aws_s3_client import AwsS3Client
-from PyPDF2 import PdfReader, PdfWriter
+from PyPDF2 import PdfReader, PdfWriter, PdfMerger
 from PIL import Image
 from typing import Tuple
 
@@ -58,38 +58,17 @@ class PDFUtils():
         if not images:
             raise ValueError('No images found to convert to PDF')
 
-        rgb_images = [img.convert('RGB') for img in images]
-
-        page_width = 595.27
-        max_image_width = page_width * 0.9
-
-        pdf_images = []
-
-        for img in rgb_images:
-            width_percent = max_image_width / float(img.width)
-            new_height = int(float(img.height) * float(width_percent))
-            new_size = (int(max_image_width), new_height)
-            resized_img = img.resize(new_size)
-            page = Image.new('RGB', (int(page_width), new_height + 100), 'white')
-            offset = (int((page_width - resized_img.width) / 2), 50)  # Center the image on the page
-            page.paste(resized_img, offset)
-            pdf_images.append(page)
-
         pdf_buffer = BytesIO()
-        pdf_images[0].save(pdf_buffer, format='PDF', save_all=True, append_images=pdf_images[1:])
+        images[0].save(pdf_buffer, format='PDF', save_all=True, append_images=rgb_images[1:])
         pdf_buffer.seek(0)
         return pdf_buffer
 
     def append_pdfs(self, base_pdf: io.BytesIO, list_of_pdfs: [io.BytesIO]):
         # Create a PdfReader object for both PDFs
-        reader_base = PdfReader(base_pdf)
 
-        # Create a PdfWriter object
-        writer = PdfWriter()
+        merger = PdfMerger()
+        merger.append(base_pdf)
 
-        # Add all pages from the base PDF
-        for page in reader_base.pages:
-            writer.add_page(page)
 
         # Add all pages from the PDF to append
         for pdf in list_of_pdfs:
@@ -97,12 +76,10 @@ class PDFUtils():
             if not pdf:
                 continue
 
-            reader_append = PdfReader(pdf)
-            for page in reader_append.pages:
-                writer.add_page(page)
+            merger.append(pdf)
 
         pdf_stream = io.BytesIO()
-        writer.write_stream(pdf_stream)
+        merger.write(pdf_stream)
         pdf_stream.seek(0)
         return pdf_stream
 
