@@ -73,6 +73,7 @@ class PDFUtils():
 
         pdf_stream = io.BytesIO()
         writer.write_stream(pdf_stream)
+        pdf_stream.seek(0)
         return pdf_stream
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
