@@ -1,4 +1,5 @@
 import json
+import os
 from admin.config import Config, TestConfig
 from datetime import timedelta
 from flask import Flask, g
@@ -29,7 +30,9 @@ def create_app(test_config=None):
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
         HttpBasicAuthentication(app)
 
-    CustomErrorHandlers(app)
+    if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local':
+        app.config['PROPAGATE_EXCEPTIONS'] = True
+        CustomErrorHandlers(app)
 
     # Load build info from JSON file
     f = open('build-info.json')
