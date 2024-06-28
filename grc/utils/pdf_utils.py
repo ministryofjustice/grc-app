@@ -59,23 +59,17 @@ class PDFUtils():
             raise ValueError('No images found to convert to PDF')
 
         pdf_buffer = BytesIO()
-        images[0].save(pdf_buffer, format='PDF', save_all=True, append_images=rgb_images[1:])
+        images[0].save(pdf_buffer, format='PDF', save_all=True, append_images=images[1:])
         pdf_buffer.seek(0)
         return pdf_buffer
 
     def append_pdfs(self, base_pdf: io.BytesIO, list_of_pdfs: [io.BytesIO]):
-        # Create a PdfReader object for both PDFs
-
         merger = PdfMerger()
         merger.append(base_pdf)
 
-
-        # Add all pages from the PDF to append
         for pdf in list_of_pdfs:
-
             if not pdf:
                 continue
-
             merger.append(pdf)
 
         pdf_stream = io.BytesIO()
