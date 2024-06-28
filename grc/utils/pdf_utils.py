@@ -80,7 +80,7 @@ class PDFUtils():
         pdf_buffer.seek(0)
         return pdf_buffer
 
-    def append_pdfs(self, base_pdf, *pdfs_to_append):
+    def append_pdfs(self, base_pdf: io.BytesIO, list_of_pdfs: [io.BytesIO]):
         # Create a PdfReader object for both PDFs
         reader_base = PdfReader(base_pdf)
 
@@ -92,7 +92,7 @@ class PDFUtils():
             writer.add_page(page)
 
         # Add all pages from the PDF to append
-        for pdf in pdfs_to_append:
+        for pdf in list_of_pdfs:
 
             if not pdf:
                 continue

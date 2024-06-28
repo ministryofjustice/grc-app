@@ -118,16 +118,17 @@ class ApplicationFiles:
         pdfs_downloaded = []
         downloaded_images = []
         self.append_all_images(application_data, downloaded_images, html_errors, all_sections)
-        pdf_images = None
+        pdf_with_all_images = None
         if downloaded_images:
-            pdf_images = PDFUtils().convert_images_to_pdf(downloaded_images)
+            pdf_with_all_images = PDFUtils().convert_images_to_pdf(downloaded_images)
         self.append_all_pdfs_uploaded(application_data, pdfs_downloaded, html_errors, all_sections)
-        return self._generate_pdf_coversheet(coversheet, pdf_images, downloaded_images, html_errors).read(), file_name
+        return self._generate_pdf_coversheet(coversheet, pdfs_downloaded, pdf_with_all_images, html_errors).read(), file_name
 
-    def _generate_pdf_coversheet(self, coversheet, pdf_images, downloaded_images, html_errors):
+    def _generate_pdf_coversheet(self, coversheet: str, pdfs_downloaded: [io.BytesIO], pdf_with_all_images: io.BytesIO, html_errors: [str]):
         coversheet_pdf = PDFUtils().create_pdf_doc([coversheet])
         html_errors_pdfs = PDFUtils().create_pdf_doc(html_errors)
-        full_application_pdf = PDFUtils().append_pdfs(coversheet_pdf, pdf_images, downloaded_images, html_errors_pdfs)
+        all_pdfs = [pdf_with_all_images] + pdfs_downloaded + [html_errors_pdfs]
+        full_application_pdf = PDFUtils().append_pdfs(coversheet_pdf, all_pdfs)
         return full_application_pdf
 
     def append_all_images(self, application_data, downloaded_images, html_errors, all_sections):
