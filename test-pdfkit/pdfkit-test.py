@@ -1,3 +1,4 @@
+from flask import Flask
 from jinja2 import Template
 import sys
 import io
@@ -9,6 +10,7 @@ from urllib.request import urlopen
 import base64
 import pdfkit
 
+app = Flask(__name__)
 
 @profile
 def open_image(image_path):
@@ -79,10 +81,10 @@ def create_pdf_from_html(html: str) -> BytesIO:
     print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
     return pdf_stream
 
-
-if __name__ == '__main__':
-
-    image = sys.argv[1]
+@app.route('/')
+def wrapper():
+    #image = sys.argv[1]
+    image = "./jpg.jpeg"
     cover_html_str = create_cover_sheet()
     cover_stream_data = create_pdf_from_html(cover_html_str)
     with open("output-cover.pdf", "wb") as f:
@@ -94,3 +96,8 @@ if __name__ == '__main__':
     with open("output-image.pdf", "wb") as f:
         f.write(image_stream_data.read())
         f.close()
+
+    return "<p>Wrapper finished!</p>"
+
+if __name__ == '__main__':
+    app.run()
