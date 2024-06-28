@@ -114,24 +114,21 @@ class ApplicationFiles:
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
                         'overseasCertificate']
         coversheet = self.create_application_cover_sheet_pdf_string(application_data, True)
+        html_image_strings = []
         html_errors = []
         pdfs_downloaded = []
-        downloaded_images = []
-        self.append_all_images(application_data, downloaded_images, html_errors, all_sections)
-        pdf_with_all_images = None
-        if downloaded_images:
-            pdf_with_all_images = PDFUtils().convert_images_to_pdf(downloaded_images)
+        self.append_all_images(application_data, html_image_strings, html_errors, all_sections)
         self.append_all_pdfs_uploaded(application_data, pdfs_downloaded, html_errors, all_sections)
-        return self._generate_pdf_coversheet(coversheet, pdfs_downloaded, pdf_with_all_images, html_errors).read(), file_name
+        return self._generate_pdf_coversheet(coversheet, html_image_strings, pdfs_downloaded, html_errors).read(), file_name
 
-    def _generate_pdf_coversheet(self, coversheet: str, pdfs_downloaded: [io.BytesIO], pdf_with_all_images: io.BytesIO, html_errors: [str]):
-        coversheet_pdf = PDFUtils().create_pdf_doc([coversheet])
-        html_errors_pdfs = PDFUtils().create_pdf_doc(html_errors)
-        all_pdfs = [pdf_with_all_images] + pdfs_downloaded + [html_errors_pdfs]
-        full_application_pdf = PDFUtils().append_pdfs(coversheet_pdf, all_pdfs)
+    def _generate_pdf_coversheet(self, coversheet: str, html_image_strings: [str], pdfs_downloaded: [io.BytesIO], html_errors: [str]):
+        pdf_coversheet_and_images = [PDFUtils().create_pdf_doc([coversheet] + html_image_strings)]
+        html_errors_pdfs = [PDFUtils().create_pdf_doc(html_errors)]
+        all_pdfs = pdf_coversheet_and_images + pdfs_downloaded + html_errors_pdfs
+        full_application_pdf = PDFUtils().append_pdfs(all_pdfs)
         return full_application_pdf
 
-    def append_all_images(self, application_data, downloaded_images, html_errors, all_sections):
+    def append_all_images(self, application_data, html_image_strings, html_errors, all_sections):
         non_pdf_files = []
         for section in all_sections:
             non_pdf_files += filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
@@ -140,7 +137,7 @@ class ApplicationFiles:
             return
 
         for evidence_file in non_pdf_files:
-            self.add_img_buffers_and_html_errors(downloaded_images, html_errors, evidence_file.aws_file_name, evidence_file.original_file_name)
+            self.add_img_or_html_error(html_image_strings, html_errors, evidence_file.aws_file_name, evidence_file.original_file_name)
 
     def get_all_file_html_strings(self, application_data, html_strings, all_sections):
         non_pdf_files = []
@@ -199,7 +196,7 @@ class ApplicationFiles:
             html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
 
-    def add_img_or_html_error(self, html_strings, aws_file_name, original_file_name):
+    def add_img_or_html_error(self, html_strings, html_errors, aws_file_name, original_file_name):
         try:
             data, width, height = AwsS3Client().download_object_data(aws_file_name)
             if data is not None:
@@ -212,11 +209,11 @@ class ApplicationFiles:
                 # Try to close data instead as it has been transferred to 'html' object
                 logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
             else:
-                html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
+                html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
                 logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
 
         except Exception as e:
-            self.create_pdf_for_attachment_error_html(original_file_name)
+            html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
 
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:

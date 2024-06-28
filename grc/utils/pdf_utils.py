@@ -63,9 +63,11 @@ class PDFUtils():
         pdf_buffer.seek(0)
         return pdf_buffer
 
-    def append_pdfs(self, base_pdf: io.BytesIO, list_of_pdfs: [io.BytesIO]):
+    def append_pdfs(self, list_of_pdfs: [io.BytesIO]):
+        if not list_of_pdfs:
+            raise ValueError('No pdfs to merge')
+
         merger = PdfMerger()
-        merger.append(base_pdf)
 
         for pdf in list_of_pdfs:
             if not pdf:
