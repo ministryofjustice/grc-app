@@ -1,6 +1,5 @@
 import random
 from datetime import datetime, timedelta
-from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.logger import LogLevel, Logger
@@ -14,7 +13,7 @@ def delete_all_user_codes(email):
     db.session.commit()
 
 
-def security_code_generator(email):
+def _security_code_generator(email):
     delete_all_user_codes(email)
 
     try:
@@ -55,34 +54,11 @@ def is_security_code_valid(email, code, is_admin):
     return True
 
 
-def generate_security_code(email):
-    security_code = security_code_generator(email)
+def generate_security_code_and_expiry(email):
+    security_code = _security_code_generator(email)
     local = convert_date_to_local_timezone(datetime.now())
     security_code_timeout = datetime.strftime(local + timedelta(hours=24), '%H:%M on %d %b %Y')
     return security_code, security_code_timeout
-
-
-def send_security_code(email):
-    security_code, security_code_timeout = generate_security_code(email)
-    response = GovUkNotify().send_email_security_code(
-        email_address=email,
-        security_code=security_code,
-        security_code_timeout=security_code_timeout
-    )
-
-    return response
-
-
-def send_security_code_admin(email):
-    security_code, expires = generate_security_code(email)
-
-    response = GovUkNotify().send_email_admin_login_security_code(
-        email_address=email,
-        security_code=security_code,
-        expires=expires
-    )
-
-    return response
 
 
 def has_last_security_code_been_used(last_login_date: datetime, security_code_created_date: datetime):
