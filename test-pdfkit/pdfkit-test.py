@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from jinja2 import Template
 import sys
 import io
@@ -11,6 +11,19 @@ import base64
 import pdfkit
 
 app = Flask(__name__)
+
+global static_file
+def static_file(filename, pdf=False):
+
+    print(f"static_file method root path is {os.getcwd()}", flush=True)
+
+    # wkhtmltopdf only read absolute path
+    if pdf:
+        basedir = os.path.abspath(os.getcwd())
+        print(f"static_file method basedir is {basedir}", flush=True)
+        return "".join([basedir, "/static/assets/", filename])
+    else:
+        return filename
 
 @profile
 def open_image(image_path):
@@ -31,28 +44,14 @@ def open_image(image_path):
     html = f"""
     <html>
     <body>
-        <img src="data:image/jpg;base64,{data}" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+        <img src="{data}" style="max-width: 90%; max-height: 90%;">
     </body>
     </html>
     """
 
     return html
 
-global static_file
-def static_file(filename, pdf=False):
-
-    print(f"static_file method root path is {os.getcwd()}", flush=True)
-
-    # wkhtmltopdf only read absolute path
-    if pdf:
-        basedir = os.path.abspath(os.getcwd())
-        print(f"static_file method basedir is {basedir}", flush=True)
-        return "".join([basedir, "/static/assets/", filename])
-    else:
-        return filename
-
 def create_cover_sheet():
-
     TEMPLATE_FILE = 'templates/applications/download.html'
     with open(TEMPLATE_FILE) as file_:
         template = Template(file_.read())
@@ -62,20 +61,28 @@ def create_cover_sheet():
     print(f"Rendered html {html}")
     return html
 
+def create_cover_sheet_flask():
+    TEMPLATE_FILE = 'applications/download.html'
+    html = render_template(TEMPLATE_FILE, name='Mark')
+    print(f"Rendered html {html}")
+    return html
+
 def create_pdf_from_html(html: str) -> BytesIO:
 
     print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
     print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
-    #css = 'example.css'
-    css = 'static/assets/app.css'
+    css = './example.css'
+    #css = 'static/assets/app.css'
     pdf_stream: BytesIO = BytesIO()
+    print(f"1")
     data = pdfkit.from_string(
         html,
         options={"enable-local-file-access": ""},
         css=css,
         verbose=True
     )
+    print(f"2")
     pdf_stream.write(data)
     pdf_stream.seek(0)
     print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
@@ -84,12 +91,14 @@ def create_pdf_from_html(html: str) -> BytesIO:
 @app.route('/')
 def wrapper():
     #image = sys.argv[1]
-    image = "./jpg.jpeg"
-    cover_html_str = create_cover_sheet()
-    cover_stream_data = create_pdf_from_html(cover_html_str)
-    with open("output-cover.pdf", "wb") as f:
-            f.write(cover_stream_data.read())
-            f.close()
+    #image = "./jpg.jpeg"
+    image = "./mgb_sig_scan.jpg"
+
+    #cover_html_str = create_cover_sheet_flask()
+    #cover_stream_data = create_pdf_from_html(cover_html_str)
+    #with open("output-cover.pdf", "wb") as f:
+    #        f.write(cover_stream_data.read())
+    #        f.close()
 
     image_html_str = open_image(image)
     image_stream_data = create_pdf_from_html(image_html_str)
