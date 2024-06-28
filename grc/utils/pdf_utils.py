@@ -66,8 +66,8 @@ class PDFUtils():
         pdf_images = []
 
         for img in rgb_images:
-            width_percent = max_image_width / float(img[0])
-            new_height = int(float(img[1]) * float(width_percent))
+            width_percent = max_image_width / float(img.width)
+            new_height = int(float(img.height) * float(width_percent))
             new_size = (int(max_image_width), new_height)
             resized_img = img.resize(new_size)
             page = Image.new('RGB', (int(page_width), new_height + 100), 'white')
