@@ -41,8 +41,6 @@ class PDFUtils():
             if i < len(html_strings) - 1:
                 html_with_page_breaks += '<div style="page-break-after: always;"></div>'
 
-        print(html_with_page_breaks)
-
         # Create a BytesIO object to hold the PDF data
         pdf_buffer = BytesIO()
 
