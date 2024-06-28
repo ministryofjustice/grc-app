@@ -1,3 +1,4 @@
+import io
 from io import BytesIO
 import zipfile
 from flask import render_template
@@ -110,29 +111,73 @@ class ApplicationFiles:
     @profile
     def create_pdf_admin_with_files_attached_new(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
-        html_strings = [self.create_application_cover_sheet_pdf_string(application_data, True)]
-        pdfs_uploaded = []
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
                         'overseasCertificate']
-        self.get_all_file_html_strings(application_data, html_strings, all_sections)
-        self.get_all_pdfs_uploaded(application_data, pdfs_uploaded, html_strings, all_sections)
-        return self._create_pdf_attach_files_with_html(html_strings, pdfs_uploaded).read(), file_name
+        coversheet = self.create_application_cover_sheet_pdf_string(application_data, True)
+        html_errors = []
+        pdfs_downloaded = []
+        downloaded_images = []
+        self.append_all_images(application_data, downloaded_images, html_errors, all_sections)
+        pdf_images = None
+        if downloaded_images:
+            pdf_images = PDFUtils().convert_images_to_pdf(downloaded_images)
+        self.append_all_pdfs_uploaded(application_data, pdfs_downloaded, html_errors, all_sections)
+        return self._generate_pdf_coversheet(coversheet, pdf_images, downloaded_images, html_errors).read(), file_name
+
+    def _generate_pdf_coversheet(self, coversheet, pdf_images, downloaded_images, html_errors):
+        coversheet_pdf = PDFUtils().create_pdf_doc([coversheet])
+        html_errors_pdfs = PDFUtils().create_pdf_doc(html_errors)
+        full_application_pdf = PDFUtils().append_pdfs(coversheet_pdf, pdf_images, downloaded_images, html_errors_pdfs)
+        return full_application_pdf
+
+    def append_all_images(self, application_data, downloaded_images, html_errors, all_sections):
+        non_pdf_files = []
+        for section in all_sections:
+            non_pdf_files += filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+
+        if not non_pdf_files:
+            return
+
+        for evidence_file in non_pdf_files:
+            self.add_img_buffers_and_html_errors(downloaded_images, html_errors, evidence_file.aws_file_name, evidence_file.original_file_name)
 
     def get_all_file_html_strings(self, application_data, html_strings, all_sections):
         non_pdf_files = []
         for section in all_sections:
             non_pdf_files += filter(lambda x: not x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
         for evidence_file in non_pdf_files:
-            self.add_html_img_string(html_strings, evidence_file.aws_file_name, evidence_file.original_file_name)
+            self.add_img_or_html_error(html_strings, evidence_file.aws_file_name, evidence_file.original_file_name)
 
-    def get_all_pdfs_uploaded(self, application_data, pdfs_uploaded, html_strings, all_sections):
+    def append_all_pdfs_uploaded(self, application_data, pdfs_uploaded, html_strings, all_sections):
         pdf_files = []
+
         for section in all_sections:
             pdf_files += filter(lambda x: x.original_file_name.lower().endswith('.pdf'), self._get_files_for_section(section, application_data))
+
+        if not pdf_files:
+            return pdfs_uploaded
+
         for evidence_file in pdf_files:
             self.add_pdf_document(pdfs_uploaded, html_strings, evidence_file.aws_file_name, evidence_file.original_file_name)
 
-    def add_pdf_document(self, pdfs_uploaded, html_strings, aws_file_name, original_file_name):
+    def add_img_buffers_and_html_errors(self, downloaded_images, html_errors, aws_file_name, original_file_name):
+        try:
+            data, width, height = AwsS3Client().download_object_data(aws_file_name)
+            if data is not None:
+                logger.log(LogLevel.INFO, f"Size of data returned by download_object_data {len(data)}")
+                downloaded_images.append((data, width, height))
+                logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
+                # Try to close data instead as it has been transferred to 'html' object
+                logger.log(LogLevel.INFO, message=f"Closing download_object_data object")
+            else:
+                html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
+                logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
+
+        except Exception as e:
+            html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
+            logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
+
+    def add_pdf_document(self, pdfs_uploaded, html_errors, aws_file_name, original_file_name):
         try:
             data = AwsS3Client().download_object(aws_file_name)
             if data is not None:
@@ -141,20 +186,20 @@ class ApplicationFiles:
                     # doc.authenticate('') == 2
                     # https://pymupdf.readthedocs.io/en/latest/document.html#Document.authenticate
                     html = f'<h3 style="font-size: 14px; color: red;">Unable to add {original_file_name}. A password is required.</h3>'
-                    html_strings.append(html)
+                    html_errors.append(html)
                     logger.log(LogLevel.ERROR, f"file {aws_file_name} needs a password!")
                 else:
                     pdfs_uploaded.append(data)
                     logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
             else:
-                html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
+                html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
                 logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
 
         except Exception as e:
-            html_strings.append(self.create_pdf_for_attachment_error_html(original_file_name))
+            html_errors.append(self.create_pdf_for_attachment_error_html(original_file_name))
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
 
-    def add_html_img_string(self, html_strings, aws_file_name, original_file_name):
+    def add_img_or_html_error(self, html_strings, aws_file_name, original_file_name):
         try:
             data, width, height = AwsS3Client().download_object_data(aws_file_name)
             if data is not None:

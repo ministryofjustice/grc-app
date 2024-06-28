@@ -9,6 +9,8 @@ from xhtml2pdf import pisa
 from grc.utils.logger import LogLevel, Logger
 from grc.external_services.aws_s3_client import AwsS3Client
 from PyPDF2 import PdfReader, PdfWriter
+from PIL import Image
+from typing import Tuple
 
 
 logger = Logger()
@@ -52,7 +54,33 @@ class PDFUtils():
         # Return pisa status
         return pdf_buffer
 
-    def append_pdfs(self, base_pdf, pdfs_to_append):
+    def convert_images_to_pdf(self, images: [Tuple[Image, int, int]]):
+        if not images:
+            raise ValueError('No images found to convert to PDF')
+
+        rgb_images = [img.convert('RGB') for img in images]
+
+        page_width = 595.27
+        max_image_width = page_width * 0.9
+
+        pdf_images = []
+
+        for img, width, height in rgb_images:
+            width_percent = max_image_width / float(width)
+            new_height = int(float(height) * float(width_percent))
+            new_size = (int(max_image_width), new_height)
+            resized_img = img.resize(new_size)
+            page = Image.new('RGB', (int(page_width), new_height + 100), 'white')
+            offset = (int((page_width - resized_img.width) / 2), 50)  # Center the image on the page
+            page.paste(resized_img, offset)
+            pdf_images.append(page)
+
+        pdf_buffer = BytesIO()
+        pdf_images[0].save(pdf_buffer, format='PDF', save_all=True, append_images=pdf_images[1:])
+        pdf_buffer.seek(0)
+        return pdf_buffer
+
+    def append_pdfs(self, base_pdf, *pdfs_to_append):
         # Create a PdfReader object for both PDFs
         reader_base = PdfReader(base_pdf)
 
@@ -65,6 +93,10 @@ class PDFUtils():
 
         # Add all pages from the PDF to append
         for pdf in pdfs_to_append:
+
+            if not pdf:
+                continue
+
             reader_append = PdfReader(pdf)
             for page in reader_append.pages:
                 writer.add_page(page)

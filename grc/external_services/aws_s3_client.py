@@ -66,6 +66,7 @@ class AwsS3Client:
                         if file_type == 'jpg':
                             file_type = 'jpeg'
                         data = 'data:image/' + file_type + ';base64, ' + data
+                    img.convert('RGB')
 
                     if img is not None:
                         logger.log(LogLevel.INFO, message=f"Closing image")
@@ -90,7 +91,11 @@ class AwsS3Client:
 
         except ClientError as e:
             logging.error(e)
-            logger.log(LogLevel.ERROR, message=f'{e}')
+            logger.log(LogLevel.ERROR, message=f'S3 Client Error - {e}')
+            data = None
+        except Exception as e:
+            logging.error(e)
+            logger.log(LogLevel.ERROR, message=f'Error streaming S3 file to buffer - {e}')
             data = None
 
         return data
