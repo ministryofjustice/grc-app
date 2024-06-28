@@ -1,3 +1,4 @@
+from jinja2 import Template
 import sys
 import io
 import os
@@ -23,6 +24,7 @@ def open_image(image_path):
 
     byte_base64 = base64.b64encode(image_data.getvalue())
     data = byte_base64.decode('utf-8')
+    #html = f'<img src="data:image/jpg;base64,{data}" style="max-width: 90%; max-height: 90%; object-fit: contain;">'
 
     html = f"""
     <html>
@@ -34,28 +36,37 @@ def open_image(image_path):
 
     return html
 
-    # Create a memory stream to hold the PDF
-    #css = 'example.css'
-    #pdf_stream: io.BytesIO = io.BytesIO()
-    #html = f'<img src="{data}" style="max-width: 90%; max-height: 90%; object-fit: contain;">'
-    #data = pdfkit.from_string(html, options={"enable-local-file-access": ""}, css=css, verbose=True)
-    #pdf_stream.write(data)
+global static_file
+def static_file(filename, pdf=False):
 
-    # Move the stream position to the beginning
-    #pdf_stream.seek(0)
-    #return pdf_stream
+    print(f"static_file method root path is {os.getcwd()}", flush=True)
+
+    # wkhtmltopdf only read absolute path
+    if pdf:
+        basedir = os.path.abspath(os.getcwd())
+        print(f"static_file method basedir is {basedir}", flush=True)
+        return "".join([basedir, "/static/assets/", filename])
+    else:
+        return filename
 
 def create_cover_sheet():
-    html_template = 'templates/applications/download.html'
-    return PDFUtils().create_pdf_from_html(html, title='Application')
+
+    TEMPLATE_FILE = 'templates/applications/download.html'
+    with open(TEMPLATE_FILE) as file_:
+        template = Template(file_.read())
+        template.globals['static_file'] = static_file
+
+    html = template.render(title="My Example Page", name="John Doe")
+    print(f"Rendered html {html}")
+    return html
 
 def create_pdf_from_html(html: str) -> BytesIO:
 
     print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
     print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
-    css = 'example.css'
-    #css = 'grc/static/app.css'
+    #css = 'example.css'
+    css = 'static/assets/app.css'
     pdf_stream: BytesIO = BytesIO()
     data = pdfkit.from_string(
         html,
@@ -72,7 +83,14 @@ def create_pdf_from_html(html: str) -> BytesIO:
 if __name__ == '__main__':
 
     image = sys.argv[1]
-    img_html_str = open_image(image)
-    pdf_stream_data = create_pdf_from_html(img_html_str)
-    with open("output.pdf", "wb") as f:
-        f.write(pdf_stream_data.read())
+    cover_html_str = create_cover_sheet()
+    cover_stream_data = create_pdf_from_html(cover_html_str)
+    with open("output-cover.pdf", "wb") as f:
+            f.write(cover_stream_data.read())
+            f.close()
+
+    image_html_str = open_image(image)
+    image_stream_data = create_pdf_from_html(image_html_str)
+    with open("output-image.pdf", "wb") as f:
+        f.write(image_stream_data.read())
+        f.close()
