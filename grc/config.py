@@ -47,3 +47,4 @@ class TestConfig(Config):
     WTF_CSRF_ENABLED = False
     TEST_PUBLIC_USER = 'test.public.email@example.com'
     AV_API = 'TEST CLAMAV API'
+    NOTIFY_API = os.environ.get('NOTIFY_API')
