@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint
+from flask import Flask, render_template, Blueprint, url_for
 import jinja2
 import sys
 import io
@@ -64,9 +64,11 @@ def create_pdf_from_html(html: str, isImage) -> BytesIO:
     print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
     if isImage:
-        css = 'static/assets/image.css'
+        css = 'static/image.css'
+        #css = url_for('static', filename='image.css', _external=True)
     else:
-        css = 'static/assets/app.css'
+        #css = url_for('static', filename='app.css', _external=True)
+        css = 'static/app.css'
 
     pdf_stream: BytesIO = BytesIO()
     data = pdfkit.from_string(

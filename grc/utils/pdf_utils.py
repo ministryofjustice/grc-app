@@ -21,9 +21,11 @@ class PDFUtils():
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
         if html_image_type:
-            css = 'static/image.css'
+            #css = url_for('grc/static/', filename='image.css', _external=True)
+            css = 'grc/static/image.css'
         else:
-            css = 'static/app.css'
+            css = 'grc/static/app.css'
+            #css = url_for('grc/static/', filename='app.css', _external=True)
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
@@ -32,6 +34,7 @@ class PDFUtils():
             css=css,
             verbose=True
         )
+        print(f"returned from pdfkit_from_string")
         pdf_stream.write(data)
         pdf_stream.seek(0)
 
