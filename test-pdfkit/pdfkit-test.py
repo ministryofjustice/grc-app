@@ -58,6 +58,7 @@ def open_image(image_path):
 
     return html
 
+#        <link href="{{url_for('static', filename='fonts.css', _external=True)}}" rel="stylesheet">
 def create_pdf_from_html(html: str, isImage) -> BytesIO:
 
     print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
