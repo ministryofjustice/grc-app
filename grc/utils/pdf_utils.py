@@ -15,10 +15,15 @@ class PDFUtils():
     def __init__(self):
         pass
 
-    def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
+    def create_pdf_from_html(self, html: str, title: str = None, html_image_type: bool = False) -> BytesIO:
 
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
+
+        if html_image_type:
+            css = 'static/assets/image.css'
+        else:
+            css = 'static/assets/app.css'
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
