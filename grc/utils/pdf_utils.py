@@ -21,15 +21,15 @@ class PDFUtils():
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
         if html_image_type:
-            css = 'static/assets/image.css'
+            css = 'static/image.css'
         else:
-            css = 'static/assets/app.css'
+            css = 'static/app.css'
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
             html,
             options={"enable-local-file-access": ""},
-            css='grc/static/app.css',
+            css=css,
             verbose=True
         )
         pdf_stream.write(data)
