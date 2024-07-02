@@ -15,18 +15,24 @@ class PDFUtils():
     def __init__(self):
         pass
 
-    def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
+    def create_pdf_from_html(self, html: str, title: str = None, html_image_type: bool = False) -> BytesIO:
 
         print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
+
+        if html_image_type:
+            css = 'admin/static/image.css'
+        else:
+            css = 'admin/static/app-admin-nofonts.css'
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
             html,
             options={"enable-local-file-access": ""},
-            css='grc/static/app.css',
+            css=css,
             verbose=True
         )
+        print(f"returned from pdfkit_from_string")
         pdf_stream.write(data)
         pdf_stream.seek(0)
 
