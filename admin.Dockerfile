@@ -14,7 +14,7 @@ RUN apt-get install nodejs -y
 
 RUN apt-get install -y wkhtmltopdf
 ENV XDG_CACHE_HOME /tmp/cache
-RUN chmod 777 /tmp/cache
+RUN mkdir -p /tmp/cache && chmod 777 /tmp/cache
 
 EXPOSE 3001
 
