@@ -1,18 +1,10 @@
 {% macro adminapplication(application_data) %}
-    <h1 style="font-size: 24px;">
+    <h1 class="gds-family-bold" style="font-size: 24px;">
         {{ application_data.application_certificate_type }}: {{ application_data.reference_number }}
     </h1>
-    <h3 style="font-size: 21px;">MGB: Submitted on {{ application_data.updated | format_date }}</h3>
+    <h3 class="gds-family-bold" style="font-size: 21px;">Submitted on {{ application_data.updated | format_date }}</h3>
 
-    <h1 style="font-family: GDS Transport; font-style:normal; font-weight:bold;">
-        (style=)FULL STANDARD CERTIFICATE APPLICATION
-    </h1>
-
-    <div class="new-gds">
-        (class=)FULL STANDARD CERTIFICATE APPLICATION
-    </div>
-
-    <h4 style="font-family: GDS Transport; font-size: 16px;">Marriage or civil partnership details</h4>
+    <h4 style="font-size: 16px;">Marriage or civil partnership details</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>Currently married or in a civil partnership: <strong>{{ application_data.partnership_details_data.currently_in_a_partnership_formatted }}</strong></li>
         {% if application_data.partnership_details_data.is_not_in_partnership %}
@@ -39,7 +31,7 @@
         {% endif %}
     </ul>
 
-    <h4 style="font-size: 16px;">Payment details</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Payment details</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>Payment method: <strong>{{ application_data.submit_and_pay_data.applying_for_help_with_fee_formatted }}</strong></li>
         {% if not application_data.submit_and_pay_data.applying_for_help_with_fee %}
@@ -57,7 +49,7 @@
         {% endif %}
     </ul>
 
-    <h4 style="font-size: 16px;">Confirmation</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Confirmation</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>Have you ever been issued a Gender Recognition Certificate (or it's equivalent) in another country? <strong>{{ application_data.confirmation_data.gender_recognition_outside_uk_formatted }}</strong></li>
         {% if application_data.confirmation_data.gender_recognition_outside_uk %}
@@ -66,7 +58,7 @@
         <li>I confirm that I meet the requirements for applying for a Gender Recognition Certificate and I consent to the General Register Office contacting me about my application: <strong>{{ application_data.confirmation_data.consent_to_GRO_contact_formatted }}</strong></li>
     </ul>
 
-    <h4 style="font-size: 16px;">Personal details</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Personal details</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>Name on certificate
             <ul class="govuk-list govuk-list--bullet">
@@ -122,7 +114,7 @@
         </li>
     </ul>
 
-    <h4 style="font-size: 16px;">Birth registration information</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Birth registration information</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>Birth name
             <ul class="govuk-list govuk-list--bullet">
@@ -163,12 +155,12 @@
         {% endif %}
     </ul>
 
-    <h4 style="font-size: 16px;">Declaration</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Declaration</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>I certify that all the information given in this application is correct to the best of my knowledge. I understand that to make a false application is an offence: <strong>{% if application_data.submit_and_pay_data.declaration %}Yes{% else %}No{% endif %}</strong></li>
     </ul>
 
-    <h4 style="font-size: 16px;">Documents to post</h4>
+    <h4 class="gds-family-bold" style="font-size: 16px;">Documents to post</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 16px;">
         <li>your original or a certified copy of your full birth or adoption certificate</li>
         {% if application_data.submit_and_pay_data.is_using_ex160_form %}
@@ -176,5 +168,5 @@
         {% endif %}
     </ul>
 
-    <h2 class="govuk-heading-m" style="font-size: 21px;">Your documents</h2>
+    <h2 class="gds-family-bold" class="govuk-heading-m" style="font-size: 21px;">Your documents</h2>
 {% endmacro %}
