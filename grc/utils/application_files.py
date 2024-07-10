@@ -179,10 +179,17 @@ class ApplicationFiles:
                     logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
             else:
                 try:
+
+                    #html_template = f"""
+                    #        <div class="image-container">
+                    #            <img src="data:image/jpg;base64,{data}">
+                    #        </div>
+                    #    """
+
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
                         html = f'<img src="{data}" style="max-width: 100%; max-height: 100%; object-fit: contain;">'
-                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
+                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
