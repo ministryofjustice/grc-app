@@ -20,7 +20,7 @@ class PDFUtils():
         print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
 
         if html_image_type:
-            css = 'grc/static/image.css'
+            css = 'admin/static/image.css'
         else:
             css = 'grc/static/app.css'
 
