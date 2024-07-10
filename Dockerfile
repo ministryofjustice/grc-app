@@ -13,6 +13,8 @@ RUN chmod 500 nsolid_setup_deb.sh
 RUN ./nsolid_setup_deb.sh 21
 RUN apt-get install nodejs -y
 
+RUN apt-get install -y wkhtmltopdf
+
 # Add network connectivity debugging tools
 RUN apt-get update && apt-get install -y telnet iputils-ping net-tools curl
 

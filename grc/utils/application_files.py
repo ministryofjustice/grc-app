@@ -7,6 +7,7 @@ from grc.business_logic.data_structures.uploads_data import UploadsData, Evidenc
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.pdf_utils import PDFUtils
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -93,6 +94,7 @@ class ApplicationFiles:
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
         return output_pdf_document.read(), file_name
 
+    @profile
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
@@ -179,7 +181,7 @@ class ApplicationFiles:
                 try:
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
-                        html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
+                        html = f'<img src="{data}" style="max-width: 100%; max-height: 100%; object-fit: contain;">'
                         pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
                     else:
