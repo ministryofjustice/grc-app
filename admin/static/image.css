@@ -19,3 +19,9 @@ body {
     max-height: 100%;
     object-fit: contain;
 }
+
+#pdf-img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
