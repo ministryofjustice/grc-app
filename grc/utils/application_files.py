@@ -185,10 +185,11 @@ class ApplicationFiles:
                                 <img src="data:image/jpg;base64,{data}">
                             </div>
                         """
-
+                    logger.log(LogLevel.INFO, f"will download image {aws_file_name} from S3 bucket")
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
-                        html = f'<img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;">'
+                        logger.log(LogLevel.INFO, f"downloaded image {aws_file_name} from S3 bucket with width {width} height {height}")
+                        html = f'<body><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></body>'
                         #html = html_template
                         pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
                         logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
