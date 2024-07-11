@@ -35,7 +35,7 @@ class PDFUtils():
             css=css,
             verbose=True
         )
-        print(f"returned from pdfkit_from_string")
+        print(f"Returned from pdfkit_from_string")
         pdf_stream.write(data)
         pdf_stream.seek(0)
 
