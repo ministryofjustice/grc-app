@@ -180,11 +180,6 @@ class ApplicationFiles:
             else:
                 try:
 
-                    html_template = f"""
-                            <div class="image-div">
-                                <img src="data:image/jpg;base64,{data}">
-                            </div>
-                        """
                     print(f"will download image {aws_file_name} from S3 bucket", flush=True)
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
