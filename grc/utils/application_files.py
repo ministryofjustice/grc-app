@@ -185,14 +185,14 @@ class ApplicationFiles:
                                 <img src="data:image/jpg;base64,{data}">
                             </div>
                         """
-                    logger.log(LogLevel.INFO, f"will download image {aws_file_name} from S3 bucket")
+                    print(f"will download image {aws_file_name} from S3 bucket", flush=True)
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
-                        logger.log(LogLevel.INFO, f"downloaded image {aws_file_name} from S3 bucket with width {width} height {height}")
-                        html = f'<body><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></body>'
+                        print(f"downloaded image {aws_file_name} from S3 bucket with width {width} height {height}", flush=True)
+                        html = f'<body><div><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></div></body>'
                         #html = html_template
                         pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
-                        logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
+                        print(f"Adding image {aws_file_name}", flush=True)
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
