@@ -22,9 +22,9 @@ class PDFUtils():
 
         if html_image_type:
             #css = url_for('grc/static/', filename='image.css', _external=True)
-            css = 'grc/static/image.css'
+            css = 'admin/static/image.css'
         else:
-            css = 'grc/static/app.css'
+            css = 'admin/static/app.css'
             #css = url_for('grc/static/', filename='app.css', _external=True)
 
         pdf_stream: BytesIO = BytesIO()
