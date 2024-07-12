@@ -71,7 +71,7 @@ class AccessibilityChecks:
             link_text_content_is_all_whitespace = is_null_or_whitespace(link_text_content)
             if link_text_content_is_all_whitespace and not link_html_content:
                 print_coloured(f"|  |  Found link with no text content", error=True)
-            assert not link_text_content_is_all_whitespace
+            assert not link_text_content_is_all_whitespace or link_html_content
 
 
     async def check_accessibility_every_aria_described_by_has_a_matching_target_element(self, page: Page):
