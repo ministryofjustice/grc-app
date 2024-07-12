@@ -41,7 +41,6 @@ class TestSecurityCode:
                 assert new_code != already_saved_security_code
                 already_saved_security_code_count = SecurityCode.query.filter_by(code=already_saved_security_code).count()
                 saved_security_code = SecurityCode.query.filter_by(code=different_code).first()
-                assert True is False
                 assert already_saved_security_code_count == 1
                 assert saved_security_code.code == 'DIFFCODE'
             finally:
