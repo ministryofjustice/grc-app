@@ -67,8 +67,9 @@ class AccessibilityChecks:
         for n in range(number_of_links):
             link = links.nth(n)
             link_text_content: str = await link.inner_text()
+            link_html_content: str = await link.inner_html()
             link_text_content_is_all_whitespace = is_null_or_whitespace(link_text_content)
-            if link_text_content_is_all_whitespace:
+            if link_text_content_is_all_whitespace and not link_html_content:
                 print_coloured(f"|  |  Found link with no text content", error=True)
             assert not link_text_content_is_all_whitespace
 
