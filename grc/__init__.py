@@ -26,7 +26,7 @@ def create_app(test_config=None):
     else:
         app.config.from_object(Config)
 
-    if os.environ['FLASK_ENV'] != 'development':
+    if os.environ['FLASK_ENV'] != 'development' or os.environ['FLASK_ENV'] != 'local':
         app.config['PROPAGATE_EXCEPTIONS'] = True
         CustomErrorHandlers(app)
 
