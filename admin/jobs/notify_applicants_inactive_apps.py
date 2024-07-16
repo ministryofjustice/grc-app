@@ -6,7 +6,6 @@ from sqlalchemy.sql import extract
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, Application, ApplicationStatus, SecurityCode
 from grc.utils.application_files import ApplicationFiles
-from grc.utils.logger import Logger, LogLevel
 
 notify_applicants_inactive_apps = Blueprint('notify_applicants_inactive_apps', __name__)
 
@@ -31,7 +30,8 @@ def abandon_application_after_period_of_inactivity(days_between_last_update_and_
         Application.updated < earliest_allowed_inactive_application_updated_date
     )
 
-    for application_to_anonymise in applications_to_anonymise:
+    print(f'Anonymising {applications_to_anonymise.count()} inactive applications', flush=True)
+    for application_to_anonymise in applications_to_anonymise.all():
         anonymise_application(application_to_anonymise, new_state=ApplicationStatus.ABANDONED)
 
     db.session.commit()
@@ -49,14 +49,13 @@ def send_reminder_emails_before_application_deletion(days_between_last_update_an
         7: '1 week',
     }
 
-    for days_to_send_reminder_before_deletion in deletion_reminder_days_and_phrases.keys():
-        period_of_time_until_deletion_phrase = deletion_reminder_days_and_phrases[days_to_send_reminder_before_deletion]
+    for days_to_send_reminder, time_phrase in deletion_reminder_days_and_phrases.items():
 
-        print(f'Sending reminder emails to applications {period_of_time_until_deletion_phrase} from being deleted\n',
+        print(f'Sending reminder emails to applications {time_phrase} from being deleted\n',
               flush=True)
 
         today = datetime.today()
-        last_updated_date = calculate_last_updated_date(today, days_to_send_reminder_before_deletion, days_between_last_update_and_deletion)
+        last_updated_date = calculate_last_updated_date(today, days_to_send_reminder, days_between_last_update_and_deletion)
 
         applications_to_remind = Application.query.filter(
             Application.status == ApplicationStatus.STARTED,
@@ -73,18 +72,12 @@ def send_reminder_emails_before_application_deletion(days_between_last_update_an
             if existing_application is None:
                 GovUkNotify().send_email_unfinished_application(
                     email_address=application_to_remind.email,
-                    expiry_days=period_of_time_until_deletion_phrase
+                    expiry_days=time_phrase
                 )
 
 
 def calculate_last_updated_date(today, days_to_send_reminder_before_deletion, days_between_last_update_and_deletion):
-    # If today is the day to send the reminder email, then the deletion date will be...
-    deletion_date = today + relativedelta(days=days_to_send_reminder_before_deletion)
-
-    # If that is the deletion date, then the application would have last been updated...
-    last_updated_date = deletion_date - relativedelta(days=days_between_last_update_and_deletion)
-
-    return last_updated_date
+    return today - relativedelta(days=(days_between_last_update_and_deletion - days_to_send_reminder_before_deletion))
 
 
 def delete_completed_applications():
@@ -98,13 +91,12 @@ def delete_completed_applications():
         Application.status == ApplicationStatus.COMPLETED,
         Application.completed < earliest_allowed_application_completed_date
     )
-
-    print(f'Deleting {applications_to_anonymise.count()} completed applications\n', flush=True)
-
-    for application_to_anonymise in applications_to_anonymise:
-        anonymise_application(application_to_anonymise, new_state=ApplicationStatus.DELETED)
-
-    db.session.commit()
+    all_applications_to_anonymise = applications_to_anonymise.all()
+    if all_applications_to_anonymise:
+        print(f'Deleting {applications_to_anonymise.count()} completed applications\n', flush=True)
+        for application_to_anonymise in all_applications_to_anonymise:
+            anonymise_application(application_to_anonymise, new_state=ApplicationStatus.DELETED)
+        db.session.commit()
 
 
 def calculate_earliest_allowed_application_completed_date(now, days_between_application_completion_and_anonymisation):
@@ -112,13 +104,20 @@ def calculate_earliest_allowed_application_completed_date(now, days_between_appl
 
 
 def anonymise_application(application_to_anonymise, new_state: ApplicationStatus):
-    ApplicationFiles().delete_application_files(
-        application_to_anonymise.reference_number,
-        application_to_anonymise.application_data(),
-    )
-    application_to_anonymise.email = ''
-    application_to_anonymise.user_input = ''
-    application_to_anonymise.status = new_state
+    if not application_to_anonymise:
+        return
+
+    try:
+        ApplicationFiles().delete_application_files(
+            application_to_anonymise.reference_number,
+            application_to_anonymise.application_data(),
+        )
+    except Exception as e:
+        print(f'Error deleting application application files - {e}', flush=True)
+    finally:
+        application_to_anonymise.email = ''
+        application_to_anonymise.user_input = ''
+        application_to_anonymise.status = new_state
 
 
 def delete_expired_security_codes():
@@ -153,8 +152,7 @@ def main():
         assert applicants_notified == 200
         print('finished notify applicants inactive apps job', flush=True)
     except Exception as e:
-        logger = Logger()
-        logger.log(LogLevel.ERROR, f'Error notifying applicants cron, message = {e}')
+        print(f'Error notifying applicants cron, message = {e}', flush=True)
 
 
 if __name__ == '__main__':
