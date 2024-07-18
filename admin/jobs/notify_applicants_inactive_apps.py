@@ -48,7 +48,7 @@ def send_reminder_emails_before_application_deletion():
                     expiry_days=time_phrase
                 )
                 email_send_count += 1
-        print(f'Sending reminder emails to {email_send_count} applications\n',
+        print(f'Send {email_send_count} emails\n',
               flush=True)
 
     return 200
