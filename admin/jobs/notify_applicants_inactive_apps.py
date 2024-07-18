@@ -34,8 +34,7 @@ def send_reminder_emails_before_application_deletion():
             extract('year', Application.updated) == last_updated_date.year
         )
 
-        print(f'Sending reminder emails to {applications_to_remind.count()} applications',
-              flush=True)
+        print(f'Sending reminder emails to {applications_to_remind.count()} applications', flush=True)
         email_send_count = 0
         for application_to_remind in applications_to_remind.all():
             existing_application = Application.query.filter(
@@ -48,8 +47,7 @@ def send_reminder_emails_before_application_deletion():
                     expiry_days=time_phrase
                 )
                 email_send_count += 1
-        print(f'Send {email_send_count} emails\n',
-              flush=True)
+        print(f'Send {email_send_count} emails\n', flush=True)
 
     return 200
 
