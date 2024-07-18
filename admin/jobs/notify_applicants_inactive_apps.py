@@ -2,7 +2,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from flask import Blueprint
 from flask.cli import with_appcontext
-from sqlalchemy.sql import extract
+from sqlalchemy.sql import extract, not_
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import Application, ApplicationStatus
 
@@ -21,7 +21,7 @@ def send_reminder_emails_before_application_deletion():
 
     for days_to_send_reminder, time_phrase in deletion_reminder_days_and_phrases.items():
 
-        print(f'Sending reminder emails to applications {time_phrase} from being deleted\n',
+        print(f'Sending reminder emails to applications {time_phrase} from being deleted',
               flush=True)
 
         today = datetime.today()
@@ -34,8 +34,9 @@ def send_reminder_emails_before_application_deletion():
             extract('year', Application.updated) == last_updated_date.year
         )
 
-        print(f'Sending reminder emails to {applications_to_remind.count()} applications\n',
+        print(f'Sending reminder emails to {applications_to_remind.count()} applications',
               flush=True)
+        email_send_count = 0
         for application_to_remind in applications_to_remind.all():
             existing_application = Application.query.filter(
                 Application.email == application_to_remind.email,
@@ -46,6 +47,9 @@ def send_reminder_emails_before_application_deletion():
                     email_address=application_to_remind.email,
                     expiry_days=time_phrase
                 )
+                email_send_count += 1
+        print(f'Sending reminder emails to {email_send_count} applications\n',
+              flush=True)
 
     return 200
 
