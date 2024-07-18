@@ -24,10 +24,10 @@ def test_started_and_expired_applications(app, public_user_email):
     with app.test_request_context():
         test_inactive_apps = []
         for _ in range(3):
-            app = ApplicationDataHelpers.create_new_application(public_user_email)
+            app_ = ApplicationDataHelpers.create_new_application(public_user_email)
             new_app = Application.query.filter_by(
-                reference_number=app.reference_number,
-                email=app.email_address
+                reference_number=app_.reference_number,
+                email=app_.email_address
             ).first()
             new_app.status = ApplicationStatus.STARTED
             new_app.updated = datetime.now() - relativedelta(days=200)
@@ -37,8 +37,8 @@ def test_started_and_expired_applications(app, public_user_email):
 
         yield test_inactive_apps
 
-        for app in test_inactive_apps:
-            db.session.delete(app)
+        for app_ in test_inactive_apps:
+            db.session.delete(app_)
         db.session.commit()
 
 
@@ -47,11 +47,11 @@ def test_completed_applications(app, public_user_email):
     with app.test_request_context():
         test_completed_apps = []
         for _ in range(3):
-            app = ApplicationDataHelpers.create_new_application(public_user_email)
+            app_ = ApplicationDataHelpers.create_new_application(public_user_email)
             db.session.commit()
             new_app = Application.query.filter_by(
-                reference_number=app.reference_number,
-                email=app.email_address
+                reference_number=app_.reference_number,
+                email=app_.email_address
             ).first()
             new_app.status = ApplicationStatus.COMPLETED
             new_app.completed = datetime.now() - relativedelta(days=7)
@@ -61,8 +61,8 @@ def test_completed_applications(app, public_user_email):
 
         yield test_completed_apps
 
-        for app in test_completed_apps:
-            db.session.delete(app)
+        for app_ in test_completed_apps:
+            db.session.delete(app_)
         db.session.commit()
 
 
@@ -72,10 +72,10 @@ def test_started_applications(request, app, public_user_email):
         last_updated_days_ago = request.param
         test_inactive_apps = []
         for _ in range(3):
-            app = ApplicationDataHelpers.create_new_application(public_user_email)
+            app_ = ApplicationDataHelpers.create_new_application(public_user_email)
             new_app = Application.query.filter_by(
-                reference_number=app.reference_number,
-                email=app.email_address
+                reference_number=app_.reference_number,
+                email=app_.email_address
             ).first()
             new_app.status = ApplicationStatus.STARTED
             new_app.updated = datetime.now() - relativedelta(days=last_updated_days_ago)
@@ -85,9 +85,29 @@ def test_started_applications(request, app, public_user_email):
 
         yield test_inactive_apps
 
-        for app in test_inactive_apps:
-            db.session.delete(app)
+        for app_ in test_inactive_apps:
+            db.session.delete(app_)
         db.session.commit()
+
+
+@pytest.fixture
+def test_submitted_application(app, public_user_email):
+    with app.test_request_context():
+        app = ApplicationDataHelpers.create_new_application('different_email_address@example.com')
+        new_app = Application.query.filter_by(
+            reference_number=app.reference_number,
+            email=app.email_address
+        ).first()
+        new_app.status = ApplicationStatus.SUBMITTED
+        new_app.updated = datetime.now() - relativedelta(days=7)
+        db.session.commit()
+        print(f'Test Inactive App Ref - {new_app.reference_number}', flush=True)
+
+        yield new_app
+
+        db.session.delete(new_app)
+        db.session.commit()
+
 
 
 @pytest.fixture
