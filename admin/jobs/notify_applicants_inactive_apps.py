@@ -21,8 +21,7 @@ def send_reminder_emails_before_application_deletion():
 
     for days_to_send_reminder, time_phrase in deletion_reminder_days_and_phrases.items():
 
-        print(f'Sending reminder emails to applications {time_phrase} from being deleted',
-              flush=True)
+        print(f'Sending reminder emails to applications {time_phrase} from being deleted', flush=True)
 
         today = datetime.today()
         last_updated_date = calculate_last_updated_date(today, days_to_send_reminder, days_between_last_update_and_deletion)
