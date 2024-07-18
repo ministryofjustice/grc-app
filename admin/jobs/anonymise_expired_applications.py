@@ -37,7 +37,6 @@ def anonymise_application(application_to_anonymise):
     if not application_to_anonymise:
         return
 
-
     try:
         data = application_to_anonymise.application_data()
     except Exception as e:
