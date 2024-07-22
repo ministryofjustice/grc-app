@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: notify-applicants-inactive-applications-prod
-  namespace: grc-prod
+  name: delete-completed-applications-preprod
+  namespace: grc-preprod
 spec:
-  schedule: '0 2 * * *'
+  schedule: '0 1 * * *'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -15,18 +15,18 @@ spec:
             tier: worker
         spec:
           restartPolicy: OnFailure
-          serviceAccountName: grc-prod
+          serviceAccountName: grc-preprod
           containers:
           - name: admin-jobs
-            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-prod-ecr:grc-admin-latest
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-preprod-ecr:grc-admin-latest
             imagePullPolicy: Always
             command:
               - /bin/sh
               - -c
-              - flask jobs.notify_applicants_inactive_apps run
+              - flask jobs.delete_completed_applications run
             envFrom:
               - configMapRef:
-                  name: grc-prod-ecr-circleci
+                  name: grc-preprod-ecr-circleci
             env:
               - name: AWS_REGION
                 value: eu-west-2

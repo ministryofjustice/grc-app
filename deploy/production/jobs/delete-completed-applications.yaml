@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: notify-applicants-inactive-applications-prod
+  name: delete-completed-applications-prod
   namespace: grc-prod
 spec:
-  schedule: '0 2 * * *'
+  schedule: '0 1 * * *'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -23,7 +23,7 @@ spec:
             command:
               - /bin/sh
               - -c
-              - flask jobs.notify_applicants_inactive_apps run
+              - flask jobs.delete_completed_applications run
             envFrom:
               - configMapRef:
                   name: grc-prod-ecr-circleci
