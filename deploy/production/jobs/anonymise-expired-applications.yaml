@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: notify-applicants-inactive-applications-dev
-  namespace: grc-dev
+  name: anonymise-expired-applications-prod
+  namespace: grc-prod
 spec:
-  schedule: '0 2 * * *'
+  schedule: '30 0 * * *'
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -15,18 +15,18 @@ spec:
             tier: worker
         spec:
           restartPolicy: OnFailure
-          serviceAccountName: grc-dev
+          serviceAccountName: grc-prod
           containers:
           - name: admin-jobs
-            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr:grc-admin-latest
+            image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-prod-ecr:grc-admin-latest
             imagePullPolicy: Always
             command:
               - /bin/sh
               - -c
-              - flask jobs.notify_applicants_inactive_apps run
+              - flask jobs.anonymise_expired_applications run
             envFrom:
               - configMapRef:
-                  name: grc-dev-ecr-circleci
+                  name: grc-prod-ecr-circleci
             env:
               - name: AWS_REGION
                 value: eu-west-2
@@ -38,7 +38,7 @@ spec:
               - name: DATABASE_URL
                 valueFrom:
                   secretKeyRef:
-                    name: rds-postgresql-instance-output
+                    name: dps-rds-instance-output
                     key: url
               - name: DEFAULT_ADMIN_USER
                 value: mark.butler@HMCTS.net
@@ -82,7 +82,7 @@ spec:
               - name: SQLALCHEMY_DATABASE_URI
                 valueFrom:
                   secretKeyRef:
-                    name: rds-postgresql-instance-output
+                    name: dps-rds-instance-output
                     key: sql_alchemy_url
               - name: SQLALCHEMY_KEY
                 valueFrom:
