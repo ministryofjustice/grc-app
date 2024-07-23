@@ -61,7 +61,7 @@
     <h4 class="gds-family-cs-bold" style="font-size: 21px;">Personal details</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 19px;margin-left:28px;">
         <li>Name on certificate
-            <ul class="govuk-list govuk-list--bullet">
+            <ul class="govuk-list govuk-list--bullet" style="margin-bottom:8px;">
                 <li>Title: <strong>{{ application_data.personal_details_data.title }}</strong></li>
                 <li>First name: <strong>{{ application_data.personal_details_data.first_name }}</strong></li>
                 <li>Middle name(s): <strong>{{ application_data.personal_details_data.middle_names_or_empty_string }}</strong></li>
@@ -168,5 +168,5 @@
         {% endif %}
     </ul>
 
-    <h2 class="gds-family-cs-bold" class="govuk-heading-m" style="font-size: 26px;">Your documents</h2>
+    <h2 class="gds-family-cs-bold" style="font-size: 26px;">Your documents</h2>
 {% endmacro %}
