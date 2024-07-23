@@ -184,7 +184,8 @@ class ApplicationFiles:
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
                         print(f"downloaded image {aws_file_name} from S3 bucket with width {width} height {height}", flush=True)
-                        html = f'<body><div style="margin-top:20px;"><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></div></body>'
+                        'html = f'<body><div style="margin-top:20px;"><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></div></body>'
+                        html = f'<body><div class="image-div"><img src="{data}"></div></body>'
                         #html = html_template
                         pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
                         print(f"Adding image {aws_file_name}", flush=True)

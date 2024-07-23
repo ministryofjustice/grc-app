@@ -27,7 +27,7 @@ class PDFUtils():
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
             html,
-            options={"enable-local-file-access": "", "cache-dir": "/tmp"},
+            options={"enable-local-file-access": "", "cache-dir": "/tmp", "header-spacing": "10"},
             css=css,
             verbose=True
         )
