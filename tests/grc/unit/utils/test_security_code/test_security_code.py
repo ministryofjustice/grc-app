@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from grc.models import db, SecurityCode
 from grc.utils import security_code as sc
 from grc.utils.date_utils import convert_date_to_local_timezone
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 
 class TestSecurityCode:
@@ -19,13 +19,33 @@ class TestSecurityCode:
 
     def test_security_code_generator(self, app, client, public_user_email):
         with app.app_context():
-            code = sc._security_code_generator(public_user_email)
-            user_security_code = SecurityCode.query.filter_by(email=public_user_email, code=code).first()
-            assert user_security_code is not None
-            assert user_security_code.email == 'test.public.email@example.com'
-            assert user_security_code.code == code
-            db.session.delete(user_security_code)
-            db.session.commit()
+            try:
+                code = sc._security_code_generator(public_user_email)
+                user_security_code = SecurityCode.query.filter_by(email=public_user_email, code=code).first()
+                assert user_security_code is not None
+                assert user_security_code.email == 'test.public.email@example.com'
+                assert user_security_code.code == code
+            finally:
+                db.session.delete(user_security_code)
+                db.session.commit()
+
+    @patch('random.sample')
+    def test_security_code_generator_code_already_exists_for_different_user(self, mock_random_sample: MagicMock, app,
+                                                                            client, security_code_):
+        with app.test_request_context():
+            try:
+                already_saved_security_code = security_code_.code
+                different_code = "DIFFCODE"
+                mock_random_sample.side_effect = [list(already_saved_security_code), list(different_code)]
+                new_code = sc._security_code_generator('different_email@example.com')
+                assert new_code != already_saved_security_code
+                already_saved_security_code_count = SecurityCode.query.filter_by(code=already_saved_security_code).count()
+                saved_security_code = SecurityCode.query.filter_by(code=different_code).first()
+                assert already_saved_security_code_count == 1
+                assert saved_security_code.code == 'DIFFCODE'
+            finally:
+                db.session.delete(saved_security_code)
+                db.session.commit()
 
     def test_is_security_code_valid_valid_code_no_user(self, app, client, public_user_email, security_code_):
         with app.app_context():
