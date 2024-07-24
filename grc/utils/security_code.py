@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from grc.models import db, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.logger import LogLevel, Logger
+from sqlalchemy.exc import IntegrityError
 
 logger = Logger()
 
@@ -22,6 +23,12 @@ def _security_code_generator(email):
         db.session.add(record)
         db.session.commit()
         return code
+
+    except IntegrityError:
+        logger.log(LogLevel.ERROR, message=f'Attempted to add existing Security code record to database')
+        logger.log(LogLevel.INFO, message=f'Generating new security code')
+        db.session.rollback()
+        return _security_code_generator(email)
 
     except ValueError:
         logger.log(LogLevel.ERROR, message="Oops!  That was no valid code.  Try again...")
