@@ -46,12 +46,12 @@ msgstr ""
 #: grc/business_logic/constants/base.py:5
 #: grc/templates/policies/cookies.html:114
 msgid "Yes"
-msgstr "Oes"
+msgstr "Ydw"
 
 #: grc/business_logic/constants/base.py:6
 #: grc/templates/policies/cookies.html:120
 msgid "No"
-msgstr "Nac oes"
+msgstr "Nac ydw"
 
 #: grc/business_logic/constants/base.py:7
 msgid "I don't know"
@@ -238,7 +238,7 @@ msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
 msgstr ""
-"Ydych chi'n bwriadu parhau i briodi ar ôl cael eich Tystysgrif Cydnabod "
+"Ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif Cydnabod "
 "Rhywedd?"
 
 #: grc/business_logic/constants/base.py:57
@@ -983,11 +983,11 @@ msgstr ""
 
 #: grc/business_logic/constants/start_application.py:6
 msgid "Yes, and I have my reference number"
-msgstr "Do, ac mae gennyf fy nghyfeirnod"
+msgstr "Ydw, ac mae gennyf fy nghyfeirnod"
 
 #: grc/business_logic/constants/start_application.py:7
 msgid "Yes, but I have lost my reference number"
-msgstr "Do, ond rwyf wedi colli fy nghyfeirnod"
+msgstr "Ydw, ond rwyf wedi colli fy nghyfeirnod"
 
 #: grc/business_logic/constants/submit_and_pay.py:8
 msgid "No, I will pay now"
@@ -1074,7 +1074,7 @@ msgstr "Gwneud cais am Dystysgrif Cydnabod Rhywedd"
 
 #: grc/templates/base.html:105 grc/templates/policies/cookies.html:12
 msgid "Success"
-msgstr "Llwydd"
+msgstr "Llwyddiant"
 
 #: grc/templates/base.html:110
 msgid "Email resent"
@@ -1092,7 +1092,7 @@ msgstr "Datganiad hygyrchedd"
 #: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
 #: grc/templates/policies/cookies.html:20
 msgid "Cookies"
-msgstr "Cwcis"
+msgstr "Cwis"
 
 #: grc/templates/contact-admin.html:6
 msgid "Telephone"
@@ -1519,8 +1519,8 @@ msgstr ""
 #: grc/templates/birth-registration/place-of-birth.html:28
 msgid "What is the town or city of birth on your birth or adoption certificate?"
 msgstr ""
-"Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu "
-"dystysgrif mabwysiadu? "
+"Beth yw’r dref neu’r ddinas a nodir ar eich tystysgrif geni neu "
+"dystysgrif mabwysiadu?"
 
 #: grc/templates/birth-registration/uk-check.html:5
 #: grc/templates/birth-registration/uk-check.html:26
@@ -3939,8 +3939,8 @@ msgid ""
 "Do you consent to the General Register Office contacting you about your "
 "application?"
 msgstr ""
-"Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi "
-"ynglŷ â'ch cais?"
+"Ydych chi’n rhoi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu â "
+"chi ynglŷn â’ch cais?"
 
 #: grc/templates/start-application/declaration.html:40
 msgid "I consent"
