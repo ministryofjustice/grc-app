@@ -1,5 +1,11 @@
 from flask import Blueprint
 from .notify_applicants_inactive_apps import notify_applicants_inactive_apps
+from .anonymise_expired_applications import anonymise_expired_applications
+from .delete_completed_applications import delete_completed_applications
+from .delete_expired_security_codes import delete_expired_security_codes
 
 jobs = Blueprint('jobs', __name__)
 jobs.register_blueprint(notify_applicants_inactive_apps)
+jobs.register_blueprint(anonymise_expired_applications)
+jobs.register_blueprint(delete_completed_applications)
+jobs.register_blueprint(delete_expired_security_codes)

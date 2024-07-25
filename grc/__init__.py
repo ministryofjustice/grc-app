@@ -26,7 +26,7 @@ def create_app(test_config=None):
     else:
         app.config.from_object(Config)
 
-    if app.config['ENVIRONMENT'] != 'local' and app.config['ENVIRONMENT'] != 'test':
+    if app.config['ENVIRONMENT'] not in app.config['NON_LIVE_ENV']:
         app.config['PROPAGATE_EXCEPTIONS'] = True
         CustomErrorHandlers(app)
 
