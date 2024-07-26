@@ -22,7 +22,7 @@ class PDFUtils():
         if html_image_type:
             css = 'admin/static/image.css'
         else:
-            css = 'admin/static/app.css'
+            css = 'admin/static/app-pdf.css'
 
         pdf_stream: BytesIO = BytesIO()
         data = pdfkit.from_string(
