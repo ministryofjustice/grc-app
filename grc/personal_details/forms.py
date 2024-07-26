@@ -1,4 +1,3 @@
-from flask_babel import pgettext
 from flask_wtf import FlaskForm
 from grc.business_logic.constants.personal_details import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
