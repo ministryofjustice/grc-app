@@ -38,6 +38,39 @@
 	list-style-type: none
 }
 
+@media print {
+	.govuk-list {
+		font-family: sans-serif
+	}
+}
+
+@media(min-width: 40.0625em) {
+	.govuk-list {
+		font-size: 19px;
+		font-size: 1.1875rem;
+		line-height: 1.3157894737
+	}
+}
+
+@media print {
+	.govuk-list {
+		font-size: 14pt;
+		line-height: 1.15
+	}
+}
+
+@media print {
+	.govuk-list {
+		color: #000
+	}
+}
+
+@media(min-width: 40.0625em) {
+	.govuk-list {
+		margin-bottom: 20px
+	}
+}
+
 .govuk-list>li {
 	margin-bottom: 5px
 }
