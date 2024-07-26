@@ -93,7 +93,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/place-of-birth')
     await asserts.accessibility()
-    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw’r dref neu’r ddinas a nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -102,7 +102,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is the town or city of birth on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw’r dref neu’r ddinas a nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='place_of_birth', value=data.BIRTH_TOWN)
@@ -323,7 +323,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/place-of-birth')
     await asserts.accessibility()
-    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw’r dref neu’r ddinas a nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
@@ -332,7 +332,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('English')
     await asserts.h1('What is the town or city of birth on your birth or adoption certificate?')
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Beth yw’r dref neu’r ddinas ar nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw’r dref neu’r ddinas a nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='place_of_birth', value=data.BIRTH_TOWN)
