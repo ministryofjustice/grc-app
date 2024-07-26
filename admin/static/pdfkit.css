@@ -77,23 +77,13 @@
 
 .govuk-list--bullet {
 	padding-left: 20px;
-	list-style-type: none
+	list-style-type: disc
 }
 
 .govuk-list--bullet>li {
-
 	margin-left: 5px;
 	margin-bottom: 9px;
 	line-height: 1.4
-	position: relative;
-}
-
-.govuk-list--bullet>li:before {
-	content: "•";
-	font-size: 14px;
-	position: absolute;
-    left: -20px; /* Adjust position */
-    top: 0;
 }
 
 .govuk-template__body {
