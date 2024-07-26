@@ -85,8 +85,6 @@ class BaseConstants:
     ENTER_DATE_IN_PAST_ERROR = _l('Enter a date in the past')
     ENTER_DATE_IN_FUTURE_ERROR = _l('Enter a date in the future')
     ENTER_DATE_2_YEARS_BEFORE_APP_CREATED_ERROR = _l('Enter a date at least 2 years before your application')
-    ENTER_DAY_ERROR = _l('Enter a day')
-    ENTER_VALID_DAY_ERROR = _l('Enter a day as a number between 1 and 31')
     STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR = _l('Enter a date that does not precede your transition date')
     CONTACT_FROM_DATE_IN_PAST_ERROR = _l("'From' date is in the past")
     CONTACT_TO_DATE_IN_PAST_ERROR = _l("'To' date is in the past")

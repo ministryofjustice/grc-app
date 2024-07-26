@@ -1,8 +1,9 @@
+from flask_babel import gettext
 from flask_wtf import FlaskForm
 from grc.business_logic.constants.birth_and_registration import BirthRegistrationConstants as c
 from wtforms import StringField
 from grc.business_logic.data_structures.birth_registration_data import AdoptedInTheUkEnum
-from grc.utils.form_custom_validators import validate_date_of_birth, Integer
+from grc.utils.form_custom_validators import validate_date_of_birth
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger
 from grc.lazy.lazy_fields import LazyRadioField
 
@@ -94,8 +95,8 @@ class AdoptedForm(FlaskForm):
 class AdoptedUKForm(FlaskForm):
     adopted_uk = LazyRadioField(
         lazy_choices=[
-            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_YES.name, c.YES),
-            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_NO.name, c.NO),
+            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_YES.name, c.YES_ADOPTED_UK),
+            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_NO.name, c.NO_ADOPTED_UK),
             (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_DO_NOT_KNOW.name, c.DONT_KNOW)
         ],
         validators=[LazyDataRequired(lazy_message=c.SELECT_ADOPTED_UK_ERROR)]
@@ -105,8 +106,8 @@ class AdoptedUKForm(FlaskForm):
 class ForcesForm(FlaskForm):
     forces = LazyRadioField(
         lazy_choices=[
-            (True, c.YES),
-            (False, c.NO)
+            (True, c.YES_FORCES_REGISTERED),
+            (False, c.NO_FORCES_REGISTERED)
         ],
         validators=[LazyDataRequired(lazy_message=c.SELECT_FORCES_ERROR)]
     )

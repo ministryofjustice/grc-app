@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-06-05 13:32+0100\n"
+"POT-Creation-Date: 2024-07-26 10:51+0100\n"
 "PO-Revision-Date: 2024-03-08 17:38+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -70,170 +70,135 @@ msgid "Neither"
 msgstr "Ddim un ohonynt"
 
 #: grc/business_logic/constants/base.py:12
-msgid "Australia – not including the external territories"
-msgstr "Awstralia – heb gynnwys y tiriogaethau allanol"
-
-#: grc/business_logic/constants/base.py:13
-msgid "Austria"
-msgstr "Awstria"
+msgid ""
+"Australia - only includes the Australian Capital Territory, New South "
+"Wales, Queensland and Western Australia"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:14
-msgid "Belgium"
-msgstr "Gwlad Belg"
+msgid "Belarus"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:15
-msgid "Bulgaria"
-msgstr "Bwlgaria"
+msgid "Bosnia and Herzegovina"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:16
-msgid "Canada – not including Northwest Territories and Nunavut"
-msgstr "Canada - heb gynnwys Tiriogaethau'r Gogledd Orllewin a Nunavut"
+msgid "China"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:17
 msgid "Croatia"
 msgstr "Croatia"
 
 #: grc/business_logic/constants/base.py:18
-msgid "Cyprus"
-msgstr "Cyprus"
+msgid "Cuba"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:19
-msgid "Czech Republic"
-msgstr "Gweriniaeth Tsiec"
+msgid "Republic of Cyprus"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:20
-msgid "Denmark"
-msgstr "Denmarc"
+msgid "Czech Republic"
+msgstr "Gweriniaeth Tsiec"
 
 #: grc/business_logic/constants/base.py:21
 msgid "Estonia"
 msgstr "Estonia"
 
 #: grc/business_logic/constants/base.py:22
-msgid "Finland"
-msgstr "Ffindir"
+#, fuzzy
+msgid "Georgia"
+msgstr "Serbia"
 
 #: grc/business_logic/constants/base.py:23
-msgid "France"
-msgstr "Ffrainc"
-
-#: grc/business_logic/constants/base.py:24
 msgid "Germany"
 msgstr "Almaen"
 
+#: grc/business_logic/constants/base.py:24
+msgid "India"
+msgstr ""
+
 #: grc/business_logic/constants/base.py:25
-msgid "Greece"
-msgstr "Groeg"
+#, fuzzy
+msgid "Iran"
+msgstr "Ffrainc"
 
 #: grc/business_logic/constants/base.py:26
-msgid "Iceland"
-msgstr "Gwlad yr Iâ"
-
-#: grc/business_logic/constants/base.py:27
 msgid "Italy"
 msgstr "Eidal"
 
-#: grc/business_logic/constants/base.py:28
+#: grc/business_logic/constants/base.py:27
 msgid "Japan"
 msgstr "Japan"
 
+#: grc/business_logic/constants/base.py:28
+msgid "Kazakhstan"
+msgstr ""
+
 #: grc/business_logic/constants/base.py:29
-msgid "Liechtenstein"
-msgstr "Liechtenstein"
+msgid "Mongolia"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:30
-msgid "Luxembourg"
-msgstr "Lwcsembwrg"
+msgid "Montenegro"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:31
-msgid "Malta"
-msgstr "Malta"
+msgid "Namibia"
+msgstr ""
 
 #: grc/business_logic/constants/base.py:32
-msgid "Federal District of Mexico"
-msgstr "Ardal Ffederal Mecsico"
+#, fuzzy
+msgid "Panama"
+msgstr "enw"
 
 #: grc/business_logic/constants/base.py:33
-msgid "Moldova"
-msgstr "Moldofa"
-
-#: grc/business_logic/constants/base.py:34
-msgid "Netherlands"
-msgstr "Iseldiroedd"
-
-#: grc/business_logic/constants/base.py:35
-msgid "New Zealand"
-msgstr "Seland Newydd"
-
-#: grc/business_logic/constants/base.py:36
-msgid "Norway"
-msgstr "Norwy"
-
-#: grc/business_logic/constants/base.py:37
-msgid "Poland"
-msgstr "Gwlad Pwyl"
-
-#: grc/business_logic/constants/base.py:38
 msgid "Romania"
 msgstr "Rwmania"
 
-#: grc/business_logic/constants/base.py:39
-msgid "Russian Federation"
-msgstr "Ffederasiwn Rwsia"
-
-#: grc/business_logic/constants/base.py:40
-msgid "Serbia"
-msgstr "Serbia"
-
-#: grc/business_logic/constants/base.py:41
-msgid "Singapore"
-msgstr "Singapôr"
-
-#: grc/business_logic/constants/base.py:42
+#: grc/business_logic/constants/base.py:34
 msgid "Slovakia"
 msgstr "Slofacia"
 
-#: grc/business_logic/constants/base.py:43
-msgid "Slovenia"
-msgstr "Slofenia"
-
-#: grc/business_logic/constants/base.py:44
+#: grc/business_logic/constants/base.py:35
 msgid "South Africa"
 msgstr "De Affrica"
 
-#: grc/business_logic/constants/base.py:45
+#: grc/business_logic/constants/base.py:36
 msgid "South Korea"
 msgstr "De Corea"
 
-#: grc/business_logic/constants/base.py:46
-msgid "Spain"
-msgstr "Sbaen"
+#: grc/business_logic/constants/base.py:37
+msgid "Sri Lanka"
+msgstr ""
 
-#: grc/business_logic/constants/base.py:47
+#: grc/business_logic/constants/base.py:38
 msgid "Sweden"
 msgstr "Sweden"
 
-#: grc/business_logic/constants/base.py:48
-msgid "Switzerland"
-msgstr "Swistir"
+#: grc/business_logic/constants/base.py:39
+msgid "Taiwan"
+msgstr ""
 
-#: grc/business_logic/constants/base.py:49
+#: grc/business_logic/constants/base.py:40
 msgid "Turkey"
 msgstr "Twrci"
 
-#: grc/business_logic/constants/base.py:50
+#: grc/business_logic/constants/base.py:41
 msgid "Ukraine"
 msgstr "Wcráin"
 
-#: grc/business_logic/constants/base.py:51
-msgid "United States of America – not including Idaho, Ohio, Tennessee and Texas"
-msgstr "Unol Daleithiau America – heb gynnwys Idaho, Ohio, Tennessee a Texas"
+#: grc/business_logic/constants/base.py:42
+msgid ""
+"United States of America – only includes Alabama, Alaska, Arizona, "
+"Arkansas, Connecticut, Delaware, Georgia, Indiana, Iowa, Kansas, "
+"Kentucky, Louisiana, Maryland, Massachusetts, Missouri, Nebraska, New "
+"Hampshire, North Carolina, North Dakota, Pennsylvania and Wisconsin"
+msgstr ""
 
-#: grc/business_logic/constants/base.py:52
-msgid "Uruguay"
-msgstr "Uruguay"
-
-#: grc/business_logic/constants/base.py:56
+#: grc/business_logic/constants/base.py:48
 msgid ""
 "Do you plan to remain married after you receive your Gender Recognition "
 "Certificate?"
@@ -241,7 +206,7 @@ msgstr ""
 "Ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif Cydnabod "
 "Rhywedd?"
 
-#: grc/business_logic/constants/base.py:57
+#: grc/business_logic/constants/base.py:49
 msgid ""
 "Do you plan to remain in your civil partnership after you receive your "
 "Gender Recognition Certificate?"
@@ -249,21 +214,21 @@ msgstr ""
 "Ydych chi'n bwriadu aros yn eich partneriaeth sifil ar ôl i chi gael eich"
 " Tystysgrif Cydnabod Rhywedd?"
 
-#: grc/business_logic/constants/base.py:61
+#: grc/business_logic/constants/base.py:53
 msgid "We’ve resent you a security code. This can take a few minutes to arrive"
 msgstr ""
 "Rydym wedi ail anfon cod diogelwch atoch. Gall gymryd ychydig o funudau i"
 " gyrraedd"
 
-#: grc/business_logic/constants/base.py:64
+#: grc/business_logic/constants/base.py:56
 msgid "Select if you have ever changed your name to reflect your gender"
 msgstr "Dewiswch os ydych chi erioed wedi newid eich enw i adlewyrchu eich rhywedd"
 
-#: grc/business_logic/constants/base.py:65
+#: grc/business_logic/constants/base.py:57
 msgid "Select if you are currently married or in a civil partnership"
 msgstr "Dewiswch os ydych chi'n briod neu mewn partneriaeth sifil ar hyn o bryd"
 
-#: grc/business_logic/constants/base.py:66
+#: grc/business_logic/constants/base.py:58
 msgid ""
 "Select if you have ever been married or in a civil partnership where your"
 " spouse or partner died"
@@ -271,7 +236,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil pan fu farw eich priod neu'ch partner"
 
-#: grc/business_logic/constants/base.py:68
+#: grc/business_logic/constants/base.py:60
 msgid ""
 "Select if you have ever been married or in a civil partnership that has "
 "ended"
@@ -279,7 +244,7 @@ msgstr ""
 "Dewiswch os ydych chi erioed wedi bod yn briod neu mewn partneriaeth "
 "sifil sydd wedi dod i ben"
 
-#: grc/business_logic/constants/base.py:70
+#: grc/business_logic/constants/base.py:62
 msgid ""
 "Select if you have received gender recognition in one of these countries "
 "or territories"
@@ -287,7 +252,7 @@ msgstr ""
 "Dewiswch os ydych chi wedi cael cydnabyddiaeth rhywedd yn un o'r gwledydd"
 " neu'r tiriogaethau hyn"
 
-#: grc/business_logic/constants/base.py:72
+#: grc/business_logic/constants/base.py:64
 msgid ""
 "Select if you plan to remain married after receiving your Gender "
 "Recognition Certificate"
@@ -295,165 +260,163 @@ msgstr ""
 "Dewiswch os ydych chi’n bwriadu aros yn briod ar ôl cael eich Tystysgrif "
 "Cydnabod Rhywedd"
 
-#: grc/business_logic/constants/base.py:74
+#: grc/business_logic/constants/base.py:66
 msgid "Enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
-#: grc/business_logic/constants/base.py:75
+#: grc/business_logic/constants/base.py:67
 msgid "Enter a valid email address"
 msgstr "Nodwch gyfeiriad e-bost dilys"
 
-#: grc/business_logic/constants/base.py:76
+#: grc/business_logic/constants/base.py:68
 msgid "Enter a security code"
 msgstr "Nodwch god diogelwch"
 
-#: grc/business_logic/constants/base.py:77
+#: grc/business_logic/constants/base.py:69
 msgid "Enter the security code that we emailed you"
 msgstr "Nodwch y cod diogelwch y gwnaethom anfon atoch trwy e-bost"
 
-#: grc/business_logic/constants/base.py:78
+#: grc/business_logic/constants/base.py:70
 msgid "Select if you have already started an application"
 msgstr "Dewiswch a ydych eisoes wedi dechrau cais"
 
-#: grc/business_logic/constants/base.py:79
+#: grc/business_logic/constants/base.py:71
 msgid "Enter a reference number"
 msgstr "Nodwch gyfeirnod"
 
-#: grc/business_logic/constants/base.py:80
+#: grc/business_logic/constants/base.py:72
 msgid "Enter a valid reference number"
 msgstr "Nodwch gyfeirnod dilys"
 
-#: grc/business_logic/constants/base.py:81
+#: grc/business_logic/constants/base.py:73
 msgid "Select if you have ever been issued a Gender Recognition Certificate"
 msgstr "Dewiswch a roddwyd Tystysgrif Cydnabod Rhywedd ichi erioed"
 
-#: grc/business_logic/constants/base.py:82
+#: grc/business_logic/constants/base.py:74
 msgid "You must consent to the General Register Office contacting you"
 msgstr "Rhaid i chi roi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu â chi"
 
-#: grc/business_logic/constants/base.py:83
+#: grc/business_logic/constants/base.py:75
 msgid "Select if you have official documentation"
 msgstr "Dewiswch a oes gennych ddogfennaeth swyddogol"
 
-#: grc/business_logic/constants/base.py:84
-#: grc/business_logic/constants/base.py:96
+#: grc/business_logic/constants/base.py:76
 msgid "Enter a day"
 msgstr "Nodwch ddiwrnod"
 
-#: grc/business_logic/constants/base.py:85
-#: grc/business_logic/constants/base.py:97
+#: grc/business_logic/constants/base.py:77
 msgid "Enter a day as a number between 1 and 31"
 msgstr "Nodwch ddiwrnod fel rhif rhwng 1 ac 31"
 
-#: grc/business_logic/constants/base.py:86
+#: grc/business_logic/constants/base.py:78
 msgid "Enter a month"
 msgstr "Nodwch fis"
 
-#: grc/business_logic/constants/base.py:87
+#: grc/business_logic/constants/base.py:79
 msgid "Enter a month as a number between 1 and 12"
 msgstr "Nodwch fis fel rhif rhwng 1 a 12"
 
-#: grc/business_logic/constants/base.py:88
+#: grc/business_logic/constants/base.py:80
 msgid "Enter a year"
 msgstr "Nodwch flwyddyn"
 
-#: grc/business_logic/constants/base.py:89
+#: grc/business_logic/constants/base.py:81
 msgid "Enter a valid year"
 msgstr "Nodwch flwyddyn ddilys"
 
-#: grc/business_logic/constants/base.py:90
+#: grc/business_logic/constants/base.py:82
 msgid "Enter a valid date"
 msgstr "Nodwch ddyddiad dilys"
 
-#: grc/business_logic/constants/base.py:91
+#: grc/business_logic/constants/base.py:83
 msgid "Enter a year as a 4-digit number, like 2000"
 msgstr "Nodwch flwyddyn fel rhif 4 digid, fel 2000"
 
-#: grc/business_logic/constants/base.py:92
+#: grc/business_logic/constants/base.py:84
 msgid "Enter a date within the last 100 years"
 msgstr "Nodwch ddyddiad o fewn y 100 diwethaf"
 
-#: grc/business_logic/constants/base.py:93
+#: grc/business_logic/constants/base.py:85
 msgid "Enter a date in the past"
 msgstr "Nodwch ddyddiad yn y gorffennol"
 
-#: grc/business_logic/constants/base.py:94
+#: grc/business_logic/constants/base.py:86
 msgid "Enter a date in the future"
 msgstr "Nodwch ddyddiad yn y dyfodol"
 
-#: grc/business_logic/constants/base.py:95
+#: grc/business_logic/constants/base.py:87
 msgid "Enter a date at least 2 years before your application"
 msgstr "Nodwch ddyddiad o leiaf 2 o flynyddoedd cyn eich cais"
 
-#: grc/business_logic/constants/base.py:98
+#: grc/business_logic/constants/base.py:88
 msgid "Enter a date that does not precede your transition date"
 msgstr "Nodwch ddyddiad nad yw cyn dyddiad eich trawsnewidiad"
 
-#: grc/business_logic/constants/base.py:99
+#: grc/business_logic/constants/base.py:89
 msgid "'From' date is in the past"
 msgstr "'Mae'r 'o ddyddiad' yn y gorffennol"
 
-#: grc/business_logic/constants/base.py:100
+#: grc/business_logic/constants/base.py:90
 msgid "'To' date is in the past"
 msgstr "'Mae'r 'dyddiad diwedd' yn y gorffennol'"
 
-#: grc/business_logic/constants/base.py:101
+#: grc/business_logic/constants/base.py:91
 msgid "'From' date is after the 'To' date"
 msgstr "'Mae'r 'o ddyddiad' yw ar ôl mae'r 'dyddiad diwedd"
 
-#: grc/business_logic/constants/base.py:102
+#: grc/business_logic/constants/base.py:92
 msgid "Enter your address"
 msgstr "Nodwch eich cyfeiriad"
 
-#: grc/business_logic/constants/base.py:103
+#: grc/business_logic/constants/base.py:93
 msgid "Enter your town or city"
 msgstr "Nodwch eich tref neu ddinas"
 
-#: grc/business_logic/constants/base.py:104
+#: grc/business_logic/constants/base.py:94
 msgid "Enter a valid address line one"
 msgstr "Nodwch gyfeiriad llinell un dilys"
 
-#: grc/business_logic/constants/base.py:105
+#: grc/business_logic/constants/base.py:95
 msgid "Enter a valid address line two"
 msgstr "Nodwch gyfeiriad llinell dau dilys"
 
-#: grc/business_logic/constants/base.py:106
+#: grc/business_logic/constants/base.py:96
 msgid "Enter a valid town"
 msgstr "Nodwch dref ddilys"
 
-#: grc/business_logic/constants/base.py:107
+#: grc/business_logic/constants/base.py:97
 msgid "Enter your postcode"
 msgstr "Nodwch eich cod post"
 
-#: grc/business_logic/constants/base.py:108
+#: grc/business_logic/constants/base.py:98
 msgid "Enter a valid postcode"
 msgstr "Nodwch god post dilys"
 
-#: grc/business_logic/constants/base.py:109
+#: grc/business_logic/constants/base.py:99
 msgid "Enter your phone number"
 msgstr "Nodwch eich rhif ffôn"
 
-#: grc/business_logic/constants/base.py:110
+#: grc/business_logic/constants/base.py:100
 msgid "Enter a valid phone number"
 msgstr "Nodwch rif ffôn dilys"
 
-#: grc/business_logic/constants/base.py:111
+#: grc/business_logic/constants/base.py:101
 msgid "Enter your National Insurance number"
 msgstr "Nodwch eich rhif Yswiriant Gwladol"
 
-#: grc/business_logic/constants/base.py:112
+#: grc/business_logic/constants/base.py:102
 msgid "Enter a valid National Insurance number"
 msgstr "Nodwch rif Yswiriant Gwladol dilys"
 
-#: grc/business_logic/constants/base.py:113
+#: grc/business_logic/constants/base.py:103
 msgid "You need to be at least 18 years old to apply"
 msgstr "Mae angen i chi fod yn 18 oed o leiaf i wneud cais"
 
-#: grc/business_logic/constants/base.py:114
+#: grc/business_logic/constants/base.py:104
 msgid "You need to be less than 110 years old to apply"
 msgstr "Mae angen i chi fod yn iau na 110 oed i wneud cais"
 
-#: grc/business_logic/constants/base.py:115
+#: grc/business_logic/constants/base.py:105
 msgid ""
 "Your date of birth must be before your transition date and statutory "
 "declaration date"
@@ -461,7 +424,7 @@ msgstr ""
 "Rhaid i’ch dyddiad geni fod cyn dyddiad eich trawsnewidiad a dyddiad eich"
 " datganiad statudol"
 
-#: grc/business_logic/constants/base.py:117
+#: grc/business_logic/constants/base.py:107
 msgid ""
 "The selected file is empty. Check that the file you are uploading has the"
 " content you expect"
@@ -469,23 +432,43 @@ msgstr ""
 "Mae’r ffeil a ddewiswyd yn wag. Gwiriwch fod gan y ffeil rydych chi’n ei "
 "huwchlwytho y cynnwys rydych chi’n ei ddisgwyl"
 
-#: grc/business_logic/constants/base.py:118
+#: grc/business_logic/constants/base.py:108
 msgid "The selected file must be smaller than 10MB"
 msgstr "Rhaid i’r ffeil a ddewiswyd gennych fod yn llai na 10MB"
 
-#: grc/business_logic/constants/base.py:119
+#: grc/business_logic/constants/base.py:109
 msgid "Unable to communicate with virus scanner"
 msgstr "Methu cyfathrebu â sganiwr feirws"
 
-#: grc/business_logic/constants/base.py:120
+#: grc/business_logic/constants/base.py:110
 msgid "The selected file contains a virus"
 msgstr "Mae’r ffeil a ddewiswyd yn cynnwys feirws"
 
-#: grc/business_logic/constants/base.py:121
+#: grc/business_logic/constants/base.py:111
 msgid "Enter a valid 'Help with fees' reference number"
 msgstr "Nodwch gyfeirnod ‘Help i Dalu Ffioedd’ dilys"
 
 #: grc/business_logic/constants/birth_and_registration.py:8
+msgctxt "BIRTH_DETS_ADOPTED"
+msgid "Yes"
+msgstr "Do"
+
+#: grc/business_logic/constants/birth_and_registration.py:9
+msgctxt "BIRTH_DETS_ADOPTED"
+msgid "No"
+msgstr "Naddo"
+
+#: grc/business_logic/constants/birth_and_registration.py:10
+msgctxt "BIRTH_DETS_FORCES"
+msgid "Yes"
+msgstr "Oedd"
+
+#: grc/business_logic/constants/birth_and_registration.py:11
+msgctxt "BIRTH_DETS_FORCES"
+msgid "No"
+msgstr "Nac oedd"
+
+#: grc/business_logic/constants/birth_and_registration.py:14
 msgid ""
 "Enter your first name, as originally registered on your birth or adoption"
 " certificate"
@@ -493,7 +476,7 @@ msgstr ""
 "Nodwch eich enw cyntaf, fel y’i cofrestrwyd yn wreiddiol ar eich "
 "tystysgrif geni neu dystysgrif mabwysiadu"
 
-#: grc/business_logic/constants/birth_and_registration.py:9
+#: grc/business_logic/constants/birth_and_registration.py:15
 msgid ""
 "Enter your last name, as originally registered on your birth or adoption "
 "certificate"
@@ -501,51 +484,51 @@ msgstr ""
 "Nodwch eich cyfenw, fel y’i cofrestrwyd yn wreiddiol ar eich tystysgrif "
 "geni neu dystysgrif mabwysiadu"
 
-#: grc/business_logic/constants/birth_and_registration.py:10
+#: grc/business_logic/constants/birth_and_registration.py:16
 msgid "Select if your birth was registered in the UK"
 msgstr "Dewiswch os cafodd eich genedigaeth ei chofrestru yn y DU"
 
-#: grc/business_logic/constants/birth_and_registration.py:11
+#: grc/business_logic/constants/birth_and_registration.py:17
 msgid "Enter your country of birth"
 msgstr "Nodwch eich gwlad enedigol"
 
-#: grc/business_logic/constants/birth_and_registration.py:12
+#: grc/business_logic/constants/birth_and_registration.py:18
 msgid "Enter your town or city of birth"
 msgstr "Nodwch eich tref neu ddinas enedigol"
 
-#: grc/business_logic/constants/birth_and_registration.py:13
+#: grc/business_logic/constants/birth_and_registration.py:19
 msgid "Enter your mother's first name"
 msgstr "Nodwch enw cyntaf eich mam"
 
-#: grc/business_logic/constants/birth_and_registration.py:14
+#: grc/business_logic/constants/birth_and_registration.py:20
 msgid "Enter your mother's last name"
 msgstr "Nodwch gyfenw eich mam"
 
-#: grc/business_logic/constants/birth_and_registration.py:15
+#: grc/business_logic/constants/birth_and_registration.py:21
 msgid "Enter your mother's maiden name"
 msgstr "Nodwch enw cyn priodi eich mam"
 
-#: grc/business_logic/constants/birth_and_registration.py:16
+#: grc/business_logic/constants/birth_and_registration.py:22
 msgid "Select if your father's name is listed on the certificate"
 msgstr "Dewiswch os yw enw eich tad wedi’i nodi ar y dystysgrif"
 
-#: grc/business_logic/constants/birth_and_registration.py:17
+#: grc/business_logic/constants/birth_and_registration.py:23
 msgid "Enter your father's first name"
 msgstr "Nodwch enw cyntaf eich tad"
 
-#: grc/business_logic/constants/birth_and_registration.py:18
+#: grc/business_logic/constants/birth_and_registration.py:24
 msgid "Enter your father's last name"
 msgstr "Nodwch gyfenw eich tad"
 
-#: grc/business_logic/constants/birth_and_registration.py:19
+#: grc/business_logic/constants/birth_and_registration.py:25
 msgid "Select if you were you adopted"
 msgstr "Dewiswch os cawsoch eich mabwysiadu"
 
-#: grc/business_logic/constants/birth_and_registration.py:20
+#: grc/business_logic/constants/birth_and_registration.py:26
 msgid "Select if you were adopted in the United Kingdom"
 msgstr "Dewiswch os cawsoch eich mabwysiadu yn y Deyrnas Unedig"
 
-#: grc/business_logic/constants/birth_and_registration.py:21
+#: grc/business_logic/constants/birth_and_registration.py:27
 msgid ""
 "Select if your birth was registered by a Forces registering service, or "
 "with a British Consul or High Commission, or under Merchant Shipping or "
@@ -643,45 +626,65 @@ msgid ""
 "certificate"
 msgstr "Llwythwch sgan neu lun o ansawdd da o'ch tystysgrif partneriaeth sifil"
 
-#: grc/business_logic/constants/feedback.py:6
+#: grc/business_logic/constants/feedback.py:7
+msgctxt "FEEDBACK"
+msgid "Yes"
+msgstr "Oedd"
+
+#: grc/business_logic/constants/feedback.py:8
+msgctxt "FEEDBACK"
+msgid "No"
+msgstr "Nac oedd"
+
+#: grc/business_logic/constants/feedback.py:9
+msgctxt "FEEDBACK_DOC_CHECKER"
+msgid "Yes"
+msgstr "Do"
+
+#: grc/business_logic/constants/feedback.py:10
+msgctxt "FEEDBACK_DOC_CHECKER"
+msgid "No"
+msgstr "Naddo"
+
+#: grc/business_logic/constants/feedback.py:12
 msgid "Very easy"
 msgstr "Hawdd iawn"
 
-#: grc/business_logic/constants/feedback.py:7
+#: grc/business_logic/constants/feedback.py:13
 msgid "Easy"
 msgstr "Hawdd"
 
-#: grc/business_logic/constants/feedback.py:8
+#: grc/business_logic/constants/feedback.py:14
 msgid "Neither easy nor difficult"
 msgstr "Ddim yn hawdd nac yn anodd"
 
-#: grc/business_logic/constants/feedback.py:9
+#: grc/business_logic/constants/feedback.py:15
 msgid "Difficult"
 msgstr "Anodd"
 
-#: grc/business_logic/constants/feedback.py:10
+#: grc/business_logic/constants/feedback.py:16
 msgid "Very difficult"
 msgstr "Anodd iawn"
 
-#: grc/business_logic/constants/feedback.py:11
+#: grc/business_logic/constants/feedback.py:17
 msgid "I couldn't complete  my application"
 msgstr "Nid oeddwn yn gallu cwblhau fy nghais"
 
-#: grc/business_logic/constants/feedback.py:14
+#: grc/business_logic/constants/feedback.py:20
 msgid "Select how easy it was to complete your application"
 msgstr "Dewiswch pa mor hawdd ydoedd i gwblhau eich cais"
 
-#: grc/business_logic/constants/feedback.py:15
+#: grc/business_logic/constants/feedback.py:21
 msgid "Select if you found any of the questions difficult to answer"
 msgstr "Dewiswch os oedd unrhyw un o’r cwestiynau yn anodd i’w hateb"
 
-#: grc/business_logic/constants/feedback.py:16
+#: grc/business_logic/constants/feedback.py:22
 msgid "Select if you needed to call the admin team for help with your application"
 msgstr ""
 "Dewiswch os oedd angen i chi ffonio’r tîm gweinyddol i gael help gyda’ch "
 "cais"
 
-#: grc/business_logic/constants/feedback.py:17
+#: grc/business_logic/constants/feedback.py:23
 msgid ""
 "Select if you used the tool to check which documents you needed to submit"
 " with your application"
@@ -909,59 +912,71 @@ msgstr ""
 "Dewiswch os ydych chi wedi bod yn briod neu mewn partneriaeth sifil yn y "
 "gorffennol, a bu farw eich priod neu'ch partner"
 
-#: grc/business_logic/constants/personal_details.py:6
+#: grc/business_logic/constants/personal_details.py:7
+#, fuzzy
+msgctxt "CONTACT_HMRC"
+msgid "Yes"
+msgstr "Do"
+
+#: grc/business_logic/constants/personal_details.py:8
+#, fuzzy
+msgctxt "CONTACT_HMRC"
+msgid "No"
+msgstr "Naddo"
+
+#: grc/business_logic/constants/personal_details.py:10
 msgid "Male"
 msgstr "Gwryw"
 
-#: grc/business_logic/constants/personal_details.py:7
+#: grc/business_logic/constants/personal_details.py:11
 msgid "Female"
 msgstr "Benyw"
 
-#: grc/business_logic/constants/personal_details.py:8
+#: grc/business_logic/constants/personal_details.py:12
 msgid "A single date"
 msgstr "Dyddiad unigol"
 
-#: grc/business_logic/constants/personal_details.py:9
+#: grc/business_logic/constants/personal_details.py:13
 msgid "A range of dates"
 msgstr "Ystod o ddyddiadau"
 
-#: grc/business_logic/constants/personal_details.py:10
+#: grc/business_logic/constants/personal_details.py:14
 msgid "No dates"
 msgstr "Dim dyddiadau"
 
-#: grc/business_logic/constants/personal_details.py:11
+#: grc/business_logic/constants/personal_details.py:15
 #: grc/templates/personal-details/check-your-answers.html:83
 #: grc/templates/submit-and-pay/check-your-answers.html:118
 msgid "Email"
 msgstr "E-bost"
 
-#: grc/business_logic/constants/personal_details.py:12
+#: grc/business_logic/constants/personal_details.py:16
 msgid "Phone call"
 msgstr "Galwad ffôn"
 
-#: grc/business_logic/constants/personal_details.py:13
+#: grc/business_logic/constants/personal_details.py:17
 #: grc/templates/personal-details/check-your-answers.html:93
 #: grc/templates/submit-and-pay/check-your-answers.html:128
 msgid "Post"
 msgstr "Post"
 
-#: grc/business_logic/constants/personal_details.py:16
+#: grc/business_logic/constants/personal_details.py:20
 msgid "Enter your title"
 msgstr "Nodwch eich teitl"
 
-#: grc/business_logic/constants/personal_details.py:17
+#: grc/business_logic/constants/personal_details.py:21
 msgid "Enter your first name(s)"
 msgstr "Nodwch eich enw(au) cyntaf"
 
-#: grc/business_logic/constants/personal_details.py:18
+#: grc/business_logic/constants/personal_details.py:22
 msgid "Enter your last name"
 msgstr "Nodwch eich cyfenw"
 
-#: grc/business_logic/constants/personal_details.py:19
+#: grc/business_logic/constants/personal_details.py:23
 msgid "Select your affirmed gender"
 msgstr "Dewiswch eich rhywedd a gadarnhawyd"
 
-#: grc/business_logic/constants/personal_details.py:20
+#: grc/business_logic/constants/personal_details.py:24
 msgid ""
 "Select if you don't want us to contact you at any point in the next 6 "
 "months"
@@ -969,11 +984,11 @@ msgstr ""
 "Dewiswch os nad ydych chi am i ni gysylltu â chi ar unrhyw adeg yn ystod "
 "y 6 mis nesaf"
 
-#: grc/business_logic/constants/personal_details.py:21
+#: grc/business_logic/constants/personal_details.py:25
 msgid "Select how would you like to be contacted"
 msgstr "Dewiswch sut hoffech chi inni gysylltu â chi"
 
-#: grc/business_logic/constants/personal_details.py:22
+#: grc/business_logic/constants/personal_details.py:26
 msgid ""
 "Select if you would like us to tell HMRC after you receive a Gender "
 "Recognition Certificate"
@@ -1068,28 +1083,28 @@ msgstr ""
 msgid "File does not have an approved extension."
 msgstr ""
 
-#: grc/templates/base.html:66
+#: grc/templates/base.html:65
 msgid "Apply for a Gender Recognition Certificate"
 msgstr "Gwneud cais am Dystysgrif Cydnabod Rhywedd"
 
-#: grc/templates/base.html:105 grc/templates/policies/cookies.html:12
+#: grc/templates/base.html:104 grc/templates/policies/cookies.html:12
 msgid "Success"
 msgstr "Llwyddiant"
 
-#: grc/templates/base.html:110
+#: grc/templates/base.html:109
 msgid "Email resent"
 msgstr "E-bost wedi'i ail anfon"
 
-#: grc/templates/base.html:157 grc/templates/policies/privacy-policy.html:10
+#: grc/templates/base.html:156 grc/templates/policies/privacy-policy.html:10
 msgid "Privacy policy"
 msgstr "Polisi Preifatrwydd"
 
-#: grc/templates/base.html:162
+#: grc/templates/base.html:161
 #: grc/templates/policies/accessibility-statement.html:3
 msgid "Accessibility statement"
 msgstr "Datganiad hygyrchedd"
 
-#: grc/templates/base.html:167 grc/templates/policies/cookies.html:3
+#: grc/templates/base.html:166 grc/templates/policies/cookies.html:3
 #: grc/templates/policies/cookies.html:20
 msgid "Cookies"
 msgstr "Cwis"
@@ -4640,4 +4655,28 @@ msgid ""
 msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
+
+#~ msgctxt "BIRTH_DETS_FORCES"
+#~ msgid "Yes"
+#~ msgstr "Oedd"
+
+#~ msgctxt "BIRTH_DETS_FORCES"
+#~ msgid "No"
+#~ msgstr "Nac oedd"
+
+#~ msgid "BIRTH_DETS_ADOPTED"
+#~ msgid_plural "Yes"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+#~ msgstr[3] ""
+#~ msgstr[4] ""
+
+#~ msgid "BIRTH_DETS_FORCES"
+#~ msgid_plural "Yes"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+#~ msgstr[3] ""
+#~ msgstr[4] ""
 
