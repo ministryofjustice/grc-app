@@ -913,16 +913,14 @@ msgstr ""
 "gorffennol, a bu farw eich priod neu'ch partner"
 
 #: grc/business_logic/constants/personal_details.py:7
-#, fuzzy
 msgctxt "CONTACT_HMRC"
 msgid "Yes"
-msgstr "Do"
+msgstr "Hoffwn"
 
 #: grc/business_logic/constants/personal_details.py:8
-#, fuzzy
 msgctxt "CONTACT_HMRC"
 msgid "No"
-msgstr "Naddo"
+msgstr "Na hoffwn"
 
 #: grc/business_logic/constants/personal_details.py:10
 msgid "Male"
@@ -4655,28 +4653,4 @@ msgid ""
 msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
-
-#~ msgctxt "BIRTH_DETS_FORCES"
-#~ msgid "Yes"
-#~ msgstr "Oedd"
-
-#~ msgctxt "BIRTH_DETS_FORCES"
-#~ msgid "No"
-#~ msgstr "Nac oedd"
-
-#~ msgid "BIRTH_DETS_ADOPTED"
-#~ msgid_plural "Yes"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-#~ msgstr[2] ""
-#~ msgstr[3] ""
-#~ msgstr[4] ""
-
-#~ msgid "BIRTH_DETS_FORCES"
-#~ msgid_plural "Yes"
-#~ msgstr[0] ""
-#~ msgstr[1] ""
-#~ msgstr[2] ""
-#~ msgstr[3] ""
-#~ msgstr[4] ""
 
