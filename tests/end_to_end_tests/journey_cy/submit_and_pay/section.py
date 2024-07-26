@@ -78,7 +78,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_rows(33)
     await asserts.check_your_answers_row(row_name='Ydych chi erioed wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) mewn gwlad arall?', expected_value='Ydw')
     await asserts.check_your_answers_row(row_name="A oes gennych chi ddogfennaeth swyddogol sy'n dangos eich bod wedi cael Tystysgrif Cydnabod Rhywedd (neu dystysgrif cyfwerth) yn un o'r gwledydd neu diriogaethau a ganiateir?", expected_value='Ydw')
-    await asserts.check_your_answers_row(row_name="Ydych chi'n cydsynio i'r Swyddfa Gofrestru Gyffredinol gysylltu â chi ynglŷ â'ch cais?", expected_value='Ydw')
+    await asserts.check_your_answers_row(row_name="Ydych chi’n rhoi caniatâd i’r Swyddfa Gofrestru Gyffredinol gysylltu â chi ynglŷn â’ch cais?", expected_value='Ydw')
 
     await asserts.check_your_answers_row(row_name='Enw (fel yr hoffech iddo ymddangos ar eich Tystysgrif Cydnabod Rhywedd)', expected_value=f"{data.TITLE} {data.FIRST_NAME} {data.MIDDLE_NAMES} {data.LAST_NAME}")
     await asserts.check_your_answers_row(row_name='Rhywedd a gadarnhawyd', expected_value='Gwryw')
