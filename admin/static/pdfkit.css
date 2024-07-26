@@ -19,6 +19,7 @@
 .gds-family-cs-bold {
 	font-family: "GDS Transport";
 	font-weight: bold;
+	font-style: normal;
 	margin-left: 28px;
 	margin-bottom: 30px;
 	letter-spacing: 0.03em;
@@ -29,7 +30,7 @@
 	font-family: "GDS Transport", arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-weight: 400;
+	font-weight: 300;
 	font-size: 16px;
 	font-size: 1rem;
 	line-height: 1.25;
@@ -89,6 +90,9 @@
 }
 
 .govuk-template__body {
-	margin: 0;
+    font-family: "GDS Transport";
+ 	font-style: normal;
+ 	font-weight: normal;
+ 	margin-left: 20px;
 	background-color: #fff
 }
