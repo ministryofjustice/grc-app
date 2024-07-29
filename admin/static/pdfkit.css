@@ -79,7 +79,7 @@
 }
 
 .govuk-list--bullet {
-	padding-left: 20px;
+	padding-left: 10px;
 	list-style-type: disc
 }
 
@@ -93,6 +93,5 @@
     font-family: "GDS Transport";
  	font-style: normal;
  	font-weight: normal;
- 	margin-left: 20px;
 	background-color: #fff
 }
