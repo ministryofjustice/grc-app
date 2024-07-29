@@ -2896,7 +2896,7 @@ msgid ""
 "Gender Recognition Certificate"
 msgstr ""
 "Rhaid iddo fod o leiaf 2 flynedd cyn i chi gyflwyno’ch cais am Dystysgrif"
-" Cydnabod Rhywedd."
+" Cydnabod Rhywedd"
 
 #: grc/templates/policies/accessibility-statement.html:10
 msgid ""
