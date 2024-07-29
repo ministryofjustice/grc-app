@@ -79,7 +79,7 @@
 }
 
 .govuk-list--bullet {
-	padding-left: 0px;
+	padding-left: -5px;
 	list-style-type: disc
 }
 
