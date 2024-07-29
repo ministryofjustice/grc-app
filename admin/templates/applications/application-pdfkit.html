@@ -1,5 +1,5 @@
 {% macro adminapplication(application_data) %}
-    <div style="font-size: 32px;margin-bottom:45px;">
+    <div class="gds-family-cs-bold" style="font-size: 32px;margin-bottom:45px;">
         {{ application_data.application_certificate_type }}: {{ application_data.reference_number }}
     </div>
     <h3 class="gds-family-cs-bold" style="font-size: 27px;margin-bottom:36px;">Submitted on {{ application_data.updated | format_date }}</h3>
