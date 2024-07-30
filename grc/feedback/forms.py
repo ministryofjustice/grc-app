@@ -39,8 +39,8 @@ class FeedbackForm(FlaskForm):
 
     used_doc_checker = RadioField(
         choices=[
-            ('YES', c.YES),
-            ('NO', c.NO),
+            ('YES', c.YES_USED_DOC_CHECKER),
+            ('NO', c.NO_USED_DOC_CHECKER),
             ('DO_NOT_KNOW', c.DONT_KNOW)
         ],
         validators=[LazyDataRequired(lazy_message=c.USE_DOC_CHECKER_ERROR)]

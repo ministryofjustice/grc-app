@@ -1,8 +1,12 @@
-from flask_babel import lazy_gettext as _l
+from flask_babel import lazy_gettext as _l, lazy_pgettext
 from .base import BaseConstants
 
 
 class PersonalDetailsConstants(BaseConstants):
+
+    YES_CONTACT_HMRC = lazy_pgettext('CONTACT_HMRC', 'Yes')
+    NO_CONTACT_HMRC = lazy_pgettext('CONTACT_HMRC', 'No')
+
     MALE = _l('Male')
     FEMALE = _l('Female')
     SINGLE_DATE = _l('A single date')
