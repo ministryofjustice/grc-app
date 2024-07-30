@@ -1,0 +1,60 @@
+<templateId>
+11aa2538-d411-42d8-8999-6d97c7b5f429
+</templateId>
+<TemplateName>
+Application received - 30 weeks - Welsh
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address)) Mae eich cais wedi cyrraedd
+</Subject>
+<Message>
+Mae eich cais am Dystysgrif Cydnabod Rhywedd wedi cyrraedd.
+
+#Beth sydd angen i chi ei wneud nesaf
+
+
+Postiwch weddill eich dogfennau cyn gynted â phosibl - cofiwch gynnwys eich enw a’ch cyfeiriad fel y gallwn eu paru â’ch cais.
+
+Mae angen i chi bostio:
+
+((documents_to_be_posted))
+
+Fe anfonir eich dogfennau’n ôl atoch.
+
+Manylion anfon:
+
+Gender Recognition Panel
+PO Box 9300
+Leicester
+LE1 8DJ
+
+Os ydych am ddefnyddio gwasanaeth cludo i’w hanfon atom, cysylltwch â ni yn gyntaf (mae’r manylion isod).
+
+^ Gallwch [archebu tystysgrif geni, tystysgrif marwolaeth, tystysgrif priodas neu dystysgrif partneriaeth sifil ar-lein](https://www.gov.uk/order-copy-birth-death-marriage-certificate) os ydych chi’n byw yng Nghymru a Lloegr. Mae’r broses ar gyfer [cael tystysgrifau yn wahanol yn yr Alban](http://www.nrscotland.gov.uk/registration/how-to-order-an-official-extract-from-the-registers) a [Gogledd Iwerddon](http://www.nidirect.gov.uk/index/do-it-online/government-citizens-and-rights-online/order-a-birth-adoption-death-marriage-or-civil-partnership-certificate.htm).
+
+Yna bydd eich cais yn cael ei adolygu gan y Panel Cydnabod Rhywedd. Byddant yn cysylltu â chi os byddant angen mwy o wybodaeth.
+
+Yna fe ddywedir wrthych os byddwch yn cael Tystysgrif Cydnabod Rhywedd, a beth allwch wneud os nad yw eich cais yn llwyddiannus.
+
+Gan amlaf bydd y panel yn adolygu eich cais o fewn 30 wythnos i chi wneud cais.
+
+^ Os bydd angen i ni gysylltu â chi drwy’r post yn y 6 mis nesaf, rhowch wybod i ni os oes yna unrhyw ddyddiadau y dylem osgoi (er enghraifft, os byddwch i ffwrdd ar wyliau).
+
+
+#Os byddwch angen cysylltu â ni
+
+Bydd angen i chi gynnwys cyfeirnod eich cais - byddwn yn postio hwn atoch pan fyddwn wedi cael eich cais.
+
+Os byddwch angen cysylltu â ni cyn hyn, dylech gynnwys eich enw llawn a’ch cod post.
+
+GRPenquiries@justice.gov.uk
+Rhif ffôn: 020 3936 8968
+Dydd Llun i ddydd Gwener, 9am i 5pm
+Gwybodaeth am gost galwadau
+</Message>

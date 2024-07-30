@@ -2,11 +2,13 @@
 {% import "govuk-design-system-templates/checkboxes.html" as checkboxes %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}How would you like to be contacted if we have any questions about your application?{% endblock %}
+{% block title %}{{ _('How would you like to be contacted if we have any questions about your application?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -28,7 +30,7 @@
                 {{ checkboxes.renderFor(
                     form,
                     fieldName='contact_options',
-                    question="How would you like to be contacted if we have any questions about your application?",
+                    question=_("How would you like to be contacted if we have any questions about your application?"),
                     checkboxesOptions={
                         'questionIsPageHeading': true,
                         'conditionalOptions': [
@@ -37,7 +39,7 @@
                                 form,
                                 fieldName='email',
                                 textInputForOptions={
-                                    'labelOptions': { 'htmlOrText': 'Email address' },
+                                    'labelOptions': { 'htmlOrText': _('Email address') },
                                     'classes': 'govuk-input--width-20',
                                     'autocomplete': 'email',
                                     'attributes': [ ('spellcheck', 'false') ]
@@ -48,7 +50,7 @@
                                 form,
                                 fieldName='phone',
                                 textInputForOptions={
-                                    'labelOptions': { 'htmlOrText': 'Phone number' },
+                                    'labelOptions': { 'htmlOrText': _('Phone number') },
                                     'classes': 'govuk-input--width-10',
                                     'type': 'tel',
                                     'autocomplete': 'tel'
@@ -59,14 +61,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

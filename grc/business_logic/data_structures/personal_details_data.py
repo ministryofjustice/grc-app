@@ -1,6 +1,7 @@
 import datetime
 from enum import auto
 from grc.business_logic.data_structures.grc_enum import GrcEnum
+from grc.business_logic.constants.personal_details import PersonalDetailsConstants as c
 from grc.list_status import ListStatus
 
 
@@ -111,7 +112,7 @@ class PersonalDetailsData:
 
     @property
     def affirmed_gender_formatted(self) -> str:
-        return 'Male' if self.affirmed_gender == AffirmedGender.MALE else 'Female'
+        return c.MALE if self.affirmed_gender == AffirmedGender.MALE else c.FEMALE
 
     @property
     def transition_date_formatted_MMMM_YYYY(self) -> str:
@@ -131,11 +132,11 @@ class PersonalDetailsData:
 
     @property
     def changed_name_to_reflect_gender_formatted(self) -> str:
-        return 'Yes' if self.changed_name_to_reflect_gender else 'No'
+        return c.YES if self.changed_name_to_reflect_gender else c.NO
 
     @property
     def contact_dates_should_avoid_formatted(self) -> str:
-        return 'Yes' if self.contact_dates_should_avoid else 'No'
+        return c.YES if self.contact_dates_should_avoid else c.NO
 
     @property
     def contact_dates_to_avoid_option_bool(self) -> bool:
@@ -143,7 +144,7 @@ class PersonalDetailsData:
 
     @property
     def contact_dates_to_avoid_option_formatted(self) -> str:
-        return 'No' if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else 'Yes'
+        return c.NO if self.contact_dates_to_avoid_option == ContactDatesAvoid.NO_DATES else c.YES
 
     @property
     def contact_date_to_avoid_formatted_DD_MM_YYYY(self) -> str:
@@ -156,7 +157,7 @@ class PersonalDetailsData:
 
     @property
     def tell_hmrc_formatted(self) -> str:
-        return 'Yes' if self.tell_hmrc else 'No'
+        return c.YES if self.tell_hmrc else c.NO
 
     @property
     def section_status(self) -> ListStatus:

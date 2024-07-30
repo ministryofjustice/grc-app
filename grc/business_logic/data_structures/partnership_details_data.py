@@ -1,4 +1,5 @@
 from enum import auto
+from grc.business_logic.constants.partnership_details import PartnershipDetailsConstants as c
 from grc.business_logic.data_structures.grc_enum import GrcEnum
 from grc.list_status import ListStatus
 
@@ -55,31 +56,31 @@ class PartnershipDetailsData:
     @property
     def currently_in_a_partnership_formatted(self) -> str:
         if self.currently_in_a_partnership == CurrentlyInAPartnershipEnum.MARRIED:
-            return 'Married'
+            return c.MARRIED
         elif self.currently_in_a_partnership == CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP:
-            return 'Civil partnership'
+            return c.CIVIL_PARTNERSHIP
         elif self.currently_in_a_partnership == CurrentlyInAPartnershipEnum.NEITHER:
-            return 'Neither'
+            return c.NEITHER
 
     @property
     def plan_to_remain_in_a_partnership_formatted(self) -> str:
-        return 'Yes' if self.plan_to_remain_in_a_partnership else 'No'
+        return c.YES if self.plan_to_remain_in_a_partnership else c.NO
 
     @property
     def partner_agrees_formatted(self) -> str:
-        return 'Yes' if self.partner_agrees else 'No'
+        return c.YES if self.partner_agrees else c.NO
 
     @property
     def previous_partnership_partner_died_formatted(self) -> str:
-        return 'Yes' if self.previous_partnership_partner_died else 'No'
+        return c.YES if self.previous_partnership_partner_died else c.NO
 
     @property
     def confirm_understood_interim_certificate_formatted(self) -> str:
-        return 'Yes' if self.confirm_understood_interim_certificate else 'No'
+        return c.YES if self.confirm_understood_interim_certificate else c.NO
 
     @property
     def previous_partnership_ended_formatted(self) -> str:
-        return 'Yes' if self.previous_partnership_ended else 'No'
+        return c.YES if self.previous_partnership_ended else c.NO
 
     @property
     def is_interim_certificate(self) -> bool:

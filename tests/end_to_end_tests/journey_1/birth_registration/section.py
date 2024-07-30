@@ -314,7 +314,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Click each "Change" link to check it takes us to the correct page
     await asserts.change_links_to_url(link_text='Change birth name', expected_url='/birth-registration')
     await asserts.change_links_to_url(link_text='Change date of birth', expected_url='/birth-registration/dob')
-    await asserts.change_links_to_url(link_text='Change whether your birth was regstered in the UK', expected_url='/birth-registration/uk-check')
+    await asserts.change_links_to_url(link_text='Change whether your birth was registered in the UK', expected_url='/birth-registration/uk-check')
     await asserts.change_links_to_url(link_text='Change the country you were born in', expected_url='/birth-registration/country')
 
     # Click "Back" to return to the "Birth Registered in UK page"
@@ -763,7 +763,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Click each "Change" link to check it takes us to the correct page
     await asserts.change_links_to_url(link_text='Change birth name', expected_url='/birth-registration')
     await asserts.change_links_to_url(link_text='Change date of birth', expected_url='/birth-registration/dob')
-    await asserts.change_links_to_url(link_text='Change whether your birth was regstered in the UK', expected_url='/birth-registration/uk-check')
+    await asserts.change_links_to_url(link_text='Change whether your birth was registered in the UK', expected_url='/birth-registration/uk-check')
     await asserts.change_links_to_url(link_text='Change your town or city of birth', expected_url='/birth-registration/place-of-birth')
     await asserts.change_links_to_url(link_text="Change your mother's name", expected_url='/birth-registration/mothers-name')
     await asserts.change_links_to_url(link_text="Change whether your father's name is listed on your birth or adoption certificate", expected_url='/birth-registration/fathers-name-check')

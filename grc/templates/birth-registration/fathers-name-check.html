@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Is your father's name listed on the certificate?{% endblock %}
+{% block title %}{{ _("Is your father's name listed on the certificate?") }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -20,20 +22,13 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='fathers_name_on_certificate',
-                    question="Is your father's name listed on the certificate?",
+                    question=_("Is your father's name listed on the certificate?"),
                     radiosOptions={
                         'questionIsPageHeading': true
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
         </div>
     </div>

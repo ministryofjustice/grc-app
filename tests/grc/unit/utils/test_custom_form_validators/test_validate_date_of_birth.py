@@ -80,7 +80,7 @@ class TestValidateDateOfBirth:
                     validate_date_of_birth(form, form.year)
 
     def test_validate_date_of_birth_age_more_than_110(self, app, client):
-        with app.app_context():
+        with app.test_request_context():
             input_age = date.today() - relativedelta(years=112)
             form = DobForm()
             form.year = None
@@ -111,7 +111,7 @@ class TestValidateDateOfBirth:
                 validate_date_of_birth(form, form.year)
 
     def test_validate_date_of_birth_return_error_invalid_input(self, app, client):
-        with app.app_context():
+        with app.test_request_context():
             form = DobForm()
             form.year = None
             form['day'].data = 'wdsad'

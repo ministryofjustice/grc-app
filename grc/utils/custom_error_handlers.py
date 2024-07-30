@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import sentry_sdk
 from sentry_sdk import capture_exception
-from grc.external_services.gov_uk_notify import GovUkNotifyException
 
 
 class CustomErrorHandlers:
@@ -9,7 +8,6 @@ class CustomErrorHandlers:
         app.register_error_handler(404, self.error_404)
         app.register_error_handler(429, self.error_429)
         app.register_error_handler(503, self.error_503)
-        app.register_error_handler(GovUkNotifyException, self.error_default)
         app.register_error_handler(Exception, self.error_default)
 
         sentry_sdk.init(

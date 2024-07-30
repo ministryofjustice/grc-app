@@ -4,7 +4,7 @@
 {% import "govuk-design-system-templates/textarea.html" as textarea %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
 
-{% block title %}Share your feedback{% endblock %}
+{% block title %}{{ _('Share your feedback') }}{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -13,17 +13,17 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Share your feedback
+                {{ _('Share your feedback') }}
             </h1>
             <p class="govuk-body">
-                Please tell us about your experience filling in your Gender Recognition Certificate application using this digital service.
+                {{ _('Please tell us about your experience filling in your Gender Recognition Certificate application using this digital service.') }}
             </p>
             <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">Warning</span>
-                    Please don’t include any information that could be used to identify you.
-                    If you have any questions about your application, please contact the admin team.
+                    <span class="govuk-warning-text__assistive">{{ _('Warning') }}</span>
+                    {{ _('Please don’t include any information that could be used to identify you.') }}
+                    {{ _('If you have any questions about your application, please contact the admin team.') }}
                 </strong>
             </div>
 
@@ -34,7 +34,7 @@
                     {{ radios.renderFor(
                         form,
                         fieldName='how_easy_to_complete_application',
-                        question='How easy was it to complete your application?',
+                        question=_('How easy was it to complete your application?'),
                         radiosOptions={
                             'questionClasses': 'govuk-fieldset__legend--m'
                         }
@@ -45,7 +45,7 @@
                     {{ radios.renderFor(
                         form,
                         fieldName='any_questions_difficult_to_answer',
-                        question='Did you find any of the questions difficult to answer?',
+                        question=_('Did you find any of the questions difficult to answer?'),
                         radiosOptions={
                             'questionClasses': 'govuk-fieldset__legend--m',
                             'conditionalOptions': [
@@ -54,7 +54,7 @@
                                     form,
                                     fieldName='which_questions_difficult_to_answer',
                                     textareaForOptions={
-                                        'labelOptions': { 'htmlOrText': "Which questions did you find difficult, and why?" },
+                                        'labelOptions': { 'htmlOrText': _("Which questions did you find difficult, and why?") },
                                         'rows': 5
                                     }
                                 ))
@@ -67,7 +67,7 @@
                     {{ radios.renderFor(
                         form,
                         fieldName='needed_to_call_admin_team',
-                        question='Did you need to call the admin team for help with your application?',
+                        question=_('Did you need to call the admin team for help with your application?'),
                         radiosOptions={
                             'questionClasses': 'govuk-fieldset__legend--m',
                             'conditionalOptions': [
@@ -76,7 +76,7 @@
                                     form,
                                     fieldName='what_did_you_need_help_with',
                                     textareaForOptions={
-                                        'labelOptions': { 'htmlOrText': "What did you need help with?" },
+                                        'labelOptions': { 'htmlOrText': _("What did you need help with?") },
                                         'rows': 5
                                     }
                                 ))
@@ -89,7 +89,7 @@
                     {{ radios.renderFor(
                         form,
                         fieldName='used_doc_checker',
-                        question='Did you use the tool to check which documents you needed to submit with your application?',
+                        question=_('Did you use the tool to check which documents you needed to submit with your application?'),
                         radiosOptions={
                             'questionClasses': 'govuk-fieldset__legend--m',
                             'conditionalOptions': [
@@ -98,7 +98,7 @@
                                     form,
                                     fieldName='experience_of_using_doc_checker',
                                     textareaForOptions={
-                                        'labelOptions': { 'htmlOrText': "How was your experience using the tool?" },
+                                        'labelOptions': { 'htmlOrText': _("How was your experience using the tool?") },
                                         'rows': 5
                                     }
                                 ))
@@ -113,7 +113,7 @@
                         fieldName='any_other_suggestions',
                         textareaForOptions={
                             'labelOptions': {
-                                'htmlOrText': "Do you have any other suggestions for improving the digital service?",
+                                'htmlOrText': _("Do you have any other suggestions for improving the digital service?"),
                                 'classes': 'govuk-label--m'
                              },
                             'rows': 5
@@ -123,7 +123,7 @@
 
                 <div class="govuk-button-group">
                     <button class="govuk-button" data-module="govuk-button">
-                        Send feedback
+                        {{ _('Send feedback') }}
                     </button>
                 </div>
             </form>

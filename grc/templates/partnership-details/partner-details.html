@@ -2,18 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/textarea.html" as textarea %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{%  set partnerName = 'civil partner'
-    if application_data.partnership_details_data.is_in_civil_partnership
-    else 'spouse' %}
-{%  set inPartnershipName = 'in a civil partnership'
-    if application_data.partnership_details_data.is_in_civil_partnership
-    else 'married' %}
-
-{% block title %}Your {{ partnerName }}'s details{% endblock %}
+{% block title %}{{ context.header }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -29,21 +24,19 @@
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
-                                Your {{ partnerName }}'s details
+                                {{ context.header }}
                             </h1>
                         </legend>
 
                         <p class="govuk-body">
-                            We will contact them about what to do if they change their mind about staying {{ inPartnershipName }}.
-                            We will also let them know how their pensions and benefits may be affected if you receive a
-                            Gender Recognition Certificate.
+                            {{ context.p }}
                         </p>
 
                         {{ textInput.renderFor(
                             form,
                             fieldName='partner_title',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Title' },
+                                'labelOptions': { 'htmlOrText': _('Title') },
                                 'classes': 'govuk-input--width-10',
                                 'autocomplete': 'honorific-prefix'
                             }
@@ -53,7 +46,7 @@
                             form,
                             fieldName='partner_first_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'First name' },
+                                'labelOptions': { 'htmlOrText': _('First name') },
                                 'classes': 'govuk-input--width-20',
                                 'autocomplete': 'given-name'
                             }
@@ -63,7 +56,7 @@
                             form,
                             fieldName='partner_last_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Last name' },
+                                'labelOptions': { 'htmlOrText': _('Last name') },
                                 'classes': 'govuk-input--width-20',
                                 'autocomplete': 'family-name'
                             }
@@ -74,7 +67,7 @@
                             fieldName='partner_postal_address',
                             textareaForOptions={
                                 'labelOptions': {
-                                    'htmlOrText': "Postal address – including postcode or zip code"
+                                    'htmlOrText': _("Postal address – including postcode or zip code")
                                  },
                                 'rows': 5
                             }
@@ -82,14 +75,7 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

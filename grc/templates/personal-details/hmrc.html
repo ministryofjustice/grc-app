@@ -2,11 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Notifying HMRC{% endblock %}
+{% block title %}{{ _('Notifying HMRC') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -16,25 +18,25 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Notifying HMRC
+                {{ _('Notifying HMRC') }}
             </h1>
 
             <p class="govuk-body">
-                HMRC must be told if you have received a Gender Recognition Certificate.
+                {{ _('HMRC must be told if you have received a Gender Recognition Certificate.') }}
             </p>
             <p class="govuk-body">
-                If you usually pay tax in the UK, we can tell HMRC on your behalf. HMRC will update its records
-                with your gender and any name change, and they will tell the Department for Work and Pensions.
-                They will send you a letter to confirm the changes.
+                {{ _('If you usually pay tax in the UK, we can tell HMRC on your behalf.') }}
+                {{ _('HMRC will update its records with your gender and any name change, and they will tell the Department for Work and Pensions.') }}
+                {{ _('They will send you a letter to confirm the changes.') }}
             </p>
             <p class="govuk-body">
-                If you prefer,
-                <a href="https://www.gov.uk/tell-hmrc-change-of-details/gender-change#tell-hmrc-yourself"
-                   class="govuk-link" rel="external" target="_blank">
-                    you can tell HMRC yourself (opens in a new tab)</a>.
+                {{ _('If you prefer,') }}
+                <a href="https://www.gov.uk/tell-hmrc-change-of-details/gender-change#tell-hmrc-yourself" class="govuk-link" rel="external" target="_blank">
+                    {{ _('you can tell HMRC yourself (opens in a new tab)') }}
+                </a>.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                If you pay tax in the Isle of Man or Channel Islands, please select ‘No’ and tell HMRC yourself.
+                {{ _('If you pay tax in the Isle of Man or Channel Islands, please select ‘No’ and tell HMRC yourself.') }}
             </p>
 
             <form method="POST" action="#">
@@ -43,7 +45,7 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='tell_hmrc',
-                    question="Would you like us to tell HMRC after you receive a Gender Recognition Certificate?",
+                    question=_("Would you like us to tell HMRC after you receive a Gender Recognition Certificate?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                         'conditionalOptions': [
@@ -53,11 +55,11 @@
                                 fieldName='national_insurance_number',
                                 textInputForOptions={
                                     'labelOptions': {
-                                        'htmlOrText': 'What is your National Insurance number?',
+                                        'htmlOrText': _('What is your National Insurance number?'),
                                         'classes': 'govuk-label--s'
                                     },
                                     'hintOptions':{
-                                        'htmlOrText': "It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
+                                        'htmlOrText': _("It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.")
                                     },
                                     'classes': 'govuk-input--width-10',
                                     'attributes': [ ('spellcheck', 'false') ]
@@ -67,14 +69,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
             
         </div>
