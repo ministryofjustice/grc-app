@@ -1,8 +1,14 @@
-from flask_babel import lazy_gettext as _l
+from flask_babel import lazy_gettext as _l, lazy_pgettext
 from .base import BaseConstants
 
 
 class FeedbackConstants(BaseConstants):
+
+    YES = lazy_pgettext('FEEDBACK', 'Yes')
+    NO = lazy_pgettext('FEEDBACK', 'No')
+    YES_USED_DOC_CHECKER = lazy_pgettext('FEEDBACK_DOC_CHECKER', 'Yes')
+    NO_USED_DOC_CHECKER = lazy_pgettext('FEEDBACK_DOC_CHECKER', 'No')
+
     VERY_EASY = _l('Very easy')
     EASY = _l('Easy')
     NEITHER_EASY_NOR_DIFFICULT = _l('Neither easy nor difficult')
