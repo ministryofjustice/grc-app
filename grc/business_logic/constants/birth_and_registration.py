@@ -1,8 +1,14 @@
-from flask_babel import lazy_gettext as _l
+from flask_babel import lazy_gettext as _l, pgettext, lazy_pgettext
+from flask_babel.speaklater import LazyString
 from .base import BaseConstants
 
 
 class BirthRegistrationConstants(BaseConstants):
+
+    YES_ADOPTED_UK = lazy_pgettext('BIRTH_DETS_ADOPTED', 'Yes')
+    NO_ADOPTED_UK = lazy_pgettext('BIRTH_DETS_ADOPTED', 'No')
+    YES_FORCES_REGISTERED = lazy_pgettext('BIRTH_DETS_FORCES', 'Yes')
+    NO_FORCES_REGISTERED = lazy_pgettext('BIRTH_DETS_FORCES', 'No')
 
     # Error messages
     FIRST_NAME_ERROR = _l('Enter your first name, as originally registered on your birth or adoption certificate')

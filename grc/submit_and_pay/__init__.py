@@ -112,7 +112,7 @@ def checkYourAnswers():
 
             description = 'Pay for Gender Recognition Certificate'
             if g.lang_code == 'cy':
-                description = 'Talu am Tystysgrif Cydnabod Rhywedd'
+                description = 'Talu am Dystysgrif Cydnabod Rhywedd'
 
             data = {
                 'amount': 500,
