@@ -1,49 +1,51 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, StringField, RadioField, TelField, SelectField, SelectMultipleField, FieldList, FormField, SubmitField
-from wtforms.form import Form
-from wtforms.validators import DataRequired, Email, Optional
-from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date, Integer
+from grc.business_logic.constants.personal_details import PersonalDetailsConstants as c
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
+from grc.lazy.lazy_fields import LazyRadioField, LazyMultiSelectField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger, LazyEmail
+from grc.utils.form_custom_validators import StrictRequiredIf, validate_national_insurance_number, validate_address_field, validate_postcode, validate_date_of_transition, validate_phone_number, validate_statutory_declaration_date, validate_single_date
+from wtforms import EmailField, StringField, TelField, SelectField, FieldList, FormField, SubmitField
+from wtforms.form import Form
 
 
 class NameForm(FlaskForm):
     title = StringField(
-        validators=[DataRequired(message='Enter your title')]
+        validators=[LazyDataRequired(lazy_message=c.TITLE_ERROR)]
     )
 
     first_name = StringField(
-        validators=[DataRequired(message='Enter your first name(s)')]
+        validators=[LazyDataRequired(lazy_message=c.FIRST_NAME_ERROR)]
     )
 
     middle_names = StringField()
 
     last_name = StringField(
-        validators=[DataRequired(message='Enter your last name')]
+        validators=[LazyDataRequired(message=c.LAST_NAME_ERROR)]
     )
 
 
 class AffirmedGenderForm(FlaskForm):
-    affirmedGender = RadioField(
-        choices=[
-            (AffirmedGender.MALE.name, 'Male'),
-            (AffirmedGender.FEMALE.name, 'Female')
+    affirmedGender = LazyRadioField(
+        lazy_choices=[
+            (AffirmedGender.MALE.name, c.MALE),
+            (AffirmedGender.FEMALE.name, c.FEMALE)
         ],
-        validators=[DataRequired(message='Select your affirmed gender')]
+        validators=[LazyDataRequired(lazy_message=c.NO_AFFIRMED_GENDER_ERROR)]
     )
 
 
 class TransitionDateForm(FlaskForm):
     transition_date_month = StringField(
         validators=[
-            DataRequired(message='Enter a month'),
-            Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            LazyDataRequired(lazy_message=c.ENTER_MONTH_ERROR),
+            LazyInteger(min_=1, max_=12, message=c.ENTER_VALID_MONTH_ERROR)
         ]
     )
 
     transition_date_year = StringField(
         validators=[
-            DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[validate_date_of_transition])
+            LazyDataRequired(lazy_message=c.ENTER_YEAR_ERROR),
+            LazyInteger(min_=1000, message=c.ENTER_VALID_YEAR_ERROR, validators=[validate_date_of_transition])
         ]
     )
 
@@ -51,46 +53,46 @@ class TransitionDateForm(FlaskForm):
 class StatutoryDeclarationDateForm(FlaskForm):
     statutory_declaration_date_day = StringField(
         validators=[
-            DataRequired(message='Enter a day'),
-            Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
+            LazyDataRequired(lazy_message=c.ENTER_DAY_ERROR),
+            LazyInteger(min_=1, max_=31, lazy_message=c.ENTER_VALID_DAY_ERROR)
         ]
     )
 
     statutory_declaration_date_month = StringField(
         validators=[
-            DataRequired(message='Enter a month'),
-            Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            LazyDataRequired(lazy_message=c.ENTER_MONTH_ERROR),
+            LazyInteger(min_=1, max_=12, lazy_message=c.ENTER_VALID_MONTH_ERROR)
         ]
     )
 
     statutory_declaration_date_year = StringField(
         validators=[
-            DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validate_statutory_declaration_date])
+            LazyDataRequired(lazy_message=c.ENTER_YEAR_ERROR),
+            LazyInteger(min_=1000, lazy_message=c.ENTER_VALID_YEAR_ERROR,
+                        validators=[validate_statutory_declaration_date])
         ]
     )
 
 
 class PreviousNamesCheck(FlaskForm):
-    previousNameCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    previousNameCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have ever changed your name to reflect your gender')]
+        validators=[LazyDataRequired(lazy_message=c.PREVIOUS_NAME_CHECK_ERROR)]
     )
 
 
 class AddressForm(FlaskForm):
     address_line_one = StringField(
-        validators=[DataRequired(message='Enter your address'), validate_address_field]
+        validators=[LazyDataRequired(lazy_message=c.ADDRESS_ERROR), validate_address_field]
     )
 
     address_line_two = StringField(validators=[validate_address_field])
 
     town = StringField(
-        validators=[DataRequired(message='Enter your town or city'), validate_address_field]
+        validators=[LazyDataRequired(lazy_message=c.ADDRESS_NO_TOWN_ERROR), validate_address_field]
     )
 
     country = SelectField(
@@ -296,28 +298,28 @@ class AddressForm(FlaskForm):
     )
 
     postcode = StringField(
-        validators=[StrictRequiredIf('country', ['', 'United Kingdom'], message='Enter your postcode',
-                                     validators=[validate_postcode])]
+        validators=[StrictRequiredIf('country', ['', 'United Kingdom'],
+                                     message=c.NO_POSTCODE_ERROR, validators=[validate_postcode])]
     )
 
 
 class ContactPreferencesForm(FlaskForm):
-    contact_options = SelectMultipleField(
-        choices=[
-            ('EMAIL', 'Email'),
-            ('PHONE', 'Phone call'),
-            ('POST', 'Post')
+    contact_options = LazyMultiSelectField(
+        lazy_choices=[
+            ('EMAIL', c.EMAIL),
+            ('PHONE', c.PHONE),
+            ('POST', c.POST)
         ],
-        validators=[DataRequired(message='Select how would you like to be contacted')]
+        validators=[LazyDataRequired(lazy_message=c.NO_CONTACT_PREFERENCES_ERROR)]
     )
 
     email = EmailField(
-        validators=[StrictRequiredIf('contact_options', 'EMAIL', message='Enter your email address',
-                                     validators=[Email('Enter a valid email address')])]
+        validators=[StrictRequiredIf('contact_options', 'EMAIL', message=c.NO_EMAIL_ADDRESS_ERROR,
+                                     validators=[LazyEmail(lazy_message=c.EMAIL_ADDRESS_INVALID_ERROR)])]
     )
 
     phone = TelField(
-        validators=[StrictRequiredIf('contact_options', 'PHONE', message='Enter your phone number',
+        validators=[StrictRequiredIf('contact_options', 'PHONE', message=c.NO_PHONE_NUMBER_ERROR,
                                      validators=[validate_phone_number])]
     )
 
@@ -344,35 +346,35 @@ class DateRangeForm(Form):
 
 
 class ContactDatesForm(FlaskForm):
-    contactDatesCheck = RadioField(
-        choices=[
-            (ContactDatesAvoid.SINGLE_DATE.name, 'A single date'),
-            (ContactDatesAvoid.DATE_RANGE.name, 'A range of dates'),
-            (ContactDatesAvoid.NO_DATES.name, 'No dates')
+    contactDatesCheck = LazyRadioField(
+        lazy_choices=[
+            (ContactDatesAvoid.SINGLE_DATE.name, c.SINGLE_DATE),
+            (ContactDatesAvoid.DATE_RANGE.name, c.DATE_RANGE),
+            (ContactDatesAvoid.NO_DATES.name, c.NO_DATES)
         ],
-        validators=[DataRequired(message="Select if you don't want us to contact you at any point in the next 6 months")]
+        validators=[LazyDataRequired(lazy_message=c.NO_CONTACT_DATES_OPTION_ERROR)]
     )
 
     day = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a day', validators=[
-                Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
-            ]),
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_DAY_ERROR, validators=[
+                    LazyInteger(min_=1, max_=31, lazy_message=c.ENTER_VALID_DAY_ERROR)
+            ])
         ]
     )
 
     month = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a month', validators=[
-                Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_MONTH_ERROR, validators=[
+                LazyInteger(min_=1, max_=12, lazy_message=c.ENTER_VALID_MONTH_ERROR)
             ])
         ]
     )
 
     year = StringField(
         validators=[
-            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message='Enter a year', validators=[
-                Integer(min=1000, message='Enter a year as a 4-digit number, like 2000', validators=[
+            StrictRequiredIf('contactDatesCheck', 'SINGLE_DATE', message=c.ENTER_YEAR_ERROR, validators=[
+                LazyInteger(min_=1000, lazy_message=c.ENTER_VALID_YEAR_ERROR, validators=[
                     validate_single_date
                 ])
             ])
@@ -387,16 +389,17 @@ class ContactDatesForm(FlaskForm):
 
 
 class HmrcForm(FlaskForm):
-    tell_hmrc = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    tell_hmrc = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES_CONTACT_HMRC),
+            (False, c.NO_CONTACT_HMRC)
         ],
-        validators=[DataRequired(message='Select if you would like us to tell HMRC after you receive a Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.NO_HMRC_OPTION_ERROR)]
     )
 
     national_insurance_number = StringField(
-        validators=[StrictRequiredIf('tell_hmrc', True, message='Enter your National Insurance number', validators=[validate_national_insurance_number])]
+        validators=[StrictRequiredIf('tell_hmrc', True, message=c.ENTER_NI_NUMBER_ERROR,
+                                     validators=[validate_national_insurance_number])]
     )
 
 

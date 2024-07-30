@@ -1,131 +1,115 @@
+from flask_babel import gettext
 from flask_wtf import FlaskForm
-from wtforms import StringField, RadioField
-from wtforms.validators import DataRequired
+from grc.business_logic.constants.birth_and_registration import BirthRegistrationConstants as c
+from wtforms import StringField
 from grc.business_logic.data_structures.birth_registration_data import AdoptedInTheUkEnum
-from grc.utils.form_custom_validators import validate_date_of_birth, Integer
+from grc.utils.form_custom_validators import validate_date_of_birth
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyInteger
+from grc.lazy.lazy_fields import LazyRadioField
 
 
 class NameForm(FlaskForm):
-    first_name = StringField(
-        validators=[DataRequired(message='Enter your first name, as originally registered on your birth or adoption certificate')]
-    )
+    first_name = StringField(validators=[LazyDataRequired(lazy_message=c.FIRST_NAME_ERROR)])
 
     middle_names = StringField() # Middle names are optional, so no validators are required here
 
-    last_name = StringField(
-        validators=[DataRequired(message='Enter your last name, as originally registered on your birth or adoption certificate')]
-    )
+    last_name = StringField(validators=[LazyDataRequired(lazy_message=c.LAST_NAME_ERROR)])
 
 
 class DobForm(FlaskForm):
     day = StringField(
         validators=[
-            DataRequired(message='Enter a day'),
-            Integer(min=1, max=31, message='Enter a day as a number between 1 and 31')
+            LazyDataRequired(lazy_message=c.ENTER_DAY_ERROR),
+            LazyInteger(min_=1, max_=31, message=c.ENTER_VALID_DAY_ERROR)
         ]
     )
 
     month = StringField(
         validators=[
-            DataRequired(message='Enter a month'),
-            Integer(min=1, max=12, message='Enter a month as a number between 1 and 12')
+            LazyDataRequired(lazy_message=c.ENTER_MONTH_ERROR),
+            LazyInteger(min_=1, max_=12, message=c.ENTER_VALID_MONTH_ERROR)
         ]
     )
 
     # The user must be 18 years old or older to apply
     year = StringField(
         validators=[
-            DataRequired(message='Enter a year'),
-            Integer(min=1000, message='Enter a year as a 4-digit number, like 2000',
-                    validators=[validate_date_of_birth])
+            LazyDataRequired(lazy_message=c.ENTER_YEAR_ERROR),
+            LazyInteger(min_=1000, message=c.ENTER_VALID_YEAR_ERROR, validators=[validate_date_of_birth])
         ]
     )
 
 
 class UkCheckForm(FlaskForm):
-    birth_registered_in_uk = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    birth_registered_in_uk = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if your birth was registered in the UK')]
+        validators=[LazyDataRequired(lazy_message=c.SELECT_BIRTH_REGISTERED_IN_UK_ERROR)]
     )
 
 
 class CountryForm(FlaskForm):
-    country_of_birth = StringField(
-        validators=[DataRequired(message='Enter your country of birth')]
-    )
+    country_of_birth = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_COUNTRY_OF_BIRTH_ERROR)])
 
 
 class PlaceOfBirthForm(FlaskForm):
-    place_of_birth = StringField(
-        validators=[DataRequired(message='Enter your town or city of birth')]
-    )
+    place_of_birth = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_PLACE_OF_BIRTH_ERROR)])
 
 
 class MothersNameForm(FlaskForm):
-    first_name = StringField(
-        validators=[DataRequired(message="Enter your mother's first name")]
-    )
+    first_name = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_MOTHERS_FIRST_NAME_ERROR)])
 
-    last_name = StringField(
-        validators=[DataRequired(message="Enter your mother's last name")]
-    )
+    last_name = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_MOTHERS_LAST_NAME_ERROR)])
 
-    maiden_name = StringField(
-        validators=[DataRequired(message="Enter your mother's maiden name")]
-    )
+    maiden_name = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_MOTHERS_MAIDEN_NAME_ERROR)])
 
 
 class FatherNameCheckForm(FlaskForm):
-    fathers_name_on_certificate = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    fathers_name_on_certificate = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message="Select if your father's name is listed on the certificate")]
+        validators=[LazyDataRequired(lazy_message=c.SELECT_FATHERS_NAME_ON_CERTIFICATE_ERROR)]
     )
 
 
 class FathersNameForm(FlaskForm):
-    first_name = StringField(
-        validators=[DataRequired(message="Enter your father's first name")]
-    )
+    first_name = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_FATHERS_FIRST_NAME_ERROR)])
 
-    last_name = StringField(
-        validators=[DataRequired(message="Enter your father's last name")]
-    )
+    last_name = StringField(validators=[LazyDataRequired(lazy_message=c.ENTER_FATHERS_LAST_NAME_ERROR)])
 
 
 class AdoptedForm(FlaskForm):
-    adopted = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    adopted = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you were you adopted')]
+        validators=[LazyDataRequired(lazy_message=c.ENTER_ADOPTED_ERROR)]
     )
 
 
 class AdoptedUKForm(FlaskForm):
-    adopted_uk = RadioField(
-        choices=[
-            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_YES.name, 'Yes'),
-            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_NO.name, 'No'),
-            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_DO_NOT_KNOW.name, "I don't know")
+    adopted_uk = LazyRadioField(
+        lazy_choices=[
+            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_YES.name, c.YES_ADOPTED_UK),
+            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_NO.name, c.NO_ADOPTED_UK),
+            (AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_DO_NOT_KNOW.name, c.DONT_KNOW)
         ],
-        validators=[DataRequired(message='Select if you were adopted in the United Kingdom')]
+        validators=[LazyDataRequired(lazy_message=c.SELECT_ADOPTED_UK_ERROR)]
     )
 
 
 class ForcesForm(FlaskForm):
-    forces = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    forces = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES_FORCES_REGISTERED),
+            (False, c.NO_FORCES_REGISTERED)
         ],
-        validators=[DataRequired(message='Select if your birth was registered by a Forces registering service, or with a British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions')]
+        validators=[LazyDataRequired(lazy_message=c.SELECT_FORCES_ERROR)]
     )
 
 

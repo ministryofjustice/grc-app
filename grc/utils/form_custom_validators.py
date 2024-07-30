@@ -1,13 +1,15 @@
 import os
 import re
 import pathlib
+from collections import defaultdict
 from dateutil.relativedelta import relativedelta
-from flask import request, session, current_app
+from flask import session, current_app
 from wtforms.validators import DataRequired, ValidationError, StopValidation
 from werkzeug.datastructures import FileStorage
-from collections.abc import Iterable
 from datetime import date
+from grc.business_logic.constants.base import BaseConstants as c
 from grc.business_logic.data_store import DataStore
+from grc.lazy.lazy_errors import LazyValidationError
 from grc.models import db, Application
 from grc.utils.security_code import is_security_code_valid
 from grc.utils.reference_number import reference_number_is_valid
@@ -82,15 +84,24 @@ class Integer(DataRequired):
                 validator(form, field)
 
 
+def validate_security_code_admin(form, field):
+    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
+
+    if is_test and field.data == '11111':
+        return
+
+    if not is_security_code_valid(session.get('email'), field.data, True):
+        raise ValidationError('Enter the security code that we emailed you')
+
+
 def validate_security_code(form, field):
     is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
 
     if is_test and field.data == '11111':
         return
 
-    is_admin = True if 'userType' in session else False
-    if not is_security_code_valid(session.get('email'), field.data, is_admin):
-        raise ValidationError('Enter the security code that we emailed you')
+    if not is_security_code_valid(session.get('email'), field.data, False):
+        raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
 def validate_reference_number(form, field):
@@ -99,7 +110,7 @@ def validate_reference_number(form, field):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
-        raise ValidationError('Enter a valid reference number')
+        raise LazyValidationError(c.INVALID_REFERENCE_NUMBER_ERROR)
 
 
 def validate_gov_uk_email_address(form, field):
@@ -138,7 +149,14 @@ def validate_address_field(form, field):
 
     match = re.search('^[a-zA-Z0-9- ]*$', field.data)
     if match is None:
-        raise ValidationError(f'Enter a valid {field.label.text.lower()}')
+        messages = defaultdict(lambda: c.ADDRESS_ERROR)
+        error_messages = {
+            'address_line_one': c.ADDRESS_LINE_ONE_ERROR,
+            'address_line_two': c.ADDRESS_LINE_TWO_ERROR,
+            'town': c.ADDRESS_TOWN_OR_CITY_ERROR,
+        }
+        messages.update(error_messages)
+        raise LazyValidationError(messages[field.label.field_id])
 
 
 def validate_postcode(form, field):
@@ -148,7 +166,7 @@ def validate_postcode(form, field):
     match = re.search('^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$',
                       field.data)
     if match is None:
-        raise ValidationError('Enter a valid postcode')
+        raise LazyValidationError(c.ENTER_VALID_POSTCODE_ERROR)
 
 
 def validate_date_of_birth(form, field):
@@ -161,16 +179,16 @@ def validate_date_of_birth(form, field):
         y = int(form['year'].data)
         date_of_birth = date(day=d, month=m, year=y)
     except ValueError as error:
-        raise ValidationError('Enter a valid date')
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     today = date.today()
     age = today.year - date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
 
     if age < 18:
-        raise ValidationError('You need to be at least 18 years old to apply')
+        raise LazyValidationError(c.ABOVE_AGE_ERROR)
 
     if age > 110:
-        raise ValidationError('You need to be less than 110 years old to apply')
+        raise LazyValidationError(c.BELOW_AGE_ERROR)
 
     reference_number = session.get('reference_number')
     application_data = DataStore.load_application(reference_number)
@@ -178,12 +196,10 @@ def validate_date_of_birth(form, field):
     statutory_declaration_date = application_data.personal_details_data.statutory_declaration_date
 
     if transition_date and date_of_birth > transition_date:
-        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
-                              + ' date')
+        raise LazyValidationError(c.DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR)
 
     if statutory_declaration_date and date_of_birth > statutory_declaration_date:
-        raise ValidationError('Your date of birth must be before your transition date and statutory declaration'
-                              + ' date')
+        raise LazyValidationError(c.DATE_OF_BIRTH_BEFORE_TRANSITION_ERROR)
 
 
 def validate_date_of_transition(form, field):
@@ -195,16 +211,16 @@ def validate_date_of_transition(form, field):
         transition_date_year = int(form['transition_date_year'].data)
         date_of_transition = date(transition_date_year, transition_date_month, 1)
     except Exception as e:
-        raise ValidationError('Enter a valid year')
+        raise LazyValidationError(c.INVALID_YEAR_ERROR)
 
     earliest_date_of_transition_years = 100
     earliest_date_of_transition = date.today() - relativedelta(years=earliest_date_of_transition_years)
 
     if date_of_transition < earliest_date_of_transition:
-        raise ValidationError(f'Enter a date within the last {earliest_date_of_transition_years} years')
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     if date_of_transition > date.today():
-        raise ValidationError('Enter a date in the past')
+        raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
 
     reference_number = session['reference_number']
     application_record = db.session.query(Application).filter_by(reference_number=reference_number).first()
@@ -218,7 +234,7 @@ def validate_date_of_transition(form, field):
     latest_transition_years = 2
     latest_transition_date = application_created_date - relativedelta(years=latest_transition_years)
     if date_of_transition > latest_transition_date:
-        raise ValidationError(f'Enter a date at least {latest_transition_years} years before your application')
+        raise LazyValidationError(c.ENTER_DATE_2_YEARS_BEFORE_APP_CREATED_ERROR)
 
 
 def validate_statutory_declaration_date(form, field):
@@ -232,24 +248,24 @@ def validate_statutory_declaration_date(form, field):
         statutory_declaration_date = date(statutory_declaration_date_year, statutory_declaration_date_month,
                                           statutory_declaration_date_day)
     except Exception as e:
-        raise ValidationError('Enter a valid year')
+        raise LazyValidationError(c.INVALID_YEAR_ERROR)
 
     earliest_statutory_declaration_date_years = 100
     earliest_statutory_declaration_date = date.today() - relativedelta(
         years=earliest_statutory_declaration_date_years)
 
     if statutory_declaration_date < earliest_statutory_declaration_date:
-        raise ValidationError(f'Enter a date within the last {earliest_statutory_declaration_date_years} years')
+        raise LazyValidationError(c.DATE_BEFORE_EARLIEST_ERROR)
 
     latest_statutory_declaration_date = date.today()
     if statutory_declaration_date > latest_statutory_declaration_date:
-        raise ValidationError('Enter a date in the past')
+        raise LazyValidationError(c.ENTER_DATE_IN_PAST_ERROR)
 
     reference_number = session['reference_number']
     application_data = DataStore.load_application(reference_number)
     transition_date = application_data.personal_details_data.transition_date
     if statutory_declaration_date < transition_date:
-        raise ValidationError('Enter a date that does not precede your transition date')
+        raise LazyValidationError(c.STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR)
 
 
 def validate_date_range(form, field):
@@ -288,7 +304,7 @@ def validate_national_insurance_number(form, field):
         data
     )
     if match is None:
-        raise ValidationError('Enter a valid National Insurance number')
+        raise LazyValidationError(c.ENTER_VALID_NI_NUMBER_ERROR)
 
 
 def validate_phone_number(form, field):
@@ -297,7 +313,7 @@ def validate_phone_number(form, field):
 
     match = re.search(r'^[0-9]+$', field.data)
     if match is None:
-        raise ValidationError('Enter a valid phone number')
+        raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
 
 def validate_hwf_reference_number(form, field):
@@ -314,7 +330,7 @@ def validate_hwf_reference_number(form, field):
         field.data
     )
     if match is None:
-        raise ValidationError(f'Enter a valid \'Help with fees\' reference number')
+        raise LazyValidationError(c.INVALID_HWF_REFERENCE_NUMBER)
 
 
 def validate_single_date(form, field):
@@ -328,10 +344,10 @@ def validate_single_date(form, field):
         date_entered = date(year, month, day)
     except ValueError as e:
         logger.log(LogLevel.ERROR, message=f'Error validating single date: {e}')
-        raise ValidationError('Enter a valid date')
+        raise LazyValidationError(c.ENTER_VALID_DATE_ERROR)
 
     if date_entered < date.today():
-        raise ValidationError('Enter a date in the future')
+        raise LazyValidationError(c.ENTER_DATE_IN_FUTURE_ERROR)
 
 
 def validate_date_range_form(date_ranges_form):
@@ -344,50 +360,50 @@ def validate_date_range_form(date_ranges_form):
     to_date_year_entered = True
 
     if not date_ranges_form.from_date_day.data:
-        form_errors['from_date_day'] = 'Enter a day'
+        form_errors['from_date_day'] = c.ENTER_DAY_ERROR
         from_date_day_entered = False
 
     if not date_ranges_form.from_date_month.data:
-        form_errors['from_date_month'] = 'Enter a month'
+        form_errors['from_date_month'] = c.ENTER_MONTH_ERROR
         from_date_month_entered = False
 
     if not date_ranges_form.from_date_year.data:
-        form_errors['from_date_year'] = 'Enter a year'
+        form_errors['from_date_year'] = c.ENTER_YEAR_ERROR
         from_date_year_entered = False
 
     if not date_ranges_form.to_date_day.data:
-        form_errors['to_date_day'] = 'Enter a day'
+        form_errors['to_date_day'] = c.ENTER_DAY_ERROR
         to_date_day_entered = False
 
     if not date_ranges_form.to_date_month.data:
-        form_errors['to_date_month'] = 'Enter a month'
+        form_errors['to_date_month'] = c.ENTER_MONTH_ERROR
         to_date_month_entered = False
 
     if not date_ranges_form.to_date_year.data:
-        form_errors['to_date_year'] = 'Enter a year'
+        form_errors['to_date_year'] = c.ENTER_YEAR_ERROR
         to_date_year_entered = False
 
     if from_date_day_entered and (int(date_ranges_form.from_date_day.data) < 1 or
                                   int(date_ranges_form.from_date_day.data) > 31):
-        form_errors['from_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['from_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if to_date_day_entered and (int(date_ranges_form.to_date_day.data) < 1 or
                                 int(date_ranges_form.to_date_day.data) > 31):
-        form_errors['to_date_day'] = 'Enter a day as a number between 1 and 31'
+        form_errors['to_date_day'] = c.ENTER_VALID_DAY_ERROR
 
     if from_date_month_entered and (int(date_ranges_form.from_date_month.data) < 1 or
                                     int(date_ranges_form.from_date_month.data) > 12):
-        form_errors['from_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['from_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if to_date_month_entered and (int(date_ranges_form.to_date_month.data) < 1 or
                                   int(date_ranges_form.to_date_month.data) > 12):
-        form_errors['to_date_month'] = 'Enter a month as a number between 1 and 12'
+        form_errors['to_date_month'] = c.ENTER_VALID_MONTH_ERROR
 
     if from_date_year_entered and int(date_ranges_form.from_date_year.data) < 1000:
-        form_errors['from_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['from_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     if to_date_year_entered and int(date_ranges_form.to_date_year.data) < 1000:
-        form_errors['to_date_year'] = 'Enter a year as a 4-digit number, like 2000'
+        form_errors['to_date_year'] = c.ENTER_VALID_YEAR_ERROR
 
     return form_errors
 
@@ -396,13 +412,13 @@ def validate_date_ranges(from_date, to_date):
     form_errors = dict()
 
     if from_date < date.today():
-        form_errors['from_date_year'] = '\'From\' date is in the past'
+        form_errors['from_date_year'] = c.CONTACT_FROM_DATE_IN_PAST_ERROR
 
     if to_date < date.today():
-        form_errors['to_date_year'] = '\'To\' date is in the past'
+        form_errors['to_date_year'] = c.CONTACT_TO_DATE_IN_PAST_ERROR
 
     if from_date > to_date:
-        form_errors['to_date_year'] = '\'From\' date is after the \'To\' date'
+        form_errors['to_date_year'] = c.CONTACT_FROM_DATE_AFTER_TO_DATE_ERROR
 
     return form_errors
 
@@ -472,10 +488,9 @@ def validate_multiple_files_size_limit(form, field):
         file_size = data.read()
         data.seek(0)
         if len(file_size) == 0:
-            raise ValidationError('The selected file is empty. Check that the file you are uploading has the'
-                                  ' content you expect')
+            raise LazyValidationError(c.FILE_EMPTY_ERROR)
         elif len(file_size) > max_bytes:
-            raise ValidationError(f'The selected file must be smaller than {file_size_limit}MB')
+            raise LazyValidationError(c.FILE_SIZE_LIMIT_ERROR)
 
 
 def file_virus_scan(form, field):
@@ -498,13 +513,13 @@ def file_virus_scan(form, field):
         uploaded_file.stream.seek(0)
 
         if not cd.ping():
-            raise ValidationError('Unable to communicate with virus scanner')
+            raise LazyValidationError(c.VIRUS_SCANNER_ERROR)
 
         results = cd.scan_stream(uploaded_file.stream.read())
         if results:
             res_type, res_msg = results['stream']
             if res_type == 'FOUND':
-                raise ValidationError('The selected file contains a virus')
+                raise LazyValidationError(c.FILE_HAS_VIRUS_ERROR)
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
