@@ -35,7 +35,6 @@ class PDFUtils():
         pdf_stream.seek(0)
 
         if title:
-            print(f"pdf title page <<{html}>>", flush=True)
             pdf_stream = self.add_pdf_toc(pdf_stream, title)
 
         print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
