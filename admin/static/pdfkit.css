@@ -79,12 +79,11 @@
 }
 
 .govuk-list--bullet {
-	padding-left: -5px;
+	padding-left: 20px;
 	list-style-type: disc
 }
 
 .govuk-list--bullet>li {
-	margin-left: 5px;
 	margin-bottom: 9px;
 	line-height: 1.4
 }
