@@ -122,7 +122,7 @@
 
 @media print {
 	.govuk-heading-m {
-		font-size: 12pt;
+		font-size: 10pt;
 		line-height: 1.15
 	}
 }
