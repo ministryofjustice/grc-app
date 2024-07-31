@@ -94,8 +94,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-weight: 700;
-	font-size: 12px;
-	font-size: 1.125rem;
+	font-size: 48px;
 	line-height: 1.1111111111;
 	display: block;
 	margin-top: 0;
@@ -117,14 +116,13 @@
 @media(min-width: 40.0625em) {
 	.govuk-heading-m {
 		font-size: 10px;
-		font-size: 1.5rem;
 		line-height: 1.25
 	}
 }
 
 @media print {
 	.govuk-heading-m {
-		font-size: 18pt;
+		font-size: 12pt;
 		line-height: 1.15
 	}
 }
