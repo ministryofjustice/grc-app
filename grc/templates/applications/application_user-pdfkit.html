@@ -1,7 +1,7 @@
 {% macro userapplication(application_data) %}
-    <h1 style="font-size: 18px;">
+    <div style="font-size: 18px;">
         {{ application_data.application_certificate_type }}
-    </h1>
+    </div>
 
     <h4 class="govuk-heading-m">Confirmation</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
@@ -13,7 +13,7 @@
     </ul>
 
     <h4 class="govuk-heading-m">Personal details</h4>
-    <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
         <li>Name on certificate
             <ul class="govuk-list govuk-list--bullet">
                 <li>Title: <strong>{{ application_data.personal_details_data.title }}</strong></li>
@@ -27,7 +27,7 @@
         <li>Transition date: <strong>{{ application_data.personal_details_data.transition_date_formatted_MMMM_YYYY }}</strong></li>
         <li>Statutory Declaration date: <strong>{{ application_data.personal_details_data.statutory_declaration_date_formatted_DD_MMMM_YYYY }}</strong></li>
         <li>Contact preferences
-            <ul class="govuk-list govuk-list--bullet">
+            <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                 {% if application_data.personal_details_data.contact_email_address %}
                     <li>Email: <strong>{{ application_data.personal_details_data.contact_email_address }}</strong></li>
                 {% endif %}
@@ -40,7 +40,7 @@
             </ul>
         </li>
         <li>Address
-            <ul class="govuk-list govuk-list--bullet">
+            <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                 <li>Building and street: <strong>{{ application_data.personal_details_data.address_line_one }}</strong></li>
                 {% if application_data.personal_details_data.address_line_two %}
                     <li><strong>{{ application_data.personal_details_data.address_line_two }}</strong></li>
@@ -54,14 +54,14 @@
         </li>
         <li>Unavailable over the next 6 months: <strong>{{ application_data.personal_details_data.contact_dates_should_avoid_formatted }}</strong>
             {% if application_data.personal_details_data.contact_dates_should_avoid %}
-                <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                     <li>Dates you're unavailable: <strong>{{ application_data.personal_details_data.contact_dates_to_avoid }}</strong></li>
                 </ul>
             {% endif %}
         </li>
         <li>Notify HMRC: <strong>{{ application_data.personal_details_data.tell_hmrc_formatted }}</strong>
             {% if application_data.personal_details_data.tell_hmrc %}
-                <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                     <li>National Insurance number: <strong>{{ application_data.personal_details_data.national_insurance_number }}</strong></li>
                 </ul>
             {% endif %}
@@ -69,9 +69,9 @@
     </ul>
 
     <h4 class="govuk-heading-m">Birth registration information</h4>
-    <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
         <li>Birth name
-            <ul class="govuk-list govuk-list--bullet">
+            <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                 <li>First name: <strong>{{ application_data.birth_registration_data.first_name }}</strong></li>
                 <li>Middle name(s): <strong>{{ application_data.birth_registration_data.middle_names_or_empty_string }}</strong></li>
                 <li>Last name: <strong>{{ application_data.birth_registration_data.last_name }}</strong></li>
@@ -81,7 +81,7 @@
         <li>Birth registered in UK: <strong>{{ application_data.birth_registration_data.birth_registered_in_uk_formatted }}</strong></li>
         {% if application_data.birth_registration_data.birth_registered_in_uk %}
             <li>Mother's name
-                <ul class="govuk-list govuk-list--bullet">
+                <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                     <li>First name: <strong>{{ application_data.birth_registration_data.mothers_first_name }}</strong></li>
                     <li>Last name: <strong>{{ application_data.birth_registration_data.mothers_last_name }}</strong></li>
                     <li>Maiden name: <strong>{{ application_data.birth_registration_data.mothers_maiden_name }}</strong></li>
@@ -90,7 +90,7 @@
             <li>Father's name listed on birth certificate: <strong>{{ application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted }}</strong></li>
             {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
                 <li>Father's name
-                    <ul class="govuk-list govuk-list--bullet">
+                    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                         <li>First name: <strong>{{ application_data.birth_registration_data.fathers_first_name }}</strong></li>
                         <li>Last name: <strong>{{ application_data.birth_registration_data.fathers_last_name }}</strong></li>
                     </ul>
@@ -109,7 +109,7 @@
     </ul>
 
     <h4 class="govuk-heading-m">Marriage or civil partnership details</h4>
-    <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
         <li>Currently married or in a civil partnership: <strong>{{ application_data.partnership_details_data.currently_in_a_partnership_formatted }}</strong></li>
         {% if application_data.partnership_details_data.is_not_in_partnership %}
             <li>Spouse or partner has died: <strong>{{ application_data.partnership_details_data.previous_partnership_partner_died_formatted }}</strong></li>
@@ -124,7 +124,7 @@
             {% else %}
                 <li>
                     Partner details:
-                    <ul class="govuk-list govuk-list--bullet">
+                    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
                         <li>Partner title: <strong>{{ application_data.partnership_details_data.partner_title }}</strong></li>
                         <li>Partner first name: <strong>{{ application_data.partnership_details_data.partner_first_name }}</strong></li>
                         <li>Partner last name: <strong>{{ application_data.partnership_details_data.partner_last_name }}</strong></li>
@@ -136,7 +136,7 @@
     </ul>
 
     <h4 class="govuk-heading-m">Documents to post</h4>
-    <ul class="govuk-list govuk-list--bullet">
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
         <li>your original or a certified copy of your full birth or adoption certificate</li>
         {% if application_data.submit_and_pay_data.is_using_ex160_form %}
             <li>an EX160 form</li>
