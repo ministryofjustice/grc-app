@@ -1,10 +1,10 @@
 {% macro userapplication(application_data) %}
-    <div class="gds-family-cs-bold" style="font-size: 18px; margin-top: 10px; margin-left: 15px;">
+    <div class="gds-family-cs-bold" style="font-size: 18px; margin-top: 0px; margin-left: 15px;">
         {{ application_data.application_certificate_type }}
     </div>
 
     <h4 class="govuk-heading-m">Confirmation</h4>
-    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 12px; margin-bottom: 10px;">
         <li>Have you ever been issued a Gender Recognition Certificate (or it's equivalent) in another country? <strong>{{ application_data.confirmation_data.gender_recognition_outside_uk_formatted }}</strong></li>
         {% if application_data.confirmation_data.gender_recognition_outside_uk %}
             <li>Do you have official documentation that shows your affirmed gender has been recognised in one of these countries or territories? <strong>{{ application_data.confirmation_data.gender_recognition_from_approved_country_formatted }}</strong></li>
@@ -15,7 +15,7 @@
     <h4 class="govuk-heading-m">Personal details</h4>
     <ul class="govuk-list govuk-list--bullet" style="font-size: 12px;">
         <li>Name on certificate
-            <ul class="govuk-list govuk-list--bullet" style="font-size: 12px; margin-top: 10px; margin-bottom: 10px;">
+            <ul class="govuk-list govuk-list--bullet" style="font-size: 12px; margin-top: 8px; margin-bottom: 8px;">
                 <li>Title: <strong>{{ application_data.personal_details_data.title }}</strong></li>
                 <li>First name: <strong>{{ application_data.personal_details_data.first_name }}</strong></li>
                 <li>Middle name(s): <strong>{{ application_data.personal_details_data.middle_names_or_empty_string }}</strong></li>
