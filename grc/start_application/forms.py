@@ -1,61 +1,63 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, StringField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Email
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
+from wtforms import EmailField, StringField, BooleanField
 from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf
 
 
 class EmailAddressForm(FlaskForm):
     email = EmailField(
         validators=[
-            DataRequired(message='Enter your email address'),
-            Email(message='Enter a valid email address')
+            LazyDataRequired(lazy_message=c.NO_EMAIL_ADDRESS_ERROR),
+            LazyEmail(message=c.EMAIL_ADDRESS_INVALID_ERROR)
         ]
     )
 
 
 class SecurityCodeForm(FlaskForm):
     security_code = StringField(
-        validators=[DataRequired(message='Enter a security code'), validate_security_code]
+        validators=[LazyDataRequired(lazy_message=c.NO_SECURITY_CODE), validate_security_code]
     )
 
 
 class IsFirstVisitForm(FlaskForm):
-    isFirstVisit = RadioField(
-        choices=[
-            ('FIRST_VISIT', "No"),
-            ('HAS_REFERENCE', "Yes, and I have my reference number"),
-            ('LOST_REFERENCE', "Yes, but I have lost my reference number")
+    isFirstVisit = LazyRadioField(
+        lazy_choices=[
+            ('FIRST_VISIT', c.NO),
+            ('HAS_REFERENCE', c.YES_WITH_REFERENCE_NUMBER),
+            ('LOST_REFERENCE', c.YES_LOST_REFERENCE_NUMBER)
         ],
-        validators=[DataRequired(message='Select if you have already started an application')]
+        validators=[LazyDataRequired(lazy_message=c.IS_FIRST_VISIT_ERROR)]
     )
 
     reference = StringField(
         validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE',
-                                     message='Enter a reference number', validators=[validate_reference_number])]
+                                     message=c.NO_REFERENCE_NUMBER_ERROR, validators=[validate_reference_number])]
     )
 
 
 class OverseasCheckForm(FlaskForm):
-    overseasCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    overseasCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you ever been issued a Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.GENDER_RECOGNITION_OUTSIDE_UK_ERROR)]
     )
 
 
 class OverseasApprovedCheckForm(FlaskForm):
-    overseasApprovedCheck = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    overseasApprovedCheck = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have official documentation')]
+        validators=[LazyDataRequired(lazy_message=c.GENDER_RECOGNITION_IN_APPROVED_COUNTRY_ERROR)]
     )
 
 
-class DeclerationForm(FlaskForm):
+class DeclarationForm(FlaskForm):
     consent = BooleanField(
-        validators=[DataRequired(message='You must consent to the General Register Office contacting you')]
+        validators=[LazyDataRequired(lazy_message=c.DECLARATION_ERROR)]
     )

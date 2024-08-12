@@ -1,0 +1,216 @@
+<templateId>
+3bcfc20d-a2ce-4132-91fa-1fc91dd1a097
+</templateId>
+<TemplateName>
+Documents you need for your Gender Recognition Certificate application - Welsh
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Dogfennau sydd eu hangen arnoch ar gyfer eich cais am Dystysgrif Cydnabod Rhywedd
+</Subject>
+<Message>
+Diolch i chi am wirio pa ddogfennau sydd eu hangen arnoch ar gyfer eich cais am Dystysgrif Cydnabod Rhywedd.
+
+Yn seiliedig ar eich atebion, dyma'r dogfennau sydd eu hangen arnoch ar gyfer eich cais.
+
+Bydd gofyn i chi uwchlwytho rhai dogfennau yn ystod y broses gwneud cais, a bydd angen i chi bostio eraill atom ar ôl i chi gyflwyno’ch cais.
+
+((need_to_send_name_change_documents??# Copïau o'r holl ddogfennau newid enw))
+
+((need_to_send_name_change_documents??Os ydych chi wedi newid eich enw i adlewyrchu eich rhywedd a gadarnhawyd, llwythwch gopïau o'r holl ddogfennau sy'n dangos pryd rydych chi wedi gwneud hyn.
+
+Mae hyn yn cynnwys gweithred newid enw gofrestredig neu anghofrestredig a datganiadau statudol o newidiadau enw.
+Nid oes angen i'r copïau hyn gael eu hardystio.))
+
+((need_to_send_medical_reports??# Adroddiadau meddygol
+))
+
+((need_to_send_medical_reports??Mae angen i chi uwchlwytho 2 adroddiad a ysgrifennwyd gan 2 feddyg neu seicolegydd clinigol gwahanol sydd wedi cofrestru yn y DU.
+
+Mae angen i’r ddau adroddiad gynnwys enw a chyfeiriad y practis a manylion cyswllt yr unigolyn a ysgrifennodd yr adroddiad
+
+Mae angen i o leiaf 1 o’r 2 adroddiad gynnwys manylion unrhyw driniaeth cadarnhau rhywedd rydych wedi’i chael neu’n cynllunio i’w chael, gan gynnwys:
+
+* unrhyw driniaethau llawfeddygol
+* unrhyw driniaethau anfeddygol, megis therapi hormonau
+* os nad ydych wedi cael unrhyw driniaeth ac nid ydych yn bwriadu cael unrhyw driniaeth, pam felly
+
+Mae angen i’r adroddiad cyntaf gadarnhau eich diagnosis dysfforia rhywedd a’r hanes clinigol yr oedd hwn yn seiliedig arno, gan gynnwys:
+
+* pwy wnaeth y diagnosis
+* pryd gwnaethpwyd y diagnosis
+* pa dystiolaeth a ddefnyddiwyd i wneud y diagnosis
+
+Mae angen i’r adroddiad cyntaf fod wedi’i ysgrifennu gan feddyg cofrestredig neu seicolegydd clinigol sy’n ymarfer ym maes dysfforia rhywedd. Gallwch ddod o hyd i un o’r rhain drwy:
+
+* ofyn i’ch meddyg teulu
+* cysylltu â rhywun ar y rhestr o rhestr o arbenigwyr dysfforia rhywedd
+
+Cliciwch ar y ddolen ganlynol i weld rhestr o arbenigwyr yn y maes dysfforia rhywedd:
+https://www.gov.uk/government/publications/gender-recognition-certificate-list-of-medical-practitioners-in-gender-dysphoria
+Noder: nid yw hon yn rhestr gyflawn ac nid yw bob amser yn gyfredol
+
+Gall yr ail adroddiad fod wedi’i ysgrifennu gan unrhyw feddyg cofrestredig neu seicolegydd clinigol, gan gynnwys eich meddyg teulu, llawfeddyg neu endocrinolegydd.
+
+Nid oes yna wybodaeth y mae’n ofynnol i chi gynnwys yn yr ail adroddiad hwn, a gall gynnwys yr un wybodaeth â’r adroddiad cyntaf.
+
+Nid oes rhaid i’r adroddiadau fod wedi’u hysgrifennu’n arbennig ar gyfer eich cais, cyhyd â’u bod yn bodloni’r holl ofynion. Efallai bod gennych adroddiadau addas yn barod yn eich cofnodion meddygol.
+
+Os ydych angen i adroddiadau newydd gael eu hysgrifennu, mae’n debyg y bydd rhaid i chi dalu amdanynt hyd yn oed os byddwch yn defnyddio ymarferwyr meddygol GIG.
+
+Mae yna ffurflen y gall ymarferwyr meddygol ei defnyddio i ysgrifennu’r naill adroddiad neu’r llall. Cliciwch ar y ddolen ganlynol ar gyfer y ffurflen hon:
+https://www.gov.uk/government/publications/gender-recognition-certificate-writing-medical-reports))
+
+((need_to_send_evidence_of_living_in_gender??# Tystiolaeth eich bod wedi byw yn eich rhywedd a gadarnhawyd am 2 flynedd))
+
+((need_to_send_evidence_of_living_in_gender??Uwchlwythwch gopïau o dystiolaeth i ddangos eich bod wedi bod yn byw yn eich rhywedd a gadarnhawyd am y 2 flynedd diwethaf.
+
+Dylai pob darn o dystiolaeth gynnwys o leiaf un o’r canlynol sy’n cyfateb i’ch rhywedd a gadarnhawyd:
+
+* enw
+* teitl, megis ‘Mr’ neu ‘Miss’
+* rhywedd, megis ‘gwryw’ neu ‘benyw’
+
+Nid oes yna ofynion penodol eraill ar gyfer y dystiolaeth hon, ond ceisiwch ddod o hyd i:
+
+* dystiolaeth o wahanol adegau dros y 2 flynedd, gydag oddeutu 4 darn o dystiolaeth o bob blwyddyn
+* o leiaf un darn o dystiolaeth ddiweddar
+* tystiolaeth o amrywiaeth o ffynonellau gwahanol
+
+Gall y dystiolaeth fod o’r adeg cyn i chi gael diagnosis o dysfforia rhywedd.
+
+Mae enghreifftiau o beth allwch ei uwchlwytho yn cynnwys llungopïau neu luniau o ansawdd da o:
+
+* eich trwydded yrru
+* eich pasbort
+* cardiau adnabod, megis cerdyn adnabod gwaith, cerdyn adnabod myfyriwr, cerdyn rheilffordd, cerdyn yswiriant iechyd, cerdyn llyfrgell neu gerdyn teyrngarwch archfarchnad
+* llythyrau gan gyfreithwyr, cyfrifwyr, meddygon, deintyddion neu gyflogwyr
+* cyfriflenni banc
+* slipiau cyflog, P60s a P45s
+* llythyrau budd-daliadau
+* llythyrau a dogfennau treth, gan gynnwys treth y cyngor
+* bil cyfleustodau, megis biliau rhyngrwyd
+* cytundebau rhentu
+* tystysgrifau a dogfennau academaidd
+
+Efallai y gofynnir i chi anfon rhagor o dystiolaeth ar ôl i chi gyflwyno’ch cais.))
+
+((need_to_send_statutory_declaration_for_single_applicant??# Datganiad statudol ar gyfer ceiswyr sengl))
+
+((need_to_send_statutory_declaration_for_single_applicant??Llenwch a llofnodwch ddatganiad statudol.
+
+Gallwch lawrlwytho’r datganiad statudol drwy glicio ar y ddolen ganlynol: https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+
+Cyfeiriwch at y cyfarwyddyd i ddarganfod pwy all weithredu fel tyst pan fyddwch chi’n llofnodi eich datganiad.))
+
+((need_to_send_statutory_declaration_for_married_applicant??# Datganiad statudol ar gyfer ceiswyr sy’n briod))
+
+((need_to_send_statutory_declaration_for_married_applicant??Llenwch a llofnodwch ddatganiad statudol.
+
+Gallwch lawrlwytho’r datganiad statudol drwy glicio ar y ddolen ganlynol:
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+
+Cyfeiriwch at y cyfarwyddyd i ddarganfod pwy all weithredu fel tyst pan fyddwch chi’n llofnodi eich datganiad.))
+
+((need_to_send_statutory_declaration_for_applicant_in_civil_partnership??# Datganiad statudol ar gyfer ceiswyr sy’n briod))
+
+((need_to_send_statutory_declaration_for_applicant_in_civil_partnership??Llenwch a llofnodwch ddatganiad statudol.
+
+Gallwch lawrlwytho’r datganiad statudol drwy glicio ar y ddolen ganlynol:
+https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+
+Cyfeiriwch at y cyfarwyddyd i ddarganfod pwy all weithredu fel tyst pan fyddwch chi’n llofnodi eich datganiad.))
+
+((need_to_send_spouses_statutory_declaration??# Datganiad statudol eich priod))
+
+((need_to_send_spouses_statutory_declaration??Os ydych chi’n bwriadu aros yn briod, mae angen i’ch priod lenwi a llofnodi datganiad statudol.
+
+Gallwch lawrlwytho’r datganiad statudol drwy glicio ar y ddolen ganlynol: https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+
+Cyfeiriwch at y cyfarwyddyd i ddarganfod pwy all weithredu fel tyst pan fyddwch chi’n llofnodi eich datganiad.
+
+Os ydych chi’n briod ar hyn o bryd ac nid yw’ch priod yn darparu datganiad statudol o gydsyniad, neu os nad ydych chi’n bwriadu aros yn briod, yna gallwch barhau i wneud cais am Dystysgrif Cydnabod Rhywedd hebddo, ond rhoddir Tystysgrif Cydnabod Rhywedd Interim i chi. Gallwch ddefnyddio’r dystysgrif hon i ddod â’ch priodas i ben ac yna fe gewch dystysgrif lawn.))
+
+((need_to_send_civil_partners_statutory_declaration??# Datganiad statudol eich partner sifil))
+
+((need_to_send_civil_partners_statutory_declaration??Os ydych yn bwriadu aros mewn partneriaeth sifil, mae angen i'ch partner sifil lenwi a llofnodi datganiad statudol.
+
+Gallwch lawrlwytho’r datganiad statudol drwy glicio ar y ddolen ganlynol: https://www.gov.uk/government/publications/gender-recognition-certificate-statutory-declarations-for-applicants
+
+Cyfeiriwch at y cyfarwyddyd i ddarganfod pwy all weithredu fel tyst pan fyddwch chi’n llofnodi eich datganiad.
+
+Os ydych mewn partneriaeth sifil ar hyn o bryd ac nad yw'ch partner sifil yn darparu datganiad statudol o gydsyniad, neu os nad ydych yn bwriadu aros mewn partneriaeth sifil, yna gallwch barhau i wneud cais am Dystysgrif Cydnabod Rhywedd hebddo, ond rhoddir Tystysgrif Cydnabod Rhywedd Dros Dro i chi. Gellir defnyddio hyn i ddod â'ch partneriaeth sifil i ben ac ar ôl hynny byddwch yn derbyn tystysgrif lawn.))
+
+((need_to_send_marriage_certificate??# Eich tystysgrif priodas))
+
+((need_to_send_marriage_certificate??Uwchlwythwch sgan neu lun o ansawdd da o’ch tystysgrif priodas))
+
+((need_to_send_civil_partnership_certificate??# Eich tystysgrif partneriaeth sifil))
+
+((need_to_send_civil_partnership_certificate??Llwythwch sgan neu lun o ansawdd da o'ch tystysgrif partneriaeth sifil.))
+
+((need_to_send_death_certificate??# Tystysgrif marwolaeth ar gyfer eich priod neu bartner sifil))
+
+((need_to_send_death_certificate??Uwchlwythwch dystysgrif marwolaeth ar gyfer eich partner os daeth eu marwolaeth â’r briodas neu bartneriaeth sifil i ben.
+
+Gallwch archebu tystysgrif marwolaeth os cofrestrwyd eu marwolaeth yn y DU.
+Cliciwch ar y ddolen ganlynol i gael cyfarwyddyd am hyn:
+https://www.gov.uk/order-copy-birth-death-marriage-certificate))
+
+((need_to_send_decree_absolute??# Dyfarniad absoliwt neu orchymyn terfynol))
+
+((need_to_send_decree_absolute??Uwchlwythwch sgan neu ffotograff o ansawdd da o’ch dyfarniad absoliwt neu orchymyn terfynol i ddangos bod y briodas neu’r bartneriaeth sifil wedi dod i ben.
+
+Os ydych wedi bod yn briod neu mewn partneriaeth sifil fwy nag unwaith, mae angen tystysgrif ar wahân arnoch ar gyfer pob priodas neu bartneriaeth sifil.
+
+Cliciwch ar y ddolen ganlynol i gael cyfarwyddyd am hyn:
+https://www.gov.uk/copy-decree-absolute-final-order))
+
+
+((need_to_send_proof_gender_recognised_outside_uk??# Prawf bod eich rhywedd a gadarnhawyd yn cael ei gydnabod y tu allan i'r DU))
+
+((need_to_send_proof_gender_recognised_outside_uk??Os yw eich rhywedd a gadarnhawyd eisoes yn cael ei gydnabod mewn gwlad neu diriogaeth gymeradwy mae angen dogfen arnoch sy'n profi hyn.
+
+ Gallai'r ddogfen fod:
+
+* rhywbeth sy'n cyfateb i Dystysgrif Cydnabod Rhywedd
+* tystysgrif geni wedi'i diweddaru
+* gorchymyn llys
+* cofnod mewn cofrestr gyfreithiol
+
+Cliciwch ar y ddolen ganlynol am rhestr o wledydd a thiriogaethau cymeradwy:
+https://www.gov.uk/government/publications/gender-recognition-certificate-list-of-approved-countries-and-territories))
+
+
+# Tystysgrif geni neu fabwysiadu
+
+Anfonwch gopi gwreiddiol neu ardystiedig o'ch tystysgrif geni neu fabwysiadu llawn.
+
+Gallwch archebu tystysgrif geni os cofrestrwyd eich genedigaeth yn y DU.
+
+Cliciwch ar y ddolen ganlynol i gael cyfarwyddyd am hyn:
+https://www.gov.uk/order-copy-birth-death-marriage-certificate
+
+Cliciwch ar y ddolen ganlynol i gael cyfarwyddyd ar ardystio copïau o ddogfennau:
+https://www.gov.uk/certifying-a-document
+
+
+# Os nad yw unrhyw un o'ch dogfennau yn Saesneg
+
+Bydd angen i'ch dogfennau gael eu cyfieithu. Nid oes angen i'r cyfieithydd feddu ar unrhyw gymwysterau, felly gall ffrind neu aelod o'r teulu wneud y cyfieithiad.
+
+Gofynnwch i'r cyfieithydd lofnodi'r dogfennau wedi'u cyfieithu ac ysgrifennu eu cymwysterau cyfieithu os oes ganddynt rai.
+
+Bydd angen i chi anfon y dogfennau gwreiddiol a'r cyfieithiadau atom.
+
+
+# Unwaith y bydd eich dogfennau’n barod
+
+Unwaith y bydd eich dogfennau’n barod, gallwch ddefnyddio’r ddolen hon i wneud cais am Dystysgrif Cydnabod Rhywedd:
+https://www.gov.uk/apply-gender-recognition-certificate
+</Message>

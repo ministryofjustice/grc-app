@@ -2,14 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Have you already started an application?{% endblock %}
+{% block title %}{{ _('Have you already started an application?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('startApplication.index') }}"
-       class="govuk-back-link">
-        Back
-    </a>
+    {{ back.renderFor('startApplication.index') }}
 {% endblock %}
 
 {% block content %}
@@ -23,13 +22,13 @@
 
                 {% macro lostReferenceHtmlBlock() %}
                     <p class="govuk-hint">
-                        You will need to start a new application
+                        {{ _('You will need to start a new application') }}
                     </p>
                 {% endmacro %}
                 {{ radios.renderFor(
                     form,
                     fieldName='isFirstVisit',
-                    question="Have you already started an application?",
+                    question=_("Have you already started an application?"),
                     radiosOptions={
                         'questionIsPageHeading': true,
                         'conditionalOptions': [
@@ -38,7 +37,7 @@
                                 form,
                                 fieldName='reference',
                                 textInputForOptions={
-                                    'labelOptions': { 'htmlOrText': 'Reference number' },
+                                    'labelOptions': { 'htmlOrText': _('Reference number') },
                                     'classes': 'govuk-input--width-10'
                                 }
                             )),
@@ -47,11 +46,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Continue
-                    </button>
-                </div>
+                {{ continue.renderFor() }}
             </form>
 
         </div>

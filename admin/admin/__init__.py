@@ -3,14 +3,13 @@ import string
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, url_for, current_app, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from admin.admin.forms import LoginForm
+from admin.admin.forms import LoginForm, SecurityCodeForm
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, AdminUser, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.security_code import has_last_security_code_been_used, has_security_code_expired
-from grc.start_application.forms import SecurityCodeForm
 
 admin = Blueprint('admin', __name__)
 logger = Logger()

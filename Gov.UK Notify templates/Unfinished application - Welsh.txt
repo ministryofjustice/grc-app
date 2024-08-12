@@ -1,0 +1,24 @@
+<templateId>
+6d981947-7fa7-4c62-8912-f4324cd050ee
+</templateId>
+<TemplateName>
+Unfinished application - Welsh
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Bydd eich cais am Dystysgrif Cydnabod Rhywedd yn dod i ben mewn ((expiry_days))
+</Subject>
+<Message>
+Bydd eich cais am Dystysgrif Cydnabod Rhywedd yn cael ei gau mewn ((expiry_days)) a bydd unrhyw wybodaeth yr ydych wedi’i rhoi yn y cais yn cael ei dileu.
+
+Mae angen i chi fewngofnodi i gadw'ch cais.
+
+https://apply-gender-recognition-certificate.service.gov.uk/
+
+Os nad ydych eisiau gwneud cais am Dystysgrif Cydnabod Rhywedd mwyach, gallwch anwybyddu’r neges e-bost hon.
+</Message>

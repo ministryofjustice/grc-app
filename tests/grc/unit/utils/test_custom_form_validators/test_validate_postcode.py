@@ -23,5 +23,6 @@ class TestValidatePostcode:
                                  '1234 313']
             for postcode in invalid_postcodes:
                 form.postcode.data = postcode
-                with pytest.raises(ValidationError, match='Enter a valid postcode'):
-                    validate_postcode(form, form.postcode)
+                with app.test_request_context():
+                    with pytest.raises(ValidationError, match='Enter a valid postcode'):
+                        validate_postcode(form, form.postcode)
