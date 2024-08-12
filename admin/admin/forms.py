@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, PasswordField
+from grc.utils.form_custom_validators import validate_security_code_admin
+from wtforms import EmailField, PasswordField, StringField
 from wtforms.validators import DataRequired, Email
 
 
@@ -13,4 +14,10 @@ class LoginForm(FlaskForm):
 
     password = PasswordField(
         validators=[DataRequired(message='Enter your password')]
+    )
+
+
+class SecurityCodeForm(FlaskForm):
+    security_code = StringField(
+        validators=[DataRequired(message='Enter a security code'), validate_security_code_admin]
     )
