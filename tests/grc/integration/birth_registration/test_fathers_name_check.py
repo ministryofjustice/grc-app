@@ -52,4 +52,4 @@ class TestFathersNameCheck:
             response = client.post('/birth-registration/fathers-name-check', data={})
             assert response.status_code == 200
             assert "Is your father's name listed on the certificate?" in response.text
-            assert "Select if your father&#39;s name is listed on the certificate" in response.text
+            assert "Select if your father's name is listed on the certificate" in response.text

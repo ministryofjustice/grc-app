@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Was your birth registered in the UK?{% endblock %}
+{% block title %}{{ _('Was your birth registered in the UK?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -21,25 +23,18 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='birth_registered_in_uk',
-                    question="Was your birth registered in the UK?",
+                    question=_("Was your birth registered in the UK?"),
                     radiosOptions={
                         'questionIsPageHeading': true,
                         'hintOptions':{
-                            'htmlOrText': 'Select yes if you have a UK birth or adoption certificate or your birth
+                            'htmlOrText': _('Select yes if you have a UK birth or adoption certificate or your birth
                                            was registered by the Forces registering service, a British Consul or
-                                           High Commission, or under Merchant Shipping or Civil Aviation provisions.'
+                                           High Commission, or under Merchant Shipping or Civil Aviation provisions.')
                         }
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>
