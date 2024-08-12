@@ -20,7 +20,7 @@ class TestSecurityCode:
             mock_send_security_code.assert_called_once_with('test.public.email@example.com')
             assert response.status_code == 200
             assert 'Enter security code' in response.text
-            assert 'We’ve resent you a security code. This can take a few minutes to arrive.' in response.text
+            assert 'We’ve resent you a security code. This can take a few minutes to arrive' in response.text
 
     def test_security_code_post_valid(self, app, client, public_user_email, security_code):
         with app.app_context():
