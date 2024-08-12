@@ -1,11 +1,13 @@
 {% extends 'document-checker/doc-checker-base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}What is your email address?{% endblock %}
+{% block title %}{{ _('What is your email address?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('documentChecker.your_documents') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('documentChecker.your_documents') }}
 {% endblock %}
 
 {% block content %}
@@ -22,12 +24,12 @@
                     fieldName='email_address',
                     textInputForOptions={
                         'labelOptions': {
-                            'htmlOrText': 'What is your email address?',
+                            'htmlOrText': _('What is your email address?'),
                             'isPageHeading': true,
                             'classes': 'govuk-label--l'
                         },
                         'hintOptions':{
-                            'htmlOrText': 'If you would like to receive your list of documents by email, enter your email address here'
+                            'htmlOrText': _('If you would like to receive your list of documents by email, enter your email address here')
                         },
                         'classes': 'govuk-input--width-20',
                         'autocomplete': 'email',
@@ -37,10 +39,10 @@
 
                 <div class="govuk-button-group">
                     <button class="govuk-button" data-module="govuk-button">
-                        Continue
+                        {{ _('Continue') }}
                     </button>
                     <a href="{{ url_for('documentChecker.your_documents') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to your documents list
+                        {{ _('Return to your documents list') }}
                     </a>
                 </div>
             </form>

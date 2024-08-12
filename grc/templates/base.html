@@ -62,7 +62,7 @@
             </div>
             <div class="govuk-header__content">
                 <a href="{{ url_for('startApplication.index') }}" class="govuk-header__link govuk-header__link--service-name">
-                    {% block serviceTitle %}Apply for a Gender Recognition Certificate{% endblock %}
+                    {% block serviceTitle %}{{ _('Apply for a Gender Recognition Certificate') }}{% endblock %}
                 </a>
             </div>
         </div>
@@ -70,16 +70,23 @@
 
     <div class="govuk-width-container">
         <div class="govuk-phase-banner">
-            <p class="govuk-phase-banner__content">
-                <strong class="govuk-tag govuk-phase-banner__content__tag">
-                    beta
-                </strong>
+            <p class="govuk-phase-banner__content govuk-!-width-full">
                 <span class="govuk-phase-banner__text">
+                    <strong class="govuk-tag govuk-phase-banner__content__tag">
+                        beta
+                    </strong>
                     This is a new service - your
                     <a href="{{ url_for('feedback.feedback_page') }}" class="govuk-link">
                         feedback
                     </a>
                     will help us to improve it.
+                </span>
+                <span class="govuk-phase-banner__text govuk-!-text-align-right">
+                    {% if 'lang_code' in session and session['lang_code'] == 'cy' %}
+                    <a href="{{ url_for('set_language.index', lang_code='en') }}" hreflang="en" class="govuk-link">English</a>
+                    {% else %}
+                    <a href="{{ url_for('set_language.index', lang_code='cy') }}" hreflang="cy" class="govuk-link">Cymraeg</a>
+                    {% endif %}
                 </span>
             </p>
         </div>
@@ -94,12 +101,12 @@
                             <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
                                 <div class="govuk-notification-banner__header">
                                     <h2 id="govuk-notification-banner-title" class="govuk-notification-banner__title">
-                                        Success
+                                        {{ _('Success') }}
                                     </h2>
                                 </div>
                                 <div class="govuk-notification-banner__content">
                                     <h3 class="govuk-notification-banner__heading">
-                                        Email resent
+                                        {{ _('Email resent') }}
                                     </h3>
                                     {%- for msg in messages %}
                                         <p class="govuk-body">{{ msg }}</p>
@@ -146,17 +153,17 @@
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.privacy_policy') }}">
-                                Privacy policy
+                                {{ _('Privacy policy') }}
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.accessibility_statement') }}">
-                                Accessibility statement
+                                {{ _('Accessibility statement') }}
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="{{ url_for('policies.cookies') }}">
-                                Cookies
+                                {{ _('Cookies') }}
                             </a>
                         </li>
                     </ul>

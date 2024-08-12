@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Payment{% endblock %}
+{% block title %}{{ _('Payment') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,20 +17,21 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Payment
+                {{ _('Payment') }}
             </h1>
 
             <p class="govuk-body">
-                Applying for a Gender Recognition Certificate costs &pound;5.
+                {{ _('Applying for a Gender Recognition Certificate costs &pound;5.') }}
             </p>
             <p class="govuk-body">
-                You can
+                {{ _('You can') }}
                 <a href="https://www.gov.uk/get-help-with-court-fees"
                    rel="external" target="_blank" class="govuk-link">
-                    apply online for help paying this fee (opens in a new tab)</a>.
+                    {{ _('apply online for help paying this fee (opens in a new tab)') }}.
+                </a>
             </p>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                You can also download the EX160 form from that page and submit it with your application.
+                {{ _('You can also download the EX160 form from that page and submit it with your application.') }}
             </p>
 
             <form method="POST" action="#">
@@ -37,24 +40,16 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='applying_for_help_with_fee',
-                    question="Are you applying for help paying the fee?",
+                    question=_("Are you applying for help paying the fee?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                         'hintOptions':{
-                            'htmlOrText': 'If you select yes, your application for a Gender Recognition Certificate
-                                           will only be reviewed if your application for help paying the fee is accepted.'
+                            'htmlOrText': _('If you select yes, your application for a Gender Recognition Certificate will only be reviewed if your application for help paying the fee is accepted.')
                         }
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

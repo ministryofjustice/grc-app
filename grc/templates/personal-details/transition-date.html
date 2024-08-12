@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}When did you transition?{% endblock %}
+{% block title %}{{ _('When did you transition?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -22,15 +24,15 @@
                     <fieldset class="govuk-fieldset" role="group" aria-describedby="fieldset-hint">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
-                                When did you transition?
+                                {{ _('When did you transition?') }}
                             </h1>
                         </legend>
 
                         <div class="govuk-hint" id="fieldset-hint">
-                            Enter the month and year of your transition. For example, this could be when you changed
-                            your name by deed poll, or when you told friends or family you were changing your gender.
-                            The date must be the same as on your gender recognition statutory declaration. It must be
-                            at least 2 years before you submit your application for a Gender Recognition Certificate.
+                            {{ _('Enter the month and year of your transition') }}.
+                            {{ _('For example, this could be when you changed your name by deed poll, or when you told friends or family you were changing your gender') }}.
+                            {{ _('The date must be the same as on your gender recognition statutory declaration') }}.
+                            {{ _('It must be at least 2 years before you submit your application for a Gender Recognition Certificate') }}.
                         </div>
 
                         {% if form.errors %}
@@ -51,7 +53,7 @@
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
                                     <label for="transition_date_month" class="govuk-label govuk-date-input__label">
-                                        Month
+                                        {{ _('Month') }}
                                     </label>
                                     <input type="text"
                                            id="transition_date_month" name="transition_date_month"
@@ -64,7 +66,7 @@
                             <div class="govuk-date-input__item">
                                 <div class="govuk-form-group">
                                     <label for="transition_date_year" class="govuk-label govuk-date-input__label">
-                                        Year
+                                        {{ _('Year') }}
                                     </label>
                                     <input type="text"
                                            id="transition_date_year" name="transition_date_year"
@@ -78,14 +80,7 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

@@ -1,10 +1,11 @@
-from flask import Blueprint, flash, render_template, request, url_for, session
+from flask import Blueprint, flash, render_template, request, url_for, session, g
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
-    OverseasApprovedCheckForm, DeclerationForm, IsFirstVisitForm
+    OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
 from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, ValidatedEmailRequired
 from grc.utils.reference_number import reference_number_string
@@ -24,6 +25,7 @@ def index():
     if form.validate_on_submit():
         session.clear()
         session['email'] = form.email.data
+        session['lang_code'] = g.lang_code
         GovUkNotify().send_email_security_code(form.email.data)
         return local_redirect(url_for('startApplication.securityCode'))
     return render_template(
@@ -43,12 +45,13 @@ def securityCode():
         if form.validate_on_submit():
             session.clear()  # Clear out session['email']
             session['validatedEmail'] = email
+            session['lang_code'] = g.lang_code
             return local_redirect(url_for('startApplication.isFirstVisit'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
         GovUkNotify().send_email_security_code(session['email'])
-        flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
+        flash(c.RESEND_SECURITY_CODE, 'email')
 
     return render_template(
         'security-code.html',
@@ -70,6 +73,7 @@ def isFirstVisit():
                     application = DataStore.create_new_application(email_address=session['validatedEmail'])
                     session.clear()  # Clear out session['validatedEmail']
                     session['reference_number'] = application.reference_number
+                    session['lang_code'] = g.lang_code
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('startApplication.reference'))
 
@@ -106,6 +110,7 @@ def isFirstVisit():
                                               f" accessed their application")
                     session.clear()  # Clear out session['validatedEmail']
                     session['reference_number'] = application.reference_number
+                    session['lang_code'] = g.lang_code
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('taskList.index'))
 
@@ -188,6 +193,7 @@ def overseas_approved_check():
     return render_template(
         'start-application/overseas-approved-check.html',
         form=form,
+        countries=c.APPROVED_COUNTRIES,
         back=get_previous_page(application_data, 'startApplication.overseas_check')
     )
 
@@ -195,7 +201,7 @@ def overseas_approved_check():
 @startApplication.route('/declaration', methods=['GET', 'POST'])
 @LoginRequired
 def declaration():
-    form = DeclerationForm()
+    form = DeclarationForm()
     application_data = DataStore.load_application_by_session_reference_number()
     back_link = ('startApplication.overseas_approved_check'
                  if application_data.confirmation_data.gender_recognition_outside_uk

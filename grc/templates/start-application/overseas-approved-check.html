@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Gender recognition in approved countries and territories{% endblock %}
+{% block title %}{{ _('Gender recognition in approved countries and territories') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,62 +17,35 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Gender recognition in approved countries and territories
+                {{ _('Gender recognition in approved countries and territories') }}
             </h1>
 
             <p class="govuk-body">
-                If you have ever been issued a Gender Recognition Certificate (or its equivalent) in an approved
-                country or territory, you will need to provide official documentation that shows this.
+                {{ _('If you have ever been issued a Gender Recognition Certificate (or its equivalent) in an approved country or territory, you will need to provide official documentation that shows this') }}.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-1">
-                This could be:
+                {{ _('This could be') }}:
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>a document equal to a Gender Recognition Certificate</li>
-                <li>an updated birth certificate</li>
-                <li>a court order</li>
-                <li>an entry in a legal register</li>
+                <li>{{ _('a document equal to a Gender Recognition Certificate') }}</li>
+                <li>{{ _('an updated birth certificate') }}</li>
+                <li>{{ _('a court order') }}</li>
+                <li>{{ _('an entry in a legal register') }}</li>
             </ul>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                If you have received gender recognition from somewhere else, or you can’t provide this documentation,
-                you will need to provide medical reports and evidence of living in your gender for 2 years instead.
+                {{ _('If you have received gender recognition from somewhere else, or you can’t provide this documentation, you will need to provide medical reports and evidence of living in your gender for 2 years instead') }}.
             </p>
 
             <h2 class="govuk-heading-m">
-                List of approved countries and territories
+                {{ _('List of approved countries and territories') }}
             </h2>
+            {% if countries %}
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
-                <li>Australia - only includes the Australian Capital Territory, New South Wales, Queensland and Western Australia</li>
-                <li>Belarus</li>
-                <li>Bosnia and Herzegovina</li>
-                <li>China</li>
-                <li>Croatia</li>
-                <li>Cuba</li>
-                <li>Republic of Cyprus</li>
-                <li>Czech Republic</li>
-                <li>Estonia</li>
-                <li>Georgia</li>
-                <li>Germany</li>
-                <li>India</li>
-                <li>Iran</li>
-                <li>Italy</li>
-                <li>Japan</li>
-                <li>Kazakhstan</li>
-                <li>Mongolia</li>
-                <li>Montenegro</li>
-                <li>Namibia</li>
-                <li>Panama</li>
-                <li>Romania</li>
-                <li>Slovakia</li>
-                <li>South Africa</li>
-                <li>South Korea</li>
-                <li>Sri Lanka</li>
-                <li>Sweden</li>
-                <li>Taiwan</li>
-                <li>Turkey</li>
-                <li>Ukraine</li>
-                <li>United States of America – only includes Alabama, Alaska, Arizona, Arkansas, Connecticut, Delaware, Georgia, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maryland, Massachusetts, Missouri, Nebraska, New Hampshire, North Carolina, North Dakota, Pennsylvania and Wisconsin</li>
+                {% for country in countries %}
+                <li>{{ country }}</li>
+                {% endfor %}
             </ul>
+            {% endif %}
 
             <form method="POST" action="#">
                 {{ form.csrf_token }}
@@ -78,18 +53,16 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='overseasApprovedCheck',
-                    question="Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of these countries or territories?",
+                    question=_("Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of these countries or territories?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                         'hintOptions': {
-                            'htmlOrText': "Select ‘No’ if you have received gender recognition from somewhere else, or you can’t provide this documentation."
+                            'htmlOrText': _("Select ‘No’ if you have received gender recognition from somewhere else, or you can’t provide this documentation.")
                         }
                     }
                 ) }}
 
-                <button class="govuk-button" data-module="govuk-button">
-                    Continue
-                </button>
+                {{ continue.renderFor() }}
             </form>
 
         </div>

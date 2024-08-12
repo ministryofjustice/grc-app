@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Were you previously married or in a civil partnership and your spouse or partner died?{% endblock %}
+{% block title %}{{ _('Were you previously married or in a civil partnership and your spouse or partner died?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -20,23 +22,16 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='partner_died',
-                    question="Were you previously married or in a civil partnership and your spouse or partner died?",
+                    question=_("Were you previously married or in a civil partnership and your spouse or partner died?"),
                     radiosOptions={
                         'questionIsPageHeading': true,
                         'hintOptions': {
-                            'htmlOrText': 'If yes, you will need to provide a copy of their death certificate'
+                            'htmlOrText': _('If yes, you will need to provide a copy of their death certificate')
                         }
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>
