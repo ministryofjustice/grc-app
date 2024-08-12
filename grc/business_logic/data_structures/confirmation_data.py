@@ -1,3 +1,4 @@
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.list_status import ListStatus
 
 
@@ -19,15 +20,15 @@ class ConfirmationData:
 
     @property
     def gender_recognition_outside_uk_formatted(self) -> str:
-        return 'Yes' if self.gender_recognition_outside_uk else 'No'
+        return c.YES if self.gender_recognition_outside_uk else c.NO
 
     @property
     def gender_recognition_from_approved_country_formatted(self) -> str:
-        return 'Yes' if self.gender_recognition_from_approved_country else 'No'
+        return c.YES if self.gender_recognition_from_approved_country else c.NO
 
     @property
     def consent_to_GRO_contact_formatted(self) -> str:
-        return 'Yes' if self.consent_to_GRO_contact else 'No'
+        return c.YES if self.consent_to_GRO_contact else c.NO
 
     @property
     def section_status(self) -> ListStatus:

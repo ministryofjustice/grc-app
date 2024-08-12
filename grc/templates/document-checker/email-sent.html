@@ -1,9 +1,11 @@
 {% extends 'document-checker/doc-checker-base.html' %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Email sent{% endblock %}
+{% block title %}{{ _('Email sent') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('documentChecker.your_documents') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('documentChecker.your_documents') }}
 {% endblock %}
 
 {% block content %}
@@ -12,23 +14,23 @@
 
             <div class="govuk-panel govuk-panel--confirmation">
                 <h1 class="govuk-panel__title">
-                    Email sent
+                    {{ _('Email sent') }}
                 </h1>
             </div>
 
             <p class="govuk-body govuk-!-margin-top-6">
-                You should shortly receive an email with the required documents for applying for a gender recognition
-                certification.
+                {{ _('You should shortly receive an email with the required documents for applying for a gender recognition certification.') }}
             </p>
             <p class="govuk-body govuk-!-margin-bottom-6">
-                Once you have your documents ready you can
+                {{ _('Once you have your documents ready you can') }}
                 <a href="{{ url_for('startApplication.index') }}" class="govuk-link">
-                    apply for a certificate</a>.
+                    {{ _('apply for a certificate') }}.
+                </a>
             </p>
 
             <p class="govuk-body">
                 <a href="{{ url_for('documentChecker.your_documents') }}" class="govuk-link govuk-link--no-visited-state">
-                    Return to your documents list
+                    {{ _('Return to your documents list') }}
                 </a>
             </p>
 
