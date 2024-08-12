@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/_summary-list-item.html" as summary_list_item %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
 {% macro check_your_answers_row(title, changeLinkHiddenText, changeLinkUrlFor, value) %}
     {{ summary_list_item.render(title, changeLinkHiddenText, url_for(changeLinkUrlFor, check_source='section', pages_from_check=1), value) }}
 {% endmacro %}
 
-{% block title %}Check your answers: Your personal details{% endblock %}
+{% block title %}{{ _('Check your answers:')}} {{ _('Your personal details') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -16,41 +18,41 @@
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                <span class="govuk-caption-l">Check your answers:</span>
-                Your personal details
+                <span class="govuk-caption-l">{{ _('Check your answers:') }}</span>
+                {{ _('Your personal details') }}
             </h1>
 
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                 {{ check_your_answers_row(
-                    title='Name',
+                    title=_('Name'),
                     changeLinkHiddenText='name',
                     changeLinkUrlFor='personalDetails.index',
                     value=(application_data.personal_details_data.full_name)
                 ) }}
 
                 {{ check_your_answers_row(
-                    title='Affirmed gender',
+                    title=_('Affirmed gender'),
                     changeLinkHiddenText='affirmed gender',
                     changeLinkUrlFor='personalDetails.affirmedGender',
                     value=(application_data.personal_details_data.affirmed_gender_formatted)
                 ) }}
 
                 {{ check_your_answers_row(
-                    title='When you transitioned',
+                    title=_('When you transitioned'),
                     changeLinkHiddenText='when you transitioned',
                     changeLinkUrlFor='personalDetails.transitionDate',
                     value=(application_data.personal_details_data.transition_date_formatted_MMMM_YYYY)
                 ) }}
 
                 {{ check_your_answers_row(
-                    title='When you signed your statutory declaration',
+                    title=_('When you signed your statutory declaration'),
                     changeLinkHiddenText='when you signed your statutory declaration',
                     changeLinkUrlFor='personalDetails.statutoryDeclarationDate',
                     value=(application_data.personal_details_data.statutory_declaration_date_formatted_DD_MMMM_YYYY)
                 ) }}
 
                 {{ check_your_answers_row(
-                    title='Ever changed name',
+                    title=_('Ever changed name'),
                     changeLinkHiddenText='whether you have changed your name to reflect your gender',
                     changeLinkUrlFor='personalDetails.previousNamesCheck',
                     value=(application_data.personal_details_data.changed_name_to_reflect_gender_formatted)
@@ -68,7 +70,7 @@
                     {{ application_data.personal_details_data.address_postcode }}
                 {% endmacro %}
                 {{ check_your_answers_row(
-                    title='Address',
+                    title=_('Address'),
                     changeLinkHiddenText='address',
                     changeLinkUrlFor='personalDetails.address',
                     value=(addressValue())
@@ -78,23 +80,23 @@
                     <ul class="govuk-list">
                         {% if application_data.personal_details_data.contact_email_address %}
                             <li>
-                                Email: {{ application_data.personal_details_data.contact_email_address }}
+                                {{ _('Email') }}: {{ application_data.personal_details_data.contact_email_address }}
                             </li>
                         {% endif %}
                         {% if application_data.personal_details_data.contact_phone_number %}
                             <li>
-                                Phone: {{ application_data.personal_details_data.contact_phone_number }}
+                                {{ _('Phone') }}: {{ application_data.personal_details_data.contact_phone_number }}
                             </li>
                         {% endif %}
                         {% if application_data.personal_details_data.contact_by_post %}
                             <li>
-                                Post: {{ application_data.personal_details_data.address_comma_separated }}
+                                {{ _('Post') }}: {{ application_data.personal_details_data.address_comma_separated }}
                             </li>
                         {% endif %}
                     </ul>
                 {% endmacro %}
                 {{ check_your_answers_row(
-                    title='Contact preferences',
+                    title=_('Contact preferences'),
                     changeLinkHiddenText='contact preferences',
                     changeLinkUrlFor='personalDetails.contactPreferences',
                     value=(contactPreferencesValue())
@@ -109,7 +111,7 @@
                 {% endmacro %}
                 {% if application_data.personal_details_data.contact_dates_should_avoid %}
                     {{ check_your_answers_row(
-                        title='Unavailable over the next 6 months',
+                        title=_('Unavailable over the next 6 months'),
                         changeLinkHiddenText="whether there are any dates you don't want us to contact you by post over the next 6 months",
                         changeLinkUrlFor='personalDetails.contactDates',
                         value=(unavailabilityValueTextboxDates())
@@ -132,7 +134,7 @@
                 {% endmacro %}
                 {% if application_data.personal_details_data.contact_dates_to_avoid_option %}
                     {{ check_your_answers_row(
-                        title='Unavailable over the next 6 months',
+                        title=_('Unavailable over the next 6 months'),
                         changeLinkHiddenText="whether there are any dates you don't want us to contact you by post over the next 6 months",
                         changeLinkUrlFor='personalDetails.contactDates',
                         value=(unavailabilityValueSingleDateOrDateRanges())
@@ -140,7 +142,7 @@
                 {% endif %}
 
                 {{ check_your_answers_row(
-                    title='Notify HMRC',
+                    title=_('Notify HMRC'),
                     changeLinkHiddenText="whether you want us to notify HMRC after you receive a Gender Recognition Certificate",
                     changeLinkUrlFor='personalDetails.hmrc',
                     value=(application_data.personal_details_data.tell_hmrc_formatted)
@@ -148,7 +150,7 @@
 
                 {% if application_data.personal_details_data.tell_hmrc %}
                     {{ check_your_answers_row(
-                        title='National insurance number',
+                        title=_('National insurance number'),
                         changeLinkHiddenText="your National Insurance number",
                         changeLinkUrlFor='personalDetails.hmrc',
                         value=(application_data.personal_details_data.national_insurance_number)
@@ -159,14 +161,7 @@
             <form method="POST" action="#">
                 {{ form.csrf_token }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>
