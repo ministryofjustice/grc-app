@@ -9,7 +9,7 @@ from wtforms.validators import ValidationError
 class TestValidateSingleDate:
 
     def test_validate_single_date_valid_date(self, app):
-        with app.app_context():
+        with app.test_request_context():
             future_date = datetime.today() + relativedelta(months=6)
             form = ContactDatesForm()
             form.contactDatesCheck.data = 'SINGLE_DATE'
@@ -19,7 +19,7 @@ class TestValidateSingleDate:
             assert validate_single_date(form, form.year) is None
 
     def test_validate_single_date_invalid_day_error(self, app):
-        with app.app_context():
+        with app.test_request_context():
             future_date = datetime.today() + relativedelta(months=6)
             form = ContactDatesForm()
             form.contactDatesCheck.data = 'SINGLE_DATE'
@@ -29,7 +29,7 @@ class TestValidateSingleDate:
             assert validate_single_date(form, form.year) is None
 
     def test_validate_single_date_invalid_month_error(self, app):
-        with app.app_context():
+        with app.test_request_context():
             future_date = datetime.today() + relativedelta(months=6)
             form = ContactDatesForm()
             form.contactDatesCheck.data = 'SINGLE_DATE'
@@ -39,7 +39,7 @@ class TestValidateSingleDate:
             assert validate_single_date(form, form.year) is None
 
     def test_validate_single_date_invalid_year_date(self, app):
-        with app.app_context():
+        with app.test_request_context():
             form = ContactDatesForm()
             form.contactDatesCheck.data = 'SINGLE_DATE'
             form.day.data = '1'
@@ -50,7 +50,7 @@ class TestValidateSingleDate:
                     validate_single_date(form, form.year)
 
     def test_validate_single_date_invalid_date_in_past(self, app):
-        with app.app_context():
+        with app.test_request_context():
             past_date = datetime.today() - relativedelta(months=6)
             form = ContactDatesForm()
             form.contactDatesCheck.data = 'SINGLE_DATE'

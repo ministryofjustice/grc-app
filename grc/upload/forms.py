@@ -1,28 +1,37 @@
+import enum
+
 from flask_wtf import Form, FlaskForm
-from wtforms import MultipleFileField, HiddenField, RadioField, PasswordField, SubmitField, FormField, FieldList
+from grc.business_logic.constants.uploads import UploadsConstants as c
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyMultiFileAllowed
+from grc.utils.form_custom_validators import validate_multiple_files_size_limit, file_virus_scan, StrictRequiredIf
+from wtforms import MultipleFileField, HiddenField, PasswordField, SubmitField, FormField, FieldList
 from wtforms.validators import DataRequired
-from grc.utils.form_custom_validators import MultiFileAllowed, validate_multiple_files_size_limit, file_virus_scan, StrictRequiredIf
 
 
 class UploadForm(FlaskForm):
+
+    class UploadEnum(enum.Enum):
+        UPLOAD_FILE = enum.auto()
+        SAVE_AND_CONTINUE = enum.auto()
+
     upload_set = ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp', 'pdf']
     file_size_limit_mb = 10
 
-    button_clicked = RadioField(
-        choices=[
-            ('Upload file', 'Upload file'),
-            ('Save and continue', 'Save and continue')
+    button_clicked = LazyRadioField(
+        lazy_choices=[
+            (UploadEnum.UPLOAD_FILE.name, c.UPLOAD_FILE),
+            (UploadEnum.SAVE_AND_CONTINUE.name, c.SAVE_AND_CONTINUE)
         ],
-        validators=[DataRequired(message="Click on either the 'Upload file' button or 'Save and continue' button")]
+        validators=[LazyDataRequired(lazy_message=c.UPLOAD_OR_SAVE_ERROR)]
     )
 
     documents = MultipleFileField(
         validators=[
-            StrictRequiredIf('button_clicked', 'Upload file',
-                             message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB',
+            StrictRequiredIf('button_clicked', UploadEnum.UPLOAD_FILE.name,
+                             message=c.FILE_TYPE_PUBLIC_ERROR,
                              validators=[
-                                 MultiFileAllowed(upload_set,
-                                                  message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB'),
+                                 LazyMultiFileAllowed(upload_set, lazy_message=c.FILE_TYPE_PUBLIC_ERROR),
                                  validate_multiple_files_size_limit,
                                  file_virus_scan
                              ]),

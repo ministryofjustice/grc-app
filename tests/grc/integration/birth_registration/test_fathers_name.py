@@ -49,5 +49,5 @@ class TestFathersName:
             response = client.post('/birth-registration/fathers-name', data={})
             assert response.status_code == 200
             assert "What is your father's name as listed on your birth or adoption certificate?" in response.text
-            assert "Enter your father&#39;s first name" in response.text
-            assert "Enter your father&#39;s last name" in response.text
+            assert "Enter your father's first name" in response.text
+            assert "Enter your father's last name" in response.text

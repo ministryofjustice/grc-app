@@ -1,6 +1,7 @@
 import datetime
 from enum import auto
 from grc.business_logic.data_structures.grc_enum import GrcEnum
+from grc.business_logic.constants.birth_and_registration import BirthRegistrationConstants as c
 from grc.list_status import ListStatus
 
 
@@ -67,28 +68,28 @@ class BirthRegistrationData:
 
     @property
     def birth_registered_in_uk_formatted(self) -> str:
-        return 'Yes' if self.birth_registered_in_uk else 'No'
+        return c.YES if self.birth_registered_in_uk else c.NO
 
     @property
     def fathers_name_on_birth_certificate_formatted(self) -> str:
-        return 'Yes' if self.fathers_name_on_birth_certificate else 'No'
+        return c.YES if self.fathers_name_on_birth_certificate else c.NO
 
     @property
     def adopted_formatted(self) -> str:
-        return 'Yes' if self.adopted else 'No'
+        return c.YES if self.adopted else c.NO
 
     @property
     def adopted_in_the_uk_formatted(self) -> str:
         if self.adopted_in_the_uk == AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_YES:
-            return 'Yes'
+            return c.YES
         elif self.adopted_in_the_uk == AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_NO:
-            return 'No'
+            return c.NO
         elif self.adopted_in_the_uk == AdoptedInTheUkEnum.ADOPTED_IN_THE_UK_DO_NOT_KNOW:
-            return "I don't know"
+            return c.DONT_KNOW
 
     @property
     def forces_registration_formatted(self) -> str:
-        return 'Yes' if self.forces_registration else 'No'
+        return c.YES if self.forces_registration else c.NO
 
     @property
     def section_status(self) -> ListStatus:

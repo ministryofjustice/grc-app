@@ -30,7 +30,7 @@
 
             {{ label.render(dateForOptions.labelOptions) }}
 
-            {{ label.render({ 'htmlOrText': "From" }) }}
+            {{ label.render({ 'htmlOrText': _("From") }) }}
 
             {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -38,7 +38,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.from_date_day.name }}" class="govuk-label govuk-date-input__label">
-                            Day
+                            {{ _('Day') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.from_date_day.name }}" name="{{ date_range.form.from_date_day.name }}"
@@ -51,7 +51,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.from_date_month.name }}" class="govuk-label govuk-date-input__label">
-                            Month
+                            {{ _('Month') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.from_date_month.name }}" name="{{ date_range.form.from_date_month.name }}"
@@ -64,7 +64,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.from_date_year.name }}" class="govuk-label govuk-date-input__label">
-                            Year
+                            {{ _('Year') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.from_date_year.name }}" name="{{ date_range.form.from_date_year.name }}"
@@ -77,7 +77,7 @@
             </div>
             <br>
             <br>
-            {{ label.render({ 'htmlOrText': "To" }) }}
+            {{ label.render({ 'htmlOrText': _("To") }) }}
 
             {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -85,7 +85,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.to_date_day.name }}" class="govuk-label govuk-date-input__label">
-                            Day
+                            {{ _('Day') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.to_date_day.name }}" name="{{ date_range.form.to_date_day.name }}"
@@ -98,7 +98,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.to_date_month.name }}" class="govuk-label govuk-date-input__label">
-                            Month
+                            {{ _('Month') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.to_date_month.name }}" name="{{ date_range.form.to_date_month.name }}"
@@ -111,7 +111,7 @@
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label for="{{ date_range.form.to_date_year.name }}" class="govuk-label govuk-date-input__label">
-                            Year
+                            {{ _('Year') }}
                         </label>
                         <input type="text"
                                id="{{ date_range.form.to_date_year.name }}" name="{{ date_range.form.to_date_year.name }}"
@@ -124,7 +124,7 @@
             </div>
             {% if not loop.index == 1 and loop.last %}
                 <br>
-                <input type="submit" name="remove_date_range_button_clicked" value="Remove date range"
+                <input type="submit" name="remove_date_range_button_clicked" value="{{ _('Remove date range') }}"
                        class="govuk-button govuk-button--warning" data-module="govuk-button">
             {% endif %}
             <br>
@@ -135,7 +135,7 @@
 
         {{ label.render(dateForOptions.labelOptions) }}
 
-        {{ label.render({ 'htmlOrText': "From" }) }}
+        {{ label.render({ 'htmlOrText': _("From") }) }}
 
         {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -143,7 +143,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-from_date_day" class="govuk-label govuk-date-input__label">
-                        Day
+                        {{ _('Day') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-from_date_day" name="date_ranges-0-from_date_day"
@@ -155,7 +155,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-from_date_month" class="govuk-label govuk-date-input__label">
-                        Month
+                        {{ _('Month') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-from_date_month" name="date_ranges-0-from_date_month"
@@ -167,7 +167,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-from_date_year" class="govuk-label govuk-date-input__label">
-                        Year
+                        {{ _('Year') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-from_date_year" name="date_ranges-0-from_date_year"
@@ -180,7 +180,7 @@
         <br>
         <br>
 
-        {{ label.render({ 'htmlOrText': "To" }) }}
+        {{ label.render({ 'htmlOrText': _("To") }) }}
 
         {{ hint.render(dateForOptions.hintOptions) }}
 
@@ -188,7 +188,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-to_date_day" class="govuk-label govuk-date-input__label">
-                        Day
+                        {{ _('Day') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-to_date_day" name="date_ranges-0-to_date_day"
@@ -200,7 +200,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-to_date_month" class="govuk-label govuk-date-input__label">
-                        Month
+                        {{ _('Month') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-to_date_month" name="date_ranges-0-to_date_month"
@@ -212,7 +212,7 @@
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label for="date_ranges-0-to_date_year" class="govuk-label govuk-date-input__label">
-                        Year
+                        {{ _('Year') }}
                     </label>
                     <input type="text"
                            id="date_ranges-0-to_date_year" name="date_ranges-0-to_date_year"
@@ -226,7 +226,7 @@
     {% endif %}
     <br>
     <div class="govuk-button-group">
-        <input type="submit" name="add_date_range_button_clicked" value="Add another date range"
+        <input type="submit" name="add_date_range_button_clicked" value="{{ _('Add another date range') }}"
                class="govuk-button" data-module="govuk-button">
     </div>
 

@@ -1,0 +1,24 @@
+<templateId>
+151fce32-1f66-4efd-a875-28026e8d8d70
+</templateId>
+<TemplateName>
+Unfinished application
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Your Gender Recognition Certificate application expires in ((expiry_days))
+</Subject>
+<Message>
+Your Gender Recognition Certificate application will be closed in ((expiry_days)) and any information you entered will be deleted.
+
+You need to log in to keep your application active. You will need your application reference number.
+
+https://apply-gender-recognition-certificate.service.gov.uk/
+
+If you no longer wish to apply for a Gender Recognition Certificate you can ignore this email.
+</Message>

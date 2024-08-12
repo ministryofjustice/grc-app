@@ -2,6 +2,7 @@ import pytest
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from flask import session
+from grc.lazy.lazy_errors import LazyValidationError
 from grc.personal_details.forms import TransitionDateForm
 from grc.utils.form_custom_validators import validate_date_of_transition
 from wtforms.validators import ValidationError
@@ -22,16 +23,18 @@ class TestValidateTransitionDate:
             form = TransitionDateForm()
             form.transition_date_month.data = '12'
             form.transition_date_year.data = 'ABCSSD'
-            with pytest.raises(ValidationError, match='Enter a valid year'):
-                validate_date_of_transition(form, form.transition_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a valid year'):
+                    validate_date_of_transition(form, form.transition_date_year)
 
     def test_validate_transition_date_invalid_date_before_earliest_possible_year(self, app):
         with app.app_context():
             form = TransitionDateForm()
             form.transition_date_month.data = '4'
             form.transition_date_year.data = '1900'
-            with pytest.raises(ValidationError, match='Enter a date within the last 100 years'):
-                validate_date_of_transition(form, form.transition_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a date within the last 100 years'):
+                    validate_date_of_transition(form, form.transition_date_year)
 
     def test_validate_transition_date_invalid_date_in_future(self, app):
         with app.app_context():
@@ -39,8 +42,9 @@ class TestValidateTransitionDate:
             form = TransitionDateForm()
             form.transition_date_month.data = f'{future_date.month}'
             form.transition_date_year.data = f'{future_date.year}'
-            with pytest.raises(ValidationError, match='Enter a date in the past'):
-                validate_date_of_transition(form, form.transition_date_year)
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Enter a date in the past'):
+                    validate_date_of_transition(form, form.transition_date_year)
 
     @patch('grc.models.db.session')
     def test_validate_transition_date_invalid_date_within_2_years_of_starting_application(self,
