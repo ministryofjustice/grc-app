@@ -74,18 +74,20 @@ msgid ""
 "Australia - only includes the Australian Capital Territory, New South "
 "Wales, Queensland and Western Australia"
 msgstr ""
+"Awstralia - dim ond yn cynnwys Prifddinas-diriogaeth Awstralia, De Cymru "
+"Newydd, Queensland a Gorllewin Awstralia"
 
 #: grc/business_logic/constants/base.py:14
 msgid "Belarus"
-msgstr ""
+msgstr "Belarws"
 
 #: grc/business_logic/constants/base.py:15
 msgid "Bosnia and Herzegovina"
-msgstr ""
+msgstr "Bosnia a Herzegovina"
 
 #: grc/business_logic/constants/base.py:16
 msgid "China"
-msgstr ""
+msgstr "Tsieina"
 
 #: grc/business_logic/constants/base.py:17
 msgid "Croatia"
@@ -93,11 +95,11 @@ msgstr "Croatia"
 
 #: grc/business_logic/constants/base.py:18
 msgid "Cuba"
-msgstr ""
+msgstr "Ciwba"
 
 #: grc/business_logic/constants/base.py:19
 msgid "Republic of Cyprus"
-msgstr ""
+msgstr "Gweriniaeth Cyprus"
 
 #: grc/business_logic/constants/base.py:20
 msgid "Czech Republic"
@@ -108,9 +110,8 @@ msgid "Estonia"
 msgstr "Estonia"
 
 #: grc/business_logic/constants/base.py:22
-#, fuzzy
 msgid "Georgia"
-msgstr "Serbia"
+msgstr "Georgia"
 
 #: grc/business_logic/constants/base.py:23
 msgid "Germany"
@@ -118,12 +119,11 @@ msgstr "Almaen"
 
 #: grc/business_logic/constants/base.py:24
 msgid "India"
-msgstr ""
+msgstr "India"
 
 #: grc/business_logic/constants/base.py:25
-#, fuzzy
 msgid "Iran"
-msgstr "Ffrainc"
+msgstr "Iran"
 
 #: grc/business_logic/constants/base.py:26
 msgid "Italy"
@@ -135,24 +135,23 @@ msgstr "Japan"
 
 #: grc/business_logic/constants/base.py:28
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazakhstan"
 
 #: grc/business_logic/constants/base.py:29
 msgid "Mongolia"
-msgstr ""
+msgstr "Mongolia"
 
 #: grc/business_logic/constants/base.py:30
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: grc/business_logic/constants/base.py:31
 msgid "Namibia"
-msgstr ""
+msgstr "Namibia"
 
 #: grc/business_logic/constants/base.py:32
-#, fuzzy
 msgid "Panama"
-msgstr "enw"
+msgstr "Panama"
 
 #: grc/business_logic/constants/base.py:33
 msgid "Romania"
@@ -172,7 +171,7 @@ msgstr "De Corea"
 
 #: grc/business_logic/constants/base.py:37
 msgid "Sri Lanka"
-msgstr ""
+msgstr "Sri Lanka"
 
 #: grc/business_logic/constants/base.py:38
 msgid "Sweden"
@@ -180,7 +179,7 @@ msgstr "Sweden"
 
 #: grc/business_logic/constants/base.py:39
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwan"
 
 #: grc/business_logic/constants/base.py:40
 msgid "Turkey"
@@ -197,6 +196,10 @@ msgid ""
 "Kentucky, Louisiana, Maryland, Massachusetts, Missouri, Nebraska, New "
 "Hampshire, North Carolina, North Dakota, Pennsylvania and Wisconsin"
 msgstr ""
+"Unol Daleithiau America - dim ond yn cynnwys Alabama, Alaska, Arizona, "
+"Arkansas, Connecticut, Delaware, Georgia, Indiana, Iowa, Kansas, "
+"Kentucky, Louisiana, Maryland, Massachusetts, Missouri, Nebraska, New "
+"Hampshire, Gogledd Carolina, Gogledd Dakota, Pennsylvania a Wisconsin"
 
 #: grc/business_logic/constants/base.py:48
 msgid ""
