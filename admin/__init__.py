@@ -32,8 +32,6 @@ def create_app(test_config=None):
 
     if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local':
         app.config['PROPAGATE_EXCEPTIONS'] = True
-
-        print('FIRING', flush=True)
         CustomErrorHandlers(app)
 
     # Load build info from JSON file
