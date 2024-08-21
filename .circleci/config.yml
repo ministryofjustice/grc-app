@@ -473,7 +473,7 @@ workflows:
           ecr_endpoint: ${ECR_ENDPOINT_PREPROD}
           filters:
             branches:
-              only: /^staging$/
+              only: /^RST-6479-google-analytics-tag$/
       - approve_staging:
           type: approval
           requires:
@@ -482,7 +482,7 @@ workflows:
           name: deploy-staging-live
           filters:
             branches:
-              only: /^staging$/
+              only: /^RST-6479-google-analytics-tag$/
           requires:
             - approve_staging
       ### PRODUCTION ###
