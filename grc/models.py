@@ -6,9 +6,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import StringEncryptedType
 from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
 from grc.business_logic.data_structures.application_data import ApplicationData
+from grc.utils.logger import LogLevel, Logger
 
 db = SQLAlchemy()
 secret_key = os.environ.get('SQLALCHEMY_KEY', '')
+logger = Logger()
 
 
 class ApplicationStatus(enum.Enum):
@@ -45,9 +47,9 @@ class Application(db.Model):
             application_data.updated = self.updated
             return application_data
         except Exception as e:
-            print(f"model error: {e}", flush=True)
-            print(f"reference_number: {self.reference_number}, created: {self.created}, updated: {self.updated}", flush=True)
-            print(f"data: {self.user_input}", flush=True)
+            logger.log(LogLevel.ERROR, f"model error: {e}")
+            logger.log(LogLevel.INFO, f"reference_number: {self.reference_number}, created: {self.created}, updated: {self.updated}")
+            logger.log(LogLevel.INFO, f"data: {self.user_input}")
 
 
 class SecurityCode(db.Model):
