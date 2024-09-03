@@ -271,5 +271,5 @@ def delete():
                 session['message'] = message
             return local_redirect(url_for('applications.index', _anchor='completed'))
 
-    print('No applications to mark as deleted', flush=True)
+    logger.log(LogLevel.INFO, 'No applications to mark as deleted')
     return local_redirect(url_for('applications.index', _anchor='completed'))
