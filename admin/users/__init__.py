@@ -52,7 +52,7 @@ def invite_new_admin_user():
                         application_link=request.host_url
                     )
                 except Exception as e:
-                    print(e, flush=True)
+                    logger.log(LogLevel.ERROR, str(e))
 
                 logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['signedIn'])} created an account for {email_address}")
 
@@ -144,7 +144,7 @@ def resend(emailAddress):
                 application_link=request.host_url
             )
         except Exception as e:
-            print(e, flush=True)
+            logger.log(LogLevel.ERROR, str(e))
 
         return render_template(
             'users/invite-resent.html',
