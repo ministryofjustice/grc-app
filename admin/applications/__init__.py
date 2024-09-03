@@ -215,7 +215,7 @@ def completed():
                 session['message'] = message
             return local_redirect(url_for('applications.index', _anchor='completed'))
 
-    print('No applications to mark as completed', flush=True)
+    logger.log(LogLevel.INFO, 'No applications to mark as completed')
     return local_redirect(url_for('applications.index', _anchor='downloaded'))
 
 
