@@ -51,3 +51,5 @@ class TestConfig(Config):
     AV_API = 'TEST CLAMAV API'
     NOTIFY_API = os.environ.get('NOTIFY_API')
     FLASK_APP = "grc"
+    AWS_REGION = 'test-region'
+    BUCKET_NAME = 'test-bucket'
