@@ -31,7 +31,7 @@ def index():
                     logger.log(LogLevel.INFO, f"Password reset link sent to {email_address}")
 
                 except Exception as e:
-                    print(e, flush=True)
+                    logger.log(LogLevel.ERROR, str(e))
 
                 session['email'] = email_address
                 return local_redirect(url_for('password_reset.reset_password_security_code'))
