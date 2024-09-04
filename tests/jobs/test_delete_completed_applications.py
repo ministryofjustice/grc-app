@@ -1,6 +1,9 @@
 import pytest
 from grc.models import db, Application, ApplicationStatus, ApplicationData
+from grc.utils.logger import LogLevel, Logger
 from unittest.mock import patch, MagicMock
+
+logger = Logger()
 
 
 @pytest.mark.parametrize('test_emails', [3], indirect=True)
@@ -24,7 +27,7 @@ def test_delete_completed_applications_mark_completed_application_as_deleted(
 
         runner = app.test_cli_runner()
         result = runner.invoke(args=['jobs.delete_completed_applications', 'run'])
-        print(result.output)
+        logger.log(LogLevel.INFO, result.output)
         assert result.exit_code == 0
 
         inactivated_applications_after_job = db.session.query(Application).filter(
@@ -60,7 +63,7 @@ def test_delete_completed_applications_inactive_invalid_app_data_still_marks_app
 
         runner = app.test_cli_runner()
         result = runner.invoke(args=['jobs.delete_completed_applications', 'run'])
-        print(result.output)
+        logger.log(LogLevel.INFO, result.output)
         assert result.exit_code == 0
 
         deleted_applications_after_job = db.session.query(Application).filter(
