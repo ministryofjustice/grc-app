@@ -1,6 +1,9 @@
 import os
 import pathlib
 import re
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
 
 
 def test_gov_uk_design_system_folders_in_sync():
@@ -76,8 +79,8 @@ def get_all_python_files_in_grc_and_admin_apps():
                 elif dir_child_item.is_dir():
                     dir_list.append(dir_child_item.path)
 
-    print(f"Found ({len(files)}) files")
+    logger.log(LogLevel.INFO, f"Found ({len(files)}) files")
     python_files = list(filter(lambda file: file.endswith('.py'), files))
-    print(f"Found ({len(python_files)}) python files")
+    logger.log(LogLevel.INFO, f"Found ({len(python_files)}) python files")
 
     return python_files
