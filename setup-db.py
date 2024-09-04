@@ -13,5 +13,5 @@ conn = psycopg2.connect(
 conn.autocommit = True
 cursor = conn.cursor()
 cursor.execute('CREATE database grc')
-logger.log(LogLevel.INFO, 'Database created successfully...')
+print('Database created successfully...')
 conn.close()
