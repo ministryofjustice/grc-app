@@ -26,10 +26,10 @@ def test_json_health_check(max_retries, timeout):
             return
 
         except requests.RequestException as e:
-            logger.log(LogLevel.ERROR, f"Attempt {attempt} failed: {e}")
+            logger.log(LogLevel.WARN, f"Attempt {attempt} failed: {e}")
 
             if attempt < max_retries:
-                print(f"Retrying in {timeout} seconds...")
+                logger.log(LogLevel.WARN, f"Retrying in {timeout} seconds...")
                 time.sleep(timeout)
 
     logger.log(LogLevel.ERROR, "Failed after maximum retries.")
