@@ -27,7 +27,7 @@ def test_delete_completed_applications_mark_completed_application_as_deleted(
 
         runner = app.test_cli_runner()
         result = runner.invoke(args=['jobs.delete_completed_applications', 'run'])
-        logger.log(LogLevel.INFO, result.output)
+        print(result.output)
         assert result.exit_code == 0
 
         inactivated_applications_after_job = db.session.query(Application).filter(
@@ -63,7 +63,7 @@ def test_delete_completed_applications_inactive_invalid_app_data_still_marks_app
 
         runner = app.test_cli_runner()
         result = runner.invoke(args=['jobs.delete_completed_applications', 'run'])
-        logger.log(LogLevel.INFO, result.output)
+        print(result.output)
         assert result.exit_code == 0
 
         deleted_applications_after_job = db.session.query(Application).filter(
