@@ -1,6 +1,9 @@
 import os
 import requests
 import time
+from grc.utils.logger import Logger, LogLevel
+
+logger = Logger()
 
 
 def test_json_health_check(max_retries, timeout):
@@ -19,15 +22,16 @@ def test_json_health_check(max_retries, timeout):
             assert response.status_code == 200
             assert 'status' in public_data and public_data['status'] == 'success', 'Public app JSON status unsuccessful'
             assert public_data['results'][0]['passed'] is True, 'Public app JSON results has not passed'
-            print('Public app JSON response is healthy')
+            logger.log(LogLevel.INFO, 'Public app JSON response is healthy')
             return
 
         except requests.RequestException as e:
-            print(f"Attempt {attempt} failed: {e}")
+            logger.log(LogLevel.ERROR, f"Attempt {attempt} failed: {e}")
+
             if attempt < max_retries:
                 print(f"Retrying in {timeout} seconds...")
                 time.sleep(timeout)
 
-    print("Failed after maximum retries.")
+    logger.log(LogLevel.ERROR, "Failed after maximum retries.")
 
 
