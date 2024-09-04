@@ -6,7 +6,10 @@ from admin import create_app
 from admin.config import TestConfig
 from grc.models import Application, db, ApplicationStatus, SecurityCode
 from grc.utils.security_code import generate_security_code_and_expiry
+from grc.utils.logger import LogLevel, Logger
 from tests.jobs.helpers.application_data import ApplicationDataHelpers
+
+logger = Logger()
 
 
 @pytest.fixture()
@@ -32,7 +35,8 @@ def test_started_and_expired_applications(app, public_user_email):
             new_app.status = ApplicationStatus.STARTED
             new_app.updated = datetime.now() - relativedelta(days=200)
             db.session.commit()
-            print(f'Test Inactive App Ref - {new_app.reference_number}', flush=True)
+            logger.log(LogLevel.INFO, f'Test Inactive App Ref - {new_app.reference_number}')
+
             test_inactive_apps.append(new_app)
 
         yield test_inactive_apps
@@ -56,7 +60,8 @@ def test_completed_applications(app, public_user_email):
             new_app.status = ApplicationStatus.COMPLETED
             new_app.completed = datetime.now() - relativedelta(days=7)
             db.session.commit()
-            print(f'Test Completed App Ref - {new_app.reference_number}', flush=True)
+            logger.log(LogLevel.INFO, f'Test Completed App Ref - {new_app.reference_number}')
+
             test_completed_apps.append(new_app)
 
         yield test_completed_apps
@@ -80,7 +85,7 @@ def test_started_applications(request, app, public_user_email):
             new_app.status = ApplicationStatus.STARTED
             new_app.updated = datetime.now() - relativedelta(days=last_updated_days_ago)
             db.session.commit()
-            print(f'Test Inactive App Ref - {new_app.reference_number}', flush=True)
+            logger.log(LogLevel.INFO, f'Test Inactive App Ref - {new_app.reference_number}')
             test_inactive_apps.append(new_app)
 
         yield test_inactive_apps
@@ -101,7 +106,7 @@ def test_submitted_application(app, public_user_email):
         new_app.status = ApplicationStatus.SUBMITTED
         new_app.updated = datetime.now() - relativedelta(days=7)
         db.session.commit()
-        print(f'Test Inactive App Ref - {new_app.reference_number}', flush=True)
+        logger.log(LogLevel.INFO, f'Test Inactive App Ref - {new_app.reference_number}')
 
         yield new_app
 
@@ -120,14 +125,14 @@ def test_emails(request):
 def expired_security_codes(app, test_emails):
     with app.app_context():
         codes = [generate_security_code_and_expiry(email)[0] for email in test_emails]
-        print(f'codes = {codes}', flush=True)
+        logger.log(LogLevel.INFO, f'codes = {codes}')
 
         security_codes = SecurityCode.query.filter(SecurityCode.code.in_(codes)).all()
-        print(f'security_codes = {security_codes}', flush=True)
+        logger.log(LogLevel.INFO, f'security_codes = {security_codes}')
 
         if security_codes:
             for security_code in security_codes:
-                print(f'code = {security_code.code} for user = {security_code.email}', flush=True)
+                logger.log(LogLevel.INFO, f'code = {security_code.code} for user = {security_code.email}')
                 security_code.created = datetime.now() - relativedelta(days=7)
             db.session.commit()
 
