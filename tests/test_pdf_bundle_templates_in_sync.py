@@ -1,8 +1,5 @@
 import os
 import pathlib
-from grc.utils.logger import LogLevel, Logger
-
-logger = Logger()
 
 
 def test_pdf_bundle_templates_in_sync():
@@ -23,7 +20,7 @@ def test_pdf_bundle_templates_in_sync():
     admin_template_text = admin_template_file.read()
     admin_template_file.close()
 
-    logger.log(LogLevel.INFO, f"Comparing GRC vs ADMIN applications/application.html")
+    print(f"Comparing GRC vs ADMIN applications/application.html")
     if grc_template_text != admin_template_text:
         error_message = f"PDF bundle templates do not match between GRC and ADMIN folders."
         raise Exception(error_message)
