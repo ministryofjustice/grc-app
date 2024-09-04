@@ -1,10 +1,6 @@
 import os
 import pathlib
 import pytest
-from grc.utils.logger import LogLevel, Logger
-
-logger = Logger()
-
 
 @pytest.fixture()
 def content_to_ignore():
@@ -62,7 +58,7 @@ def test_gov_uk_design_system_folders_in_sync_admin(content_to_ignore):
         admin_file_text = admin_file.read()
         admin_file.close()
 
-        logger.log(LogLevel.INFO, f"Comparing GRC vs ADMIN govuk-design-system-templates file ({filename})")
+        print(f"Comparing GRC vs ADMIN govuk-design-system-templates file ({filename})")
         error_message = (f"Gov.UK Design System template files do not match between GRC and ADMIN folders."
                          f" Mis-matching file is ({filename})")
         if filename in content_to_ignore:
@@ -102,7 +98,7 @@ def test_gov_uk_design_system_folders_in_sync_dashboard(content_to_ignore):
         dashboard_file_text = dashboard_file.read()
         dashboard_file.close()
 
-        logger.log(LogLevel.INFO, f"Comparing GRC vs DASHBOARD govuk-design-system-templates file ({filename})")
+        print(f"Comparing GRC vs DASHBOARD govuk-design-system-templates file ({filename})")
         error_message = (f"Gov.UK Design System template files do not match between GRC and DASHBOARD folders."
                          f" Mis-matching file is ({filename})")
 
@@ -122,7 +118,7 @@ def files_are_same_with_content_to_ignore(file_one: str, file_two: str, content_
             content_to_ignore[filename].pop(i)
 
             if file_one != file_two and not content_to_ignore[filename]:
-                logger.log(LogLevel.WARN, f'GRC file has different content in {filename} which should not be ignored')
+                print(f'GRC file has different content in {filename} which should not be ignored')
                 return False
 
             if file_one != file_two:
