@@ -4,14 +4,12 @@ from flask import Blueprint
 from flask.cli import with_appcontext
 from grc.models import db, Application, ApplicationStatus
 from grc.utils.application_files import ApplicationFiles
-from grc.utils.logger import LogLevel, Logger
 
-logger = Logger()
 delete_completed_applications = Blueprint('delete_completed_applications', __name__)
 
 
 def mark_applications_as_deleted():
-    logger.log(LogLevel.INFO, f'\nDeleting completed applications')
+    print(f'\nDeleting completed applications', flush=True)
     days_between_application_completion_and_anonymisation = 7
 
     now = datetime.now()
@@ -21,7 +19,7 @@ def mark_applications_as_deleted():
         Application.status == ApplicationStatus.COMPLETED,
         Application.completed < earliest_allowed_application_completed_date
     )
-    logger.log(LogLevel.INFO, f'Deleting {applications_to_delete.count()} completed applications\n')
+    print(f'Deleting {applications_to_delete.count()} completed applications\n', flush=True)
     all_applications_to_delete = applications_to_delete.all()
     for application_to_delete in all_applications_to_delete:
         delete_application(application_to_delete)
@@ -41,7 +39,7 @@ def delete_application(application_to_delete):
     try:
         data = application_to_delete.application_data()
     except Exception as e:
-        logger.log(LogLevel.ERROR, f'Error getting application data for {application_to_delete.reference_number} - {e}')
+        print(f'Error getting application data for {application_to_delete.reference_number} - {e}', flush=True)
         data = None
 
     try:
@@ -54,7 +52,7 @@ def delete_application(application_to_delete):
             application_to_delete.email = ''
             application_to_delete.user_input = ''
     except Exception as e:
-        logger.log(LogLevel.ERROR, f'Error deleting application files for {application_to_delete.reference_number} - {e}')
+        print(f'Error deleting application files for {application_to_delete.reference_number} - {e}', flush=True)
     finally:
         application_to_delete.status = ApplicationStatus.DELETED
 
@@ -63,10 +61,10 @@ def delete_application(application_to_delete):
 @with_appcontext
 def main():
     try:
-        logger.log(LogLevel.INFO, 'running delete completed apps job')
+        print('running delete completed apps job', flush=True)
         applications_deleted = mark_applications_as_deleted()
         assert applications_deleted == 200
-        logger.log(LogLevel.INFO, 'finished delete completed apps job')
+        print('finished delete completed apps job', flush=True)
     except Exception as e:
         logger.log(LogLevel.ERROR, f'Error delete completed apps cron, message = {e}')
 
