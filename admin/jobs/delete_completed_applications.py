@@ -66,7 +66,7 @@ def main():
         assert applications_deleted == 200
         print('finished delete completed apps job', flush=True)
     except Exception as e:
-        logger.log(LogLevel.ERROR, f'Error delete completed apps cron, message = {e}')
+        print(f'Error delete completed apps cron, message = {e}', flush=True)
 
 
 if __name__ == '__main__':
