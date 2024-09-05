@@ -24,7 +24,6 @@ def test_json_health_check(max_retries, timeout):
 
         except requests.RequestException as e:
             print(f"Attempt {attempt} failed: {e}")
-
             if attempt < max_retries:
                 print(f"Retrying in {timeout} seconds...")
                 time.sleep(timeout)
