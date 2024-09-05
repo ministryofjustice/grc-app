@@ -1,9 +1,6 @@
 import pytest
 from grc.models import db, Application, ApplicationStatus, ApplicationData
-from grc.utils.logger import LogLevel, Logger
 from unittest.mock import patch, MagicMock
-
-logger = Logger()
 
 
 @pytest.mark.parametrize('test_emails', [3], indirect=True)
