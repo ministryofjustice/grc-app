@@ -5,10 +5,9 @@ from flask.cli import with_appcontext
 from sqlalchemy.sql import extract, not_
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import Application, ApplicationStatus
-from grc.utils.logger import LogLevel, Logger
 
 notify_applicants_inactive_apps = Blueprint('notify_applicants_inactive_apps', __name__)
-logger = Logger()
+
 
 def send_reminder_emails_before_application_deletion():
     days_between_last_update_and_deletion = 183
@@ -22,7 +21,7 @@ def send_reminder_emails_before_application_deletion():
 
     for days_to_send_reminder, time_phrase in deletion_reminder_days_and_phrases.items():
 
-        logger.log(LogLevel.INFO, f'Sending reminder emails to applications {time_phrase} from being deleted')
+        print(f'Sending reminder emails to applications {time_phrase} from being deleted', flush=True)
 
         today = datetime.today()
         last_updated_date = calculate_last_updated_date(today, days_to_send_reminder, days_between_last_update_and_deletion)
@@ -34,8 +33,7 @@ def send_reminder_emails_before_application_deletion():
             extract('year', Application.updated) == last_updated_date.year
         )
 
-        logger.log(LogLevel.INFO, f'Sending reminder emails to {applications_to_remind.count()} applications')
-
+        print(f'Sending reminder emails to {applications_to_remind.count()} applications', flush=True)
         email_send_count = 0
         for application_to_remind in applications_to_remind.all():
             existing_application = Application.query.filter(
@@ -48,7 +46,7 @@ def send_reminder_emails_before_application_deletion():
                     expiry_days=time_phrase
                 )
                 email_send_count += 1
-        logger.log(LogLevel.INFO, f'Send {email_send_count} emails\n')
+        print(f'Send {email_send_count} emails\n', flush=True)
 
     return 200
 
@@ -61,12 +59,13 @@ def calculate_last_updated_date(today, days_to_send_reminder_before_deletion, da
 @with_appcontext
 def main():
     try:
-        logger.log(LogLevel.INFO, 'running notify applicants inactive apps job')
+        print('running notify applicants inactive apps job', flush=True)
         applicants_notified = send_reminder_emails_before_application_deletion()
         assert applicants_notified == 200
-        logger.log(LogLevel.INFO, 'finished notify applicants inactive apps job')
+        print('finished notify applicants inactive apps job', flush=True)
     except Exception as e:
-        logger.log(LogLevel.ERROR, f'Error notifying applicants cron, message = {e}')
+        print(f'Error notifying applicants cron, message = {e}', flush=True)
+
 
 if __name__ == '__main__':
     main()
