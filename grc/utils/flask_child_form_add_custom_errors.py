@@ -1,8 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms import FieldList
-from grc.utils.logger import LogLevel, Logger
-
-logger = Logger()
 
 def add_error_for_child_form(parent_form_field_list: FieldList, child_form: FlaskForm, child_form_field_name: str, error_message: str):
     setup_field_list_to_accept_custom_errors(parent_form_field_list)
