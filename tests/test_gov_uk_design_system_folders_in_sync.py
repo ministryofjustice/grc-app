@@ -2,6 +2,7 @@ import os
 import pathlib
 import pytest
 
+
 @pytest.fixture()
 def content_to_ignore():
     content_to_ignore_ = {
