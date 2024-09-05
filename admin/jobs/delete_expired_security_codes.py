@@ -8,7 +8,7 @@ delete_expired_security_codes = Blueprint('delete_expired_security_codes', __nam
 
 
 def delete_security_codes():
-    print(f'\nDeleting expired security codes')
+    print(f'\nDeleting expired security codes', flush=True)
     hours_between_security_code_creation_and_expiry = 24
 
     now = datetime.now()
@@ -18,7 +18,7 @@ def delete_security_codes():
         SecurityCode.created < earliest_allowed_security_code_creation_time
     )
 
-    print(f'Deleting {security_codes_to_delete.count()} expired security codes\n')
+    print(f'Deleting {security_codes_to_delete.count()} expired security codes\n', flush=True)
 
     for security_code_to_delete in security_codes_to_delete:
         db.session.delete(security_code_to_delete)
@@ -36,13 +36,12 @@ def calculate_earliest_allowed_security_code_creation_time(now, hours_between_se
 @with_appcontext
 def main():
     try:
-        print('running delete expired security codes job')
+        print('running delete expired security codes job', flush=True)
         security_codes_deleted = delete_security_codes()
         assert security_codes_deleted == 200
-        print('finished delete expired security codes job')
+        print('finished delete expired security codes job', flush=True)
     except Exception as e:
-        print(f'Error delete expired security codes cron, message = {e}')
-
+        print(f'Error delete expired security codes cron, message = {e}', flush=True)
 
 if __name__ == '__main__':
     main()
