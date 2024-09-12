@@ -8,6 +8,7 @@ from grc.list_status import ListStatus
 from grc.personal_details.forms import NameForm, DateRangeForm, AffirmedGenderForm, TransitionDateForm, StatutoryDeclarationDateForm, PreviousNamesCheck, AddressForm, ContactPreferencesForm, ContactDatesForm, HmrcForm, CheckYourAnswers
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
+from grc.utils.logger import LogLevel, Logger
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 from grc.business_logic.data_structures.personal_details_data import DateRange
@@ -15,6 +16,7 @@ from grc.utils.flask_child_form_add_custom_errors import add_multiple_errors_for
 from grc.utils.form_custom_validators import validate_date_range_form, validate_date_ranges
 
 
+logger = Logger()
 personalDetails = Blueprint('personalDetails', __name__)
 
 
@@ -270,7 +272,7 @@ def contactDates():
                             int(date_range_form.from_date_day.data)
                         )
                     except ValueError as err:
-                        print(f'Error setting from date as datetime, message={err}', flush=True)
+                        logger.log(LogLevel.ERROR, f'Error setting from date as datetime, message={err}')
                         date_range_errors[i] = {'from_date_year': c.ENTER_VALID_DATE_ERROR}
 
                     try:
@@ -280,7 +282,7 @@ def contactDates():
                             int(date_range_form.to_date_day.data)
                         )
                     except ValueError as err:
-                        print(f'Error setting to date as datetime, message={err}', flush=True)
+                        logger.log(LogLevel.ERROR, f'Error setting to date as datetime, message={err}')
                         date_range_errors[i] = {'to_date_year': c.ENTER_VALID_DATE_ERROR}
 
                     if not date_range_errors[i]:
