@@ -40,7 +40,7 @@ jobs:
           DEFAULT_ADMIN_USER: grc-service-account@cabinetoffice.gov.uk
           NOTIFY_API: '${NOTIFY_API}'
           NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
-          BUCKET_NAME: '${AUTOMATED_TEST_BUCKET_NAME}'
+          BUCKET_NAME: ${AUTOMATED_TEST_BUCKET_NAME}
           AWS_REGION: eu-west-2
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
