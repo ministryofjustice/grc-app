@@ -34,3 +34,5 @@ notes/*
 
 # Translations
 *.mo
+
+venv-grc/*
