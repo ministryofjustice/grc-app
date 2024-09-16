@@ -125,7 +125,8 @@ jobs:
       - run:
           name: Debug Environment Variables
           command: |
-            echo "AUTOMATED_TEST_BUCKET_NAME: ${AUTOMATED_TEST_BUCKET_NAME}"
+            TEMP_BUCKET_NAME=${AUTOMATED_TEST_BUCKET_NAME}
+            echo "Temporary Bucket Name: $TEMP_BUCKET_NAME"
       - run:
           name: Start site and run e2e
           command: |
