@@ -123,6 +123,10 @@ jobs:
             . venv/bin/activate
             pytest --cov=grc --cov=admin --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html --cov-report=html:reports/coverage
       - run:
+          name: Debug Environment Variables
+          command: |
+            echo "AUTOMATED_TEST_BUCKET_NAME: ${AUTOMATED_TEST_BUCKET_NAME}"
+      - run:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
