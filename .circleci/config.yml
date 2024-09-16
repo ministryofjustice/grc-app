@@ -40,7 +40,7 @@ jobs:
           DEFAULT_ADMIN_USER: grc-service-account@cabinetoffice.gov.uk
           NOTIFY_API: '${NOTIFY_API}'
           NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
-          BUCKET_NAME: '${AUTOMATED_TEST_BUCKET_NAME}'
+          BUCKET_NAME: 'cloud-platform-3f4a7e686002a850de9582dffaa34219'
           AWS_REGION: eu-west-2
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
@@ -122,11 +122,6 @@ jobs:
           command: |
             . venv/bin/activate
             pytest --cov=grc --cov=admin --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html --cov-report=html:reports/coverage
-      - run:
-          name: Debug Environment Variables
-          command: |
-            TEMP_BUCKET_NAME=${AUTOMATED_TEST_BUCKET_NAME}
-            echo "Temporary Bucket Name: $TEMP_BUCKET_NAME"
       - run:
           name: Start site and run e2e
           command: |
