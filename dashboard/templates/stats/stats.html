@@ -213,8 +213,12 @@
         </div>
     </div>
     <script>
+        function hasErrors() {
+            return document.querySelector('.govuk-error-summary') !== null;
+        }
+
         function showDateForm(display) {
-            if (display == 'show') {
+            if (display == 'show' || hasErrors()) {
                 document.getElementById('choose_dates').style.display = 'block'
                 document.getElementById('hide_choose_dates').style.display = 'inline'
                 document.getElementById('show_choose_dates').style.display = 'none'
@@ -225,9 +229,8 @@
             }
         }
 
-        showDateForm('{% if start_date and end_date %}show{% else %}hide{% endif %}')
+        showDateForm('{% if start_date and end_date or form.errors %}show{% else %}hide{% endif %}')
 
-        //chart('applications_by_month', [{ 'title': 'started applications', 'data': {{ stats.started_applications_by_month | safe }} }, { 'title': 'completed applications', 'data': {{ stats.completed_applications_by_month | safe }} }], { type: 'area', limit: 12 })
         chart('applications_by_month', [{ 'title': 'applications', 'data': {{ stats.applications_by_month | safe }} }], { type: 'area', xkey: 'application date', ykey: 'number of applications', zkey: 'status', limit: 12 })
         chart('days_to_complete_application_banded', [{{ stats.days_to_complete_application_banded | safe }}], { type: 'bar', xkey: 'range', ykey: 'number of applications' })
         chart('sessions_to_complete_application_banded', [{{ stats.sessions_to_complete_application_banded | safe }}], { type: 'bar', xkey: 'range', ykey: 'number of applications' })
