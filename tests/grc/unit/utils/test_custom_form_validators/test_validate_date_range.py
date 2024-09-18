@@ -63,7 +63,7 @@ class TestValidateDateRange:
             form.end_date_month.data = '2'
             form.end_date_year.data = '2023'
             with app.test_request_context():
-                with pytest.raises(ValidationError, match='Enter a valid start year'):
+                with pytest.raises(ValidationError, match='Enter a valid start date'):
                     validate_date_range(form, form.start_date_year)
                     validate_date_range(form, form.end_date_year)
 
@@ -77,6 +77,48 @@ class TestValidateDateRange:
             form.end_date_month.data = '2'
             form.end_date_year.data = 'INVALID YEAR'
             with app.test_request_context():
-                with pytest.raises(ValidationError, match='Enter a valid end year'):
+                with pytest.raises(ValidationError, match='Enter a valid end date'):
                     validate_date_range(form, form.end_date_year)
+                    validate_date_range(form, form.start_date_year)
+
+    def test_validate_date_range_start_date_greater_than_end_date(self, app):
+        with app.app_context():
+            form = DateRangeForm()
+            form.start_date_day.data = '15'
+            form.start_date_month.data = '3'
+            form.start_date_year.data = '2023'
+            form.end_date_day.data = '1'
+            form.end_date_month.data = '3'
+            form.end_date_year.data = '2023'
+
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='The start date must be before the end date'):
+                    validate_date_range(form, form.start_date_year)
+
+    def test_validate_date_range_invalid_within_range(self, app):
+        with app.app_context():
+            form = DateRangeForm()
+            form.start_date_day.data = '31'
+            form.start_date_month.data = '2'
+            form.start_date_year.data = '2023'
+            form.end_date_day.data = '1'
+            form.end_date_month.data = '3'
+            form.end_date_year.data = '2023'
+
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='Invalid start date: day 31 exceeds the maximum for month 2'):
+                    validate_date_range(form, form.start_date_year)
+
+    def test_validate_date_range_end_date_greater_than_today(self, app):
+        with app.app_context():
+            form = DateRangeForm()
+            form.start_date_day.data = '1'
+            form.start_date_month.data = '1'
+            form.start_date_year.data = '2023'
+            form.end_date_day.data = '1'
+            form.end_date_month.data = '3'
+            form.end_date_year.data = '2030'
+
+            with app.test_request_context():
+                with pytest.raises(ValidationError, match='The end date cannot be in the future'):
                     validate_date_range(form, form.start_date_year)
