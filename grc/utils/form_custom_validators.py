@@ -275,24 +275,54 @@ def validate_date_range(form, field):
     if form['end_date_day'].errors or form['end_date_month'].errors:
         return
 
+    start_date = extract_date(form, 'start')
+    end_date = extract_date(form, 'end')
+
+    if start_date is None or end_date is None:
+        return
+
+    if start_date > end_date:
+        raise ValidationError('The start date must be before the end date')
+
+    today = date.today()
+    if end_date > today:
+        raise ValidationError('The end date cannot be in the future')
+
+def extract_date(form, date_type):
     try:
-        start_date_day = int(form['start_date_day'].data)
-        start_date_month = int(form['start_date_month'].data)
-        start_date_year = int(form['start_date_year'].data)
-        date(start_date_year, start_date_month, start_date_day)
+        day = int(form[f'{date_type}_date_day'].data)
+        month = int(form[f'{date_type}_date_month'].data)
+        year = int(form[f'{date_type}_date_year'].data)
+
+        errors, extracted_date = validate_date(year, month, day, date_type)
+
+        if errors:
+            for error in errors:
+                raise ValidationError(error)
+
+        return extracted_date
+    except ValidationError as e:
+        logger.log(LogLevel.ERROR, message=f'Invalid {date_type} date with message={e}')
+        raise
     except ValueError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid start date with message={e}')
-        raise ValidationError('Enter a valid start year')
+        logger.log(LogLevel.ERROR, message=f'Invalid {date_type} date with message={e}')
+        raise ValidationError(f'Enter a valid {date_type} date')
+
+def validate_date(year, month, day, date_type):
+    errors = []
 
     try:
-        end_date_day = int(form['end_date_day'].data)
-        end_date_month = int(form['end_date_month'].data)
-        end_date_year = int(form['end_date_year'].data)
-        date(end_date_year, end_date_month, end_date_day)
-    except ValueError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid end date with message={e}')
-        raise ValidationError('Enter a valid end year')
+        if month == 2 and day > 29:
+            errors.append(f'Invalid {date_type} date: day {day} exceeds the maximum for month {month}')
+        elif month in {4, 6, 9, 11} and day > 30:
+            errors.append(f'Invalid {date_type} date: day {day} exceeds the maximum for month {month}')
 
+        validated_date = date(year, month, day)
+        return errors, validated_date
+
+    except ValueError:
+        errors.append(f'Enter a valid {date_type} date')
+        return errors, None
 
 def validate_national_insurance_number(form, field):
     if not field.data:
@@ -523,3 +553,4 @@ def file_virus_scan(form, field):
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
+
