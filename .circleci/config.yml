@@ -40,7 +40,7 @@ jobs:
           DEFAULT_ADMIN_USER: grc-service-account@cabinetoffice.gov.uk
           NOTIFY_API: '${NOTIFY_API}'
           NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
-          BUCKET_NAME: '${AUTOMATED_TEST_BUCKET_NAME}'
+          BUCKET_NAME: 'cloud-platform-558bc9877f5cc03fc5d7a241c17360b5' # use the DEV S3 bucket for e2e test uploads for all environments
           AWS_REGION: eu-west-2
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
@@ -187,7 +187,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10.11
           docker_layer_caching: true
       - run:
           name: Authenticate to LIVE cluster
@@ -314,7 +313,6 @@ jobs:
                   aws ecr get-login-password --region $ECR_REGION_PROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PROD}.dkr.ecr.${ECR_REGION_PROD}.amazonaws.com
 
       - setup_remote_docker:
-          version: 20.10.11
           docker_layer_caching: true
 
       - run:
