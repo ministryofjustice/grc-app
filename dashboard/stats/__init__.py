@@ -5,6 +5,7 @@ from io import StringIO
 from dateutil.relativedelta import relativedelta
 from flask import Blueprint, render_template, request, make_response
 from dashboard.stats.forms import DateRangeForm
+from wtforms.validators import ValidationError
 from grc.models import db
 from sqlalchemy.sql import text
 
@@ -365,10 +366,14 @@ def index():
     start_date = None
     end_date = None
     date_range = None
+    today = date.today()
 
     if request.method == 'POST':
         if form.validate_on_submit():
             start_date, end_date, date_range = get_daterange(form)
+
+            if end_date > today:
+                form.end_date_year.errors.append('The end date cannot be in the future')
     else:
         start_date, end_date, date_range = get_daterange()
 

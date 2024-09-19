@@ -267,7 +267,6 @@ def validate_statutory_declaration_date(form, field):
     if statutory_declaration_date < transition_date:
         raise LazyValidationError(c.STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR)
 
-
 def validate_date_range(form, field):
     if form['start_date_day'].errors or form['start_date_month'].errors:
         return
@@ -275,48 +274,34 @@ def validate_date_range(form, field):
     if form['end_date_day'].errors or form['end_date_month'].errors:
         return
 
-    start_date = extract_date(form, 'start')
-    end_date = extract_date(form, 'end')
+    errors = []
 
-    if start_date is None or end_date is None:
-        return
+    errors_start, start_date = validate_date(form, 'start')
+    errors.extend(errors_start)
 
-    if start_date >= end_date:
-        raise ValidationError('The start date must be earlier than the end date')
+    errors_end, end_date = validate_date(form, 'end')
+    errors.extend(errors_end)
 
-    today = date.today()
-    if end_date > today:
-        raise ValidationError('The end date cannot be in the future')
+    if start_date is not None and end_date is not None and end_date < start_date:
+        errors.append('The end date cannot be earlier than the start date')
 
-def extract_date(form, date_type):
+    if errors:
+        for error in errors:
+            logger.log(LogLevel.ERROR, message=error)
+            raise ValidationError(error)
+
+def validate_date(form, date_type):
+    errors = []
     try:
         day = int(form[f'{date_type}_date_day'].data)
         month = int(form[f'{date_type}_date_month'].data)
         year = int(form[f'{date_type}_date_year'].data)
 
-        errors, extracted_date = validate_date(year, month, day, date_type)
-
-        if errors:
-            for error in errors:
-                raise ValidationError(error)
-
-        return extracted_date
-    except ValidationError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid {date_type} date with message={e}')
-        raise
-    except ValueError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid {date_type} date with message={e}')
-        raise ValidationError(f'Enter a valid {date_type} date')
-
-
-def validate_date(year, month, day, date_type):
-    errors = []
-
-    try:
         validated_date = date(year, month, day)
         return errors, validated_date
+
     except ValueError as e:
-        errors.append(f'Please enter a valid {date_type} date: {e}')
+        errors.append(f'Enter a valid {date_type} date: {e}')
         return errors, None
 
 def validate_national_insurance_number(form, field):
