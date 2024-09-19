@@ -281,8 +281,8 @@ def validate_date_range(form, field):
     if start_date is None or end_date is None:
         return
 
-    if start_date > end_date:
-        raise ValidationError('The start date must be before the end date')
+    if start_date >= end_date:
+        raise ValidationError('The start date must be earlier than the end date')
 
     today = date.today()
     if end_date > today:
@@ -308,20 +308,15 @@ def extract_date(form, date_type):
         logger.log(LogLevel.ERROR, message=f'Invalid {date_type} date with message={e}')
         raise ValidationError(f'Enter a valid {date_type} date')
 
+
 def validate_date(year, month, day, date_type):
     errors = []
 
     try:
-        if month == 2 and day > 29:
-            errors.append(f'Invalid {date_type} date: day {day} exceeds the maximum for month {month}')
-        elif month in {4, 6, 9, 11} and day > 30:
-            errors.append(f'Invalid {date_type} date: day {day} exceeds the maximum for month {month}')
-
         validated_date = date(year, month, day)
         return errors, validated_date
-
-    except ValueError:
-        errors.append(f'Enter a valid {date_type} date')
+    except ValueError as e:
+        errors.append(f'Please enter a valid {date_type} date: {e}')
         return errors, None
 
 def validate_national_insurance_number(form, field):
