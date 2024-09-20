@@ -267,7 +267,6 @@ def validate_statutory_declaration_date(form, field):
     if statutory_declaration_date < transition_date:
         raise LazyValidationError(c.STAT_DEC_DATE_BEFORE_TRANSITION_DATE_ERROR)
 
-
 def validate_date_range(form, field):
     if form['start_date_day'].errors or form['start_date_month'].errors:
         return
@@ -275,24 +274,35 @@ def validate_date_range(form, field):
     if form['end_date_day'].errors or form['end_date_month'].errors:
         return
 
-    try:
-        start_date_day = int(form['start_date_day'].data)
-        start_date_month = int(form['start_date_month'].data)
-        start_date_year = int(form['start_date_year'].data)
-        date(start_date_year, start_date_month, start_date_day)
-    except ValueError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid start date with message={e}')
-        raise ValidationError('Enter a valid start year')
+    errors = []
 
-    try:
-        end_date_day = int(form['end_date_day'].data)
-        end_date_month = int(form['end_date_month'].data)
-        end_date_year = int(form['end_date_year'].data)
-        date(end_date_year, end_date_month, end_date_day)
-    except ValueError as e:
-        logger.log(LogLevel.ERROR, message=f'Invalid end date with message={e}')
-        raise ValidationError('Enter a valid end year')
+    errors_start, start_date = validate_date(form, 'start')
+    errors.extend(errors_start)
 
+    errors_end, end_date = validate_date(form, 'end')
+    errors.extend(errors_end)
+
+    if start_date is not None and end_date is not None and end_date < start_date:
+        errors.append('The end date cannot be earlier than the start date')
+
+    if errors:
+        for error in errors:
+            logger.log(LogLevel.ERROR, message=error)
+            raise ValidationError(error)
+
+def validate_date(form, date_type):
+    errors = []
+    try:
+        day = int(form[f'{date_type}_date_day'].data)
+        month = int(form[f'{date_type}_date_month'].data)
+        year = int(form[f'{date_type}_date_year'].data)
+
+        validated_date = date(year, month, day)
+        return errors, validated_date
+
+    except ValueError as e:
+        errors.append(f'Enter a valid {date_type} date: {e}')
+        return errors, None
 
 def validate_national_insurance_number(form, field):
     if not field.data:
@@ -523,3 +533,4 @@ def file_virus_scan(form, field):
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
+
