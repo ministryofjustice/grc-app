@@ -5,7 +5,7 @@ from admin.config import TestConfig
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from grc.models import db, AdminUser, SecurityCode, Application, ApplicationStatus
-from grc.utils.security_code import security_code_generator
+from grc.utils.security_code import generate_security_code_and_expiry
 from werkzeug.security import generate_password_hash
 from grc.business_logic.data_store import DataStore, ApplicationData
 
