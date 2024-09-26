@@ -31,8 +31,13 @@
 
             {{ errorMessage.renderFor(fieldName, form[fieldName].errors, radiosOptions.errorMessageOptions) }}
 
+            {% set formChoices = form[fieldName].choices %}
+            {% if form[fieldName].lazy_choices %}
+                {% set formChoices = form[fieldName].lazy_choices %}
+            {% endif %}
+
             <div class="govuk-radios" data-module="govuk-radios">
-                {% for choiceId, choiceLabel in form[fieldName].choices %}
+                {% for choiceId, choiceLabel in formChoices %}
                     {% macro str(value) %}{{ value }}{% endmacro %}
                     {% set index = form[fieldName].choices.index((choiceId, choiceLabel)) %}
                     {% set indexSuffix = ('-' + str(index))

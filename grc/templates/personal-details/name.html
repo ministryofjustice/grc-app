@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}What is your name?{% endblock %}
+{% block title %}{{ _('What is your name?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -21,30 +23,30 @@
                     <fieldset class="govuk-fieldset" aria-describedby="fieldset-hint">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
-                                What is your name?
+                                {{ _('What is your name?') }}
                             </h1>
                         </legend>
                         <p class="govuk-body">
-                            Enter your name exactly as it appears on either your latest change of name document or your birth certificate.
+                            {{ _('Enter your name exactly as it appears on either your latest change of name document or your birth certificate') }}.
                         </p>
                         <div class="govuk-hint govuk-!-margin-bottom-6" id="fieldset-hint">
-                            This will appear in full on your Gender Recognition Certificate.
+                            {{ _('This will appear in full on your Gender Recognition Certificate') }}.
                         </div>
                         <div class="govuk-inset-text">
-                            If you want to use a different name from your birth certificate or change of name document, you should
+                            {{ _('If you want to use a different name from your birth certificate or change of name document, you should') }}
                             <a href="https://www.gov.uk/change-name-deed-poll"
                                target="_blank" class="govuk-link">
-                                change your name by deed poll (opens in a new tab)
+                                {{ _('change your name by deed poll (opens in a new tab)') }}
                             </a>
-                            before you apply for a Gender Recognition Certificate.
+                            {{ _('before you apply for a Gender Recognition Certificate') }}.
                         </div>
 
                         {{ textInput.renderFor(
                             form,
                             fieldName='title',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Title' },
-                                'hintOptions': { 'htmlOrText': 'For internal use only. This will not appear on your Gender Recognition Certificate.' },
+                                'labelOptions': { 'htmlOrText': _('Title') },
+                                'hintOptions': { 'htmlOrText': _('For internal use only. This will not appear on your Gender Recognition Certificate.') },
                                 'classes': 'govuk-input--width-5',
                                 'autocomplete': 'honorific-prefix'
                             }
@@ -54,7 +56,7 @@
                             form,
                             fieldName='first_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'First name' },
+                                'labelOptions': { 'htmlOrText': _('First name') },
                                 'classes': 'govuk-!-width-three-quarters',
                                 'autocomplete': 'given-name'
                             }
@@ -64,7 +66,7 @@
                             form,
                             fieldName='middle_names',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Middle names (only required if you have middle names)' },
+                                'labelOptions': { 'htmlOrText': _('Middle names (only required if you have middle names)') },
                                 'classes': 'govuk-!-width-three-quarters',
                                 'autocomplete': 'additional-name'
                             }
@@ -74,7 +76,7 @@
                             form,
                             fieldName='last_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Last name' },
+                                'labelOptions': { 'htmlOrText': _('Last name') },
                                 'classes': 'govuk-!-width-three-quarters',
                                 'autocomplete': 'family-name'
                             }
@@ -82,14 +84,7 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% import "contact-admin.html" as contact_admin %}
 
-{% block title %}Application submitted{% endblock %}
+{% block title %}{{ _('Application submitted') }}{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -8,39 +9,33 @@
 
             <div class="govuk-panel govuk-panel--confirmation">
                 <h1 class="govuk-panel__title">
-                    Application submitted
+                    {{ _('Application submitted') }}
                 </h1>
                 <div class="govuk-panel__body">
-                    You should post all remaining documents to us as soon as possible
+                    {{ _('You should post all remaining documents to us as soon as possible') }}
                 </div>
             </div>
 
             <p class="govuk-body">
-                We have sent you a confirmation email.
+                {{ _('We have sent you a confirmation email.') }}
             </p>
 
             <h2 class="govuk-heading-m">
-                What you need to do next
+                {{ _('What you need to do next') }}
             </h2>
             <p class="govuk-body">
-                Post your birth or adoption certificate to us as soon as possible – include your name, address and application
-                reference number so we can match it to your application. Send either an original or a
-                <a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">certified copy (opens in a new tab)</a>
-                – it will be posted back to you.
+                {{ _('Post your birth or adoption certificate to us as soon as possible – include your name, address and application reference number so we can match it to your application.') }}
+                {{ context.birth_cert_copy_link }}
             </p>
 
             {% if application_data.submit_and_pay_data.is_using_ex160_form %}
                 <p class="govuk-body">
-                    You also need to post an
-                    <a href="https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees"
-                        rel="external" target="_blank" class="govuk-link">
-                        EX160 form (opens in new tab)
-                    </a>
+                    {{ context.ex160_link }}
                 </p>
             {% endif %}
 
             <p class="govuk-body govuk-!-margin-bottom-2">
-                If you are sending documents by Royal Mail (including tracked, special delivery, signed for, and Parcelforce), send to:
+                {{ _('If you are sending documents by Royal Mail (including tracked, special delivery, signed for, and Parcelforce), send to:') }}
             </p>
             <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-2">
                 Gender Recognition Panel<br>
@@ -49,72 +44,48 @@
                 LE1 8DJ
             </div>
             <p class="govuk-inset-text">
-                If you are sending documents by courier (for example, DPD, Evri, Fedex), please contact us first (details below).
+                {{ _('If you are sending documents by courier (for example, DPD, Evri, Fedex), please contact us first (details below).') }}
             </p>
 
             <p class="govuk-body">
-                You can
-                <a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate"
-                   target="_blank" rel="external" class="govuk-link">
-                    order a birth, death, marriage or civil partnership certificate (opens in a new tab)
-                </a>
-                online if you live in England and Wales.
-                There's a different process for
-                <a href="http://www.nrscotland.gov.uk/registration/how-to-order-an-official-extract-from-the-registers"
-                   target="_blank" rel="external" class="govuk-link">
-                    getting certificates in Scotland (opens in a new tab)
-                </a>
-                and
-                <a href="http://www.nidirect.gov.uk/index/do-it-online/government-citizens-and-rights-online/order-a-birth-adoption-death-marriage-or-civil-partnership-certificate.htm"
-                   target="_blank" rel="external" class="govuk-link">
-                    getting certificates in Northern Ireland (opens in a new tab)</a>.
+                {{ context.copy_birth_death_marriage_link }}
+                {{ context.scotland_norther_ireland_cert_link }}
             </p>
 
             <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">Warning</span>
-                    Do not send us any other documents unless we ask you to.
+                    <span class="govuk-warning-text__assistive">{{ _('Warning') }}</span>
+                    {{ _('Do not send us any other documents unless we ask you to.') }}
                 </strong>
             </div>
 
             <h2 class="govuk-heading-m">
-                What happens next with your application
+                {{ _('What happens next with your application') }}
             </h2>
 
             <p class="govuk-body">
-                Once you’ve sent your documents, your application will be reviewed by the Gender Recognition Panel.
-                This usually happens within 30 weeks of you applying.
+                {{ _('Once you’ve sent your documents, your application will be reviewed by the Gender Recognition Panel.') }}
+                {{ _('This usually happens within 30 weeks of you applying.') }}
             </p>
             <p class="govuk-body">
-                We will let you know if your application has any errors or missing documents, or if the Panel needs any
-                more information. We will ensure you have the time you need to provide any missing or additional information.
+                {{ _('We will let you know if your application has any errors or missing documents, or if the Panel needs any more information.') }}
+                {{ _('We will ensure you have the time you need to provide any missing or additional information.') }}
             </p>
             <p class="govuk-body">
-                You will then be told if you will be issued with a Gender Recognition Certificate,
-                and what you can do if your application has not been accepted.
+                {{ _('You will then be told if you will be issued with a Gender Recognition Certificate, and what you can do if your application has not been accepted.') }}
             </p>
 
             <h2 class="govuk-heading-m">
-                If you need to contact us
+                {{ _('If you need to contact us') }}
             </h2>
             <p class="govuk-body">
-                Include your application reference number – we will send this to you by post when we have received your application.
+                {{ _('Include your application reference number – we will send this to you by post when we have received your application.') }}
             </p>
             <p class="govuk-body">
-                If you need to contact us before you have received your application reference number, include your full name and postcode.
+                {{ _('If you need to contact us before you have received your application reference number, include your full name and postcode.') }}
             </p>
-            <p class="govuk-body">
-                <a href="mailto:GRPenquiries@justice.gov.uk" class="govuk-link">
-                    GRPenquiries@justice.gov.uk
-                </a><br>
-                Telephone: 020 3936 8968<br>
-                Monday to Friday, 9am to 5pm<br>
-                <a href=https://www.gov.uk/call-charges"
-                   target="_blank" class="govuk-link">
-                    Find out about call charges (opens in a new tab)
-                </a>
-            </p>
+            {{ contact_admin.render() }}
 
         </div>
     </div>

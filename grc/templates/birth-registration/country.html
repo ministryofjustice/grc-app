@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}What country was your birth registered in?{% endblock %}
+{% block title %}{{ _('What country was your birth registered in?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -22,7 +24,7 @@
                     fieldName='country_of_birth',
                     textInputForOptions={
                         'labelOptions': {
-                            'htmlOrText': 'What country was your birth registered in?',
+                            'htmlOrText': _('What country was your birth registered in?'),
                             'isPageHeading': true,
                             'classes': 'govuk-label--l'
                         },
@@ -31,14 +33,7 @@
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

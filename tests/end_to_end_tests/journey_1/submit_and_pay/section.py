@@ -238,7 +238,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     await asserts.change_links_to_url(link_text='Change birth name', expected_url='/birth-registration')
     await asserts.change_links_to_url(link_text='Change date of birth', expected_url='/birth-registration/dob')
-    await asserts.change_links_to_url(link_text='Change whether your birth was regstered in the UK', expected_url='/birth-registration/uk-check')
+    await asserts.change_links_to_url(link_text='Change whether your birth was registered in the UK', expected_url='/birth-registration/uk-check')
     await asserts.change_links_to_url(link_text='Change your town or city of birth', expected_url='/birth-registration/place-of-birth')
     await asserts.change_links_to_url(link_text="Change your mother's name", expected_url='/birth-registration/mothers-name')
     await asserts.change_links_to_url(link_text="Change whether your father's name is listed on your birth or adoption certificate", expected_url='/birth-registration/fathers-name-check')
@@ -259,7 +259,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
 
     await asserts.change_links_to_url(link_text='Change payment method', expected_url='/submit-and-pay')
-    await asserts.change_links_to_url(link_text='Change the way your are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')
+    await asserts.change_links_to_url(link_text='Change the way you are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')
     await asserts.change_links_to_url(link_text='Change your Help with Fees reference number', expected_url='/submit-and-pay/help-type')
 
 

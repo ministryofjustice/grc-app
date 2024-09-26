@@ -2,6 +2,10 @@ from flask import Flask, render_template
 import sentry_sdk
 from sentry_sdk import capture_exception
 
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
+
 
 class CustomErrorHandlers:
     def __init__(self, app: Flask):
@@ -21,24 +25,24 @@ class CustomErrorHandlers:
 
     @staticmethod
     def error_404(e):
-        print(f"error 404: {e}", flush=True)
+        logger.log(LogLevel.ERROR, f"error 404: {e}")
         capture_exception(e)
         return render_template('custom-error-templates/404.html'), 404
 
     @staticmethod
     def error_429(e):
-        print(f"error 429: {e}", flush=True)
+        logger.log(LogLevel.ERROR, f"error 429: {e}")
         capture_exception(e)
         return render_template('custom-error-templates/429.html'), 429
 
     @staticmethod
     def error_503(e):
-        print(f"error 503: {e}", flush=True)
+        logger.log(LogLevel.ERROR, f"error 503: {e}")
         capture_exception(e)
         return render_template('custom-error-templates/503.html'), 503
 
     @staticmethod
     def error_default(e):
-        print(f"error default: {e}", flush=True)
+        logger.log(LogLevel.ERROR, f"error default: {e}")
         capture_exception(e)
         return render_template('custom-error-templates/error-default.html'), 500

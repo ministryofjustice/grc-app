@@ -3,15 +3,13 @@ import string
 from datetime import datetime, timedelta
 from flask import Blueprint, render_template, request, url_for, current_app, session, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from admin.admin.forms import LoginForm
+from admin.admin.forms import LoginForm, SecurityCodeForm
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import db, AdminUser, SecurityCode
 from grc.utils.date_utils import convert_date_to_local_timezone
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
-from grc.utils.security_code import generate_security_code, send_security_code_admin, \
-    has_last_security_code_been_used, has_security_code_expired
-from grc.start_application.forms import SecurityCodeForm
+from grc.utils.security_code import has_last_security_code_been_used, has_security_code_expired
 
 admin = Blueprint('admin', __name__)
 logger = Logger()
@@ -83,9 +81,7 @@ def index():
                     return local_redirect(url_for('applications.index'))
 
             # Email out 2FA link
-            security_code, expires = generate_security_code(email_address)
-            GovUkNotify().send_email_admin_login_security_code(email_address=user.email, expires=expires,
-                                                               security_code=security_code)
+            GovUkNotify().send_email_admin_login_security_code(email_address=user.email)
             logger.log(LogLevel.INFO, f"login link sent to {logger.mask_email_address(user.email)}")
             return local_redirect(url_for('admin.sign_in_with_security_code'))
 
@@ -122,7 +118,7 @@ def sign_in_with_security_code():
 
     if request.method == 'GET' and request.args.get('resend') == 'true':
         try:
-            send_security_code_admin(session['email'])
+            GovUkNotify().send_email_admin_login_security_code(session['email'])
             flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
         except BaseException as err:
             error = err.args[0].json()
@@ -142,14 +138,9 @@ def add_default_admin_user_to_database_if_there_are_no_users():
         db.session.add(record)
         db.session.commit()
 
-        try:
-            GovUkNotify().send_email_admin_new_user(
-                email_address=default_email_address,
-                temporary_password=temporary_password,
-                application_link=request.base_url
-            )
-        except Exception as e:
-            logger.log(LogLevel.ERROR, message=f'{e}')
+        GovUkNotify().send_email_admin_new_user(email_address=default_email_address,
+                                                temporary_password=temporary_password,
+                                                application_link=request.base_url)
 
 
 def generate_temporary_password():

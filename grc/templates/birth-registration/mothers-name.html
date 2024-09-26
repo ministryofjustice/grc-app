@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}What is your mother’s name?{% endblock %}
+{% block title %}{{ _("What is your mother’s name?") }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -21,7 +23,7 @@
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                             <h1 class="govuk-fieldset__heading">
-                                What is your mother’s name as listed on your birth or adoption certificate?
+                                {{ _("What is your mother’s name as listed on your birth or adoption certificate?") }}
                             </h1>
                         </legend>
 
@@ -29,7 +31,7 @@
                             form,
                             fieldName='first_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'First name' },
+                                'labelOptions': { 'htmlOrText': _('First name') },
                                 'classes': 'govuk-input--width-20',
                                 'autocomplete': 'given-name'
                             }
@@ -39,7 +41,7 @@
                             form,
                             fieldName='last_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Last name' },
+                                'labelOptions': { 'htmlOrText': _('Last name') },
                                 'classes': 'govuk-input--width-20',
                                 'autocomplete': 'family-name'
                             }
@@ -49,7 +51,7 @@
                             form,
                             fieldName='maiden_name',
                             textInputForOptions={
-                                'labelOptions': { 'htmlOrText': 'Maiden name (her surname at birth - include even if same as last name)' },
+                                'labelOptions': { 'htmlOrText': _('Maiden name (her surname at birth - include even if same as last name)') },
                                 'classes': 'govuk-input--width-20',
                                 'autocomplete': 'family-name'
                             }
@@ -58,14 +60,7 @@
                     </fieldset>
                 </div>
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

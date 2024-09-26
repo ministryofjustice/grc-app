@@ -1,0 +1,42 @@
+<templateId>
+d83e561e-3620-47f5-983a-4b50bf3fc33c
+</templateId>
+<TemplateName>
+Feedback
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Feedback received
+</Subject>
+<Message>
+A user submitted feedback via the GRC feedback form:
+
+# 1. How easy was it to complete your application?
+((how_easy_to_complete_application))
+
+# 2a. Did you find any of the questions difficult to answer?
+((any_questions_difficult_to_answer))
+
+# 2b. Which questions did you find difficult, and why?
+((which_questions_difficult_to_answer))
+
+# 3a. Did you need to call the admin team for help with your application?
+((needed_to_call_admin_team))
+
+# 3b. What did you need help with?
+((what_did_you_need_help_with))
+
+# 4a. Did you use the tool to check which documents you needed to submit with your application?
+((used_doc_checker))
+
+# 4b. How was your experience using the tool?
+((experience_of_using_doc_checker))
+
+# 5. Do you have any other suggestions for improving the digital service?
+((any_other_suggestions))
+</Message>

@@ -1,14 +1,16 @@
 {% extends 'document-checker/doc-checker-base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Gender recognition outside of the UK{% endblock %}
+{% block title %}{{ _('Gender recognition outside of the UK') }}{% endblock %}
 
 {% block backLink %}
     {% set backLink = 'documentChecker.planToRemainInAPartnership'
            if doc_checker_state.is_currently_in_partnership
            else 'documentChecker.previousPartnershipEnded' %}
-    <a href="{{ url_for(backLink) }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor(backLink) }}
 {% endblock %}
 
 {% block content %}
@@ -18,58 +20,22 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Gender recognition outside of the UK
+                {{ _('Gender recognition outside of the UK') }}
             </h1>
 
             <p class="govuk-body">
-                Some people may have already received gender recognition outside of the UK.
+                {{ _('Some people may have already received gender recognition outside of the UK.') }}
             </p>
             <p class="govuk-body">
-                The documents you need to provide are different if you have received gender recognition in a country or territory from this list:
+                {{ _('The documents you need to provide are different if you have received gender recognition in a country or territory from this list:') }}
             </p>
+            {% if countries %}
             <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-8">
-                <li>Australia – not including the external territories</li>
-                <li>Austria</li>
-                <li>Belgium</li>
-                <li>Bulgaria</li>
-                <li>Canada – not including Northwest Territories and Nunavut</li>
-                <li>Croatia</li>
-                <li>Cyprus</li>
-                <li>Czech Republic</li>
-                <li>Denmark</li>
-                <li>Estonia</li>
-                <li>Finland</li>
-                <li>France</li>
-                <li>Germany</li>
-                <li>Greece</li>
-                <li>Iceland</li>
-                <li>Italy</li>
-                <li>Japan</li>
-                <li>Liechtenstein</li>
-                <li>Luxembourg</li>
-                <li>Malta</li>
-                <li>Federal District of Mexico</li>
-                <li>Moldova</li>
-                <li>Netherlands</li>
-                <li>New Zealand</li>
-                <li>Norway</li>
-                <li>Poland</li>
-                <li>Romania</li>
-                <li>Russian Federation</li>
-                <li>Serbia</li>
-                <li>Singapore</li>
-                <li>Slovakia</li>
-                <li>Slovenia</li>
-                <li>South Africa</li>
-                <li>South Korea</li>
-                <li>Spain</li>
-                <li>Sweden</li>
-                <li>Switzerland</li>
-                <li>Turkey</li>
-                <li>Ukraine</li>
-                <li>United States of America – not including Idaho, Ohio, Tennessee and Texas</li>
-                <li>Uruguay</li>
+                {% for country in countries %}
+                <li>{{ country }}</li>
+                {% endfor %}
             </ul>
+            {% endif %}
 
             <form method="POST" action="{{ url_for('documentChecker.genderRecognitionOutsideUK') }}">
                 {{ form.csrf_token }}
@@ -77,17 +43,13 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='gender_recognition_outside_uk',
-                    question="Have you received gender recognition in one of these countries or territories?",
+                    question=_("Have you received gender recognition in one of these countries or territories?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Continue
-                    </button>
-                </div>
+                {{ continue.renderFor() }}
             </form>
 
         </div>
