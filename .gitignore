@@ -1,4 +1,5 @@
 venv/
+venv-grc/
 
 *.pyc
 __pycache__/
@@ -30,3 +31,8 @@ instance/config.py
 .unotes/*
 Notes/*
 notes/*
+
+# Translations
+*.mo
+
+venv-grc/*

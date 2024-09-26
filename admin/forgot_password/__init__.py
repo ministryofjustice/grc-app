@@ -5,7 +5,7 @@ from admin.forgot_password.forms import ForgotPasswordForm
 from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import AdminUser
 from grc.utils.logger import LogLevel, Logger
-from grc.utils.security_code import security_code_generator
+from grc.utils.security_code import _security_code_generator
 from grc.utils.redirect import local_redirect
 
 forgot_password = Blueprint('forgot_password', __name__)
@@ -27,18 +27,11 @@ def index():
             # Email out 2FA link
             if user is not None:
                 try:
-                    local = datetime.now().replace(tzinfo=tz.gettz('UTC')).astimezone(tz.gettz('Europe/London'))
-                    expires = datetime.strftime(local + timedelta(hours=24), '%H:%M on %d %b %Y')
-                    security_code = security_code_generator(email_address)
-                    GovUkNotify().send_email_admin_forgot_password(
-                        email_address=user.email,
-                        expires=expires,
-                        security_code=security_code
-                    )
+                    GovUkNotify().send_email_admin_forgot_password(email_address=user.email)
                     logger.log(LogLevel.INFO, f"Password reset link sent to {email_address}")
 
                 except Exception as e:
-                    print(e, flush=True)
+                    logger.log(LogLevel.ERROR, str(e))
 
                 session['email'] = email_address
                 return local_redirect(url_for('password_reset.reset_password_security_code'))
