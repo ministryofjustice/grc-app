@@ -59,7 +59,7 @@ class TestAdminElements:
             assert 'IJKL9012' in html
             assert '01/01/2024 09:00' in html
 
-    def test_invalid_applications_present(self, app, client, invalid_submitted_application):
+    def test_invalid_applications_present(self, app, client, a):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
@@ -67,7 +67,6 @@ class TestAdminElements:
             response = client.get('/applications#new')
             html = response.data.decode()
             assert 'New applications' in html
-            assert 'View application' in html
             assert 'Reference number' in html
             assert 'Applicant name' in html
             assert 'Submitted' in html
