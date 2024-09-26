@@ -196,6 +196,9 @@ def completed_application(app):
 
 @pytest.fixture()
 def invalid_submitted_application(app):
+    """
+        Application is invalid as it does not save the ApplicationData object
+    """
     with app.app_context():
         with app.test_request_context():
             # Generate a unique reference number
