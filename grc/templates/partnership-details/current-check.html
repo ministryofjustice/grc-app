@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Are you currently married or in a civil partnership?{% endblock %}
+{% block title %}{{ _('Are you currently married or in a civil partnership?') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
@@ -15,12 +17,11 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Marriages and civil partnerships
+                {{ _('Marriages and civil partnerships') }}
             </h1>
 
             <p class="govuk-body govuk-!-margin-bottom-8">
-                If you’ve ever been married or in a civil partnership, you need to upload a scan or good
-                quality photograph of your marriage or civil partnership certificates.
+                {{ _('If you’ve ever been married or in a civil partnership, you need to upload a scan or good quality photograph of your marriage or civil partnership certificates.') }}
             </p>
 
             <form method="POST" action="#">
@@ -29,26 +30,19 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='currently_married',
-                    question="Are you currently married or in a civil partnership?",
+                    question=_("Are you currently married or in a civil partnership?"),
                     radiosOptions={
                         'questionClasses': 'govuk-fieldset__legend--m',
                         'hintOptions':{
-                            'htmlOrText': 'If you are in the process of ending, or you plan to end your marriage or civil partnership, you should select your current, legal status'
+                            'htmlOrText': _('If you are in the process of ending, or you plan to end your marriage or civil partnership, you should select your current legal status')
                         },
                         'dividerOptions': [
-                            ('Neither', 'or')
+                            ('NEITHER', _('or'))
                         ]
                     }
                 ) }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
 
         </div>

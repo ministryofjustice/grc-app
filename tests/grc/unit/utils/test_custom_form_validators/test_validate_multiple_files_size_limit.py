@@ -9,14 +9,14 @@ from wtforms.validators import ValidationError
 class TestValidateMultipleFileSizeLimit:
 
     def test_validate_multiple_files_size_limit_no_files_or_data(self, app):
-        with app.app_context():
+        with app.test_request_context():
             form = UploadForm()
             form.file_size_limit_mb = 10
             form.documents.data = None
             assert validate_multiple_files_size_limit(form, form.documents) is None
 
     def test_validate_multiple_files_size_limit_valid_file_size_one_file(self, app):
-        with app.app_context():
+        with app.test_request_context():
             file_size_limit_bytes = 10 * 1024 * 1024
             mock_stream = MagicMock()
             mock_stream.read.return_value.__len__.return_value = file_size_limit_bytes
@@ -27,7 +27,7 @@ class TestValidateMultipleFileSizeLimit:
             assert validate_multiple_files_size_limit(form, form.documents) is None
 
     def test_validate_multiple_files_size_limit_valid_file_size_multiple_files(self, app):
-        with app.app_context():
+        with app.test_request_context():
             file_size_limit_bytes = 10 * 1024 * 1024
             mock_stream = MagicMock()
             mock_stream.read.return_value.__len__.return_value = file_size_limit_bytes
@@ -42,7 +42,7 @@ class TestValidateMultipleFileSizeLimit:
             assert validate_multiple_files_size_limit(form, form.documents) is None
 
     def test_validate_multiple_files_size_limit_invalid_file_size_one_file(self, app):
-        with app.app_context():
+        with app.test_request_context():
             over_file_size_limit_bytes = 11 * 1024 * 1024
             mock_stream = MagicMock()
             mock_stream.read.return_value.__len__.return_value = over_file_size_limit_bytes
@@ -54,7 +54,7 @@ class TestValidateMultipleFileSizeLimit:
                 validate_multiple_files_size_limit(form, form.documents)
 
     def test_validate_multiple_files_size_limit_invalid_file_size_multiple_files(self, app):
-        with app.app_context():
+        with app.test_request_context():
             under_file_size_limit_bytes = 7 * 1024 * 1024
             over_file_size_limit_bytes = 11 * 1024 * 1024
             mock_stream_valid = MagicMock()
@@ -73,7 +73,7 @@ class TestValidateMultipleFileSizeLimit:
                 validate_multiple_files_size_limit(form, form.documents)
 
     def test_validate_multiple_files_size_limit_invalid_empty_file(self, app):
-        with app.app_context():
+        with app.test_request_context():
             mock_stream = MagicMock()
             mock_stream.read.return_value.__len__.return_value = 0
             test_files = [FileStorage(filename='test_file1.pdf', stream=mock_stream, content_type='text/plain')]
@@ -85,7 +85,7 @@ class TestValidateMultipleFileSizeLimit:
                 validate_multiple_files_size_limit(form, form.documents)
 
     def test_validate_multiple_files_size_limit_invalid_multiple_files_one_empty_file(self, app):
-        with app.app_context():
+        with app.test_request_context():
             mock_stream_valid = MagicMock()
             mock_stream_invalid = MagicMock()
             mock_stream_valid.read.return_value.__len__.return_value = 10 * 1024 * 1024

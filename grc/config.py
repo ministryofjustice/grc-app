@@ -6,6 +6,8 @@ from os.path import dirname
 class Config:
     BASE_DIRECTORY = dirname(dirname(os.path.abspath(__file__)))
     ENVIRONMENT = os.environ.get("FLASK_ENV", "local")
+    NON_LIVE_ENV = ["development", "local", "test"]
+    FLASK_APP = os.environ.get("FLASK_APP", "grc")
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_KEY = os.environ.get("SQLALCHEMY_KEY")
@@ -47,3 +49,5 @@ class TestConfig(Config):
     WTF_CSRF_ENABLED = False
     TEST_PUBLIC_USER = 'test.public.email@example.com'
     AV_API = 'TEST CLAMAV API'
+    NOTIFY_API = os.environ.get('NOTIFY_API')
+    FLASK_APP = "grc"
