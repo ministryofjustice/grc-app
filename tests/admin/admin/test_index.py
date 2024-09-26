@@ -1,3 +1,4 @@
+from admin.config import TestConfig
 from unittest.mock import patch
 
 
@@ -27,9 +28,13 @@ class TestAdminIndex:
             mock_db_session.query.return_value.count.return_value = 0
             mock_temp_password.return_value = '123ABC'
             response = client.get('/')
-            assert mock_db_session.add.called
-            assert mock_db_session.commit.called
-            assert mock_send_email.called
+            mock_db_session.add.assert_called()
+            mock_db_session.commit.assert_called()
+            mock_send_email.assert_called_once_with(
+                email_address='test.email@example.com',
+                temporary_password='123ABC',
+                application_link='http://localhost/'
+            )
             assert response.status_code == 200
 
     def test_index_user_signed_in(self, app, client):
@@ -61,75 +66,61 @@ class TestAdminIndex:
             assert response.status_code == 200
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    @patch('admin.admin.generate_security_code')
-    def test_index_post_email_valid_password_security_code_required(self, mock_generate_security_code,
-                                                                    mock_send_security_code_email, app, client, admin):
+    def test_index_post_email_valid_password_security_code_required(self, mock_send_security_code_email, app, client,
+                                                                    admin):
         with app.app_context():
-            mock_generate_security_code.return_value = '12345', 'mocked date'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
-            mock_send_security_code_email.assert_called_once()
+            mock_send_security_code_email.assert_called_once_with(email_address='test.email@example.com')
             assert response.status_code == 302
             assert response.location == '/sign-in-with-security_code'
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    @patch('admin.admin.generate_security_code')
-    def test_index_post_email_valid_password_security_code_required_first_time_login(self, mock_generate_security_code,
+    def test_index_post_email_valid_password_security_code_required_first_time_login(self,
                                                                                      mock_send_security_code_email,
                                                                                      app, client, new_admin):
         with app.app_context():
-            mock_generate_security_code.return_value = '12345', 'mocked date'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
-            mock_send_security_code_email.assert_called_once()
+            mock_send_security_code_email.assert_called_once_with(email_address='test.email@example.com')
             assert response.status_code == 302
             assert response.location == '/sign-in-with-security_code'
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    @patch('admin.admin.generate_security_code')
-    def test_index_post_email_valid_password_security_code_expired_and_required(self, mock_generate_security_code,
-                                                                                mock_send_security_code_email,
+    def test_index_post_email_valid_password_security_code_expired_and_required(self, mock_send_security_code_email,
                                                                                 app, client, admin,
                                                                                 expired_security_code):
         with app.app_context():
-            mock_generate_security_code.return_value = '12345', 'mocked date'
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
-            mock_generate_security_code.assert_called_with('test.email@example.com')
-            mock_send_security_code_email.assert_called_once()
+            mock_send_security_code_email.assert_called_with(email_address='test.email@example.com')
             assert response.status_code == 302
             assert response.location == '/sign-in-with-security_code'
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    @patch('admin.admin.generate_security_code')
     @patch('admin.admin.has_last_security_code_been_used')
     def test_index_post_email_valid_password_security_code_valid_not_expired_and_previous_code_not_used_code_required(
-            self, mock_last_security_code_been_used, mock_generate_security_code, mock_send_security_code_email, app,
+            self, mock_last_security_code_been_used, mock_send_security_code_email, app,
             client, admin, security_code
     ):
         with app.app_context():
-            mock_generate_security_code.return_value = '12345', 'mocked date'
             mock_last_security_code_been_used.return_value = False
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
-            mock_generate_security_code.assert_called_with('test.email@example.com')
-            mock_send_security_code_email.assert_called_once()
+            mock_send_security_code_email.assert_called_with(email_address='test.email@example.com')
             assert response.status_code == 302
             assert response.location == '/sign-in-with-security_code'
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')
-    @patch('admin.admin.generate_security_code')
     @patch('admin.admin.has_last_security_code_been_used')
     def test_index_post_email_valid_password_security_code_valid_not_expired_and_previous_code_used(
-            self, mock_last_security_code_been_used, mock_generate_security_code, mock_send_security_code_email, app,
+            self, mock_last_security_code_been_used, mock_send_security_code_email, app,
             client, admin, security_code
     ):
         with app.app_context():
-            mock_generate_security_code.return_value = '12345', 'mocked date'
             mock_last_security_code_been_used.return_value = True
             form_data = {'email_address': 'test.email@example.com', 'password': 'password'}
             response = client.post('/', data=form_data)
-            mock_generate_security_code.assert_not_called()
             mock_send_security_code_email.assert_not_called()
             assert response.status_code == 302
             assert response.location == '/applications'

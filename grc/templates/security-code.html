@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/back_link.html" as back %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}Enter security code{% endblock %}
+{% block title %}{{ _('Enter security code') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ url_for('startApplication.index') }}" class="govuk-back-link">Back</a>
+    {{ back.renderFor('startApplication.index') }}
 {% endblock %}
 
 {% block content %}
@@ -15,25 +17,27 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Enter security code
+                {{ _('Enter security code') }}
             </h1>
 
             <p class="govuk-body">
-                We’ve sent a security code to <strong>{{ email }}</strong>
+                {{ _('We’ve sent a security code to') }} <strong>{{ email }}</strong>
             </p>
             <p class="govuk-body">
-                This can take a few minutes to arrive.
+                {{ _('This can take a few minutes to arrive') }}.
             </p>
             <p class="govuk-body govuk-!-margin-bottom-2">
-                If you do not get an email:
+                {{ _('If you do not get an email') }}:
             </p>
             <ul class="govuk-list govuk-list--bullet">
-                <li>check your spam or junk folder</li>
-                <li>check you have entered the correct email</li>
+                <li>{{ _('check your spam or junk folder') }}</li>
+                <li>{{ _('check you have entered the correct email') }}</li>
             </ul>
             <p class="govuk-body govuk-!-margin-bottom-8">
-                If it's still not there, we can
-                <a href="{{ url_for('startApplication.securityCode') }}?resend=true" class="govuk-link govuk-link--no-visited-state">resend the email</a>.
+                {{ _("If it's still not there, we can") }}
+                <a href="{{ url_for('startApplication.securityCode') }}?resend=true" class="govuk-link govuk-link--no-visited-state">
+                    {{ _('resend the email') }}
+                </a>.
             </p>
 
             <form method="POST">
@@ -44,17 +48,14 @@
                     fieldName='security_code',
                     textInputForOptions={
                         'labelOptions': {
-                            'htmlOrText': 'Security code',
+                            'htmlOrText': _('Security code'),
                             'classes': 'govuk-label--m'
                         },
                         'autocomplete': 'off',
                         'classes': 'govuk-input--width-5',
                     }
                 ) }}
-
-                <button class="govuk-button" data-module="govuk-button">
-                    Continue
-                </button>
+                {{ continue.renderFor() }}
             </form>
 
         </div>

@@ -1,75 +1,77 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, StringField
-from wtforms.validators import DataRequired
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
+from grc.business_logic.constants.partnership_details import PartnershipDetailsConstants as c
+from grc.lazy.lazy_fields import LazyRadioField
+from grc.lazy.lazy_form_custom_validators import LazyDataRequired
+from wtforms import StringField
 
 
 class MarriageCivilPartnershipForm(FlaskForm):
-    currently_married = RadioField(
-        choices=[
-            (CurrentlyInAPartnershipEnum.MARRIED.name, 'Married'),
-            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, 'Civil partnership'),
-            (CurrentlyInAPartnershipEnum.NEITHER.name, 'Neither')
+    currently_married = LazyRadioField(
+        lazy_choices=[
+            (CurrentlyInAPartnershipEnum.MARRIED.name, c.MARRIED),
+            (CurrentlyInAPartnershipEnum.CIVIL_PARTNERSHIP.name, c.CIVIL_PARTNERSHIP),
+            (CurrentlyInAPartnershipEnum.NEITHER.name, c.NEITHER)
         ],
-        validators=[DataRequired(message='Select if you are currently married or in a civil partnership')]
+        validators=[LazyDataRequired(lazy_message=c.CURRENTLY_MARRIED_OR_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 
 class StayTogetherForm(FlaskForm):
-    stay_together = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    stay_together = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you plan to remain married or in your civil partnership after receiving your Gender Recognition Certificate')]
+        validators=[LazyDataRequired(lazy_message=c.STAY_MARRIED_OR_IN_CIVIL_PARTNERSHIP_ERROR)]
     )
 
 
 class PartnerAgreesForm(FlaskForm):
-    partner_agrees = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    partner_agrees = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you can provide a declaration of consent from your spouse or civil partner')]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_AGREES_ERROR)]
     )
 
 
 class PartnerDetailsForm(FlaskForm):
     partner_title = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's title")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_TITLE_ERROR)]
     )
 
     partner_first_name = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's first name")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_FIRST_NAME_ERROR)]
     )
 
     partner_last_name = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's last name")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_LAST_NAME_ERROR)]
     )
 
     partner_postal_address = StringField(
-        validators=[DataRequired(message="Enter your spouse or civil partner's postal address")]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_POSTCODE_ERROR)]
     )
 
 
 class PartnerDiedForm(FlaskForm):
-    partner_died = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    partner_died = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you were previously married or in a civil partnership, and your spouse or partner died')]
+        validators=[LazyDataRequired(lazy_message=c.PARTNER_DIED_ERROR)]
     )
 
 
 class PreviousPartnershipEndedForm(FlaskForm):
-    previous_partnership_ended = RadioField(
-        choices=[
-            (True, 'Yes'),
-            (False, 'No')
+    previous_partnership_ended = LazyRadioField(
+        lazy_choices=[
+            (True, c.YES),
+            (False, c.NO)
         ],
-        validators=[DataRequired(message='Select if you have ever been married or in a civil partnership that has ended')]
+        validators=[LazyDataRequired(lazy_message=c.MARRIED_OR_CIVIL_PARTNERSHIP_ENDED_ERROR)]
     )
 
 

@@ -1,16 +1,18 @@
-from flask import Blueprint, flash, render_template, request, url_for, session
+from flask import Blueprint, flash, render_template, request, url_for, session, g
+from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
+from grc.external_services.gov_uk_notify import GovUkNotify
 from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
-    OverseasApprovedCheckForm, DeclerationForm, IsFirstVisitForm
+    OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.security_code import send_security_code
 from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, ValidatedEmailRequired
 from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.strtobool import strtobool
+from sqlalchemy.exc import SQLAlchemyError
 
 startApplication = Blueprint('startApplication', __name__)
 logger = Logger()
@@ -23,12 +25,9 @@ def index():
     if form.validate_on_submit():
         session.clear()
         session['email'] = form.email.data
-        try:
-            send_security_code(form.email.data)
-            return local_redirect(url_for('startApplication.securityCode'))
-        except BaseException as err:
-            error = err.args[0].json()
-            flash(error['errors'][0]['message'], 'error')
+        session['lang_code'] = g.lang_code
+        GovUkNotify().send_email_security_code(form.email.data)
+        return local_redirect(url_for('startApplication.securityCode'))
     return render_template(
         'start-application/email-address.html',
         form=form
@@ -44,27 +43,15 @@ def securityCode():
     if request.method == 'POST':
         email = session['email']
         if form.validate_on_submit():
-            #existing_application = Application.query.filter(
-            #    Application.email == email.lower(),
-            #    ((Application.status == ApplicationStatus.SUBMITTED) | (Application.status == ApplicationStatus.DOWNLOADED) | (Application.status == ApplicationStatus.COMPLETED)),
-            #    # (DATE REJECTED?????)
-            #).first()
-            #if existing_application is not None:
-            #    form.security_code.errors.append("You have already submitted an application, please contact the admin team if you require an update")
-            #else:
             session.clear()  # Clear out session['email']
             session['validatedEmail'] = email
+            session['lang_code'] = g.lang_code
             return local_redirect(url_for('startApplication.isFirstVisit'))
-        else:
-            logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
+        logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
-        try:
-            send_security_code(session['email'])
-            flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
-        except BaseException as err:
-            error = err.args[0].json()
-            flash(error['errors'][0]['message'], 'error')
+        GovUkNotify().send_email_security_code(session['email'])
+        flash(c.RESEND_SECURITY_CODE, 'email')
 
     return render_template(
         'security-code.html',
@@ -86,48 +73,53 @@ def isFirstVisit():
                     application = DataStore.create_new_application(email_address=session['validatedEmail'])
                     session.clear()  # Clear out session['validatedEmail']
                     session['reference_number'] = application.reference_number
+                    session['lang_code'] = g.lang_code
                     DataStore.increment_application_sessions(application.reference_number)
                     return local_redirect(url_for('startApplication.reference'))
 
-                except BaseException as err:
+                except SQLAlchemyError as err:
+                    logger.log(LogLevel.ERROR, message=f'Error incrementing app session with error: {err}')
                     flash('There is a problem creating a new application', 'error')
                     return render_template('start-application/is-first-visit.html', form=form)
 
-            elif form.isFirstVisit.data == 'HAS_REFERENCE':
-                application = loadApplicationFromDatabaseByReferenceNumber(form.reference.data)
+            if form.isFirstVisit.data == 'HAS_REFERENCE':
+                reference_number = DataStore.compact_reference(form.reference.data)
+                application = Application.query.filter_by(reference_number=reference_number).first()
+
                 if application is None:
-                    # This should already be caught by the 'validateReferenceNumber' custom form validator
-                    return returnToIsFirstVisitPageWithInvalidReferenceError(form)
+                    form.reference.errors.append('Enter a valid reference number')
+                    return render_template('start-application/is-first-visit.html', form=form)
+
+                if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
+                    # This application has been anonymised
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access an anonymised application")
+                    return render_template('start-application/application-anonymised.html')
+
+                elif application.status == ApplicationStatus.COMPLETED or \
+                        application.status == ApplicationStatus.SUBMITTED or \
+                        application.status == ApplicationStatus.DOWNLOADED:
+                    # This application has already been submitted
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access a submitted application")
+                    return render_template('start-application/application-already-submitted.html')
+
+                elif application.email == session['validatedEmail']:
+                    # The reference number is associated with their email address - load the application
+                    logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" accessed their application")
+                    session.clear()  # Clear out session['validatedEmail']
+                    session['reference_number'] = application.reference_number
+                    session['lang_code'] = g.lang_code
+                    DataStore.increment_application_sessions(application.reference_number)
+                    return local_redirect(url_for('taskList.index'))
 
                 else:
-                    if (not application.email) or \
-                            application.status == ApplicationStatus.DELETED or \
-                            application.status == ApplicationStatus.ABANDONED:
-                        # This application has been anonymised (i.e. after it's been submitted and processed OR after it's been abandoned)
-                        # Show the user a friendly page explaining this
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access an anonymised application")
-                        return render_template('start-application/application-anonymised.html')
-
-                    elif application.status == ApplicationStatus.COMPLETED or \
-                            application.status == ApplicationStatus.SUBMITTED or \
-                            application.status == ApplicationStatus.DOWNLOADED:
-                        # This application has already been submitted
-                        # Show the user a friendly page explaining this
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access a submitted application")
-                        return render_template('start-application/application-already-submitted.html')
-
-                    elif application.email == session['validatedEmail']:
-                        # The reference number is associated with their email address - load the application
-                        logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])} accessed their application")
-                        session.clear()  # Clear out session['validatedEmail']
-                        session['reference_number'] = application.reference_number
-                        DataStore.increment_application_sessions(application.reference_number)
-                        return local_redirect(url_for('taskList.index'))
-
-                    else:
-                        # This reference number is owned by another email address - pretend it doesn't exist
-                        logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])} attempted to access someone elses application")
-                        return returnToIsFirstVisitPageWithInvalidReferenceError(form)
+                    # This reference number is owned by another email address - pretend it doesn't exist
+                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
+                                              f" attempted to access someone else's application")
+                    form.reference.errors.append('Enter a valid reference number')
+                    return render_template('start-application/is-first-visit.html', form=form)
 
     return render_template(
         'start-application/is-first-visit.html',
@@ -135,20 +127,11 @@ def isFirstVisit():
     )
 
 
-def loadApplicationFromDatabaseByReferenceNumber(reference) -> Application:
-    trimmed_reference = reference.replace('-', '').replace(' ', '').upper()
-    return Application.query.filter_by(reference_number=trimmed_reference).first()
-
-
-def returnToIsFirstVisitPageWithInvalidReferenceError(form):
-    form.reference.errors.append('Enter a valid reference number')
-    return render_template('start-application/is-first-visit.html', form=form)
-
-
 @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
 @LoginRequired
 def backToIsFirstVisit():
-    application = loadApplicationFromDatabaseByReferenceNumber(session['reference_number'])
+    reference_number = DataStore.compact_reference(session['reference_number'])
+    application = Application.query.filter_by(reference_number=reference_number).first()
     session.clear()  # Clear out session['reference_number']
     session['validatedEmail'] = application.email
     return local_redirect(url_for('startApplication.isFirstVisit'))
@@ -210,6 +193,7 @@ def overseas_approved_check():
     return render_template(
         'start-application/overseas-approved-check.html',
         form=form,
+        countries=c.APPROVED_COUNTRIES,
         back=get_previous_page(application_data, 'startApplication.overseas_check')
     )
 
@@ -217,7 +201,7 @@ def overseas_approved_check():
 @startApplication.route('/declaration', methods=['GET', 'POST'])
 @LoginRequired
 def declaration():
-    form = DeclerationForm()
+    form = DeclarationForm()
     application_data = DataStore.load_application_by_session_reference_number()
     back_link = ('startApplication.overseas_approved_check'
                  if application_data.confirmation_data.gender_recognition_outside_uk
@@ -238,13 +222,6 @@ def declaration():
         form=form,
         back=get_previous_page(application_data, back_link)
     )
-
-
-@startApplication.route('/clearsession', methods=['GET'])
-@LoginRequired
-def clearsession():
-    session.clear()
-    return local_redirect(url_for('startApplication.index'))
 
 
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):

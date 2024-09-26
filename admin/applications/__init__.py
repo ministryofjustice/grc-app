@@ -178,20 +178,14 @@ def download(reference_number):
         db.session.commit()
 
         from grc.utils.application_files import ApplicationFiles
-        bytes, file_name = ApplicationFiles().create_or_download_pdf(
-            application.reference_number,
-            application.application_data(),
-            download=True,
-            create_toc=False,
-            paginate=False
-        )
+        bytes_, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
 
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
 
-        if bytes is None:
+        if bytes_ is None:
             return abort(404)
 
-        response = make_response(bytes)
+        response = make_response(bytes_)
         response.headers.set('Content-Type', 'application/pdf')
         response.headers.set('Content-Disposition', 'attachment', filename=file_name)
         return response
@@ -221,7 +215,7 @@ def completed():
                 session['message'] = message
             return local_redirect(url_for('applications.index', _anchor='completed'))
 
-    print('No applications to mark as completed', flush=True)
+    logger.log(LogLevel.INFO, 'No applications to mark as completed')
     return local_redirect(url_for('applications.index', _anchor='downloaded'))
 
 
@@ -277,5 +271,5 @@ def delete():
                 session['message'] = message
             return local_redirect(url_for('applications.index', _anchor='completed'))
 
-    print('No applications to mark as deleted', flush=True)
+    logger.log(LogLevel.INFO, 'No applications to mark as deleted')
     return local_redirect(url_for('applications.index', _anchor='completed'))

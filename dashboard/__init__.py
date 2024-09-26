@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
-from flask import Flask, g
+from flask import Flask, g, session
+from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
 from grc.models import db
@@ -87,5 +88,11 @@ def create_app(test_config=None):
     if rate_limiter:
         rate_limiter.exempt(health_check)
     app.register_blueprint(health_check)
+
+    def get_locale():
+        return session.get('lang_code', 'en')
+
+    babel = Babel(app)
+    babel.init_app(app, locale_selector=get_locale)
 
     return app

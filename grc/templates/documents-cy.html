@@ -1,0 +1,13 @@
+{% if application_data.birth_registration_data.birth_registered_in_uk %}
+    {% if application_data.birth_registration_data.adopted %}
+* eich gwreiddiol neu ardystiedig o'ch (https://www.gov.uk/certifying-a-document) tystysgrif fabwysiadu llawn
+    {% else %}
+* eich gwreiddiol neu ardystiedig o'ch (https://www.gov.uk/certifying-a-document) tystysgrif geni llawn
+    {% endif %}
+{% else %}
+* cadarnhad swyddogol o’ch dyddiad geni a’ch rhywedd pan gawsoch eich geni
+{% endif %}
+
+{% if application_data.submit_and_pay_data.is_using_ex160_form %}
+* ffurflen EX160 (https://www.gov.uk/government/publications/apply-for-help-with-court-and-tribunal-fees)
+{% endif %}

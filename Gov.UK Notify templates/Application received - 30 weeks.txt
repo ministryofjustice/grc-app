@@ -1,0 +1,59 @@
+<templateId>
+77007bae-b688-4dbb-bc84-334b0f5d3aef
+</templateId>
+<TemplateName>
+Application received - 30 weeks
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Your application has been received
+</Subject>
+<Message>
+Your application for a Gender Recognition Certificate has been received.
+
+#What you need to do next
+
+Post the rest of your documents as soon as possible – include your name and address so we can match them to your application.
+
+You need to post:
+
+((documents_to_be_posted))
+
+Your documents will be posted back to you.
+
+Send to:
+
+Gender Recognition Panel
+PO Box 9300
+Leicester
+LE1 8DJ
+
+If sending documents by courier, please contact us first (details below).
+
+^ You can [order a birth, death, marriage or civil partnership certificate online](https://www.gov.uk/order-copy-birth-death-marriage-certificate) if you live in England and Wales. There’s a different process for [getting certificates in Scotland](http://www.nrscotland.gov.uk/registration/how-to-order-an-official-extract-from-the-registers) and [Northern Ireland](http://www.nidirect.gov.uk/index/do-it-online/government-citizens-and-rights-online/order-a-birth-adoption-death-marriage-or-civil-partnership-certificate.htm).
+
+Your application will then be reviewed by the Gender Recognition Panel. You will be contacted if they need more information.
+
+You will then be told if you will be issued with a Gender Recognition Certificate, and what you can do if your application has not been accepted.
+
+The panel will usually look at your application within 30 weeks of applying.
+
+^ If we need to contact you by post in the next 6 months, please let us know if there are any dates we should avoid (for example, if you are away on holiday).
+
+ 
+#If you need to contact us 
+
+Include your application reference number – we will post this when we have received your application.
+
+If you need to contact us before this, include your full name and postcode.
+ 
+GRPenquiries@justice.gov.uk
+Telephone: 020 3936 8968
+Monday to Friday, 9am to 5pm
+Find out about call charges
+</Message>
