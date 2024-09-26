@@ -60,9 +60,6 @@ class TestAdminElements:
             assert '01/01/2024 09:00' in html
 
     def test_invalid_applications_present(self, app, client, invalid_submitted_application):
-        """
-            Application is invalid as it does not save the ApplicationData object
-        """
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
