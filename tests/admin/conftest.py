@@ -1,11 +1,13 @@
+import jsonpickle
 import pytest
 from admin import create_app
 from admin.config import TestConfig
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from grc.models import db, AdminUser, SecurityCode
+from grc.models import db, AdminUser, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import generate_security_code_and_expiry
 from werkzeug.security import generate_password_hash
+from grc.business_logic.data_store import DataStore, ApplicationData
 
 
 @pytest.fixture()
@@ -86,3 +88,136 @@ def expired_security_code(app):
 
         db.session.delete(security_code_)
         db.session.commit()
+
+
+@pytest.fixture()
+def submitted_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            reference_number = 'ABCD1234'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                status=ApplicationStatus.SUBMITTED,
+                updated=datetime(2024, 1, 1, 9)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Add and encode user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+            application_data.updated = application_record.updated
+
+            user_input: str = jsonpickle.encode(application_data)
+            application_record.user_input = user_input
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Yield the application for use in the test
+            yield application_record
+
+            # Delete the application after the test
+            db.session.delete(application_record)
+            db.session.commit()
+
+
+@pytest.fixture()
+def downloaded_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            # Generate a unique reference number
+            reference_number = 'EFGH5678'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                status=ApplicationStatus.DOWNLOADED,
+                downloaded=datetime(2024, 1, 1, 9)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Add and save user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+            DataStore.save_application(application_data)
+
+            # Yield the application for use in the test
+            yield application_record
+
+            # Delete the application after the test
+            db.session.delete(application_record)
+            db.session.commit()
+
+
+@pytest.fixture()
+def completed_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            # Generate a unique reference number
+            reference_number = 'IJKL9012'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                status=ApplicationStatus.COMPLETED,
+                completed=datetime(2024, 1, 1, 9)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Add and save user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+            DataStore.save_application(application_data)
+
+            # Yield the application for use in the test
+            yield application_record
+
+            # Delete the application after the test
+            db.session.delete(application_record)
+            db.session.commit()
+
+
+@pytest.fixture()
+def invalid_submitted_application(app):
+    with app.app_context():
+        with app.test_request_context():
+            # Generate a unique reference number
+            reference_number = 'MNOP3456'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email2@example.com',
+                status=ApplicationStatus.SUBMITTED,
+                completed=datetime(2024, 1, 1, 9)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Yield the application for use in the test
+            yield application_record
+
+            # Delete the application after the test
+            db.session.delete(application_record)
+            db.session.commit()
