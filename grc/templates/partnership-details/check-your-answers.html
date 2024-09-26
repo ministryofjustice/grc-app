@@ -1,37 +1,29 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/_summary-list-item.html" as summary_list_item %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
 
 {% macro check_your_answers_row(title, changeLinkHiddenText, changeLinkUrlFor, value) %}
     {{ summary_list_item.render(title, changeLinkHiddenText, url_for(changeLinkUrlFor, check_source='section', pages_from_check=1), value) }}
 {% endmacro %}
 
-{% block title %}Check your answers: Marriage or civil partnership details{% endblock %}
-
-{%  set partnerName = 'civil partner'
-    if application_data.partnership_details_data.is_in_civil_partnership
-    else 'spouse' %}
-{%  set partnerNameCapitalised = 'Civil partner'
-    if application_data.partnership_details_data.is_in_civil_partnership
-    else 'Spouse' %}
-{%  set inYourPartnershipName = 'in your civil partnership'
-    if application_data.partnership_details_data.is_in_civil_partnership
-    else 'married' %}
+{% block title %}{{ _('Check your answers:')}} {{ _('Marriage or civil partnership details') }}{% endblock %}
 
 {% block backLink %}
-    <a href="{{ back }}" class="govuk-back-link">Back</a>
+    {{ back_link.renderForRawURL(back) }}
 {% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l">
-                <span class="govuk-caption-l">Check your answers:</span>
-                Marriage or civil partnership details
+                <span class="govuk-caption-l">{{ _('Check your answers:') }}</span>
+                {{ _('Marriage or civil partnership details') }}
             </h1>
 
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                 {{ check_your_answers_row(
-                    title='Currently married or in a civil partnership',
+                    title=_('Currently married or in a civil partnership'),
                     changeLinkHiddenText='if you are currently married or in a civil partnership',
                     changeLinkUrlFor='partnershipDetails.index',
                     value=(application_data.partnership_details_data.currently_in_a_partnership_formatted)
@@ -39,14 +31,14 @@
 
                 {% if application_data.partnership_details_data.is_not_in_partnership %}
                     {{ check_your_answers_row(
-                        title='Spouse or partner has died',
+                        title=_('Spouse or partner has died'),
                         changeLinkHiddenText='if your spouse or partner has died',
                         changeLinkUrlFor='partnershipDetails.partnerDied',
                         value=(application_data.partnership_details_data.previous_partnership_partner_died_formatted)
                     ) }}
 
                     {{ check_your_answers_row(
-                        title='Marriage or civil partnership has ended',
+                        title=_('Marriage or civil partnership has ended'),
                         changeLinkHiddenText='if your marriage or civil partnership has ended',
                         changeLinkUrlFor='partnershipDetails.endedCheck',
                         value=(application_data.partnership_details_data.previous_partnership_ended_formatted)
@@ -54,16 +46,16 @@
 
                 {% else %}
                     {{ check_your_answers_row(
-                        title='Remain ' + inYourPartnershipName,
-                        changeLinkHiddenText='if you plan to remain ' + inYourPartnershipName + ' after receiving your Gender Recognition Certificate',
+                        title=content.stay_together_title,
+                        changeLinkHiddenText='if you plan to remain ' + content.in_your_partnership_name + ' after receiving your Gender Recognition Certificate',
                         changeLinkUrlFor='partnershipDetails.stayTogether',
                         value=(application_data.partnership_details_data.plan_to_remain_in_a_partnership_formatted)
                     ) }}
 
                     {% if application_data.partnership_details_data.plan_to_remain_in_a_partnership %}
                         {{ check_your_answers_row(
-                            title='Can provide a declaration of consent from your ' + partnerName,
-                            changeLinkHiddenText='if you can provide a declaration of consent from your ' + partnerName,
+                            title=content.partner_agrees_title,
+                            changeLinkHiddenText='if you can provide a declaration of consent from your ' + content.partner_name,
                             changeLinkUrlFor='partnershipDetails.partnerAgrees',
                             value=(application_data.partnership_details_data.partner_agrees_formatted)
                         ) }}
@@ -71,8 +63,8 @@
 
                     {% if application_data.partnership_details_data.plan_to_remain_in_a_partnership and application_data.partnership_details_data.partner_agrees %}
                         {{ check_your_answers_row(
-                            title=(partnerNameCapitalised + "'s name"),
-                            changeLinkHiddenText='your ' + partnerName + "'s name",
+                            title=content.partner_name_cap,
+                            changeLinkHiddenText='your ' + content.partner_name + "'s name",
                             changeLinkUrlFor='partnershipDetails.partnerDetails',
                             value=(application_data.partnership_details_data.partner_title + ' ' +
                                    application_data.partnership_details_data.partner_first_name + ' ' +
@@ -84,15 +76,15 @@
                             <span style="white-space: pre-line;">{{ application_data.partnership_details_data.partner_postal_address }}</span>
                         {% endmacro %}
                         {{ check_your_answers_row(
-                            title=(partnerNameCapitalised + "'s postal address"),
-                            changeLinkHiddenText='your ' + partnerName + "'s postal address",
+                            title=content.partner_name_post_code,
+                            changeLinkHiddenText='your ' + content.partner_name + "'s postal address",
                             changeLinkUrlFor='partnershipDetails.partnerDetails',
                             value=(partnerPostalAddressValue())
                         ) }}
 
                     {% else %}
                         {{ check_your_answers_row(
-                            title='Interim GRC',
+                            title=_('Interim GRC'),
                             changeLinkHiddenText='if you understand that you will receive an Interim GRC',
                             changeLinkUrlFor='partnershipDetails.interimCheck',
                             value=(application_data.partnership_details_data.confirm_understood_interim_certificate_formatted)
@@ -104,16 +96,8 @@
             <form method="POST" action="#">
                 {{ form.csrf_token }}
 
-                <div class="govuk-button-group">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Save and continue
-                    </button>
-                    <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
-                        Return to task list
-                    </a>
-                </div>
+                {{ continue.renderForSaveAndContinue() }}
             </form>
-
         </div>
     </div>
 {% endblock %}

@@ -64,7 +64,7 @@ def admin(app):
 @pytest.fixture()
 def security_code(app):
     with app.app_context():
-        code = security_code_generator(app.config['DEFAULT_ADMIN_USER'])
+        code, _ = generate_security_code_and_expiry(app.config['DEFAULT_ADMIN_USER'])
         security_code_ = SecurityCode.query.filter(
             SecurityCode.email == app.config['DEFAULT_ADMIN_USER'],
             SecurityCode.code == code

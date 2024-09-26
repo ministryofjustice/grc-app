@@ -1,0 +1,42 @@
+<templateId>
+388b14cd-345b-4382-9594-b8026c2242a6
+</templateId>
+<TemplateName>
+Feedback - Welsh
+</TemplateName>
+<From>
+Gender Recognition Certificate
+</From>
+<To>
+email address
+</To>
+<Subject>
+((environment_and_email_address))Adborth a dderbyniwyd
+</Subject>
+<Message>
+A user submitted feedback via the GRC feedback form:
+
+# 1. Pa mor hawdd oedd cwblhau eich cais?
+((how_easy_to_complete_application))
+
+# 2a. A oedd unrhyw un o’r cwestiynau yn anodd i’w hateb?
+((any_questions_difficult_to_answer))
+
+# 2b. Pa gwestiynau oedd yn anodd i chi, a pham?
+((which_questions_difficult_to_answer))
+
+# 3a. A oedd rhaid i chi ffonio’r tîm gweinyddol i gael help gyda’ch cais?
+((needed_to_call_admin_team))
+
+# 3b. Ar gyfer beth oedd arnoch chi angen cymorth?
+((what_did_you_need_help_with))
+
+# 4a. A wnaethoch chi ddefnyddio’r adnodd i wirio pa ddogfennau yr oedd angen i chi eu cyflwyno gyda’ch cais?
+((used_doc_checker))
+
+# 4b. Sut oedd eich profiad o ddefnyddio'r offeryn?
+((experience_of_using_doc_checker))
+
+# 5. A oes gennych chi unrhyw awgrymiadau eraill ar gyfer gwella’r gwasanaeth digidol?
+((any_other_suggestions))
+</Message>
