@@ -304,6 +304,21 @@ def validate_date(form, date_type):
         errors.append(f'Enter a valid {date_type} date: {e}')
         return errors, None
 
+def validate_specific_date(form, date_type):
+    errors, validated_date = validate_date(form, date_type)
+    errors.extend(errors)
+
+    if errors:
+        for error in errors:
+            logger.log(LogLevel.ERROR, message=error)
+            raise ValidationError(error)
+
+def validate_start_date(form, field):
+    validate_specific_date(form, 'start')
+
+def validate_end_date(form, field):
+    validate_specific_date(form, 'end')
+
 def validate_national_insurance_number(form, field):
     if not field.data:
         return
@@ -341,7 +356,6 @@ def validate_hwf_reference_number(form, field):
     )
     if match is None:
         raise LazyValidationError(c.INVALID_HWF_REFERENCE_NUMBER)
-
 
 def validate_single_date(form, field):
     if form['day'].errors or form['month'].errors:

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
-from grc.utils.form_custom_validators import validate_date_range, Integer
+from grc.utils.form_custom_validators import Integer, validate_start_date, validate_end_date
 
 
 class DateRangeForm(FlaskForm):
@@ -23,7 +23,7 @@ class DateRangeForm(FlaskForm):
         validators=[
             DataRequired(message='Enter a start year'),
             Integer(min=1000, message='Enter a start year as a 4-digit number, like 2000',
-                    validators=[validate_date_range])
+                    validators=[validate_start_date])
         ]
     )
 
@@ -45,6 +45,6 @@ class DateRangeForm(FlaskForm):
         validators=[
             DataRequired(message='Enter an end year'),
             Integer(min=1000, message='Enter an end year as a 4-digit number, like 2000',
-                    validators=[validate_date_range])
+                    validators=[validate_end_date])
         ]
     )
