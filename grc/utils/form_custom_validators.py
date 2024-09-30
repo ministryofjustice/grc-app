@@ -276,16 +276,17 @@ def validate_date_range(form, field):
 
     errors = []
 
-    errors_start, start_date = validate_date(form, 'start')
     if field.id == 'start_date_year':
+        errors_start, start_date = validate_date(form, 'start')
         errors.extend(errors_start)
 
-    errors_end, end_date = validate_date(form, 'end')
     if field.id == 'end_date_year':
+        errors_start, start_date = validate_date(form, 'start')
+        errors_end, end_date = validate_date(form, 'end')
         errors.extend(errors_end)
 
-    if field.id == 'end_date_year' and start_date is not None and end_date is not None and end_date < start_date:
-        errors.append('The end date cannot be earlier than the start date')
+        if start_date is not None and end_date is not None and end_date < start_date:
+            errors.append('The end date cannot be earlier than the start date')
 
     if errors:
         for error in errors:
