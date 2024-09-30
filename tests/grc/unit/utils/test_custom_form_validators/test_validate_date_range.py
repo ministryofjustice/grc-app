@@ -93,7 +93,7 @@ class TestValidateDateRange:
 
             with app.test_request_context():
                 with pytest.raises(ValidationError, match='The end date cannot be earlier than the start date'):
-                    validate_date_range(form, form.start_date_year)
+                    validate_date_range(form, form.end_date_year)
 
     def test_validate_date_range_invalid_within_range(self, app):
         with app.app_context():
