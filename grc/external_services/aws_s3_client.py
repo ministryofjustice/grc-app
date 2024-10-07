@@ -5,6 +5,7 @@ import boto3
 from flask import current_app
 from botocore.client import Config
 from grc.utils.logger import LogLevel, Logger
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -64,6 +65,10 @@ class AwsS3Client:
                         if file_type == 'jpg':
                             file_type = 'jpeg'
                         data = 'data:image/' + file_type + ';base64, ' + data
+
+                    if img is not None:
+                        logger.log(LogLevel.INFO, message=f"Closing image")
+                        img.close()
 
         except Exception as e:
             logging.error(e)
