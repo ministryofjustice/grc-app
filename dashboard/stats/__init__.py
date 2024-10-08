@@ -392,26 +392,22 @@ def index():
         _, data = get_stats(measure, start_date=start_date, end_date=end_date)
         stats[measure] = data
 
+    #applications_in_progress = sum([x['number of applications'] for x in stats['started_applications_by_month']])
     applications_in_progress = 0
     applications_started = 0
     applications_submitted = 0
     try:
-        for status_data in stats['applications_by_status']:
-            if status_data['application status'] == 'STARTED':
-                applications_in_progress = status_data['number of applications']
-            applications_started += status_data['number of applications']
-            if status_data['application status'] in ['COMPLETED', 'SUBMITTED', 'DOWNLOADED']:
-                applications_submitted += status_data['number of applications']
+        applications_in_progress = [x['number of applications'] for x in stats['applications_by_status'] if x['application status'] == 'STARTED'][0]
+        applications_started = sum([x['number of applications'] for x in stats['applications_by_status']])
+        applications_submitted = sum([x['number of applications'] for x in stats['applications_by_status'] if x['application status'] in ['COMPLETED', 'SUBMITTED', 'DOWNLOADED']])
     except:
         pass
 
     stats['applications_in_progress'] = applications_in_progress
     stats['total_applications_started'] = applications_started
     stats['total_applications_submitted'] = applications_submitted
-    if applications_started > 0:
+    if applications_started > 0 and applications_submitted > 0:
         stats['total_applications_submitted_percent'] = int(float(applications_submitted) / float(applications_started) * 100)
-    else:
-        stats['total_applications_submitted_percent'] = 0
 
     return render_template(
         'stats/stats.html',
