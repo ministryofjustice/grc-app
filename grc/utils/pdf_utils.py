@@ -1,9 +1,11 @@
 import fitz
+import pdfkit
+import os
 from io import BytesIO
 from typing import Any, List
-from flask import make_response
-from xhtml2pdf import pisa
+from flask import make_response, url_for, send_from_directory
 from grc.utils.logger import LogLevel, Logger
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -12,18 +14,32 @@ class PDFUtils():
     def __init__(self):
         pass
 
+    def create_pdf_from_html(self, html: str, title: str = None, html_image_type: bool = False) -> BytesIO:
 
-    def create_pdf_from_html(self, html: str, title: str = None) -> BytesIO:
+        print(f"Size of html buffer received in create_pdf_from_html {len(html)}", flush=True)
+        print(f"Current working directory in create_pdf_from_html is {os.getcwd()}", flush=True)
+
+        if html_image_type:
+            css = 'admin/static/image.css'
+        else:
+            css = 'admin/static/pdfkit.css'
+
         pdf_stream: BytesIO = BytesIO()
-        pisa.CreatePDF(html, dest=pdf_stream)
-
+        data = pdfkit.from_string(
+            html,
+            options={"enable-local-file-access": "", "cache-dir": "/tmp", "margin-top": "8", "margin-bottom": "10"},
+            css=css,
+            verbose=True
+        )
+        pdf_stream.write(data)
         pdf_stream.seek(0)
 
         if title:
             pdf_stream = self.add_pdf_toc(pdf_stream, title)
 
-        return pdf_stream
+        print(f"Size of pdf_stream returned by create_pdf_from_html {pdf_stream.getbuffer().nbytes}", flush=True)
 
+        return pdf_stream
 
     def merge_pdfs(self, input_pdf_streams: List[BytesIO], update_toc: bool = True) -> BytesIO:
         output_fitz_pdf_document: fitz.Document = fitz.open()
@@ -60,6 +76,9 @@ class PDFUtils():
 
             output_fitz_pdf_document.insert_pdf(input_fitz_pdf_document)
             input_fitz_pdf_document.close()
+
+            print(f"Image input stream buffer size {input_pdf_stream.getbuffer().nbytes}", flush=True)
+            input_pdf_stream.close()
 
         if update_toc:
             output_fitz_pdf_document.set_toc(new_toc)

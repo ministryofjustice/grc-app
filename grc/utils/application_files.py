@@ -7,6 +7,7 @@ from grc.business_logic.data_structures.uploads_data import UploadsData, Evidenc
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.pdf_utils import PDFUtils
+from memory_profiler import profile
 
 logger = Logger()
 
@@ -93,6 +94,7 @@ class ApplicationFiles:
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
         return output_pdf_document.read(), file_name
 
+    @profile
     def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
@@ -177,11 +179,16 @@ class ApplicationFiles:
                     logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
             else:
                 try:
+
+                    print(f"will download image {aws_file_name} from S3 bucket", flush=True)
                     data, width, height = AwsS3Client().download_object_data(aws_file_name)
                     if data is not None:
-                        html = f'<img src="{data}" width="{width}" height="{height}" style="max-width: 90%;">'
-                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
-                        logger.log(LogLevel.INFO, f"Adding image {aws_file_name}")
+                        print(f"downloaded image {aws_file_name} from S3 bucket with width {width} height {height}", flush=True)
+                        #html = f'<body><div style="margin-top:20px;"><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></div></body>'
+                        html = f'<body><div class="image-div"><img src="{data}"></div></body>'
+                        #html = html_template
+                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
+                        print(f"Adding image {aws_file_name}", flush=True)
                     else:
                         pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
