@@ -1,9 +1,11 @@
 import pytest
 import grc
 import admin
+import dashboard
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from admin.config import TestConfig as AdminTestConfig
+from dashboard.config import TestConfig as DashboardTestConfig
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.config import TestConfig as GRCTestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
@@ -15,6 +17,9 @@ from tests.grc.helpers.data.application_data import ApplicationDataHelpers
 def admin_app():
     yield admin.create_app(AdminTestConfig)
 
+@pytest.fixture()
+def dashboard_app():
+    yield dashboard.create_app(DashboardTestConfig)
 
 @pytest.fixture()
 def app():
