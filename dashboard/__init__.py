@@ -22,7 +22,10 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
-    app.config.from_object(Config)
+    if test_config:
+        app.config.from_object(test_config)
+    else:
+        app.config.from_object(Config)
 
     if app.config['IP_WHITELIST']:
         HttpIPWhitelist(app)
