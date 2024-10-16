@@ -1,7 +1,10 @@
 import pytest
+
 from dashboard.stats.forms import DateRangeForm
 from grc.utils.form_custom_validators import validate_date_range
 from wtforms.validators import ValidationError
+from dashboard import create_app
+from dashboard.config import TestConfig
 
 
 class TestValidateDateRange:
@@ -109,16 +112,21 @@ class TestValidateDateRange:
                 with pytest.raises(ValidationError, match='Enter a valid start date: day is out of range for month'):
                     validate_date_range(form, form.start_date_year)
 
-# Test needs to be fixed as the error message can't be found/not getting triggered - see RST-6893
-    # def test_validate_date_range_end_date_greater_than_today(self, app):
-    #     with app.app_context():
-    #         form = DateRangeForm()
-    #         form.start_date_day.data = '1'
-    #         form.start_date_month.data = '1'
-    #         form.start_date_year.data = '2023'
-    #         form.end_date_day.data = '1'
-    #         form.end_date_month.data = '3'
-    #         form.end_date_year.data = '2030'
-    #
-    #         with app.test_request_context():
-    #             assert 'The end date cannot be in the future' in form.end_date_year.errors
+    def test_validate_date_range_end_date_greater_than_today(self):
+        flask_app = create_app(TestConfig)
+
+        with flask_app.app_context():
+            with flask_app.test_client() as test_client:
+                form = DateRangeForm()
+                form.start_date_day.data = '20'
+                form.start_date_month.data = '2'
+                form.start_date_year.data = '2023'
+                form.end_date_day.data = '1'
+                form.end_date_month.data = '3'
+                form.end_date_year.data = '2039'
+
+                response = test_client.post('/', data=form.data)
+                response_data = response.data.decode('utf-8')
+
+                assert response.status_code == 200
+                assert 'The end date cannot be in the future' in response_data
