@@ -30,3 +30,5 @@ class Config:
 class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
+    TEST_URL = os.environ.get('TEST_URL', 'http://localhost')
+    FLASK_APP = "dashboard"

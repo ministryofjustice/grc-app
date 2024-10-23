@@ -372,6 +372,9 @@ def index():
         if form.validate_on_submit():
             start_date, end_date, date_range = get_daterange(form)
 
+            if start_date > today:
+                form.start_date_year.errors.append('The start date cannot be in the future')
+
             if end_date > today:
                 form.end_date_year.errors.append('The end date cannot be in the future')
     else:
