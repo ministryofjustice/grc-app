@@ -21,12 +21,19 @@ metadata:
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=pet"
+      
+      # Increase request body limit to 15MB
+      SecRequestBodyLimit 15728640
+      SecRequestBodyInMemoryLimit 15728640
+      
+      # Custom rule to allow larger uploads and remove specific rules for /upload path
       SecRule REQUEST_URI "@beginsWith /upload" \
         "id:1000,\
         phase:1,\
         pass,\
         nolog,\
-        ctl:ruleRemoveById=951240"
+        ctl:ruleRemoveById=951240,\
+        ctl:ruleRemoveById=920420"
 spec:
   ingressClassName: modsec
   tls:
