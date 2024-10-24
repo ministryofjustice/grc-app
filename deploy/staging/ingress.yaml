@@ -37,14 +37,6 @@ metadata:
         nolog,\
         ctl:ruleRemoveById=951240,\
         ctl:ruleRemoveById=920420"
-
-      # Set global request body limit
-      SecAction \
-        "id:900200,\
-        phase:1,\
-        nolog,\
-        pass,\
-        ctl:requestBodyLimit=52428800"
 spec:
   ingressClassName: modsec
   tls:
