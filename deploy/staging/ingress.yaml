@@ -18,13 +18,16 @@ metadata:
     #      return 403 '{"error": {"status_code": 403,"status": "Not allowed buddy"}}';
     #  }
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=pet"
       
       # Increase request body limit to 15MB
-      SecRequestBodyLimit 15728640
+      SecRequestBodyLimit 52428800
       
       # Custom rule to allow larger uploads and remove specific rules for /upload path
       SecRule REQUEST_URI "@beginsWith /upload" \
@@ -33,7 +36,8 @@ metadata:
         pass,\
         nolog,\
         ctl:ruleRemoveById=951240,\
-        ctl:ruleRemoveById=920420"
+        ctl:ruleRemoveById=920420,\
+        ctl:requestBodyLimit=52428800"
 spec:
   ingressClassName: modsec
   tls:
