@@ -26,17 +26,21 @@ metadata:
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=pet"
       
-      # Increase request body limit to 50MB
+      # Set global request body limit to 50MB
       SecRequestBodyLimit 52428800
       
-      # Custom rule to allow larger uploads and remove specific rules for /upload path
+      # Allow larger uploads for /upload path
       SecRule REQUEST_URI "@beginsWith /upload" \
         "id:1000,\
         phase:1,\
         pass,\
         nolog,\
         ctl:ruleRemoveById=951240,\
-        ctl:ruleRemoveById=920420"
+        ctl:ruleRemoveById=920350,\
+        ctl:ruleRemoveById=920420,\
+        ctl:ruleRemoveById=920430,\
+        ctl:ruleRemoveById=920440,\
+        ctl:ruleRemoveById=920450"
 spec:
   ingressClassName: modsec
   tls:
