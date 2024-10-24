@@ -6,27 +6,38 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-preprod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/whitelist-source-range: "194.33.196.0/24, 194.33.192.0/24, 51.149.249.0/29, 51.149.249.32/29, 51.149.250.0/24, 81.153.123.31/32"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "194.33.196.0/24, 194.33.192.0/24, 51.149.249.0/29, 51.149.249.32/29, 51.149.250.0/24, 81.153.123.31/32, 90.209.17.46/32"
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
         return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
       }
       error_page 403 @custom_403;
-    #nginx.ingress.kubernetes.io/custom-http-errors: "403" |
-    #  error_page 403 /403.html;
-    #  location /403.html {
-    #      return 403 '{"error": {"status_code": 403,"status": "Not allowed buddy"}}';
-    #  }
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=pet"
+
+      SecRequestBodyLimit 78643200
+
       SecRule REQUEST_URI "@beginsWith /upload" \
         "id:1000,\
         phase:1,\
         pass,\
         nolog,\
         ctl:ruleRemoveById=951240"
+      
+      # Disable specific ModSecurity rules related to file size for upload path
+      SecRule REQUEST_URI "@beginsWith /upload" \
+        "id:1001,\
+        phase:1,\
+        pass,\
+        nolog,\
+        ctl:ruleRemoveById=920420"
+
 spec:
   ingressClassName: modsec
   tls:
