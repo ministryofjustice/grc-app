@@ -25,6 +25,8 @@ metadata:
     nginx.ingress.kubernetes.io/modsecurity-snippet: |
       SecRuleEngine On
       SecDefaultAction "phase:2,pass,log,tag:github_team=pet"
+
+      SecRequestBodyLimit 78643200
       
       # Disable specific ModSecurity rules related to file size for upload path
       SecRule REQUEST_URI "@beginsWith /upload" \
