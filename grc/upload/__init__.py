@@ -108,6 +108,7 @@ def resize_image(document):
         img = Image.open(document)
 
         if img.mode in ("RGBA", "P"):
+            logger.log(LogLevel.INFO, "image changed from RBGA to RBG")
             img = img.convert("RGB")
 
         img = rotate_image_to_match_exif_orientation_flag(img)
