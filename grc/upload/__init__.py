@@ -202,6 +202,7 @@ def uploadInfoPage(section_url: str):
 
                         elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
                             resized, resized_document = resize_image(document)
+                            logger.log(LogLevel.INFO, "Image being resized")
                             if resized:
                                 file_ext = ''
                                 original_object_name = object_name
@@ -215,8 +216,10 @@ def uploadInfoPage(section_url: str):
                                 # If an image has been resized, it will be saved as a JPG
                                 object_name = f'{original_object_name}.jpg'
                                 AwsS3Client().upload_fileobj(resized_document, object_name)
+                                logger.log(LogLevel.INFO, "Image successfully resized")
 
                             else:
+                                logger.log(LogLevel.INFO, "Image did not resized")
                                 AwsS3Client().upload_fileobj(document, object_name)
 
                         else:
