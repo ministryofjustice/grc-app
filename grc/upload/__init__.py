@@ -219,7 +219,7 @@ def uploadInfoPage(section_url: str):
                                 logger.log(LogLevel.INFO, "Image successfully resized")
 
                             else:
-                                logger.log(LogLevel.INFO, "Image did not resized")
+                                logger.log(LogLevel.INFO, "Image not resized")
                                 AwsS3Client().upload_fileobj(document, object_name)
 
                         else:
