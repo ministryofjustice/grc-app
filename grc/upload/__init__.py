@@ -106,6 +106,10 @@ def delete_password_protected_files(section, application_data):
 def resize_image(document):
     try:
         img = Image.open(document)
+
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+
         img = rotate_image_to_match_exif_orientation_flag(img)
 
         width, height = img.size
@@ -209,8 +213,10 @@ def uploadInfoPage(section_url: str):
 
                                 # If an image has been resized, it will be saved as a JPG
                                 object_name = f'{original_object_name}.jpg'
+                                AwsS3Client().upload_fileobj(resized_document, object_name)
 
-                            AwsS3Client().upload_fileobj(resized_document, object_name)
+                            else:
+                                AwsS3Client().upload_fileobj(document, object_name)
 
                         else:
                             AwsS3Client().upload_fileobj(document, object_name)
