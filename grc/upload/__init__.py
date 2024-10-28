@@ -121,7 +121,7 @@ def resize_image(document):
             elif height > 1400:
                 ratio = 1400 / height
         if ratio != 1.:
-            img = img.resize((int(width * ratio), int(height * ratio)), Image.ANTIALIAS)
+            img = img.resize((int(width * ratio), int(height * ratio)), Image.Resampling.LANCZOS)
 
         bytes_buffer = io.BytesIO()
         img.save(bytes_buffer, format='JPEG', quality=50)
