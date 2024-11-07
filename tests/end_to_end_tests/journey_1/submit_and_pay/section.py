@@ -253,15 +253,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text="Change your civil partner's name", expected_url='/partnership-details/partner-details')
     await asserts.change_links_to_url(link_text="Change your civil partner's postal address", expected_url='/partnership-details/partner-details')
 
-    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of changing your name', expected_url='/upload/name-change', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
-    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your marriage or civil partnership', expected_url='/upload/marriage-documents', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
-    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your overseas certificate', expected_url='/upload/overseas-certificate', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
-    await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
-
     await asserts.change_links_to_url(link_text='Change payment method', expected_url='/submit-and-pay')
     await asserts.change_links_to_url(link_text='Change the way you are applying for help with paying the fees', expected_url='/submit-and-pay/help-type')
     await asserts.change_links_to_url(link_text='Change your Help with Fees reference number', expected_url='/submit-and-pay/help-type')
 
+    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of changing your name', expected_url='/upload/name-change', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
+    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your marriage or civil partnership', expected_url='/upload/marriage-documents', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
+    await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your overseas certificate', expected_url='/upload/overseas-certificate', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
+    await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
 
     # Don't choose any option, click Save and continue
     await helpers.click_button('Submit application')

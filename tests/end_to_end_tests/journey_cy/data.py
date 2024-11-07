@@ -1,9 +1,11 @@
 from datetime import date
 from dateutil.relativedelta import relativedelta
+import os
 
 DEFAULT_TIMEOUT = 3 * 1000  # Wait a maximum of 3 seconds
 
-EMAIL_ADDRESS = 'test.public.email@example.com'
+EMAIL_ADDRESS = os.environ.get('DEFAULT_ADMIN_USER', 'matthew.sellings@hmcts.net')
+
 PHONE_NUMBER = '07700900000'
 
 TITLE = 'Mr'
