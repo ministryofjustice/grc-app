@@ -8,7 +8,7 @@
     "build": "sass grc/sass/app.scss grc/static/app.css --style=compressed"
   },
   "dependencies": {
-    "govuk-frontend": "^3.14.0",
+    "govuk-frontend": "^5.7.1",
     "sass": "^1.45.0"
   }
 }
