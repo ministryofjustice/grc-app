@@ -40,36 +40,29 @@
                 {% for choiceId, choiceLabel in formChoices %}
                     {% macro str(value) %}{{ value }}{% endmacro %}
                     {% set index = form[fieldName].choices.index((choiceId, choiceLabel)) %}
-                    {% set indexSuffix = ('-' + str(index))
-                                         if index > 0
-                                         else '' %}
-
-                    {% if radiosOptions.dividerOptions %}
-                        {% for dividerChoiceId, dividerHtml in radiosOptions.dividerOptions %}
-                            {%  if dividerChoiceId == choiceId %}
-                                <div class="govuk-radios__divider">
-                                    {{ dividerHtml }}
-                                </div>
-                            {%  endif %}
-                        {% endfor %}
-                    {% endif %}
+                    {% set indexSuffix = ('-' + str(index)) if index > 0 else '' %}
 
                     <div class="govuk-radios__item">
-                        <input id="{{ fieldName }}{{ indexSuffix }}" type="radio" name="{{ fieldName }}"
-                               value="{{ choiceId }}" class="govuk-radios__input" {{ 'checked' if str(form[fieldName].data) == str(choiceId) }}
-                               data-aria-controls="conditional-{{ fieldName }}{{ indexSuffix }}">
-                        <label for="{{ fieldName }}{{ indexSuffix }}" class="govuk-label govuk-radios__label">
+                        <input class="govuk-radios__input" id="{{ fieldName }}{{ indexSuffix }}" name="{{ fieldName }}" type="radio" value="{{ choiceId }}"
+                            {% for optionChoiceId, conditionalHtml in radiosOptions.conditionalOptions %}
+                                {% if optionChoiceId == choiceId %}
+                                    data-aria-controls="conditional-{{ fieldName }}{{ indexSuffix }}"
+                                {% endif %}
+                            {% endfor %}
+                            {{ 'checked' if str(form[fieldName].data) == str(choiceId) }}
+                        >
+                        <label class="govuk-label govuk-radios__label" for="{{ fieldName }}{{ indexSuffix }}">
                             {{ choiceLabel }}
                         </label>
                     </div>
 
                     {% if radiosOptions.conditionalOptions %}
                         {% for optionChoiceId, conditionalHtml in radiosOptions.conditionalOptions %}
-                            {%  if optionChoiceId == choiceId %}
+                            {% if optionChoiceId == choiceId %}
                                 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-{{ fieldName }}{{ indexSuffix }}">
                                     {{ conditionalHtml }}
                                 </div>
-                            {%  endif %}
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
@@ -78,3 +71,4 @@
     </div>
 
 {% endmacro %}
+
