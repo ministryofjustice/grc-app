@@ -86,4 +86,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Marriage Documents page" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Dogfennau priodas a phartneriaeth sifil', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau priodas a phartneriaeth sifil', expected_status="Wedi'i gwblhau")

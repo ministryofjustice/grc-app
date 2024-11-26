@@ -85,4 +85,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Overseas certificate documents" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="Wedi'i gwblhau")
