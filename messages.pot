@@ -18,27 +18,27 @@ msgstr ""
 "Generated-By: Babel 2.12.0\n"
 
 #: grc/list_status.py:6
-msgid "COMPLETED"
+msgid "Completed"
 msgstr ""
 
 #: grc/list_status.py:7
-msgid "IN PROGRESS"
+msgid "In progress"
 msgstr ""
 
 #: grc/list_status.py:8
-msgid "NOT STARTED"
+msgid "Not started"
 msgstr ""
 
 #: grc/list_status.py:9
-msgid "CANNOT START YET"
+msgid "Cannot start yet"
 msgstr ""
 
 #: grc/list_status.py:10
-msgid "IN REVIEW"
+msgid "In Review"
 msgstr ""
 
 #: grc/list_status.py:11
-msgid "ERROR"
+msgid "Error"
 msgstr ""
 
 #: grc/business_logic/constants/base.py:5
