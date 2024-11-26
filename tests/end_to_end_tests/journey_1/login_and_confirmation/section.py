@@ -10,7 +10,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/')
     await asserts.accessibility()
-    assert await page.inner_text('a.govuk-header__link.govuk-header__link--service-name') == 'Apply for a Gender Recognition Certificate'
+    assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Apply for a Gender Recognition Certificate'
     await asserts.h1('Email address')
     await asserts.number_of_errors(0)
 
