@@ -132,15 +132,15 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Statutory declarations" section should be "NOT STARTED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
+    await asserts.task_list_section(section='Confirmation', expected_status='Completed')
+    await asserts.task_list_section(section='Your personal details', expected_status='Completed')
+    await asserts.task_list_section(section='Your birth registration information', expected_status='Completed')
+    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='Completed')
+    await asserts.task_list_section(section='Name change documents', expected_status='Completed')
+    await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='Completed')
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status='Completed')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
 
     # Click "Statutory declarations" to go back to the "Statutory Declarations" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
@@ -181,15 +181,15 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Statutory declarations" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Name change documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Submit and pay', expected_status='NOT STARTED')
+    await asserts.task_list_section(section='Confirmation', expected_status='Completed')
+    await asserts.task_list_section(section='Your personal details', expected_status='Completed')
+    await asserts.task_list_section(section='Your birth registration information', expected_status='Completed')
+    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='Completed')
+    await asserts.task_list_section(section='Name change documents', expected_status='Completed')
+    await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='Completed')
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status='Completed')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='Completed')
+    await asserts.task_list_section(section='Submit and pay', expected_status='Not started')
 
     # Click "Statutory declarations" to go back to the "Statutory Declarations" page
     await helpers.click_button(TASK_LIST_BUTTON_NAME)
