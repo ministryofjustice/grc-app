@@ -86,4 +86,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Statutory declarations" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Datganiadau statudol', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Datganiadau statudol', expected_status="Wedi'i gwblhau")
