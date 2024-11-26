@@ -1,12 +1,13 @@
 from datetime import date
 from dateutil.relativedelta import relativedelta
+import os
 
 DEFAULT_TIMEOUT = 3 * 1000  # Wait a maximum of 3 seconds
 TIMEOUT_FOR_SLOW_OPERATIONS = 30 * 1000  # For slow operations, wait a maximum of 30 seconds
 
 
 EMAIL_ADDRESS = 'ivan.touloumbadjian@hmcts.net'
-DIFFERENT_EMAIL_ADDRESS = 'grc-service-account@cabinetoffice.gov.uk'
+DIFFERENT_EMAIL_ADDRESS = os.environ.get('DEFAULT_ADMIN_USER', 'matthew.sellings@hmcts.net')
 
 TITLE = 'Mr'
 FIRST_NAME = 'Joseph'
