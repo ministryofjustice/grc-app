@@ -20,27 +20,27 @@ msgstr ""
 "Generated-By: Babel 2.12.0\n"
 
 #: grc/list_status.py:6
-msgid "COMPLETED"
-msgstr "WEDI'I GWBLHAU"
+msgid "Completed"
+msgstr "Wedi'i gwblhau"
 
 #: grc/list_status.py:7
-msgid "IN PROGRESS"
-msgstr "YN MYND RHAGDDO"
+msgid "In progress"
+msgstr "Yn mynd rhagddo"
 
 #: grc/list_status.py:8
-msgid "NOT STARTED"
-msgstr "HEB DDECHRAU"
+msgid "Not started"
+msgstr "Heb ddechrau"
 
 #: grc/list_status.py:9
-msgid "CANNOT START YET"
-msgstr "METHU DECHRAU ETO"
+msgid "Cannot start yet"
+msgstr "Methu dechrau eto"
 
 #: grc/list_status.py:10
-msgid "IN REVIEW"
-msgstr "YN CAEL EI ADOLYGU"
+msgid "In Review"
+msgstr "Yn cael ei adolygn"
 
 #: grc/list_status.py:11
-msgid "ERROR"
+msgid "Error"
 msgstr ""
 
 #: grc/business_logic/constants/base.py:5
