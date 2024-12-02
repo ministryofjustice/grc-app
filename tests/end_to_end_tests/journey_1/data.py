@@ -24,8 +24,9 @@ TRANSITION_DATE_MONTH = '3'
 TRANSITION_DATE_YEAR = str((date.today() - relativedelta(years=3)).year)
 
 # These 2 ensure invalid date is created for this journey
-TRANSITION_DATE_MONTH_PLUS_ONE = str((date.today() + relativedelta(months=1)).month)
-TRANSITION_DATE_YEAR_MINUS_TWO = str((date.today() - relativedelta(years=2)).year)
+invalid_date = date.today() - relativedelta(years=1, months=11)
+TRANSITION_DATE_MONTH_ERROR = str(invalid_date.month)
+TRANSITION_DATE_YEAR_ERROR = str(invalid_date.year)
 
 TRANSITION_DATE_FORMATTED = f'March {TRANSITION_DATE_YEAR}'
 
