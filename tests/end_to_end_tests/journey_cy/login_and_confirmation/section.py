@@ -10,7 +10,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/')
     await asserts.accessibility()
-    assert await page.inner_text('a.govuk-header__link.govuk-header__link--service-name') == 'Apply for a Gender Recognition Certificate'
+    assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Apply for a Gender Recognition Certificate'
     await asserts.h1('Email address')
     await asserts.number_of_errors(0)
 
@@ -18,7 +18,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/')
     await asserts.accessibility()
     await helpers.click_button('Cymraeg')
-    assert await page.inner_text('a.govuk-header__link.govuk-header__link--service-name') == 'Gwneud cais am Dystysgrif Cydnabod Rhywedd'
+    assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Gwneud cais am Dystysgrif Cydnabod Rhywedd'
     await asserts.h1('Cyfeiriad e-bost')
 
     # Enter a valid Email Address, click Continue button, see the Security Code page
@@ -188,10 +188,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Status of "Confirmation" section should be "COMPLETED"
     await asserts.task_list_sections(7)
-    await asserts.task_list_section(section='Cadarnhau', expected_status="WEDI'I GWBLHAU")
-    await asserts.task_list_section(section='Eich manylion personol', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Manylion eich priodas neu bartneriaeth sifil', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Datganiadau statudol', expected_status='HEB DDECHRAU')
-    await asserts.task_list_section(section='Cyflwyno a thalu', expected_status='METHU DECHRAU ETO')
+    await asserts.task_list_section(section='Cadarnhau', expected_status="Wedi'i gwblhau")
+    await asserts.task_list_section(section='Eich manylion personol', expected_status='Heb ddechrau')
+    await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='Heb ddechrau')
+    await asserts.task_list_section(section='Manylion eich priodas neu bartneriaeth sifil', expected_status='Heb ddechrau')
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status='Heb ddechrau')
+    await asserts.task_list_section(section='Datganiadau statudol', expected_status='Heb ddechrau')
+    await asserts.task_list_section(section='Cyflwyno a thalu', expected_status='Methu dechrau eto')
