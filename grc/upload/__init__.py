@@ -106,6 +106,12 @@ def delete_password_protected_files(section, application_data):
 def resize_image(document):
     try:
         img = Image.open(document)
+
+        #To use Image.Resampling.LANCZOS, image must be RBG
+        if img.mode in ("RGBA", "P"):
+            logger.log(LogLevel.INFO, "Image changed from RBGA to RBG")
+            img = img.convert("RGB")
+
         img = rotate_image_to_match_exif_orientation_flag(img)
 
         width, height = img.size
@@ -121,7 +127,7 @@ def resize_image(document):
             elif height > 1400:
                 ratio = 1400 / height
         if ratio != 1.:
-            img = img.resize((int(width * ratio), int(height * ratio)), Image.ANTIALIAS)
+            img = img.resize((int(width * ratio), int(height * ratio)), Image.Resampling.LANCZOS)
 
         bytes_buffer = io.BytesIO()
         img.save(bytes_buffer, format='JPEG', quality=50)
@@ -197,6 +203,7 @@ def uploadInfoPage(section_url: str):
 
                         elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
                             resized, resized_document = resize_image(document)
+                            logger.log(LogLevel.INFO, "Image being resized")
                             if resized:
                                 file_ext = ''
                                 original_object_name = object_name
@@ -211,8 +218,9 @@ def uploadInfoPage(section_url: str):
                                 object_name = f'{original_object_name}.jpg'
 
                             AwsS3Client().upload_fileobj(resized_document, object_name)
-
+                            logger.log(LogLevel.INFO, "Image successfully resized")
                         else:
+                            logger.log(LogLevel.INFO, "Image failed to resize")
                             AwsS3Client().upload_fileobj(document, object_name)
 
                         new_evidence_file = EvidenceFile()
