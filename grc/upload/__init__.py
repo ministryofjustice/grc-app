@@ -107,7 +107,7 @@ def resize_image(document):
     try:
         img = Image.open(document)
 
-        #To use Image.Resampling.LANCZOS, image must be RBG
+        #To use JPEG, image must be RBG
         if img.mode in ("RGBA", "P"):
             logger.log(LogLevel.INFO, "Image changed from RBGA to RBG")
             img = img.convert("RGB")
