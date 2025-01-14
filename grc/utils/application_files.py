@@ -43,10 +43,12 @@ class ApplicationFiles:
                         zipper.writestr(attachment_file_name, data.getvalue())
 
                     file_name, file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
-                    if file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
-                        data = AwsS3Client().download_object(f'{file_name}_original{file_ext}')
+                    original_file_name, original_file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
+                    if original_file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
+                        data = AwsS3Client().download_object(f'{file_name}_original{original_file_ext}')
+                        logger.log(LogLevel.DEBUG, '*********************')
+                        logger.log(LogLevel.DEBUG, data)
                         if data is not None:
-                            logger.log(LogLevel.INFO,f'Adding original file: {file_name}_original{file_ext} to zip.')
                             file_name, file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
                             attachment_file_name = (f"{application_data.reference_number}__{section}__"
                                                     f"{(file_index + 1)}_{file_name}_original{file_ext}")
