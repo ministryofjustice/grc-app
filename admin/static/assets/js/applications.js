@@ -82,3 +82,40 @@ function selectOrDeselectApplication(application) {
         }
     }
 }
+
+//Select all case checkboxes and enable the apply button
+function selectAllCases() {
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+
+    const applyButton = document.getElementById('submit-selected-apps-btn-new');
+    applyButton.disabled = false;
+    applyButton.classList.remove('govuk-button--disabled');
+}
+
+//Clear all case checkboxes and disable the apply button
+function clearAllCases() {
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+    const applyButton = document.getElementById('submit-selected-apps-btn-new');
+    applyButton.disabled = true;
+    applyButton.classList.add('govuk-button--disabled');
+}
+
+//Enable the apply button if any case checkboxes are selected
+function handleNewCaseCheckbox() {
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input');
+    const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+    const applyButton = document.getElementById('submit-selected-apps-btn-new');
+    applyButton.disabled = !anyChecked;
+    if (anyChecked) {
+        applyButton.classList.remove('govuk-button--disabled');
+    } else {
+        applyButton.classList.add('govuk-button--disabled');
+    }
+}
