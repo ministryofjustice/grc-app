@@ -42,7 +42,7 @@ async def check_gov_uk_pay(page: Page, asserts: AssertHelpers, helpers: PageHelp
     # ------------------------------------------------
     # ---- Gov.UK Pay - Confirm Your Payment page
     # ------------------------------------------------
-    await asserts.url_matches_regex('/card_details/[a-z0-9]*')
+    await asserts.url_matches_regex('/card_details/[a-z0-9]*/confirm')
     await asserts.h1('Confirm your payment')
 
     # Click "Confirm payment"
