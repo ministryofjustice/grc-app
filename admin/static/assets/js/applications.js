@@ -119,3 +119,64 @@ function handleNewCaseCheckbox() {
         applyButton.classList.add('govuk-button--disabled');
     }
 }
+
+async function submitNewCaseRegistration() {
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input:checked');
+    const applications = Array.from(checkboxes).map(checkbox => checkbox.id);
+    console.log('applications:', applications);
+    
+    if (applications.length === 0) {
+        return;
+    }
+
+    try {
+        for (const referenceNumber of applications) {
+            console.log('Sending request for reference number:', referenceNumber);
+            const requestBody = {
+                'jurisdictionId': 2000000,
+                'onlineMappingCode': 'APPEAL_OTHER',
+                'contactFirstName': 'Test',
+                'contactLastName': 'User',
+                'contactPhone': '07700900000',
+                'contactEmail': 'test@example.com',
+                'contactPostalCode': 'SW1A 1AA',
+                'contactCity': 'London',
+                'contactCountry': 'UK',
+                'documentsURL': 'https://example.com/docs',
+                'referenceNumber': referenceNumber
+            };
+            console.log('Request body:', requestBody);
+
+            try {
+                const response = await fetch('/glimr/api/tdsapi/registernewcase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'apikey TEST_KEY'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('Response status:', response.status);
+                const responseText = await response.text();
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
+                }
+
+                const data = JSON.parse(responseText);
+                console.log('Case registered:', data);
+            } catch (fetchError) {
+                console.error('Fetch error:', fetchError);
+                throw fetchError;
+            }
+        }
+
+        // Refresh the page after successful registration
+        // window.location.reload();
+    } catch (error) {
+        console.error('Error details:', error);
+        alert('Error registering new case(s). Please try again. Check console for details.');
+    }
+}
