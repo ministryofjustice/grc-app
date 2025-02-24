@@ -44,8 +44,7 @@
     </thead>
 {% endmacro %}
 
-{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None) %}
-    {% set id = random_id.randomId(10) %}
+{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None, id=None) %}
     <tr class="govuk-table__row">
         {% if title %}
             <th scope="row" id="row-header-{{ id }}"
@@ -292,17 +291,20 @@
 
                     {{ summary_list_item(
                         subtitle="First name",
-                        value=application_data.personal_details_data.first_name
+                        value=application_data.personal_details_data.first_name,
+                        id="grc-first-name"
                     ) }}
 
                     {{ summary_list_item(
                         subtitle="Middle name(s)",
-                        value=(application_data.personal_details_data.middle_names_or_empty_string)
+                        value=(application_data.personal_details_data.middle_names_or_empty_string),
+                        id="grc-middle-name"
                     ) }}
 
                     {{ summary_list_item(
                         subtitle="Last name",
-                        value=application_data.personal_details_data.last_name
+                        value=application_data.personal_details_data.last_name,
+                        id="grc-last-name"
                     ) }}
 
                     {{ summary_list_item(

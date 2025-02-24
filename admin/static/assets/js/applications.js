@@ -132,22 +132,40 @@ async function submitNewCaseRegistration() {
     try {
         for (const referenceNumber of applications) {
             console.log('Sending request for reference number:', referenceNumber);
-            const requestBody = {
-                'jurisdictionId': 2000000,
-                'onlineMappingCode': 'APPEAL_OTHER',
-                'contactFirstName': 'Test',
-                'contactLastName': 'User',
-                'contactPhone': '07700900000',
-                'contactEmail': 'test@example.com',
-                'contactPostalCode': 'SW1A 1AA',
-                'contactCity': 'London',
-                'contactCountry': 'UK',
-                'documentsURL': 'https://example.com/docs',
-                'referenceNumber': referenceNumber
-            };
-            console.log('Request body:', requestBody);
-
+            
             try {
+                const detailsResponse = await fetch(`/applications/${referenceNumber}`);
+                if (!detailsResponse.ok) {
+                    throw new Error(`Failed to fetch application details: ${detailsResponse.status}`);
+                }
+
+                const htmlContent = await detailsResponse.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlContent, 'text/html');
+
+                // Extract the data from the HTML
+                // You'll need to adjust these selectors based on your HTML structure
+                const applicationDetails = {
+                    firstName: doc.querySelector('#value-grc-first-name').textContent.trim(),
+                    lastName: doc.querySelector('#value-grc-last-name').textContent.trim(),
+                };
+                console.log('Parsed application details:', applicationDetails);
+
+                const requestBody = {
+                    'jurisdictionId': 2000000,
+                    'onlineMappingCode': 'APPEAL_OTHER',
+                    'contactFirstName': applicationDetails.firstName,
+                    'contactLastName': applicationDetails.lastName,
+                    'contactPhone': '07700900000',
+                    'contactEmail': 'test@example.com',
+                    'contactPostalCode': 'SW1A 1AA',
+                    'contactCity': 'London',
+                    'contactCountry': 'UK',
+                    'documentsURL': 'https://example.com/docs',
+                    'referenceNumber': referenceNumber
+                };
+                console.log('Request body:', requestBody);
+
                 const response = await fetch('/glimr/api/tdsapi/registernewcase', {
                     method: 'POST',
                     headers: {
