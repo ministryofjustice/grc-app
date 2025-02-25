@@ -357,7 +357,8 @@
                             title="Contact preferences",
                             subtitle="Email",
                             value=(application_data.personal_details_data.contact_email_address),
-                            rowsWithThisTitle=contactPreferencesLines
+                            rowsWithThisTitle=contactPreferencesLines,
+                            id="grc-email"
                         ) }}
                     {% endif %}
 
@@ -367,12 +368,14 @@
                                 title="Contact preferences",
                                 subtitle="Phone",
                                 value=(application_data.personal_details_data.contact_phone_number),
-                                rowsWithThisTitle=contactPreferencesLines
+                                rowsWithThisTitle=contactPreferencesLines,
+                                id="grc-phone"
                             ) }}
                         {% else %}
                             {{ summary_list_item(
                                 subtitle="Phone",
-                                value=(application_data.personal_details_data.contact_phone_number)
+                                value=(application_data.personal_details_data.contact_phone_number),
+                                id="grc-phone"
                             ) }}
                         {% endif %}
                     {% endif %}
@@ -383,12 +386,14 @@
                                 title="Contact preferences",
                                 subtitle="Post",
                                 value=(application_data.personal_details_data.address_comma_separated),
-                                rowsWithThisTitle=contactPreferencesLines
+                                rowsWithThisTitle=contactPreferencesLines,
+                                id="grc-post"
                             ) }}
                         {% else %}
                             {{ summary_list_item(
                                 subtitle="Post",
-                                value=(application_data.personal_details_data.address_comma_separated)
+                                value=(application_data.personal_details_data.address_comma_separated),
+                                id="grc-post"
                             ) }}
                         {% endif %}
                     {% endif %}
@@ -407,7 +412,8 @@
                     {{ summary_list_item(
                         title="Address",
                         value=(addressValue()),
-                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks)
+                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks),
+                        id="grc-address"
                     ) }}
 
                     {% if application_data.personal_details_data.contact_dates_should_avoid %}

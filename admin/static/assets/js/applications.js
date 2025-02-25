@@ -148,6 +148,10 @@ async function submitNewCaseRegistration() {
                 const applicationDetails = {
                     firstName: doc.querySelector('#value-grc-first-name').textContent.trim(),
                     lastName: doc.querySelector('#value-grc-last-name').textContent.trim(),
+                    email: doc.querySelector('#value-grc-email')?.textContent?.trim(),
+                    phone: doc.querySelector('#value-grc-phone')?.textContent?.trim(),
+                    post: doc.querySelector('#value-grc-post')?.textContent?.trim(),
+                    address: doc.querySelector('#value-grc-address').textContent.trim(),
                 };
                 console.log('Parsed application details:', applicationDetails);
 
@@ -156,11 +160,9 @@ async function submitNewCaseRegistration() {
                     'onlineMappingCode': 'APPEAL_OTHER',
                     'contactFirstName': applicationDetails.firstName,
                     'contactLastName': applicationDetails.lastName,
-                    'contactPhone': '07700900000',
-                    'contactEmail': 'test@example.com',
-                    'contactPostalCode': 'SW1A 1AA',
-                    'contactCity': 'London',
-                    'contactCountry': 'UK',
+                    'contactPhone': applicationDetails.phone,
+                    'contactEmail': applicationDetails.email,
+                    'contactAddress': applicationDetails.address,
                     'documentsURL': 'https://example.com/docs',
                     'referenceNumber': referenceNumber
                 };
