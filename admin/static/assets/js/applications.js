@@ -146,7 +146,11 @@ async function submitNewCaseRegistration() {
                 // Extract the data from the HTML
                 // You'll need to adjust these selectors based on your HTML structure
                 const applicationDetails = {
+                    genderRecognitionOutsideUk: doc.querySelector('#value-grc-gender-recognition-outside-uk').textContent.trim(),
+                    relationshipStatus: doc.querySelector('#value-grc-relationship-status').textContent.trim(),
+                    title: doc.querySelector('#value-grc-title').textContent.trim(),
                     firstName: doc.querySelector('#value-grc-first-name').textContent.trim(),
+                    middleName: doc.querySelector('#value-grc-middle-name')?.textContent?.trim(),
                     lastName: doc.querySelector('#value-grc-last-name').textContent.trim(),
                     email: doc.querySelector('#value-grc-email')?.textContent?.trim(),
                     phone: doc.querySelector('#value-grc-phone')?.textContent?.trim(),
@@ -155,16 +159,36 @@ async function submitNewCaseRegistration() {
                 };
                 console.log('Parsed application details:', applicationDetails);
 
+                let contactPlan;
+                switch(applicationDetails.relationshipStatus) {
+                    case 'Civil partnership':
+                        contactPlan = 'Applicant + Civil Partner';
+                        break;
+                    case 'Married':
+                        contactPlan = 'Applicant + Spouse';
+                        break;
+                    case 'Neither':
+                        contactPlan = 'Applicant Only';
+                        break;
+                    default:
+                        contactPlan = 'Applicant Only';
+                }
+
                 const requestBody = {
+                    'referenceNumber': referenceNumber,
+                    'contactPlan': contactPlan,
+                    'dateReceived': document.getElementById('grc-application-submitted-date').innerText,
+                    'caseType': applicationDetails.genderRecognitionOutsideUk == 'No' ? 'Standard' : 'Overseas',
                     'jurisdictionId': 2000000,
                     'onlineMappingCode': 'APPEAL_OTHER',
+                    'documentsURL': 'https://example.com/docs',
                     'contactFirstName': applicationDetails.firstName,
+                    'contactMiddleName': applicationDetails.middleName,
                     'contactLastName': applicationDetails.lastName,
+                    'contactSalutation': applicationDetails.title + ' ' + applicationDetails.lastName,
                     'contactPhone': applicationDetails.phone,
                     'contactEmail': applicationDetails.email,
                     'contactAddress': applicationDetails.address,
-                    'documentsURL': 'https://example.com/docs',
-                    'referenceNumber': referenceNumber
                 };
                 console.log('Request body:', requestBody);
 
