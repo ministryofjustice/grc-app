@@ -162,7 +162,8 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title='Currently married or in a civil partnership',
-                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted)
+                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted),
+                        id="grc-relationship-status"
                     ) }}
 
                     {% if application_data.partnership_details_data.is_not_in_partnership %}
@@ -261,7 +262,8 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title="Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?",
-                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted
+                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted,
+                        id="grc-gender-recognition-outside-uk"
                     ) }}
 
                     {{ summary_list_item(
@@ -286,7 +288,8 @@
                         title="Name (as you would like it to appear on your Gender Recognition Certificate)",
                         subtitle="Title",
                         value=application_data.personal_details_data.title,
-                        rowsWithThisTitle='4'
+                        rowsWithThisTitle='4',
+                        id="grc-title"
                     ) }}
 
                     {{ summary_list_item(
