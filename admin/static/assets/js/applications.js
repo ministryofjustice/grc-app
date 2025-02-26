@@ -123,6 +123,7 @@ function handleNewCaseCheckbox() {
 async function submitNewCaseRegistration() {
     const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input:checked');
     const applications = Array.from(checkboxes).map(checkbox => checkbox.id);
+    const today = new Date().toISOString().split('T')[0];
     console.log('applications:', applications);
     
     if (applications.length === 0) {
@@ -182,6 +183,7 @@ async function submitNewCaseRegistration() {
                     'jurisdictionId': 2000000,
                     'onlineMappingCode': 'APPEAL_OTHER',
                     'documentsURL': 'https://example.com/docs',
+                    'displayName': applicationDetails.lastName + ' ' + applicationDetails.contactSalutation + ' ' + applicationDetails.firstName,
                     'contactFirstName': applicationDetails.firstName,
                     'contactMiddleName': applicationDetails.middleName,
                     'contactLastName': applicationDetails.lastName,
@@ -189,6 +191,12 @@ async function submitNewCaseRegistration() {
                     'contactPhone': applicationDetails.phone,
                     'contactEmail': applicationDetails.email,
                     'contactAddress': applicationDetails.address,
+                    'submissionDate': today,
+                    //TODO: The glimr app has two track options: 'GRP General' and 'GRP Assisted' - need to find out what this means
+                    'track': 'GRP General',
+                    //TODO: Need to find out how to store this. Add new columnds to the admin user table and fetch it based on who is logged in?
+                    'processingCentre': 'Leicester',
+                    'caseworker': 'Test Worker 1',
                 };
                 console.log('Request body:', requestBody);
 
