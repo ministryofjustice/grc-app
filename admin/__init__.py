@@ -125,6 +125,15 @@ def create_app(test_config=None):
         rate_limiter.exempt(health_check)
     app.register_blueprint(health_check)
 
+    # Mock API for testing
+    from grc.mock_api import mock_api
+    if app.config.get('ENVIRONMENT', 'development') in ['development', 'test']:
+        app.register_blueprint(mock_api)
+        app.logger.info('Mock API registered in admin app with routes:')
+        for rule in app.url_map.iter_rules():
+            if rule.endpoint.startswith('mock_api'):
+                app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
+
     def get_locale():
         return session.get('lang_code', 'en')
 

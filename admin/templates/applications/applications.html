@@ -91,7 +91,7 @@
                                             {{ application_data.personal_details_data.middle_names_or_empty_string }}
                                             <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
                                         </td>
-                                        <td class="govuk-table__cell">
+                                        <td class="govuk-table__cell" id="grc-application-submitted-date">
                                             {{ application.updated | format_date }}
                                         </td>
                                         <td class="govuk-table__cell">
@@ -109,6 +109,16 @@
                                                         </span>
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                                        <div class="govuk-checkboxes__item">
+                                                            <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onchange="handleNewCaseCheckbox()">
+                                                            <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
+                                                                Register new case
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -123,6 +133,22 @@
                                     </tr>
                                     {% endif %}
                                 {% endfor %}
+                                <tr class="govuk-table__row">
+                                    <td colspan="4" class="govuk-table__cell" style="text-align: right">
+                                        <button id="submit-selected-apps-btn-new" disabled="disabled" 
+                                                class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
+                                                data-module="govuk-button"
+                                                onclick="submitNewCaseRegistration()">
+                                            Apply new case registration
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllCases()">
+                                            Select all for new case registration
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllCases()">
+                                            Clear all for new case registration
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     {% endif %}
