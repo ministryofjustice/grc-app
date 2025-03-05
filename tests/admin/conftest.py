@@ -91,7 +91,7 @@ def expired_security_code(app):
 
 
 @pytest.fixture()
-def submitted_application(app):
+def submitted_application_unregistered(app):
     with app.app_context():
         with app.test_request_context():
             reference_number = 'ABCD1234'
@@ -100,6 +100,7 @@ def submitted_application(app):
             application_record = Application(
                 reference_number=reference_number,
                 email='test.email@example.com',
+                case_registered=False,
                 status=ApplicationStatus.SUBMITTED,
                 updated=datetime(2024, 1, 1, 9)
             )
@@ -126,6 +127,42 @@ def submitted_application(app):
             db.session.delete(application_record)
             db.session.commit()
 
+@pytest.fixture()
+def submitted_application_registered(app):
+    with app.app_context():
+        with app.test_request_context():
+            reference_number = 'ABCD1234'
+
+            # Create the application record
+            application_record = Application(
+                reference_number=reference_number,
+                email='test.email@example.com',
+                case_registered=True,
+                status=ApplicationStatus.SUBMITTED,
+                updated=datetime(2024, 1, 1, 9)
+            )
+
+            # Add the application to the database session
+            db.session.add(application_record)
+
+            # Add and encode user input
+            application_data = ApplicationData()
+            application_data.reference_number = reference_number
+            application_data.email_address = 'test.email@example.com'
+            application_data.updated = application_record.updated
+
+            user_input: str = jsonpickle.encode(application_data)
+            application_record.user_input = user_input
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            # Yield the application for use in the test
+            yield application_record
+
+            # Delete the application after the test
+            db.session.delete(application_record)
+            db.session.commit()
 
 @pytest.fixture()
 def downloaded_application(app):
