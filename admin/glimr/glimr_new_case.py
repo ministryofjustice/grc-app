@@ -3,7 +3,7 @@ from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.partnership_details_data import PartnershipDetailsData
 from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
 from grc.models import Application
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from datetime import datetime
 from grc.utils.logger import Logger, LogLevel
 
@@ -115,7 +115,7 @@ class GlimrNewCase:
     def get_salutation(self) -> str:
         return self.personal_details.title+" "+self.personal_details.last_name
 
-    def get_contact_preference(self) -> str | None:
+    def get_contact_preference(self) -> Optional[str]:
         if self.personal_details.contact_email_address:
             return 'Email'
         if self.personal_details.contact_phone_number:
