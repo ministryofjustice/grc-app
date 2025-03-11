@@ -47,13 +47,13 @@ class GlimrNewCase:
             logger.log(LogLevel.ERROR, f"GLiMR API request failed with error {str(e)} in class {self.__class__.__name__}.")
             raise Exception(str(e))
 
-    def params(self) -> Dict[str:Any]:
+    def params(self) -> Dict[str, Any]:
         """
         Combines and returns all necessary case parameters for the API request.
         """
         return {**self.case_params(), **self.contact_params()}
 
-    def case_params(self) -> Dict[str:Any]:
+    def case_params(self) -> Dict[str, Any]:
         """
         Returns the case-related parameters for the API request.
         """
@@ -62,10 +62,10 @@ class GlimrNewCase:
             'contactPlan': self.get_contact_plan(),
             'dateReceived': self.get_date_received(),
             'dateRegistered': self.get_date_registered(),
-            'track': 'GRP General',
+            'track': 'GRP General'
         }
 
-    def contact_params(self) -> Dict[str:Any]:
+    def contact_params(self) -> Dict[str, Any]:
         """
         Returns the contact details parameters for the API request.
         """
