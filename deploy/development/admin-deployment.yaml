@@ -16,6 +16,7 @@ spec:
       containers:
       - name: grc-admin
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr:grc-admin-latest
+        command: ["flask", "db", "upgrade"]
         imagePullPolicy: Always
         ports:
         - containerPort: 3001
