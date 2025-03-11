@@ -1,8 +1,9 @@
 from flask import Blueprint, request, jsonify, current_app
-import logging
+from grc.utils.logger import LogLevel, Logger
+
 
 mock_api = Blueprint('mock_api', __name__, url_prefix='/glimr/api')
-logger = logging.getLogger(__name__)
+logger = Logger()
 
 @mock_api.route('/test', methods=['GET'])
 def test_endpoint():
@@ -10,13 +11,13 @@ def test_endpoint():
 
 @mock_api.route('/tdsapi/registernewcase', methods=['POST'])
 def register_new_case():
-    logger.info("Received request to register new case")
-    logger.info(f"Request method: {request.method}")
-    logger.info(f"Request headers: {request.headers}")
-    logger.info(f"Request URL: {request.url}")
+    logger.log(LogLevel.INFO, "Received request to register new case")
+    logger.log(LogLevel.INFO, f"Request method: {request.method}")
+    logger.log(LogLevel.INFO, f"Request headers: {request.headers}")
+    logger.log(LogLevel.INFO, f"Request URL: {request.url}")
     try:
         data = request.get_json()
-        logger.info(f"Received request data: {data}")
+        logger.log(LogLevel.INFO, f"Received request data: {data}")
 
         # Validate required fields
         required_fields = ['jurisdictionId', 'onlineMappingCode', 'contactFirstName', 'contactLastName']
@@ -33,14 +34,34 @@ def register_new_case():
             'confirmationCode': None
         }
 
-        logger.info(f"Sending response: {response}")
+        logger.log(LogLevel.INFO, f"Sending response: {response}")
         return jsonify(response)
 
     except Exception as e:
-        logger.error(f"Error processing request: {str(e)}")
+        logger.log(LogLevel.ERROR, f"Error processing request: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+@mock_api.route('/tdsapi/registernewcase/test', methods=['POST'])
+def register_new_case_test():
+    try:
+        data = request.get_json()
+        logger.log(LogLevel.INFO, f"Recieved data in GLiMR API: {data}")
+
+        response = {
+          "jurisdictionId": 8,
+          "tribunalCaseId": 12345678,
+          "tribunalCaseNumber": "TC/2016/00006",
+          "caseTitle": "John James vs HMRC",
+          "confirmationCode": "DEF456"
+        }
+
+        return jsonify(response)
+
+    except Exception as e:
+        logger.log(LogLevel.ERROR, str(e))
+        return jsonify({'error': str(e)})
 
 @mock_api.before_request
 def log_request_info():
-    logger.info(f"Mock API request: {request.method} {request.url}")
+    logger.log(LogLevel.INFO, f"Mock API request: {request.method} {request.url}")
     return None 

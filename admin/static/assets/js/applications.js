@@ -120,8 +120,43 @@ function handleNewCaseCheckbox() {
     }
 }
 
+async function submitNewCaseRegistrationTest() {
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.checkbox-unregistered:checked');
+    const applications = Array.from(checkboxes).map(checkbox => checkbox.id);
+
+    if (applications.length === 0) {
+        console.log("No applications selected.");
+        return;
+    }
+
+    try {
+        console.log(applications);
+        const response = await fetch('/glimr/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ applications })
+            });
+
+            console.log('Response status:', response.status);
+            const responseText = await response.text();
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
+            }
+
+            const data = JSON.parse(responseText);
+            console.log('Case registered:', data);
+    } catch (fetchError) {
+        console.error('Fetch error:', fetchError);
+        throw fetchError;
+    }
+}
+
 async function submitNewCaseRegistration() {
-    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input:checked');
+    const checkboxes = document.querySelector('.new-table').querySelectorAll('.checkbox-unregistered:checked');
     const applications = Array.from(checkboxes).map(checkbox => checkbox.id);
     const today = new Date().toISOString().split('T')[0];
     console.log('applications:', applications);
