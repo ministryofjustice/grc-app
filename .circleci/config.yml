@@ -115,7 +115,6 @@ jobs:
           command: |
             . venv/bin/activate
             flask db stamp head
-            flask db migrate
             flask db upgrade
       - run:
           name: Run unit and integration tests
