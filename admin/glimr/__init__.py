@@ -25,7 +25,7 @@ def submit_register_cases():
             application = get_application(reference_number)
 
             if application is None:
-                failed_cases.append({'referenceNumber': reference_number, 'error': 'Application not found'})
+                failed_cases.append(reference_number)
                 logger.log(LogLevel.ERROR, f'Application #{reference_number} not found.')
 
             else:
@@ -36,7 +36,7 @@ def submit_register_cases():
                 logger.log(LogLevel.INFO, f'Application #{reference_number} successfully registered to GLiMR.')
 
         except Exception as e:
-            failed_cases.append({'referenceNumber': reference_number, 'error': f'Error: {str(e)}'})
+            failed_cases.append(reference_number)
             logger.log(LogLevel.ERROR, f"GLiMR API request failed with error {str(e)} for application #{reference_number}.")
 
     response_body = {

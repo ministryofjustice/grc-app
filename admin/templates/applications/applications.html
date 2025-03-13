@@ -114,12 +114,12 @@
                                                         <div class="govuk-checkboxes__item">
                                                             {% if application.case_registered == True %}
                                                                 <input class="govuk-checkboxes__input checkbox-registered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" checked disabled>
-                                                                <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
+                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
                                                                     Registered new case
                                                                 </label>
                                                             {% else %}
                                                                 <input class="govuk-checkboxes__input checkbox-unregistered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onchange="handleNewCaseCheckbox()">
-                                                                <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
+                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
                                                                     Register new case
                                                                 </label>
                                                             {% endif %}
@@ -145,7 +145,7 @@
                                         <button id="submit-selected-apps-btn-new" disabled="disabled" 
                                                 class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
                                                 data-module="govuk-button"
-                                                onclick="submitNewCaseRegistrationTest()">
+                                                onclick="submitNewCaseRegistration()">
                                             Apply new case registration
                                         </button>
                                         <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllCases()">

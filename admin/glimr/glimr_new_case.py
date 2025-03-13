@@ -26,6 +26,9 @@ class GlimrNewCase:
         self.application_data: ApplicationData = application.application_data()
         self.personal_details: PersonalDetailsData = self.application_data.personal_details_data
         self.partnership_details: PartnershipDetailsData = self.application_data.partnership_details_data
+        self.jurisdiction_id = 2000000
+        self.online_mapping_code = 'GRP_STANDARD'
+        self.track = 'GRP General'
         self.case_reference: str | None = None
         self.confirmation_code: str | None = None
 
@@ -51,7 +54,13 @@ class GlimrNewCase:
         """
         Combines and returns all necessary case parameters for the API request.
         """
-        return {**self.case_params(), **self.contact_params()}
+        return {
+                'jurisdictionId':self.jurisdiction_id,
+                'onlineMappingCode':self.online_mapping_code,
+                **self.case_params(),
+                **self.contact_params(),
+                **self.contact_street()
+        }
 
     def case_params(self) -> Dict[str, Any]:
         """
@@ -62,7 +71,7 @@ class GlimrNewCase:
             'contactPlan': self.get_contact_plan(),
             'dateReceived': self.get_date_received(),
             'dateRegistered': self.get_date_registered(),
-            'track': 'GRP General'
+            'track': self.track
         }
 
     def contact_params(self) -> Dict[str, Any]:
@@ -70,18 +79,28 @@ class GlimrNewCase:
         Returns the contact details parameters for the API request.
         """
         return {
-            'firstName': self.personal_details.first_name,
-            'fullName': self.get_full_name(),
-            'salutation': self.get_salutation(),
-            'lastName': self.personal_details.last_name,
+            'contactFirstName': self.personal_details.first_name,
+            'contactFullName': self.get_full_name(),
+            'contactSalutation': self.get_salutation(),
+            'contactLastName': self.personal_details.last_name,
             'contactPreference': self.get_contact_preference(),
             'phone': self.personal_details.contact_phone_number,
-            'email': self.personal_details.contact_email_address,
-            'contactStreet': self.get_contact_street(),
+            'contactEmail': self.personal_details.contact_email_address,
             'contactCity': self.personal_details.address_town_city,
             'contactPostalCode': self.personal_details.address_postcode,
             'contactCountry': self.personal_details.address_country
         }
+
+    def contact_street(self) -> Dict[str, str]:
+        """
+        Returns the contact address details parameters for the API request.
+        """
+        contact_street = {'contactStreet1': self.personal_details.address_line_one}
+
+        if self.personal_details.address_line_two:
+            contact_street['contactStreet2'] = self.personal_details.address_line_two
+
+        return contact_street
 
     def get_case_type(self) -> str:
         if self.application_data.is_uk_application:
