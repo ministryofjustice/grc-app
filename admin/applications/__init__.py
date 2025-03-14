@@ -31,6 +31,7 @@ def index():
         status=ApplicationStatus.COMPLETED
     ).order_by(Application.updated.desc())
 
+    new_apps_references = [application.reference_number for application in newApplications]
     downloaded_apps_references = [application.reference_number for application in downloadedApplications]
     completed_apps_references = [application.reference_number for application in completedApplications]
 
@@ -41,6 +42,7 @@ def index():
         message=message,
         newApplications=newApplications,
         downloadedApplications=downloadedApplications,
+        new_apps_references=new_apps_references,
         downloaded_apps_references=downloaded_apps_references,
         completed_apps_references=completed_apps_references,
         completedApplications=completedApplications
