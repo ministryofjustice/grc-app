@@ -44,191 +44,150 @@ function submitBulkMarkAsComplete(url) {
     }
 }
 
+/**
+Removes application from applicationChecked array
+
+params: application: application to be removed
+**/
+function removeApplicationFromChecked(application) {
+    applicationsChecked = applicationsChecked.filter(applicationChecked => applicationChecked !== application);
+}
+
+/**
+Disables submit button
+**/
+function disableSubmitButton() {
+    if (applicationsChecked.length == 0) {
+        submitButton.classList.add('govuk-button--disabled');
+        submitButton.setAttribute('disabled', 'disabled');
+    }
+}
+
+/**
+Enables submit button
+**/
+function enableSubmitButton() {
+    if (applicationsChecked.length > 0) {
+        submitButton.classList.remove('govuk-button--disabled');
+        submitButton.removeAttribute('disabled');
+    }
+}
+
+/**
+Selects all applications to be checked.
+
+Adds all cases to applicationsChecked array, marks each case as checked, and enables submit button.
+
+params: applications: applications to be marked for checked
+**/
 function selectAllApplications(applications) {
     applicationsChecked = [];
     for(let i = 0; i < applications.length; i++) {
-        document.getElementById(applications[i]).checked = true;
-        applicationsChecked.push(applications[i]);
+        checkbox = document.getElementById(applications[i]);
+        if (!checkbox.classList.contains('checkbox-registered')) {
+            checkbox.checked = true;
+            applicationsChecked.push(applications[i]);
+        }
     }
-    submitButton.classList.remove('govuk-button--disabled');
-    submitButton.removeAttribute('disabled');
+    enableSubmitButton()
 }
 
+/**
+Clears all applications from being checked,
+
+Removes all cases from applicationsChecked array, marks each case as unchecked, and disables submit button.
+
+params: applications: applications to be cleared from being checked
+**/
 function clearAllApplications(applications) {
     for(let i = 0; i < applications.length; i++) {
-        document.getElementById(applications[i]).checked = false;
+        checkbox = document.getElementById(applications[i]);
+        if (!checkbox.classList.contains('checkbox-registered')) {
+            checkbox.checked = false;
+        }
     }
     applicationsChecked = [];
-    submitButton.classList.add('govuk-button--disabled');
-    submitButton.setAttribute('disabled', 'disabled');
+    disableSubmitButton();
 }
 
+/**
+Selects or deselects an application
+
+params: application: application reference number to be selected or deselected
+**/
 function selectOrDeselectApplication(application) {
     const applicationReference = document.getElementById(application);
     if (applicationReference.checked) {
         applicationsChecked.push(application);
-        submitButton.classList.remove('govuk-button--disabled');
-        submitButton.removeAttribute('disabled');
-    }
-
-    if (!applicationReference.checked) {
-        const index = applicationsChecked.indexOf(application);
-        if (index > -1) {
-          applicationsChecked.splice(index, 1);
-        }
-        if (!applicationsChecked.length) {
-            submitButton.classList.add('govuk-button--disabled');
-            submitButton.setAttribute('disabled', 'disabled');
-        }
+        enableSubmitButton();
+    } else if (!applicationReference.checked) {
+        removeApplicationFromChecked(application);
+        disableSubmitButton();
     }
 }
 
-//Select all case checkboxes and enable the apply button
-function selectAllCases() {
-    const checkboxes = document.querySelector('.new-table').querySelectorAll('.checkbox-unregistered');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = true;
-    });
+/**
+Sets case to be registered and therefore removed from applicationsChecked, disabled, and text changed to registered.
 
-    const applyButton = document.getElementById('submit-selected-apps-btn-new');
-    applyButton.disabled = false;
-    applyButton.classList.remove('govuk-button--disabled');
+params: application: application to be case registered
+**/
+function setCaseRegistered(application) {
+    const checkbox = document.getElementById(application);
+    const label = document.getElementById(`label-${application}`);
+    removeApplicationFromChecked(application);
+    checkbox.classList.remove('checkbox-unregistered');
+    checkbox.classList.add('checkbox-registered');
+    checkbox.disabled = true;
+    checkbox.checked = true;
+    label.textContent = "Registered new case";
+
 }
 
-//Clear all case checkboxes and disable the apply button
-function clearAllCases() {
-    const checkboxes = document.querySelector('.new-table').querySelectorAll('.checkbox-unregistered');
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = false;
-    });
-
-    const applyButton = document.getElementById('submit-selected-apps-btn-new');
-    applyButton.disabled = true;
-    applyButton.classList.add('govuk-button--disabled');
-}
-
-//Enable the apply button if any case checkboxes are selected
-function handleNewCaseCheckbox() {
-    const checkboxes = document.querySelector('.new-table').querySelectorAll('.checkbox-unregistered');
-    const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-    const applyButton = document.getElementById('submit-selected-apps-btn-new');
-    applyButton.disabled = !anyChecked;
-    if (anyChecked) {
-        applyButton.classList.remove('govuk-button--disabled');
-    } else {
-        applyButton.classList.add('govuk-button--disabled');
-    }
-}
-
+/**
+Submits the selected applications for case registration and handles the GLiMR api call
+**/
 async function submitNewCaseRegistration() {
-    const checkboxes = document.querySelector('.new-table').querySelectorAll('.govuk-checkboxes__input:checked');
-    const applications = Array.from(checkboxes).map(checkbox => checkbox.id);
-    const today = new Date().toISOString().split('T')[0];
-    console.log('applications:', applications);
-    
-    if (applications.length === 0) {
+    if (applicationsChecked.length === 0) {
+        console.log("No applications selected.");
         return;
     }
 
     try {
-        for (const referenceNumber of applications) {
-            console.log('Sending request for reference number:', referenceNumber);
-            
-            try {
-                const detailsResponse = await fetch(`/applications/${referenceNumber}`);
-                if (!detailsResponse.ok) {
-                    throw new Error(`Failed to fetch application details: ${detailsResponse.status}`);
-                }
+        const response = await fetch('/glimr/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ 'applications':applicationsChecked })
+            });
 
-                const htmlContent = await detailsResponse.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlContent, 'text/html');
+        const data = await response.json();
+        const failedCases = data.failedCases;
+        const processedCases = data.processedCases;
 
-                // Extract the data from the HTML
-                // You'll need to adjust these selectors based on your HTML structure
-                const applicationDetails = {
-                    genderRecognitionOutsideUk: doc.querySelector('#value-grc-gender-recognition-outside-uk').textContent.trim(),
-                    relationshipStatus: doc.querySelector('#value-grc-relationship-status').textContent.trim(),
-                    title: doc.querySelector('#value-grc-title').textContent.trim(),
-                    firstName: doc.querySelector('#value-grc-first-name').textContent.trim(),
-                    middleName: doc.querySelector('#value-grc-middle-name')?.textContent?.trim(),
-                    lastName: doc.querySelector('#value-grc-last-name').textContent.trim(),
-                    email: doc.querySelector('#value-grc-email')?.textContent?.trim(),
-                    phone: doc.querySelector('#value-grc-phone')?.textContent?.trim(),
-                    post: doc.querySelector('#value-grc-post')?.textContent?.trim(),
-                    address: doc.querySelector('#value-grc-address').textContent.trim(),
-                };
-                console.log('Parsed application details:', applicationDetails);
-
-                let contactPlan;
-                switch(applicationDetails.relationshipStatus) {
-                    case 'Civil partnership':
-                        contactPlan = 'Applicant + Civil Partner';
-                        break;
-                    case 'Married':
-                        contactPlan = 'Applicant + Spouse';
-                        break;
-                    case 'Neither':
-                        contactPlan = 'Applicant Only';
-                        break;
-                    default:
-                        contactPlan = 'Applicant Only';
-                }
-
-                const requestBody = {
-                    'referenceNumber': referenceNumber,
-                    'contactPlan': contactPlan,
-                    'dateReceived': document.getElementById('grc-application-submitted-date').innerText,
-                    'caseType': applicationDetails.genderRecognitionOutsideUk == 'No' ? 'Standard' : 'Overseas',
-                    'jurisdictionId': 2000000,
-                    'onlineMappingCode': 'APPEAL_OTHER',
-                    'documentsURL': 'https://example.com/docs',
-                    'displayName': applicationDetails.lastName + ' ' + applicationDetails.contactSalutation + ' ' + applicationDetails.firstName,
-                    'contactFirstName': applicationDetails.firstName,
-                    'contactMiddleName': applicationDetails.middleName,
-                    'contactLastName': applicationDetails.lastName,
-                    'contactSalutation': applicationDetails.title + ' ' + applicationDetails.lastName,
-                    'contactPhone': applicationDetails.phone,
-                    'contactEmail': applicationDetails.email,
-                    'contactAddress': applicationDetails.address,
-                    'submissionDate': today,
-                    //TODO: The glimr app has two track options: 'GRP General' and 'GRP Assisted' - need to find out what this means
-                    'track': 'GRP General',
-                    //TODO: Need to find out how to store this. Add new columnds to the admin user table and fetch it based on who is logged in?
-                    'processingCentre': 'Leicester',
-                    'caseworker': 'Test Worker 1',
-                };
-                console.log('Request body:', requestBody);
-
-                const response = await fetch('/glimr/api/tdsapi/registernewcase', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': 'apikey TEST_KEY'
-                    },
-                    body: JSON.stringify(requestBody)
+        if (response.ok) {
+            if (failedCases.length > 0) {
+                failedCases.forEach((failedCase) => {
+                    console.log(`Error case: ${failedCase}`);
                 });
-
-                console.log('Response status:', response.status);
-                const responseText = await response.text();
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
-                }
-
-                const data = JSON.parse(responseText);
-                console.log('Case registered:', data);
-            } catch (fetchError) {
-                console.error('Fetch error:', fetchError);
-                throw fetchError;
             }
+
+            if (processedCases.length > 0) {
+                processedCases.forEach((processedCase) => {
+                    setCaseRegistered(processedCase);
+                    removeApplicationFromChecked(processedCase);
+                });
+            }
+
+            disableSubmitButton()
+
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        // Refresh the page after successful registration
-        // window.location.reload();
-    } catch (error) {
-        console.error('Error details:', error);
-        alert('Error registering new case(s). Please try again. Check console for details.');
+    } catch (fetchError) {
+        console.error('Fetch error:', fetchError);
     }
 }
+

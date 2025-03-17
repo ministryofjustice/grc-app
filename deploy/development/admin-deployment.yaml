@@ -93,3 +93,10 @@ spec:
               secretKeyRef:
                 name: elasticache-grc-dev
                 key: url
+          - name: GLIMR_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: basic-auth
+                key: glimr-api-key
+          - name: GLIMR_BASE_URL
+            value: "https://glimr-preprod.staging.apps.hmcts.net/glimr_preprod/api/tdsapi"

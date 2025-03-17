@@ -1,46 +1,35 @@
 from flask import Blueprint, request, jsonify, current_app
-import logging
+from grc.utils.logger import LogLevel, Logger
+
 
 mock_api = Blueprint('mock_api', __name__, url_prefix='/glimr/api')
-logger = logging.getLogger(__name__)
+logger = Logger()
 
-@mock_api.route('/test', methods=['GET'])
+@mock_api.route('/test', methods=['POST'])
 def test_endpoint():
     return jsonify({'status': 'Mock API is working'}), 200
 
 @mock_api.route('/tdsapi/registernewcase', methods=['POST'])
-def register_new_case():
-    logger.info("Received request to register new case")
-    logger.info(f"Request method: {request.method}")
-    logger.info(f"Request headers: {request.headers}")
-    logger.info(f"Request URL: {request.url}")
+def register_new_case_test():
     try:
         data = request.get_json()
-        logger.info(f"Received request data: {data}")
+        logger.log(LogLevel.INFO, f"Recieved data in GLiMR API: {data}")
 
-        # Validate required fields
-        required_fields = ['jurisdictionId', 'onlineMappingCode', 'contactFirstName', 'contactLastName']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({'error': f'Missing required field: {field}'}), 400
-
-        # Mock response
         response = {
-            'jurisdictionId': data.get('jurisdictionId'),
-            'tribunalCaseId': 66476,  # Mock ID
-            'tribunalCaseNumber': 'TC/2024/00312',  # Mock number
-            'caseTitle': f"{data.get('contactFirstName')} {data.get('contactLastName')}",
-            'confirmationCode': None
+          "jurisdictionId": 8,
+          "tribunalCaseId": 12345678,
+          "tribunalCaseNumber": "TC/2016/00006",
+          "caseTitle": "John James vs HMRC",
+          "confirmationCode": "DEF456"
         }
 
-        logger.info(f"Sending response: {response}")
         return jsonify(response)
 
     except Exception as e:
-        logger.error(f"Error processing request: {str(e)}")
-        return jsonify({'error': str(e)}), 500
+        logger.log(LogLevel.ERROR, str(e))
+        return jsonify({'error': str(e)})
 
 @mock_api.before_request
 def log_request_info():
-    logger.info(f"Mock API request: {request.method} {request.url}")
+    logger.log(LogLevel.INFO, f"Mock API request: {request.method} {request.url}")
     return None 

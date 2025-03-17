@@ -45,7 +45,8 @@ class Config:
     BASIC_AUTH_PASSWORD = os.environ.get("BASIC_AUTH_PASSWORD")
     SENTRY_URL = os.environ.get("SENTRY_URL")
     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
-
+    GLIMR_API_KEY = os.environ.get('GLIMR_API_KEY')
+    GLIMR_BASE_URL = os.environ.get('GLIMR_BASE_URL')
 
 class TestConfig(Config):
     TESTING = True
