@@ -125,6 +125,10 @@ def create_app(test_config=None):
         rate_limiter.exempt(health_check)
     app.register_blueprint(health_check)
 
+    # GLiMR
+    from admin.glimr import glimr
+    app.register_blueprint(glimr)
+
     # Mock API for testing
     from grc.mock_api import mock_api
     if app.config.get('ENVIRONMENT', 'development') in ['development', 'test']:
