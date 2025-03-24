@@ -1,5 +1,5 @@
 let applicationsChecked = [];
-let submitButton;
+let submitButton = document.getElementById('submit-selected-apps-btn-new');
 
 window.onload = function() {
     const urlAnchor = window.location.hash;

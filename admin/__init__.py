@@ -130,12 +130,12 @@ def create_app(test_config=None):
     app.register_blueprint(glimr)
 
     # Mock API for testing
-    from grc.mock_api import mock_api
-    if app.config.get('ENVIRONMENT', 'development') in ['development', 'test']:
-        app.register_blueprint(mock_api)
-        app.logger.info('Mock API registered in admin app with routes:')
+    from grc.glimr_mock_api import glimr_mock_api
+    if app.config.get('ENVIRONMENT', 'development') in ['development', 'local']:
+        app.register_blueprint(glimr_mock_api)
+        app.logger.info('GLiMR Mock API registered in admin app with routes:')
         for rule in app.url_map.iter_rules():
-            if rule.endpoint.startswith('mock_api'):
+            if rule.endpoint.startswith('glimr_mock_api'):
                 app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
 
     def get_locale():
