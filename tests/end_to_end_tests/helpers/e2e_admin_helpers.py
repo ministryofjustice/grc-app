@@ -1,6 +1,9 @@
 from playwright.async_api import Page
 
 class AdminHelpers:
+    """
+    This class is used to create helper functions when end-to-end testing the GRC admin app
+    """
     def __init__(self, page: Page):
         self.page = page
 
@@ -31,4 +34,7 @@ class AdminHelpers:
         return unformatted_reference_number(reference_number.strip())
 
 def unformatted_reference_number(reference_number: str) -> str:
+    """
+    Unformat a reference number from XXX-XXX to XXXXXX
+    """
     return "".join(reference_number.split("-"))
