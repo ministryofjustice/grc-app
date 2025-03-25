@@ -66,7 +66,6 @@ class GlimrNewCase:
         """
         return {
             'caseType': self.get_case_type(),
-            'contactPlan': self.get_contact_plan(),
             'dateReceived': self.get_date_received(),
             'dateRegistered': self.get_date_registered(),
             'track': self.track
@@ -105,14 +104,6 @@ class GlimrNewCase:
             return 'Standard Application'
         else:
             return 'Overseas Application'
-
-    def get_contact_plan(self) -> str:
-        if self.partnership_details.is_in_civil_partnership:
-            return 'Applicant + Civil Partner'
-        elif self.partnership_details.is_married:
-            return 'Applicant + Spouse'
-        else:
-            return 'Applicant Only'
 
     def get_date_received(self) -> str:
         return self.format_date(self.application.updated)
