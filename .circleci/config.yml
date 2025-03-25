@@ -45,7 +45,7 @@ jobs:
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
           GLIMR_API_KEY: '123'
-          GLIMR_BASE_URL: 'http://localhost:8181/glimr/api'
+          GLIMR_BASE_URL: 'http://localhost:8181/glimr/api/tdsapi'
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
