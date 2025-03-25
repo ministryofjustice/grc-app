@@ -144,4 +144,5 @@ def add_default_admin_user_to_database_if_there_are_no_users():
 
 
 def generate_temporary_password():
-    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    # return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+    return '123ABC'
