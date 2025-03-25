@@ -116,9 +116,9 @@ jobs:
           name: Database migration
           command: |
             . venv/bin/activate
-            flask db stamp head
-            flask db migrate
-            flask db upgrade
+            FLASK_APP=grc flask db stamp head
+            FLASK_APP=grc flask db migrate
+            FLASK_APP=grc flask db upgrade
       - run:
           name: Run unit and integration tests
           command: |
