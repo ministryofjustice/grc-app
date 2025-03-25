@@ -134,7 +134,7 @@ def add_default_admin_user_to_database_if_there_are_no_users():
         default_email_address = default_email_address.lower()
         temporary_password = generate_temporary_password()
         record = AdminUser(email=default_email_address, password=generate_password_hash(temporary_password),
-                           userType='ADMIN')
+                           userType='ADMIN', passwordResetRequired=False)
         db.session.add(record)
         db.session.commit()
 
