@@ -39,7 +39,7 @@ jobs:
           SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:password@localhost:5432/grc'
           SQLALCHEMY_TRACK_MODIFICATION: false
           DEFAULT_ADMIN_USER: dts-legacy-apps-support-team@hmcts.net
-          DEFAULT_ADMIN_PASSWORD: '123ABC'
+          DEFAULT_ADMIN_PASSWORD: '${DEFAULT_ADMIN_PASSWORD}'
           NOTIFY_API: '${NOTIFY_API}'
           NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
           BUCKET_NAME: 'cloud-platform-558bc9877f5cc03fc5d7a241c17360b5' # use the DEV S3 bucket for e2e test uploads for all environments

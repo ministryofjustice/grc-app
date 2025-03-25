@@ -44,7 +44,12 @@ spec:
                 name: rds-postgresql-instance-output
                 key: url
           - name: DEFAULT_ADMIN_USER
-            value: grc-service-account@cabinetoffice.gov.uk
+            value: dts-legacy-apps-support-team@hmcts.net
+          - name: DEFAULT_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: basic-auth
+                key: default-admin-password
           - name: FLASK_APP
             value: grc
           - name: FLASK_ENV
