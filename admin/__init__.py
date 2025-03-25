@@ -30,7 +30,7 @@ def create_app(test_config=None):
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
         HttpBasicAuthentication(app)
 
-    if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local':
+    if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local' and os.environ['FLASK_ENV'] != 'test':
         app.config['PROPAGATE_EXCEPTIONS'] = True
         CustomErrorHandlers(app)
 
@@ -131,7 +131,7 @@ def create_app(test_config=None):
 
     # Mock API for testing
     from grc.glimr_mock_api import glimr_mock_api
-    if app.config.get('ENVIRONMENT', 'development') in ['development', 'local']:
+    if app.config.get('ENVIRONMENT', 'development') in ['development', 'local', 'test']:
         app.register_blueprint(glimr_mock_api)
         app.logger.info('GLiMR Mock API registered in admin app with routes:')
         for rule in app.url_map.iter_rules():

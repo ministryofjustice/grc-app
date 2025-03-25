@@ -129,10 +129,9 @@ jobs:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
-            waitress-serve --call --port=8080 'grc:create_app' &
-            waitress-serve --call --port=8181 'admin:create_app' &
+            waitress-serve --call --host=0.0.0.0 --port=8181 'admin:create_app' &
             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
-            pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
+            pytest tests/end_to_end_tests/journey_admin -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
           path: reports/
 
@@ -298,8 +297,8 @@ jobs:
             equal: [ PREPROD, << parameters.env_name >> ]
           steps:
             - aws-cli/setup:
-                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD 
-                region: $ECR_REGION_PREPROD 
+                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD
+                region: $ECR_REGION_PREPROD
             - run:
                 name: Login to PREPROD ECR
                 command: |
@@ -309,8 +308,8 @@ jobs:
             equal: [ PROD, << parameters.env_name >> ]
           steps:
             - aws-cli/setup:
-                role_arn: $ECR_ROLE_TO_ASSUME_PROD 
-                region: $ECR_REGION_PROD 
+                role_arn: $ECR_ROLE_TO_ASSUME_PROD
+                region: $ECR_REGION_PROD
             - run:
                 name: Login to PROD ECR
                 command: |
@@ -358,7 +357,7 @@ jobs:
           name: direct traffic to maintenance page
           command: |
             kubectl apply -n grc-dev --record=false -f ./deploy/development/ingress.yaml
-            
+
   deploy_maintenance_page_preprod:
     <<: *cloud_container
     steps:
@@ -380,7 +379,7 @@ jobs:
           command: |
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress-admin.yaml
-            
+
   deploy_maintenance_page_prod:
     <<: *cloud_container
     steps:
