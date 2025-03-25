@@ -31,7 +31,7 @@ jobs:
           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
           FLASK_ENV: test
           FLASK_DEBUG: 1
-          FLASK_APP: grc
+          FLASK_APP: admin
           LOG_LEVEL: DEBUG
           TEST_URL: 'http://localhost:8080'
           ADMIN_TEST_URL: 'http://localhost:8181'
