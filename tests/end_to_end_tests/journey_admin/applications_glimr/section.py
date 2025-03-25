@@ -82,7 +82,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
         await helpers.click_button(link_text="Apply new case registration")
 
     response = await response_info.value
-    assert response.status == 200
+    assert response.status == 200, f'Expected response status 200 from Api call, but received status code {response.status}'
 
     await asserts.check_case_is_registered(reference_number=first_row_reference_number)
     await asserts.check_case_is_registered(reference_number=second_row_reference_number)
