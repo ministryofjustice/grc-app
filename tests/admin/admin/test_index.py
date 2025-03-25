@@ -20,7 +20,6 @@ class TestAdminIndex:
             mock_send_email.assert_not_called()
             assert response.status_code == 200
 
-    @patch('admin.admin.generate_temporary_password')
     @patch('grc.models.db.session')
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
     def test_index_add_default_admin_required(self, mock_send_email, mock_db_session, mock_temp_password, app, client):
