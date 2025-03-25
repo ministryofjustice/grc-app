@@ -131,7 +131,7 @@ def create_app(test_config=None):
 
     # Mock API for testing
     from grc.glimr_mock_api import glimr_mock_api
-    if app.config.get('ENVIRONMENT', 'development') in ['development', 'local', 'test']:
+    if app.config.get('FLASK_ENV', 'development') in ['development', 'local', 'test']:
         app.register_blueprint(glimr_mock_api)
         app.logger.info('GLiMR Mock API registered in admin app with routes:')
         for rule in app.url_map.iter_rules():
