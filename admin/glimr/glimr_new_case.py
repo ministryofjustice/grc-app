@@ -30,7 +30,6 @@ class GlimrNewCase:
         self.online_mapping_code = 'GRP_STANDARD'
         self.track = 'GRP General'
         self.case_reference: str | None = None
-        self.confirmation_code: str | None = None
 
     def call_glimr_register_api(self):
         """
@@ -42,8 +41,7 @@ class GlimrNewCase:
         try:
             response = register_api.call_api()
             self.case_reference = response.get("tribunalCaseNumber")
-            self.confirmation_code = response.get("confirmationCode")
-            logger.log(LogLevel.INFO, f"Successfully called GLiMR API. Responded with case reference {self.case_reference} and confirmation code {self.confirmation_code}.")
+            logger.log(LogLevel.INFO, f"Successfully called GLiMR API. Responded with case reference {self.case_reference}.")
             return self
 
         except Exception as e:

@@ -45,7 +45,7 @@ class PageHelpers:
             await self.page.uncheck(f"input[type=\"checkbox\"][name=\"{field}\"]")
 
     async def fill_textbox(self, field, value):
-        selector = f"input[type=\"text\"][name=\"{field}\"], input[type=\"tel\"][name=\"{field}\"], input[type=\"email\"][name=\"{field}\"], textarea[name=\"{field}\"]"
+        selector = f"input[type=\"text\"][name=\"{field}\"], input[type=\"tel\"][name=\"{field}\"], input[type=\"email\"][name=\"{field}\"], input[type=\"password\"][name=\"{field}\"], textarea[name=\"{field}\"]"
         await self.page.fill(selector, value)
 
     async def fill_textbox_byid(self, field, value):

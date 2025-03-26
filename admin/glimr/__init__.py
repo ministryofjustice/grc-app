@@ -60,7 +60,6 @@ def get_application(reference_number):
 def save_glimr_case_details(glimr_case: GlimrNewCase):
     logger.log(LogLevel.INFO, 'Case saved!')
     logger.log(LogLevel.INFO, f'Case reference UPDATED: {glimr_case.case_reference}')
-    logger.log(LogLevel.INFO, f'Confirmation code UPDATED: {glimr_case.confirmation_code}')
     '''
         Implement saving to GLiMR code here
     '''
