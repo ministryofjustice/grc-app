@@ -11,6 +11,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_KEY = os.environ.get("SQLALCHEMY_KEY")
     DEFAULT_ADMIN_USER = os.environ.get("DEFAULT_ADMIN_USER")
+    DEFAULT_ADMIN_PASSWORD = os.environ.get("DEFAULT_ADMIN_PASSWORD")
     LOG_LEVEL = (
         logging.getLevelName(os.environ.get("LOG_LEVEL"))
         if "LOG_LEVEL" in os.environ
@@ -25,10 +26,10 @@ class Config:
     GOVUK_PAY_API = os.environ.get("GOVUK_PAY_API")
     GOVUK_PAY_API_KEY = os.environ.get("GOVUK_PAY_API_KEY")
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = os.environ.get('FLASK_ENV') not in ('local', 'test')
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Strict"
-    WTF_CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = os.environ.get('FLASK_ENV') not in ('local', 'test')
     WTF_CSRF_TIME_LIMIT = None  # Stops the CSRF token expiring (before the lifetime of the session). This was an accessibility problem
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
