@@ -55,6 +55,7 @@ class GlimrNewCase:
         return {
                 'jurisdictionId':self.jurisdiction_id,
                 'onlineMappingCode':self.online_mapping_code,
+                'documentsUrl': self.application_data.documents_url(),
                 **self.case_params(),
                 **self.contact_params(),
                 **self.contact_street()

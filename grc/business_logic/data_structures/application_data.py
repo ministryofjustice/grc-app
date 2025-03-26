@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List
+from flask import current_app
 from grc.business_logic.data_structures.confirmation_data import ConfirmationData
 from grc.business_logic.data_structures.birth_registration_data import BirthRegistrationData
 from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
@@ -7,7 +8,6 @@ from grc.business_logic.data_structures.partnership_details_data import Partners
 from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
 from grc.business_logic.data_structures.submit_and_pay_data import SubmitAndPayData, HelpWithFeesType
 from grc.list_status import ListStatus
-
 
 def any_password_protected_files(uploads_files: List[EvidenceFile]):
     return len([file for file in uploads_files if file.password_required]) > 0
@@ -51,7 +51,15 @@ class ApplicationData:
         else:
             return ListStatus.COMPLETED
 
-    @property
+    def documents_url(self) -> str:
+        s3_bucket_name = current_app.config.get('BUCKET_NAME')
+        s3_object_name = self.application_pdf_name()
+        return f"https://{s3_bucket_name}/{s3_object_name}"
+
+    def application_pdf_name(self) -> str:
+        reference_number = self.reference_number.upper()
+        return f"{reference_number}.pdf"
+
     def reference_number_formatted(self) -> str:
         trimmed_reference = self.reference_number.replace('-', '').replace(' ', '').upper()
         formatted_reference = trimmed_reference[0: 4] + '-' + trimmed_reference[4: 8]
