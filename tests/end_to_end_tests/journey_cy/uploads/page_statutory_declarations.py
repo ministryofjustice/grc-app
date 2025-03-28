@@ -6,8 +6,8 @@ import tests.end_to_end_tests.journey_1.data as data
 
 TASK_LIST_BUTTON_NAME = 'Datganiadau statudol'
 PAGE_URL = '/upload/statutory-declarations'
-PAGE_H1_EN = 'Statutory declarations documents'
-PAGE_H1_CY = 'Dogfennau datganiadau statudol'
+PAGE_H1_EN = 'Upload statutory declarations documents'
+PAGE_H1_CY = 'Uwchlwytho dogfennau datganiadau statudol'
 
 
 async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
