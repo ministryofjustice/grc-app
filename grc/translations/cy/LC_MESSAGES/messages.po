@@ -4581,7 +4581,7 @@ msgstr "Gallwch uwchlwytho:"
 #: grc/templates/upload/overseas-certificate.html:6
 #: grc/templates/upload/overseas-certificate.html:19
 msgid "Upload overseas gender recognition certificate documents"
-msgstr "Dogfennau tystysgrif cydnabod rhywedd tramor"
+msgstr "Uwchlwytho dogfennau tystysgrif cydnabod rhywedd tramor"
 
 #: grc/templates/upload/overseas-certificate.html:22
 msgid ""
