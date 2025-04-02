@@ -3,7 +3,7 @@
 {% import "upload/_upload-files-section.html" as upload_files_section %}
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
 
-{% block title %}{{ _('Statutory declarations documents') }}{% endblock %}
+{% block title %}{{ _('Upload statutory declarations documents') }}{% endblock %}
 
 {% block backLink %}
     {{ back_link.renderFor('taskList.index') }}
@@ -16,7 +16,7 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                {{ _('Statutory declarations documents') }}
+                {{ _('Upload statutory declarations documents') }}
             </h1>
             <p class="govuk-body">
                 {{ _('This is where you can upload copies of all required statutory declarations.') }}

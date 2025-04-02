@@ -4580,8 +4580,8 @@ msgstr "Gallwch uwchlwytho:"
 
 #: grc/templates/upload/overseas-certificate.html:6
 #: grc/templates/upload/overseas-certificate.html:19
-msgid "Overseas gender recognition certificate documents"
-msgstr "Dogfennau tystysgrif cydnabod rhywedd tramor"
+msgid "Upload overseas gender recognition certificate documents"
+msgstr "Uwchlwytho dogfennau tystysgrif cydnabod rhywedd tramor"
 
 #: grc/templates/upload/overseas-certificate.html:22
 msgid ""
@@ -4601,8 +4601,8 @@ msgstr "os ydych ar y llwybr tramor (yn agor mewn tab newydd)"
 
 #: grc/templates/upload/statutory-declarations.html:6
 #: grc/templates/upload/statutory-declarations.html:19
-msgid "Statutory declarations documents"
-msgstr "Dogfennau datganiadau statudol"
+msgid "Upload statutory declarations documents"
+msgstr "Uwchlwytho dogfennau datganiadau statudol"
 
 #: grc/templates/upload/statutory-declarations.html:22
 msgid ""
