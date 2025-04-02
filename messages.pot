@@ -4048,7 +4048,7 @@ msgstr ""
 
 #: grc/templates/upload/overseas-certificate.html:6
 #: grc/templates/upload/overseas-certificate.html:19
-msgid "Overseas gender recognition certificate documents"
+msgid "Upload overseas gender recognition certificate documents"
 msgstr ""
 
 #: grc/templates/upload/overseas-certificate.html:22
@@ -4067,7 +4067,7 @@ msgstr ""
 
 #: grc/templates/upload/statutory-declarations.html:6
 #: grc/templates/upload/statutory-declarations.html:19
-msgid "Statutory declarations documents"
+msgid "Upload statutory declarations documents"
 msgstr ""
 
 #: grc/templates/upload/statutory-declarations.html:22
