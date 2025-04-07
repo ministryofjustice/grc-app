@@ -220,7 +220,7 @@ def confirmation():
         if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
             mark_files_flag = False
 
-        if not app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
+        if not app_files_util.upload_pdf_admin_with_files_attached(application_data_):
             mark_files_flag = False
 
         if mark_files_flag:

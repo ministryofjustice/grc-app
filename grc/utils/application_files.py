@@ -110,9 +110,9 @@ class ApplicationFiles:
                         'overseasCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
-    def  upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
+    def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
         file_name = application_data.reference_number + '.pdf'
-        pdf_bytes = self.create_pdf_admin_with_filenames(application_data)[0]
+        pdf_bytes = self.create_pdf_admin_with_files_attached(application_data)[0]
         return AwsS3Client().upload_fileobj(BytesIO(pdf_bytes), file_name)
 
     @staticmethod

@@ -38,7 +38,7 @@ class TestCreateOrCreateDownloadPDF:
         return bytes_buffer
 
     @staticmethod
-    def mock_create_output_pdf_document_with_filenames(*args, **kwargs):
+    def mock_create_output_pdf_document_with_files(*args, **kwargs):
         bytes_buffer = io.BytesIO()
         pdf_document = fitz.open()
         try:
@@ -149,27 +149,27 @@ class TestCreateOrCreateDownloadPDF:
         assert 'PDF with application data and attached files' in page_2.get_text()
         pdf_document.close()
 
-    @patch('grc.utils.application_files.ApplicationFiles._create_pdf_attach_filenames')
+    @patch('grc.utils.application_files.ApplicationFiles._create_pdf_attach_files')
     @patch('grc.utils.application_files.ApplicationFiles.create_application_cover_sheet_pdf')
-    def test_create_pdf_admin_with_filenames(self, mock_create_coversheet: MagicMock,
-                                             mock_pdf_attach_filenames: MagicMock, app_files, test_application):
+    def test_create_pdf_admin_with_files(self, mock_create_coversheet: MagicMock,
+                                             mock_pdf_attach_files: MagicMock, app_files, test_application):
         mock_create_coversheet.return_value = self.mock_create_coversheet()
-        mock_pdf_attach_filenames.side_effect = self.mock_create_output_pdf_document_with_filenames
-        pdf, filename = app_files.create_pdf_admin_with_filenames(test_application.application_data())
+        mock_pdf_attach_files.side_effect = self.mock_create_output_pdf_document_files_attached
+        pdf, filename = app_files.create_pdf_admin_with_files_attached(test_application.application_data())
         assert filename == 'ABCD1234.pdf'
         pdf_document = fitz.open(stream=pdf)
         page_1, page_2 = pdf_document
         assert 'Coversheet' in page_1.get_text()
-        assert 'PDF with application data with uploaded file names' in page_2.get_text()
+        assert 'PDF with application data and attached files' in page_2.get_text()
         pdf_document.close()
 
-    @patch('grc.utils.application_files.ApplicationFiles.create_pdf_admin_with_filenames')
+    @patch('grc.utils.application_files.ApplicationFiles.create_pdf_admin_with_files_attached')
     @patch('grc.utils.application_files.AwsS3Client')
     def test_upload_pdf_admin_with_file_names_attached(self, mock_s3_client: MagicMock, mock_create_pdf: MagicMock,
                                                        app_files, test_application):
         upload_object_mock: MagicMock = mock_s3_client.return_value.upload_fileobj
         upload_object_mock.return_value = True
-        mock_application_pdf_to_upload = self.mock_create_output_pdf_document_with_filenames()
+        mock_application_pdf_to_upload = self.mock_create_output_pdf_document_files_attached()
         mock_create_pdf.return_value = (mock_application_pdf_to_upload.read(), 'ABCD1234.pdf')
-        assert app_files.upload_pdf_admin_with_file_names_attached(test_application.application_data()) is True
+        assert app_files.upload_pdf_admin_with_files_attached(test_application.application_data()) is True
         # upload_object_mock.assert_called_once_with(mock_application_pdf_to_upload, 'ABCD1234.pdf')
