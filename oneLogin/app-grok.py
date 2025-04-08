@@ -27,6 +27,7 @@ oauth = OAuth(app)
 class Config:
     ISSUER = "https://oidc.integration.account.gov.uk"
     TOKEN_URI = "https://oidc.integration.account.gov.uk/token"
+    AUTH_URI = "https://oidc.integration.account.gov.uk/authorize"
     CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"
     PRIVATE_KEY_PATH = "grc-onelogin-private.pem"
     REDIRECT_URI = "http://localhost:5000/oidc/authorization-code/callback"
@@ -102,6 +103,18 @@ def fetch_token(code):
         raise Exception(f"Token request failed: {response.status_code} - {response.text}")
     return response.json()
 
+def fetch_user_info(access_token):
+    userinfo_url = metadata["userinfo_endpoint"]
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+    logger.debug(f"GET to {userinfo_url} with headers: {headers}")
+    response = requests.get(userinfo_url, headers=headers)
+    logger.debug(f"Response Status: {response.status_code}, Body: {response.text}")
+    if response.status_code != 200:
+        raise Exception(f"Userinfo request failed: {response.status_code} - {response.text}")
+    return response.json()
+
 oauth.register(
     name="oidc",
     client_id=config.CLIENT_ID,
@@ -159,14 +172,14 @@ def callback():
 
         id_token = token.get("id_token")
         access_token = token.get("access_token")
-        id_token_claims = jwt.decode(id_token, options={"verify_signature": False})
+        id_token_claims = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False})
         if id_token_claims.get("nonce") != nonce:
             raise Exception("Nonce mismatch")
 
         response = app.make_response("Processing complete")
         response.set_cookie("id-token", id_token, httponly=True)
 
-        userinfo = client.fetch_user_info(access_token=access_token)
+        userinfo = fetch_user_info(access_token)
         id_token_sub = id_token_claims["sub"]
 
         core_identity_payload = None
@@ -198,7 +211,7 @@ def callback():
         session["user"] = {
             "sub": id_token_sub,
             "id_token": id_token_claims,
-            "access_token": jwt.decode(access_token, options={"verify_signature": False}),
+            "access_token": jwt.decode(access_token, options={"verify_signature": False, "verify_aud": False}),
             "userinfo": userinfo,
             "core_identity": core_identity_payload,
             "return_code": return_code_value
