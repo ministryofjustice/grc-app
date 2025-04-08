@@ -77,8 +77,9 @@ jobs:
             - run:
                 name: Upgrade DEV DB
                 environment:
-                  SQLALCHEMY_DATABASE_URI: '${DEV_SQLALCHEMY_DATABASE_URI}'
+                  SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
                 command: |
+                  echo "Using DB URL: $DEV_SQLALCHEMY_DATABASE_URI"
                   venv/bin/flask db upgrade
       - when:
           condition:
