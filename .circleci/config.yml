@@ -77,7 +77,7 @@ jobs:
             - run:
                 name: Upgrade DEV DB
                 environment:
-                  SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
+                  SQLALCHEMY_DATABASE_URI: postgres://cpSbWIchMw:ZRdIpsBIBbWnaLcF@cloud-platform-0a18229a29ea004e.cdwm328dlye6.eu-west-2.rds.amazonaws.com:5432/db0a18229a29ea004e
                 command: |
                   . venv/bin/activate
                   flask db upgrade
