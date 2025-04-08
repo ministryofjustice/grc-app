@@ -79,6 +79,7 @@ jobs:
                 environment:
                   SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
                 command: |
+                  . venv/bin/activate
                   flask db upgrade
       - when:
           condition:
