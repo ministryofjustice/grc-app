@@ -1,12 +1,13 @@
 from authlib.integrations.flask_client import OAuth
-from authlib.oauth2.rfc7523 import PrivateKeyJWT
-from cryptography.hazmat.primitives import serialization
 from flask import Flask, request, redirect, url_for, session, render_template
-import jwt
-import json
 import requests
 import logging
 import sys
+from cryptography.hazmat.primitives import serialization
+import jwt
+import json
+import time
+import uuid
 
 # Configure logging
 logging.basicConfig(
@@ -14,8 +15,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[logging.StreamHandler(sys.stdout)]
 )
-for logger_name in ['authlib.oauth2', 'authlib.integrations.requests_client', 'authlib.integrations.flask_oauth2', 'authlib.integrations.flask_client']:
-    logging.getLogger(logger_name).setLevel(logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Setup Flask app and OAuth
@@ -41,26 +40,6 @@ class Config:
 
 config = Config()
 
-# Custom PrivateKeyJWT to match GOV.UK One Login requirements
-class CustomPrivateKeyJWT(PrivateKeyJWT):
-    def __init__(self, private_key_path):
-        super().__init__(private_key_path)
-
-    def get_assertion(self, client_id, token_endpoint, **kwargs):
-        now = int(time.time())
-        payload = {
-            "aud": config.TOKEN_URI,
-            "iss": config.CLIENT_ID,
-            "sub": config.CLIENT_ID,
-            "exp": now + 300,  # 5 minutes from now
-            "jti": str(uuid.uuid4()),  # Unique ID
-            "iat": now
-        }
-        with open(self.private_key_path, "rb") as f:
-            private_key = f.read()
-        return jwt.encode(payload, private_key, algorithm="ES256")
-    
-# Fetch discovery metadata
 def get_discovery_metadata():
     discovery_url = f"{config.ISSUER}/.well-known/openid-configuration"
     response = requests.get(discovery_url)
@@ -71,18 +50,57 @@ def get_discovery_metadata():
         raise Exception(f"Discovery failed: {response.status_code} - {response.text}")
     return response.json()
 
-# Load public key for coreIdentityJWT verification (simplified, adjust as needed)
-def get_identity_signing_public_key(kid):
-    # In a real app, fetch this from a JWKS endpoint or config based on kid
-    with open("grc-onelogin-private.pem", "rb") as key_file:
-        return serialization.load_pem_public_key(key_file.read())
-
-# Register OAuth client
 try:
     metadata = get_discovery_metadata()
 except Exception as e:
     logger.error(f"Failed to initialize metadata: {e}")
-    metadata = {"authorization_endpoint": "", "token_endpoint": ""}
+    raise
+
+# Verify private key
+try:
+    with open(config.PRIVATE_KEY_PATH, "rb") as f:
+        private_key_content = f.read()
+        logger.info(f"Private key loaded from {config.PRIVATE_KEY_PATH}")
+except Exception as e:
+    logger.error(f"Failed to load private key: {e}")
+    raise
+
+# Custom JWT assertion
+def create_jwt_assertion():
+    now = int(time.time())
+    payload = {
+        "aud": config.TOKEN_URI,
+        "iss": config.CLIENT_ID,
+        "sub": config.CLIENT_ID,
+        "exp": now + 300,  # 5 minutes
+        "jti": str(uuid.uuid4()),
+        "iat": now
+    }
+    with open(config.PRIVATE_KEY_PATH, "rb") as f:
+        private_key = f.read()
+    return jwt.encode(payload, private_key, algorithm="RS256")
+
+# Custom token fetch
+def fetch_token(code):
+    token_url = metadata["token_endpoint"]
+    assertion = create_jwt_assertion()
+    data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "redirect_uri": config.REDIRECT_URI,
+        "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+        "client_assertion": assertion
+    }
+    logger.debug(f"POST to {token_url} with body: {data}")
+    response = requests.post(
+        token_url,
+        data=data,
+        headers={"Content-Type": "application/x-www-form-urlencoded"}
+    )
+    logger.debug(f"Response Status: {response.status_code}, Body: {response.text}")
+    if response.status_code != 200:
+        raise Exception(f"Token request failed: {response.status_code} - {response.text}")
+    return response.json()
 
 oauth.register(
     name="oidc",
@@ -90,9 +108,13 @@ oauth.register(
     client_secret=None,
     server_metadata_url=f"{config.ISSUER}/.well-known/openid-configuration",
     client_kwargs={"scope": config.SCOPE},
-    client_auth_method=CustomPrivateKeyJWT(config.PRIVATE_KEY_PATH)
 )
-logger.info(f"Client metadata: {oauth.oidc.server_metadata}")
+
+# Load public key for coreIdentityJWT verification (simplified, adjust as needed)
+def get_identity_signing_public_key(kid):
+    # In a real app, fetch this from a JWKS endpoint or config based on kid
+    with open(client.PRIVATE_KEY_PATH, "rb") as key_file:
+        return serialization.load_pem_public_key(key_file.read())
 
 @app.route('/')
 def index():
@@ -101,7 +123,6 @@ def index():
 # Authorization route (from previous example)
 @app.route("/login")
 def login():
-
     client = oauth.oidc
     nonce = "random-nonce"
     state = "random-state"
@@ -130,8 +151,11 @@ def callback():
         client = oauth.oidc
         nonce = session.get("nonce")
         state = session.get("state")
+        code = request.args.get("code")
+        if not code:
+            raise Exception("No code received in callback")
 
-        token = client.authorize_access_token()
+        token = fetch_token(code)
 
         id_token = token.get("id_token")
         access_token = token.get("access_token")
