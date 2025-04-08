@@ -79,8 +79,7 @@ jobs:
                 environment:
                   SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
                 command: |
-                  echo "Using DB URL: $DEV_SQLALCHEMY_DATABASE_URI"
-                  venv/bin/flask db upgrade
+                  flask db upgrade
       - when:
           condition:
             equal: [ PREPROD, << parameters.env_name >> ]
