@@ -30,8 +30,8 @@ def submit_register_cases():
 
             else:
                 glimr_case = GlimrNewCase(application).call_glimr_register_api()
+                save_glimr_case_reference(application, glimr_case)
                 set_case_registered(application)
-                save_glimr_case_details(glimr_case)
                 processed_cases.append(reference_number)
                 logger.log(LogLevel.INFO, f'Application #{reference_number} successfully registered to GLiMR.')
 
@@ -57,12 +57,16 @@ def get_application(reference_number):
 
     return application
 
-def save_glimr_case_details(glimr_case: GlimrNewCase):
-    logger.log(LogLevel.INFO, 'Case saved!')
-    logger.log(LogLevel.INFO, f'Case reference UPDATED: {glimr_case.case_reference}')
-    '''
-        Implement saving to GLiMR code here
-    '''
+def save_glimr_case_reference(application: Application, glimr_case: GlimrNewCase):
+    try:
+        case_reference = glimr_case.case_reference
+        application.case_reference = case_reference
+        db.session.commit()
+        logger.log(LogLevel.INFO, f'Application saved with case reference {str(case_reference)}.')
+
+    except Exception as e:
+        logger.log(LogLevel.ERROR, f"Application failed to save case reference in database caused by: {str(e)}.")
+        raise Exception(str(e))
 
 def set_case_registered(application: Application):
     try:
