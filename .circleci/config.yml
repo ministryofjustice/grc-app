@@ -57,6 +57,12 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            python -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - when:
           condition:
             equal: [ DEV, << parameters.env_name >> ]
@@ -73,8 +79,7 @@ jobs:
                 environment:
                   SQLALCHEMY_DATABASE_URI: $DEV_SQLALCHEMY_DATABASE_URI
                 command: |
-                  . venv/bin/activate
-                  flask db upgrade
+                  venv/bin/flask db upgrade
       - when:
           condition:
             equal: [ PREPROD, << parameters.env_name >> ]
@@ -97,12 +102,6 @@ jobs:
                 name: Login to PROD ECR
                 command: |
                   aws ecr get-login-password --region $ECR_REGION_PROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PROD}.dkr.ecr.${ECR_REGION_PROD}.amazonaws.com
-      - run:
-          name: Install dependencies
-          command: |
-            python -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
       - run:
           name: Compile welsh translations
           command: |
