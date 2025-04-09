@@ -114,7 +114,9 @@ jobs:
           name: Database migration
           command: |
             . venv/bin/activate
+            flask db upgrade
             flask db stamp head
+            flask db upgrade
             flask db migrate
             flask db upgrade
       - run:
