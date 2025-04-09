@@ -6,7 +6,7 @@ import tests.end_to_end_tests.journey_1.data as data
 
 TASK_LIST_BUTTON_NAME = 'Overseas certificate documents'
 PAGE_URL = '/upload/overseas-certificate'
-PAGE_H1 = 'Overseas gender recognition certificate documents'
+PAGE_H1 = 'Upload overseas gender recognition certificate documents'
 
 
 async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
