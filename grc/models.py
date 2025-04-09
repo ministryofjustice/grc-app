@@ -38,6 +38,8 @@ class Application(db.Model):
     completedBy = db.Column(db.String(180))
     filesCreated = db.Column(db.Boolean, default=False)
     number_sessions = db.Column(db.Integer, default=0)
+    case_registered = db.Column(db.Boolean, default=False, nullable=True)
+    case_reference = db.Column(db.String(100), nullable=True)
 
     def application_data(self) -> ApplicationData:
         try:
