@@ -132,16 +132,12 @@ def add_default_admin_user_to_database_if_there_are_no_users():
     if number_of_admins == 0:
         default_email_address: str = current_app.config['DEFAULT_ADMIN_USER']
         default_email_address = default_email_address.lower()
-        temporary_password = generate_temporary_password()
-        record = AdminUser(email=default_email_address, password=generate_password_hash(temporary_password),
-                           userType='ADMIN')
+        default_admin_password: str = current_app.config['DEFAULT_ADMIN_PASSWORD']
+        record = AdminUser(email=default_email_address, password=generate_password_hash(default_admin_password),
+                           userType='ADMIN', passwordResetRequired=False)
         db.session.add(record)
         db.session.commit()
 
         GovUkNotify().send_email_admin_new_user(email_address=default_email_address,
-                                                temporary_password=temporary_password,
+                                                temporary_password=default_admin_password,
                                                 application_link=request.base_url)
-
-
-def generate_temporary_password():
-    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
