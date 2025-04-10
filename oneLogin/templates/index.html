@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>GOV.UK One Login Test</title>
 </head>
 <body>
-<h2>Welcome to the Flask OIDC App</h2>
-<a href="{{ url_for('login') }}">
-    <button type="button">Login</button>
-</a>
+<h1>Welcome to GOV.UK One Login Test</h1>
+<p>Please choose an action:</p>
+<button onclick="window.location.href='/authorize/auth-only'">Authenticate Only</button>
+<button onclick="window.location.href='/authorize/prove-identity'">Prove Identity</button>
 </body>
 </html>

@@ -1,6 +1,5 @@
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, request, redirect, url_for, session, render_template
-from urllib.parse import urlencode
 import requests
 import logging
 import sys
@@ -9,6 +8,7 @@ import jwt
 import json
 import time
 import uuid
+from urllib.parse import urlencode
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -23,17 +23,14 @@ oauth = OAuth(app)
 
 class Config:
     ISSUER = "https://oidc.integration.account.gov.uk"
-    TOKEN_URI = "https://oidc.integration.account.gov.uk/token"
-    AUTH_URI = "https://oidc.integration.account.gov.uk/authorize"
     CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"  # Replace with your actual client_id
     PRIVATE_KEY_PATH = "grc-onelogin-private.pem"
     REDIRECT_URI = "http://localhost:5000/oidc/authorization-code/callback"
     SCOPE = "openid phone email"
     TOKEN_AUTH_METHOD = "private_key_jwt"
-    REQUIRE_JAR = True  # Set to True if you enforce JAR on the server
-    IV_ISSUER = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"
-    IDENTITY_VTR = "Cl.Cm"
-    #IDENTITY_VTR = "P2.Cl.Cm"
+    REQUIRE_JAR = False
+    IV_ISSUER = "https://identity-verifier.com"
+    IDENTITY_VTR = "P2.Cl.Cm"  # Default, but we'll override for auth-only
     IMMEDIATE_REDIRECT = True
     IDENTITY_SUPPORTED = True
 
@@ -62,11 +59,10 @@ except Exception as e:
     logger.error(f"Failed to load private key: {e}")
     raise
 
-# Custom JWT assertion
 def create_jwt_assertion():
     now = int(time.time())
     payload = {
-        "aud": config.TOKEN_URI,
+        "aud": "https://oidc.integration.account.gov.uk/token",
         "iss": config.CLIENT_ID,
         "sub": config.CLIENT_ID,
         "exp": now + 300,
@@ -77,7 +73,7 @@ def create_jwt_assertion():
         private_key = f.read()
     return jwt.encode(payload, private_key, algorithm="RS256")
 
-def create_request_object():
+def create_request_object(vtr="Cl.Cm"):
     nonce = str(uuid.uuid4())
     state = str(uuid.uuid4())
     session["nonce"] = nonce
@@ -92,17 +88,15 @@ def create_request_object():
         "scope": config.SCOPE,
         "state": state,
         "nonce": nonce,
-        "vtr": [config.IDENTITY_VTR] if config.IDENTITY_VTR else ["Cl.Cm"],  # Default to medium auth if not specified
-        "ui_locales": "en"
-        #"claims": {
-        #    "userinfo": {
-        #        "https://vocab.account.gov.uk/v1/coreIdentityJWT": None,
-        #        "https://vocab.account.gov.uk/v1/address": None,
-        #        "https://vocab.account.gov.uk/v1/returnCode": None
-                #"https://vocab.account.gov.uk/v1/passport": None,
-                #"https://vocab.account.gov.uk/v1/drivingPermit": None
-        #    }
-        #}
+        "vtr": [vtr],  # Dynamic vtr based on button
+        "ui_locales": "en",
+        "claims": {
+            "userinfo": {
+                "https://vocab.account.gov.uk/v1/coreIdentityJWT": None,
+                "https://vocab.account.gov.uk/v1/address": None,
+                "https://vocab.account.gov.uk/v1/returnCode": None
+            }
+        }
     }
     with open(config.PRIVATE_KEY_PATH, "rb") as f:
         private_key = f.read()
@@ -110,7 +104,6 @@ def create_request_object():
     logger.debug(f"Created request object: {request_payload}")
     return request_jwt
 
-# Custom token fetch
 def fetch_token(code):
     token_url = metadata["token_endpoint"]
     assertion = create_jwt_assertion()
@@ -139,7 +132,6 @@ def fetch_user_info(access_token):
     }
     logger.debug(f"GET to {userinfo_url} with headers: {headers}")
     response = requests.get(userinfo_url, headers=headers)
-    # Enhanced logging for userinfo response
     logger.info(f"Userinfo Response Status: {response.status_code}")
     logger.info(f"Userinfo Response Body: {json.dumps(response.json(), indent=2)}")
     if response.status_code != 200:
@@ -155,20 +147,16 @@ oauth.register(
 )
 
 def get_identity_signing_public_key(kid):
-# In a real app, fetch this from a JWKS endpoint or config based on kid
     with open("path/to/public_key.pem", "rb") as key_file:
         return serialization.load_pem_public_key(key_file.read())
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route("/login")
-def login():
-    
-    request_object = create_request_object()
-
-    # Minimal query parameters for JAR
+@app.route("/authorize/auth-only")
+def authorize_auth_only():
+    request_object = create_request_object(vtr="Cl.Cm")  # Authentication only
     auth_params = {
         "response_type": "code",
         "scope": config.SCOPE,
@@ -188,7 +176,6 @@ def callback():
             desc = request.args.get("error_description", "")
             raise Exception(f"{error} - {desc}")
 
-        client = oauth.oidc
         nonce = session.get("nonce")
         state = session.get("state")
         code = request.args.get("code")
@@ -247,9 +234,8 @@ def callback():
             "return_code": return_code_value
         }
 
-        if config.IMMEDIATE_REDIRECT and config.IDENTITY_SUPPORTED and core_identity_payload is None:
-            return redirect(url_for("verify"))
-        return redirect(url_for("home"))
+        # Always redirect to verify for auth-only to display userinfo
+        return redirect(url_for("verify"))
 
     except Exception as e:
         logger.error(f"Error in callback: {e}")
@@ -259,9 +245,10 @@ def callback():
 def home():
     return "Welcome home!"
 
-@app.route("/oidc/verify")
+@app.route("/verify")
 def verify():
-    return "Verification page"
+    user = session.get("user", {})
+    return render_template("verify.html", userinfo=user.get("userinfo", {}))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
