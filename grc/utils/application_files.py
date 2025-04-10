@@ -96,12 +96,12 @@ class ApplicationFiles:
         return output_pdf_document.read(), file_name
 
     @profile
-    def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
+    def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[BytesIO, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
                         'overseasCertificate']
-        return self._create_pdf_attach_files(application_data, pdfs, all_sections).read(), file_name
+        return self._create_pdf_attach_files(application_data, pdfs, all_sections), file_name
 
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
@@ -110,9 +110,9 @@ class ApplicationFiles:
                         'overseasCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
-    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
+    def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
         file_name = application_data.reference_number + '.pdf'
-        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
+        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
 
     @staticmethod
     def download_pdf_admin(application_data: ApplicationData) -> bytes:

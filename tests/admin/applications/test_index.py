@@ -9,7 +9,7 @@ class TestAdminElements:
             html = response.data.decode()
             assert 'Download GRC applications' in html
 
-    def test_new_applications_present(self, app, client, submitted_application):
+    def test_new_applications_present_unregistered(self, app, client, submitted_application_unregistered):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
@@ -18,6 +18,24 @@ class TestAdminElements:
             html = response.data.decode()
             assert 'New applications' in html
             assert 'View application' in html
+            assert 'Register new case' in html
+            assert 'Reference number' in html
+            assert 'Applicant name' in html
+            assert 'Submitted' in html
+            assert '/applications/ABCD1234' in html
+            assert 'ABCD1234' in html
+            assert '01/01/2024 09:00' in html
+
+    def test_new_applications_present_registered(self, app, client, submitted_application_registered):
+        with app.app_context():
+            with client.session_transaction() as session:
+                session['signedIn'] = 'test.email@example.com'
+
+            response = client.get('/applications#new')
+            html = response.data.decode()
+            assert 'New applications' in html
+            assert 'View application' in html
+            assert 'Registered new case' in html
             assert 'Reference number' in html
             assert 'Applicant name' in html
             assert 'Submitted' in html
