@@ -214,8 +214,16 @@ def confirmation():
     @copy_current_request_context
     def create_files(reference_number, application_data_):
         app_files_util = ApplicationFiles()
-        if app_files_util.create_and_upload_attachments(reference_number, application_data_) and \
-                app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
+
+        mark_files_flag = True
+
+        if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
+            mark_files_flag = False
+
+        if not app_files_util.upload_pdf_admin_with_files_attached(application_data_):
+            mark_files_flag = False
+
+        if mark_files_flag:
             mark_files_created(reference_number)
 
     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()

@@ -44,8 +44,7 @@
     </thead>
 {% endmacro %}
 
-{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None) %}
-    {% set id = random_id.randomId(10) %}
+{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None, id=None) %}
     <tr class="govuk-table__row">
         {% if title %}
             <th scope="row" id="row-header-{{ id }}"
@@ -163,7 +162,8 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title='Currently married or in a civil partnership',
-                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted)
+                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted),
+                        id="grc-relationship-status"
                     ) }}
 
                     {% if application_data.partnership_details_data.is_not_in_partnership %}
@@ -262,7 +262,8 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title="Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?",
-                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted
+                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted,
+                        id="grc-gender-recognition-outside-uk"
                     ) }}
 
                     {{ summary_list_item(
@@ -287,22 +288,26 @@
                         title="Name (as you would like it to appear on your Gender Recognition Certificate)",
                         subtitle="Title",
                         value=application_data.personal_details_data.title,
-                        rowsWithThisTitle='4'
+                        rowsWithThisTitle='4',
+                        id="grc-title"
                     ) }}
 
                     {{ summary_list_item(
                         subtitle="First name",
-                        value=application_data.personal_details_data.first_name
+                        value=application_data.personal_details_data.first_name,
+                        id="grc-first-name"
                     ) }}
 
                     {{ summary_list_item(
                         subtitle="Middle name(s)",
-                        value=(application_data.personal_details_data.middle_names_or_empty_string)
+                        value=(application_data.personal_details_data.middle_names_or_empty_string),
+                        id="grc-middle-name"
                     ) }}
 
                     {{ summary_list_item(
                         subtitle="Last name",
-                        value=application_data.personal_details_data.last_name
+                        value=application_data.personal_details_data.last_name,
+                        id="grc-last-name"
                     ) }}
 
                     {{ summary_list_item(
@@ -355,7 +360,8 @@
                             title="Contact preferences",
                             subtitle="Email",
                             value=(application_data.personal_details_data.contact_email_address),
-                            rowsWithThisTitle=contactPreferencesLines
+                            rowsWithThisTitle=contactPreferencesLines,
+                            id="grc-email"
                         ) }}
                     {% endif %}
 
@@ -365,12 +371,14 @@
                                 title="Contact preferences",
                                 subtitle="Phone",
                                 value=(application_data.personal_details_data.contact_phone_number),
-                                rowsWithThisTitle=contactPreferencesLines
+                                rowsWithThisTitle=contactPreferencesLines,
+                                id="grc-phone"
                             ) }}
                         {% else %}
                             {{ summary_list_item(
                                 subtitle="Phone",
-                                value=(application_data.personal_details_data.contact_phone_number)
+                                value=(application_data.personal_details_data.contact_phone_number),
+                                id="grc-phone"
                             ) }}
                         {% endif %}
                     {% endif %}
@@ -381,12 +389,14 @@
                                 title="Contact preferences",
                                 subtitle="Post",
                                 value=(application_data.personal_details_data.address_comma_separated),
-                                rowsWithThisTitle=contactPreferencesLines
+                                rowsWithThisTitle=contactPreferencesLines,
+                                id="grc-post"
                             ) }}
                         {% else %}
                             {{ summary_list_item(
                                 subtitle="Post",
-                                value=(application_data.personal_details_data.address_comma_separated)
+                                value=(application_data.personal_details_data.address_comma_separated),
+                                id="grc-post"
                             ) }}
                         {% endif %}
                     {% endif %}
@@ -405,7 +415,8 @@
                     {{ summary_list_item(
                         title="Address",
                         value=(addressValue()),
-                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks)
+                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks),
+                        id="grc-address"
                     ) }}
 
                     {% if application_data.personal_details_data.contact_dates_should_avoid %}
