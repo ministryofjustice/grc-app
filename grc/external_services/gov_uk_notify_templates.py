@@ -4,7 +4,7 @@ from flask import g
 class GovUkNotifyTemplateManager:
     # Admin
     ADMIN_LOGIN_SECURITY_CODE_TEMPLATE = 'fde1def2-bf10-45d2-8c38-2837a0a79399'
-    ADMIN_FORGET_PASSWORD_TEMPLATE = '***REMOVED***'
+    ADMIN_FORGET_PASSWORD_TEMPLATE = 'fadf94d8-7d65-4eed-b52a-5f5b81aa32be'
     ADMIN_NEW_USER_TEMPLATE = '0ff48a4c-601e-4cc1-b6c6-30bac012c259'
 
     # GRC

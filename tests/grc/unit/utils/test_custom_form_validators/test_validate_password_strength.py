@@ -57,7 +57,7 @@ class TestValidatePasswordStrength:
         with app.app_context():
             with app.test_request_context():
                 form = PasswordResetForm()
-                form.password.data = '***REMOVED***'
+                form.password.data = 'AB3DsadFaD6VXC3'
                 with pytest.raises(ValidationError, match='Your password needs to contain 8 or more characters, a lower'
                                                           ' case letter, an upper case letter, a number and a special '
                                                           'character'):

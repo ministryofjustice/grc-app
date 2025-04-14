@@ -4362,8 +4362,8 @@ msgid "Payment"
 msgstr "Talu"
 
 #: grc/templates/submit-and-pay/method.html:24
-msgid "Applying for a Gender Recognition Certificate costs &pound;5."
-msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;5."
+msgid "Applying for a Gender Recognition Certificate costs &pound;6."
+msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;6."
 
 #: grc/templates/submit-and-pay/method.html:43
 msgid "Are you applying for help paying the fee?"
