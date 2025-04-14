@@ -3861,7 +3861,7 @@ msgid "Payment"
 msgstr ""
 
 #: grc/templates/submit-and-pay/method.html:24
-msgid "Applying for a Gender Recognition Certificate costs &pound;5."
+msgid "Applying for a Gender Recognition Certificate costs &pound;6."
 msgstr ""
 
 #: grc/templates/submit-and-pay/method.html:43
