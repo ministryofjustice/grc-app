@@ -169,7 +169,6 @@ async function submitNewCaseRegistration() {
     }
 
     if (loadingRegister === true) {
-        console.log('Already sending a request to GLiMR.')
         return;
     }
 
