@@ -141,6 +141,7 @@
                                 {% endfor %}
                                 <tr class="govuk-table__row">
                                     <td colspan="4" class="govuk-table__cell" style="text-align: right">
+                                        <img id="spinner" class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" src="{{ url_for('static', filename='assets/images/spinner.gif') }}" style="display:none;" width="30" height="30" alt="Loading spinner image.">
                                         <button id="submit-selected-apps-btn-new" disabled="disabled" 
                                                 class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
                                                 data-module="govuk-button"
