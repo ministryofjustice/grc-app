@@ -1,3 +1,4 @@
+let loadingRegister = false;
 let applicationsChecked = [];
 let submitButton = document.getElementById('submit-selected-apps-btn-new');
 
@@ -144,6 +145,22 @@ function setCaseRegistered(application) {
 }
 
 /**
+Sets Loading to true which displays a spinner image on the page and doesn't allow API calls to GLiMR
+**/
+function setLoadingTrue(spinner) {
+    loadingRegister = true;
+    spinner.style.display = 'inline';
+}
+
+/**
+Sets Loading to false which hides a spinner image from the page and allows API calls to GLiMR
+**/
+function setLoadingFalse(spinner) {
+    loadingRegister = false;
+    spinner.style.display = 'None';
+}
+
+/**
 Submits the selected applications for case registration and handles the GLiMR api call
 **/
 async function submitNewCaseRegistration() {
@@ -151,8 +168,13 @@ async function submitNewCaseRegistration() {
         return;
     }
 
+    if (loadingRegister === true) {
+        console.log('Already sending a request to GLiMR.')
+        return;
+    }
+
     const spinner = document.getElementById('spinner');
-    spinner.style.display = 'inline';
+    setLoadingTrue(spinner);
 
     try {
         const response = await fetch('/glimr/submit', {
@@ -191,7 +213,7 @@ async function submitNewCaseRegistration() {
     } catch (fetchError) {
         console.error('Fetch error:', fetchError);
     } finally {
-        spinner.style.display = 'None';
+        setLoadingFalse(spinner);
     }
 }
 
