@@ -148,9 +148,11 @@ Submits the selected applications for case registration and handles the GLiMR ap
 **/
 async function submitNewCaseRegistration() {
     if (applicationsChecked.length === 0) {
-        console.log("No applications selected.");
         return;
     }
+
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'inline';
 
     try {
         const response = await fetch('/glimr/submit', {
@@ -188,6 +190,8 @@ async function submitNewCaseRegistration() {
 
     } catch (fetchError) {
         console.error('Fetch error:', fetchError);
+    } finally {
+        spinner.style.display = 'None';
     }
 }
 
