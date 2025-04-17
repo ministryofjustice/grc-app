@@ -29,21 +29,24 @@ jobs:
       - image: 'circleci/python:3.8'
         environment:
           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
+          FLASK_APP: grc
           FLASK_ENV: test
           FLASK_DEBUG: 1
-          FLASK_APP: grc
           LOG_LEVEL: DEBUG
           TEST_URL: 'http://localhost:8080'
+          ADMIN_TEST_URL: 'http://localhost:8181'
           SECRET_KEY: ef987sd9fwkjefosf9we0svs9q3evsd0
           SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:password@localhost:5432/grc'
           SQLALCHEMY_TRACK_MODIFICATION: false
-          DEFAULT_ADMIN_USER: grc-service-account@cabinetoffice.gov.uk
+          DEFAULT_ADMIN_USER: dts-legacy-apps-support-team@hmcts.net
+          DEFAULT_ADMIN_PASSWORD: '${DEFAULT_ADMIN_PASSWORD}'
           NOTIFY_API: '${NOTIFY_API}'
-          NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
+          NOTIFY_OVERRIDE_EMAIL: dts-legacy-apps-support-team@hmcts.net
           BUCKET_NAME: 'cloud-platform-558bc9877f5cc03fc5d7a241c17360b5' # use the DEV S3 bucket for e2e test uploads for all environments
           AWS_REGION: eu-west-2
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
+          GLIMR_BASE_URL: 'http://localhost:8181/glimr/api/tdsapi'
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
@@ -127,7 +130,8 @@ jobs:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
-            waitress-serve --call --port=8080 'grc:create_app' &
+            FLASK_APP=grc waitress-serve --call --host=0.0.0.0 --port=8080 'grc:create_app' &
+            FLASK_APP=admin waitress-serve --call --host=0.0.0.0 --port=8181 'admin:create_app' &
             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
             pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
@@ -295,8 +299,8 @@ jobs:
             equal: [ PREPROD, << parameters.env_name >> ]
           steps:
             - aws-cli/setup:
-                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD 
-                region: $ECR_REGION_PREPROD 
+                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD
+                region: $ECR_REGION_PREPROD
             - run:
                 name: Login to PREPROD ECR
                 command: |
@@ -306,8 +310,8 @@ jobs:
             equal: [ PROD, << parameters.env_name >> ]
           steps:
             - aws-cli/setup:
-                role_arn: $ECR_ROLE_TO_ASSUME_PROD 
-                region: $ECR_REGION_PROD 
+                role_arn: $ECR_ROLE_TO_ASSUME_PROD
+                region: $ECR_REGION_PROD
             - run:
                 name: Login to PROD ECR
                 command: |
@@ -355,7 +359,7 @@ jobs:
           name: direct traffic to maintenance page
           command: |
             kubectl apply -n grc-dev --record=false -f ./deploy/development/ingress.yaml
-            
+
   deploy_maintenance_page_preprod:
     <<: *cloud_container
     steps:
@@ -377,7 +381,7 @@ jobs:
           command: |
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress-admin.yaml
-            
+
   deploy_maintenance_page_prod:
     <<: *cloud_container
     steps:

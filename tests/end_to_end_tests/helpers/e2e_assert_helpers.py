@@ -1,4 +1,6 @@
 import re
+from tabnanny import check
+
 from playwright.async_api import Page
 from tests.end_to_end_tests.accessibility.accessibility_checks import AccessibilityChecks
 from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers, clean_string
@@ -91,15 +93,25 @@ class AssertHelpers:
         visible = await self.page.get_by_role('input', name=f'{field}').is_visible()
         assert_equal(visible, False)
 
-    async def is_checked(self, field: str, value: str):
-        selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
-                   f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"]"
+    async def is_checked(self, field: str, value=None):
+        if value:
+            selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
+                       f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"] "
+        else:
+            selector = f"input[type=\"radio\"][name=\"{field}\"], " \
+                       f"input[type=\"checkbox\"][name=\"{field}\"] "
+
         element_is_checked = await self.page.is_checked(selector)
         assert_equal(element_is_checked, True)
 
-    async def not_checked(self, field: str, value: str):
-        selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
-                   f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"]"
+    async def not_checked(self, field: str, value=None):
+        if value:
+            selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
+                       f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"] "
+        else:
+            selector = f"input[type=\"radio\"][name=\"{field}\"], " \
+                       f"input[type=\"checkbox\"][name=\"{field}\"] "
+
         element_is_checked = await self.page.is_checked(selector)
         assert_equal(element_is_checked, False)
 
@@ -204,6 +216,48 @@ class AssertHelpers:
         if found_index is not None:
             print(f"Error: Link/button with text ({link_text}) was found")
         assert found_index is None
+
+    async def check_case_is_registered(self, reference_number: str):
+        checkbox = f"input[type=\"checkbox\"][name=\"{reference_number}\"] "
+        checkbox_label = f"label[name=label-{reference_number}] "
+
+        checkbox_is_checked = await self.page.is_checked(checkbox)
+        # checkbox_is_disabled = await self.page.locator(checkbox).is_disabled()
+        checkbox_label_text = await self.page.locator(checkbox_label).inner_text()
+
+        # assert_equal(checkbox_is_disabled, True)
+        assert_equal(checkbox_is_checked, True)
+        assert_equal(checkbox_label_text, "Registered new case")
+
+    async def check_case_is_not_registered(self, reference_number: str):
+        checkbox_label = f"label[id=\"label-{reference_number}\"]"
+        checkbox_label_text = await self.page.locator(checkbox_label).inner_text()
+
+        assert_equal(checkbox_label_text, "Register new case")
+
+    async def button_disabled(self, field: str):
+        button_locator = self.page.locator(f'button#{field}')
+
+        class_attribute = await button_locator.get_attribute('class')
+
+        is_disabled_by_class = class_attribute and "govuk-button--disabled" in class_attribute
+        is_disabled_by_attribute = await button_locator.get_attribute('disabled') is not None
+
+        is_disabled = is_disabled_by_class and is_disabled_by_attribute
+
+        assert_equal(is_disabled, True)
+
+    async def button_enabled(self, field: str):
+        button_locator = self.page.locator(f'button#{field}')
+
+        class_attribute = await button_locator.get_attribute('class')
+
+        is_enabled_by_class = class_attribute and "govuk-button--disabled" not in class_attribute
+        is_enabled_by_attribute = await button_locator.get_attribute('disabled') is None
+
+        is_enabled = is_enabled_by_class and is_enabled_by_attribute
+
+        assert_equal(is_enabled, True)
 
 
 def get_url_path(url: str):
