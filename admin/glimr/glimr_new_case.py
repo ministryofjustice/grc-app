@@ -82,7 +82,7 @@ class GlimrNewCase:
             'contactSalutation': self.get_salutation(),
             'contactLastName': self.personal_details.last_name,
             'contactPreference': self.get_contact_preference(),
-            'phone': self.personal_details.contact_phone_number,
+            'contactPhone': self.personal_details.contact_phone_number,
             'contactEmail': self.personal_details.contact_email_address,
             'contactCity': self.personal_details.address_town_city,
             'contactPostalCode': self.personal_details.address_postcode,
