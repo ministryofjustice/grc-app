@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
+{% import "applications/applications-error.html" as applications_error %}
+
 {% block title %}GRC applications{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
+
+            {{ applications_error.renderError() }}
 
             <h1 class="govuk-heading-l">
                 View and download GRC applications
