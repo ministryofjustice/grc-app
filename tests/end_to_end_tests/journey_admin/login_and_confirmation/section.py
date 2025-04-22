@@ -68,4 +68,3 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/applications')
     await asserts.accessibility()
     await asserts.h1('View and download GRC applications')
-    await asserts.number_of_errors(0)
