@@ -107,7 +107,7 @@ class AccessibilityChecks:
                 print_coloured(f"|  |  |  Error Summary link with target {link_href} but there is no element with id=\"{link_href}\"", error=True)
             assert link_target_element_found
             link_target_tag_name = await page.locator('#' + link_target_id).evaluate("e => e.tagName.toLowerCase()")
-            if link_target_tag_name != 'input' and link_target_tag_name != 'textarea':
+            if link_target_tag_name != 'input' and link_target_tag_name != 'textarea' and link_target_tag_name != 'a':
                 print_coloured(f"|  |  |  Error Summary link with target {link_href} should point to an <input> but actually points to a <{link_target_tag_name}>", error=True)
             assert link_target_tag_name == 'input' or link_target_tag_name == 'textarea'
 

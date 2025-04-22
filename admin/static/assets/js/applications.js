@@ -206,9 +206,6 @@ async function submitNewCaseRegistration() {
 
         if (response.ok) {
             if (failedCases.length > 0) {
-                failedCases.forEach((failedCase) => {
-                    console.log(`Error case: ${failedCase}`);
-                });
                 setApplicationErrorTrue(errorMessage);
             } else {
                 setApplicationErrorFalse(errorMessage);
