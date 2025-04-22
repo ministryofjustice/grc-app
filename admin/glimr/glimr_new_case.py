@@ -113,16 +113,16 @@ class GlimrNewCase:
         return self.format_date(datetime.today())
 
     def get_display_name(self) -> str:
-        return self.personal_details.last_name+", "+self.personal_details.title+" "+self.personal_details.first_name
+        return str(self.personal_details.last_name) + ", " + str(self.personal_details.title) + " " + str(self.personal_details.first_name)
 
     def get_first_names(self) -> str:
-        return self.personal_details.title+" "+self.personal_details.first_name+" "+self.personal_details.middle_names
+        return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.middle_names)
 
     def get_full_name(self) -> str:
-        return self.personal_details.title+" "+self.personal_details.first_name+" "+self.personal_details.last_name
+        return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.last_name)
 
     def get_salutation(self) -> str:
-        return self.personal_details.title+" "+self.personal_details.last_name
+        return str(self.personal_details.title) + " " + str(self.personal_details.last_name)
 
     def get_contact_preference(self) -> Optional[str]:
         if self.personal_details.contact_email_address:
@@ -134,7 +134,7 @@ class GlimrNewCase:
         return None
 
     def get_contact_street(self) -> str:
-        return self.personal_details.address_line_one+", "+self.personal_details.address_line_two
+        return str(self.personal_details.address_line_one)+", "+str(self.personal_details.address_line_two)
 
     def format_date(self, date: datetime) -> str:
         return date.strftime("%d/%m/%y")

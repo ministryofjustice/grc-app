@@ -1,4 +1,5 @@
 let loadingRegister = false;
+let applicationError = false;
 let applicationsChecked = [];
 let submitButton = document.getElementById('submit-selected-apps-btn-new');
 
@@ -160,6 +161,19 @@ function setLoadingFalse(spinner) {
     spinner.style.display = 'None';
 }
 
+function setApplicationErrorTrue(errorMessage) {
+    applicationError = true;
+    errorMessage.style.display = 'block';
+    window.scrollTo({
+      top: 0,
+    });
+}
+
+function setApplicationErrorFalse(errorMessage) {
+    applicationError = false;
+    errorMessage.style.display = 'None';
+}
+
 /**
 Submits the selected applications for case registration and handles the GLiMR api call
 **/
@@ -173,6 +187,7 @@ async function submitNewCaseRegistration() {
     }
 
     const spinner = document.getElementById('spinner');
+    const errorMessage = document.getElementById('errorMessage');
     setLoadingTrue(spinner);
 
     try {
@@ -191,9 +206,9 @@ async function submitNewCaseRegistration() {
 
         if (response.ok) {
             if (failedCases.length > 0) {
-                failedCases.forEach((failedCase) => {
-                    console.log(`Error case: ${failedCase}`);
-                });
+                setApplicationErrorTrue(errorMessage);
+            } else {
+                setApplicationErrorFalse(errorMessage);
             }
 
             if (processedCases.length > 0) {
@@ -210,7 +225,7 @@ async function submitNewCaseRegistration() {
         }
 
     } catch (fetchError) {
-        console.error('Fetch error:', fetchError);
+        setApplicationErrorTrue(errorMessage);
     } finally {
         setLoadingFalse(spinner);
     }

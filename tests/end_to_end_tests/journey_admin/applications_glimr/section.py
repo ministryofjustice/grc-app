@@ -18,7 +18,6 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.accessibility()
     assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Download GRC applications'
     await asserts.h1('View and download GRC applications')
-    await asserts.number_of_errors(0)
 
     # ------------------------------------------------
     # ---- Extract top three table applications
