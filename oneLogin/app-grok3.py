@@ -9,6 +9,7 @@ import json
 import time
 import uuid
 from urllib.parse import urlencode
+from jose import jwk
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -29,8 +30,8 @@ class Config:
     SCOPE = "openid phone email"
     TOKEN_AUTH_METHOD = "private_key_jwt"
     REQUIRE_JAR = False
-    IV_ISSUER = "https://identity-verifier.com"
-    IDENTITY_VTR = "P2.Cl.Cm"  # Default, but we'll override for auth-only
+    IV_ISSUER = "https://identity.integration.account.gov.uk/"
+    IDENTITY_VTR = "P2.Cl.Cm"
     IMMEDIATE_REDIRECT = True
     IDENTITY_SUPPORTED = True
 
@@ -88,7 +89,7 @@ def create_request_object(vtr="Cl.Cm"):
         "scope": config.SCOPE,
         "state": state,
         "nonce": nonce,
-        "vtr": [vtr],  # Dynamic vtr based on button
+        "vtr": [vtr],
         "ui_locales": "en",
         "claims": {
             "userinfo": {
@@ -147,8 +148,23 @@ oauth.register(
 )
 
 def get_identity_signing_public_key(kid):
-    with open("path/to/public_key.pem", "rb") as key_file:
-        return serialization.load_pem_public_key(key_file.read())
+    did_url = "https://identity.integration.account.gov.uk/.well-known/did.json"
+    response = requests.get(did_url)
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch DID document: {response.status_code}")
+    did_doc = response.json()
+
+    logger.debug(f"Searching for kid: {kid}")
+    for assertion_method in did_doc.get("assertionMethod", []):
+        assertion_id = assertion_method["id"]
+        logger.debug(f"Checking assertionMethod id: {assertion_id}")
+        if assertion_id == kid:
+            jwk_data = assertion_method["publicKeyJwk"]
+            if jwk_data["kty"] == "EC" and jwk_data["alg"] == "ES256":
+                key = jwk.construct(jwk_data, algorithm="ES256")
+                public_key_pem = key.to_pem()
+                return serialization.load_pem_public_key(public_key_pem)
+    raise Exception(f"No matching EC key found for kid: {kid}")
 
 @app.route("/")
 def index():
@@ -156,7 +172,20 @@ def index():
 
 @app.route("/authorize/auth-only")
 def authorize_auth_only():
-    request_object = create_request_object(vtr="Cl.Cm")  # Authentication only
+    request_object = create_request_object(vtr="Cl.Cm")
+    auth_params = {
+        "response_type": "code",
+        "scope": config.SCOPE,
+        "client_id": config.CLIENT_ID,
+        "request": request_object
+    }
+    auth_url = f"{metadata['authorization_endpoint']}?{urlencode(auth_params)}"
+    logger.debug(f"Redirecting to {auth_url}")
+    return redirect(auth_url)
+
+@app.route("/authorize/prove-identity")
+def authorize_prove_identity():
+    request_object = create_request_object(vtr="P2.Cl.Cm")
     auth_params = {
         "response_type": "code",
         "scope": config.SCOPE,
@@ -207,22 +236,44 @@ def callback():
             logger.debug(f"Core Identity JWT: {core_identity_jwt}")
             header = jwt.get_unverified_header(core_identity_jwt)
             kid = header["kid"]
-            public_key = get_identity_signing_public_key(kid)
-            core_identity_payload = jwt.decode(
+            logger.debug(f"JWT Header: {header}")
+            unverified_claims = jwt.decode(
                 core_identity_jwt,
-                public_key,
-                algorithms=["RS256"],
-                issuer=config.IV_ISSUER
+                options={"verify_signature": False, "verify_aud": False, "verify_iss": False}
             )
-            vtr_to_check = config.IDENTITY_VTR.replace(r"[.Clm]", "") if config.IDENTITY_VTR else None
+            logger.debug(f"Unverified coreIdentityJWT claims: {json.dumps(unverified_claims, indent=2)}")
+            public_key = get_identity_signing_public_key(kid)
+            try:
+                core_identity_payload = jwt.decode(
+                    core_identity_jwt,
+                    public_key,
+                    algorithms=["ES256"],
+                    issuer=config.IV_ISSUER,
+                    audience=config.CLIENT_ID
+                )
+            except jwt.InvalidAudienceError as e:
+                logger.error(f"JWT Invalid Audience Error: {e}, expected: {config.CLIENT_ID}, claims: {unverified_claims}")
+                raise
+            except jwt.InvalidIssuerError as e:
+                logger.error(f"JWT Invalid Issuer Error: {e}, expected: {config.IV_ISSUER}, claims: {unverified_claims}")
+                raise
+            except jwt.PyJWTError as e:
+                logger.error(f"JWT Decode Error: {e}, claims: {unverified_claims}")
+                raise
+
+            vtr_to_check = config.IDENTITY_VTR.split(".")[0] if config.IDENTITY_VTR else None  # Extract P2
+            logger.debug(f"Comparing vot: {core_identity_payload.get('vot')} against expected: {vtr_to_check}")
             if core_identity_payload["sub"] != id_token_sub or core_identity_payload["sub"] != userinfo["sub"]:
+                logger.error(f"Sub mismatch: core_identity sub: {core_identity_payload['sub']}, id_token sub: {id_token_sub}, userinfo sub: {userinfo['sub']}")
                 raise Exception("coreIdentityJWTValidationFailed: unexpected 'sub' claim value")
             if core_identity_payload["aud"] != config.CLIENT_ID:
+                logger.error(f"Audience mismatch: expected {config.CLIENT_ID}, got {core_identity_payload['aud']}")
                 raise Exception("coreIdentityJWTValidationFailed: unexpected 'aud' claim value")
             if vtr_to_check and core_identity_payload["vot"] != vtr_to_check:
                 error_msg = f"coreIdentityJWTValidationFailed: unexpected 'vot' claim value {core_identity_payload['vot']}, expected {vtr_to_check}"
                 if return_code_value:
                     error_msg += f", returnCode value was {json.dumps(return_code_value)}"
+                logger.error(error_msg)
                 raise Exception(error_msg)
 
         session["user"] = {
@@ -234,7 +285,6 @@ def callback():
             "return_code": return_code_value
         }
 
-        # Always redirect to verify for auth-only to display userinfo
         return redirect(url_for("verify"))
 
     except Exception as e:
@@ -248,7 +298,10 @@ def home():
 @app.route("/verify")
 def verify():
     user = session.get("user", {})
-    return render_template("verify.html", userinfo=user.get("userinfo", {}))
+    return render_template("verify.html",
+                           userinfo=user.get("userinfo", {}),
+                           core_identity=user.get("core_identity", None),
+                           return_code=user.get("return_code", None))
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
