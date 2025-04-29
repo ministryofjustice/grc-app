@@ -94,7 +94,7 @@ def create_jwt_assertion():
         private_key = f.read()
     return jwt.encode(payload, private_key, algorithm="RS256")
 
-def create_request_object(vtr="Cl.Cm"):
+def create_request_object(vtr="Cl.Cm", prompt=None):
     nonce = str(uuid.uuid4())
     state = str(uuid.uuid4())
     session["nonce"] = nonce
@@ -124,6 +124,9 @@ def create_request_object(vtr="Cl.Cm"):
         "ui_locales": "en",
         "claims": claims
     }
+    if prompt:
+        request_payload["prompt"] = prompt
+
     with open(config.PRIVATE_KEY_PATH, "rb") as f:
         private_key = f.read()
     request_jwt = jwt.encode(request_payload, private_key, algorithm="RS256")
@@ -221,6 +224,19 @@ def authorize_prove_identity():
     logger.debug(f"Redirecting to {auth_url}")
     return redirect(auth_url)
 
+@app.route("/authorize/silent-prove-identity")
+def authorize_silent_prove_identity():
+    request_object = create_request_object(vtr="P2.Cl.Cm", prompt="none")
+    auth_params = {
+        "response_type": "code",
+        "scope": config.SCOPE,
+        "client_id": config.CLIENT_ID,
+        "request": request_object
+    }
+    auth_url = f"{metadata['authorization_endpoint']}?{urlencode(auth_params)}"
+    logger.debug(f"Redirecting to silent auth URL: {auth_url}")
+    return redirect(auth_url)
+
 @app.route("/oidc/authorization-code/callback")
 def callback():
     try:
@@ -228,6 +244,10 @@ def callback():
         if "error" in request.args:
             error = request.args["error"]
             desc = request.args.get("error_description", "")
+            logger.error(f"Callback error: {error} - {desc}")
+            if error == "login_required" and "silent" in request.url:
+                logger.info("Silent auth failed, redirecting to full prove-identity")
+                return redirect(url_for("authorize_prove_identity"))
             raise Exception(f"{error} - {desc}")
 
         nonce = session.get("nonce")
@@ -240,6 +260,7 @@ def callback():
 
         id_token = token.get("id_token")
         access_token = token.get("access_token")
+        vtr = session.get("vtr", "Cl.Cm")  # Default to Cl.Cm if not set
         id_token_header = jwt.get_unverified_header(id_token)
         logger.debug(f"ID Token Header: {id_token_header}")
         algorithm = id_token_header.get("alg", "ES256")
@@ -322,9 +343,10 @@ def callback():
 
         session["user"] = {
             "sub": id_token_sub,
-            "id_token_raw": id_token,  # Store raw id_token string
+            "id_token_raw": id_token,
             "id_token": id_token_claims,
-            "access_token": jwt.decode(access_token, options={"verify_signature": False, "verify_aud": False}),
+            "access_token": access_token,
+            "vtr": vtr,  # Store vtr to track Proven Identity
             "userinfo": userinfo,
             "core_identity": core_identity_payload,
             "return_code": return_code_value
@@ -348,10 +370,63 @@ def verify():
                            core_identity=user.get("core_identity", None),
                            return_code=user.get("return_code", None))
 
+@app.route("/userinfo/silent")
+def userinfo_silent():
+    try:
+        if "user" not in session or "access_token" not in session["user"]:
+            logger.info("No access_token in session, redirecting to prove-identity")
+            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            return redirect(url_for("authorize_prove_identity"))
+
+        access_token = session["user"]["access_token"]
+        vtr = session["user"].get("vtr", "Cl.Cm")
+        logger.debug(f"Current vtr: {vtr}")
+
+        # Check if Proven Identity was requested
+        if vtr != "P2.Cl.Cm":
+            logger.info("Access token lacks Proven Identity, redirecting to prove-identity")
+            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            return redirect(url_for("authorize_prove_identity"))
+
+        # Check access_token expiration (if JWT)
+        try:
+            unverified_claims = jwt.decode(access_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.debug(f"Unverified access_token claims: {json.dumps(unverified_claims, indent=2)}")
+            exp = unverified_claims.get("exp")
+            if exp and exp < int(time.time()):
+                logger.warning(f"Access token expired: exp={exp}, now={int(time.time())}")
+                session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+                return redirect(url_for("authorize_prove_identity"))
+        except jwt.PyJWTError as e:
+            logger.error(f"Failed to decode access_token: {e}")
+            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            return redirect(url_for("authorize_prove_identity"))
+
+        userinfo = fetch_user_info(access_token)
+        session["user"]["userinfo"] = userinfo
+        if "https://vocab.account.gov.uk/v1/coreIdentityJWT" in userinfo:
+            core_identity_jwt = userinfo["https://vocab.account.gov.uk/v1/coreIdentityJWT"]
+            header = jwt.get_unverified_header(core_identity_jwt)
+            kid = header["kid"]
+            public_key = get_identity_signing_public_key(kid)
+            core_identity_payload = jwt.decode(
+                core_identity_jwt,
+                public_key,
+                algorithms=["ES256"],
+                issuer=config.IV_ISSUER,
+                audience=config.CLIENT_ID
+            )
+            session["user"]["core_identity"] = core_identity_payload
+
+        return redirect(url_for("verify"))
+
+    except Exception as e:
+        logger.error(f"Error in userinfo_silent: {e}")
+        return str(e), 500
+
 @app.route("/logout")
 def logout():
     try:
-        # Get id_token from session or cookie
         id_token = None
         if "user" in session and "id_token_raw" in session["user"]:
             id_token = session["user"]["id_token_raw"]
@@ -367,7 +442,6 @@ def logout():
             response.set_cookie("id-token", "", expires=0)
             return response
 
-        # Validate id_token expiration
         try:
             unverified_claims = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
             logger.debug(f"Unverified id_token claims: {json.dumps(unverified_claims, indent=2)}")
@@ -385,11 +459,9 @@ def logout():
             response.set_cookie("id-token", "", expires=0)
             return response
 
-        # Generate state for CSRF protection
         logout_state = str(uuid.uuid4())
         session["logout_state"] = logout_state
 
-        # Construct logout URL
         logout_params = {
             "id_token_hint": id_token,
             "post_logout_redirect_uri": config.POST_LOGOUT_REDIRECT_URI,
@@ -407,14 +479,12 @@ def logout():
 @app.route("/signed-out")
 def signed_out():
     try:
-        # Verify state parameter for CSRF protection
         state = request.args.get("state")
         expected_state = session.get("logout_state")
         if state and expected_state and state != expected_state:
             logger.error(f"State mismatch: expected {expected_state}, got {state}")
             raise Exception("Invalid state parameter")
 
-        # Clear session and cookie
         session.clear()
         response = app.make_response(render_template("signed_out.html"))
         response.set_cookie("id-token", "", expires=0)
