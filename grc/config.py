@@ -43,6 +43,11 @@ class Config:
     SENTRY_URL = os.environ.get("SENTRY_URL")
     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
 
+    #ONE LOGIN
+    ONE_LOGIN_DISCOVERY_URL = os.environ.get("ONE_LOGIN_DISCOVERY_URL")
+    ONE_LOGIN_CLIENT_ID = os.environ.get("ONE_LOGIN_CLIENT_ID")
+    ONE_LOGIN_PRIVATE_KEY = os.environ.get("ONE_LOGIN_PRIVATE_KEY")
+    ONE_LOGIN_REDIRECT_URI = os.environ.get("ONE_LOGIN_REDIRECT_URI")
 
 class TestConfig(Config):
     TESTING = True
