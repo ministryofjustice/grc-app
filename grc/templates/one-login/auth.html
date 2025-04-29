@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}GOV.UK One Login Test{% endblock %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">Welcome to GOV.UK One Login Test</h1>
+    <p class="govuk-body">Please choose an action:</p>
+    <button class="govuk-button govuk-!-margin-bottom-0" onclick="window.location.href='/onelogin/authenticate'">Authenticate Only</button>
+    <button class="govuk-button govuk-!-margin-bottom-0" onclick="window.location.href='/onelogin/identify'">Prove Identity</button>
+{% endblock %}

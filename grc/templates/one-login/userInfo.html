@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}One Login - Callback{% endblock %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">You are authenticated</h1>
+    <p class="govuk-body">email: {{ email }}</p>
+    <p class="govuk-body">phone: {{ phone }}</p>
+
+
+{% endblock %}
