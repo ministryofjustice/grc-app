@@ -2,11 +2,69 @@
 <html>
 <head>
     <title>Verification Result</title>
+    <style>
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        h2 { margin-top: 20px; }
+        table { border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
 </head>
 <body>
 <h1>Verification Result</h1>
+
 <h2>User Info</h2>
-<pre>{{ userinfo | tojson(indent=2) }}</pre>
+<table>
+    <tr><th>Email</th><td>{{ userinfo.email or 'N/A' }}</td></tr>
+    <tr><th>Phone</th><td>{{ userinfo.phone_number or 'N/A' }}</td></tr>
+    <tr><th>Address</th><td>
+        {% if userinfo['https://vocab.account.gov.uk/v1/address'] %}
+        {{ userinfo['https://vocab.account.gov.uk/v1/address'][0].buildingNumber }}
+        {{ userinfo['https://vocab.account.gov.uk/v1/address'][0].streetName }},
+        {{ userinfo['https://vocab.account.gov.uk/v1/address'][0].addressLocality }},
+        {{ userinfo['https://vocab.account.gov.uk/v1/address'][0].postalCode }}
+        {% else %}
+        N/A
+        {% endif %}
+    </td></tr>
+    <tr><th>Driving Permit</th><td>
+        {% if userinfo['https://vocab.account.gov.uk/v1/drivingPermit'] %}
+        {% for permit in userinfo['https://vocab.account.gov.uk/v1/drivingPermit'] %}
+        Personal Number: {{ permit.personalNumber or 'N/A' }},
+        Expiry Date: {{ permit.expiryDate or 'N/A' }},
+        Issue Number: {{ permit.issueNumber or 'N/A' }},
+        Issued By: {{ permit.issuedBy or 'N/A' }}{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+        {% else %}
+        N/A
+        {% endif %}
+    </td></tr>
+    <tr><th>Passport</th><td>
+        {% if userinfo['https://vocab.account.gov.uk/v1/passport'] %}
+        {% for passport in userinfo['https://vocab.account.gov.uk/v1/passport'] %}
+        Document Number: {{ passport.documentNumber or 'N/A' }},
+        Expiry Date: {{ passport.expiryDate or 'N/A' }},
+        ICAO Issuer Code: {{ passport.icaoIssuerCode or 'N/A' }}{% if not loop.last %}<br>{% endif %}
+        {% endfor %}
+        {% else %}
+        N/A
+        {% endif %}
+    </td></tr>
+    <tr><th>Return Code</th><td>{{ return_code | tojson(indent=2) if return_code else "None" }}</td></tr>
+</table>
+
+<h2>Core Identity Claims</h2>
+{% if core_identity %}
+<table>
+    <tr><th>Name</th><td>{{ core_identity.vc.credentialSubject.name[0].nameParts | map(attribute='value') | join(' ') }}</td></tr>
+    <tr><th>Date of Birth</th><td>{{ core_identity.vc.credentialSubject.birthDate[0].value }}</td></tr>
+    <tr><th>VOT</th><td>{{ core_identity.vot }}</td></tr>
+    <tr><th>Subject ID</th><td>{{ core_identity.sub }}</td></tr>
+</table>
+{% else %}
+<p>No identity claims available.</p>
+{% endif %}
+
 <p><a href="/">Back to Home</a></p>
 </body>
 </html>

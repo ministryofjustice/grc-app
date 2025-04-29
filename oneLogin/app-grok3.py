@@ -23,10 +23,11 @@ app.secret_key = "your-secret-key"
 oauth = OAuth(app)
 
 class Config:
-    ISSUER = "https://oidc.integration.account.gov.uk"
-    CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"  # Replace with your actual client_id
+    ISSUER = "https://oidc.integration.account.gov.uk/"
+    CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"
     PRIVATE_KEY_PATH = "grc-onelogin-private.pem"
     REDIRECT_URI = "http://localhost:5000/oidc/authorization-code/callback"
+    POST_LOGOUT_REDIRECT_URI = "http://localhost:5000/signed-out"
     SCOPE = "openid phone email"
     TOKEN_AUTH_METHOD = "private_key_jwt"
     REQUIRE_JAR = False
@@ -60,6 +61,25 @@ except Exception as e:
     logger.error(f"Failed to load private key: {e}")
     raise
 
+def get_jwks_public_key(kid, algorithm):
+    jwks_url = metadata["jwks_uri"]
+    response = requests.get(jwks_url)
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch JWKS: {response.status_code}")
+    jwks = response.json()
+    logger.debug(f"JWKS keys: {json.dumps(jwks['keys'], indent=2)}")
+    for key in jwks["keys"]:
+        if key["kid"] == kid:
+            if key["kty"] == "EC" and algorithm == "ES256":
+                jwk_key = jwk.construct(key, algorithm="ES256")
+                public_key_pem = jwk_key.to_pem()
+                return serialization.load_pem_public_key(public_key_pem)
+            elif key["kty"] == "RSA" and algorithm == "RS256":
+                jwk_key = jwk.construct(key, algorithm="RS256")
+                public_key_pem = jwk_key.to_pem()
+                return serialization.load_pem_public_key(public_key_pem)
+    raise Exception(f"No matching key found for kid: {kid}, algorithm: {algorithm}")
+
 def create_jwt_assertion():
     now = int(time.time())
     payload = {
@@ -80,6 +100,17 @@ def create_request_object(vtr="Cl.Cm"):
     session["nonce"] = nonce
     session["state"] = state
 
+    claims = {
+        "userinfo": {
+            "https://vocab.account.gov.uk/v1/coreIdentityJWT": None,
+            "https://vocab.account.gov.uk/v1/address": None,
+            "https://vocab.account.gov.uk/v1/returnCode": None
+        }
+    }
+    if vtr == "P2.Cl.Cm":
+        claims["userinfo"]["https://vocab.account.gov.uk/v1/drivingPermit"] = None
+        claims["userinfo"]["https://vocab.account.gov.uk/v1/passport"] = None
+
     request_payload = {
         "aud": "https://oidc.integration.account.gov.uk/authorize",
         "iss": config.CLIENT_ID,
@@ -91,18 +122,12 @@ def create_request_object(vtr="Cl.Cm"):
         "nonce": nonce,
         "vtr": [vtr],
         "ui_locales": "en",
-        "claims": {
-            "userinfo": {
-                "https://vocab.account.gov.uk/v1/coreIdentityJWT": None,
-                "https://vocab.account.gov.uk/v1/address": None,
-                "https://vocab.account.gov.uk/v1/returnCode": None
-            }
-        }
+        "claims": claims
     }
     with open(config.PRIVATE_KEY_PATH, "rb") as f:
         private_key = f.read()
     request_jwt = jwt.encode(request_payload, private_key, algorithm="RS256")
-    logger.debug(f"Created request object: {request_payload}")
+    logger.debug(f"Created request object: {json.dumps(request_payload, indent=2)}")
     return request_jwt
 
 def fetch_token(code):
@@ -215,11 +240,30 @@ def callback():
 
         id_token = token.get("id_token")
         access_token = token.get("access_token")
-        id_token_claims = jwt.decode(
-            id_token,
-            options={"verify_signature": False, "verify_aud": False}
-        )
+        id_token_header = jwt.get_unverified_header(id_token)
+        logger.debug(f"ID Token Header: {id_token_header}")
+        algorithm = id_token_header.get("alg", "ES256")
+        id_token_public_key = get_jwks_public_key(id_token_header["kid"], algorithm)
+        try:
+            id_token_claims = jwt.decode(
+                id_token,
+                id_token_public_key,
+                algorithms=[algorithm],
+                issuer=config.ISSUER,
+                audience=config.CLIENT_ID
+            )
+        except jwt.InvalidIssuerError as e:
+            logger.error(f"ID Token Invalid Issuer Error: {e}, expected: {config.ISSUER}")
+            unverified_id_token = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.debug(f"Unverified id_token claims: {json.dumps(unverified_id_token, indent=2)}")
+            raise
+        except jwt.PyJWTError as e:
+            logger.error(f"ID Token Decode Error: {e}")
+            unverified_id_token = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.debug(f"Unverified id_token claims: {json.dumps(unverified_id_token, indent=2)}")
+            raise
         if id_token_claims.get("nonce") != nonce:
+            logger.error(f"Nonce mismatch: expected {nonce}, got {id_token_claims.get('nonce')}")
             raise Exception("Nonce mismatch")
 
         response = app.make_response("Processing complete")
@@ -261,7 +305,7 @@ def callback():
                 logger.error(f"JWT Decode Error: {e}, claims: {unverified_claims}")
                 raise
 
-            vtr_to_check = config.IDENTITY_VTR.split(".")[0] if config.IDENTITY_VTR else None  # Extract P2
+            vtr_to_check = config.IDENTITY_VTR.split(".")[0] if config.IDENTITY_VTR else None
             logger.debug(f"Comparing vot: {core_identity_payload.get('vot')} against expected: {vtr_to_check}")
             if core_identity_payload["sub"] != id_token_sub or core_identity_payload["sub"] != userinfo["sub"]:
                 logger.error(f"Sub mismatch: core_identity sub: {core_identity_payload['sub']}, id_token sub: {id_token_sub}, userinfo sub: {userinfo['sub']}")
@@ -278,6 +322,7 @@ def callback():
 
         session["user"] = {
             "sub": id_token_sub,
+            "id_token_raw": id_token,  # Store raw id_token string
             "id_token": id_token_claims,
             "access_token": jwt.decode(access_token, options={"verify_signature": False, "verify_aud": False}),
             "userinfo": userinfo,
@@ -302,6 +347,83 @@ def verify():
                            userinfo=user.get("userinfo", {}),
                            core_identity=user.get("core_identity", None),
                            return_code=user.get("return_code", None))
+
+@app.route("/logout")
+def logout():
+    try:
+        # Get id_token from session or cookie
+        id_token = None
+        if "user" in session and "id_token_raw" in session["user"]:
+            id_token = session["user"]["id_token_raw"]
+            logger.debug(f"Using id_token from session: {id_token[:50]}...")
+        elif request.cookies.get("id-token"):
+            id_token = request.cookies.get("id-token")
+            logger.debug(f"Using id_token from cookie: {id_token[:50]}...")
+
+        if not id_token:
+            logger.info("No id_token found, clearing local session")
+            session.clear()
+            response = app.make_response(redirect(url_for("signed_out")))
+            response.set_cookie("id-token", "", expires=0)
+            return response
+
+        # Validate id_token expiration
+        try:
+            unverified_claims = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.debug(f"Unverified id_token claims: {json.dumps(unverified_claims, indent=2)}")
+            exp = unverified_claims.get("exp")
+            if exp and exp < int(time.time()):
+                logger.warning(f"id_token expired: exp={exp}, now={int(time.time())}")
+                session.clear()
+                response = app.make_response(redirect(url_for("signed_out")))
+                response.set_cookie("id-token", "", expires=0)
+                return response
+        except jwt.PyJWTError as e:
+            logger.error(f"Failed to decode id_token: {e}")
+            session.clear()
+            response = app.make_response(redirect(url_for("signed_out")))
+            response.set_cookie("id-token", "", expires=0)
+            return response
+
+        # Generate state for CSRF protection
+        logout_state = str(uuid.uuid4())
+        session["logout_state"] = logout_state
+
+        # Construct logout URL
+        logout_params = {
+            "id_token_hint": id_token,
+            "post_logout_redirect_uri": config.POST_LOGOUT_REDIRECT_URI,
+            "state": logout_state
+        }
+        logout_url = f"{config.ISSUER}logout?{urlencode(logout_params)}"
+        logger.debug(f"Redirecting to logout URL: {logout_url}")
+
+        return redirect(logout_url)
+
+    except Exception as e:
+        logger.error(f"Error in logout: {e}")
+        return str(e), 500
+
+@app.route("/signed-out")
+def signed_out():
+    try:
+        # Verify state parameter for CSRF protection
+        state = request.args.get("state")
+        expected_state = session.get("logout_state")
+        if state and expected_state and state != expected_state:
+            logger.error(f"State mismatch: expected {expected_state}, got {state}")
+            raise Exception("Invalid state parameter")
+
+        # Clear session and cookie
+        session.clear()
+        response = app.make_response(render_template("signed_out.html"))
+        response.set_cookie("id-token", "", expires=0)
+        logger.info("User session cleared after logout")
+        return response
+
+    except Exception as e:
+        logger.error(f"Error in signed-out: {e}")
+        return str(e), 500
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
