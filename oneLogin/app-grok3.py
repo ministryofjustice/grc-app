@@ -10,6 +10,7 @@ import time
 import uuid
 from urllib.parse import urlencode
 from jose import jwk
+from cachetools import TTLCache
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -19,15 +20,22 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = "your-secret-key"
+app.secret_key = "your-secret-key"  # Ensure this is stable
+app.config["SESSION_COOKIE_SECURE"] = True  # Require HTTPS for cookies
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  # Prevent CSRF
+
 oauth = OAuth(app)
+
+# JWKS cache: TTL = 24 hours (86400 seconds)
+jwks_cache = TTLCache(maxsize=1, ttl=86400)
 
 class Config:
     ISSUER = "https://oidc.integration.account.gov.uk/"
     CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"
     PRIVATE_KEY_PATH = "grc-onelogin-private.pem"
-    REDIRECT_URI = "http://localhost:5000/oidc/authorization-code/callback"
-    POST_LOGOUT_REDIRECT_URI = "http://localhost:5000/signed-out"
+    REDIRECT_URI = "https://47d4-88-97-230-22.ngrok-free.app/oidc/authorization-code/callback"
+    POST_LOGOUT_REDIRECT_URI = "https://47d4-88-97-230-22.ngrok-free.app/signed-out"
+    BACK_CHANNEL_LOGOUT_URI = "https://47d4-88-97-230-22.ngrok-free.app/back-channel-logout"
     SCOPE = "openid phone email"
     TOKEN_AUTH_METHOD = "private_key_jwt"
     REQUIRE_JAR = False
@@ -61,13 +69,23 @@ except Exception as e:
     logger.error(f"Failed to load private key: {e}")
     raise
 
-def get_jwks_public_key(kid, algorithm):
+def get_jwks():
     jwks_url = metadata["jwks_uri"]
+    if "jwks" in jwks_cache:
+        logger.debug("JWKS cache hit")
+        return jwks_cache["jwks"]
+
+    logger.debug("JWKS cache miss, fetching from %s", jwks_url)
     response = requests.get(jwks_url)
     if response.status_code != 200:
         raise Exception(f"Failed to fetch JWKS: {response.status_code}")
     jwks = response.json()
     logger.debug(f"JWKS keys: {json.dumps(jwks['keys'], indent=2)}")
+    jwks_cache["jwks"] = jwks
+    return jwks
+
+def get_jwks_public_key(kid, algorithm):
+    jwks = get_jwks()
     for key in jwks["keys"]:
         if key["kid"] == kid:
             if key["kty"] == "EC" and algorithm == "ES256":
@@ -99,6 +117,7 @@ def create_request_object(vtr="Cl.Cm", prompt=None):
     state = str(uuid.uuid4())
     session["nonce"] = nonce
     session["state"] = state
+    logger.debug(f"Created session - nonce: {nonce}, state: {state}")
 
     claims = {
         "userinfo": {
@@ -196,10 +215,12 @@ def get_identity_signing_public_key(kid):
 
 @app.route("/")
 def index():
+    logger.debug(f"Session at index: {session}")
     return render_template("index.html")
 
 @app.route("/authorize/auth-only")
 def authorize_auth_only():
+    session["vtr"] = "Cl.Cm"
     request_object = create_request_object(vtr="Cl.Cm")
     auth_params = {
         "response_type": "code",
@@ -213,6 +234,7 @@ def authorize_auth_only():
 
 @app.route("/authorize/prove-identity")
 def authorize_prove_identity():
+    session["vtr"] = "P2.Cl.Cm"
     request_object = create_request_object(vtr="P2.Cl.Cm")
     auth_params = {
         "response_type": "code",
@@ -226,6 +248,7 @@ def authorize_prove_identity():
 
 @app.route("/authorize/silent-prove-identity")
 def authorize_silent_prove_identity():
+    session["vtr"] = "P2.Cl.Cm"
     request_object = create_request_object(vtr="P2.Cl.Cm", prompt="none")
     auth_params = {
         "response_type": "code",
@@ -241,6 +264,7 @@ def authorize_silent_prove_identity():
 def callback():
     try:
         logger.info("Back in callback")
+        logger.debug(f"Session at callback: {session}")
         if "error" in request.args:
             error = request.args["error"]
             desc = request.args.get("error_description", "")
@@ -252,6 +276,11 @@ def callback():
 
         nonce = session.get("nonce")
         state = session.get("state")
+        if not nonce:
+            logger.error("No nonce in session")
+            raise Exception("Missing nonce in session")
+        logger.debug(f"Expected nonce: {nonce}, state: {state}")
+
         code = request.args.get("code")
         if not code:
             raise Exception("No code received in callback")
@@ -260,7 +289,7 @@ def callback():
 
         id_token = token.get("id_token")
         access_token = token.get("access_token")
-        vtr = session.get("vtr", "Cl.Cm")  # Default to Cl.Cm if not set
+        vtr = session.get("vtr", "Cl.Cm")
         id_token_header = jwt.get_unverified_header(id_token)
         logger.debug(f"ID Token Header: {id_token_header}")
         algorithm = id_token_header.get("alg", "ES256")
@@ -273,6 +302,11 @@ def callback():
                 issuer=config.ISSUER,
                 audience=config.CLIENT_ID
             )
+        except jwt.InvalidAudienceError as e:
+            unverified_id_token = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.error(f"Invalid audience in id_token: {e}, expected: {config.CLIENT_ID}, got: {unverified_id_token.get('aud')}")
+            logger.debug(f"Unverified id_token claims: {json.dumps(unverified_id_token, indent=2)}")
+            raise
         except jwt.InvalidIssuerError as e:
             logger.error(f"ID Token Invalid Issuer Error: {e}, expected: {config.ISSUER}")
             unverified_id_token = jwt.decode(id_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
@@ -288,7 +322,7 @@ def callback():
             raise Exception("Nonce mismatch")
 
         response = app.make_response("Processing complete")
-        response.set_cookie("id-token", id_token, httponly=True)
+        response.set_cookie("id-token", id_token, httponly=True, secure=True)
 
         userinfo = fetch_user_info(access_token)
         id_token_sub = id_token_claims["sub"]
@@ -317,10 +351,10 @@ def callback():
                     audience=config.CLIENT_ID
                 )
             except jwt.InvalidAudienceError as e:
-                logger.error(f"JWT Invalid Audience Error: {e}, expected: {config.CLIENT_ID}, claims: {unverified_claims}")
+                logger.error(f"Invalid audience in coreIdentityJWT: {e}, expected: {config.CLIENT_ID}, got: {unverified_claims.get('aud')}")
                 raise
             except jwt.InvalidIssuerError as e:
-                logger.error(f"JWT Invalid Issuer Error: {e}, expected: {config.IV_ISSUER}, claims: {unverified_claims}")
+                logger.error(f"Invalid issuer in coreIdentityJWT: {e}, expected: {config.IV_ISSUER}, claims: {unverified_claims}")
                 raise
             except jwt.PyJWTError as e:
                 logger.error(f"JWT Decode Error: {e}, claims: {unverified_claims}")
@@ -332,7 +366,7 @@ def callback():
                 logger.error(f"Sub mismatch: core_identity sub: {core_identity_payload['sub']}, id_token sub: {id_token_sub}, userinfo sub: {userinfo['sub']}")
                 raise Exception("coreIdentityJWTValidationFailed: unexpected 'sub' claim value")
             if core_identity_payload["aud"] != config.CLIENT_ID:
-                logger.error(f"Audience mismatch: expected {config.CLIENT_ID}, got {core_identity_payload['aud']}")
+                logger.error(f"Audience mismatch: expected {config.CLIENT_ID}, got: {core_identity_payload['aud']}")
                 raise Exception("coreIdentityJWTValidationFailed: unexpected 'aud' claim value")
             if vtr_to_check and core_identity_payload["vot"] != vtr_to_check:
                 error_msg = f"coreIdentityJWTValidationFailed: unexpected 'vot' claim value {core_identity_payload['vot']}, expected {vtr_to_check}"
@@ -346,7 +380,7 @@ def callback():
             "id_token_raw": id_token,
             "id_token": id_token_claims,
             "access_token": access_token,
-            "vtr": vtr,  # Store vtr to track Proven Identity
+            "vtr": vtr,
             "userinfo": userinfo,
             "core_identity": core_identity_payload,
             "return_code": return_code_value
@@ -375,31 +409,29 @@ def userinfo_silent():
     try:
         if "user" not in session or "access_token" not in session["user"]:
             logger.info("No access_token in session, redirecting to prove-identity")
-            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            session["vtr"] = "P2.Cl.Cm"
             return redirect(url_for("authorize_prove_identity"))
 
         access_token = session["user"]["access_token"]
         vtr = session["user"].get("vtr", "Cl.Cm")
         logger.debug(f"Current vtr: {vtr}")
 
-        # Check if Proven Identity was requested
         if vtr != "P2.Cl.Cm":
             logger.info("Access token lacks Proven Identity, redirecting to prove-identity")
-            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            session["vtr"] = "P2.Cl.Cm"
             return redirect(url_for("authorize_prove_identity"))
 
-        # Check access_token expiration (if JWT)
         try:
             unverified_claims = jwt.decode(access_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
             logger.debug(f"Unverified access_token claims: {json.dumps(unverified_claims, indent=2)}")
             exp = unverified_claims.get("exp")
             if exp and exp < int(time.time()):
                 logger.warning(f"Access token expired: exp={exp}, now={int(time.time())}")
-                session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+                session["vtr"] = "P2.Cl.Cm"
                 return redirect(url_for("authorize_prove_identity"))
         except jwt.PyJWTError as e:
             logger.error(f"Failed to decode access_token: {e}")
-            session["vtr"] = "P2.Cl.Cm"  # Set vtr for callback
+            session["vtr"] = "P2.Cl.Cm"
             return redirect(url_for("authorize_prove_identity"))
 
         userinfo = fetch_user_info(access_token)
@@ -494,6 +526,74 @@ def signed_out():
     except Exception as e:
         logger.error(f"Error in signed-out: {e}")
         return str(e), 500
+
+@app.route("/back-channel-logout", methods=["POST"])
+def back_channel_logout():
+    try:
+        logger.info("Received back-channel logout notification")
+        logger.debug(f"Request headers: {dict(request.headers)}")
+        logger.debug(f"Request form data: {request.form}")
+        if request.content_type != "application/x-www-form-urlencoded":
+            logger.error("Invalid Content-Type: %s", request.content_type)
+            return "Invalid Content-Type", 400
+
+        data = request.form
+        logout_token = data.get("logout_token")
+        if not logout_token:
+            logger.error("No logout_token in request")
+            return "Missing logout_token", 400
+
+        logger.debug(f"Logout token: {logout_token[:50]}...")
+        header = jwt.get_unverified_header(logout_token)
+        kid = header.get("kid")
+        algorithm = header.get("alg", "ES256")
+        logger.debug(f"Logout token header: {header}")
+
+        public_key = get_jwks_public_key(kid, algorithm)
+        try:
+            claims = jwt.decode(
+                logout_token,
+                public_key,
+                algorithms=[algorithm],
+                issuer=config.ISSUER,
+                audience=config.CLIENT_ID
+            )
+        except jwt.InvalidAudienceError as e:
+            unverified_claims = jwt.decode(logout_token, options={"verify_signature": False, "verify_aud": False, "verify_iss": False})
+            logger.error(f"Invalid audience in logout token: {e}, expected: {config.CLIENT_ID}, got: {unverified_claims.get('aud')}")
+            logger.debug(f"Unverified logout token claims: {json.dumps(unverified_claims, indent=2)}")
+            return "Invalid audience", 400
+        except jwt.InvalidSignatureError as e:
+            logger.error(f"Invalid logout token signature: {e}")
+            return "Invalid signature", 400
+        except jwt.InvalidIssuerError as e:
+            logger.error(f"Invalid issuer in logout token: {e}, expected: {config.ISSUER}")
+            return "Invalid issuer", 400
+        logger.debug(f"Logout token claims: {json.dumps(claims, indent=2)}")
+
+        if "sub" not in claims:
+            logger.error("Missing sub claim in logout token")
+            return "Missing sub claim", 400
+        if "events" not in claims or "http://schemas.openid.net/event/backchannel-logout" not in claims["events"]:
+            logger.error("Missing or invalid events claim")
+            return "Invalid events claim", 400
+        if claims.get("nonce"):
+            logger.error("Nonce claim present in logout token")
+            return "Nonce claim not allowed", 400
+
+        sub = claims["sub"]
+        logger.info(f"Clearing session for sub: {sub}")
+        if "user" in session and session["user"].get("sub") == sub:
+            session.clear()
+            logger.info("Local session cleared for sub: %s", sub)
+        else:
+            logger.warning("No matching session found for sub: %s", sub)
+
+        return "", 200
+
+    except Exception as e:
+        logger.error(f"Error in back-channel logout: {e}")
+        return str(e), 400
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
