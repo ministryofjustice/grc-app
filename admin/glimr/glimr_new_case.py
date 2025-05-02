@@ -77,7 +77,7 @@ class GlimrNewCase:
         Returns the contact details parameters for the API request.
         """
         return {
-            'contactFirstName': self.personal_details.first_name,
+            'contactFirstName': self.get_first_names(),
             'contactFullName': self.get_full_name(),
             'contactSalutation': self.get_salutation(),
             'contactLastName': self.personal_details.last_name,
@@ -106,15 +106,6 @@ class GlimrNewCase:
         else:
             return 'Overseas Application'
 
-    def get_date_received(self) -> str:
-        return self.format_date(self.application.updated)
-
-    def get_date_registered(self) -> str:
-        return self.format_date(datetime.today())
-
-    def get_display_name(self) -> str:
-        return str(self.personal_details.last_name) + ", " + str(self.personal_details.title) + " " + str(self.personal_details.first_name)
-
     def get_first_names(self) -> str:
         return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.middle_names)
 
@@ -136,7 +127,15 @@ class GlimrNewCase:
     def get_contact_street(self) -> str:
         return str(self.personal_details.address_line_one)+", "+str(self.personal_details.address_line_two)
 
-    def format_date(self, date: datetime) -> str:
+    def get_date_received(self) -> str:
+        return GlimrNewCase.format_date(self.application.updated)
+
+    @staticmethod
+    def get_date_registered(self) -> str:
+        return GlimrNewCase.format_date(datetime.today())
+
+    @staticmethod
+    def format_date(date: datetime) -> str:
         return date.strftime("%d/%m/%y")
 
 
