@@ -9,14 +9,26 @@ class OneLoginAuthorizationRequest:
     def __init__(self, config: OneLoginConfig):
         self.config = config
 
-    def create_signed_auth_request(self, vtr: str):
+    def build_identity_redirect_url(self):
+        vtr = "Cl.Cm.P2"
+        signed_request = self._create_signed_auth_request(vtr=vtr, redirect_uri=self.config.identity_redirect_uri)
+        redirect_url = self._build_redirect_url(signed_jwt=signed_request)
+        return redirect_url
+
+    def build_authentication_redirect_url(self):
+        vtr = "Cl.Cm"
+        signed_request = self._create_signed_auth_request(vtr=vtr, redirect_uri=self.config.auth_redirect_uri)
+        redirect_url = self._build_redirect_url(signed_jwt=signed_request)
+        return redirect_url
+
+    def _create_signed_auth_request(self, vtr: str, redirect_uri:str):
         state, nonce = self.generate_and_store_state_nonce()
         request_payload = {
             "response_type": "code",
             "scope": self.config.scope,
             "client_id": self.config.client_id,
             "state": state,
-            "redirect_uri": self.config.redirect_uri,
+            "redirect_uri": redirect_uri,
             "nonce": nonce,
             "aud": self.config.authorization_endpoint,
             "iss": self.config.client_id,
@@ -27,7 +39,7 @@ class OneLoginAuthorizationRequest:
 
         return encode(request_payload, self.config.private_key, algorithm="RS256")
 
-    def build_redirect_url(self, signed_jwt: str):
+    def _build_redirect_url(self, signed_jwt: str):
         params = {
             "response_type": "code",
             "scope": self.config.scope,
