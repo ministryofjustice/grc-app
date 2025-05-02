@@ -1,4 +1,4 @@
-from grc.one_login import OneLoginConfig
+from .one_login_config import OneLoginConfig
 from flask import session
 from grc.one_login.one_login_jwt_handler import JWTHandler
 from grc.utils.logger import Logger, LogLevel
@@ -15,7 +15,8 @@ class OneLoginTokenValidator:
         self.config = config
 
     def validate_tokens(self, access_token: str, id_token: str):
-        id_token_claims = JWTHandler.decode_jwt_token(jwt_token=id_token, jwks_uri=self.config.jwks_uri, client_id=self.config.client_id, issuer=self.config.issuer)
+        public_key = JWTHandler.get_public_key_from_jwks(jwks_uri=self.config.jwks_uri, jwt_token=id_token)
+        id_token_claims = JWTHandler.decode_jwt_with_key(jwt_token=id_token, public_key=public_key, algorithm="RS256")
         self._validate_id_token(id_token_claims=id_token_claims, expected_iss=self.config.issuer, expected_aud=self.config.client_id)
         self._validate_access_token(id_token_claims, access_token)
 

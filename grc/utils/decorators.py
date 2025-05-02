@@ -45,6 +45,13 @@ def LoginRequired(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def LoginRequiredOneLogin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session or session['user'] is None:
+            return local_redirect(url_for('oneLogin.index'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 def AdminViewerRequired(f):
     @wraps(f)
