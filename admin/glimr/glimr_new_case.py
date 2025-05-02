@@ -131,7 +131,7 @@ class GlimrNewCase:
         return GlimrNewCase.format_date(self.application.updated)
 
     @staticmethod
-    def get_date_registered(self) -> str:
+    def get_date_registered() -> str:
         return GlimrNewCase.format_date(datetime.today())
 
     @staticmethod
