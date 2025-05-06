@@ -8,11 +8,26 @@ from typing import Tuple, List
 logger = Logger()
 
 class OneLoginUserInfoRequest:
+    """
+    Handles the retrieval and parsing of user information from One Login,
+    and populates the Flask session with user attributes for both authentication and identity verification.
+    """
 
     def __init__(self, config: OneLoginConfig):
+        """
+        Initialize with OneLogin configuration.
+
+        :param config: OneLoginConfig object with endpoint and key configuration.
+        """
         self.config = config
 
     def create_auth_session(self, access_token: str, id_token: str):
+        """
+        Populates the session with basic user data after authentication.
+
+        :param access_token: Access token used to fetch user info.
+        :param id_token: ID token received during the authentication process.
+        """
         user_info = self._fetch_user_info(access_token)
         session["user"] = {
             "sub": user_info.get("sub"),
@@ -22,7 +37,13 @@ class OneLoginUserInfoRequest:
             "id_token": id_token
         }
 
-    def update_auth_session_with_identity(self, access_token: str, id_token:str):
+    def update_auth_session_with_identity(self, access_token: str, id_token: str):
+        """
+        Updates the existing session with additional identity details retrieved from the user info endpoint.
+
+        :param access_token: Access token used to fetch enriched user identity info.
+        :param id_token: New ID token received during the identity step.
+        """
         user_info = self._fetch_user_info(access_token)
 
         if "user" not in session:
@@ -47,7 +68,14 @@ class OneLoginUserInfoRequest:
         session["user"].update(updates)
         session.modified = True
 
-    def _fetch_user_info(self, access_token:str):
+    def _fetch_user_info(self, access_token: str):
+        """
+        Makes a request to the user info endpoint to retrieve the user's attributes.
+
+        :param access_token: OAuth access token for authorization.
+        :return: Dictionary of user claims.
+        :raises Exception: If the HTTP request fails or response is invalid.
+        """
         try:
             headers = OneLoginUserInfoRequest._build_user_info_request_headers(access_token=access_token)
             response = requests.get(url=self.config.user_info_endpoint, headers=headers)
@@ -65,7 +93,14 @@ class OneLoginUserInfoRequest:
             logger.log(LogLevel.ERROR, error_message)
             raise Exception(error_message)
 
-    def _get_names_dob_from_context_jwt(self, context_jwt_token:str) -> Tuple[str, str]:
+    def _get_names_dob_from_context_jwt(self, context_jwt_token: str) -> Tuple[str, str]:
+        """
+        Decodes the context JWT to extract the current name and date of birth.
+
+        :param context_jwt_token: The JWT containing core identity attributes.
+        :return: Tuple of (full name, date of birth).
+        :raises Exception: If decoding fails or data is incomplete.
+        """
         public_key = JWTHandler.get_public_key_from_did(did_url=self.config.did_url, jwt_token=context_jwt_token)
         decoded_context_token = JWTHandler.decode_jwt_with_key(jwt_token=context_jwt_token, public_key=public_key, algorithm="ES256")
         credentialSubject = decoded_context_token.get('vc', {}).get('credentialSubject')
@@ -81,6 +116,13 @@ class OneLoginUserInfoRequest:
 
     @staticmethod
     def _extract_current_name(names) -> str:
+        """
+        Extracts the full current name from the name entries based on `validUntil` field.
+
+        :param names: List of name records.
+        :return: The most current full name string.
+        :raises Exception: If a valid name is not found.
+        """
         for name_entry in names:
             if name_entry.get('validUntil') is None:
                 name_parts = name_entry.get('nameParts', [])
@@ -92,9 +134,14 @@ class OneLoginUserInfoRequest:
                 return full_name.strip()
         raise Exception('No valid name present')
 
-
     @staticmethod
-    def _build_user_info_request_headers(access_token:str):
+    def _build_user_info_request_headers(access_token: str):
+        """
+        Builds authorization headers for the user info endpoint request.
+
+        :param access_token: OAuth access token.
+        :return: Dictionary with Authorization header.
+        """
         return {
             'Authorization': f'Bearer {access_token}'
         }

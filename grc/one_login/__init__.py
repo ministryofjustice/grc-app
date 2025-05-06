@@ -41,13 +41,13 @@ def logout():
         raise Exception("ID token could not be found in session")
 
     try:
-        logout_request.logout(id_token=id_token)
-        logger.log(LogLevel.INFO, f"User successfully logged out." )
+        redirect_url = logout_request.build_logout_redirect_url(id_token=id_token)
+        logout_request.end_user_session()
+        return redirect(redirect_url)
 
     except Exception as e:
         logger.log(LogLevel.ERROR, str(e))
-
-    return local_redirect(url_for('oneLogin.index'))
+        return local_redirect(url_for('oneLogin.index'))
 
 
 @oneLogin.route('/auth/callback', methods=['GET'])

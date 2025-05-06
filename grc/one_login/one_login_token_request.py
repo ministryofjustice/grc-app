@@ -8,17 +8,46 @@ from grc.utils.logger import LogLevel, Logger
 logger = Logger()
 
 class OneLoginTokenRequest:
+    """
+    Handles token exchange with the One Login token endpoint.
+    Supports fetching tokens for both identity and authentication flows.
+    """
 
     def __init__(self, config: OneLoginConfig):
+        """
+        Initializes the token request handler with config values.
+
+        :param config: OneLoginConfig containing endpoints and credentials.
+        """
         self.config = config
 
-    def fetch_tokens_identity_request(self, code: str):
+    def fetch_tokens_identity_request(self, code: str) -> Tuple[str, str]:
+        """
+        Fetches tokens for an identity verification request.
+
+        :param code: Authorization code returned from One Login.
+        :return: Tuple of (access_token, id_token).
+        """
         return self._fetch_tokens(code=code, redirect_uri=self.config.identity_redirect_uri)
 
-    def fetch_tokens_auth_request(self, code: str):
+    def fetch_tokens_auth_request(self, code: str) -> Tuple[str, str]:
+        """
+        Fetches tokens for an authentication request.
+
+        :param code: Authorization code returned from One Login.
+        :return: Tuple of (access_token, id_token).
+        """
         return self._fetch_tokens(code=code, redirect_uri=self.config.auth_redirect_uri)
 
-    def _fetch_tokens(self, code:str, redirect_uri:str) -> Tuple:
+    def _fetch_tokens(self, code: str, redirect_uri: str) -> Tuple[str, str]:
+        """
+        Handles the token exchange by sending a POST request to One Login's token endpoint.
+
+        :param code: Authorization code from One Login.
+        :param redirect_uri: The redirect URI used in the initial request.
+        :return: Tuple containing access_token and id_token.
+        :raises Exception: If the request fails or required tokens are missing.
+        """
         try:
             token_url = self.config.token_endpoint
             data = self._build_token_request_data(code=code, redirect_uri=redirect_uri)
@@ -47,7 +76,14 @@ class OneLoginTokenRequest:
             logger.log(LogLevel.ERROR, error_message)
             raise Exception(error_message)
 
-    def _build_token_request_data(self, code:str, redirect_uri:str) -> Dict[str, Any]:
+    def _build_token_request_data(self, code: str, redirect_uri: str) -> Dict[str, Any]:
+        """
+        Builds the data payload for the token request.
+
+        :param code: Authorization code.
+        :param redirect_uri: Redirect URI used in the flow.
+        :return: Dictionary containing request parameters.
+        """
         assertion = JWTHandler.build_jwt_assertion(
             private_key=self.config.private_key,
             algorithm="RS256",
@@ -68,8 +104,11 @@ class OneLoginTokenRequest:
 
     @staticmethod
     def _build_token_request_headers() -> Dict[str, Any]:
+        """
+        Returns the headers required for the token request.
+
+        :return: Dictionary with content-type set for form submission.
+        """
         return {
             "Content-Type": "application/x-www-form-urlencoded"
         }
-
-
