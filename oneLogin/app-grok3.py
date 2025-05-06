@@ -1,5 +1,6 @@
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, request, redirect, url_for, session, render_template
+from flask_session import Session
 import requests
 import logging
 import sys
@@ -11,6 +12,9 @@ import uuid
 from urllib.parse import urlencode
 from jose import jwk
 from cachetools import TTLCache
+import os
+import redis
+import pickle
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -21,21 +25,47 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.secret_key = "your-secret-key"  # Ensure this is stable
-app.config["SESSION_COOKIE_SECURE"] = True  # Require HTTPS for cookies
-app.config["SESSION_COOKIE_SAMESITE"] = "Lax"  # Prevent CSRF
+
+# Redis session configuration
+app.config["SESSION_TYPE"] = "redis"
+app.config["SESSION_REDIS"] = redis.Redis(host="localhost", port=6379, db=0)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+
+# Environment: 'local' for http://localhost:5000, 'ngrok' for HTTPS
+ENV = os.getenv("ENV", "local")  # Default to local to match your test setup
+IS_LOCAL = ENV == "local"
+app.config["SESSION_COOKIE_SECURE"] = not IS_LOCAL
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+logger.info(f"Environment: {ENV}, SESSION_COOKIE_SECURE: {app.config['SESSION_COOKIE_SECURE']}")
+
+# Initialize Flask-Session
+Session(app)
 
 oauth = OAuth(app)
 
-# JWKS cache: TTL = 24 hours (86400 seconds)
+# JWKS cache: TTL = 24 hours
 jwks_cache = TTLCache(maxsize=1, ttl=86400)
+# jti cache for duplicate logout tokens
+jti_cache = TTLCache(maxsize=1000, ttl=3600)
 
 class Config:
     ISSUER = "https://oidc.integration.account.gov.uk/"
     CLIENT_ID = "o8bkoFoPZvyzlxGJ6SRVlhprYkM"
     PRIVATE_KEY_PATH = "grc-onelogin-private.pem"
-    REDIRECT_URI = "https://47d4-88-97-230-22.ngrok-free.app/oidc/authorization-code/callback"
-    POST_LOGOUT_REDIRECT_URI = "https://47d4-88-97-230-22.ngrok-free.app/signed-out"
-    BACK_CHANNEL_LOGOUT_URI = "https://47d4-88-97-230-22.ngrok-free.app/back-channel-logout"
+    REDIRECT_URI = (
+        "http://localhost:5000/oidc/authorization-code/callback" if IS_LOCAL else
+        "https://d5ed-88-97-230-22.ngrok-free.app/oidc/authorization-code/callback"
+    )
+    POST_LOGOUT_REDIRECT_URI = (
+        "http://localhost:5000/signed-out" if IS_LOCAL else
+        "https://d5ed-88-97-230-22.ngrok-free.app/signed-out"
+    )
+    BACK_CHANNEL_LOGOUT_URI = (
+        "http://localhost:5000/back-channel-logout" if IS_LOCAL else
+        "https://d5ed-88-97-230-22.ngrok-free.app/back-channel-logout"
+    )
     SCOPE = "openid phone email"
     TOKEN_AUTH_METHOD = "private_key_jwt"
     REQUIRE_JAR = False
@@ -45,6 +75,9 @@ class Config:
     IDENTITY_SUPPORTED = True
 
 config = Config()
+logger.info(f"Config URLs - REDIRECT_URI: {config.REDIRECT_URI}, "
+            f"POST_LOGOUT_REDIRECT_URI: {config.POST_LOGOUT_REDIRECT_URI}, "
+            f"BACK_CHANNEL_LOGOUT_URI: {config.BACK_CHANNEL_LOGOUT_URI}")
 
 def get_discovery_metadata():
     discovery_url = f"{config.ISSUER}/.well-known/openid-configuration"
@@ -318,11 +351,11 @@ def callback():
             logger.debug(f"Unverified id_token claims: {json.dumps(unverified_id_token, indent=2)}")
             raise
         if id_token_claims.get("nonce") != nonce:
-            logger.error(f"Nonce mismatch: expected {nonce}, got {id_token_claims.get('nonce')}")
+            logger.error(f"Nonce mismatch: expected {nonce}, got: {id_token_claims.get('nonce')}")
             raise Exception("Nonce mismatch")
 
         response = app.make_response("Processing complete")
-        response.set_cookie("id-token", id_token, httponly=True, secure=True)
+        response.set_cookie("id-token", id_token, httponly=True, secure=not IS_LOCAL)
 
         userinfo = fetch_user_info(access_token)
         id_token_sub = id_token_claims["sub"]
@@ -385,6 +418,13 @@ def callback():
             "core_identity": core_identity_payload,
             "return_code": return_code_value
         }
+        session["sub"] = id_token_sub
+
+        # Store session in Redis under sub
+        redis_client = app.config["SESSION_REDIS"]
+        session_key = f"session:{id_token_sub}"
+        redis_client.setex(session_key, 3600, pickle.dumps(dict(session)))
+        logger.debug(f"Stored session in Redis for sub: {id_token_sub}")
 
         return redirect(url_for("verify"))
 
@@ -399,6 +439,7 @@ def home():
 @app.route("/verify")
 def verify():
     user = session.get("user", {})
+    logger.debug(f"Session in verify: {session}, User sub: {user.get('sub', 'None')}")
     return render_template("verify.html",
                            userinfo=user.get("userinfo", {}),
                            core_identity=user.get("core_identity", None),
@@ -450,6 +491,12 @@ def userinfo_silent():
             )
             session["user"]["core_identity"] = core_identity_payload
 
+        # Update Redis session
+        redis_client = app.config["SESSION_REDIS"]
+        session_key = f"session:{session['sub']}"
+        redis_client.setex(session_key, 3600, pickle.dumps(dict(session)))
+        logger.debug(f"Updated session in Redis for sub: {session['sub']}")
+
         return redirect(url_for("verify"))
 
     except Exception as e:
@@ -459,6 +506,7 @@ def userinfo_silent():
 @app.route("/logout")
 def logout():
     try:
+        logger.info("Initiating front-channel logout")
         id_token = None
         if "user" in session and "id_token_raw" in session["user"]:
             id_token = session["user"]["id_token_raw"]
@@ -511,11 +559,19 @@ def logout():
 @app.route("/signed-out")
 def signed_out():
     try:
+        logger.info("Reached signed-out endpoint")
         state = request.args.get("state")
         expected_state = session.get("logout_state")
         if state and expected_state and state != expected_state:
             logger.error(f"State mismatch: expected {expected_state}, got {state}")
             raise Exception("Invalid state parameter")
+
+        # Clear Redis session
+        if "sub" in session:
+            redis_client = app.config["SESSION_REDIS"]
+            session_key = f"session:{session['sub']}"
+            redis_client.delete(session_key)
+            logger.debug(f"Cleared Redis session for sub: {session['sub']}")
 
         session.clear()
         response = app.make_response(render_template("signed_out.html"))
@@ -582,12 +638,33 @@ def back_channel_logout():
             return "Nonce claim not allowed", 400
 
         sub = claims["sub"]
-        logger.info(f"Clearing session for sub: {sub}")
+        jti = claims["jti"]
+        logger.info(f"Processing logout_token with jti: {jti}")
+
+        # Skip duplicate jti
+        if jti in jti_cache:
+            logger.info(f"Skipping duplicate logout_token with jti: {jti}")
+            return "", 200
+        jti_cache[jti] = True
+
+        # Check Redis for session by sub
+        redis_client = app.config["SESSION_REDIS"]
+        session_key = f"session:{sub}"
+        if redis_client.exists(session_key):
+            session_data = pickle.loads(redis_client.get(session_key))
+            logger.debug(f"Found Redis session for sub: {sub}, data: {session_data}")
+            redis_client.delete(session_key)
+            logger.info(f"Cleared Redis session for sub: {sub}")
+        else:
+            logger.debug(f"No Redis session found for sub: {sub}")
+
+        # Clear local session (if any)
+        logger.debug(f"Local session before clearing: {session}")
         if "user" in session and session["user"].get("sub") == sub:
             session.clear()
-            logger.info("Local session cleared for sub: %s", sub)
+            logger.info(f"Cleared local session for sub: {sub}")
         else:
-            logger.warning("No matching session found for sub: %s", sub)
+            logger.debug(f"No local session found for sub: {sub}")
 
         return "", 200
 
