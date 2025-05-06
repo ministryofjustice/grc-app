@@ -11,9 +11,22 @@ from grc.one_login.one_login_did_doc_cache import DIDDocumentCache
 
 
 class JWTHandler:
+    """
+    Provides utility functions for handling JWT operations including decoding,
+    key extraction from JWKS/DID, and generating assertions.
+    """
 
     @staticmethod
     def decode_jwt_with_key(jwt_token, public_key, algorithm="RS256"):
+        """
+        Decodes a JWT using the provided public key and algorithm.
+
+        :param jwt_token: The JWT string to decode.
+        :param public_key: The public key used to verify the signature.
+        :param algorithm: JWT algorithm (default: RS256).
+        :return: Decoded JWT payload.
+        :raises: Exception if token is expired or invalid.
+        """
         try:
             return decode(jwt_token, key=public_key, algorithms=[algorithm], options={"verify_aud": False})
         except ExpiredSignatureError:
@@ -23,6 +36,14 @@ class JWTHandler:
 
     @staticmethod
     def get_public_key_from_jwks(jwks_uri, jwt_token):
+        """
+        Extracts the public RSA key from a JWKS endpoint based on the token's kid.
+
+        :param jwks_uri: URI to the JWKS endpoint.
+        :param jwt_token: JWT containing a kid in the header.
+        :return: RSA public key.
+        :raises: Exception if key is not found or request fails.
+        """
         kid = JWTHandler._get_kid_from_jwt_token(jwt_token)
         response = requests.get(jwks_uri)
         if response.status_code != 200:
@@ -40,6 +61,14 @@ class JWTHandler:
 
     @staticmethod
     def get_public_key_from_did(did_url, jwt_token):
+        """
+        Extracts a public EC key from a cached DID document using the token's kid.
+
+        :param did_url: URL to the DID document.
+        :param jwt_token: JWT containing a kid in the header.
+        :return: EC public key object.
+        :raises: Exception if key is not found or mismatched.
+        """
         kid = JWTHandler._get_kid_from_jwt_token(jwt_token)
         controller_id = JWTHandler._get_controller_id_from_kid(kid=kid)
 
@@ -62,6 +91,17 @@ class JWTHandler:
 
     @staticmethod
     def build_jwt_assertion(private_key: bytes, algorithm: str, aud: str, iss: str, sub: str, exp_length: int):
+        """
+        Builds and signs a JWT assertion.
+
+        :param private_key: Private key used to sign the JWT.
+        :param algorithm: Signing algorithm (e.g. RS256 or ES256).
+        :param aud: Audience claim.
+        :param iss: Issuer claim.
+        :param sub: Subject claim.
+        :param exp_length: Expiry duration in seconds.
+        :return: Signed JWT string.
+        """
         now = int(time())
         payload = {
             "aud": aud,
@@ -75,6 +115,13 @@ class JWTHandler:
 
     @staticmethod
     def _get_controller_id_from_kid(kid):
+        """
+        Extracts the controller ID portion from the full KID.
+
+        :param kid: Key ID containing the controller prefix.
+        :return: Controller ID string.
+        :raises: Exception if not found.
+        """
         controller_id = kid.split('#', 1)[0]
         if not controller_id:
             raise Exception("Controller ID doesn't exist in KID.")
@@ -82,6 +129,13 @@ class JWTHandler:
 
     @staticmethod
     def _get_kid_from_jwt_token(jwt_token):
+        """
+        Extracts the 'kid' field from a JWT header.
+
+        :param jwt_token: JWT string.
+        :return: Key ID (kid) string.
+        :raises: Exception if kid is missing.
+        """
         header = JWTHandler._decode_jwt_header(jwt_token)
         kid = header.get('kid')
         if not kid:
@@ -90,6 +144,12 @@ class JWTHandler:
 
     @staticmethod
     def _decode_jwt_header(jwt_token):
+        """
+        Decodes and returns the JWT header as a dictionary.
+
+        :param jwt_token: JWT string.
+        :return: Decoded JWT header dict.
+        """
         header_b64 = jwt_token.split('.')[0]
         padded = header_b64 + '=' * (-len(header_b64) % 4)
         return json.loads(base64.urlsafe_b64decode(padded))
