@@ -26,8 +26,6 @@ class GlimrNewCase:
         self.application_data: ApplicationData = application.application_data()
         self.personal_details: PersonalDetailsData = self.application_data.personal_details_data
         self.partnership_details: PartnershipDetailsData = self.application_data.partnership_details_data
-        self.jurisdiction_id = 2000000
-        self.track = 'GRP General'
         self.case_reference: str | None = None
 
     def call_glimr_register_api(self):
@@ -52,21 +50,24 @@ class GlimrNewCase:
         Combines and returns all necessary case parameters for the API request.
         """
         return {
-                'jurisdictionId':self.jurisdiction_id,
-                'track': self.track,
+                'jurisdictionId': 2000000,
+                'track': 'GRP General',
                 'onlineMappingCode':self.get_online_mapping_code(),
                 'documentsUrl': self.application_data.documents_url(),
                 **self.contact_params(),
         }
 
-    def get_online_mapping_code(self) ->str:
+    def get_online_mapping_code(self) -> str:
         """
         Returns the online mapping code depending on the case type
         """
-        mapping_code = 'GRP_STANDARD'
-        if self.application_data.is_overseas_application:
-            mapping_code = 'GRP_OVERSEAS'
-        return mapping_code
+        if self.application_data.is_uk_application:
+            return 'GRP_STANDARD'
+        elif self.application_data.is_overseas_application:
+            return 'GRP_OVERSEAS'
+        else:
+            logger.log(LogLevel.WARN, 'Unable to determine mapping code; defaulting to GRP_STANDARD.')
+            return 'GRP_STANDARD'
 
     def contact_params(self) -> Dict[str, Any]:
         """
@@ -114,10 +115,3 @@ class GlimrNewCase:
         if self.personal_details.contact_by_post:
             return 'Post'
         return None
-
-    def get_contact_street(self) -> str:
-        return str(self.personal_details.address_line_one)+", "+str(self.personal_details.address_line_two)
-
-
-
-
