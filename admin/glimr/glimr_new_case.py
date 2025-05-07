@@ -53,11 +53,10 @@ class GlimrNewCase:
         """
         return {
                 'jurisdictionId':self.jurisdiction_id,
+                'track': self.track,
                 'onlineMappingCode':self.get_online_mapping_code(),
                 'documentsUrl': self.application_data.documents_url(),
-                **self.case_params(),
                 **self.contact_params(),
-                **self.contact_street()
         }
 
     def get_online_mapping_code(self) ->str:
@@ -68,14 +67,6 @@ class GlimrNewCase:
         if self.application_data.is_overseas_application:
             mapping_code = 'GRP_OVERSEAS'
         return mapping_code
-
-    def case_params(self) -> Dict[str, Any]:
-        """
-        Returns the case-related parameters for the API request.
-        """
-        return {
-            'track': self.track
-        }
 
     def contact_params(self) -> Dict[str, Any]:
         """
@@ -91,7 +82,8 @@ class GlimrNewCase:
             'contactEmail': self.personal_details.contact_email_address,
             'contactCity': self.personal_details.address_town_city,
             'contactPostalCode': self.personal_details.address_postcode,
-            'contactCountry': self.personal_details.address_country
+            'contactCountry': self.personal_details.address_country,
+            **self.contact_street()
         }
 
     def contact_street(self) -> Dict[str, str]:
