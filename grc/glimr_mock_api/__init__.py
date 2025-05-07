@@ -28,7 +28,7 @@ def glimr_register_case_api():
         if data['jurisdictionId'] != 2000000:
             return jsonify({"error": f"Active Jurisdiction not found for JurisdictionId {data['jurisdictionId']}"}), 411
 
-        if data['onlineMappingCode'] != 'GRP_STANDARD':
+        if data['onlineMappingCode'] not in ['GRP_STANDARD', 'GRP_OVERSEAS']:
             return jsonify({"error": "Online Mapping invalid or not found"}), 412
 
         response = {
