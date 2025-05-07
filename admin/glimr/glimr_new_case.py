@@ -27,7 +27,6 @@ class GlimrNewCase:
         self.personal_details: PersonalDetailsData = self.application_data.personal_details_data
         self.partnership_details: PartnershipDetailsData = self.application_data.partnership_details_data
         self.jurisdiction_id = 2000000
-        self.online_mapping_code = 'GRP_STANDARD'
         self.track = 'GRP General'
         self.case_reference: str | None = None
 
@@ -54,21 +53,27 @@ class GlimrNewCase:
         """
         return {
                 'jurisdictionId':self.jurisdiction_id,
-                'onlineMappingCode':self.online_mapping_code,
+                'onlineMappingCode':self.get_online_mapping_code(),
                 'documentsUrl': self.application_data.documents_url(),
                 **self.case_params(),
                 **self.contact_params(),
                 **self.contact_street()
         }
 
+    def get_online_mapping_code(self) ->str:
+        """
+        Returns the online mapping code depending on the case type
+        """
+        mapping_code = 'GRP_STANDARD'
+        if self.application_data.is_overseas_application:
+            mapping_code = 'GRP_OVERSEAS'
+        return mapping_code
+
     def case_params(self) -> Dict[str, Any]:
         """
         Returns the case-related parameters for the API request.
         """
         return {
-            'caseType': self.get_case_type(),
-            'dateReceived': self.get_date_received(),
-            'dateRegistered': self.get_date_registered(),
             'track': self.track
         }
 
@@ -100,12 +105,6 @@ class GlimrNewCase:
 
         return contact_street
 
-    def get_case_type(self) -> str:
-        if self.application_data.is_uk_application:
-            return 'Standard Application'
-        else:
-            return 'Overseas Application'
-
     def get_first_names(self) -> str:
         return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.middle_names)
 
@@ -126,17 +125,6 @@ class GlimrNewCase:
 
     def get_contact_street(self) -> str:
         return str(self.personal_details.address_line_one)+", "+str(self.personal_details.address_line_two)
-
-    def get_date_received(self) -> str:
-        return GlimrNewCase.format_date(self.application.updated)
-
-    @staticmethod
-    def get_date_registered() -> str:
-        return GlimrNewCase.format_date(datetime.today())
-
-    @staticmethod
-    def format_date(date: datetime) -> str:
-        return date.strftime("%d/%m/%y")
 
 
 
