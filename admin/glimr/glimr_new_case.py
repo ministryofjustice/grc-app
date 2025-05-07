@@ -26,9 +26,6 @@ class GlimrNewCase:
         self.application_data: ApplicationData = application.application_data()
         self.personal_details: PersonalDetailsData = self.application_data.personal_details_data
         self.partnership_details: PartnershipDetailsData = self.application_data.partnership_details_data
-        self.jurisdiction_id = 2000000
-        self.online_mapping_code = 'GRP_STANDARD'
-        self.track = 'GRP General'
         self.case_reference: str | None = None
 
     def call_glimr_register_api(self):
@@ -53,24 +50,24 @@ class GlimrNewCase:
         Combines and returns all necessary case parameters for the API request.
         """
         return {
-                'jurisdictionId':self.jurisdiction_id,
-                'onlineMappingCode':self.online_mapping_code,
+                'jurisdictionId': 2000000,
+                'track': 'GRP General',
+                'onlineMappingCode':self.get_online_mapping_code(),
                 'documentsUrl': self.application_data.documents_url(),
-                **self.case_params(),
                 **self.contact_params(),
-                **self.contact_street()
         }
 
-    def case_params(self) -> Dict[str, Any]:
+    def get_online_mapping_code(self) -> str:
         """
-        Returns the case-related parameters for the API request.
+        Returns the online mapping code depending on the case type
         """
-        return {
-            'caseType': self.get_case_type(),
-            'dateReceived': self.get_date_received(),
-            'dateRegistered': self.get_date_registered(),
-            'track': self.track
-        }
+        if self.application_data.is_uk_application:
+            return 'GRP_STANDARD'
+        elif self.application_data.is_overseas_application:
+            return 'GRP_OVERSEAS'
+        else:
+            logger.log(LogLevel.WARN, 'Unable to determine mapping code; defaulting to GRP_STANDARD.')
+            return 'GRP_STANDARD'
 
     def contact_params(self) -> Dict[str, Any]:
         """
@@ -86,7 +83,8 @@ class GlimrNewCase:
             'contactEmail': self.personal_details.contact_email_address,
             'contactCity': self.personal_details.address_town_city,
             'contactPostalCode': self.personal_details.address_postcode,
-            'contactCountry': self.personal_details.address_country
+            'contactCountry': self.personal_details.address_country,
+            **self.contact_street()
         }
 
     def contact_street(self) -> Dict[str, str]:
@@ -99,12 +97,6 @@ class GlimrNewCase:
             contact_street['contactStreet2'] = self.personal_details.address_line_two
 
         return contact_street
-
-    def get_case_type(self) -> str:
-        if self.application_data.is_uk_application:
-            return 'Standard Application'
-        else:
-            return 'Overseas Application'
 
     def get_first_names(self) -> str:
         return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.middle_names)
@@ -123,21 +115,3 @@ class GlimrNewCase:
         if self.personal_details.contact_by_post:
             return 'Post'
         return None
-
-    def get_contact_street(self) -> str:
-        return str(self.personal_details.address_line_one)+", "+str(self.personal_details.address_line_two)
-
-    def get_date_received(self) -> str:
-        return GlimrNewCase.format_date(self.application.updated)
-
-    @staticmethod
-    def get_date_registered() -> str:
-        return GlimrNewCase.format_date(datetime.today())
-
-    @staticmethod
-    def format_date(date: datetime) -> str:
-        return date.strftime("%d/%m/%y")
-
-
-
-
