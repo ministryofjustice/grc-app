@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for
-
+from flask import Blueprint, render_template, request, redirect, session, url_for, Response
 from grc.one_login.one_login_logout import OneLoginLogout
 from grc.utils.decorators import LoginRequiredOneLogin
 from grc.utils.redirect import local_redirect
@@ -49,6 +48,27 @@ def logout():
         logger.log(LogLevel.ERROR, str(e))
         return local_redirect(url_for('oneLogin.index'))
 
+@oneLogin.route('/onelogin/back-channel-logout', methods=['POST'])
+def backChannelLogout():
+    logger.log(LogLevel.INFO, f'Back channel logout request received.')
+
+    try:
+        token = request.form.get('logout_token')
+        if not token:
+            raise Exception("Logout token does not exist")
+
+        config = get_onelogin_config()
+        token_validator = OneLoginTokenValidator(config=config)
+        logout_request =OneLoginLogout(config=config)
+        token_validator.validate_logout_token(logout_token=token)
+        logout_request.end_user_session()
+        logger.log(LogLevel.INFO, f'User has been logged out due to back channel request.')
+
+        return Response(status=200)
+
+    except Exception as e:
+        logger.log(LogLevel.ERROR, f'Received back channel request but failed to execute logout due to {str(e)}')
+        return Response(status=200)
 
 @oneLogin.route('/auth/callback', methods=['GET'])
 def callback():
@@ -139,7 +159,7 @@ def handle_onelogin_callback(code: str, fetch_tokens_func, store_user_info_func,
     user_info_request = OneLoginUserInfoRequest(config)
 
     access_token, id_token = fetch_tokens_func(token_request, code)
-    token_validator.validate_tokens(access_token=access_token, id_token=id_token)
+    token_validator.validate_access_id_tokens(access_token=access_token, id_token=id_token)
     store_user_info_func(user_info_request, access_token, id_token)
 
     return local_redirect(url_for(success_redirect))
