@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 from flask import Flask, g, session
+from flask_session import Session
 from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
@@ -11,6 +12,7 @@ from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.maintenance_mode import Maintenance
 from grc.utils.custom_error_handlers import CustomErrorHandlers
 from werkzeug.middleware.proxy_fix import ProxyFix
+import redis
 
 migrate = Migrate()
 flask_uuid = FlaskUUID()
@@ -38,6 +40,11 @@ def create_app(test_config=None):
     # Require HTTP Basic Authentication if both the username and password are set
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
         HttpBasicAuthentication(app)
+
+    app.config["SESSION_TYPE"] = "redis"
+    app.config["SESSION_REDIS"] = redis.Redis(host="redis", port=6379, db=0)
+
+    Session(app)
 
     # Load build info from JSON file
     f = open('build-info.json')

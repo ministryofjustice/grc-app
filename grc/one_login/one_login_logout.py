@@ -1,7 +1,6 @@
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.utils.logger import Logger, LogLevel
-from flask import session
-import requests
+from flask import session, current_app
 
 logger = Logger()
 
@@ -36,7 +35,27 @@ class OneLoginLogout:
         Removes the user session from the Flask session store.
         """
         try:
-            session.pop('user', None)
+            session.clear()
+        except Exception as e:
+            raise Exception(f'Failed to end user session due to {str(e)}.')
+
+    @staticmethod
+    def end_user_session_with_sub(sub: str):
+        """
+        Removes the user session from the Flask session store.
+        """
+        try:
+            redis_client = current_app.config['SESSION_REDIS']
+            session_key = redis_client.get(f"user_sub:{sub}")
+            if session_key:
+                session_key = session_key.decode('utf-8')
+                redis_client.delete(f"session:{session_key}")
+                redis_client.delete(f"user_sub:{sub}")
+                logger.log(LogLevel.INFO, f'User redis session id and mapping have been deleted.')
+
+            else:
+                logger.log(LogLevel.INFO, f"No session found for sub {sub}. User could already be logged out.")
+
         except Exception as e:
             raise Exception(f'Failed to end user session due to {str(e)}.')
 

@@ -37,7 +37,9 @@ def logout():
     id_token = session.get('user', {}).get('id_token')
 
     if id_token is None:
-        raise Exception("ID token could not be found in session")
+        logger.log(LogLevel.WARN, "ID token not found; redirecting to index")
+        logout_request.end_user_session()
+        return local_redirect(url_for('oneLogin.index'))
 
     try:
         redirect_url = logout_request.build_logout_redirect_url(id_token=id_token)
@@ -53,32 +55,35 @@ def backChannelLogout():
     logger.log(LogLevel.INFO, f'Back channel logout request received.')
 
     try:
-        token = request.form.get('logout_token')
-        if not token:
-            raise Exception("Logout token does not exist")
-
         config = get_onelogin_config()
         token_validator = OneLoginTokenValidator(config=config)
-        logout_request =OneLoginLogout(config=config)
-        token_validator.validate_logout_token(logout_token=token)
-        logout_request.end_user_session()
-        logger.log(LogLevel.INFO, f'User has been logged out due to back channel request.')
+        logout_request = OneLoginLogout(config=config)
+        token = request.form.get('logout_token')
+
+        if not token:
+            logger.log(LogLevel.WARN, "Logout token does not exist")
+            return local_redirect(url_for('oneLogin.index'))
+
+        token_claims = token_validator.validate_logout_token(logout_token=token)
+        logout_request.end_user_session_with_sub(token_claims.get('sub', ''))
 
         return Response(status=200)
 
     except Exception as e:
         logger.log(LogLevel.ERROR, f'Received back channel request but failed to execute logout due to {str(e)}')
-        return Response(status=200)
+        return Response(status=200) #Still return 200 to let One Login know we received the request
 
 @oneLogin.route('/auth/callback', methods=['GET'])
 def callback():
     try:
         if "error" in request.args:
-            raise Exception(f"{request.args['error']} - {request.args.get('error_description', '')}")
+            logger.log(LogLevel.ERROR, f"{request.args['error']} - {request.args.get('error_description', '')}")
+            return local_redirect(url_for("oneLogin.index"))
 
         code = request.args.get("code")
         if not code:
-            raise Exception("No code received in callback.")
+            logger.log(LogLevel.ERROR, "No code received in callback.")
+            return local_redirect(url_for("oneLogin.index"))
 
         return handle_onelogin_callback(
             code=code,
@@ -95,11 +100,13 @@ def callback():
 def callbackIdentity():
     try:
         if "error" in request.args:
-            raise Exception(f"{request.args['error']} - {request.args.get('error_description', '')}")
+            logger.log(LogLevel.ERROR, f"{request.args['error']} - {request.args.get('error_description', '')}")
+            return local_redirect(url_for("oneLogin.index"))
 
         code = request.args.get("code")
         if not code:
-            raise Exception("No code received in callback.")
+            logger.log(LogLevel.ERROR, "No code received in callback.")
+            return local_redirect(url_for("oneLogin.index"))
 
         return handle_onelogin_callback(
             code=code,
@@ -125,7 +132,8 @@ def userInfoIdentity():
         user = session.get('user')
 
         if not user:
-            raise Exception("User session not found.")
+            logger.log(LogLevel.ERROR, "User session not found.")
+            return local_redirect(url_for("oneLogin.index"))
 
         email = user.get('email')
         phone = user.get('phone_number')
