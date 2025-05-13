@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+
+  redis:
+    image: redis:latest
+    container_name: redis
+
   grc_clamav:
     image: 'clamav/clamav:latest'
 
@@ -19,14 +24,14 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_HOST=grc_db
 
-  grc_jwks:
-    container_name: "grc_jwks"
-    build:
-      context: .
-      dockerfile: jwks.Dockerfile
-    ports:
-      - 3003:3003
-    command: /app/run_jwks.sh
+#  grc_jwks:
+#    container_name: "grc_jwks"
+#    build:
+#      context: .
+#      dockerfile: jwks.Dockerfile
+#    ports:
+#      - 3003:3003
+#    command: /app/run_jwks.sh
 
   grc_app:
     container_name: "grc_app"
