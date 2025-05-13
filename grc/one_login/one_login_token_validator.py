@@ -3,7 +3,7 @@ from .one_login_config import OneLoginConfig
 from flask import session
 from grc.one_login.one_login_jwt_handler import JWTHandler
 from grc.utils.logger import Logger, LogLevel
-from typing import Dict
+from typing import Dict, Any
 from time import time
 import base64
 import hashlib
@@ -47,7 +47,7 @@ class OneLoginTokenValidator:
         )
         self._validate_access_token(id_token_claims, access_token)
 
-    def validate_logout_token(self, logout_token: str):
+    def validate_logout_token(self, logout_token: str) -> Dict[str, Any]:
         public_key = JWTHandler.get_public_key_from_jwks(jwks_uri=self.config.jwks_uri, jwt_token=logout_token)
         logout_token_claims = JWTHandler.decode_jwt_with_key(jwt_token=logout_token, public_key=public_key, algorithm="ES256")
 
@@ -56,6 +56,8 @@ class OneLoginTokenValidator:
             expected_iss=self.config.issuer,
             expected_aud=self.config.client_id,
         )
+
+        return logout_token_claims
 
     @staticmethod
     def _validate_id_token_claims(id_token_claims: Dict[str, str], expected_iss: str, expected_aud: str, expected_vot: str):
@@ -152,9 +154,7 @@ class OneLoginTokenValidator:
 
         time_now = int(time())
         if token_iat > time_now:
-            error_message = "Id token's issued at time is after the current time."
-            logger.log(LogLevel.ERROR, error_message)
-            raise Exception(error_message)
+            raise Exception("Id token's issued at time is after the current time.")
 
     @staticmethod
     def _validate_nonce(token_nonce: str):

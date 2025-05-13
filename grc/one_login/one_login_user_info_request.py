@@ -1,9 +1,9 @@
-from flask import session
+from flask import session, current_app, request
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_jwt_handler import JWTHandler
 from grc.utils.logger import LogLevel, Logger
 import requests
-from typing import Tuple, List
+from typing import Tuple
 
 logger = Logger()
 
@@ -29,13 +29,18 @@ class OneLoginUserInfoRequest:
         :param id_token: ID token received during the authentication process.
         """
         user_info = self._fetch_user_info(access_token)
+        sub = user_info.get('sub', '')
+        email = user_info.get('email', '')
+        phone_number = user_info.get('phone_number', '')
+
         session["user"] = {
-            "sub": user_info.get("sub"),
-            "email": user_info.get("email"),
-            "phone_number": user_info.get("phone_number"),
+            "sub": sub,
+            "email": email,
+            "phone_number": phone_number,
             "identity_verified": False,
             "id_token": id_token
         }
+        OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
 
     def update_auth_session_with_identity(self, access_token: str, id_token: str):
         """
@@ -45,24 +50,33 @@ class OneLoginUserInfoRequest:
         :param id_token: New ID token received during the identity step.
         """
         user_info = self._fetch_user_info(access_token)
+        sub = user_info.get('sub', '')
 
         if "user" not in session:
+            email = user_info.get('email', '')
+            phone_number = user_info.get('phone_number', '')
+
             session["user"] = {
-                "sub": user_info.get("sub"),
-                "email": user_info.get("email"),
-                "phone_number": user_info.get("phone_number"),
+                "sub": sub,
+                "email": email,
+                "phone_number": phone_number,
                 "id_token": id_token
             }
+            OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
 
-        context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT")
+        address = user_info.get("https://vocab.account.gov.uk/v1/address", '')
+        driving_permit = user_info.get("https://vocab.account.gov.uk/v1/drivingPermit", '')
+        passport = user_info.get("https://vocab.account.gov.uk/v1/passport", '')
+
+        context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT", '')
         name, dob = self._get_names_dob_from_context_jwt(context_jwt)
 
         updates = {
             "name": name,
             "dob": dob,
-            "address": user_info.get("https://vocab.account.gov.uk/v1/address"),
-            "driving_permit": user_info.get("https://vocab.account.gov.uk/v1/drivingPermit"),
-            "passport": user_info.get("https://vocab.account.gov.uk/v1/passport"),
+            "address": address,
+            "driving_permit": driving_permit,
+            "passport": passport,
             "identity_verified": True
         }
         session["user"].update(updates)
@@ -113,6 +127,10 @@ class OneLoginUserInfoRequest:
             return name, dob
 
         raise Exception('Could not get credentials from context JWT.')
+
+    @staticmethod
+    def _store_user_info_redis_mapping(sub: str):
+        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))
 
     @staticmethod
     def _extract_current_name(names) -> str:
