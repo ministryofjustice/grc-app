@@ -39,7 +39,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # "Your personal details" section should still be "NOT STARTED"
-    await asserts.task_list_section(section='Your personal details', expected_status='NOT STARTED')
+    await asserts.task_list_section(section='Your personal details', expected_status='Not started')
 
     # Click "Your personal details" again
     await helpers.click_button('Your personal details')
@@ -110,13 +110,13 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Status of "Your personal details" section should be "IN PROGRESS"
     await asserts.task_list_sections(7)
-    await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your personal details', expected_status='IN PROGRESS')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
+    await asserts.task_list_section(section='Confirmation', expected_status='Completed')
+    await asserts.task_list_section(section='Your personal details', expected_status='In progress')
+    await asserts.task_list_section(section='Your birth registration information', expected_status='Not started')
+    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='Not started')
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status='Not started')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
 
     # Click "Your personal details"
     # This should now take you to the "Your Name" page
@@ -261,8 +261,8 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/transition-date')
 
     # Enter a valid date that is not 2 years prior to application created date
-    await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH_PLUS_ONE)
-    await helpers.fill_textbox(field='transition_date_year', value=data.TRANSITION_DATE_YEAR_MINUS_TWO)
+    await helpers.fill_textbox(field='transition_date_month', value=data.TRANSITION_DATE_MONTH_ERROR)
+    await helpers.fill_textbox(field='transition_date_year', value=data.TRANSITION_DATE_YEAR_ERROR)
     await helpers.click_button('Save and continue')
     await asserts.url('/personal-details/transition-date')
     await asserts.accessibility()
@@ -917,14 +917,14 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Status of "Your personal details" section should be "COMPLETED"
     await asserts.task_list_sections(8)
-    await asserts.task_list_section(section='Confirmation', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your personal details', expected_status='COMPLETED')
-    await asserts.task_list_section(section='Your birth registration information', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Name change documents', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Overseas certificate documents', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Statutory declarations', expected_status='NOT STARTED')
-    await asserts.task_list_section(section='Submit and pay', expected_status='CANNOT START YET')
+    await asserts.task_list_section(section='Confirmation', expected_status='Completed')
+    await asserts.task_list_section(section='Your personal details', expected_status='Completed')
+    await asserts.task_list_section(section='Your birth registration information', expected_status='Not started')
+    await asserts.task_list_section(section='Marriage or civil partnership details', expected_status='Not started')
+    await asserts.task_list_section(section='Name change documents', expected_status='Not started')
+    await asserts.task_list_section(section='Overseas certificate documents', expected_status='Not started')
+    await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
 
     # TODO:
     #  * Currently, the "Your personal details" section is "COMPLETE"

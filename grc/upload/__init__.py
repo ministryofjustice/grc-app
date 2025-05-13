@@ -107,8 +107,9 @@ def resize_image(document):
     try:
         img = Image.open(document)
 
+        #To use JPEG, image must be RBG
         if img.mode in ("RGBA", "P"):
-            logger.log(LogLevel.INFO, "image changed from RBGA to RBG")
+            logger.log(LogLevel.INFO, "Image changed from RBGA to RBG")
             img = img.convert("RGB")
 
         img = rotate_image_to_match_exif_orientation_flag(img)
@@ -126,7 +127,7 @@ def resize_image(document):
             elif height > 1400:
                 ratio = 1400 / height
         if ratio != 1.:
-            img = img.resize((int(width * ratio), int(height * ratio)), Image.Resampling.LANCZOS)
+            img = img.resize((int(width * ratio), int(height * ratio)), Image.ANTIALIAS)
 
         bytes_buffer = io.BytesIO()
         img.save(bytes_buffer, format='JPEG', quality=50)
@@ -202,7 +203,6 @@ def uploadInfoPage(section_url: str):
 
                         elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
                             resized, resized_document = resize_image(document)
-                            logger.log(LogLevel.INFO, "Image being resized")
                             if resized:
                                 file_ext = ''
                                 original_object_name = object_name
@@ -215,12 +215,8 @@ def uploadInfoPage(section_url: str):
 
                                 # If an image has been resized, it will be saved as a JPG
                                 object_name = f'{original_object_name}.jpg'
-                                AwsS3Client().upload_fileobj(resized_document, object_name)
-                                logger.log(LogLevel.INFO, "Image successfully resized")
 
-                            else:
-                                logger.log(LogLevel.INFO, "Image not resized")
-                                AwsS3Client().upload_fileobj(document, object_name)
+                            AwsS3Client().upload_fileobj(resized_document, object_name)
 
                         else:
                             AwsS3Client().upload_fileobj(document, object_name)

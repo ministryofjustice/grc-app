@@ -6,8 +6,8 @@ import tests.end_to_end_tests.journey_1.data as data
 
 TASK_LIST_BUTTON_NAME = 'Dogfennau Tystysgrif o Dramor'
 PAGE_URL = '/upload/overseas-certificate'
-PAGE_H1_EN = 'Overseas gender recognition certificate documents'
-PAGE_H1_CY = 'Dogfennau tystysgrif cydnabod rhywedd tramor'
+PAGE_H1_EN = 'Upload overseas gender recognition certificate documents'
+PAGE_H1_CY = 'Uwchlwytho dogfennau tystysgrif cydnabod rhywedd tramor'
 
 
 async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
@@ -85,4 +85,4 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
 
     # Status of "Overseas certificate documents" section should be "COMPLETED"
     await asserts.task_list_sections(9)
-    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="WEDI'I GWBLHAU")
+    await asserts.task_list_section(section='Dogfennau Tystysgrif o Dramor', expected_status="Wedi'i gwblhau")

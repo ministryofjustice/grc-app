@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List
+from flask import current_app
 from grc.business_logic.data_structures.confirmation_data import ConfirmationData
 from grc.business_logic.data_structures.birth_registration_data import BirthRegistrationData
 from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
@@ -50,6 +51,15 @@ class ApplicationData:
             return ListStatus.ERROR
         else:
             return ListStatus.COMPLETED
+
+    def documents_url(self) -> str:
+        s3_bucket_name = current_app.config.get('BUCKET_NAME')
+        s3_object_name = self.application_pdf_name()
+        return f"https://{s3_bucket_name}.s3.eu-west-2.amazonaws.com/{s3_object_name}"
+
+    def application_pdf_name(self) -> str:
+        reference_number = self.reference_number.upper()
+        return f"{reference_number}.pdf"
 
     @property
     def reference_number_formatted(self) -> str:
