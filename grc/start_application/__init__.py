@@ -127,15 +127,19 @@ def isFirstVisit():
     )
 
 
+# @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
+# @LoginRequired
+# def backToIsFirstVisit():
+#     reference_number = DataStore.compact_reference(session['reference_number'])
+#     application = Application.query.filter_by(reference_number=reference_number).first()
+#     session.clear()  # Clear out session['reference_number']
+#     session['validatedEmail'] = application.email
+#     return local_redirect(url_for('oneLogin.identityEligibility'))
+
 @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
 @LoginRequired
-def backToIsFirstVisit():
-    reference_number = DataStore.compact_reference(session['reference_number'])
-    application = Application.query.filter_by(reference_number=reference_number).first()
-    session.clear()  # Clear out session['reference_number']
-    session['validatedEmail'] = application.email
-    return local_redirect(url_for('startApplication.isFirstVisit'))
-
+def backToIdentityEligible():
+    return local_redirect(url_for('oneLogin.identityEligibility'))
 
 @startApplication.route('/reference-number', methods=['GET'])
 @LoginRequired
@@ -144,7 +148,6 @@ def reference():
         'start-application/reference-number.html',
         reference_number=reference_number_string(session['reference_number'])
     )
-
 
 @startApplication.route('/overseas-check', methods=['GET', 'POST'])
 @LoginRequired

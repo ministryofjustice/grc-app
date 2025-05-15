@@ -1,9 +1,10 @@
-from flask import session, current_app, request
+from flask import session, current_app, request, g
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_jwt_handler import JWTHandler
 from grc.utils.logger import LogLevel, Logger
 import requests
-from typing import Tuple
+from typing import Tuple, Optional, Dict
+from datetime import datetime
 
 logger = Logger()
 
@@ -64,7 +65,7 @@ class OneLoginUserInfoRequest:
             }
             OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
 
-        address = user_info.get("https://vocab.account.gov.uk/v1/address", '')
+        address = user_info.get("https://vocab.account.gov.uk/v1/address", [])
         driving_permit = user_info.get("https://vocab.account.gov.uk/v1/drivingPermit", '')
         passport = user_info.get("https://vocab.account.gov.uk/v1/passport", '')
 
@@ -74,7 +75,7 @@ class OneLoginUserInfoRequest:
         updates = {
             "name": name,
             "dob": dob,
-            "address": address,
+            "address": address[0],
             "driving_permit": driving_permit,
             "passport": passport,
             "identity_verified": True
@@ -107,7 +108,7 @@ class OneLoginUserInfoRequest:
             logger.log(LogLevel.ERROR, error_message)
             raise Exception(error_message)
 
-    def _get_names_dob_from_context_jwt(self, context_jwt_token: str) -> Tuple[str, str]:
+    def _get_names_dob_from_context_jwt(self, context_jwt_token: str) -> Tuple[Dict, Optional[str]]:
         """
         Decodes the context JWT to extract the current name and date of birth.
 
@@ -119,21 +120,21 @@ class OneLoginUserInfoRequest:
         decoded_context_token = JWTHandler.decode_jwt_with_key(jwt_token=context_jwt_token, public_key=public_key, algorithm="ES256")
         credentialSubject = decoded_context_token.get('vc', {}).get('credentialSubject')
 
-        if credentialSubject:
+        if credentialSubject is not None:
             names = credentialSubject.get('name')
             name = OneLoginUserInfoRequest._extract_current_name(names)
             dob_list = credentialSubject.get("birthDate", [])
             dob = dob_list[0]["value"] if dob_list else None
+
+            if dob is not None:
+                dob = OneLoginUserInfoRequest._format_date_into_datetime_date(dob)
+
             return name, dob
 
         raise Exception('Could not get credentials from context JWT.')
 
     @staticmethod
-    def _store_user_info_redis_mapping(sub: str):
-        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))
-
-    @staticmethod
-    def _extract_current_name(names) -> str:
+    def _extract_current_name(names) -> Dict:
         """
         Extracts the full current name from the name entries based on `validUntil` field.
 
@@ -143,14 +144,30 @@ class OneLoginUserInfoRequest:
         """
         for name_entry in names:
             if name_entry.get('validUntil') is None:
-                name_parts = name_entry.get('nameParts', [])
+                nameParts = name_entry.get('nameParts', [])
+                result = {
+                    "first_name": "",
+                    "middle_name": "",
+                    "last_name": ""
+                }
 
-                given_names = [part['value'] for part in name_parts if part['type'] == 'GivenName']
-                family_name = next((part['value'] for part in name_parts if part['type'] == 'FamilyName'), "")
+                given_names = [part["value"] for part in nameParts if part["type"] == "GivenName"]
+                family_names = [part["value"] for part in nameParts if part["type"] == "FamilyName"]
 
-                full_name = " ".join(given_names) + " " + family_name
-                return full_name.strip()
+                if given_names:
+                    result["first_name"] = given_names[0]
+                    if len(given_names) > 1:
+                        result["middle_name"] = " ".join(given_names[1:])
+
+                result["last_name"] = family_names[0]
+
+                return result
+
         raise Exception('No valid name present')
+
+    @staticmethod
+    def _format_date_into_datetime_date(date: str):
+        return datetime.strptime(date, "%Y-%m-%d").date()
 
     @staticmethod
     def _build_user_info_request_headers(access_token: str):
@@ -163,3 +180,7 @@ class OneLoginUserInfoRequest:
         return {
             'Authorization': f'Bearer {access_token}'
         }
+
+    @staticmethod
+    def _store_user_info_redis_mapping(sub: str):
+        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))
