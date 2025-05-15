@@ -324,7 +324,9 @@ def validate_phone_number(form, field):
     if not field.data:
         return
 
-    match = re.search(r'^[0-9]+$', field.data)
+    phone = re.sub(r'[\s\-]', '', field.data)
+
+    match = re.fullmatch(r'(\+|00)?\d{7,15}', phone)
     if match is None:
         raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
