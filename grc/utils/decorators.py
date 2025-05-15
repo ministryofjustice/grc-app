@@ -39,17 +39,8 @@ def ValidatedEmailRequired(f):
 def LoginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'reference_number' not in session or session['reference_number'] is None:
-            logger.log(LogLevel.WARN, f"(LoginRequired) {get_signedin_user()} has attempted to access {request.host_url}")
-            return local_redirect(url_for('startApplication.index'))
-        return f(*args, **kwargs)
-    return decorated_function
-
-def LoginRequiredOneLogin(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
         if 'user' not in session or session['user'] is None:
-            return local_redirect(url_for('oneLogin.index'))
+            return local_redirect(url_for('oneLogin.start'))
         return f(*args, **kwargs)
     return decorated_function
 
