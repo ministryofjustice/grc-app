@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% import "govuk-design-system-templates/error-summary.html" as error_summary %}
+{% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
+
+{% block title %}GOV.UK One Login Test{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ error_summary.renderFor(form) }}
+
+            <form method="POST">
+                {{ form.csrf_token }}
+
+                {{ radios.renderFor(
+                    form,
+                    fieldName='identity_eligible',
+                    question=_("Are you able to prove your identity by use of xx? If you do not live in the United Kingdom do you have xxx??"),
+                    radiosOptions={
+                        'questionIsPageHeading': true
+                    }
+                ) }}
+
+                {{ continue.renderFor() }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
