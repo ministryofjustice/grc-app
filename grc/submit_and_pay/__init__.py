@@ -115,7 +115,7 @@ def checkYourAnswers():
                 description = 'Talu am Dystysgrif Cydnabod Rhywedd'
 
             data = {
-                'amount': 500,
+                'amount': 600,
                 'reference': application_data.reference_number,
                 'description': description,
                 'return_url': return_link + 'submit-and-pay/payment-confirmation/' + random_uuid,
