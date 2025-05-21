@@ -3,11 +3,14 @@
 
 {% block title %}{{ _('Your reference number') }}{% endblock %}
 
-{% block backLink %}
-    {{ back.renderFor('oneLogin.identityEligibility') }}
-{% endblock %}
-
 {% block content %}
+
+    {% if session.get('user', {}).get('one_login_auth') == true %}
+        {% block backLink %}
+            {{ back.renderFor('oneLogin.identityEligibility') }}
+        {% endblock %}
+    {% endif %}
+
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
