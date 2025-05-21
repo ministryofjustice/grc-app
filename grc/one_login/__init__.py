@@ -15,12 +15,13 @@ from grc.models import Application
 logger = Logger()
 oneLogin = Blueprint('oneLogin', __name__)
 
-@oneLogin.route('/home', methods=['GET', 'POST'])
+@oneLogin.route('/', methods=['GET', 'POST'])
 @Unauthorized
 def start():
     form = ReferenceCheckForm()
     if request.method == "POST" and form.validate_on_submit():
-        if form.has_reference.data == 'yes':
+
+        if form.has_reference.data == 'HAS_REFERENCE':
             reference_number = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference_number).first()
 
@@ -29,10 +30,13 @@ def start():
                 return render_template('one-login/start.html', form=form)
 
             application_data = application.application_data()
+
+            logger.log(LogLevel.DEBUG, application_data.created_after_one_login)
+
             if not application_data.created_after_one_login:
                 session['reference_number'] = reference_number
                 logger.log(LogLevel.INFO, f"Application with reference number {str(reference_number)} was created BEFORE One Login implementation. Redirecting to original auth.")
-                return redirect(url_for('startApplication.index'))
+                return local_redirect(url_for('startApplication.index'))
 
             logger.log(LogLevel.INFO, f"Application with reference number {str(reference_number)} was created AFTER One Login implementation. Redirecting to One Login.")
             return redirect(url_for('oneLogin.authenticate'))
@@ -175,7 +179,6 @@ def callbackIdentity():
 
         application_data = DataStore.load_application_by_session_reference_number()
         application_data.birth_registration_data.date_of_birth = user.get('dob')
-
         application_data.personal_details_data.first_name = name.get('first_name')
         application_data.personal_details_data.middle_names = name.get('middle_name')
         application_data.personal_details_data.last_name = name.get('last_name')
@@ -184,7 +187,6 @@ def callbackIdentity():
         application_data.personal_details_data.address_line_one = f"{address.get('buildingNumber')} {address.get('streetName')}".strip()
         application_data.personal_details_data.address_town_city = address.get('addressLocality')
         application_data.personal_details_data.address_postcode = address.get('postalCode')
-
         DataStore.save_application(application_data)
 
         return local_redirect(url_for("startApplication.reference"))
@@ -192,6 +194,11 @@ def callbackIdentity():
     except Exception as e:
         logger.log(LogLevel.ERROR, f"Identity callback failed: {str(e)}")
         return local_redirect(url_for("oneLogin.identityEligibility"))
+
+@oneLogin.route('/oneLogin/back-from-email', methods=['GET'])
+def backFromEmail():
+    session.clear()
+    return local_redirect(url_for('oneLogin.start'))
 
 def handle_onelogin_response(code: str, fetch_tokens_func, store_user_info_func):
     config = get_onelogin_config()

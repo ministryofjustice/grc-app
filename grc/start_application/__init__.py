@@ -12,22 +12,34 @@ from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 from grc.utils.strtobool import strtobool
-from sqlalchemy.exc import SQLAlchemyError
 
 startApplication = Blueprint('startApplication', __name__)
 logger = Logger()
 
 
-@startApplication.route('/', methods=['GET', 'POST'])
+@startApplication.route('/email', methods=['GET', 'POST'])
 @Unauthorized
 def index():
     form = EmailAddressForm()
-    if form.validate_on_submit():
-        session.clear()
+
+    reference_number = session.get('reference_number')
+    if reference_number is None:
+        return local_redirect(url_for('oneLogin.start'))
+
+    application = Application.query.filter_by(reference_number=reference_number).first()
+    if application is None:
+        return local_redirect(url_for('oneLogin.start'))
+
+    application_data = application.application_data()
+    if application_data.created_after_one_login:
+        return local_redirect(url_for('oneLogin.start'))
+
+    if request.method == "POST" and form.validate_on_submit():
         session['email'] = form.email.data
         session['lang_code'] = g.lang_code
         GovUkNotify().send_email_security_code(form.email.data)
         return local_redirect(url_for('startApplication.securityCode'))
+
     return render_template(
         'start-application/email-address.html',
         form=form
@@ -39,14 +51,14 @@ def index():
 @Unauthorized
 def securityCode():
     form = SecurityCodeForm()
-
+    email = session.get('email')
     if request.method == 'POST':
-        email = session['email']
         if form.validate_on_submit():
-            session.clear()  # Clear out session['email']
-            session['validatedEmail'] = email
-            session['lang_code'] = g.lang_code
-            return local_redirect(url_for('startApplication.isFirstVisit'))
+            session['user'] = {
+                'email': email,
+                "one_login_auth": False
+            }
+            return local_redirect(url_for('startApplication.reference'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
@@ -56,85 +68,8 @@ def securityCode():
     return render_template(
         'security-code.html',
         form=form,
-        email=session['email']
+        email=email
     )
-
-
-@startApplication.route('/is-first-visit', methods=['GET', 'POST'])
-@ValidatedEmailRequired
-@Unauthorized
-def isFirstVisit():
-    form = IsFirstVisitForm()
-
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            if form.isFirstVisit.data == 'FIRST_VISIT' or form.isFirstVisit.data == 'LOST_REFERENCE':
-                try:
-                    application = DataStore.create_new_application(email_address=session['validatedEmail'])
-                    session.clear()  # Clear out session['validatedEmail']
-                    session['reference_number'] = application.reference_number
-                    session['lang_code'] = g.lang_code
-                    DataStore.increment_application_sessions(application.reference_number)
-                    return local_redirect(url_for('startApplication.reference'))
-
-                except SQLAlchemyError as err:
-                    logger.log(LogLevel.ERROR, message=f'Error incrementing app session with error: {err}')
-                    flash('There is a problem creating a new application', 'error')
-                    return render_template('start-application/is-first-visit.html', form=form)
-
-            if form.isFirstVisit.data == 'HAS_REFERENCE':
-                reference_number = DataStore.compact_reference(form.reference.data)
-                application = Application.query.filter_by(reference_number=reference_number).first()
-
-                if application is None:
-                    form.reference.errors.append('Enter a valid reference number')
-                    return render_template('start-application/is-first-visit.html', form=form)
-
-                if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
-                    # This application has been anonymised
-                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
-                                              f" attempted to access an anonymised application")
-                    return render_template('start-application/application-anonymised.html')
-
-                elif application.status == ApplicationStatus.COMPLETED or \
-                        application.status == ApplicationStatus.SUBMITTED or \
-                        application.status == ApplicationStatus.DOWNLOADED:
-                    # This application has already been submitted
-                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
-                                              f" attempted to access a submitted application")
-                    return render_template('start-application/application-already-submitted.html')
-
-                elif application.email == session['validatedEmail']:
-                    # The reference number is associated with their email address - load the application
-                    logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['validatedEmail'])}"
-                                              f" accessed their application")
-                    session.clear()  # Clear out session['validatedEmail']
-                    session['reference_number'] = application.reference_number
-                    session['lang_code'] = g.lang_code
-                    DataStore.increment_application_sessions(application.reference_number)
-                    return local_redirect(url_for('taskList.index'))
-
-                else:
-                    # This reference number is owned by another email address - pretend it doesn't exist
-                    logger.log(LogLevel.WARN, f"{logger.mask_email_address(session['validatedEmail'])}"
-                                              f" attempted to access someone else's application")
-                    form.reference.errors.append('Enter a valid reference number')
-                    return render_template('start-application/is-first-visit.html', form=form)
-
-    return render_template(
-        'start-application/is-first-visit.html',
-        form=form
-    )
-
-
-# @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
-# @LoginRequired
-# def backToIsFirstVisit():
-#     reference_number = DataStore.compact_reference(session['reference_number'])
-#     application = Application.query.filter_by(reference_number=reference_number).first()
-#     session.clear()  # Clear out session['reference_number']
-#     session['validatedEmail'] = application.email
-#     return local_redirect(url_for('oneLogin.identityEligibility'))
 
 @startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
 @LoginRequired

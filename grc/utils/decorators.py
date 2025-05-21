@@ -2,6 +2,7 @@ from functools import wraps
 from flask import abort, url_for, current_app, request, session
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
+from grc.models import Application
 
 logger = Logger()
 
@@ -70,7 +71,7 @@ def AdminRequired(f):
 def Unauthorized(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'reference_number' in session:
+        if 'user' in session:
             logger.log(LogLevel.WARN, f"(Unauthorized) {get_signedin_user()} has attempted to access {request.host_url}")
             return local_redirect(url_for('taskList.index'))
         return f(*args, **kwargs)

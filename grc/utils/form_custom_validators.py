@@ -100,12 +100,12 @@ def validate_security_code(form, field):
     if is_test and field.data == '11111':
         return
 
-    if not is_security_code_valid(session.get('email'), field.data, False):
+    if not is_security_code_valid(session.get('user',{}).get('email'), field.data, False):
         raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
 def validate_reference_number(form, field):
-    validated_email = session.get('validatedEmail')
+    validated_email = session.get('user', {}).get('email')
     if not reference_number_is_valid(field.data, validated_email):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
