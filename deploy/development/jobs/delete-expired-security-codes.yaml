@@ -71,7 +71,7 @@ spec:
               - name: NOTIFY_ADMIN_LOGIN_TEMPLATE_ID
                 value: "ddfa69ca-e89d-49d1-8311-b487732860ec"
               - name: NOTIFY_ADMIN_FORGOT_PASSWORD_TEMPLATE_ID
-                value: "***REMOVED***"
+                value: "7e2ed682-d120-4937-9154-1966976e0144"
               - name: NOTIFY_ADMIN_NEW_USER_TEMPLATE_ID
                 value: "0ff48a4c-601e-4cc1-b6c6-30bac012c259"
               - name: SECRET_KEY
