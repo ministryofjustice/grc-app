@@ -1,0 +1,2237 @@
+diff --git a/.circleci/config.yml b/.circleci/config.yml
+index cc9d60d6..364d3672 100644
+--- a/.circleci/config.yml
++++ b/.circleci/config.yml
+@@ -29,21 +29,24 @@ jobs:
+       - image: 'circleci/python:3.8'
+         environment:
+           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
++          FLASK_APP: grc
+           FLASK_ENV: test
+           FLASK_DEBUG: 1
+-          FLASK_APP: grc
+           LOG_LEVEL: DEBUG
+           TEST_URL: 'http://localhost:8080'
++          ADMIN_TEST_URL: 'http://localhost:8181'
+           SECRET_KEY: ef987sd9fwkjefosf9we0svs9q3evsd0
+           SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:password@localhost:5432/grc'
+           SQLALCHEMY_TRACK_MODIFICATION: false
+-          DEFAULT_ADMIN_USER: grc-service-account@cabinetoffice.gov.uk
++          DEFAULT_ADMIN_USER: dts-legacy-apps-support-team@hmcts.net
++          DEFAULT_ADMIN_PASSWORD: '${DEFAULT_ADMIN_PASSWORD}'
+           NOTIFY_API: '${NOTIFY_API}'
+-          NOTIFY_OVERRIDE_EMAIL: ivan.touloumbadjian@hmcts.net
++          NOTIFY_OVERRIDE_EMAIL: dts-legacy-apps-support-team@hmcts.net
+           BUCKET_NAME: 'cloud-platform-558bc9877f5cc03fc5d7a241c17360b5' # use the DEV S3 bucket for e2e test uploads for all environments
+           AWS_REGION: eu-west-2
+           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
+           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
++          GLIMR_BASE_URL: 'http://localhost:8181/glimr/api/tdsapi'
+       - image: 'circleci/postgres:10.4'
+         environment:
+           POSTGRES_HOST: localhost
+@@ -127,7 +130,8 @@ jobs:
+           name: Start site and run e2e
+           command: |
+             . venv/bin/activate
+-            waitress-serve --call --port=8080 'grc:create_app' &
++            FLASK_APP=grc waitress-serve --call --host=0.0.0.0 --port=8080 'grc:create_app' &
++            FLASK_APP=admin waitress-serve --call --host=0.0.0.0 --port=8181 'admin:create_app' &
+             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
+             pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
+       - store_artifacts:
+@@ -295,8 +299,8 @@ jobs:
+             equal: [ PREPROD, << parameters.env_name >> ]
+           steps:
+             - aws-cli/setup:
+-                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD 
+-                region: $ECR_REGION_PREPROD 
++                role_arn: $ECR_ROLE_TO_ASSUME_PREPROD
++                region: $ECR_REGION_PREPROD
+             - run:
+                 name: Login to PREPROD ECR
+                 command: |
+@@ -306,8 +310,8 @@ jobs:
+             equal: [ PROD, << parameters.env_name >> ]
+           steps:
+             - aws-cli/setup:
+-                role_arn: $ECR_ROLE_TO_ASSUME_PROD 
+-                region: $ECR_REGION_PROD 
++                role_arn: $ECR_ROLE_TO_ASSUME_PROD
++                region: $ECR_REGION_PROD
+             - run:
+                 name: Login to PROD ECR
+                 command: |
+@@ -355,7 +359,7 @@ jobs:
+           name: direct traffic to maintenance page
+           command: |
+             kubectl apply -n grc-dev --record=false -f ./deploy/development/ingress.yaml
+-            
++
+   deploy_maintenance_page_preprod:
+     <<: *cloud_container
+     steps:
+@@ -377,7 +381,7 @@ jobs:
+           command: |
+             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress.yaml
+             kubectl apply -n grc-preprod --record=false -f ./deploy/staging/ingress-admin.yaml
+-            
++
+   deploy_maintenance_page_prod:
+     <<: *cloud_container
+     steps:
+diff --git a/admin/__init__.py b/admin/__init__.py
+index cabc8c88..e9d15958 100644
+--- a/admin/__init__.py
++++ b/admin/__init__.py
+@@ -30,7 +30,7 @@ def create_app(test_config=None):
+     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
+         HttpBasicAuthentication(app)
+ 
+-    if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local':
++    if os.environ['FLASK_ENV'] != 'development' and os.environ['FLASK_ENV'] != 'local' and os.environ['FLASK_ENV'] != 'test':
+         app.config['PROPAGATE_EXCEPTIONS'] = True
+         CustomErrorHandlers(app)
+ 
+@@ -125,6 +125,19 @@ def create_app(test_config=None):
+         rate_limiter.exempt(health_check)
+     app.register_blueprint(health_check)
+ 
++    # GLiMR
++    from admin.glimr import glimr
++    app.register_blueprint(glimr)
++
++    # Mock API for testing
++    from grc.glimr_mock_api import glimr_mock_api
++    if app.config.get('FLASK_ENV', 'development') in ['development', 'local', 'test']:
++        app.register_blueprint(glimr_mock_api)
++        app.logger.info('GLiMR Mock API registered in admin app with routes:')
++        for rule in app.url_map.iter_rules():
++            if rule.endpoint.startswith('glimr_mock_api'):
++                app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
++
+     def get_locale():
+         return session.get('lang_code', 'en')
+ 
+diff --git a/admin/admin/__init__.py b/admin/admin/__init__.py
+index 71e35341..789bbf3d 100644
+--- a/admin/admin/__init__.py
++++ b/admin/admin/__init__.py
+@@ -132,16 +132,12 @@ def add_default_admin_user_to_database_if_there_are_no_users():
+     if number_of_admins == 0:
+         default_email_address: str = current_app.config['DEFAULT_ADMIN_USER']
+         default_email_address = default_email_address.lower()
+-        temporary_password = generate_temporary_password()
+-        record = AdminUser(email=default_email_address, password=generate_password_hash(temporary_password),
+-                           userType='ADMIN')
++        default_admin_password: str = current_app.config['DEFAULT_ADMIN_PASSWORD']
++        record = AdminUser(email=default_email_address, password=generate_password_hash(default_admin_password),
++                           userType='ADMIN', passwordResetRequired=False)
+         db.session.add(record)
+         db.session.commit()
+ 
+         GovUkNotify().send_email_admin_new_user(email_address=default_email_address,
+-                                                temporary_password=temporary_password,
++                                                temporary_password=default_admin_password,
+                                                 application_link=request.base_url)
+-
+-
+-def generate_temporary_password():
+-    return ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+diff --git a/admin/applications/__init__.py b/admin/applications/__init__.py
+index 78126ea5..7d008f36 100644
+--- a/admin/applications/__init__.py
++++ b/admin/applications/__init__.py
+@@ -31,6 +31,7 @@ def index():
+         status=ApplicationStatus.COMPLETED
+     ).order_by(Application.updated.desc())
+ 
++    new_apps_references = [application.reference_number for application in newApplications]
+     downloaded_apps_references = [application.reference_number for application in downloadedApplications]
+     completed_apps_references = [application.reference_number for application in completedApplications]
+ 
+@@ -41,6 +42,7 @@ def index():
+         message=message,
+         newApplications=newApplications,
+         downloadedApplications=downloadedApplications,
++        new_apps_references=new_apps_references,
+         downloaded_apps_references=downloaded_apps_references,
+         completed_apps_references=completed_apps_references,
+         completedApplications=completedApplications
+@@ -178,7 +180,8 @@ def download(reference_number):
+         db.session.commit()
+ 
+         from grc.utils.application_files import ApplicationFiles
+-        bytes_, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
++        pdf_stream, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
++        bytes_ = pdf_stream.read()
+ 
+         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
+ 
+diff --git a/admin/config.py b/admin/config.py
+index 11ed5832..5628dec6 100644
+--- a/admin/config.py
++++ b/admin/config.py
+@@ -11,6 +11,7 @@ class Config:
+     SQLALCHEMY_TRACK_MODIFICATIONS = False
+     SQLALCHEMY_KEY = os.environ.get("SQLALCHEMY_KEY")
+     DEFAULT_ADMIN_USER = os.environ.get("DEFAULT_ADMIN_USER")
++    DEFAULT_ADMIN_PASSWORD = os.environ.get("DEFAULT_ADMIN_PASSWORD")
+     LOG_LEVEL = (
+         logging.getLevelName(os.environ.get("LOG_LEVEL"))
+         if "LOG_LEVEL" in os.environ
+@@ -25,10 +26,10 @@ class Config:
+     GOVUK_PAY_API = os.environ.get("GOVUK_PAY_API")
+     GOVUK_PAY_API_KEY = os.environ.get("GOVUK_PAY_API_KEY")
+     SECRET_KEY = os.environ.get("SECRET_KEY")
+-    SESSION_COOKIE_SECURE = True
++    SESSION_COOKIE_SECURE = os.environ.get('FLASK_ENV') not in ('local', 'test')
+     SESSION_COOKIE_HTTPONLY = True
+     SESSION_COOKIE_SAMESITE = "Strict"
+-    WTF_CSRF_ENABLED = True
++    WTF_CSRF_ENABLED = os.environ.get('FLASK_ENV') not in ('local', 'test')
+     WTF_CSRF_TIME_LIMIT = None  # Stops the CSRF token expiring (before the lifetime of the session). This was an accessibility problem
+     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+@@ -45,11 +46,12 @@ class Config:
+     BASIC_AUTH_PASSWORD = os.environ.get("BASIC_AUTH_PASSWORD")
+     SENTRY_URL = os.environ.get("SENTRY_URL")
+     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
+-
++    GLIMR_API_KEY = os.environ.get('GLIMR_API_KEY')
++    GLIMR_BASE_URL = os.environ.get('GLIMR_BASE_URL')
+ 
+ class TestConfig(Config):
+     TESTING = True
+     WTF_CSRF_ENABLED = False
+     DEFAULT_ADMIN_USER = "test.email@example.com"
+     TEST_URL = os.environ.get('TEST_URL', 'http://localhost')
+-    FLASK_APP = "admin"
++    FLASK_APP = "admin"
+\ No newline at end of file
+diff --git a/admin/glimr/__init__.py b/admin/glimr/__init__.py
+new file mode 100644
+index 00000000..a5159f42
+--- /dev/null
++++ b/admin/glimr/__init__.py
+@@ -0,0 +1,80 @@
++from flask import Blueprint, request, jsonify
++
++from admin.glimr.glimr_new_case import GlimrNewCase
++from grc.models import Application
++from grc.utils.logger import LogLevel, Logger
++import requests
++from grc.models import db
++
++glimr = Blueprint('glimr', __name__)
++logger = Logger()
++
++@glimr.route('/glimr/submit', methods=['POST'])
++def submit_register_cases():
++    data = request.get_json()
++    reference_numbers = data['applications']
++
++    if len(reference_numbers) <= 0:
++        return jsonify({'error': 'No Cases Submitted'}), 404
++
++    failed_cases = []
++    processed_cases = []
++
++    for reference_number in reference_numbers:
++        try:
++            application = get_application(reference_number)
++
++            if application is None:
++                failed_cases.append(reference_number)
++                logger.log(LogLevel.ERROR, f'Application #{reference_number} not found.')
++
++            else:
++                glimr_case = GlimrNewCase(application).call_glimr_register_api()
++                save_glimr_case_reference(application, glimr_case)
++                set_case_registered(application)
++                processed_cases.append(reference_number)
++                logger.log(LogLevel.INFO, f'Application #{reference_number} successfully registered to GLiMR.')
++
++        except Exception as e:
++            failed_cases.append(reference_number)
++            logger.log(LogLevel.ERROR, f"GLiMR API request failed with error {str(e)} for application #{reference_number}.")
++
++    response_body = {
++        'processedCases': processed_cases,
++        'failedCases': failed_cases,
++    }
++
++    return jsonify(response_body), 200 if processed_cases else 400
++
++def get_application(reference_number):
++    application: Application = Application.query.filter_by(
++        reference_number=reference_number
++    ).first()
++
++    if application is None:
++        logger.log(LogLevel.ERROR, f"Application #{reference_number} cannot be found.")
++        return None
++
++    return application
++
++def save_glimr_case_reference(application: Application, glimr_case: GlimrNewCase):
++    try:
++        case_reference = glimr_case.case_reference
++        application.case_reference = case_reference
++        db.session.commit()
++        logger.log(LogLevel.INFO, f'Application saved with case reference {str(case_reference)}.')
++
++    except Exception as e:
++        logger.log(LogLevel.ERROR, f"Application failed to save case reference in database caused by: {str(e)}.")
++        raise Exception(str(e))
++
++def set_case_registered(application: Application):
++    try:
++        application.case_registered = True
++        db.session.commit()
++        logger.log(LogLevel.INFO, f"Application marked as registered in database.")
++
++    except Exception as e:
++        logger.log(LogLevel.ERROR, f"Application failed to be marked as registered in database caused by: {str(e)}.")
++        raise Exception(str(e))
++
+diff --git a/admin/glimr/glimr_client_api.py b/admin/glimr/glimr_client_api.py
+new file mode 100644
+index 00000000..41b34190
+--- /dev/null
++++ b/admin/glimr/glimr_client_api.py
+@@ -0,0 +1,87 @@
++import abc
++import requests
++from typing import Dict, Any
++from flask import current_app
++from grc.utils.logger import Logger, LogLevel
++
++logger = Logger()
++
++class GlimrClientApi(abc.ABC):
++    """
++    GlimrClientApi is an Abstract Base Class serving as a foundation for calling external GLiMR APIs.
++
++    Retrieves api_key and base_url from environment on initialisation. The specific endpoint to be called
++    will be overridden in the endpoint abstract function by subclasses.
++
++    call_api accepts data as an argument, and it will make the api call to GLiMR.
++    """
++
++    def __init__(self, data: Dict[str, Any]):
++        """
++        Initialises API key and base URL.
++        """
++        self.data = data
++        self.api_key = current_app.config['GLIMR_API_KEY']
++        self.base_url = current_app.config['GLIMR_BASE_URL']
++
++    @abc.abstractmethod
++    def endpoint(self) -> str:
++        """
++        This should be implemented by subclasses to return the specific endpoint for the API call being made.
++        """
++        pass
++
++    def get_api_key(self):
++        return self.api_key
++
++    def get_base_url(self):
++        return self.base_url
++
++    def create_headers(self) -> Dict[str, str]:
++        """
++        Creates the headers necessary for making the API call. Includes an Authorization header which we pass the api key through.
++        """
++        return {
++            'Content-Type': 'application/json',
++            'Accept': 'application/json',
++            'Authorization': f'apikey {self.get_api_key()}'
++        }
++
++    def make_post_request(self, endpoint: str, data: Dict[str, Any]) -> Dict[str, Any]:
++        """
++        Sends a POST request to the GLiMR API
++
++        :param endpoint: The API endpoint to send the request to.
++        :param data: The data to be sent in the POST request.
++
++        :return: The JSON response from the API.
++        :raises Exception: If the request fails.
++        """
++        url = f'{self.get_base_url()}/{endpoint}'
++        headers = self.create_headers()
++
++        try:
++            response = requests.post(url, json=data, headers=headers)
++
++            if response.status_code == 200:
++                logger.log(LogLevel.INFO, f"GLiMR API request to {url} responded with status code 200.")
++                return response.json()
++            else:
++                logger.log(LogLevel.ERROR, f"GLiMR API request to {url} failed with status code {response.status_code}.")
++                response.raise_for_status()
++
++        except requests.exceptions.RequestException as e:
++            logger.log(LogLevel.ERROR, f"GLiMR API request to {url} failed with error {str(e)} in class {self.__class__.__name__}.")
++            raise Exception(str(e))
++
++
++    def call_api(self) -> Dict[str, Any]:
++        """
++        Calls the API using a POST request and processes the result.
++
++        :param data: The data to send to the API.
++        :return: The API response data.
++        """
++        data = self.data
++        endpoint = self.endpoint()
++        return self.make_post_request(endpoint, data)
+diff --git a/admin/glimr/glimr_new_case.py b/admin/glimr/glimr_new_case.py
+new file mode 100644
+index 00000000..1dfffbf3
+--- /dev/null
++++ b/admin/glimr/glimr_new_case.py
+@@ -0,0 +1,117 @@
++from admin.glimr.glimr_register_case_api import GlimrRegisterCaseApi
++from grc.business_logic.data_structures.application_data import ApplicationData
++from grc.business_logic.data_structures.partnership_details_data import PartnershipDetailsData
++from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
++from grc.models import Application
++from typing import Dict, Any, Optional
++from datetime import datetime
++from grc.utils.logger import Logger, LogLevel
++
++logger = Logger()
++
++class GlimrNewCase:
++    """
++    GlimrNewCase represents a new case being registered with the GLiMR system.
++
++    It handles extracting relevant application and personal details,
++    formatting parameters, and making an API request to register the case.
++    """
++    def __init__(self, application: Application):
++        """
++        Initializes a GlimrNewCase instance with application data and details.
++
++        :param application: The application object containing relevant case details.
++        """
++        self.application: Application = application
++        self.application_data: ApplicationData = application.application_data()
++        self.personal_details: PersonalDetailsData = self.application_data.personal_details_data
++        self.partnership_details: PartnershipDetailsData = self.application_data.partnership_details_data
++        self.case_reference: str | None = None
++
++    def call_glimr_register_api(self):
++        """
++        Calls the GLiMR Register Case API and stores the response details.
++
++        :raises Exception: If the API request fails.
++        """
++        register_api = GlimrRegisterCaseApi(self.params())
++        try:
++            response = register_api.call_api()
++            self.case_reference = response.get("tribunalCaseNumber")
++            logger.log(LogLevel.INFO, f"Successfully called GLiMR API. Responded with case reference {self.case_reference}.")
++            return self
++
++        except Exception as e:
++            logger.log(LogLevel.ERROR, f"GLiMR API request failed with error {str(e)} in class {self.__class__.__name__}.")
++            raise Exception(str(e))
++
++    def params(self) -> Dict[str, Any]:
++        """
++        Combines and returns all necessary case parameters for the API request.
++        """
++        return {
++                'jurisdictionId': 2000000,
++                'track': 'GRP General',
++                'onlineMappingCode':self.get_online_mapping_code(),
++                'documentsUrl': self.application_data.documents_url(),
++                **self.contact_params(),
++        }
++
++    def get_online_mapping_code(self) -> str:
++        """
++        Returns the online mapping code depending on the case type
++        """
++        if self.application_data.is_uk_application:
++            return 'GRP_STANDARD'
++        elif self.application_data.is_overseas_application:
++            return 'GRP_OVERSEAS'
++        else:
++            logger.log(LogLevel.WARN, 'Unable to determine mapping code; defaulting to GRP_STANDARD.')
++            return 'GRP_STANDARD'
++
++    def contact_params(self) -> Dict[str, Any]:
++        """
++        Returns the contact details parameters for the API request.
++        """
++        return {
++            'contactFirstName': self.get_first_names(),
++            'contactFullName': self.get_full_name(),
++            'contactSalutation': self.get_salutation(),
++            'contactLastName': self.personal_details.last_name,
++            'contactPreference': self.get_contact_preference(),
++            'contactPhone': self.personal_details.contact_phone_number,
++            'contactEmail': self.personal_details.contact_email_address,
++            'contactCity': self.personal_details.address_town_city,
++            'contactPostalCode': self.personal_details.address_postcode,
++            'contactCountry': self.personal_details.address_country,
++            **self.contact_street()
++        }
++
++    def contact_street(self) -> Dict[str, str]:
++        """
++        Returns the contact address details parameters for the API request.
++        """
++        contact_street = {'contactStreet1': self.personal_details.address_line_one}
++
++        if self.personal_details.address_line_two:
++            contact_street['contactStreet2'] = self.personal_details.address_line_two
++
++        return contact_street
++
++    def get_first_names(self) -> str:
++        return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.middle_names)
++
++    def get_full_name(self) -> str:
++        return str(self.personal_details.title) + " " + str(self.personal_details.first_name) + " " + str(self.personal_details.last_name)
++
++    def get_salutation(self) -> str:
++        return str(self.personal_details.title) + " " + str(self.personal_details.last_name)
++
++    def get_contact_preference(self) -> Optional[str]:
++        if self.personal_details.contact_email_address:
++            return 'Email'
++        if self.personal_details.contact_phone_number:
++            return 'Phone Call'
++        if self.personal_details.contact_by_post:
++            return 'Post'
++        return None
+\ No newline at end of file
+diff --git a/admin/glimr/glimr_register_case_api.py b/admin/glimr/glimr_register_case_api.py
+new file mode 100644
+index 00000000..e8670444
+--- /dev/null
++++ b/admin/glimr/glimr_register_case_api.py
+@@ -0,0 +1,5 @@
++from .glimr_client_api import GlimrClientApi
++
++class GlimrRegisterCaseApi(GlimrClientApi):
++    def endpoint(self) -> str:
++        return 'registernewcase'
+diff --git a/admin/static/assets/images/spinner.gif b/admin/static/assets/images/spinner.gif
+new file mode 100644
+index 00000000..4888c85b
+Binary files /dev/null and b/admin/static/assets/images/spinner.gif differ
+diff --git a/admin/static/assets/js/applications.js b/admin/static/assets/js/applications.js
+index 192e5fc5..649f5fc6 100644
+--- a/admin/static/assets/js/applications.js
++++ b/admin/static/assets/js/applications.js
+@@ -1,5 +1,7 @@
++let loadingRegister = false;
++let applicationError = false;
+ let applicationsChecked = [];
+-let submitButton;
++let submitButton = document.getElementById('submit-selected-apps-btn-new');
+ 
+ window.onload = function() {
+     const urlAnchor = window.location.hash;
+@@ -44,41 +46,188 @@ function submitBulkMarkAsComplete(url) {
+     }
+ }
+ 
++/**
++Removes application from applicationChecked array
++
++params: application: application to be removed
++**/
++function removeApplicationFromChecked(application) {
++    applicationsChecked = applicationsChecked.filter(applicationChecked => applicationChecked !== application);
++}
++
++/**
++Disables submit button
++**/
++function disableSubmitButton() {
++    if (applicationsChecked.length == 0) {
++        submitButton.classList.add('govuk-button--disabled');
++        submitButton.setAttribute('disabled', 'disabled');
++    }
++}
++
++/**
++Enables submit button
++**/
++function enableSubmitButton() {
++    if (applicationsChecked.length > 0) {
++        submitButton.classList.remove('govuk-button--disabled');
++        submitButton.removeAttribute('disabled');
++    }
++}
++
++/**
++Selects all applications to be checked.
++
++Adds all cases to applicationsChecked array, marks each case as checked, and enables submit button.
++
++params: applications: applications to be marked for checked
++**/
+ function selectAllApplications(applications) {
+     applicationsChecked = [];
+     for(let i = 0; i < applications.length; i++) {
+-        document.getElementById(applications[i]).checked = true;
+-        applicationsChecked.push(applications[i]);
++        checkbox = document.getElementById(applications[i]);
++        if (!checkbox.classList.contains('checkbox-registered')) {
++            checkbox.checked = true;
++            applicationsChecked.push(applications[i]);
++        }
+     }
+-    submitButton.classList.remove('govuk-button--disabled');
+-    submitButton.removeAttribute('disabled');
++    enableSubmitButton()
+ }
+ 
++/**
++Clears all applications from being checked,
++
++Removes all cases from applicationsChecked array, marks each case as unchecked, and disables submit button.
++
++params: applications: applications to be cleared from being checked
++**/
+ function clearAllApplications(applications) {
+     for(let i = 0; i < applications.length; i++) {
+-        document.getElementById(applications[i]).checked = false;
++        checkbox = document.getElementById(applications[i]);
++        if (!checkbox.classList.contains('checkbox-registered')) {
++            checkbox.checked = false;
++        }
+     }
+     applicationsChecked = [];
+-    submitButton.classList.add('govuk-button--disabled');
+-    submitButton.setAttribute('disabled', 'disabled');
++    disableSubmitButton();
+ }
+ 
++/**
++Selects or deselects an application
++
++params: application: application reference number to be selected or deselected
++**/
+ function selectOrDeselectApplication(application) {
+     const applicationReference = document.getElementById(application);
+     if (applicationReference.checked) {
+         applicationsChecked.push(application);
+-        submitButton.classList.remove('govuk-button--disabled');
+-        submitButton.removeAttribute('disabled');
++        enableSubmitButton();
++    } else if (!applicationReference.checked) {
++        removeApplicationFromChecked(application);
++        disableSubmitButton();
+     }
++}
+ 
+-    if (!applicationReference.checked) {
+-        const index = applicationsChecked.indexOf(application);
+-        if (index > -1) {
+-          applicationsChecked.splice(index, 1);
+-        }
+-        if (!applicationsChecked.length) {
+-            submitButton.classList.add('govuk-button--disabled');
+-            submitButton.setAttribute('disabled', 'disabled');
++/**
++Sets case to be registered and therefore removed from applicationsChecked, disabled, and text changed to registered.
++
++params: application: application to be case registered
++**/
++function setCaseRegistered(application) {
++    const checkbox = document.getElementById(application);
++    const label = document.getElementById(`label-${application}`);
++    removeApplicationFromChecked(application);
++    checkbox.classList.remove('checkbox-unregistered');
++    checkbox.classList.add('checkbox-registered');
++    checkbox.disabled = true;
++    checkbox.checked = true;
++    label.textContent = "Registered new case";
++
++}
++
++/**
++Sets Loading to true which displays a spinner image on the page and doesn't allow API calls to GLiMR
++**/
++function setLoadingTrue(spinner) {
++    loadingRegister = true;
++    spinner.style.display = 'inline';
++}
++
++/**
++Sets Loading to false which hides a spinner image from the page and allows API calls to GLiMR
++**/
++function setLoadingFalse(spinner) {
++    loadingRegister = false;
++    spinner.style.display = 'None';
++}
++
++function setApplicationErrorTrue(errorMessage) {
++    applicationError = true;
++    errorMessage.style.display = 'block';
++    window.scrollTo({
++      top: 0,
++    });
++}
++
++function setApplicationErrorFalse(errorMessage) {
++    applicationError = false;
++    errorMessage.style.display = 'None';
++}
++
++/**
++Submits the selected applications for case registration and handles the GLiMR api call
++**/
++async function submitNewCaseRegistration() {
++    if (applicationsChecked.length === 0) {
++        return;
++    }
++
++    if (loadingRegister === true) {
++        return;
++    }
++
++    const spinner = document.getElementById('spinner');
++    const errorMessage = document.getElementById('errorMessage');
++    setLoadingTrue(spinner);
++
++    try {
++        const response = await fetch('/glimr/submit', {
++                method: 'POST',
++                headers: {
++                    'Content-Type': 'application/json',
++                    'Accept': 'application/json',
++                },
++                body: JSON.stringify({ 'applications':applicationsChecked })
++            });
++
++        const data = await response.json();
++        const failedCases = data.failedCases;
++        const processedCases = data.processedCases;
++
++        if (response.ok) {
++            if (failedCases.length > 0) {
++                setApplicationErrorTrue(errorMessage);
++            } else {
++                setApplicationErrorFalse(errorMessage);
++            }
++
++            if (processedCases.length > 0) {
++                processedCases.forEach((processedCase) => {
++                    setCaseRegistered(processedCase);
++                    removeApplicationFromChecked(processedCase);
++                });
++            }
++
++            disableSubmitButton()
++
++        } else {
++            throw new Error(`HTTP error! status: ${response.status}`);
+         }
++
++    } catch (fetchError) {
++        setApplicationErrorTrue(errorMessage);
++    } finally {
++        setLoadingFalse(spinner);
+     }
+ }
++
+diff --git a/admin/templates/applications/applications-error.html b/admin/templates/applications/applications-error.html
+new file mode 100644
+index 00000000..4e4b7e81
+--- /dev/null
++++ b/admin/templates/applications/applications-error.html
+@@ -0,0 +1,23 @@
++{% macro renderError() %}
++
++    <div id="errorMessage" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary" style="display:None;">
++        <h2 id="error-summary-title" class="govuk-error-summary__title">
++            There is a problem with registering a new case
++        </h2>
++        <div class="govuk-error-summary__body">
++            <ul class="govuk-list govuk-error-summary__list">
++                <li>
++                    <a href="#tab_new">
++                        One or more cases could not be automatically registered
++                    </a>
++                </li>
++                <li>
++                    <a href="#tab_new">
++                        Please try again or register the case manually to GLiMR
++                    </a>
++                </li>
++            </ul>
++        </div>
++    </div>
++
++{% endmacro %}
+\ No newline at end of file
+diff --git a/admin/templates/applications/applications.html b/admin/templates/applications/applications.html
+index 84e84429..990c4157 100644
+--- a/admin/templates/applications/applications.html
++++ b/admin/templates/applications/applications.html
+@@ -1,11 +1,15 @@
+ {% extends 'base.html' %}
+ 
++{% import "applications/applications-error.html" as applications_error %}
++
+ {% block title %}GRC applications{% endblock %}
+ 
+ {% block content %}
+     <div class="govuk-grid-row">
+         <div class="govuk-grid-column-full">
+ 
++            {{ applications_error.renderError() }}
++
+             <h1 class="govuk-heading-l">
+                 View and download GRC applications
+             </h1>
+@@ -43,7 +47,7 @@
+             <div class="govuk-tabs" data-module="govuk-tabs">
+                 <ul class="govuk-tabs__list" role="tablist">
+                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected" role="presentation">
+-                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" onclick="tabClicked(this.id, null)">
++                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" onclick="tabClicked(this.id, {{ new_apps_references }})">
+                             New applications
+                         </a>
+                     </li>
+@@ -60,7 +64,7 @@
+                 </ul>
+ 
+ 
+-                <div class="govuk-tabs__panel" id="new" role="tabpanel" aria-labelledby="tab_new"">
++                <div class="govuk-tabs__panel" id="new" role="tabpanel" aria-labelledby="tab_new">
+                     <h2 class="govuk-heading-m">New applications</h2>
+                     {% if newApplications.count() == 0 %}
+                         <div class="govuk-body">
+@@ -81,9 +85,8 @@
+                                     {% set application_data = application.application_data() %}
+                                     {% if application_data %}
+                                     <tr class="govuk-table__row">
+-                                        <th scope="row" class="govuk-table__header">
++                                        <th scope="row" class="govuk-table__header reference-number">
+                                             {{ application_data.reference_number_formatted }}
+-                                            <!--- {{ application.user_input | safe }} -->
+                                         </th>
+                                         <td class="govuk-table__cell">
+                                             {{ application_data.personal_details_data.title }}
+@@ -109,6 +112,23 @@
+                                                         </span>
+                                                     </a>
+                                                 </li>
++                                                <li>
++                                                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
++                                                        <div class="govuk-checkboxes__item">
++                                                            {% if application.case_registered == True %}
++                                                                <input class="govuk-checkboxes__input checkbox-registered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" checked disabled>
++                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" name="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
++                                                                    Registered new case
++                                                                </label>
++                                                            {% else %}
++                                                                <input class="govuk-checkboxes__input checkbox-unregistered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
++                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" name="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
++                                                                    Register new case
++                                                                </label>
++                                                            {% endif %}
++                                                        </div>
++                                                    </div>
++                                                </li>
+                                             </ul>
+                                         </td>
+                                     </tr>
+@@ -123,6 +143,23 @@
+                                     </tr>
+                                     {% endif %}
+                                 {% endfor %}
++                                <tr class="govuk-table__row">
++                                    <td colspan="4" class="govuk-table__cell" style="text-align: right">
++                                        <img id="spinner" class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" src="{{ url_for('static', filename='assets/images/spinner.gif') }}" style="display:none;" width="30" height="30" alt="Loading spinner image.">
++                                        <button id="submit-selected-apps-btn-new" disabled="disabled" 
++                                                class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
++                                                data-module="govuk-button"
++                                                onclick="submitNewCaseRegistration()">
++                                            Apply new case registration
++                                        </button>
++                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ new_apps_references }})">
++                                            Select all for new case registration
++                                        </button>
++                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ new_apps_references }})">
++                                            Clear all for new case registration
++                                        </button>
++                                    </td>
++                                </tr>
+                             </tbody>
+                         </table>
+                     {% endif %}
+diff --git a/admin/templates/applications/view-application.html b/admin/templates/applications/view-application.html
+index 9a2ea747..96a81e8d 100644
+--- a/admin/templates/applications/view-application.html
++++ b/admin/templates/applications/view-application.html
+@@ -44,8 +44,7 @@
+     </thead>
+ {% endmacro %}
+ 
+-{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None) %}
+-    {% set id = random_id.randomId(10) %}
++{% macro summary_list_item(title, value, subtitle=None, rowsWithThisTitle=None, noWrap=False, noCopyButton=False, alternativeCopyValue=None, id=None) %}
+     <tr class="govuk-table__row">
+         {% if title %}
+             <th scope="row" id="row-header-{{ id }}"
+@@ -163,7 +162,8 @@
+                 <tbody class="govuk-table__body">
+                     {{ summary_list_item(
+                         title='Currently married or in a civil partnership',
+-                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted)
++                        value=(application_data.partnership_details_data.currently_in_a_partnership_formatted),
++                        id="grc-relationship-status"
+                     ) }}
+ 
+                     {% if application_data.partnership_details_data.is_not_in_partnership %}
+@@ -262,7 +262,8 @@
+                 <tbody class="govuk-table__body">
+                     {{ summary_list_item(
+                         title="Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?",
+-                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted
++                        value=application_data.confirmation_data.gender_recognition_outside_uk_formatted,
++                        id="grc-gender-recognition-outside-uk"
+                     ) }}
+ 
+                     {{ summary_list_item(
+@@ -287,22 +288,26 @@
+                         title="Name (as you would like it to appear on your Gender Recognition Certificate)",
+                         subtitle="Title",
+                         value=application_data.personal_details_data.title,
+-                        rowsWithThisTitle='4'
++                        rowsWithThisTitle='4',
++                        id="grc-title"
+                     ) }}
+ 
+                     {{ summary_list_item(
+                         subtitle="First name",
+-                        value=application_data.personal_details_data.first_name
++                        value=application_data.personal_details_data.first_name,
++                        id="grc-first-name"
+                     ) }}
+ 
+                     {{ summary_list_item(
+                         subtitle="Middle name(s)",
+-                        value=(application_data.personal_details_data.middle_names_or_empty_string)
++                        value=(application_data.personal_details_data.middle_names_or_empty_string),
++                        id="grc-middle-name"
+                     ) }}
+ 
+                     {{ summary_list_item(
+                         subtitle="Last name",
+-                        value=application_data.personal_details_data.last_name
++                        value=application_data.personal_details_data.last_name,
++                        id="grc-last-name"
+                     ) }}
+ 
+                     {{ summary_list_item(
+@@ -355,7 +360,8 @@
+                             title="Contact preferences",
+                             subtitle="Email",
+                             value=(application_data.personal_details_data.contact_email_address),
+-                            rowsWithThisTitle=contactPreferencesLines
++                            rowsWithThisTitle=contactPreferencesLines,
++                            id="grc-email"
+                         ) }}
+                     {% endif %}
+ 
+@@ -365,12 +371,14 @@
+                                 title="Contact preferences",
+                                 subtitle="Phone",
+                                 value=(application_data.personal_details_data.contact_phone_number),
+-                                rowsWithThisTitle=contactPreferencesLines
++                                rowsWithThisTitle=contactPreferencesLines,
++                                id="grc-phone"
+                             ) }}
+                         {% else %}
+                             {{ summary_list_item(
+                                 subtitle="Phone",
+-                                value=(application_data.personal_details_data.contact_phone_number)
++                                value=(application_data.personal_details_data.contact_phone_number),
++                                id="grc-phone"
+                             ) }}
+                         {% endif %}
+                     {% endif %}
+@@ -381,12 +389,14 @@
+                                 title="Contact preferences",
+                                 subtitle="Post",
+                                 value=(application_data.personal_details_data.address_comma_separated),
+-                                rowsWithThisTitle=contactPreferencesLines
++                                rowsWithThisTitle=contactPreferencesLines,
++                                id="grc-post"
+                             ) }}
+                         {% else %}
+                             {{ summary_list_item(
+                                 subtitle="Post",
+-                                value=(application_data.personal_details_data.address_comma_separated)
++                                value=(application_data.personal_details_data.address_comma_separated),
++                                id="grc-post"
+                             ) }}
+                         {% endif %}
+                     {% endif %}
+@@ -405,7 +415,8 @@
+                     {{ summary_list_item(
+                         title="Address",
+                         value=(addressValue()),
+-                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks)
++                        alternativeCopyValue=(application_data.personal_details_data.address_with_line_breaks),
++                        id="grc-address"
+                     ) }}
+ 
+                     {% if application_data.personal_details_data.contact_dates_should_avoid %}
+diff --git a/deploy/development/admin-deployment.yaml b/deploy/development/admin-deployment.yaml
+index 580286f4..04017955 100644
+--- a/deploy/development/admin-deployment.yaml
++++ b/deploy/development/admin-deployment.yaml
+@@ -40,7 +40,12 @@ spec:
+                 name: rds-postgresql-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: mark.butler@HMCTS.net
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: admin
+           - name: FLASK_ENV
+@@ -93,3 +98,10 @@ spec:
+               secretKeyRef:
+                 name: elasticache-grc-dev
+                 key: url
++          - name: GLIMR_API_KEY
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: glimr-api-key
++          - name: GLIMR_BASE_URL
++            value: "https://glimr-preprod.staging.apps.hmcts.net/glimr_preprod/api/tdsapi"
+diff --git a/deploy/development/app-deployment.yaml b/deploy/development/app-deployment.yaml
+index 2a81acda..7001d03c 100644
+--- a/deploy/development/app-deployment.yaml
++++ b/deploy/development/app-deployment.yaml
+@@ -44,7 +44,12 @@ spec:
+                 name: rds-postgresql-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: grc-service-account@cabinetoffice.gov.uk
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: grc
+           - name: FLASK_ENV
+@@ -59,7 +64,7 @@ spec:
+           - name: LOG_LEVEL
+             value: DEBUG
+           - name: NOTIFY_OVERRIDE_EMAIL
+-            value: ivan.touloumbadjian@hmcts.net
++            value: dts-legacy-apps-support-team@hmcts.net
+           - name: NOTIFY_API
+             valueFrom:
+               secretKeyRef:
+diff --git a/deploy/development/jobs/anonymise-expired-applications.yaml b/deploy/development/jobs/anonymise-expired-applications.yaml
+index ef7ef52c..61d388b4 100644
+--- a/deploy/development/jobs/anonymise-expired-applications.yaml
++++ b/deploy/development/jobs/anonymise-expired-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: rds-postgresql-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/development/jobs/delete-completed-applications.yaml b/deploy/development/jobs/delete-completed-applications.yaml
+index 91ef23b5..07b24802 100644
+--- a/deploy/development/jobs/delete-completed-applications.yaml
++++ b/deploy/development/jobs/delete-completed-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: rds-postgresql-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/development/jobs/delete-expired-security-codes.yaml b/deploy/development/jobs/delete-expired-security-codes.yaml
+index 599b01b9..35d1173a 100644
+--- a/deploy/development/jobs/delete-expired-security-codes.yaml
++++ b/deploy/development/jobs/delete-expired-security-codes.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: rds-postgresql-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/development/jobs/notify-applicants-inactive-applications.yaml b/deploy/development/jobs/notify-applicants-inactive-applications.yaml
+index 64a20b58..9b2ae9ef 100644
+--- a/deploy/development/jobs/notify-applicants-inactive-applications.yaml
++++ b/deploy/development/jobs/notify-applicants-inactive-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: rds-postgresql-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/production/admin-deployment.yaml b/deploy/production/admin-deployment.yaml
+index 847ae261..dc8d8d25 100644
+--- a/deploy/production/admin-deployment.yaml
++++ b/deploy/production/admin-deployment.yaml
+@@ -40,7 +40,12 @@ spec:
+                 name: dps-rds-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: mark.butler@HMCTS.net
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: admin
+           - name: FLASK_ENV
+diff --git a/deploy/production/app-deployment.yaml b/deploy/production/app-deployment.yaml
+index bae82029..8fbbab44 100644
+--- a/deploy/production/app-deployment.yaml
++++ b/deploy/production/app-deployment.yaml
+@@ -44,7 +44,12 @@ spec:
+                 name: dps-rds-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: grc-service-account@cabinetoffice.gov.uk
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: grc
+           - name: FLASK_ENV
+diff --git a/deploy/production/jobs/anonymise-expired-applications.yaml b/deploy/production/jobs/anonymise-expired-applications.yaml
+index 290507ad..4b25d825 100644
+--- a/deploy/production/jobs/anonymise-expired-applications.yaml
++++ b/deploy/production/jobs/anonymise-expired-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/production/jobs/delete-completed-applications.yaml b/deploy/production/jobs/delete-completed-applications.yaml
+index a4ab8f55..82826bc0 100644
+--- a/deploy/production/jobs/delete-completed-applications.yaml
++++ b/deploy/production/jobs/delete-completed-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/production/jobs/delete-expired-security-codes.yaml b/deploy/production/jobs/delete-expired-security-codes.yaml
+index f84850fe..2b9eba79 100644
+--- a/deploy/production/jobs/delete-expired-security-codes.yaml
++++ b/deploy/production/jobs/delete-expired-security-codes.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/production/jobs/notify-applicants-inactive-applications.yaml b/deploy/production/jobs/notify-applicants-inactive-applications.yaml
+index 8f67820c..25247098 100644
+--- a/deploy/production/jobs/notify-applicants-inactive-applications.yaml
++++ b/deploy/production/jobs/notify-applicants-inactive-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/staging/admin-deployment.yaml b/deploy/staging/admin-deployment.yaml
+index f251d0ad..130bb780 100644
+--- a/deploy/staging/admin-deployment.yaml
++++ b/deploy/staging/admin-deployment.yaml
+@@ -27,6 +27,16 @@ spec:
+           periodSeconds: 20
+           timeoutSeconds: 10
+         env:
++          - name: AWS_ACCESS_KEY_ID
++            valueFrom:
++              secretKeyRef:
++                name: s3-bucket-output
++                key: access_key_id
++          - name: AWS_SECRET_ACCESS_KEY
++            valueFrom:
++              secretKeyRef:
++                name: s3-bucket-output
++                key: secret_access_key
+           - name: AWS_REGION
+             value: eu-west-2
+           - name: BUCKET_NAME
+@@ -40,7 +50,12 @@ spec:
+                 name: dps-rds-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: mark.butler@HMCTS.net
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: admin
+           - name: FLASK_ENV
+@@ -93,3 +108,10 @@ spec:
+               secretKeyRef:
+                 name: elasticache-grc-preprod
+                 key: url
++          - name: GLIMR_API_KEY
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: glimr-api-key
++          - name: GLIMR_BASE_URL
++            value: "https://glimr-preprod.staging.apps.hmcts.net/glimr_preprod/api/tdsapi"
+diff --git a/deploy/staging/app-deployment.yaml b/deploy/staging/app-deployment.yaml
+index 34137aeb..99774718 100644
+--- a/deploy/staging/app-deployment.yaml
++++ b/deploy/staging/app-deployment.yaml
+@@ -44,7 +44,12 @@ spec:
+                 name: dps-rds-instance-output
+                 key: url
+           - name: DEFAULT_ADMIN_USER
+-            value: grc-service-account@cabinetoffice.gov.uk
++            value: dts-legacy-apps-support-team@hmcts.net
++          - name: DEFAULT_ADMIN_PASSWORD
++            valueFrom:
++              secretKeyRef:
++                name: basic-auth
++                key: default-admin-password
+           - name: FLASK_APP
+             value: grc
+           - name: FLASK_ENV
+diff --git a/deploy/staging/jobs/anonymise-expired-applications.yaml b/deploy/staging/jobs/anonymise-expired-applications.yaml
+index a2b794b5..2219ff3a 100644
+--- a/deploy/staging/jobs/anonymise-expired-applications.yaml
++++ b/deploy/staging/jobs/anonymise-expired-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/staging/jobs/delete-completed-applications.yaml b/deploy/staging/jobs/delete-completed-applications.yaml
+index ff4625e3..a539afe9 100644
+--- a/deploy/staging/jobs/delete-completed-applications.yaml
++++ b/deploy/staging/jobs/delete-completed-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/staging/jobs/delete-expired-security-codes.yaml b/deploy/staging/jobs/delete-expired-security-codes.yaml
+index 63fbf39e..fee64cbe 100644
+--- a/deploy/staging/jobs/delete-expired-security-codes.yaml
++++ b/deploy/staging/jobs/delete-expired-security-codes.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/deploy/staging/jobs/notify-applicants-inactive-applications.yaml b/deploy/staging/jobs/notify-applicants-inactive-applications.yaml
+index f104de42..a824e43d 100644
+--- a/deploy/staging/jobs/notify-applicants-inactive-applications.yaml
++++ b/deploy/staging/jobs/notify-applicants-inactive-applications.yaml
+@@ -41,7 +41,12 @@ spec:
+                     name: dps-rds-instance-output
+                     key: url
+               - name: DEFAULT_ADMIN_USER
+-                value: mark.butler@HMCTS.net
++                value: dts-legacy-apps-support-team@hmcts.net
++              - name: DEFAULT_ADMIN_PASSWORD
++                valueFrom:
++                  secretKeyRef:
++                    name: basic-auth
++                    key: default-admin-password
+               - name: FLASK_APP
+                 value: admin
+               - name: FLASK_ENV
+diff --git a/grc/__init__.py b/grc/__init__.py
+index ec8aa83f..a0ebbaf6 100644
+--- a/grc/__init__.py
++++ b/grc/__init__.py
+@@ -141,6 +141,15 @@ def create_app(test_config=None):
+     from .language import set_language
+     app.register_blueprint(set_language)
+ 
++    # Mock API for testing
++    from grc.glimr_mock_api import glimr_mock_api
++    if app.config.get('ENVIRONMENT', 'development') in ['development', 'test']:
++        app.register_blueprint(glimr_mock_api)
++        app.logger.info('Mock API registered for testing with routes:')
++        for rule in app.url_map.iter_rules():
++            if rule.endpoint.startswith('glimr_mock_api'):
++                app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
++
+     def get_locale():
+         return session.get('lang_code', 'en')
+ 
+diff --git a/grc/business_logic/data_structures/application_data.py b/grc/business_logic/data_structures/application_data.py
+index 45136933..18d395f9 100644
+--- a/grc/business_logic/data_structures/application_data.py
++++ b/grc/business_logic/data_structures/application_data.py
+@@ -1,5 +1,6 @@
+ from datetime import datetime
+ from typing import List
++from flask import current_app
+ from grc.business_logic.data_structures.confirmation_data import ConfirmationData
+ from grc.business_logic.data_structures.birth_registration_data import BirthRegistrationData
+ from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
+@@ -51,6 +52,15 @@ class ApplicationData:
+         else:
+             return ListStatus.COMPLETED
+ 
++    def documents_url(self) -> str:
++        s3_bucket_name = current_app.config.get('BUCKET_NAME')
++        s3_object_name = self.application_pdf_name()
++        return f"https://{s3_bucket_name}.s3.eu-west-2.amazonaws.com/{s3_object_name}"
++
++    def application_pdf_name(self) -> str:
++        reference_number = self.reference_number.upper()
++        return f"{reference_number}.pdf"
++
+     @property
+     def reference_number_formatted(self) -> str:
+         trimmed_reference = self.reference_number.replace('-', '').replace(' ', '').upper()
+diff --git a/grc/glimr_mock_api/__init__.py b/grc/glimr_mock_api/__init__.py
+new file mode 100644
+index 00000000..7a603f09
+--- /dev/null
++++ b/grc/glimr_mock_api/__init__.py
+@@ -0,0 +1,55 @@
++from flask import Blueprint, request, jsonify, current_app
++from grc.utils.logger import LogLevel, Logger
++
++glimr_mock_api = Blueprint('glimr_mock_api', __name__, url_prefix='/glimr/api/tdsapi')
++logger = Logger()
++
++@glimr_mock_api.route('/registernewcase', methods=['POST'])
++def glimr_register_case_api():
++    try:
++        data = request.get_json()
++        headers = request.headers
++
++        required_headers = ['Content-Type', 'Accept', 'Authorization']
++        missing_headers = [header for header in required_headers if header not in headers]
++
++        if missing_headers:
++            return jsonify({'error': 'The given header was not found.'}), 400
++
++        if 'jurisdictionId' not in data:
++            return jsonify({"error": "No JurisdictionID supplied"}), 401
++
++        if 'onlineMappingCode' not in data:
++            return jsonify({"error": "No OnlineMappingCode supplied"}), 402
++
++        if 'contactFullName' not in data:
++            return jsonify({"error": "No contact name supplied"}), 403
++
++        if data['jurisdictionId'] != 2000000:
++            return jsonify({"error": f"Active Jurisdiction not found for JurisdictionId {data['jurisdictionId']}"}), 411
++
++        if data['onlineMappingCode'] not in ['GRP_STANDARD', 'GRP_OVERSEAS']:
++            return jsonify({"error": "Online Mapping invalid or not found"}), 412
++
++        response = {
++          "jurisdictionId": 2000000,
++          "tribunalCaseId": 12345,
++          "tribunalCaseNumber": "GRS/2025/0001",
++          "caseTitle": data['contactFullName'],
++          "confirmationCode": None,
++        }
++
++        return jsonify(response), 200
++
++    except Exception as e:
++        logger.log(LogLevel.ERROR, str(e))
++        return jsonify({'error': str(e)}), 400
++
++@glimr_mock_api.route('/glimravailable', methods=['POST'])
++def glimr_available_api():
++    pass
++
++@glimr_mock_api.before_request
++def log_request_info():
++    logger.log(LogLevel.INFO, f"Mock API request: {request.method} {request.url}")
++    return None 
+\ No newline at end of file
+diff --git a/grc/submit_and_pay/__init__.py b/grc/submit_and_pay/__init__.py
+index c481e66e..da634ad4 100644
+--- a/grc/submit_and_pay/__init__.py
++++ b/grc/submit_and_pay/__init__.py
+@@ -214,8 +214,16 @@ def confirmation():
+     @copy_current_request_context
+     def create_files(reference_number, application_data_):
+         app_files_util = ApplicationFiles()
+-        if app_files_util.create_and_upload_attachments(reference_number, application_data_) and \
+-                app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
++
++        mark_files_flag = True
++
++        if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
++            mark_files_flag = False
++
++        if not app_files_util.upload_pdf_admin_with_files_attached(application_data_):
++            mark_files_flag = False
++
++        if mark_files_flag:
+             mark_files_created(reference_number)
+ 
+     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
+diff --git a/grc/templates/submit-and-pay/method.html b/grc/templates/submit-and-pay/method.html
+index 44dd88eb..5a578a50 100644
+--- a/grc/templates/submit-and-pay/method.html
++++ b/grc/templates/submit-and-pay/method.html
+@@ -21,7 +21,7 @@
+             </h1>
+ 
+             <p class="govuk-body">
+-                {{ _('Applying for a Gender Recognition Certificate costs &pound;6.') }}
++                {{ _('Applying for a Gender Recognition Certificate costs &pound;5.') }}
+             </p>
+             <p class="govuk-body">
+                 {{ _('You can') }}
+diff --git a/grc/translations/cy/LC_MESSAGES/messages.po b/grc/translations/cy/LC_MESSAGES/messages.po
+index 08871399..b50084c0 100644
+--- a/grc/translations/cy/LC_MESSAGES/messages.po
++++ b/grc/translations/cy/LC_MESSAGES/messages.po
+@@ -4362,8 +4362,8 @@ msgid "Payment"
+ msgstr "Talu"
+ 
+ #: grc/templates/submit-and-pay/method.html:24
+-msgid "Applying for a Gender Recognition Certificate costs &pound;6."
+-msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;6."
++msgid "Applying for a Gender Recognition Certificate costs &pound;5."
++msgstr "Mae gwneud cais am Dystysgrif Cydnabod Rhywedd yn costio &pound;5."
+ 
+ #: grc/templates/submit-and-pay/method.html:43
+ msgid "Are you applying for help paying the fee?"
+diff --git a/grc/utils/application_files.py b/grc/utils/application_files.py
+index 2afbf528..e2c969d4 100644
+--- a/grc/utils/application_files.py
++++ b/grc/utils/application_files.py
+@@ -96,12 +96,12 @@ class ApplicationFiles:
+         return output_pdf_document.read(), file_name
+ 
+     @profile
+-    def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[bytes, str]:
++    def create_pdf_admin_with_files_attached(self, application_data) -> Tuple[BytesIO, str]:
+         file_name = application_data.reference_number + '.pdf'
+         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
+         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
+                         'overseasCertificate']
+-        return self._create_pdf_attach_files(application_data, pdfs, all_sections).read(), file_name
++        return self._create_pdf_attach_files(application_data, pdfs, all_sections), file_name
+ 
+     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
+         file_name = application_data.reference_number + '.pdf'
+@@ -110,9 +110,9 @@ class ApplicationFiles:
+                         'overseasCertificate']
+         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
+ 
+-    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
++    def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
+         file_name = application_data.reference_number + '.pdf'
+-        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_filenames(application_data), file_name)
++        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
+ 
+     @staticmethod
+     def download_pdf_admin(application_data: ApplicationData) -> bytes:
+diff --git a/grc/utils/form_custom_validators.py b/grc/utils/form_custom_validators.py
+index 63003828..bf3bcafe 100644
+--- a/grc/utils/form_custom_validators.py
++++ b/grc/utils/form_custom_validators.py
+@@ -85,7 +85,7 @@ class Integer(DataRequired):
+ 
+ 
+ def validate_security_code_admin(form, field):
+-    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
++    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') in ('development', 'local', 'test') else False
+ 
+     if is_test and field.data == '11111':
+         return
+@@ -95,7 +95,7 @@ def validate_security_code_admin(form, field):
+ 
+ 
+ def validate_security_code(form, field):
+-    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
++    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') in ('development', 'local', 'test') else False
+ 
+     if is_test and field.data == '11111':
+         return
+diff --git a/messages.pot b/messages.pot
+index d85ee249..105ec39d 100644
+--- a/messages.pot
++++ b/messages.pot
+@@ -3861,7 +3861,7 @@ msgid "Payment"
+ msgstr ""
+ 
+ #: grc/templates/submit-and-pay/method.html:24
+-msgid "Applying for a Gender Recognition Certificate costs &pound;6."
++msgid "Applying for a Gender Recognition Certificate costs &pound;5."
+ msgstr ""
+ 
+ #: grc/templates/submit-and-pay/method.html:43
+diff --git a/run_admin.sh b/run_admin.sh
+index a9d6b5c9..408313cb 100644
+--- a/run_admin.sh
++++ b/run_admin.sh
+@@ -1,4 +1,4 @@
+ #!/bin/bash
+ 
+ #flask run --host=0.0.0.0 --port=3001
+-waitress-serve --call --port=3001 'admin:create_app'
+\ No newline at end of file
++waitress-serve --call --host=0.0.0.0 --port=3001 'admin:create_app'
+\ No newline at end of file
+diff --git a/tests/admin/admin/test_index.py b/tests/admin/admin/test_index.py
+index d7225577..21b8f431 100644
+--- a/tests/admin/admin/test_index.py
++++ b/tests/admin/admin/test_index.py
+@@ -20,13 +20,11 @@ class TestAdminIndex:
+             mock_send_email.assert_not_called()
+             assert response.status_code == 200
+ 
+-    @patch('admin.admin.generate_temporary_password')
+     @patch('grc.models.db.session')
+     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
+-    def test_index_add_default_admin_required(self, mock_send_email, mock_db_session, mock_temp_password, app, client):
++    def test_index_add_default_admin_required(self, mock_send_email, mock_db_session, app, client):
+         with app.app_context():
+             mock_db_session.query.return_value.count.return_value = 0
+-            mock_temp_password.return_value = '123ABC'
+             response = client.get('/')
+             mock_db_session.add.assert_called()
+             mock_db_session.commit.assert_called()
+diff --git a/tests/admin/applications/test_index.py b/tests/admin/applications/test_index.py
+index 00788641..aa3f6e16 100644
+--- a/tests/admin/applications/test_index.py
++++ b/tests/admin/applications/test_index.py
+@@ -9,7 +9,7 @@ class TestAdminElements:
+             html = response.data.decode()
+             assert 'Download GRC applications' in html
+ 
+-    def test_new_applications_present(self, app, client, submitted_application):
++    def test_new_applications_present_unregistered(self, app, client, submitted_application_unregistered):
+         with app.app_context():
+             with client.session_transaction() as session:
+                 session['signedIn'] = 'test.email@example.com'
+@@ -18,6 +18,24 @@ class TestAdminElements:
+             html = response.data.decode()
+             assert 'New applications' in html
+             assert 'View application' in html
++            assert 'Register new case' in html
++            assert 'Reference number' in html
++            assert 'Applicant name' in html
++            assert 'Submitted' in html
++            assert '/applications/ABCD1234' in html
++            assert 'ABCD1234' in html
++            assert '01/01/2024 09:00' in html
++
++    def test_new_applications_present_registered(self, app, client, submitted_application_registered):
++        with app.app_context():
++            with client.session_transaction() as session:
++                session['signedIn'] = 'test.email@example.com'
++
++            response = client.get('/applications#new')
++            html = response.data.decode()
++            assert 'New applications' in html
++            assert 'View application' in html
++            assert 'Registered new case' in html
+             assert 'Reference number' in html
+             assert 'Applicant name' in html
+             assert 'Submitted' in html
+diff --git a/tests/admin/conftest.py b/tests/admin/conftest.py
+index d05f12b7..d034625c 100644
+--- a/tests/admin/conftest.py
++++ b/tests/admin/conftest.py
+@@ -91,7 +91,7 @@ def expired_security_code(app):
+ 
+ 
+ @pytest.fixture()
+-def submitted_application(app):
++def submitted_application_unregistered(app):
+     with app.app_context():
+         with app.test_request_context():
+             reference_number = 'ABCD1234'
+@@ -100,6 +100,7 @@ def submitted_application(app):
+             application_record = Application(
+                 reference_number=reference_number,
+                 email='test.email@example.com',
++                case_registered=False,
+                 status=ApplicationStatus.SUBMITTED,
+                 updated=datetime(2024, 1, 1, 9)
+             )
+@@ -126,6 +127,42 @@ def submitted_application(app):
+             db.session.delete(application_record)
+             db.session.commit()
+ 
++@pytest.fixture()
++def submitted_application_registered(app):
++    with app.app_context():
++        with app.test_request_context():
++            reference_number = 'ABCD1234'
++
++            # Create the application record
++            application_record = Application(
++                reference_number=reference_number,
++                email='test.email@example.com',
++                case_registered=True,
++                status=ApplicationStatus.SUBMITTED,
++                updated=datetime(2024, 1, 1, 9)
++            )
++
++            # Add the application to the database session
++            db.session.add(application_record)
++
++            # Add and encode user input
++            application_data = ApplicationData()
++            application_data.reference_number = reference_number
++            application_data.email_address = 'test.email@example.com'
++            application_data.updated = application_record.updated
++
++            user_input: str = jsonpickle.encode(application_data)
++            application_record.user_input = user_input
++
++            # Commit the changes to the database
++            db.session.commit()
++
++            # Yield the application for use in the test
++            yield application_record
++
++            # Delete the application after the test
++            db.session.delete(application_record)
++            db.session.commit()
+ 
+ @pytest.fixture()
+ def downloaded_application(app):
+diff --git a/tests/end_to_end_tests/accessibility/accessibility_checks.py b/tests/end_to_end_tests/accessibility/accessibility_checks.py
+index dbffc229..32acfb32 100644
+--- a/tests/end_to_end_tests/accessibility/accessibility_checks.py
++++ b/tests/end_to_end_tests/accessibility/accessibility_checks.py
+@@ -107,9 +107,9 @@ class AccessibilityChecks:
+                 print_coloured(f"|  |  |  Error Summary link with target {link_href} but there is no element with id=\"{link_href}\"", error=True)
+             assert link_target_element_found
+             link_target_tag_name = await page.locator('#' + link_target_id).evaluate("e => e.tagName.toLowerCase()")
+-            if link_target_tag_name != 'input' and link_target_tag_name != 'textarea':
++            if link_target_tag_name != 'input' and link_target_tag_name != 'textarea' and link_target_tag_name != 'a':
+                 print_coloured(f"|  |  |  Error Summary link with target {link_href} should point to an <input> but actually points to a <{link_target_tag_name}>", error=True)
+-            assert link_target_tag_name == 'input' or link_target_tag_name == 'textarea'
++            assert link_target_tag_name == 'input' or link_target_tag_name == 'textarea' or link_target_tag_name == 'a'
+ 
+ 
+     async def save_page_title(self, page: Page):
+diff --git a/tests/end_to_end_tests/helpers/e2e_admin_helpers.py b/tests/end_to_end_tests/helpers/e2e_admin_helpers.py
+new file mode 100644
+index 00000000..7336fe71
+--- /dev/null
++++ b/tests/end_to_end_tests/helpers/e2e_admin_helpers.py
+@@ -0,0 +1,40 @@
++from playwright.async_api import Page
++
++class AdminHelpers:
++    """
++    This class is used to create helper functions when end-to-end testing the GRC admin app
++    """
++    def __init__(self, page: Page):
++        self.page = page
++
++    async def get_top_rows(self, number_of_rows: int):
++        """
++        Extracts top three rows from table
++        """
++        rows = await self.page.locator("table tbody tr").all()
++        assert len(rows) >= number_of_rows, f"Expected at least {number_of_rows} rows, but found {len(rows)}"
++        return [rows[i] for i in range(number_of_rows) ]
++
++    async def get_row_reference_number(self, row):
++        """
++        Extracts reference number from a table row
++        """
++        if row is None:
++            return None
++
++        th_locator = row.locator("th.reference-number")
++
++        if await th_locator.count() == 0:  # Edge case: No matching <th> found
++            return None
++
++        reference_number = await th_locator.inner_text()
++
++        assert reference_number.strip(), "Reference number is empty"
++
++        return unformatted_reference_number(reference_number.strip())
++
++def unformatted_reference_number(reference_number: str) -> str:
++    """
++    Unformat a reference number from XXX-XXX to XXXXXX
++    """
++    return "".join(reference_number.split("-"))
+\ No newline at end of file
+diff --git a/tests/end_to_end_tests/helpers/e2e_assert_helpers.py b/tests/end_to_end_tests/helpers/e2e_assert_helpers.py
+index 6bff1506..af344835 100644
+--- a/tests/end_to_end_tests/helpers/e2e_assert_helpers.py
++++ b/tests/end_to_end_tests/helpers/e2e_assert_helpers.py
+@@ -1,4 +1,6 @@
+ import re
++from tabnanny import check
++
+ from playwright.async_api import Page
+ from tests.end_to_end_tests.accessibility.accessibility_checks import AccessibilityChecks
+ from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers, clean_string
+@@ -91,15 +93,25 @@ class AssertHelpers:
+         visible = await self.page.get_by_role('input', name=f'{field}').is_visible()
+         assert_equal(visible, False)
+ 
+-    async def is_checked(self, field: str, value: str):
+-        selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
+-                   f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"]"
++    async def is_checked(self, field: str, value=None):
++        if value:
++            selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
++                       f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"] "
++        else:
++            selector = f"input[type=\"radio\"][name=\"{field}\"], " \
++                       f"input[type=\"checkbox\"][name=\"{field}\"] "
++
+         element_is_checked = await self.page.is_checked(selector)
+         assert_equal(element_is_checked, True)
+ 
+-    async def not_checked(self, field: str, value: str):
+-        selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
+-                   f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"]"
++    async def not_checked(self, field: str, value=None):
++        if value:
++            selector = f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"], " \
++                       f"input[type=\"checkbox\"][name=\"{field}\"][value=\"{value}\"] "
++        else:
++            selector = f"input[type=\"radio\"][name=\"{field}\"], " \
++                       f"input[type=\"checkbox\"][name=\"{field}\"] "
++
+         element_is_checked = await self.page.is_checked(selector)
+         assert_equal(element_is_checked, False)
+ 
+@@ -205,6 +217,48 @@ class AssertHelpers:
+             print(f"Error: Link/button with text ({link_text}) was found")
+         assert found_index is None
+ 
++    async def check_case_is_registered(self, reference_number: str):
++        checkbox = f"input[type=\"checkbox\"][name=\"{reference_number}\"] "
++        checkbox_label = f"label[name=label-{reference_number}] "
++
++        checkbox_is_checked = await self.page.is_checked(checkbox)
++        # checkbox_is_disabled = await self.page.locator(checkbox).is_disabled()
++        checkbox_label_text = await self.page.locator(checkbox_label).inner_text()
++
++        # assert_equal(checkbox_is_disabled, True)
++        assert_equal(checkbox_is_checked, True)
++        assert_equal(checkbox_label_text, "Registered new case")
++
++    async def check_case_is_not_registered(self, reference_number: str):
++        checkbox_label = f"label[id=\"label-{reference_number}\"]"
++        checkbox_label_text = await self.page.locator(checkbox_label).inner_text()
++
++        assert_equal(checkbox_label_text, "Register new case")
++
++    async def button_disabled(self, field: str):
++        button_locator = self.page.locator(f'button#{field}')
++
++        class_attribute = await button_locator.get_attribute('class')
++
++        is_disabled_by_class = class_attribute and "govuk-button--disabled" in class_attribute
++        is_disabled_by_attribute = await button_locator.get_attribute('disabled') is not None
++
++        is_disabled = is_disabled_by_class and is_disabled_by_attribute
++
++        assert_equal(is_disabled, True)
++
++    async def button_enabled(self, field: str):
++        button_locator = self.page.locator(f'button#{field}')
++
++        class_attribute = await button_locator.get_attribute('class')
++
++        is_enabled_by_class = class_attribute and "govuk-button--disabled" not in class_attribute
++        is_enabled_by_attribute = await button_locator.get_attribute('disabled') is None
++
++        is_enabled = is_enabled_by_class and is_enabled_by_attribute
++
++        assert_equal(is_enabled, True)
++
+ 
+ def get_url_path(url: str):
+     if url.startswith('http://'):
+diff --git a/tests/end_to_end_tests/helpers/e2e_page_helpers.py b/tests/end_to_end_tests/helpers/e2e_page_helpers.py
+index f64c9570..dc4fdcb9 100644
+--- a/tests/end_to_end_tests/helpers/e2e_page_helpers.py
++++ b/tests/end_to_end_tests/helpers/e2e_page_helpers.py
+@@ -45,7 +45,7 @@ class PageHelpers:
+             await self.page.uncheck(f"input[type=\"checkbox\"][name=\"{field}\"]")
+ 
+     async def fill_textbox(self, field, value):
+-        selector = f"input[type=\"text\"][name=\"{field}\"], input[type=\"tel\"][name=\"{field}\"], input[type=\"email\"][name=\"{field}\"], textarea[name=\"{field}\"]"
++        selector = f"input[type=\"text\"][name=\"{field}\"], input[type=\"tel\"][name=\"{field}\"], input[type=\"email\"][name=\"{field}\"], input[type=\"password\"][name=\"{field}\"], textarea[name=\"{field}\"]"
+         await self.page.fill(selector, value)
+ 
+     async def fill_textbox_byid(self, field, value):
+diff --git a/tests/end_to_end_tests/journey_admin/__init__.py b/tests/end_to_end_tests/journey_admin/__init__.py
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/tests/end_to_end_tests/journey_admin/applications_glimr/section.py b/tests/end_to_end_tests/journey_admin/applications_glimr/section.py
+new file mode 100644
+index 00000000..2bc3e602
+--- /dev/null
++++ b/tests/end_to_end_tests/journey_admin/applications_glimr/section.py
+@@ -0,0 +1,104 @@
++from playwright.async_api import Page
++
++from grc.start_application import reference
++from grc.utils.reference_number import reference_number_is_valid
++from tests.end_to_end_tests.helpers.e2e_admin_helpers import AdminHelpers
++from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
++from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
++import tests.end_to_end_tests.journey_admin.data as data
++
++
++
++async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: PageHelpers, admin_helpers: AdminHelpers):
++
++    # ------------------------------------------------
++    # ---- Applications page
++    # ------------------------------------------------
++    await asserts.url('/applications')
++    await asserts.accessibility()
++    assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Download GRC applications'
++    await asserts.h1('View and download GRC applications')
++
++    # ------------------------------------------------
++    # ---- Extract top three table applications
++    # ------------------------------------------------
++    await page.wait_for_selector("table")
++
++    top_two_rows = await admin_helpers.get_top_rows(2)
++    first_row, second_row = top_two_rows
++
++    first_row_reference_number = await admin_helpers.get_row_reference_number(first_row)
++    second_row_reference_number = await admin_helpers.get_row_reference_number(second_row)
++
++    # ------------------------------------------------
++    # ---- Ensure all are not GLiMR case registered
++    # ------------------------------------------------
++    await asserts.check_case_is_not_registered(reference_number=first_row_reference_number)
++    await asserts.not_checked(field=first_row_reference_number)
++
++    await asserts.check_case_is_not_registered(reference_number=second_row_reference_number)
++    await asserts.not_checked(field=second_row_reference_number)
++
++    await asserts.button_disabled(field="submit-selected-apps-btn-new")
++
++    # ------------------------------------------------
++    # ---- Select all for new case registration
++    # ------------------------------------------------
++    await helpers.click_button(link_text="Select all for new case registration")
++    await asserts.is_checked(field=first_row_reference_number)
++    await asserts.is_checked(field=second_row_reference_number)
++    await asserts.button_enabled(field="submit-selected-apps-btn-new")
++
++    # ------------------------------------------------
++    # ---- Clear all for new case registration
++    # ------------------------------------------------
++    await helpers.click_button(link_text="Clear all for new case registration")
++    await asserts.not_checked(field=first_row_reference_number)
++    await asserts.not_checked(field=second_row_reference_number)
++    await asserts.button_disabled(field="submit-selected-apps-btn-new")
++
++    # ------------------------------------------------
++    # ---- Select and deselect for case registration
++    # ------------------------------------------------
++    for row_reference_number in [first_row_reference_number, second_row_reference_number]:
++        await helpers.check_checkbox(field=row_reference_number)
++        await asserts.is_checked(field=row_reference_number)
++        await asserts.button_enabled(field="submit-selected-apps-btn-new")
++        await helpers.uncheck_checkbox(field=row_reference_number)
++        await asserts.not_checked(field=row_reference_number)
++        await asserts.button_disabled(field="submit-selected-apps-btn-new")
++
++    # ------------------------------------------------
++    # ---- Submit applications to GLiMR
++    # ------------------------------------------------
++    await helpers.check_checkbox(field=first_row_reference_number)
++    await helpers.check_checkbox(field=second_row_reference_number)
++    await asserts.is_checked(field=first_row_reference_number)
++    await asserts.is_checked(field=second_row_reference_number)
++    await asserts.button_enabled(field="submit-selected-apps-btn-new")
++
++    async with page.expect_response("**/glimr/submit") as response_info:
++        await helpers.click_button(link_text="Apply new case registration")
++
++    response = await response_info.value
++    assert response.status == 200, f'Expected response status 200 from Api call, but received status code {response.status}'
++
++    await asserts.check_case_is_registered(reference_number=first_row_reference_number)
++    await asserts.check_case_is_registered(reference_number=second_row_reference_number)
++    await asserts.button_disabled(field="submit-selected-apps-btn-new")
++
++    # ------------------------------------------------
++    # ---- Clear all cases doesn't uncheck registered
++    # ------------------------------------------------
++    await helpers.click_button(link_text="Clear all for new case registration")
++    await asserts.is_checked(field=first_row_reference_number)
++    await asserts.is_checked(field=second_row_reference_number)
++
++
++
++
++
++
++
++
++
+diff --git a/tests/end_to_end_tests/journey_admin/conftest.py b/tests/end_to_end_tests/journey_admin/conftest.py
+new file mode 100644
+index 00000000..5f5614a8
+--- /dev/null
++++ b/tests/end_to_end_tests/journey_admin/conftest.py
+@@ -0,0 +1,7 @@
++import pytest
++from admin import create_app
++from admin.config import Config
++
++@pytest.fixture()
++def app():
++    yield create_app(Config)
+\ No newline at end of file
+diff --git a/tests/end_to_end_tests/journey_admin/data.py b/tests/end_to_end_tests/journey_admin/data.py
+new file mode 100644
+index 00000000..33da0dd9
+--- /dev/null
++++ b/tests/end_to_end_tests/journey_admin/data.py
+@@ -0,0 +1,7 @@
++from flask import current_app
++
++DEFAULT_TIMEOUT = 10 * 1000
++
++EMAIL_ADDRESS = "dts-legacy-apps-support-team@hmcts.net"
++PASSWORD = "123ABC"
++
+diff --git a/tests/end_to_end_tests/journey_admin/login_and_confirmation/section.py b/tests/end_to_end_tests/journey_admin/login_and_confirmation/section.py
+new file mode 100644
+index 00000000..c4b27a17
+--- /dev/null
++++ b/tests/end_to_end_tests/journey_admin/login_and_confirmation/section.py
+@@ -0,0 +1,70 @@
++from playwright.async_api import Page
++from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
++from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
++import tests.end_to_end_tests.journey_admin.data as data
++
++
++
++async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: PageHelpers):
++
++    # ------------------------------------------------
++    # ---- Login page
++    # ------------------------------------------------
++    await asserts.url('/')
++    await asserts.accessibility()
++    assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Download GRC applications'
++    await asserts.h1('Login to download GRC applications')
++    await asserts.number_of_errors(0)
++
++    # Don't enter an Email Address or password, click Continue button, see an error message
++    await helpers.fill_textbox(field='email_address', value='')
++    await helpers.fill_textbox(field='password', value='')
++    await helpers.click_button('Login')
++    await asserts.url('/')
++    await asserts.accessibility(page_description='No email address or password entered')
++    await asserts.h1('Login to download GRC applications')
++    await asserts.number_of_errors(2)
++    await asserts.error(field='email_address', message='Enter your email address')
++    await asserts.error(field='password', message='Enter your password')
++
++    # Enter a valid Email Address, click Continue button, see the Security Code page
++    await helpers.fill_textbox(field='email_address', value=data.EMAIL_ADDRESS)
++    await helpers.fill_textbox(field='password', value=data.PASSWORD)
++    await helpers.click_button('Login')
++
++    # ------------------------------------------------
++    # ---- Security Code page
++    # ------------------------------------------------
++    await asserts.url('/sign-in-with-security_code')
++    await asserts.accessibility()
++    await asserts.h1('Check your email')
++    await asserts.number_of_errors(0)
++
++# Don't enter a Security Code, click Continue button, see an error message
++    await helpers.fill_textbox(field='security_code', value='')
++    await helpers.click_button('Continue')
++    await asserts.url('/sign-in-with-security_code')
++    await asserts.accessibility(page_description='No security code entered')
++    await asserts.h1('Check your email')
++    await asserts.number_of_errors(1)
++    await asserts.error(field='security_code', message='Enter a security code')
++
++    # Enter an invalid Security Code, click Continue button, see an error message
++    await helpers.fill_textbox(field='security_code', value='4444')  # Note: Don't use a 5-digit code, otherwise this test will break once every 10,000 runs!
++    await helpers.click_button('Continue')
++    await asserts.url('/sign-in-with-security_code')
++    await asserts.accessibility(page_description='Invalid security code entered')
++    await asserts.h1('Check your email')
++    await asserts.number_of_errors(1)
++    await asserts.error(field='security_code', message='Enter the security code that we emailed you')
++
++    # Enter a valid Security Code, click Continue button
++    await helpers.fill_textbox(field='security_code', value='11111')
++    await helpers.click_button('Continue')
++
++    # ------------------------------------------------
++    # ---- Is First Visit page
++    # ------------------------------------------------
++    await asserts.url('/applications')
++    await asserts.accessibility()
++    await asserts.h1('View and download GRC applications')
+diff --git a/tests/end_to_end_tests/journey_admin/test_e2e_journey_admin.py b/tests/end_to_end_tests/journey_admin/test_e2e_journey_admin.py
+new file mode 100644
+index 00000000..9a966769
+--- /dev/null
++++ b/tests/end_to_end_tests/journey_admin/test_e2e_journey_admin.py
+@@ -0,0 +1,57 @@
++import os
++import asyncio
++from playwright.async_api import async_playwright
++
++from tests.end_to_end_tests.helpers.e2e_admin_helpers import AdminHelpers
++from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
++from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
++import tests.end_to_end_tests.journey_admin.login_and_confirmation.section as section_login_and_confirmation
++import tests.end_to_end_tests.journey_admin.applications_glimr.section as section_applications_glimr
++import tests.end_to_end_tests.journey_admin.data as data
++from grc.utils.security_code import delete_all_user_codes
++
++TEST_URL = os.getenv('ADMIN_TEST_URL', 'http://grc_admin:3001')
++
++def e2e_test_prerequisites():
++    # Require security code to be entered
++    delete_all_user_codes(data.EMAIL_ADDRESS)
++
++
++async def run_script_for_browser(browser_type):
++    browser = await browser_type.launch()
++    page = await browser.new_page()
++    page.set_default_timeout(data.DEFAULT_TIMEOUT)
++
++    helpers = PageHelpers(page)
++    asserts = AssertHelpers(page, helpers, TEST_URL)
++    admin_helpers = AdminHelpers(page)
++
++    e2e_test_prerequisites()
++
++    # Open login page
++    await page.goto(TEST_URL)
++
++    # ------------------------------------------------
++    # ---- LOGIN / CONFIRMATION section
++    # ------------------------------------------------
++    await section_login_and_confirmation.run_checks_on_section(page, asserts, helpers)
++
++    # ------------------------------------------------
++    # ---- Applications section
++    # ------------------------------------------------
++    await section_applications_glimr.run_checks_on_section(page, asserts, helpers, admin_helpers)
++
++
++
++
++async def e2e_main():
++    print("")  # Blank line to improve formatting
++
++    async with async_playwright() as p:
++        for browser_type in [p.chromium]: #, p.firefox, p.webkit]:
++            await run_script_for_browser(browser_type)
++
++def test_e2e_journey_admin(app):
++    with app.app_context():
++        asyncio.run(e2e_main())
++
+diff --git a/tests/grc/unit/utils/test_application_files/test_create_or_download_pdf.py b/tests/grc/unit/utils/test_application_files/test_create_or_download_pdf.py
+index 449005a3..657d1e31 100644
+--- a/tests/grc/unit/utils/test_application_files/test_create_or_download_pdf.py
++++ b/tests/grc/unit/utils/test_application_files/test_create_or_download_pdf.py
+@@ -1,6 +1,7 @@
+ import io
+ import fitz
+ import pytest
++
+ from grc.utils.application_files import ApplicationFiles
+ from unittest.mock import patch, MagicMock
+ 
+@@ -37,7 +38,7 @@ class TestCreateOrCreateDownloadPDF:
+         return bytes_buffer
+ 
+     @staticmethod
+-    def mock_create_output_pdf_document_with_filenames(*args, **kwargs):
++    def mock_create_output_pdf_document_with_files(*args, **kwargs):
+         bytes_buffer = io.BytesIO()
+         pdf_document = fitz.open()
+         try:
+@@ -148,31 +149,27 @@ class TestCreateOrCreateDownloadPDF:
+         assert 'PDF with application data and attached files' in page_2.get_text()
+         pdf_document.close()
+ 
+-    @patch('grc.utils.application_files.ApplicationFiles._create_pdf_attach_filenames')
++    @patch('grc.utils.application_files.ApplicationFiles._create_pdf_attach_files')
+     @patch('grc.utils.application_files.ApplicationFiles.create_application_cover_sheet_pdf')
+-    def test_create_pdf_admin_with_filenames(self, mock_create_coversheet: MagicMock,
+-                                             mock_pdf_attach_filenames: MagicMock, app_files, test_application):
++    def test_create_pdf_admin_with_files(self, mock_create_coversheet: MagicMock,
++                                             mock_pdf_attach_files: MagicMock, app_files, test_application):
+         mock_create_coversheet.return_value = self.mock_create_coversheet()
+-        mock_pdf_attach_filenames.side_effect = self.mock_create_output_pdf_document_with_filenames
+-        pdf, filename = app_files.create_pdf_admin_with_filenames(test_application.application_data())
++        mock_pdf_attach_files.side_effect = self.mock_create_output_pdf_document_files_attached
++        pdf, filename = app_files.create_pdf_admin_with_files_attached(test_application.application_data())
+         assert filename == 'ABCD1234.pdf'
+         pdf_document = fitz.open(stream=pdf)
+         page_1, page_2 = pdf_document
+         assert 'Coversheet' in page_1.get_text()
+-        assert 'PDF with application data with uploaded file names' in page_2.get_text()
++        assert 'PDF with application data and attached files' in page_2.get_text()
+         pdf_document.close()
+ 
+-    @patch('grc.utils.application_files.ApplicationFiles.create_pdf_admin_with_filenames')
++    @patch('grc.utils.application_files.ApplicationFiles.create_pdf_admin_with_files_attached')
+     @patch('grc.utils.application_files.AwsS3Client')
+     def test_upload_pdf_admin_with_file_names_attached(self, mock_s3_client: MagicMock, mock_create_pdf: MagicMock,
+                                                        app_files, test_application):
+         upload_object_mock: MagicMock = mock_s3_client.return_value.upload_fileobj
+         upload_object_mock.return_value = True
+-        mock_application_pdf_to_upload = self.mock_create_output_pdf_document_with_filenames()
+-        mock_create_pdf.return_value = mock_application_pdf_to_upload
+-        assert app_files.upload_pdf_admin_with_file_names_attached(test_application.application_data()) is True
+-        upload_object_mock.assert_called_once_with(mock_application_pdf_to_upload, 'ABCD1234.pdf')
+-
+-
+-
+-
++        mock_application_pdf_to_upload = self.mock_create_output_pdf_document_files_attached()
++        mock_create_pdf.return_value = (mock_application_pdf_to_upload, 'ABCD1234.pdf')
++        assert app_files.upload_pdf_admin_with_files_attached(test_application.application_data()) is True
++        upload_object_mock.assert_called_once_with(mock_application_pdf_to_upload, 'ABCD1234.pdf')
+\ No newline at end of file
