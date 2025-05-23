@@ -27,6 +27,16 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
         env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket-output
+                key: access_key_id
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: s3-bucket-output
+                key: secret_access_key
           - name: AWS_REGION
             value: eu-west-2
           - name: BUCKET_NAME
