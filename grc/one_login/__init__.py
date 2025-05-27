@@ -8,7 +8,7 @@ from grc.one_login.one_login_token_request import OneLoginTokenRequest
 from grc.one_login.one_login_token_validator import OneLoginTokenValidator
 from grc.one_login.one_login_user_info_request import OneLoginUserInfoRequest
 from grc.utils.logger import LogLevel, Logger
-from grc.one_login.forms import ReferenceCheckForm, IdentityEligibility
+from grc.one_login.forms import ReferenceCheckForm, IdentityEligibility, NewExistingApplicationForm
 from grc.business_logic.data_store import DataStore
 from grc.models import Application
 
@@ -18,33 +18,42 @@ oneLogin = Blueprint('oneLogin', __name__)
 @oneLogin.route('/', methods=['GET', 'POST'])
 @Unauthorized
 def start():
-    form = ReferenceCheckForm()
-    if request.method == "POST" and form.validate_on_submit():
+    form = NewExistingApplicationForm()
 
-        if form.has_reference.data == 'HAS_REFERENCE':
-            reference_number = DataStore.compact_reference(form.reference.data)
-            application = Application.query.filter_by(reference_number=reference_number).first()
+    if request.method == "POST" and form.validate_on_submit():
+        application_choice = form.application_choice.data
+        if application_choice == 'NEW_APPLICATION':
+            return local_redirect(url_for('oneLogin.authenticate'))
+
+        elif application_choice == 'EXISTING_APPLICATION':
+            return local_redirect(url_for('oneLogin.reference_number'))
+
+    return render_template('one-login/start.html', form=form)
+
+@oneLogin.route('/your-reference-number', methods=['GET', 'POST'])
+def reference_number():
+    form = ReferenceCheckForm()
+
+    if request.method == "POST" and form.validate_on_submit():
+        if form.reference.data == 'HAS_REFERENCE':
+            reference = DataStore.compact_reference(form.reference.data)
+            application = Application.query.filter_by(reference_number=reference).first()
 
             if application is None:
                 form.reference.errors.append('Enter a valid reference number')
                 return render_template('one-login/start.html', form=form)
 
             application_data = application.application_data()
-
-            logger.log(LogLevel.DEBUG, application_data.created_after_one_login)
+            session['reference_number'] = reference
 
             if not application_data.created_after_one_login:
-                session['reference_number'] = reference_number
-                logger.log(LogLevel.INFO, f"Application with reference number {str(reference_number)} was created BEFORE One Login implementation. Redirecting to original auth.")
+                logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
                 return local_redirect(url_for('startApplication.index'))
 
-            logger.log(LogLevel.INFO, f"Application with reference number {str(reference_number)} was created AFTER One Login implementation. Redirecting to One Login.")
+            logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
             return redirect(url_for('oneLogin.authenticate'))
 
-        else:
-            return redirect(url_for('oneLogin.authenticate'))
-
-    return render_template('one-login/start.html', form=form)
+    return render_template('one-login/referenceNumber.html', form=form)
 
 @oneLogin.route('/oneLogin/identity-eligibility', methods=['GET', 'POST'])
 @LoginRequired

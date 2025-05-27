@@ -6,11 +6,18 @@ from grc.lazy.lazy_fields import LazyRadioField
 from grc.business_logic.constants.start_application import StartApplicationConstants as c
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired
 
+class NewExistingApplicationForm(FlaskForm):
+    application_choice = LazyRadioField(
+        lazy_choices=[
+            ('NEW_APPLICATION', 'Start a new application'),
+            ('EXISTING_APPLICATION', 'Return to your existing application'),
+        ],
+        validators=[LazyDataRequired(lazy_message=c.IS_FIRST_VISIT_ERROR)]
+    )
 
 class ReferenceCheckForm(FlaskForm):
     has_reference = LazyRadioField(
         lazy_choices=[
-            ('FIRST_VISIT', c.NO),
             ('HAS_REFERENCE', c.YES_WITH_REFERENCE_NUMBER),
             ('LOST_REFERENCE', c.YES_LOST_REFERENCE_NUMBER)
         ],
