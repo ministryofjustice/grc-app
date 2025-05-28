@@ -40,7 +40,6 @@ class OneLoginUserInfoRequest:
             "phone_number": phone_number,
             "identity_verified": False,
             "id_token": id_token,
-            "one_login_auth": True
         }
         OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
 
@@ -63,7 +62,6 @@ class OneLoginUserInfoRequest:
                 "email": email,
                 "phone_number": phone_number,
                 "id_token": id_token,
-                "one_login_auth": True
             }
             OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
 

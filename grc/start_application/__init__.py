@@ -7,7 +7,7 @@ from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
     OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.decorators import EmailRequired, LoginRequired, Unauthorized, ValidatedEmailRequired
+from grc.utils.decorators import LoginRequired, Unauthorized, BeforeOneLogin, UnverifiedLoginRequired
 from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
@@ -19,23 +19,15 @@ logger = Logger()
 
 @startApplication.route('/email', methods=['GET', 'POST'])
 @Unauthorized
+@BeforeOneLogin
 def index():
     form = EmailAddressForm()
 
-    reference_number = session.get('reference_number')
-    if reference_number is None:
-        return local_redirect(url_for('oneLogin.start'))
-
-    application = Application.query.filter_by(reference_number=reference_number).first()
-    if application is None:
-        return local_redirect(url_for('oneLogin.start'))
-
-    application_data = application.application_data()
-    if application_data.created_after_one_login:
-        return local_redirect(url_for('oneLogin.start'))
-
     if request.method == "POST" and form.validate_on_submit():
-        session['email'] = form.email.data
+        session['user'] = {
+            'email': form.email.data,
+            "identity_verified": False,
+        }
         session['lang_code'] = g.lang_code
         GovUkNotify().send_email_security_code(form.email.data)
         return local_redirect(url_for('startApplication.securityCode'))
@@ -47,17 +39,15 @@ def index():
 
 
 @startApplication.route('/security-code', methods=['GET', 'POST'])
-@EmailRequired
-@Unauthorized
+@UnverifiedLoginRequired
+@BeforeOneLogin
 def securityCode():
     form = SecurityCodeForm()
-    email = session.get('email')
+    email = session.get('user', {}).get('email')
+
     if request.method == 'POST':
         if form.validate_on_submit():
-            session['user'] = {
-                'email': email,
-                "one_login_auth": False
-            }
+            session['user'].update({"identity_verified": True})
             return local_redirect(url_for('startApplication.reference'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
@@ -160,6 +150,11 @@ def declaration():
         form=form,
         back=get_previous_page(application_data, back_link)
     )
+
+@startApplication.route('/back-to-email', methods=['GET'])
+def backFromSecurityCode():
+    session.pop('user')
+    return local_redirect(url_for('startApplication.index'))
 
 
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):

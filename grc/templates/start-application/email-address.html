@@ -7,7 +7,7 @@
 {% block title %}{{ _('Email address') }}{% endblock %}
 
 {% block backLink %}
-    {{ back_link.renderFor('oneLogin.backFromEmail') }}
+    {{ back_link.renderFor('oneLogin.referenceNumber') }}
 {% endblock %}
 
 {% block content %}
@@ -17,8 +17,12 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                {{ _('What is your email address?') }}
+                {{ _('Email address') }}
             </h1>
+
+            <p class="govuk-body">
+                You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later.
+            </p>
 
             <form method="POST">
                 {{ form.hidden_tag() }}
@@ -27,7 +31,7 @@
                     form,
                     fieldName='email',
                     textInputForOptions={
-                        'labelOptions': {},
+                        'labelOptions': { 'htmlOrText': _('What is your email address?') },
                         'classes': 'govuk-input--width-20',
                         'autocomplete': 'email',
                         'attributes': [ ('spellcheck', 'false') ]
