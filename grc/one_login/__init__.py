@@ -68,6 +68,8 @@ def identityEligibility():
         if form.identity_eligible.data == 'yes':
             return local_redirect(url_for('oneLogin.identify'))
         else:
+            session['user'].update({"identity_eligible": False})
+            session.modified = True
             return local_redirect(url_for('startApplication.reference'))
 
     return render_template('one-login/identityEligibility.html', form=form)
@@ -87,19 +89,17 @@ def identify():
     return redirect(redirect_url)
 
 @oneLogin.route('/onelogin/logout', methods=['GET'])
-def logout():
+def logoutOneLogin():
     config = get_onelogin_config()
     logout_request = OneLoginLogout(config)
     id_token = session.get('user', {}).get('id_token')
 
     if id_token is None:
         logger.log(LogLevel.WARN, "ID token not found; redirecting to start")
-        logout_request.end_user_session()
         return local_redirect(url_for('oneLogin.start'))
 
     try:
         redirect_url = logout_request.build_logout_redirect_url(id_token=id_token)
-        logout_request.end_user_session()
         return redirect(redirect_url)
 
     except Exception as e:
@@ -211,11 +211,12 @@ def callbackIdentity():
         return local_redirect(url_for("oneLogin.identityEligibility"))
 
 @oneLogin.route('/back-to-start', methods=['GET'])
-def backToStart():
+def backFromIdentity():
     user = session.get("user")
     if user is None:
         return local_redirect(url_for('oneLogin.start'))
-    return local_redirect(url_for('oneLogin.logout'))
+    session.clear()
+    return local_redirect(url_for('oneLogin.logoutOneLogin'))
 
 @oneLogin.route('/back-from-reference', methods=['GET'])
 def backFromReference():

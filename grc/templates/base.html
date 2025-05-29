@@ -71,13 +71,6 @@
                     {% block serviceTitle %}{{ _('Apply for a Gender Recognition Certificate') }}{% endblock %}
                 </a>
             </div>
-            {% if 'user' in session %}
-            <div class="govuk-service-navigation__item">
-                <a href="{{ url_for('oneLogin.logout') }}" class="govuk-header__link govuk-header__service-name">
-                    Sign out
-                </a>
-            </div>
-            {% endif %}
         </div>
     </header>
 

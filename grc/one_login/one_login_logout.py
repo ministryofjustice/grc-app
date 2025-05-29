@@ -35,6 +35,8 @@ class OneLoginLogout:
         Removes the user session from the Flask session store.
         """
         try:
+            # session.pop('user')
+            # session.pop('one_login_auth')
             session.clear()
         except Exception as e:
             raise Exception(f'Failed to end user session due to {str(e)}.')

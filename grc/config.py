@@ -25,6 +25,7 @@ class Config:
     GOVUK_PAY_API = os.environ.get("GOVUK_PAY_API")
     GOVUK_PAY_API_KEY = os.environ.get("GOVUK_PAY_API_KEY")
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    SESSION_PERMANENT = True
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
