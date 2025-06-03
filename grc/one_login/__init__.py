@@ -215,13 +215,27 @@ def callbackIdentity():
             addresses = user_info.get("https://vocab.account.gov.uk/v1/address")
             if addresses:
                 address = addresses[0]
-                logger.log(LogLevel.DEBUG, address)
+
+                building_number = address.get('buildingNumber')
+                street_name = address.get('streetName')
+                address_locality = address.get('addressLocality')
+                postal_code = address.get('postalCode')
+
                 application_data.one_login_data.address.sub_building_name = address.get('subBuildingName')
-                application_data.one_login_data.address.building_number = address.get('buildingNumber')
-                application_data.one_login_data.address.street_name = address.get('streetName')
-                application_data.one_login_data.address.address_locality = address.get('addressLocality')
-                application_data.one_login_data.address.postal_code = address.get('postalCode')
+                application_data.one_login_data.address.building_number = building_number
+                application_data.one_login_data.address.street_name = street_name
+                application_data.one_login_data.address.address_locality = address_locality
+                application_data.one_login_data.address.postal_code = postal_code
                 application_data.one_login_data.address.address_country = address.get('addressCountry')
+
+                if application_data.personal_details_data.address_line_one is None:
+                    application_data.personal_details_data.address_line_one = f"{building_number} {street_name}".strip()
+
+                if application_data.personal_details_data.address_town_city is None:
+                    application_data.personal_details_data.address_town_city = address_locality
+
+                if application_data.personal_details_data.address_postcode is None:
+                    application_data.personal_details_data.address_postcode = postal_code
 
             driving_permits = user_info.get("https://vocab.account.gov.uk/v1/drivingPermit")
             if driving_permits:
@@ -241,20 +255,34 @@ def callbackIdentity():
             context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT")
             if context_jwt:
                 name, dob = user_info_request.get_names_dob_from_context_jwt(context_jwt)
-                application_data.one_login_data.first_name = name.get('first_name')
-                application_data.one_login_data.middle_names = name.get('middle_names')
-                application_data.one_login_data.last_name = name.get('last_name')
+                first_name = name.get('first_name')
+                middle_name = name.get('middle_names')
+                last_name = name.get('last_name')
+
+                application_data.one_login_data.first_name = first_name
+                application_data.one_login_data.middle_names = middle_name
+                application_data.one_login_data.last_name = last_name
                 application_data.one_login_data.date_of_birth = dob
 
-        # application_data.birth_registration_data.date_of_birth = application_data.one_login_data.date_of_birth
-        # application_data.personal_details_data.first_name = application_data.one_login_data.first_name
-        # application_data.personal_details_data.middle_names = application_data.one_login_data.middle_names
-        # application_data.personal_details_data.last_name = application_data.one_login_data.last_name
-        # application_data.personal_details_data.contact_email_address = application_data.one_login_data.email
-        # application_data.personal_details_data.contact_phone_number = application_data.one_login_data.phone_number
-        # application_data.personal_details_data.address_line_one = f"{application_data.one_login_data.address.building_number} {application_data.one_login_data.address.street_name}".strip()
-        # application_data.personal_details_data.address_town_city = application_data.one_login_data.address.address_locality
-        # application_data.personal_details_data.address_postcode = application_data.one_login_data.address.postal_code
+                if application_data.birth_registration_data.date_of_birth is None:
+                    application_data.birth_registration_data.date_of_birth = dob
+
+                if application_data.personal_details_data.first_name is None:
+                    application_data.personal_details_data.first_name = first_name
+
+                if application_data.personal_details_data.middle_names is None:
+                    application_data.personal_details_data.middle_names = middle_name
+
+                if application_data.personal_details_data.last_name is None:
+                    application_data.personal_details_data.last_name = last_name
+
+
+        if application_data.personal_details_data.contact_email_address is None:
+            application_data.personal_details_data.contact_email_address = application_data.one_login_data.email
+
+        if application_data.personal_details_data.contact_phone_number is None:
+            application_data.personal_details_data.contact_phone_number = application_data.one_login_data.phone_number
+
         DataStore.save_application(application_data)
 
         return local_redirect(url_for("startApplication.reference"))
