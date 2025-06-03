@@ -15,6 +15,13 @@ def get_signedin_user():
 
     return user
 
+def EmailRequired(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'email' not in session or session.get('email') is None:
+            return local_redirect(url_for('oneLogin.start'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 def UnverifiedLoginRequired(f):
     @wraps(f)

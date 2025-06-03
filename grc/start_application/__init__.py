@@ -3,11 +3,10 @@ from grc.business_logic.constants.start_application import StartApplicationConst
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.external_services.gov_uk_notify import GovUkNotify
-from grc.models import Application, ApplicationStatus
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
     OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.decorators import LoginRequired, Unauthorized, BeforeOneLogin, UnverifiedLoginRequired
+from grc.utils.decorators import LoginRequired, EmailRequired, BeforeOneLogin, UnverifiedLoginRequired
 from grc.utils.reference_number import reference_number_string
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
@@ -18,16 +17,13 @@ logger = Logger()
 
 
 @startApplication.route('/email', methods=['GET', 'POST'])
-@Unauthorized
+@UnverifiedLoginRequired
 @BeforeOneLogin
 def index():
     form = EmailAddressForm()
 
     if request.method == "POST" and form.validate_on_submit():
-        session['user'] = {
-            'email': form.email.data,
-            "identity_verified": False,
-        }
+        session['email'] = form.email.data
         session['lang_code'] = g.lang_code
         GovUkNotify().send_email_security_code(form.email.data)
         return local_redirect(url_for('startApplication.securityCode'))
@@ -40,19 +36,20 @@ def index():
 
 @startApplication.route('/security-code', methods=['GET', 'POST'])
 @UnverifiedLoginRequired
+@EmailRequired
 @BeforeOneLogin
 def securityCode():
     form = SecurityCodeForm()
-    email = session.get('user', {}).get('email')
+    email = session.get('email')
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            session['user'].update({"identity_verified": True})
+            session['identity_verified'] = True
             return local_redirect(url_for('startApplication.reference'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
     elif request.args.get('resend') == 'true':
-        GovUkNotify().send_email_security_code(session['email'])
+        GovUkNotify().send_email_security_code(email)
         flash(c.RESEND_SECURITY_CODE, 'email')
 
     return render_template(
