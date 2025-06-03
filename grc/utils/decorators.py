@@ -16,20 +16,10 @@ def get_signedin_user():
     return user
 
 
-def ReferenceRequired(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'reference_number' not in session or session.get('reference_number') is None:
-            return local_redirect(url_for('oneLogin.start'))
-        return f(*args, **kwargs)
-
-    return decorated_function
-
-
 def UnverifiedLoginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user' not in session or session.get('user') is None:
+        if 'reference_number' not in session or session.get('reference_number') is None:
             return local_redirect(url_for('oneLogin.start'))
         return f(*args, **kwargs)
     return decorated_function
@@ -38,9 +28,9 @@ def UnverifiedLoginRequired(f):
 def LoginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        user = session.get('user')
+        reference_number = session.get('reference_number')
         one_login_auth = session.get('one_login_auth')
-        if not user or (user.get('identity_eligible') is not False and user.get('identity_verified') is not True):
+        if not reference_number or (session.get('identity_eligible') is not False and session.get('identity_verified') is not True):
             if one_login_auth is True:
                 return local_redirect(url_for('oneLogin.identityEligibility'))
             else:
@@ -52,7 +42,7 @@ def LoginRequired(f):
 def Unauthorized(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user' in session:
+        if 'reference_number' in session:
             logger.log(LogLevel.WARN, f"(Unauthorized) {get_signedin_user()} has attempted to access {request.host_url}")
             return local_redirect(url_for('taskList.index'))
         return f(*args, **kwargs)

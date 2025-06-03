@@ -3,8 +3,10 @@ from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_jwt_handler import JWTHandler
 from grc.utils.logger import LogLevel, Logger
 import requests
-from typing import Tuple, Optional, Dict
+from typing import Tuple, Optional, Dict, Any
 from datetime import datetime
+from grc.business_logic.data_store import DataStore
+
 
 logger = Logger()
 
@@ -22,94 +24,15 @@ class OneLoginUserInfoRequest:
         """
         self.config = config
 
-    def create_auth_session(self, access_token: str, id_token: str):
+    def request_user_info(self, access_token: str) -> Dict[str, Any]:
         """
-        Populates the session with basic user data after authentication.
+        Fetches and returns user information from One Login.
 
         :param access_token: Access token used to fetch user info.
-        :param id_token: ID token received during the authentication process.
         """
-        user_info = self._fetch_user_info(access_token)
-        sub = user_info.get('sub', '')
-        email = user_info.get('email', '')
-        phone_number = user_info.get('phone_number', '')
+        return self._fetch_user_info(access_token)
 
-        session["user"] = {
-            "sub": sub,
-            "email": email,
-            "phone_number": phone_number,
-            "identity_verified": False,
-            "id_token": id_token,
-        }
-        OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
-
-    def update_auth_session_with_identity(self, access_token: str, id_token: str):
-        """
-        Updates the existing session with additional identity details retrieved from the user info endpoint.
-
-        :param access_token: Access token used to fetch enriched user identity info.
-        :param id_token: New ID token received during the identity step.
-        """
-        user_info = self._fetch_user_info(access_token)
-        sub = user_info.get('sub', '')
-
-        if "user" not in session:
-            email = user_info.get('email', '')
-            phone_number = user_info.get('phone_number', '')
-
-            session["user"] = {
-                "sub": sub,
-                "email": email,
-                "phone_number": phone_number,
-                "id_token": id_token,
-                "identity_verified": False,
-            }
-            OneLoginUserInfoRequest._store_user_info_redis_mapping(sub)
-
-        address = user_info.get("https://vocab.account.gov.uk/v1/address", [])
-        driving_permit = user_info.get("https://vocab.account.gov.uk/v1/drivingPermit", '')
-        passport = user_info.get("https://vocab.account.gov.uk/v1/passport", '')
-
-        context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT", '')
-        name, dob = self._get_names_dob_from_context_jwt(context_jwt)
-
-        updates = {
-            "name": name,
-            "dob": dob,
-            "address": address[0],
-            "driving_permit": driving_permit,
-            "passport": passport,
-            "identity_verified": True
-        }
-        session["user"].update(updates)
-        session.modified = True
-
-    def _fetch_user_info(self, access_token: str):
-        """
-        Makes a request to the user info endpoint to retrieve the user's attributes.
-
-        :param access_token: OAuth access token for authorization.
-        :return: Dictionary of user claims.
-        :raises Exception: If the HTTP request fails or response is invalid.
-        """
-        try:
-            headers = OneLoginUserInfoRequest._build_user_info_request_headers(access_token=access_token)
-            response = requests.get(url=self.config.user_info_endpoint, headers=headers)
-
-            if response.status_code != 200:
-                error_message = f"Token request failed: {response.status_code} - {response.text}"
-                logger.log(LogLevel.ERROR, error_message)
-                raise Exception(error_message)
-
-            user_info = response.json()
-            return user_info
-
-        except Exception as e:
-            error_message = f"Failed to fetch user information due to: {str(e)}"
-            logger.log(LogLevel.ERROR, error_message)
-            raise Exception(error_message)
-
-    def _get_names_dob_from_context_jwt(self, context_jwt_token: str) -> Tuple[Dict, Optional[str]]:
+    def get_names_dob_from_context_jwt(self, context_jwt_token: str) -> Tuple[Dict, Optional[str]]:
         """
         Decodes the context JWT to extract the current name and date of birth.
 
@@ -135,6 +58,33 @@ class OneLoginUserInfoRequest:
         raise Exception('Could not get credentials from context JWT.')
 
     @staticmethod
+    def store_user_info_redis_mapping(sub: str):
+        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))
+
+    def _fetch_user_info(self, access_token: str):
+        """
+        Makes a request to the user info endpoint to retrieve the user's attributes.
+
+        :param access_token: OAuth access token for authorization.
+        :return: Dictionary of user claims.
+        :raises Exception: If the HTTP request fails or response is invalid.
+        """
+        try:
+            headers = OneLoginUserInfoRequest._build_user_info_request_headers(access_token=access_token)
+            response = requests.get(url=self.config.user_info_endpoint, headers=headers)
+
+            if response.status_code != 200:
+                error_message = f"Token request failed: {response.status_code} - {response.text}"
+                logger.log(LogLevel.ERROR, error_message)
+                raise Exception(error_message)
+
+            user_info = response.json()
+            return user_info
+
+        except Exception as e:
+            raise Exception(f"Failed to fetch user information due to: {str(e)}")
+
+    @staticmethod
     def _extract_current_name(names) -> Dict:
         """
         Extracts the full current name from the name entries based on `validUntil` field.
@@ -148,7 +98,7 @@ class OneLoginUserInfoRequest:
                 nameParts = name_entry.get('nameParts', [])
                 result = {
                     "first_name": "",
-                    "middle_name": "",
+                    "middle_names": "",
                     "last_name": ""
                 }
 
@@ -158,7 +108,7 @@ class OneLoginUserInfoRequest:
                 if given_names:
                     result["first_name"] = given_names[0]
                     if len(given_names) > 1:
-                        result["middle_name"] = " ".join(given_names[1:])
+                        result["middle_names"] = " ".join(given_names[1:])
 
                 result["last_name"] = family_names[0]
 
@@ -181,7 +131,3 @@ class OneLoginUserInfoRequest:
         return {
             'Authorization': f'Bearer {access_token}'
         }
-
-    @staticmethod
-    def _store_user_info_redis_mapping(sub: str):
-        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))

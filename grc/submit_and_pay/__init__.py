@@ -20,8 +20,12 @@ from grc.utils.get_next_page import get_next_page_global, get_previous_page_glob
 from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
+from grc.utils.logger import LogLevel, Logger
+
+logger = Logger()
 
 submitAndPay = Blueprint('submitAndPay', __name__)
+
 
 
 @submitAndPay.route('/submit-and-pay', methods=['GET', 'POST'])
@@ -214,8 +218,19 @@ def confirmation():
     @copy_current_request_context
     def create_files(reference_number, application_data_):
         app_files_util = ApplicationFiles()
-        if app_files_util.create_and_upload_attachments(reference_number, application_data_) and \
-                app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
+
+        mark_files_flag = True
+
+        if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
+            mark_files_flag = False
+
+        if not app_files_util.upload_pdf_admin_with_file_names_attached(application_data_):
+            mark_files_flag = False
+
+        if not app_files_util.upload_pdf_one_login_details(application_data_):
+            mark_files_flag = False
+
+        if mark_files_flag:
             mark_files_created(reference_number)
 
     threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
@@ -235,6 +250,9 @@ def confirmation():
         Application.email == application_data.email_address,
         Application.reference_number != application_data.reference_number
     )
+
+    logger.log(LogLevel.DEBUG, 'injkjniu')
+
 
     for application_to_anonymise in applications_to_anonymise:
         anonymise_application(application_to_anonymise)
