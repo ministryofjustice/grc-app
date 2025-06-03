@@ -17,7 +17,8 @@ class OneLoginConfig:
         self.auth_redirect_uri: str = current_app.config['ONE_LOGIN_AUTH_REDIRECT_URI']
         self.identity_redirect_uri: str = current_app.config['ONE_LOGIN_IDENTITY_REDIRECT_URI']
         self.did_url: str = current_app.config['ONE_LOGIN_DID_URL']
-        self.post_logout_redirect_uri = current_app.config['ONE_LOGIN_POST_LOGOUT_REDIRECT_URI']
+        self.save_and_exit_redirect_uri = current_app.config['ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI']
+        self.confirmation_logout_redirect_uri = current_app.config['ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI']
         self.scope: str = "openid phone email"
         self.claims: Dict[str, Dict[str, None]] = self.build_claims()
         self.public_key: bytes = self.load_public_key()

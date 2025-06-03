@@ -17,16 +17,33 @@ class OneLoginLogout:
         """
         self.config = config
 
-    def build_logout_redirect_url(self, id_token: str):
+    def logout_redirect_url_to_confirmation_page(self, id_token: str):
         """
-        Logs the user out of the local session and initiates logout from One Login.
+        Builds a logout redirect url to go to first page
 
         :param id_token: ID token used for logout redirection.
+        """
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.confirmation_logout_redirect_uri)
+
+    def logout_redirect_url_to_save_page(self, id_token: str):
+        """
+        Builds a logout redirect url to go to save reference number page
+
+        :param id_token: ID token used for logout redirection.
+        """
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.save_and_exit_redirect_uri)
+
+    def _build_logout_redirect_url(self, id_token: str, redirect_uri:str):
+        """
+        Builds a logout redirect url a user will be directed to and then takes a redirect_uri a user will be taken back to in the app
+
+        :param id_token: ID token used for logout redirection.
+        :param redirect_uri: The uri a user will be taken to after one login logout
         """
         return OneLoginLogout._build_logout_url(
             logout_endpoint=self.config.end_session_endpoint,
             id_token=id_token,
-            post_logout_redirect_uri=self.config.post_logout_redirect_uri
+            post_logout_redirect_uri=redirect_uri
         )
 
     @staticmethod

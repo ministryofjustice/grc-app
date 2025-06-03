@@ -107,8 +107,8 @@ def logoutOneLogin():
         return local_redirect(url_for('saveAndReturn.exitApplication'))
 
     try:
-        redirect_url = logout_request.build_logout_redirect_url(id_token=id_token)
-        return redirect(redirect_url)
+        redirect_url = logout_request.logout_redirect_url_to_save_page(id_token=id_token)
+        return local_redirect(redirect_url)
 
     except Exception as e:
         logger.log(LogLevel.ERROR, str(e))
