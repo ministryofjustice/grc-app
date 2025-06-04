@@ -539,3 +539,13 @@ def file_virus_scan(form, field):
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
 
+def validate_email_matches_application(form, field):
+    reference_number = session.get('reference_number')
+
+    application = Application.query.filter_by(reference_number=reference_number).first()
+    if not application:
+        raise ValidationError("No application found for the given reference number.")
+
+    if field.data != application.email:
+        raise ValidationError("This email address does not match our records for the reference number you provided.")
+

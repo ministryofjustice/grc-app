@@ -3,6 +3,7 @@ from grc.business_logic.constants.start_application import StartApplicationConst
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.external_services.gov_uk_notify import GovUkNotify
+from grc.models import Application
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
     OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
@@ -23,16 +24,16 @@ def index():
     form = EmailAddressForm()
 
     if request.method == "POST" and form.validate_on_submit():
-        session['email'] = form.email.data
+        email = form.email.data
+        session['email'] = email
         session['lang_code'] = g.lang_code
-        GovUkNotify().send_email_security_code(form.email.data)
+        GovUkNotify().send_email_security_code(email)
         return local_redirect(url_for('startApplication.securityCode'))
 
     return render_template(
         'start-application/email-address.html',
         form=form
     )
-
 
 @startApplication.route('/security-code', methods=['GET', 'POST'])
 @UnverifiedLoginRequired
@@ -148,11 +149,10 @@ def declaration():
         back=get_previous_page(application_data, back_link)
     )
 
-@startApplication.route('/back-to-email', methods=['GET'])
-def backFromSecurityCode():
-    session.pop('user')
-    return local_redirect(url_for('startApplication.index'))
-
+@startApplication.route('/back-from-email', methods=['GET'])
+def backFromEmail():
+    session.pop('reference_number')
+    return local_redirect(url_for('oneLogin.referenceNumber'))
 
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):
     return get_next_page_global(

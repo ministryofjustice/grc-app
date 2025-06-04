@@ -12,7 +12,6 @@ def get_signedin_user():
         user = logger.mask_email_address(session['signedIn'])
     elif 'email' in session:
         user = logger.mask_email_address(session['email'])
-
     return user
 
 def EmailRequired(f):
@@ -22,6 +21,7 @@ def EmailRequired(f):
             return local_redirect(url_for('oneLogin.start'))
         return f(*args, **kwargs)
     return decorated_function
+
 
 def UnverifiedLoginRequired(f):
     @wraps(f)
@@ -41,7 +41,7 @@ def LoginRequired(f):
             if one_login_auth is True:
                 return local_redirect(url_for('oneLogin.identityEligibility'))
             else:
-                return local_redirect(url_for('oneLogin.start'))
+                return local_redirect(url_for('startApplication.index'))
         return f(*args, **kwargs)
     return decorated_function
 

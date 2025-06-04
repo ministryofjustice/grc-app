@@ -35,16 +35,11 @@ def start():
 @Unauthorized
 def referenceNumber():
     form = ReferenceCheckForm()
-
+    session.clear()
     if request.method == "POST" and form.validate_on_submit():
         if form.has_reference.data == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
-
-            if application is None:
-                form.reference.errors.append('Enter a valid reference number')
-                return render_template('one-login/start.html', form=form)
-
             application_data = application.application_data()
             session['reference_number'] = reference
 
@@ -291,10 +286,10 @@ def callbackIdentity():
         logger.log(LogLevel.ERROR, f"Identity callback failed: {str(e)}")
         return local_redirect(url_for("oneLogin.identityEligibility"))
 
-@oneLogin.route('/back-to-start', methods=['GET'])
+@oneLogin.route('/back-from-identity', methods=['GET'])
 def backFromIdentity():
-    user = session.get("user")
-    if user is None:
+    reference_number = session.get("reference_number")
+    if reference_number is None:
         return local_redirect(url_for('oneLogin.start'))
     session.clear()
     return local_redirect(url_for('oneLogin.logoutOneLogin'))
