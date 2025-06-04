@@ -85,3 +85,5 @@ class OneLoginData:
         self.identity_eligible: Optional[bool] = None
 
         self.identity_verified: Optional[bool] = None
+
+        self.had_photo_id: Optional[bool] = False

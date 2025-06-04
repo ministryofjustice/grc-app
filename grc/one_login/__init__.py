@@ -19,7 +19,8 @@ oneLogin = Blueprint('oneLogin', __name__)
 @Unauthorized
 def start():
     form = NewExistingApplicationForm()
-
+    if session.get('reference_number'):
+        session.pop('reference_number')
     if request.method == "POST" and form.validate_on_submit():
         application_choice = form.application_choice.data
         if application_choice == 'NEW_APPLICATION':
@@ -35,7 +36,8 @@ def start():
 @Unauthorized
 def referenceNumber():
     form = ReferenceCheckForm()
-    session.clear()
+    if session.get('reference_number'):
+        session.pop('reference_number')
     if request.method == "POST" and form.validate_on_submit():
         if form.has_reference.data == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
@@ -203,10 +205,14 @@ def callbackIdentity():
 
         return_codes = user_info.get("https://vocab.account.gov.uk/v1/returnCode")
         if return_codes:
-            session['identity_verified'] = True
+            session['identity_eligible'] = False
+            session['identity_verified'] = False
+            application_data.one_login_data.identity_verified = False
 
         else:
             session['identity_verified'] = True
+            application_data.one_login_data.identity_verified = True
+
             addresses = user_info.get("https://vocab.account.gov.uk/v1/address")
             if addresses:
                 address = addresses[0]
@@ -239,6 +245,7 @@ def callbackIdentity():
                 application_data.one_login_data.driving_permit.issue_number = driving_permit.get('issueNumber')
                 application_data.one_login_data.driving_permit.issued_by = driving_permit.get('issuedBy')
                 application_data.one_login_data.driving_permit.personal_number = driving_permit.get('personalNumber')
+                application_data.one_login_data.has_photo_id = True
 
             passports = user_info.get("https://vocab.account.gov.uk/v1/passport")
             if passports:
@@ -246,6 +253,7 @@ def callbackIdentity():
                 application_data.one_login_data.passport.document_number = passport.get('documentNumber')
                 application_data.one_login_data.passport.icao_issuer_code = passport.get('icaoIssuerCode')
                 application_data.one_login_data.passport.expiry_date = passport.get('expiryDate')
+                application_data.one_login_data.has_photo_id = True
 
             context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT")
             if context_jwt:
