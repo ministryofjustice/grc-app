@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g
+from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g, flash
 from grc.one_login.one_login_logout import OneLoginLogout
 from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin
 from grc.utils.redirect import local_redirect
@@ -160,12 +160,19 @@ def callbackAuthentication():
         email = user_info.get('email')
         phone_number = user_info.get('phone_number')
 
-        if session.get('reference_number') is None:
+        if session.get('reference_number'):
+            application_data = DataStore.load_application_by_session_reference_number()
+            if email != application_data.email_address:
+                flash("The email address does not match our records for the reference number you provided.", "error")
+                logout_request = OneLoginLogout(get_onelogin_config())
+                redirect_url = logout_request.logout_redirect_url_to_reference_check_page(id_token)
+                session.pop('reference_number')
+                logger.log(LogLevel.ERROR, "Email address does not match our records for the reference number you provided.")
+                return local_redirect(redirect_url)
+        else:
             application_data = DataStore.create_new_application(email_address=email)
             session['reference_number'] = application_data.reference_number
             DataStore.increment_application_sessions(application_data.reference_number)
-        else:
-            application_data = DataStore.load_application_by_session_reference_number()
 
         application_data.one_login_data.sub = sub
         application_data.one_login_data.email = email

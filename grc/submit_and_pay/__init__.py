@@ -20,7 +20,7 @@ from grc.utils.get_next_page import get_next_page_global, get_previous_page_glob
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
 from grc.utils.logger import LogLevel, Logger
-from grc.one_login.one_login_config import OneLoginConfig
+from grc.one_login.one_login_config import get_onelogin_config
 from grc.one_login.one_login_logout import OneLoginLogout
 
 logger = Logger()
@@ -105,7 +105,7 @@ def checkYourAnswers():
         if application_data.submit_and_pay_data.applying_for_help_with_fee:
             application_data.submit_and_pay_data.is_submitted = True
             DataStore.save_application(application_data)
-            one_login_logout = OneLoginLogout(OneLoginConfig())
+            one_login_logout = OneLoginLogout(get_onelogin_config())
             redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
             return local_redirect(redirect_url)
         else:

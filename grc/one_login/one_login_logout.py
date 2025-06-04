@@ -33,6 +33,14 @@ class OneLoginLogout:
         """
         return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.save_and_exit_redirect_uri)
 
+    def logout_redirect_url_to_reference_check_page(self, id_token: str):
+        """
+        Builds a logout redirect url to go to reference number check page
+
+        :param id_token: ID token used for logout redirection.
+        """
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.reference_logout_redirect_uri)
+
     def _build_logout_redirect_url(self, id_token: str, redirect_uri:str):
         """
         Builds a logout redirect url a user will be directed to and then takes a redirect_uri a user will be taken back to in the app
