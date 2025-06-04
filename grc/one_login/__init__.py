@@ -94,7 +94,7 @@ def identify():
     return redirect(redirect_url)
 
 @oneLogin.route('/onelogin/logout', methods=['GET'])
-def logoutOneLogin():
+def oneLoginSaveAndExit():
     config = get_onelogin_config()
     logout_request = OneLoginLogout(config)
     id_token = session.get('id_token')
@@ -306,8 +306,10 @@ def backFromIdentity():
     reference_number = session.get("reference_number")
     if reference_number is None:
         return local_redirect(url_for('oneLogin.start'))
-    session.clear()
-    return local_redirect(url_for('oneLogin.logoutOneLogin'))
+    session.pop('reference_number')
+    logout_request = OneLoginLogout(get_onelogin_config())
+    redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
+    return local_redirect(redirect_url)
 
 @oneLogin.route('/back-from-reference', methods=['GET'])
 def backFromReference():

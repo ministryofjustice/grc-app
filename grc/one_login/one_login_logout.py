@@ -23,7 +23,7 @@ class OneLoginLogout:
 
         :param id_token: ID token used for logout redirection.
         """
-        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.confirmation_logout_redirect_uri)
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.logout_redirect_url_confirmation)
 
     def logout_redirect_url_to_save_page(self, id_token: str):
         """
@@ -31,7 +31,7 @@ class OneLoginLogout:
 
         :param id_token: ID token used for logout redirection.
         """
-        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.save_and_exit_redirect_uri)
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.logout_redirect_url_save_and_exit)
 
     def logout_redirect_url_to_reference_check_page(self, id_token: str):
         """
@@ -39,7 +39,15 @@ class OneLoginLogout:
 
         :param id_token: ID token used for logout redirection.
         """
-        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.reference_logout_redirect_uri)
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.logout_redirect_url_reference)
+
+    def logout_redirect_url_to_start_page(self, id_token: str):
+        """
+        Builds a logout redirect url to go to start page
+
+        :param id_token: ID token used for logout redirection.
+        """
+        return self._build_logout_redirect_url(id_token=id_token, redirect_uri=self.config.logout_redirect_url_start)
 
     def _build_logout_redirect_url(self, id_token: str, redirect_uri:str):
         """
