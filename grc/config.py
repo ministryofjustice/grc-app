@@ -53,6 +53,7 @@ class Config:
     ONE_LOGIN_IDENTITY_REDIRECT_URI = os.environ.get("ONE_LOGIN_IDENTITY_REDIRECT_URI")
     ONE_LOGIN_DID_URL = os.environ.get("ONE_LOGIN_DID_URL")
     ONE_LOGIN_DATE_TIME = os.environ.get('ONE_LOGIN_DATE_TIME')
+    ONE_LOGIN_PRIVATE_KEY_PATH = os.environ.get('ONE_LOGIN_PRIVATE_KEY_PATH')
 
 class TestConfig(Config):
     TESTING = True

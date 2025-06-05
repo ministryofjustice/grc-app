@@ -23,7 +23,6 @@ class OneLoginConfig:
         self.logout_redirect_url_start = f'{current_app.config["BASE_URL"]}'
         self.scope: str = "openid phone email"
         self.claims: Dict[str, Dict[str, None]] = self.build_claims()
-        self.public_key: bytes = self.load_public_key()
         self.private_key: bytes = self.load_private_key()
         self.metadata: Dict[str, Any] = self.get_discovery_metadata()
         self.issuer: str = self.metadata['issuer']
@@ -45,23 +44,13 @@ class OneLoginConfig:
         return requests.get(url).json()
 
     @staticmethod
-    def load_public_key() -> bytes:
-        """
-        Loads the One Login public key from the PEM file.
-
-        :return: Public key in bytes.
-        """
-        with open('grc/one_login/keys/public_key.pem', "rb") as f:
-            return f.read()
-
-    @staticmethod
     def load_private_key() -> bytes:
         """
         Loads the One Login private key from the PEM file.
 
         :return: Private key in bytes.
         """
-        with open('grc/one_login/keys/private_key.pem', "rb") as f:
+        with open(current_app.config['ONE_LOGIN_PRIVATE_KEY_PATH'], "rb") as f:
             return f.read()
 
     @staticmethod

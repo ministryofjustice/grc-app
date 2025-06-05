@@ -74,7 +74,7 @@ class OneLoginUserInfoRequest:
             response = requests.get(url=self.config.user_info_endpoint, headers=headers)
 
             if response.status_code != 200:
-                error_message = f"Token request failed: {response.status_code} - {response.text}"
+                error_message = f"User Info request failed: {response.status_code} - {response.text}"
                 logger.log(LogLevel.ERROR, error_message)
                 raise Exception(error_message)
 
