@@ -18,6 +18,9 @@ spec:
       containers:
       - name: redis
         image: bitnami/redis:latest
+        env:
+          - name: ALLOW_EMPTY_PASSWORD
+            value: "yes"
         imagePullPolicy: Always
         ports:
         - containerPort: 6379
