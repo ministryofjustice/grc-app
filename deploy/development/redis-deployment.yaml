@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grc-redis
+  template:
+    metadata:
+      labels:
+        app: grc-redis
+    spec:
+      containers:
+        - name: grc-redis
+          image: redis:7.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
