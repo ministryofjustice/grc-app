@@ -1,6 +1,6 @@
 import json
 from datetime import timedelta
-from flask import Flask, g, session
+from flask import Flask, g, session, current_app
 from flask_session import Session
 from flask_babel import Babel
 from flask_migrate import Migrate
@@ -42,7 +42,7 @@ def create_app(test_config=None):
         HttpBasicAuthentication(app)
 
     app.config["SESSION_TYPE"] = "redis"
-    app.config["SESSION_REDIS"] = redis.Redis(host="grc-redis-service", port=6379, db=0)
+    app.config["SESSION_REDIS"] = redis.Redis(host=current_app.config.get('REDIS_HOST'), port=6379, db=0)
     Session(app)
 
     # Load build info from JSON file

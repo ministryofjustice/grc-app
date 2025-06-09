@@ -43,7 +43,8 @@ class Config:
     BASIC_AUTH_PASSWORD = os.environ.get("BASIC_AUTH_PASSWORD")
     SENTRY_URL = os.environ.get("SENTRY_URL")
     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
-    BASE_URL = os.environ.get('BASE_URL')
+    BASE_URL = os.environ.get('BASE_URL', "http://localhost:3000/")
+    REDIS_HOST = os.environ.get('REDIS_HOST', "redis")
 
     #ONE LOGIN
     ONE_LOGIN_DISCOVERY_URL = os.environ.get("ONE_LOGIN_DISCOVERY_URL")

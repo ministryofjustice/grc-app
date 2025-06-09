@@ -125,3 +125,8 @@ spec:
             value: "2025-05-21T15:28:18"
           - name: ONE_LOGIN_PRIVATE_KEY_PATH
             value: "/app/keys/private_key.pem"
+          - name: BASE_URL
+            value: "http://localhost:3000/"
+          - name: REDIS_HOST
+            value: "grc-redis-service"
+
