@@ -10,13 +10,13 @@ spec:
   template:
     metadata:
       labels:
-        app: redis
+        app: grc-redis
     spec:
       securityContext:
         runAsUser: 1001
         runAsNonRoot: true
       containers:
-      - name: redis
+      - name: grc-redis
         image: bitnami/redis:latest
         env:
           - name: ALLOW_EMPTY_PASSWORD
