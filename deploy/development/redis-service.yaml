@@ -5,7 +5,7 @@ metadata:
   namespace: grc-dev
 spec:
   selector:
-    app: redis
+    app: grc-redis
   ports:
     - port: 6379
       targetPort: 6379
