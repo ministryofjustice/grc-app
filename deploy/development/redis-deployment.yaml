@@ -12,9 +12,14 @@ spec:
       labels:
         app: grc-redis
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsNonRoot: true
       containers:
-        - name: grc-redis
-          image: redis:7.2
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 6379
+      - name: redis
+        image: bitnami/redis:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
+        securityContext:
+          allowPrivilegeEscalation: false
