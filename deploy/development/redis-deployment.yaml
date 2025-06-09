@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grc-redis
+  name: redis
 spec:
   replicas: 1
   selector:
@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: grc-redis
+        app: redis
     spec:
       securityContext:
         runAsUser: 1001

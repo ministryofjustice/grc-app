@@ -42,11 +42,7 @@ def create_app(test_config=None):
         HttpBasicAuthentication(app)
 
     app.config["SESSION_TYPE"] = "redis"
-    if app.config.get('ENVIRONMENT', 'development') == 'development':
-        app.config["SESSION_REDIS"] = redis.Redis(host="localhost", port=6379, db=0)
-    else:
-        app.config["SESSION_REDIS"] = redis.Redis(host="redis", port=6379, db=0)
-
+    app.config["SESSION_REDIS"] = redis.Redis(host="redis", port=6379, db=0)
     Session(app)
 
     # Load build info from JSON file
