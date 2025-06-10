@@ -35,5 +35,5 @@ RUN npm run build
 RUN pybabel compile -d grc/translations
 
 # Don't run as root user
-# USER 1000
+USER 1000
 CMD /app/run.sh

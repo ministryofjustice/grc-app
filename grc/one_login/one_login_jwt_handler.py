@@ -131,7 +131,7 @@ class JWTHandler:
             "jti": str(uuid4()),
             "iat": now
         }
-        return encode(payload, private_key, algorithm=algorithm)
+        return encode(payload, private_key, algorithm=algorithm, headers={"kid": "f58a6bef-0d22-444b-b4d3-507a54e9892f"})
 
     @staticmethod
     def _get_controller_id_from_kid(kid):

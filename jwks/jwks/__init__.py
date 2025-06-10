@@ -6,18 +6,17 @@ jwks = Blueprint('jwks', __name__)
 logger = Logger()
 
 
-@jwks.route('/', methods=['GET'])
+@jwks.route('/.well-known/jwks.json', methods=['GET'])
 def index():
     jwks_object = {
       "keys": [
         {
-          "kty": "RSA",
-          "kid": "sample-key-id",
-          "use": "sig",
-          "alg": "RS256",
-          "n": "sXchqkqU58gXGfAeF6OZB5fUIBQ1fHtLhM0Kk04RfVHgWo8yZTZwAPl4Yl6hOZk6B_AvVP6Z4HJSJdXxU_bCWmXWRLAvYfArKW5z13VmCKRrgB-mgR-9CPWv7z3sE4gINzTZlpyIRnPfXxAfMSljYKwYtHO9FZsTddXGH4TCM4RClv_Nd5Re5cT8XxwJvDJeHkXHFXITZRtTqPvPrVuPbSwFnpYhYFTuMy0LMGwqNUn8Epx3gfGgLqYGi8OaQ10YY2qxEDPKPygXi1BtjgcUhzr7JY4rglzDeU-6z_xPYkSPZniJxNVDRlUzGR-1XRxEOxEBck2hxkxNuzU3S8ey8N28w",
-          "e": "AQAB"
+            "kty": "RSA",
+            "e": "AQAB",
+            "use": "sig",
+            "kid": "f58a6bef-0d22-444b-b4d3-507a54e9892f",
+            "n": "qdxq6P7JvECWPI9b109T-l-O7-ThVfKwUKrsKlsfMTO8JEGYBgh0uoPQOVP_2BiGbjxs8M9A8z8Yn682cv6c46ZO_ArWzqKIDDOhP2GVMoUGqN8BPvKQNPsJYOBjFQA98eJilztwMpFgALViVp6v5-I54zJ-5xajfpzCuLT6MSubm-JaR1x1TWHmi82U6-deb7Y4iBoOqms3Pi8BvOP1xB5ykcgVhrMgMLGT9wMIJYEEHUUzkaQpSlkpPKEytgY3Yz-EzX5I--vreQFNMAXtT19VcijVCjJNqE-ETTzT8NWBuG0W6j7gG7w4-YyseSEIh-bHbSqzHi-s4AhYVPtbow",
         }
       ]
     }
-    return jsonify(jwks_object)
+    return jsonify(jwks_object), 200

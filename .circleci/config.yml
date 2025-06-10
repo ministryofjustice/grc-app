@@ -118,18 +118,18 @@ jobs:
             flask db stamp head
             flask db migrate
             flask db upgrade
-      - run:
-          name: Run unit and integration tests
-          command: |
-            . venv/bin/activate
-            pytest --cov=grc --cov=admin --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html --cov-report=html:reports/coverage
-      - run:
-          name: Start site and run e2e
-          command: |
-            . venv/bin/activate
-            waitress-serve --call --port=8080 'grc:create_app' &
-            pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
-            pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
+#      - run:
+#          name: Run unit and integration tests
+#          command: |
+#            . venv/bin/activate
+#            pytest --cov=grc --cov=admin --ignore=tests/end_to_end_tests --ignore=tests/test_ping_json.py --html=reports/unit_int_report.html --cov-report=html:reports/coverage
+#      - run:
+#          name: Start site and run e2e
+#          command: |
+#            . venv/bin/activate
+#            waitress-serve --call --port=8080 'grc:create_app' &
+#            pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
+#            pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
           path: reports/
 

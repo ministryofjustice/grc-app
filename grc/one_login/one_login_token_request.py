@@ -56,25 +56,19 @@ class OneLoginTokenRequest:
             response = requests.post(url=token_url, data=data, headers=headers)
 
             if response.status_code != 200:
-                error_message = f"Token request failed: {response.status_code} - {response.text}"
-                logger.log(LogLevel.ERROR, error_message)
-                raise Exception(error_message)
+                raise Exception(f"Token request failed: {response.status_code} - {response.text}")
 
             tokens = response.json()
             access_token = tokens.get('access_token')
             id_token = tokens.get('id_token')
 
             if not access_token or not id_token:
-                error_message = "Access or Id token does not exist."
-                logger.log(LogLevel.ERROR, error_message)
-                raise Exception(error_message)
+                raise Exception("Access or Id token does not exist.")
 
             return access_token, id_token
 
         except Exception as e:
-            error_message = f"Failed to fetch tokens due to: {str(e)}"
-            logger.log(LogLevel.ERROR, error_message)
-            raise Exception(error_message)
+            raise Exception(f"Failed to fetch tokens due to: {str(e)}")
 
     def _build_token_request_data(self, code: str, redirect_uri: str) -> Dict[str, Any]:
         """

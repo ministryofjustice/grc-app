@@ -42,8 +42,7 @@ def create_app(test_config=None):
         HttpBasicAuthentication(app)
 
     app.config["SESSION_TYPE"] = "redis"
-    app.config["SESSION_REDIS"] = redis.Redis(host="redis", port=6379, db=0)
-
+    app.config["SESSION_REDIS"] = redis.Redis(host=app.config.get('REDIS_HOST'), port=6379, db=0)
     Session(app)
 
     # Load build info from JSON file
