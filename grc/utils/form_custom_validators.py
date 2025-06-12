@@ -100,12 +100,12 @@ def validate_security_code(form, field):
     if is_test and field.data == '11111':
         return
 
-    if not is_security_code_valid(session.get('email'), field.data, False):
+    if not is_security_code_valid(session.get('user',{}).get('email'), field.data, False):
         raise LazyValidationError(c.INVALID_SECURITY_CODE)
 
 
 def validate_reference_number(form, field):
-    validated_email = session.get('validatedEmail')
+    validated_email = session.get('user', {}).get('email')
     if not reference_number_is_valid(field.data, validated_email):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
@@ -324,7 +324,9 @@ def validate_phone_number(form, field):
     if not field.data:
         return
 
-    match = re.search(r'^[0-9]+$', field.data)
+    phone = re.sub(r'[\s\-]', '', field.data)
+
+    match = re.fullmatch(r'(\+|00)?\d{7,15}', phone)
     if match is None:
         raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
@@ -536,4 +538,14 @@ def file_virus_scan(form, field):
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
+
+def validate_email_matches_application(form, field):
+    reference_number = session.get('reference_number')
+
+    application = Application.query.filter_by(reference_number=reference_number).first()
+    if not application:
+        raise ValidationError("No application found for the given reference number.")
+
+    if field.data != application.email:
+        raise ValidationError("This email address does not match our records for the reference number you provided.")
 
