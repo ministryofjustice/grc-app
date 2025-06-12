@@ -255,6 +255,33 @@ jobs:
             sed -i -e s/:grc-dashboard-latest/:grc-dashboard-$CIRCLE_SHA1/ deploy/staging/dashboard-deployment.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging
 
+  deploy_image_to_uat:
+    <<: *cloud_container
+    steps:
+      - checkout
+      - run:
+          name: Authenticate to LIVE cluster
+          command: |
+            echo -n ${K8S_CLUSTER_CERT_UAT} | base64 -d > ./ca.crt  
+            kubectl config set-cluster ${K8S_CLUSTER_NAME} --certificate-authority=./ca.crt --server=https://${K8S_CLUSTER_NAME}
+            kubectl config set-credentials circleci --token=${K8S_TOKEN_UAT}
+            kubectl config set-context ${K8S_CLUSTER_NAME} --cluster=${K8S_CLUSTER_NAME} --user=circleci --namespace=${K8S_NAMESPACE_UAT}
+            kubectl config use-context ${K8S_CLUSTER_NAME}
+
+      - run:
+          name: rolling update image jobs
+          command: |
+            find deploy/uat/jobs/ -name '*.yaml' -exec sed -i -e "s/:grc-admin-latest/:grc-admin-$CIRCLE_SHA1/g" {} +
+            kubectl apply -n grc-uat --record=false -f ./deploy/uat/jobs
+
+      - deploy:
+          name: rolling update image
+          command: |
+            sed -i -e s/:grc-app-latest/:grc-app-$CIRCLE_SHA1/ deploy/uat/app-deployment.yaml
+            sed -i -e s/:grc-admin-latest/:grc-admin-$CIRCLE_SHA1/ deploy/uat/admin-deployment.yaml
+            sed -i -e s/:grc-dashboard-latest/:grc-dashboard-$CIRCLE_SHA1/ deploy/uat/dashboard-deployment.yaml
+            kubectl apply -n grc-uat --record=false -f ./deploy/uat
+
   deploy_image_to_production:
     <<: *cloud_container
     steps:
@@ -316,6 +343,17 @@ jobs:
                 name: Login to PREPROD ECR
                 command: |
                   aws ecr get-login-password --region $ECR_REGION_PREPROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PREPROD}.dkr.ecr.${ECR_REGION_PREPROD}.amazonaws.com
+      - when:
+          condition:
+            equal: [ UAT, << parameters.env_name >> ]
+          steps:
+            - aws-cli/setup:
+                role_arn: $ECR_ROLE_TO_ASSUME_UAT
+                region: $ECR_REGION_UAT
+            - run:
+                name: Login to UAT ECR
+                command: |
+                  aws ecr get-login-password --region $ECR_REGION_UAT | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_UAT}.dkr.ecr.${ECR_REGION_UAT}.amazonaws.com
       - when:
           condition:
             equal: [ PROD, << parameters.env_name >> ]
@@ -529,11 +567,11 @@ workflows:
           filters:
             branches:
               only: /^UAT/
-      - approve_staging:
+      - approve_uat:
           type: approval
           requires:
             - build-containers-uat
-      - deploy_image_to_preprod:
+      - deploy_image_to_uat:
           name: deploy-uat-live
           filters:
             branches:
@@ -598,6 +636,26 @@ workflows:
               only: /^maintenance-page-preprod$/
           requires:
             - approve_maintenance_page_preprod
+
+      ### UAT MAINTENANCE ###
+      - build_maintenance_page:
+          name: build-maintenance-page-uat
+          env_name: UAT
+          ecr_endpoint: ${ECR_ENDPOINT_UAT}
+          filters:
+            branches:
+              only: /^maintenance-page-uat$/
+      - approve_maintenance_page_uat:
+          type: approval
+          requires:
+            - build-maintenance-page-uat
+      - deploy_maintenance_page_uat:
+          name: deploy-maintenance-page-uat
+          filters:
+            branches:
+              only: /^maintenance-page-uat$/
+          requires:
+            - approve_maintenance_page_uat
       
       ### PROD MAINTENANCE ###
       - build_maintenance_page:
