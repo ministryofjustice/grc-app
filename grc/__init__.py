@@ -1,6 +1,7 @@
 import json
 from datetime import timedelta
 from flask import Flask, g, session
+from flask_session import Session
 from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
@@ -11,6 +12,7 @@ from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.maintenance_mode import Maintenance
 from grc.utils.custom_error_handlers import CustomErrorHandlers
 from werkzeug.middleware.proxy_fix import ProxyFix
+import redis
 
 migrate = Migrate()
 flask_uuid = FlaskUUID()
@@ -38,6 +40,10 @@ def create_app(test_config=None):
     # Require HTTP Basic Authentication if both the username and password are set
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
         HttpBasicAuthentication(app)
+
+    app.config["SESSION_TYPE"] = "redis"
+    app.config["SESSION_REDIS"] = redis.Redis(host=app.config.get('REDIS_HOST'), port=6379, db=0)
+    Session(app)
 
     # Load build info from JSON file
     f = open('build-info.json')
@@ -70,7 +76,7 @@ def create_app(test_config=None):
                                                         "img-src 'self'; " \
                                                         "font-src 'self'; " \
                                                         "connect-src 'self' https://*.google-analytics.com; " \
-                                                        "form-action 'self' https://card.payments.service.gov.uk;"
+                                                        "form-action 'self' https://card.payments.service.gov.uk https://oidc.integration.account.gov.uk/ https://signin.integration.account.gov.uk/ https://identity.integration.account.gov.uk/; "
 
         return response
 
@@ -130,6 +136,10 @@ def create_app(test_config=None):
     # Document checker
     from grc.document_checker import documentChecker
     app.register_blueprint(documentChecker)
+
+    # Document checker
+    from grc.one_login import oneLogin
+    app.register_blueprint(oneLogin)
 
     # Health Check
     from grc.health_check import health_check
