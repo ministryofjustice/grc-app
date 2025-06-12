@@ -81,6 +81,17 @@ jobs:
                   aws ecr get-login-password --region $ECR_REGION_PREPROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PREPROD}.dkr.ecr.${ECR_REGION_PREPROD}.amazonaws.com
       - when:
           condition:
+            equal: [ UAT, << parameters.env_name >> ]
+          steps:
+            - aws-cli/setup:
+                role_arn: $ECR_ROLE_TO_ASSUME_UAT
+                region: $ECR_REGION_UAT
+            - run:
+                name: Login to UAT ECR
+                command: |
+                  aws ecr get-login-password --region $ECR_REGION_UAT | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_UAT}.dkr.ecr.${ECR_REGION_UAT}.amazonaws.com
+      - when:
+          condition:
             equal: [ PROD, << parameters.env_name >> ]
           steps:
             - aws-cli/setup:
