@@ -3,14 +3,15 @@ from grc.business_logic.constants.start_application import StartApplicationConst
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
 from wtforms import EmailField, StringField, BooleanField
-from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf
+from grc.utils.form_custom_validators import validate_security_code, validate_reference_number, StrictRequiredIf, validate_email_matches_application
 
 
 class EmailAddressForm(FlaskForm):
     email = EmailField(
         validators=[
             LazyDataRequired(lazy_message=c.NO_EMAIL_ADDRESS_ERROR),
-            LazyEmail(message=c.EMAIL_ADDRESS_INVALID_ERROR)
+            LazyEmail(message=c.EMAIL_ADDRESS_INVALID_ERROR),
+            validate_email_matches_application
         ]
     )
 

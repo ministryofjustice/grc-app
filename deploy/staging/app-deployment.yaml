@@ -13,6 +13,10 @@ spec:
         app: grc-app
     spec:
       serviceAccountName: grc-preprod
+      volumes:
+        - name: private-key-volume
+          secret:
+            secretName: one-login-keys
       containers:
       - name: grc-app
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-preprod-ecr:grc-app-latest
@@ -26,6 +30,10 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 20
           timeoutSeconds: 10
+        volumeMounts:
+          - name: private-key-volume
+            mountPath: /app/keys
+            readOnly: true
         env:
           - name: AV_API
             value: grc-clamav-service.grc-preprod.svc.cluster.local
@@ -95,3 +103,27 @@ spec:
               secretKeyRef:
                 name: elasticache-grc-preprod
                 key: url
+          - name: ONE_LOGIN_DISCOVERY_URL
+            value: "https://oidc.integration.account.gov.uk/.well-known/openid-configuration"
+          - name: ONE_LOGIN_CLIENT_ID
+            value: "hhJNeUO_5HuSMx7UwmOEjjNLMlE"
+          - name: ONE_LOGIN_AUTH_REDIRECT_URI
+            value: "http://localhost:3000/auth/callback"
+          - name: ONE_LOGIN_IDENTITY_REDIRECT_URI
+            value: "http://localhost:3000/identity/callback"
+          - name: ONE_LOGIN_DID_URL
+            value: "https://identity.integration.account.gov.uk/.well-known/did.json"
+          - name: ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI
+            value: "http://localhost:3000/save-and-return/exit-application"
+          - name: ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI
+            value: "http://localhost:3000/submit-and-pay/confirmation"
+          - name: ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI
+            value: "http://localhost:3000/your-reference-number"
+          - name: ONE_LOGIN_DATE_TIME
+            value: "2025-05-21T15:28:18"
+          - name: ONE_LOGIN_PRIVATE_KEY_PATH
+            value: "/app/keys/private_key.pem"
+          - name: BASE_URL
+            value: "http://localhost:3000/"
+          - name: REDIS_HOST
+            value: "grc-redis-service"

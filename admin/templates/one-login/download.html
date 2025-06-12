@@ -1,9 +1,9 @@
-{% from 'applications/application-pdfkit.html' import adminapplication %}
+{% from 'one-login/one-login-details-pdfkit.html' import oneLoginDetails %}
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
     <head>
         <meta charset="utf-8">
-        <title>GOV.UK - Gender Recognition Certificate Application</title>
+        <title>GOV.UK - Gender Recognition Certificate One Login Details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="theme-color" content="#0b0c0c">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +11,6 @@
     </head>
 
     <body class="govuk-template__body">
-        {{ adminapplication(application_data) }}
+        {{ oneLoginDetails(application_data) }}
     </body>
 </html>
