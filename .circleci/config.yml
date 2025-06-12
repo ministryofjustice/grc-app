@@ -499,6 +499,25 @@ workflows:
               only: /^staging$/
           requires:
             - approve_staging
+      ### UAT ###
+      - build:
+          name: build-containers-uat
+          env_name: UAT
+          ecr_endpoint: ${ECR_ENDPOINT_UAT}
+          filters:
+            branches:
+              only: /^UAT/
+      - approve_staging:
+          type: approval
+          requires:
+            - build-containers-uat
+      - deploy_image_to_preprod:
+          name: deploy-uat-live
+          filters:
+            branches:
+              only: /^UAT$/
+          requires:
+            - approve_uat
       ### PRODUCTION ###
       - build:
           name: build-containers-prod
