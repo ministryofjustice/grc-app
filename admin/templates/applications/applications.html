@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
+{% import "applications/applications-error.html" as applications_error %}
+
 {% block title %}GRC applications{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
+
+            {{ applications_error.renderError() }}
 
             <h1 class="govuk-heading-l">
                 View and download GRC applications
@@ -43,7 +47,7 @@
             <div class="govuk-tabs" data-module="govuk-tabs">
                 <ul class="govuk-tabs__list" role="tablist">
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected" role="presentation">
-                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" onclick="tabClicked(this.id, null)">
+                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" onclick="tabClicked(this.id, {{ new_apps_references }})">
                             New applications
                         </a>
                     </li>
@@ -60,7 +64,7 @@
                 </ul>
 
 
-                <div class="govuk-tabs__panel" id="new" role="tabpanel" aria-labelledby="tab_new"">
+                <div class="govuk-tabs__panel" id="new" role="tabpanel" aria-labelledby="tab_new">
                     <h2 class="govuk-heading-m">New applications</h2>
                     {% if newApplications.count() == 0 %}
                         <div class="govuk-body">
@@ -81,9 +85,8 @@
                                     {% set application_data = application.application_data() %}
                                     {% if application_data %}
                                     <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">
+                                        <th scope="row" class="govuk-table__header reference-number">
                                             {{ application_data.reference_number_formatted }}
-                                            <!--- {{ application.user_input | safe }} -->
                                         </th>
                                         <td class="govuk-table__cell">
                                             {{ application_data.personal_details_data.title }}
@@ -109,6 +112,23 @@
                                                         </span>
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                                        <div class="govuk-checkboxes__item">
+                                                            {% if application.case_registered == True %}
+                                                                <input class="govuk-checkboxes__input checkbox-registered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" checked disabled>
+                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" name="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
+                                                                    Registered new case
+                                                                </label>
+                                                            {% else %}
+                                                                <input class="govuk-checkboxes__input checkbox-unregistered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
+                                                                <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" name="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
+                                                                    Register new case
+                                                                </label>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -123,6 +143,23 @@
                                     </tr>
                                     {% endif %}
                                 {% endfor %}
+                                <tr class="govuk-table__row">
+                                    <td colspan="4" class="govuk-table__cell" style="text-align: right">
+                                        <img id="spinner" class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" src="{{ url_for('static', filename='assets/images/spinner.gif') }}" style="display:none;" width="30" height="30" alt="Loading spinner image.">
+                                        <button id="submit-selected-apps-btn-new" disabled="disabled" 
+                                                class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
+                                                data-module="govuk-button"
+                                                onclick="submitNewCaseRegistration()">
+                                            Apply new case registration
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ new_apps_references }})">
+                                            Select all for new case registration
+                                        </button>
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ new_apps_references }})">
+                                            Clear all for new case registration
+                                        </button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     {% endif %}

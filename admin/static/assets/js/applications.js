@@ -1,5 +1,7 @@
+let loadingRegister = false;
+let applicationError = false;
 let applicationsChecked = [];
-let submitButton;
+let submitButton = document.getElementById('submit-selected-apps-btn-new');
 
 window.onload = function() {
     const urlAnchor = window.location.hash;
@@ -44,41 +46,188 @@ function submitBulkMarkAsComplete(url) {
     }
 }
 
+/**
+Removes application from applicationChecked array
+
+params: application: application to be removed
+**/
+function removeApplicationFromChecked(application) {
+    applicationsChecked = applicationsChecked.filter(applicationChecked => applicationChecked !== application);
+}
+
+/**
+Disables submit button
+**/
+function disableSubmitButton() {
+    if (applicationsChecked.length == 0) {
+        submitButton.classList.add('govuk-button--disabled');
+        submitButton.setAttribute('disabled', 'disabled');
+    }
+}
+
+/**
+Enables submit button
+**/
+function enableSubmitButton() {
+    if (applicationsChecked.length > 0) {
+        submitButton.classList.remove('govuk-button--disabled');
+        submitButton.removeAttribute('disabled');
+    }
+}
+
+/**
+Selects all applications to be checked.
+
+Adds all cases to applicationsChecked array, marks each case as checked, and enables submit button.
+
+params: applications: applications to be marked for checked
+**/
 function selectAllApplications(applications) {
     applicationsChecked = [];
     for(let i = 0; i < applications.length; i++) {
-        document.getElementById(applications[i]).checked = true;
-        applicationsChecked.push(applications[i]);
+        checkbox = document.getElementById(applications[i]);
+        if (!checkbox.classList.contains('checkbox-registered')) {
+            checkbox.checked = true;
+            applicationsChecked.push(applications[i]);
+        }
     }
-    submitButton.classList.remove('govuk-button--disabled');
-    submitButton.removeAttribute('disabled');
+    enableSubmitButton()
 }
 
+/**
+Clears all applications from being checked,
+
+Removes all cases from applicationsChecked array, marks each case as unchecked, and disables submit button.
+
+params: applications: applications to be cleared from being checked
+**/
 function clearAllApplications(applications) {
     for(let i = 0; i < applications.length; i++) {
-        document.getElementById(applications[i]).checked = false;
+        checkbox = document.getElementById(applications[i]);
+        if (!checkbox.classList.contains('checkbox-registered')) {
+            checkbox.checked = false;
+        }
     }
     applicationsChecked = [];
-    submitButton.classList.add('govuk-button--disabled');
-    submitButton.setAttribute('disabled', 'disabled');
+    disableSubmitButton();
 }
 
+/**
+Selects or deselects an application
+
+params: application: application reference number to be selected or deselected
+**/
 function selectOrDeselectApplication(application) {
     const applicationReference = document.getElementById(application);
     if (applicationReference.checked) {
         applicationsChecked.push(application);
-        submitButton.classList.remove('govuk-button--disabled');
-        submitButton.removeAttribute('disabled');
-    }
-
-    if (!applicationReference.checked) {
-        const index = applicationsChecked.indexOf(application);
-        if (index > -1) {
-          applicationsChecked.splice(index, 1);
-        }
-        if (!applicationsChecked.length) {
-            submitButton.classList.add('govuk-button--disabled');
-            submitButton.setAttribute('disabled', 'disabled');
-        }
+        enableSubmitButton();
+    } else if (!applicationReference.checked) {
+        removeApplicationFromChecked(application);
+        disableSubmitButton();
     }
 }
+
+/**
+Sets case to be registered and therefore removed from applicationsChecked, disabled, and text changed to registered.
+
+params: application: application to be case registered
+**/
+function setCaseRegistered(application) {
+    const checkbox = document.getElementById(application);
+    const label = document.getElementById(`label-${application}`);
+    removeApplicationFromChecked(application);
+    checkbox.classList.remove('checkbox-unregistered');
+    checkbox.classList.add('checkbox-registered');
+    checkbox.disabled = true;
+    checkbox.checked = true;
+    label.textContent = "Registered new case";
+
+}
+
+/**
+Sets Loading to true which displays a spinner image on the page and doesn't allow API calls to GLiMR
+**/
+function setLoadingTrue(spinner) {
+    loadingRegister = true;
+    spinner.style.display = 'inline';
+}
+
+/**
+Sets Loading to false which hides a spinner image from the page and allows API calls to GLiMR
+**/
+function setLoadingFalse(spinner) {
+    loadingRegister = false;
+    spinner.style.display = 'None';
+}
+
+function setApplicationErrorTrue(errorMessage) {
+    applicationError = true;
+    errorMessage.style.display = 'block';
+    window.scrollTo({
+      top: 0,
+    });
+}
+
+function setApplicationErrorFalse(errorMessage) {
+    applicationError = false;
+    errorMessage.style.display = 'None';
+}
+
+/**
+Submits the selected applications for case registration and handles the GLiMR api call
+**/
+async function submitNewCaseRegistration() {
+    if (applicationsChecked.length === 0) {
+        return;
+    }
+
+    if (loadingRegister === true) {
+        return;
+    }
+
+    const spinner = document.getElementById('spinner');
+    const errorMessage = document.getElementById('errorMessage');
+    setLoadingTrue(spinner);
+
+    try {
+        const response = await fetch('/glimr/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ 'applications':applicationsChecked })
+            });
+
+        const data = await response.json();
+        const failedCases = data.failedCases;
+        const processedCases = data.processedCases;
+
+        if (response.ok) {
+            if (failedCases.length > 0) {
+                setApplicationErrorTrue(errorMessage);
+            } else {
+                setApplicationErrorFalse(errorMessage);
+            }
+
+            if (processedCases.length > 0) {
+                processedCases.forEach((processedCase) => {
+                    setCaseRegistered(processedCase);
+                    removeApplicationFromChecked(processedCase);
+                });
+            }
+
+            disableSubmitButton()
+
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+    } catch (fetchError) {
+        setApplicationErrorTrue(errorMessage);
+    } finally {
+        setLoadingFalse(spinner);
+    }
+}
+
