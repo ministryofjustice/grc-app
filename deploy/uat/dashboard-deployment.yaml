@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-dashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: grc-dashboard
+  template:
+    metadata:
+      labels:
+        app: grc-dashboard
+    spec:
+      serviceAccountName: grc-uat
+      containers:
+      - name: grc-dashboard
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-uat-ecr:grc-dashboard-latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3002
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3002
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          timeoutSeconds: 10
+        env:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: basic-auth
+                key: auth
+          - name: CONTENT_API_URL
+            value: "http://content-api-service:4567/image_url.json"
+          - name: FLASK_APP
+            value: dashboard
+          - name: FLASK_ENV
+            value: staging
+          - name: SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: basic-auth
+                key: csrf
+          - name: SQLALCHEMY_DATABASE_URI
+            valueFrom:
+              secretKeyRef:
+                name: dps-rds-instance-output
+                key: sql_alchemy_url
+          - name: SQLALCHEMY_KEY
+            valueFrom:
+              secretKeyRef:
+                name: basic-auth
+                key: alchemy-key
+          - name: MEMORY_STORAGE_URL
+            valueFrom:
+              secretKeyRef:
+                name: elasticache-grc-uat
+                key: url
+
