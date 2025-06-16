@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% import "govuk-design-system-templates/error-summary.html" as error_summary %}
+{% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+
+{% block backLink %}
+    {{ back_link.renderFor('oneLogin.start') }}
+{% endblock %}
+
+{% block title %}GOV.UK One Login Test{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ error_summary.renderFor(form) }}
+
+            <form method="POST">
+                {{ form.csrf_token }}
+
+                 {% macro lostReferenceHtmlBlock() %}
+                    <p class="govuk-hint">
+                        {{ _('You will need to start a new application') }}
+                    </p>
+                {% endmacro %}
+                {{ radios.renderFor(
+                    form,
+                    fieldName='has_reference',
+                    question=_("What is your application reference number?"),
+                    radiosOptions={
+                        'questionIsPageHeading': true,
+                        'conditionalOptions': [
+                            ('HAS_REFERENCE',
+                            textInput.renderFor(
+                                form,
+                                fieldName='reference',
+                                textInputForOptions={
+                                    'labelOptions': { 'htmlOrText': _('Reference number') },
+                                    'classes': 'govuk-input--width-10'
+                                }
+                            )),
+                            ('LOST_REFERENCE', lostReferenceHtmlBlock())
+                        ]
+                    }
+                ) }}
+
+                {{ continue.renderFor() }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
