@@ -5,6 +5,7 @@ from grc.one_login import OneLoginUserInfoRequest
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 from grc.one_login.one_login_token_request import OneLoginTokenRequest
+from grc.one_login.one_login_logout import OneLoginLogout
 
 @pytest.fixture
 def fake_discovery_metadata():
@@ -42,3 +43,7 @@ def token_request(config):
 @pytest.fixture
 def user_info_request(config):
     return OneLoginUserInfoRequest(config)
+
+@pytest.fixture
+def logout(config):
+    return OneLoginLogout(config)
