@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
+from grc.one_login.one_login_token_request import OneLoginTokenRequest
 
 @pytest.fixture
 def fake_discovery_metadata():
@@ -31,3 +32,7 @@ def config(app, fake_discovery_metadata):
 @pytest.fixture
 def auth_request(config):
     return OneLoginAuthorizationRequest(config)
+
+@pytest.fixture
+def token_request(config):
+    return OneLoginTokenRequest(config)
