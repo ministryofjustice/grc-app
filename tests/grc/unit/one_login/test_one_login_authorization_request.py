@@ -1,6 +1,5 @@
-import pytest
-from unittest.mock import patch, MagicMock
-from flask import Flask, session
+from unittest.mock import patch
+from flask import session
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 
 
