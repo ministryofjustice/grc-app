@@ -1,5 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
+
+from grc.one_login import OneLoginUserInfoRequest
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 from grc.one_login.one_login_token_request import OneLoginTokenRequest
@@ -36,3 +38,7 @@ def auth_request(config):
 @pytest.fixture
 def token_request(config):
     return OneLoginTokenRequest(config)
+
+@pytest.fixture
+def user_info_request(config):
+    return OneLoginUserInfoRequest(config)
