@@ -46,7 +46,7 @@ def test_request_user_info_is_throws_exception(user_info_request, app):
 
 def test_get_names_dob_from_context_jwt_success(app, user_info_request):
     with app.test_request_context():
-        jwt_token = "test.jwt.token"
+        jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
         expected_name = {
             "first_name": "Bilbo",
             "middle_names": "Rings",
@@ -95,7 +95,7 @@ def test_get_names_dob_from_context_jwt_success(app, user_info_request):
 
 def test_get_names_dob_from_context_jwt_throws_exception(app, user_info_request):
     with app.test_request_context():
-        jwt_token = "test.jwt.token"
+        jwt_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
         test_jwt_payload = {
             "vc": {}
         }
@@ -118,12 +118,57 @@ def test_get_names_dob_from_context_jwt_throws_exception(app, user_info_request)
                 )
 
 
+def test_store_user_info_redis_mapping(app, user_info_request):
+    with app.test_request_context():
+        mock_sub = "test-sub"
+        mock_session_id = "test-session-id"
+        app.config['SESSION_REDIS'] = MagicMock()
+
+        with patch("grc.one_login.one_login_user_info_request.request") as mock_request:
+            mock_request.cookies = {"session": mock_session_id}
+
+            user_info_request.store_user_info_redis_mapping(mock_sub)
+
+            app.config['SESSION_REDIS'].set.assert_called_once_with(f"user_sub:{mock_sub}", mock_session_id)
 
 
+def test_extract_current_name_no_middle_name(user_info_request):
+    names = [
+        {
+            "validUntil": None,
+            "nameParts": [
+                {"type": "GivenName", "value": "Bilbo"},
+                {"type": "FamilyName", "value": "Baggins"}
+            ]
+        }
+    ]
+
+    expected = {"first_name": "Bilbo", "middle_names": "", "last_name": "Baggins"}
+    result = user_info_request._extract_current_name(names)
+    assert expected == result
 
 
+def test_extract_current_name_with_middle_name(user_info_request):
+    names = [
+        {
+            "validUntil": None,
+            "nameParts": [
+                {"type": "GivenName", "value": "Bilbo"},
+                {"type": "GivenName", "value": "Lord"},
+                {"type": "FamilyName", "value": "Baggins"}
+            ]
+        }
+    ]
+
+    expected = {"first_name": "Bilbo", "middle_names": "Lord", "last_name": "Baggins"}
+    result = user_info_request._extract_current_name(names)
+    assert expected == result
 
 
-#
-# def test_something():
-#     assert True == False  # add assertion here
+def test_format_into_datetime_date(user_info_request):
+    test_date = "2025-06-06"
+    expected_date = date(2025, 6, 6)
+
+    result = user_info_request._format_date_into_datetime_date(test_date)
+    assert expected_date == result
+
