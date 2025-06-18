@@ -104,4 +104,4 @@ spec:
                 name: basic-auth
                 key: glimr-api-key
           - name: GLIMR_BASE_URL
-            value: "https://glimr-uat.staging.apps.hmcts.net/glimr_preprod/api/tdsapi"
+            value: "https://glimr-preprod.staging.apps.hmcts.net/glimr_preprod/api/tdsapi"
