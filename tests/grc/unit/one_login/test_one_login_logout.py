@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from datetime import date
 
 def test_logout_redirect_url_to_confirmation_page(logout, app):
     with app.test_request_context():
