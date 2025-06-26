@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-jwks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grc-jwks
+  template:
+    metadata:
+      labels:
+        app: grc-jwks
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsNonRoot: true
+      containers:
+      - name: grc-jwks
+        image: bitnami/redis:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3003
+        securityContext:
+          allowPrivilegeEscalation: false
