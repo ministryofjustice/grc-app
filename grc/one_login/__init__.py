@@ -111,7 +111,7 @@ def oneLoginSaveAndExit():
         logger.log(LogLevel.ERROR, str(e))
         return local_redirect(url_for('saveAndReturn.exitApplication'))
 
-@oneLogin.route('/onelogin/back-channel-logout', methods=['POST'])
+@oneLogin.route('/one-login/back-channel-logout', methods=['POST'])
 def backChannelLogout():
     logger.log(LogLevel.INFO, f'Back channel logout request received.')
 
