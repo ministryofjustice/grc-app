@@ -436,6 +436,8 @@ commands:
               docker tag grc-app "<< parameters.ecr_endpoint >>:grc-app-latest"
               docker tag grc-dashboard "<< parameters.ecr_endpoint >>:grc-dashboard-${CIRCLE_SHA1}"
               docker tag grc-dashboard "<< parameters.ecr_endpoint >>:grc-dashboard-latest"
+              docker tag grc-jwks "<< parameters.ecr_endpoint >>:grc-jwks-${CIRCLE_SHA1}"
+              docker tag grc-jwks "<< parameters.ecr_endpoint >>:grc-jwks-latest"
 
               docker push "<< parameters.ecr_endpoint >>:grc-admin-${CIRCLE_SHA1}"
               docker push "<< parameters.ecr_endpoint >>:grc-admin-latest"
@@ -443,6 +445,8 @@ commands:
               docker push "<< parameters.ecr_endpoint >>:grc-app-latest"
               docker push "<< parameters.ecr_endpoint >>:grc-dashboard-${CIRCLE_SHA1}"
               docker push "<< parameters.ecr_endpoint >>:grc-dashboard-latest"
+              docker push "<< parameters.ecr_endpoint >>:grc-jwks-${CIRCLE_SHA1}"
+              docker push "<< parameters.ecr_endpoint >>:grc-jwks-latest"
 
     tag_and_push_maintenance_image:
       description: Tag and push maintenance page image
