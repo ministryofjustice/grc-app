@@ -75,3 +75,4 @@ redis==5.2.1
 Flask-Session==0.8.0
 cachelib==0.13.0
 cachetools==5.5.2
+Flask-Caching==2.3.1

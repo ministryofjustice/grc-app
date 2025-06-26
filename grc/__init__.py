@@ -13,8 +13,10 @@ from grc.utils.maintenance_mode import Maintenance
 from grc.utils.custom_error_handlers import CustomErrorHandlers
 from werkzeug.middleware.proxy_fix import ProxyFix
 import redis
+from flask_caching import Cache
 
 migrate = Migrate()
+cache = Cache()
 flask_uuid = FlaskUUID()
 
 
@@ -41,9 +43,18 @@ def create_app(test_config=None):
     if app.config['BASIC_AUTH_USERNAME'] and app.config['BASIC_AUTH_PASSWORD']:
         HttpBasicAuthentication(app)
 
+    # Redis Session
     app.config["SESSION_TYPE"] = "redis"
     app.config["SESSION_REDIS"] = redis.Redis(host=app.config.get('REDIS_HOST'), port=6379, db=0)
     Session(app)
+
+    # Redis Cache
+    app.config['CACHE_TYPE'] = 'RedisCache'
+    app.config['CACHE_REDIS_HOST'] = app.config.get('REDIS_HOST')
+    app.config['CACHE_REDIS_PORT'] = 6379
+    app.config['CACHE_REDIS_DB'] = 1
+    app.config['CACHE_DEFAULT_TIMEOUT'] = 3600
+    cache.init_app(app)
 
     # Load build info from JSON file
     f = open('build-info.json')

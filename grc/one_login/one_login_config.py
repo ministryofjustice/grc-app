@@ -1,13 +1,23 @@
 from flask import current_app
 import requests
 from typing import Dict, Any
-from functools import lru_cache
+from grc import cache
+import threading
 
 class OneLoginConfig:
     """
     Loads and holds configuration and metadata for integrating with GOV.UK One Login.
     Includes credentials, endpoints, keys, and requested claims.
     """
+    _instance = None
+    _lock = threading.Lock()
+
+    @classmethod
+    def get_instance(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = OneLoginConfig()
+        return cls._instance
 
     def __init__(self):
         """
@@ -34,6 +44,7 @@ class OneLoginConfig:
         self.jwks_uri: str = self.metadata['jwks_uri']
 
     @staticmethod
+    @cache.cached(timeout=3600)
     def get_discovery_metadata() -> Dict[str, Any]:
         """
         Retrieves OpenID Connect discovery metadata from configured URL.
@@ -69,12 +80,3 @@ class OneLoginConfig:
                 "https://vocab.account.gov.uk/v1/drivingPermit": None
             }
         }
-
-@lru_cache(maxsize=1)
-def get_onelogin_config() -> OneLoginConfig:
-    """
-    Lazily instantiates and caches OneLoginConfig instance.
-
-    :return: Cached OneLoginConfig instance.
-    """
-    return OneLoginConfig()

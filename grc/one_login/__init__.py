@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 from grc.one_login.one_login_logout import OneLoginLogout
 from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin
 from grc.utils.redirect import local_redirect
-from grc.one_login.one_login_config import get_onelogin_config
+from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 from grc.one_login.one_login_token_request import OneLoginTokenRequest
 from grc.one_login.one_login_token_validator import OneLoginTokenValidator
@@ -81,21 +81,21 @@ def identityEligibility():
 
 @oneLogin.route('/onelogin/authenticate', methods=['GET'])
 def authenticate():
-    config = get_onelogin_config()
+    config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_authentication_redirect_url()
     return redirect(redirect_url)
 
 @oneLogin.route('/onelogin/identify', methods=['GET'])
 def identify():
-    config = get_onelogin_config()
+    config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_identity_redirect_url()
     return redirect(redirect_url)
 
 @oneLogin.route('/onelogin/logout', methods=['GET'])
 def oneLoginSaveAndExit():
-    config = get_onelogin_config()
+    config = OneLoginConfig.get_instance()
     logout_request = OneLoginLogout(config)
     id_token = session.get('id_token')
 
@@ -116,7 +116,7 @@ def backChannelLogout():
     logger.log(LogLevel.INFO, f'Back channel logout request received.')
 
     try:
-        config = get_onelogin_config()
+        config = OneLoginConfig.get_instance()
         token_validator = OneLoginTokenValidator(config=config)
         logout_request = OneLoginLogout(config=config)
         token = request.form.get('logout_token')
@@ -132,7 +132,7 @@ def backChannelLogout():
 
     except Exception as e:
         logger.log(LogLevel.ERROR, f'Received back channel request but failed to execute logout due to {str(e)}')
-        return Response(status=200) #Still return 200 to let One Login know we received the request
+        return Response(status=200)
 
 @oneLogin.route('/auth/callback', methods=['GET'])
 def callbackAuthentication():
@@ -146,7 +146,7 @@ def callbackAuthentication():
             logger.log(LogLevel.ERROR, "No code received in callback.")
             return local_redirect(url_for("oneLogin.start"))
 
-        config = get_onelogin_config()
+        config = OneLoginConfig.get_instance()
         token_request = OneLoginTokenRequest(config)
         token_validator = OneLoginTokenValidator(config)
         user_info_request = OneLoginUserInfoRequest(config)
@@ -164,7 +164,7 @@ def callbackAuthentication():
             application_data = DataStore.load_application_by_session_reference_number()
             if email != application_data.email_address:
                 flash("The email address does not match our records for the reference number you provided.", "error")
-                logout_request = OneLoginLogout(get_onelogin_config())
+                logout_request = OneLoginLogout(OneLoginConfig.get_instance())
                 redirect_url = logout_request.logout_redirect_url_to_reference_check_page(id_token)
                 session.pop('reference_number')
                 logger.log(LogLevel.ERROR, "Email address does not match our records for the reference number you provided.")
@@ -199,7 +199,7 @@ def callbackIdentity():
             logger.log(LogLevel.ERROR, "No code received in callback.")
             return local_redirect(url_for("oneLogin.start"))
 
-        config = get_onelogin_config()
+        config = OneLoginConfig.get_instance()
         token_request = OneLoginTokenRequest(config)
         token_validator = OneLoginTokenValidator(config)
         user_info_request = OneLoginUserInfoRequest(config)
@@ -307,7 +307,7 @@ def backFromIdentity():
     if reference_number is None:
         return local_redirect(url_for('oneLogin.start'))
     session.pop('reference_number')
-    logout_request = OneLoginLogout(get_onelogin_config())
+    logout_request = OneLoginLogout(OneLoginConfig.get_instance())
     redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
     return local_redirect(redirect_url)
 
@@ -321,7 +321,7 @@ def backFromReference():
         return local_redirect(url_for('oneLogin.referenceNumber'))
 
 def handle_onelogin_response(code: str, fetch_tokens_func, store_user_info_func):
-    config = get_onelogin_config()
+    config = OneLoginConfig.get_instance()
     token_request = OneLoginTokenRequest(config)
     token_validator = OneLoginTokenValidator(config)
     user_info_request = OneLoginUserInfoRequest(config)
