@@ -20,4 +20,5 @@ COPY . .
 RUN chmod 777 /app/run_jwks.sh
 
 # Don't run as root user
+USER 1000
 CMD /app/run_jwks.sh
