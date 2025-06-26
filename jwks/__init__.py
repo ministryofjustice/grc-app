@@ -3,7 +3,6 @@ from datetime import timedelta
 from flask import Flask, g
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
-from grc.models import db
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 migrate = Migrate()
@@ -44,6 +43,9 @@ def create_app():
                                                         "form-action 'self'; "
 
         return response
+
+    from jwks.health_check import health_check
+    app.register_blueprint(health_check)
 
     # Wrap app wsgi with proxy fix to reliably get user address without ip spoofing via headers
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
