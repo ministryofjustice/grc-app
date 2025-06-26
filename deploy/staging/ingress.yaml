@@ -6,7 +6,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-preprod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-     5.151.166.193/32, 94.192.178.93/32, 52.167.144.219 belong to David Scott (david.scott@wearegroup.com) who is testing in preprod
+#     5.151.166.193/32, 94.192.178.93/32, 52.167.144.219 belong to David Scott (david.scott@wearegroup.com) who is testing in preprod
     nginx.ingress.kubernetes.io/whitelist-source-range: >-
       194.33.196.0/24,
       194.33.192.0/24,
