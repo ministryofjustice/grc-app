@@ -21,10 +21,6 @@ def create_app():
     f.close()
     build_info = json.loads(build_info_string)
 
-    # Database
-    # db.init_app(app)
-    # migrate.init_app(app, db)
-
     flask_uuid.init_app(app)
 
     # Update session timeout time
