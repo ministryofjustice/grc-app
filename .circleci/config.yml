@@ -238,7 +238,7 @@ jobs:
             sed -i -e s/:grc-app-latest/:grc-app-$CIRCLE_SHA1/ deploy/staging/app-deployment.yaml
             sed -i -e s/:grc-admin-latest/:grc-admin-$CIRCLE_SHA1/ deploy/staging/admin-deployment.yaml
             sed -i -e s/:grc-dashboard-latest/:grc-dashboard-$CIRCLE_SHA1/ deploy/staging/dashboard-deployment.yaml
-            sed -i -e s/:grc-jwks-latest/:grc-dashboard-$CIRCLE_SHA1/ deploy/staging/jwks-deployment.yaml
+            sed -i -e s/:grc-jwks-latest/:grc-jwks-$CIRCLE_SHA1/ deploy/staging/jwks-deployment.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging
 
   deploy_image_to_production:
