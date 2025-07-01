@@ -4,11 +4,18 @@ metadata:
   name: gender-recognition-service-backchannel-logout
   namespace: grc-preprod
   annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-backchannel-logout-grc-preprod-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location = /one-login/back-channel-logout {
+        allow all;
+        proxy_pass http://grc-app-service:3000;
+      }
 spec:
   ingressClassName: modsec
   tls:
@@ -20,7 +27,7 @@ spec:
       http:
         paths:
           - path: /one-login/back-channel-logout
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: grc-app-service
