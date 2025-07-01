@@ -11,11 +11,6 @@ metadata:
     nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location = /one-login/back-channel-logout {
-        allow all;
-        proxy_pass http://grc-app-service:3000;
-      }
 spec:
   ingressClassName: modsec
   tls:
