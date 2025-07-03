@@ -8,7 +8,6 @@ import json
 from uuid import uuid4
 from time import time
 from grc.one_login.one_login_did_doc_cache import DIDDocumentCache
-from grc.utils.logger import LogLevel
 
 
 class JWTHandler:
