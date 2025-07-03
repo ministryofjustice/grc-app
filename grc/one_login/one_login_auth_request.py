@@ -49,7 +49,7 @@ class OneLoginAuthorizationRequest:
         :param redirect_uri: Callback URI to redirect to after authentication.
         :return: Signed JWT as a string.
         """
-        state, nonce = self.generate_and_store_state_nonce()
+        state, nonce = self._generate_and_store_state_nonce()
         request_payload = {
             "response_type": "code",
             "scope": self.config.scope,
@@ -82,7 +82,7 @@ class OneLoginAuthorizationRequest:
         return f"{self.config.authorization_endpoint}?{urlencode(params)}"
 
     @staticmethod
-    def generate_and_store_state_nonce() -> tuple:
+    def _generate_and_store_state_nonce() -> tuple:
         """
         Generates and stores `state` and `nonce` values in session for security.
 
