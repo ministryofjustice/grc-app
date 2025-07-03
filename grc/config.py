@@ -49,7 +49,6 @@ class Config:
     #ONE LOGIN
     ONE_LOGIN_DISCOVERY_URL = os.environ.get("ONE_LOGIN_DISCOVERY_URL")
     ONE_LOGIN_CLIENT_ID = os.environ.get("ONE_LOGIN_CLIENT_ID")
-    ONE_LOGIN_PRIVATE_KEY = os.environ.get("ONE_LOGIN_PRIVATE_KEY")
     ONE_LOGIN_AUTH_REDIRECT_URI = os.environ.get("ONE_LOGIN_AUTH_REDIRECT_URI")
     ONE_LOGIN_IDENTITY_REDIRECT_URI = os.environ.get("ONE_LOGIN_IDENTITY_REDIRECT_URI")
     ONE_LOGIN_DID_URL = os.environ.get("ONE_LOGIN_DID_URL")
@@ -63,3 +62,13 @@ class TestConfig(Config):
     AV_API = 'TEST CLAMAV API'
     NOTIFY_API = os.environ.get('NOTIFY_API')
     FLASK_APP = "grc"
+    ONE_LOGIN_DISCOVERY_URL = 'https://onelogin.gov.uk/.well-known/openid-configuration'
+    ONE_LOGIN_CLIENT_ID = 'client-123ABC'
+    ONE_LOGIN_AUTH_REDIRECT_URI = 'https://app.gov.uk/auth/callback'
+    ONE_LOGIN_IDENTITY_REDIRECT_URI = 'https://app.gov.uk/identity/callback'
+    ONE_LOGIN_DID_URL = 'https://onelogin.gov.uk/.well-known/did.json'
+    ONE_LOGIN_DATE_TIME = '2025-05-21T15:28:18'
+    BASE_URL = 'https://app.gov.uk/'
+    ONE_LOGIN_PRIVATE_KEY_PATH = 'grc/one_login/keys/private_key.pem'
+
+

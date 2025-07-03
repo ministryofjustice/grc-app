@@ -1,0 +1,63 @@
+import pytest
+from unittest.mock import patch, MagicMock
+
+from grc.one_login import OneLoginUserInfoRequest, OneLoginTokenValidator
+from grc.one_login.one_login_config import OneLoginConfig
+from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
+from grc.one_login.one_login_token_request import OneLoginTokenRequest
+from grc.one_login.one_login_logout import OneLoginLogout
+from grc.one_login.one_login_did_doc_cache import DIDDocumentCache
+from grc.one_login.one_login_jwt_handler import JWTHandler
+
+@pytest.fixture
+def fake_discovery_metadata():
+    return {
+        "issuer": "https://onelogin.gov.uk",
+        "authorization_endpoint": "https://onelogin.gov.uk/auth",
+        "userinfo_endpoint": "https://onelogin.gov.uk/userinfo",
+        "token_endpoint": "https://onelogin.gov.uk/token",
+        "end_session_endpoint": "https://onelogin.gov.uk/logout",
+        "registration_endpoint": "https://onelogin.gov.uk/register",
+        "jwks_uri": "https://onelogin.gov.uk/jwks"
+    }
+
+
+@pytest.fixture
+def config(app, fake_discovery_metadata):
+    with app.app_context():
+        with patch("grc.one_login.one_login_config.requests.get") as mock_get, \
+             patch("grc.one_login.one_login_config.OneLoginConfig.load_private_key") as mock_key:
+            mock_response = MagicMock()
+            mock_response.json.return_value = fake_discovery_metadata
+            mock_get.return_value = mock_response
+            mock_key.return_value = b"fake-private-key"
+            return OneLoginConfig()
+
+
+@pytest.fixture
+def auth_request(config):
+    return OneLoginAuthorizationRequest(config)
+
+@pytest.fixture
+def token_request(config):
+    return OneLoginTokenRequest(config)
+
+@pytest.fixture
+def token_validator(config):
+    return OneLoginTokenValidator(config)
+
+@pytest.fixture
+def user_info_request(config):
+    return OneLoginUserInfoRequest(config)
+
+@pytest.fixture
+def logout(config):
+    return OneLoginLogout(config)
+
+@pytest.fixture
+def did_doc_cache():
+    return DIDDocumentCache()
+
+@pytest.fixture
+def jwt_handler():
+    return JWTHandler()
