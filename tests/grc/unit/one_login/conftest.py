@@ -7,6 +7,7 @@ from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 from grc.one_login.one_login_token_request import OneLoginTokenRequest
 from grc.one_login.one_login_logout import OneLoginLogout
 from grc.one_login.one_login_did_doc_cache import DIDDocumentCache
+from grc.one_login.one_login_jwt_handler import JWTHandler
 
 @pytest.fixture
 def fake_discovery_metadata():
@@ -56,3 +57,7 @@ def logout(config):
 @pytest.fixture
 def did_doc_cache():
     return DIDDocumentCache()
+
+@pytest.fixture
+def jwt_handler():
+    return JWTHandler()
