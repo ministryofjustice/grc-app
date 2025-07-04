@@ -193,6 +193,35 @@ def download(reference_number):
     session['message'] = message
     return local_redirect(url_for('applications.index', _anchor='downloaded'))
 
+@applications.route('/applications/<reference_number>/download/one_login_details', methods=['GET'])
+@AdminViewerRequired
+def download_one_login_details(reference_number):
+    message = ""
+
+    application = Application.query.filter_by(
+        reference_number=reference_number
+    ).first()
+
+    if application is None:
+        message = "An application with that reference number cannot be found"
+        logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} attempted to download application {reference_number} which cannot be found")
+    else:
+        from grc.utils.application_files import ApplicationFiles
+        pdf_stream, file_name = ApplicationFiles().create_pdf_one_login_details(application.application_data())
+        bytes_ = pdf_stream.read()
+
+        logger.log(LogLevel.INFO, f"downloaded one login details {reference_number}")
+
+        if bytes_ is None:
+            return abort(404)
+
+        response = make_response(bytes_)
+        response.headers.set('Content-Type', 'application/pdf')
+        response.headers.set('Content-Disposition', 'attachment', filename=file_name)
+        return response
+
+    session['message'] = message
+    return local_redirect(url_for('applications.index', _anchor='downloaded'))
 
 @applications.route('/applications/completed', methods=['POST'])
 @AdminRequired

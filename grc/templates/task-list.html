@@ -40,7 +40,7 @@
             <p class="govuk-body">
                 {{ _('Your application is saved automatically as you progress') }}.
                 {{ _('You can') }}
-                <a href="{{ url_for('saveAndReturn.exitApplication') }}" class="govuk-link govuk-link--no-visited-state">
+                <a href="{{ url_for('oneLogin.oneLoginSaveAndExit') }}" class="govuk-link govuk-link--no-visited-state">
                     {{ _('save and exit') }}
                 </a>
                 {{ _('at any time and return to your application later') }}.
@@ -196,7 +196,7 @@
                         {{ _('Your application is saved automatically as you progress') }}.
                     </p>
                     <p class="govuk-body-s">
-                        <a href="{{ url_for('saveAndReturn.exitApplication') }}" class="govuk-link govuk-link--no-visited-state">
+                        <a href="{{ url_for('oneLogin.oneLoginSaveAndExit') }}" class="govuk-link govuk-link--no-visited-state">
                             {{ _('Exit and return later') }}
                         </a>
                     </p>

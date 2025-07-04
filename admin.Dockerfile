@@ -1,7 +1,7 @@
 
 # syntax=docker/dockerfile:1
 
-FROM python:3.8
+FROM python:3.10
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \

@@ -3,5 +3,5 @@ from .base import BaseConstants
 
 
 class StartApplicationConstants(BaseConstants):
-    YES_WITH_REFERENCE_NUMBER = _l('Yes, and I have my reference number')
-    YES_LOST_REFERENCE_NUMBER = _l('Yes, but I have lost my reference number')
+    YES_WITH_REFERENCE_NUMBER = _l('I have my reference number')
+    YES_LOST_REFERENCE_NUMBER = _l('I have lost my reference number')
