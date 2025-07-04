@@ -26,6 +26,15 @@ def EmailRequired(f):
 def UnverifiedLoginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        if 'reference_number_unverified' not in session or session.get('reference_number_unverified') is None:
+            return local_redirect(url_for('oneLogin.start'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def UnidentifiedLoginRequired(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
         if 'reference_number' not in session or session.get('reference_number') is None:
             return local_redirect(url_for('oneLogin.start'))
         return f(*args, **kwargs)

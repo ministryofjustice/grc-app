@@ -45,6 +45,7 @@ def securityCode():
 
     if request.method == 'POST':
         if form.validate_on_submit():
+            session['reference_number'] = session['reference_number_unverified']
             session['identity_verified'] = True
             return local_redirect(url_for('startApplication.reference'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
@@ -151,7 +152,7 @@ def declaration():
 
 @startApplication.route('/back-from-email', methods=['GET'])
 def backFromEmail():
-    session.pop('reference_number')
+    session.pop('reference_number_unverified')
     return local_redirect(url_for('oneLogin.referenceNumber'))
 
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):
