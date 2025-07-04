@@ -6,22 +6,23 @@ from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
 @patch.object(OneLoginAuthorizationRequest, "_create_signed_auth_request")
 @patch.object(OneLoginAuthorizationRequest, "_build_redirect_url")
 def test_build_identity_redirect_url(mock_build_redirect, mock_create_signed, app, config, auth_request):
-    with app.test_request_context():
-        mock_create_signed.return_value = "mock_jwt_token"
-        mock_build_redirect.return_value = "https://onelogin.gov.uk/authorize?response_type=code&scope=openid+phone+email&client_id=client-123ABC&request=mock_jwt_token"
+    with app.app_context():
+        with app.test_request_context():
+            mock_create_signed.return_value = "mock_jwt_token"
+            mock_build_redirect.return_value = "https://onelogin.gov.uk/authorize?response_type=code&scope=openid+phone+email&client_id=client-123ABC&request=mock_jwt_token"
 
-        url = auth_request.build_identity_redirect_url()
+            url = auth_request.build_identity_redirect_url()
 
-        mock_create_signed.assert_called_once_with(
-            vtr="Cl.Cm.P2",
-            redirect_uri='https://app.gov.uk/identity/callback'
-        )
+            mock_create_signed.assert_called_once_with(
+                vtr="Cl.Cm.P2",
+                redirect_uri='https://app.gov.uk/identity/callback'
+            )
 
-        mock_build_redirect.assert_called_once_with(
-            signed_jwt="mock_jwt_token"
-        )
+            mock_build_redirect.assert_called_once_with(
+                signed_jwt="mock_jwt_token"
+            )
 
-        assert url == "https://onelogin.gov.uk/authorize?response_type=code&scope=openid+phone+email&client_id=client-123ABC&request=mock_jwt_token"
+            assert url == "https://onelogin.gov.uk/authorize?response_type=code&scope=openid+phone+email&client_id=client-123ABC&request=mock_jwt_token"
 
 
 @patch.object(OneLoginAuthorizationRequest, "_create_signed_auth_request")

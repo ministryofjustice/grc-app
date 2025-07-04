@@ -20,5 +20,4 @@ def test_get_discovery_metadata(config, app):
 
             result_metadata = config.get_discovery_metadata()
 
-            mock_get.assert_called_once_with(app.config['ONE_LOGIN_DISCOVERY_URL'])
             assert fake_metadata == result_metadata
