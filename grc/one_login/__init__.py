@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g, flash
 from grc.one_login.one_login_logout import OneLoginLogout
-from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin
+from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin, \
+    UnidentifiedLoginRequired
 from grc.utils.redirect import local_redirect
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
@@ -43,7 +44,7 @@ def referenceNumber():
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
             application_data = application.application_data()
-            session['reference_number'] = reference
+            session['reference_number_unverified'] = reference
 
             if application_data.created_after_one_login:
                 session['one_login_auth'] = True
@@ -58,7 +59,7 @@ def referenceNumber():
 
 @oneLogin.route('/oneLogin/identity-eligibility', methods=['GET', 'POST'])
 @AfterOneLogin
-@UnverifiedLoginRequired
+@UnidentifiedLoginRequired
 def identityEligibility():
     form = IdentityEligibility()
     application = DataStore.load_application_by_session_reference_number()
@@ -159,8 +160,10 @@ def callbackAuthentication():
         sub = user_info.get('sub')
         email = user_info.get('email')
         phone_number = user_info.get('phone_number')
+        reference_number_unverified = session['reference_number_unverified']
 
-        if session.get('reference_number'):
+        if reference_number_unverified:
+            session['reference_number'] = reference_number_unverified
             application_data = DataStore.load_application_by_session_reference_number()
             if email != application_data.email_address:
                 flash("The email address does not match our records for the reference number you provided.", "error")

@@ -540,7 +540,7 @@ def file_virus_scan(form, field):
         uploaded_file.stream.seek(0)
 
 def validate_email_matches_application(form, field):
-    reference_number = session.get('reference_number')
+    reference_number = session.get('reference_number_unverified')
 
     application = Application.query.filter_by(reference_number=reference_number).first()
     if not application:
