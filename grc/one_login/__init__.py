@@ -77,7 +77,7 @@ def referenceNumber():
 
     return render_template('one-login/referenceNumber.html', form=form)
 
-@oneLogin.route('/oneLogin/identity-eligibility', methods=['GET', 'POST'])
+@oneLogin.route('/one-login/identity-eligibility', methods=['GET', 'POST'])
 @AfterOneLogin
 @UnidentifiedLoginRequired
 def identityEligibility():
@@ -100,21 +100,21 @@ def identityEligibility():
 
     return render_template('one-login/identityEligibility.html', form=form)
 
-@oneLogin.route('/onelogin/authenticate', methods=['GET'])
+@oneLogin.route('/one-login/authenticate', methods=['GET'])
 def authenticate():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_authentication_redirect_url()
     return redirect(redirect_url)
 
-@oneLogin.route('/onelogin/identify', methods=['GET'])
+@oneLogin.route('/one-login/identify', methods=['GET'])
 def identify():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_identity_redirect_url()
     return redirect(redirect_url)
 
-@oneLogin.route('/onelogin/logout', methods=['GET'])
+@oneLogin.route('/one-login/logout', methods=['GET'])
 def oneLoginSaveAndExit():
     config = OneLoginConfig.get_instance()
     logout_request = OneLoginLogout(config)
@@ -155,7 +155,7 @@ def backChannelLogout():
         logger.log(LogLevel.ERROR, f'Received back channel request but failed to execute logout due to {str(e)}')
         return Response(status=200)
 
-@oneLogin.route('/auth/callback', methods=['GET'])
+@oneLogin.route('/one-login/auth/callback', methods=['GET'])
 def callbackAuthentication():
     try:
         if "error" in request.args:
@@ -210,7 +210,7 @@ def callbackAuthentication():
         logger.log(LogLevel.ERROR, f"Auth callback failed: {str(e)}")
         return local_redirect(url_for("oneLogin.start"))
 
-@oneLogin.route('/identity/callback', methods=['GET'])
+@oneLogin.route('/one-login/identity/callback', methods=['GET'])
 def callbackIdentity():
     try:
         if "error" in request.args:
