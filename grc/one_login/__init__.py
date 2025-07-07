@@ -11,7 +11,9 @@ from grc.one_login.one_login_user_info_request import OneLoginUserInfoRequest
 from grc.utils.logger import LogLevel, Logger
 from grc.one_login.forms import ReferenceCheckForm, IdentityEligibility, NewExistingApplicationForm
 from grc.business_logic.data_store import DataStore
-from grc.models import Application
+from grc.models import Application, ApplicationStatus
+from grc.utils.strtobool import strtobool
+from flask_babel import lazy_gettext as _l
 
 logger = Logger()
 oneLogin = Blueprint('oneLogin', __name__)
@@ -23,7 +25,7 @@ def start():
     if session.get('reference_number_unverified'):
         session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
-        new_application = form.new_application.data
+        new_application = strtobool(form.new_application.data)
         if new_application is True:
             session['one_login_auth'] = True
             return local_redirect(url_for('oneLogin.authenticate'))
@@ -43,17 +45,32 @@ def referenceNumber():
         if has_reference == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
-            application_data = application.application_data()
-            session['reference_number_unverified'] = reference
 
-            if application_data.created_after_one_login:
-                session['one_login_auth'] = True
-                logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
-                return redirect(url_for('oneLogin.authenticate'))
+            if application is None:
+                form.reference.errors.append('Enter a valid reference number')
+                return render_template('one-login/referenceNumber.html', form=form)
+
+            if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
+                # This application has been anonymised
+                return render_template('start-application/application-anonymised.html')
+
+            elif application.status == ApplicationStatus.COMPLETED or \
+                    application.status == ApplicationStatus.SUBMITTED or \
+                    application.status == ApplicationStatus.DOWNLOADED:
+                return render_template('start-application/application-already-submitted.html')
+
             else:
-                session['one_login_auth'] = False
-                logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
-                return local_redirect(url_for('startApplication.index'))
+                application_data = application.application_data()
+                session['reference_number_unverified'] = reference
+
+                if application_data.created_after_one_login:
+                    session['one_login_auth'] = True
+                    logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
+                    return redirect(url_for('oneLogin.authenticate'))
+                else:
+                    session['one_login_auth'] = False
+                    logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
+                    return local_redirect(url_for('startApplication.index'))
 
         elif has_reference == 'LOST_REFERENCE':
             return local_redirect(url_for('oneLogin.start'))
@@ -163,13 +180,13 @@ def callbackAuthentication():
         sub = user_info.get('sub')
         email = user_info.get('email')
         phone_number = user_info.get('phone_number')
-        reference_number_unverified = session['reference_number_unverified']
+        reference_number_unverified = session.get('reference_number_unverified')
 
         if reference_number_unverified:
             session['reference_number'] = reference_number_unverified
             application_data = DataStore.load_application_by_session_reference_number()
             if email != application_data.email_address:
-                flash("The email address does not match our records for the reference number you provided.", "error")
+                flash('Enter a valid reference number', "error")
                 logout_request = OneLoginLogout(OneLoginConfig.get_instance())
                 redirect_url = logout_request.logout_redirect_url_to_reference_check_page(id_token)
                 session.pop('reference_number')

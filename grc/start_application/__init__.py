@@ -59,7 +59,7 @@ def securityCode():
         email=email
     )
 
-@startApplication.route('/back-to-is-first-visit', methods=['GET', 'POST'])
+@startApplication.route('/back-to-identity', methods=['GET', 'POST'])
 @LoginRequired
 def backToIdentityEligible():
     return local_redirect(url_for('oneLogin.identityEligibility'))
