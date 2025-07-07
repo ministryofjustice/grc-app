@@ -20,27 +20,27 @@ oneLogin = Blueprint('oneLogin', __name__)
 @Unauthorized
 def start():
     form = NewExistingApplicationForm()
-    if session.get('reference_number'):
-        session.pop('reference_number')
+    if session.get('reference_number_unverified'):
+        session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
-        application_choice = form.application_choice.data
-        if application_choice == 'NEW_APPLICATION':
+        new_application = form.new_application.data
+        if new_application is True:
             session['one_login_auth'] = True
             return local_redirect(url_for('oneLogin.authenticate'))
-
-        elif application_choice == 'EXISTING_APPLICATION':
+        else:
             return local_redirect(url_for('oneLogin.referenceNumber'))
-
     return render_template('one-login/start.html', form=form)
 
 @oneLogin.route('/your-reference-number', methods=['GET', 'POST'])
 @Unauthorized
 def referenceNumber():
     form = ReferenceCheckForm()
-    if session.get('reference_number'):
-        session.pop('reference_number')
+    has_reference = form.has_reference.data
+
+    if session.get('reference_number_unverified'):
+        session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
-        if form.has_reference.data == 'HAS_REFERENCE':
+        if has_reference == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
             application_data = application.application_data()
@@ -54,6 +54,9 @@ def referenceNumber():
                 session['one_login_auth'] = False
                 logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
                 return local_redirect(url_for('startApplication.index'))
+
+        elif has_reference == 'LOST_REFERENCE':
+            return local_redirect(url_for('oneLogin.start'))
 
     return render_template('one-login/referenceNumber.html', form=form)
 

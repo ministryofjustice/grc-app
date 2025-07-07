@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from grc.business_logic.constants.start_application import StartApplicationConstants as c
+from grc.business_logic.constants.base import BaseConstants as c
 from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyEmail
 from wtforms import EmailField, StringField, BooleanField
@@ -19,22 +19,6 @@ class EmailAddressForm(FlaskForm):
 class SecurityCodeForm(FlaskForm):
     security_code = StringField(
         validators=[LazyDataRequired(lazy_message=c.NO_SECURITY_CODE), validate_security_code]
-    )
-
-
-class IsFirstVisitForm(FlaskForm):
-    isFirstVisit = LazyRadioField(
-        lazy_choices=[
-            ('FIRST_VISIT', c.NO),
-            ('HAS_REFERENCE', c.YES_WITH_REFERENCE_NUMBER),
-            ('LOST_REFERENCE', c.YES_LOST_REFERENCE_NUMBER)
-        ],
-        validators=[LazyDataRequired(lazy_message=c.IS_FIRST_VISIT_ERROR)]
-    )
-
-    reference = StringField(
-        validators=[StrictRequiredIf('isFirstVisit', 'HAS_REFERENCE',
-                                     message=c.NO_REFERENCE_NUMBER_ERROR, validators=[validate_reference_number])]
     )
 
 

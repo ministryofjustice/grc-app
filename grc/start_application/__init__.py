@@ -1,11 +1,10 @@
 from flask import Blueprint, flash, render_template, request, url_for, session, g
-from grc.business_logic.constants.start_application import StartApplicationConstants as c
+from grc.business_logic.constants.base import BaseConstants as c
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.external_services.gov_uk_notify import GovUkNotify
-from grc.models import Application
 from grc.start_application.forms import EmailAddressForm, SecurityCodeForm, OverseasCheckForm, \
-    OverseasApprovedCheckForm, DeclarationForm, IsFirstVisitForm
+    OverseasApprovedCheckForm, DeclarationForm
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
 from grc.utils.decorators import LoginRequired, EmailRequired, BeforeOneLogin, UnverifiedLoginRequired
 from grc.utils.reference_number import reference_number_string
