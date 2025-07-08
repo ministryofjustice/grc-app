@@ -907,14 +907,6 @@ msgid ""
 "Recognition Certificate"
 msgstr ""
 
-#: grc/business_logic/constants/start_application.py:6
-msgid "Yes, and I have my reference number"
-msgstr ""
-
-#: grc/business_logic/constants/start_application.py:7
-msgid "Yes, but I have lost my reference number"
-msgstr ""
-
 #: grc/business_logic/constants/submit_and_pay.py:8
 msgid "No, I will pay now"
 msgstr ""
@@ -3524,16 +3516,6 @@ msgid ""
 "application later"
 msgstr ""
 
-#: grc/templates/start-application/email-address.html:23
-msgid ""
-"If this is your first time using this service, we will give you a "
-"reference number"
-msgstr ""
-
-#: grc/templates/start-application/email-address.html:24
-msgid "You will need this if you return to your application"
-msgstr ""
-
 #: grc/templates/start-application/email-address.html:27
 msgid ""
 "If you are returning to your application, you will need your application "
@@ -4113,4 +4095,50 @@ msgid ""
 "to find out which declaration is right for you and who can act as a "
 "witness when you sign your declaration."
 msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Start or return to an application"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login."
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "If this is your first time using this service, we will give you a reference number. You will need this if you return to your application."
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "If you are returning to your application which was not started with GOV.UK One Login, you will also need to enter your email address and security code."
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Before you start a new application, make sure you have read the guidance on <a href='https://www.gov.uk/apply-gender-recognition-certificate' target='_blank' class='govuk-link'>applying for a Gender Recognition Certificate (opens in a new tab)</a>."
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Start a new application"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Return to your existing application"
+msgstr ""
+
+#: grc/templates/one-login/referenceNumber.html
+msgid "I have my reference number"
+msgstr ""
+
+#: grc/templates/one-login/referenceNumber.html
+msgid "I have lost my reference number"
+msgstr ""
+
+#: grc/templates/one-login/referenceNumber.html
+msgid "Application reference number"
+msgstr ""
+
+#: grc/templates/start-application/email-address.html
+msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
+msgstr ""
+
+
 

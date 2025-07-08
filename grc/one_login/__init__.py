@@ -11,7 +11,9 @@ from grc.one_login.one_login_user_info_request import OneLoginUserInfoRequest
 from grc.utils.logger import LogLevel, Logger
 from grc.one_login.forms import ReferenceCheckForm, IdentityEligibility, NewExistingApplicationForm
 from grc.business_logic.data_store import DataStore
-from grc.models import Application
+from grc.models import Application, ApplicationStatus
+from grc.utils.strtobool import strtobool
+from flask_babel import lazy_gettext as _l
 
 logger = Logger()
 oneLogin = Blueprint('oneLogin', __name__)
@@ -20,44 +22,62 @@ oneLogin = Blueprint('oneLogin', __name__)
 @Unauthorized
 def start():
     form = NewExistingApplicationForm()
-    if session.get('reference_number'):
-        session.pop('reference_number')
+    if session.get('reference_number_unverified'):
+        session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
-        application_choice = form.application_choice.data
-        if application_choice == 'NEW_APPLICATION':
+        new_application = strtobool(form.new_application.data)
+        if new_application is True:
             session['one_login_auth'] = True
             return local_redirect(url_for('oneLogin.authenticate'))
-
-        elif application_choice == 'EXISTING_APPLICATION':
+        else:
             return local_redirect(url_for('oneLogin.referenceNumber'))
-
     return render_template('one-login/start.html', form=form)
 
 @oneLogin.route('/your-reference-number', methods=['GET', 'POST'])
 @Unauthorized
 def referenceNumber():
     form = ReferenceCheckForm()
-    if session.get('reference_number'):
-        session.pop('reference_number')
+    has_reference = form.has_reference.data
+
+    if session.get('reference_number_unverified'):
+        session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
-        if form.has_reference.data == 'HAS_REFERENCE':
+        if has_reference == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
-            application_data = application.application_data()
-            session['reference_number_unverified'] = reference
 
-            if application_data.created_after_one_login:
-                session['one_login_auth'] = True
-                logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
-                return redirect(url_for('oneLogin.authenticate'))
+            if application is None:
+                form.reference.errors.append('Enter a valid reference number')
+                return render_template('one-login/referenceNumber.html', form=form)
+
+            if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
+                # This application has been anonymised
+                return render_template('start-application/application-anonymised.html')
+
+            elif application.status == ApplicationStatus.COMPLETED or \
+                    application.status == ApplicationStatus.SUBMITTED or \
+                    application.status == ApplicationStatus.DOWNLOADED:
+                return render_template('start-application/application-already-submitted.html')
+
             else:
-                session['one_login_auth'] = False
-                logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
-                return local_redirect(url_for('startApplication.index'))
+                application_data = application.application_data()
+                session['reference_number_unverified'] = reference
+
+                if application_data.created_after_one_login:
+                    session['one_login_auth'] = True
+                    logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
+                    return redirect(url_for('oneLogin.authenticate'))
+                else:
+                    session['one_login_auth'] = False
+                    logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
+                    return local_redirect(url_for('startApplication.index'))
+
+        elif has_reference == 'LOST_REFERENCE':
+            return local_redirect(url_for('oneLogin.start'))
 
     return render_template('one-login/referenceNumber.html', form=form)
 
-@oneLogin.route('/oneLogin/identity-eligibility', methods=['GET', 'POST'])
+@oneLogin.route('/one-login/identity-eligibility', methods=['GET', 'POST'])
 @AfterOneLogin
 @UnidentifiedLoginRequired
 def identityEligibility():
@@ -80,21 +100,21 @@ def identityEligibility():
 
     return render_template('one-login/identityEligibility.html', form=form)
 
-@oneLogin.route('/onelogin/authenticate', methods=['GET'])
+@oneLogin.route('/one-login/authenticate', methods=['GET'])
 def authenticate():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_authentication_redirect_url()
     return redirect(redirect_url)
 
-@oneLogin.route('/onelogin/identify', methods=['GET'])
+@oneLogin.route('/one-login/identify', methods=['GET'])
 def identify():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_identity_redirect_url()
     return redirect(redirect_url)
 
-@oneLogin.route('/onelogin/logout', methods=['GET'])
+@oneLogin.route('/one-login/logout', methods=['GET'])
 def oneLoginSaveAndExit():
     config = OneLoginConfig.get_instance()
     logout_request = OneLoginLogout(config)
@@ -135,7 +155,7 @@ def backChannelLogout():
         logger.log(LogLevel.ERROR, f'Received back channel request but failed to execute logout due to {str(e)}')
         return Response(status=200)
 
-@oneLogin.route('/auth/callback', methods=['GET'])
+@oneLogin.route('/one-login/auth/callback', methods=['GET'])
 def callbackAuthentication():
     try:
         if "error" in request.args:
@@ -160,13 +180,13 @@ def callbackAuthentication():
         sub = user_info.get('sub')
         email = user_info.get('email')
         phone_number = user_info.get('phone_number')
-        reference_number_unverified = session['reference_number_unverified']
+        reference_number_unverified = session.get('reference_number_unverified')
 
         if reference_number_unverified:
             session['reference_number'] = reference_number_unverified
             application_data = DataStore.load_application_by_session_reference_number()
             if email != application_data.email_address:
-                flash("The email address does not match our records for the reference number you provided.", "error")
+                flash('Enter a valid reference number', "error")
                 logout_request = OneLoginLogout(OneLoginConfig.get_instance())
                 redirect_url = logout_request.logout_redirect_url_to_reference_check_page(id_token)
                 session.pop('reference_number')
@@ -190,7 +210,7 @@ def callbackAuthentication():
         logger.log(LogLevel.ERROR, f"Auth callback failed: {str(e)}")
         return local_redirect(url_for("oneLogin.start"))
 
-@oneLogin.route('/identity/callback', methods=['GET'])
+@oneLogin.route('/one-login/identity/callback', methods=['GET'])
 def callbackIdentity():
     try:
         if "error" in request.args:

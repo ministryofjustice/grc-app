@@ -544,8 +544,8 @@ def validate_email_matches_application(form, field):
 
     application = Application.query.filter_by(reference_number=reference_number).first()
     if not application:
-        raise ValidationError("No application found for the given reference number.")
+        raise LazyValidationError(c.EMAIL_ADDRESS_INVALID_ERROR)
 
     if field.data != application.email:
-        raise ValidationError("This email address does not match our records for the reference number you provided.")
+        raise LazyValidationError(c.EMAIL_ADDRESS_INVALID_ERROR)
 
