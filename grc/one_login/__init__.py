@@ -233,8 +233,16 @@ def callbackIdentity():
 
         application_data = DataStore.load_application_by_session_reference_number()
 
-        return_codes = user_info.get("https://vocab.account.gov.uk/v1/returnCode")
+        data = user_info.get("https://vocab.account.gov.uk/v1/returnCode")
+        return_codes = [code["code"] for code in data]
+
+        failed_identity_check = False
+
         if return_codes:
+            application_data.one_login_data.set_return_codes_from_strings(return_codes)
+            failed_identity_check = any(code not in ['A', 'P'] for code in return_codes)
+
+        if failed_identity_check:
             session['identity_eligible'] = False
             session['identity_verified'] = False
             application_data.one_login_data.identity_verified = False
@@ -309,12 +317,11 @@ def callbackIdentity():
                 if application_data.personal_details_data.last_name is None:
                     application_data.personal_details_data.last_name = last_name
 
+                if application_data.personal_details_data.contact_email_address is None:
+                    application_data.personal_details_data.contact_email_address = application_data.one_login_data.email
 
-        if application_data.personal_details_data.contact_email_address is None:
-            application_data.personal_details_data.contact_email_address = application_data.one_login_data.email
-
-        if application_data.personal_details_data.contact_phone_number is None:
-            application_data.personal_details_data.contact_phone_number = application_data.one_login_data.phone_number
+                if application_data.personal_details_data.contact_phone_number is None:
+                    application_data.personal_details_data.contact_phone_number = application_data.one_login_data.phone_number
 
         DataStore.save_application(application_data)
 
