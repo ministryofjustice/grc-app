@@ -89,4 +89,4 @@ class OneLoginData:
         self.had_photo_id: Optional[bool] = False
 
     def set_return_codes_from_strings(self, codes: List[str]):
-        self.return_codes = [{"code": code , "description": ReturnCodes[code]} for code in codes if code in ReturnCodes.__members__]
+        self.return_codes = [{"code": code , "description": ReturnCodes[code].value} for code in codes if code in ReturnCodes.__members__]
