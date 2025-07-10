@@ -51,7 +51,6 @@ def referenceNumber():
                 return render_template('one-login/referenceNumber.html', form=form)
 
             if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
-                # This application has been anonymised
                 return render_template('start-application/application-anonymised.html')
 
             elif application.status == ApplicationStatus.COMPLETED or \
@@ -192,6 +191,11 @@ def callbackAuthentication():
                 session.pop('reference_number')
                 logger.log(LogLevel.ERROR, "Email address does not match our records for the reference number you provided.")
                 return local_redirect(redirect_url)
+
+            if application_data.one_login_data.identity_verified:
+                logger.log(LogLevel.INFO, f"Application already verified identity - redirecting to proven identity page.")
+                return redirect(url_for('oneLogin.identify'))
+
         else:
             application_data = DataStore.create_new_application(email_address=email)
             session['reference_number'] = application_data.reference_number
@@ -345,10 +349,18 @@ def backFromIdentity():
 def backFromReference():
     one_login_auth = session.get('one_login_auth')
     if one_login_auth is True:
+        if session.get('reference_number'):
+            application_data = DataStore.load_application_by_session_reference_number()
+            if application_data.one_login_data.identity_verified:
+                session.pop('reference_number')
+                logout_request = OneLoginLogout(OneLoginConfig.get_instance())
+                redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
+                return local_redirect(redirect_url)
+
         return local_redirect(url_for('oneLogin.identityEligibility'))
     else:
         session.clear()
-        return local_redirect(url_for('oneLogin.referenceNumber'))
+        return local_redirect(url_for('oneLogin.'))
 
 def handle_onelogin_response(code: str, fetch_tokens_func, store_user_info_func):
     config = OneLoginConfig.get_instance()
