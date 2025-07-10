@@ -4681,5 +4681,27 @@ msgstr "Cyfeirnod y cais"
 msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
 msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gallwn arbed eich cynnydd a gallwch adael a dychwelyd i'ch cais yn hwyrach ymlaen."
 
+#: grc/templates/start-application/identityEligibility.html
+msgid "Do you have a photo ID?"
+msgstr "Welsh translation"
 
+#: grc/templates/start-application/identityEligibility.html
+msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
+msgstr "Welsh translation"
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "You may also need to complete your online identity check by answering further security questions."
+msgstr "Welsh translation"
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "Yes, I can confirm my identity online"
+msgstr "Welsh translation"
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "No, I cannot confirm my identity online"
+msgstr "Welsh translation"
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
+msgstr "Welsh translation"
 

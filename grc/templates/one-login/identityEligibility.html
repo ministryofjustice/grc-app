@@ -17,35 +17,33 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                Are you able to prove your identity online for example using a photo ID?
+                {{ _("Do you have a photo ID?") }}
             </h1>
 
             <p class="govuk-body">
-                You can confirm your identity online using a photo ID such as a UK photocard driving license or UK passport. If you do not have a photo ID, you may be required to enter these ID details or confirm your identity with the GOV.UK ID Check app.
-                <a href="https://www.gov.uk/apply-gender-recognition-certificate" target="_blank" class="govuk-link">
-                    GOV.UK ID Check app
-                </a>.
+                {{ _("You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth.") }}
             </p>
 
             <p class="govuk-body">
-                You may also need to complete your online identity check by answering further security questions.
+                {{ _("You may also need to complete your online identity check by answering further security questions.") }}
             </p>
-
-            <p class="govuk-body">
-                If you are unsure that you can confirm your identity online, select I cannot confirm my identity check online
-            </p>
-
-            <div class="govuk-inset-text">
-                If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application.
-            </div>
 
             <form method="POST">
                 {{ form.csrf_token }}
 
+                {% macro CannotConfirmIdentityBlock() %}
+                    <p class="govuk-hint">
+                        {{ _('If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application.') }}
+                    </p>
+                {% endmacro %}
                 {{ radios.renderFor(
                     form,
                     fieldName='identity_eligible',
-                    radiosOptions={}
+                    radiosOptions={
+                        'conditionalOptions': [
+                            ('NO_CONFIRM_IDENTITY', CannotConfirmIdentityBlock())
+                        ]
+                    }
                 ) }}
 
                 {{ continue.renderFor() }}

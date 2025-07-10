@@ -4148,5 +4148,29 @@ msgstr ""
 msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
 msgstr ""
 
+#: grc/templates/start-application/identityEligibility.html
+msgid "Do you have a photo ID?"
+msgstr ""
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
+msgstr ""
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "You may also need to complete your online identity check by answering further security questions."
+msgstr ""
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "Yes, I can confirm my identity online"
+msgstr ""
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "No, I cannot confirm my identity online"
+msgstr ""
+
+#: grc/templates/start-application/identityEligibility.html
+msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
+msgstr ""
+
 
 

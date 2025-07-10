@@ -151,7 +151,8 @@ def declaration():
 
 @startApplication.route('/back-from-email', methods=['GET'])
 def backFromEmail():
-    session.pop('reference_number_unverified')
+    if session.get('reference_number_unverified'):
+        session.pop('reference_number_unverified')
     return local_redirect(url_for('oneLogin.referenceNumber'))
 
 def get_next_page(application_data: ApplicationData, next_page_in_journey: str):
