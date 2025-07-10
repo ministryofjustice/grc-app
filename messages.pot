@@ -4132,6 +4132,14 @@ msgstr ""
 msgid "I have lost my reference number"
 msgstr ""
 
+#: grc/templates/start-application/referenceNumber.html
+msgid "There is a mismatch with your application reference number and GOV.UK One Login email address"
+msgstr ""
+
+#: grc/templates/start-application/referenceNumber.html
+msgid "Your application reference number has not been validated"
+msgstr ""
+
 #: grc/templates/one-login/referenceNumber.html
 msgid "Application reference number"
 msgstr ""

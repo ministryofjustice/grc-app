@@ -4665,11 +4665,21 @@ msgstr "Mae gennyf fy nghyfeirnod"
 msgid "I have lost my reference number"
 msgstr "Rwyf wedi colli fy nghyfeirnod"
 
+#: grc/templates/start-application/referenceNumber.html
+msgid "There is a mismatch with your application reference number and GOV.UK One Login email address"
+msgstr "Nid yw cyfeirnod eich cais a’ch cyfeiriad e-bost One Login GOV.UK yn cyfateb i’w gilydd"
+
+#: grc/templates/start-application/referenceNumber.html
+msgid "Your application reference number has not been validated"
+msgstr "Nid yw cyfeirnod eich cais wedi’i ddilysu"
+
 #: grc/templates/one-login/referenceNumber.html
 msgid "Application reference number"
-msgstr "Welsh translation"
+msgstr "Cyfeirnod y cais"
 
 #: grc/templates/start-application/email-address.html
 msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
-msgstr "Welsh translation"
+msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gallwn arbed eich cynnydd a gallwch adael a dychwelyd i'ch cais yn hwyrach ymlaen."
+
+
 

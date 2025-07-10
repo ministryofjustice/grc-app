@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g, flash
+from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g, flash, get_flashed_messages
 from grc.one_login.one_login_logout import OneLoginLogout
 from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin, \
     UnidentifiedLoginRequired
@@ -45,10 +45,6 @@ def referenceNumber():
         if has_reference == 'HAS_REFERENCE':
             reference = DataStore.compact_reference(form.reference.data)
             application = Application.query.filter_by(reference_number=reference).first()
-
-            if application is None:
-                form.reference.errors.append('Enter a valid reference number')
-                return render_template('one-login/referenceNumber.html', form=form)
 
             if application.status == ApplicationStatus.DELETED or application.status == ApplicationStatus.ABANDONED:
                 return render_template('start-application/application-anonymised.html')
@@ -185,7 +181,7 @@ def callbackAuthentication():
             session['reference_number'] = reference_number_unverified
             application_data = DataStore.load_application_by_session_reference_number()
             if email != application_data.email_address:
-                flash('Enter a valid reference number', "error")
+                flash('There is a mismatch with your application reference number and GOV.UK One Login email address', "error")
                 logout_request = OneLoginLogout(OneLoginConfig.get_instance())
                 redirect_url = logout_request.logout_redirect_url_to_reference_check_page(id_token)
                 session.pop('reference_number')
