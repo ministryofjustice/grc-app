@@ -10,9 +10,8 @@ def reference_number_string(reference_number):
     return formatted_reference
 
 
-def reference_number_is_valid(reference, email):
+def reference_number_is_valid(reference):
     reference = reference.replace('-', '').replace(' ', '').upper()
-    # application = Application.query.filter_by(reference_number=reference, email=email).first()
     application = Application.query.filter_by(reference_number=reference).first()
 
     if application is None:
