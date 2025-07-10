@@ -83,10 +83,10 @@ def identityEligibility():
         identity_eligible = form.identity_eligible.data
         application.one_login_data.identity_eligible = identity_eligible
         DataStore.save_application(application)
-        if identity_eligible == 'yes':
+        if identity_eligible == "YES_CONFIRM_IDENTITY":
             session['identity_eligible'] = True
             return local_redirect(url_for('oneLogin.identify'))
-        else:
+        elif identity_eligible == "NO_CONFIRM_IDENTITY":
             session['identity_eligible'] = False
             return local_redirect(url_for('startApplication.reference'))
 
