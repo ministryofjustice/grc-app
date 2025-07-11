@@ -108,9 +108,9 @@ spec:
           - name: ONE_LOGIN_CLIENT_ID
             value: "hhJNeUO_5HuSMx7UwmOEjjNLMlE"
           - name: ONE_LOGIN_AUTH_REDIRECT_URI
-            value: "https://preprod.gender-recognition.service.justice.gov.uk/auth/callback"
+            value: "https://preprod.gender-recognition.service.justice.gov.uk/one-login/auth/callback"
           - name: ONE_LOGIN_IDENTITY_REDIRECT_URI
-            value: "https://preprod.gender-recognition.service.justice.gov.uk/identity/callback"
+            value: "https://preprod.gender-recognition.service.justice.gov.uk/one-login/identity/callback"
           - name: ONE_LOGIN_DID_URL
             value: "https://identity.integration.account.gov.uk/.well-known/did.json"
           - name: ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI
