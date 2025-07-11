@@ -22,9 +22,8 @@ oneLogin = Blueprint('oneLogin', __name__)
 @Unauthorized
 def start():
     form = NewExistingApplicationForm()
-    if session.get('reference_number_unverified'):
-        session.pop('reference_number_unverified')
     if request.method == "POST" and form.validate_on_submit():
+        session.permanent = True
         new_application = strtobool(form.new_application.data)
         if new_application is True:
             session['one_login_auth'] = True

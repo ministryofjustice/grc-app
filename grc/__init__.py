@@ -46,8 +46,6 @@ def create_app(test_config=None):
     # Redis Session
     app.config["SESSION_TYPE"] = "redis"
     app.config["SESSION_REDIS"] = redis.Redis(host=app.config.get('REDIS_HOST'), port=6379, db=0)
-    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=2) #for testing purposes
-    app.config["SESSION_PERMANENT"] = True
     Session(app)
 
     # Redis Cache
@@ -73,7 +71,7 @@ def create_app(test_config=None):
     # Update session timeout time
     @app.before_request
     def make_before_request():
-        app.permanent_session_lifetime = timedelta(hours=3)
+        app.permanent_session_lifetime = timedelta(minutes=2) #for testing purposes
         g.build_info = build_info
         g.lang_code = get_locale()
 
