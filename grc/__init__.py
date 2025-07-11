@@ -46,6 +46,8 @@ def create_app(test_config=None):
     # Redis Session
     app.config["SESSION_TYPE"] = "redis"
     app.config["SESSION_REDIS"] = redis.Redis(host=app.config.get('REDIS_HOST'), port=6379, db=0)
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=2) #for testing purposes
+    app.config["SESSION_PERMANENT"] = True
     Session(app)
 
     # Redis Cache
