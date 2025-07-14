@@ -111,6 +111,10 @@ class ApplicationData:
         return self.is_overseas_application
 
     @property
+    def need_birth_or_adoption_certificate(self) -> bool:
+        return self.one_login_data.identity_verified
+
+    @property
     def section_status_medical_reports(self) -> ListStatus:
         if self.need_medical_reports:
             return self._upload_section_status(self.uploads_data.medical_reports)
@@ -142,6 +146,13 @@ class ApplicationData:
     def section_status_overseas_documents(self) -> ListStatus:
         if self.need_overseas_documents:
             return self._upload_section_status(self.uploads_data.overseas_documents)
+        else:
+            return ListStatus.CANNOT_START_YET
+
+    @property
+    def section_status_birth_or_adoption_certificate(self) -> ListStatus:
+        if self.need_birth_or_adoption_certificate:
+            return self._upload_section_status(self.uploads_data.birth_or_adoption_certificates)
         else:
             return ListStatus.CANNOT_START_YET
 
