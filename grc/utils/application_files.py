@@ -13,8 +13,8 @@ logger = Logger()
 
 
 class ApplicationFiles:
-    sections = ['medicalReports', 'genderEvidence', 'nameChange', 'marriageDocuments', 'overseasCertificate', 'statutoryDeclarations']
-    section_names = ['Medical Reports', 'Gender Evidence', 'Name Change', 'Marriage Documents', 'Overseas Certificate', 'Statutory Declarations']
+    sections = ['medicalReports', 'genderEvidence', 'nameChange', 'marriageDocuments', 'overseasCertificate', 'statutoryDeclarations', 'birthOrAdoptionCertificate']
+    section_names = ['Medical Reports', 'Gender Evidence', 'Name Change', 'Marriage Documents', 'Overseas Certificate', 'Statutory Declarations', 'Birth Or Adoption Certificates']
     section_files:  Dict[str, Callable[[UploadsData], List[EvidenceFile]]] = {
         'medicalReports': (lambda u: u.medical_reports),
         'genderEvidence': (lambda u: u.evidence_of_living_in_gender),
@@ -22,6 +22,7 @@ class ApplicationFiles:
         'marriageDocuments': (lambda u: u.partnership_documents),
         'overseasCertificate': (lambda u: u.overseas_documents),
         'statutoryDeclarations': (lambda u: u.statutory_declarations),
+        'birthOrAdoptionCertificate': (lambda u: u.birth_or_adoption_certificates)
     }
 
     def _get_files_for_section(self, section: str, application_data: ApplicationData) -> list:
@@ -107,14 +108,14 @@ class ApplicationFiles:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
-                        'overseasCertificate']
+                        'overseasCertificate', 'birthOrAdoptionCertificate']
         return self._create_pdf_attach_files(application_data, pdfs, all_sections), file_name
 
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
-                        'overseasCertificate']
+                        'overseasCertificate', 'birthOrAdoptionCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
     def create_pdf_one_login_details(self, application_data: ApplicationData) -> Tuple[BytesIO, str]:
