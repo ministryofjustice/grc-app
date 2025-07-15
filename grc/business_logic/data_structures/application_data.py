@@ -195,6 +195,9 @@ class ApplicationData:
         if self.section_status_statutory_declarations != ListStatus.COMPLETED:
             return ListStatus.CANNOT_START_YET
 
+        if self.need_birth_or_adoption_certificate and self.section_status_birth_or_adoption_certificate != ListStatus.COMPLETED:
+            return ListStatus.CANNOT_START_YET
+
         if self.submit_and_pay_data.applying_for_help_with_fee is None:
             return ListStatus.NOT_STARTED
 
