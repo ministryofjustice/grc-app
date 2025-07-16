@@ -4689,19 +4689,19 @@ msgstr "Gallwch gadarnhau eich hunaniaeth ar-lein drwy ddefnyddio llun adnabod d
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "You may also need to complete your online identity check by answering further security questions."
-msgstr "Welsh translation"
+msgstr "You may also need to complete your online identity check by answering further security questions."
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "Yes, I can confirm my identity online"
-msgstr "Welsh translation"
+msgstr "Gallaf, mi allaf gadarnhau fy hunaniaeth ar-lein"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "No, I cannot confirm my identity online"
-msgstr "Welsh translation"
+msgstr "Na allaf, ni allaf gadarnhau fy hunaniaeth ar-lein"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
-msgstr "Welsh translation"
+msgstr "Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein neu os nad ydych wedi cadarnhau eich hunaniaeth ar-lein o'r blaen gan ddefnyddio GOV.UK One Login, efallai y bydd eich cais yn cymryd mwy o amser i'w brosesu gan y bydd angen gwneud hyn ar ôl i ni dderbyn eich cais."
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
 msgid "Upload your birth or adoption certificate"
