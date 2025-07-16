@@ -59,7 +59,7 @@ class OneLoginUserInfoRequest:
 
     @staticmethod
     def store_user_info_redis_mapping(sub: str):
-        current_app.config['SESSION_REDIS'].set(f"user_sub:{sub}", request.cookies.get('session'))
+        current_app.config['SESSION_REDIS'].sadd(f"user_sub:{sub}", f"session:{request.cookies.get('session')}")
 
     def _fetch_user_info(self, access_token: str):
         """

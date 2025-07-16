@@ -68,8 +68,6 @@ class OneLoginLogout:
         Removes the user session from the Flask session store.
         """
         try:
-            # session.pop('user')
-            # session.pop('one_login_auth')
             session.clear()
         except Exception as e:
             raise Exception(f'Failed to end user session due to {str(e)}.')
@@ -81,15 +79,17 @@ class OneLoginLogout:
         """
         try:
             redis_client = current_app.config['SESSION_REDIS']
-            session_key = redis_client.get(f"user_sub:{sub}")
-            if session_key:
-                session_key = session_key.decode('utf-8')
-                redis_client.delete(f"session:{session_key}")
-                redis_client.delete(f"user_sub:{sub}")
-                logger.log(LogLevel.INFO, f'User redis session id and mapping have been deleted.')
+            user_key = f"user_sub:{sub}"
+            session_keys = redis_client.smembers(user_key)
 
-            else:
-                logger.log(LogLevel.INFO, f"No session found for sub {sub}. User could already be logged out.")
+            if not session_keys:
+                logger.log(LogLevel.INFO, f"No sessions found for sub {sub}. User could already be logged out.")
+
+            for session_key in session_keys:
+                redis_client.delete(session_key)
+
+            redis_client.delete(f"user_sub:{sub}")
+            logger.log(LogLevel.INFO, f'User redis session id and mapping have been deleted.')
 
         except Exception as e:
             raise Exception(f'Failed to end user session due to {str(e)}.')
