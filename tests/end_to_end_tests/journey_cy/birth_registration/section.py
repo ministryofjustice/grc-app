@@ -120,7 +120,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
@@ -350,7 +350,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 

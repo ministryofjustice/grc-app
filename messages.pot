@@ -1376,8 +1376,7 @@ msgstr ""
 
 #: grc/templates/birth-registration/mothers-name.html:26
 msgid ""
-"What is your mother’s name as listed on your birth or adoption "
-"certificate?"
+"What is your first parent's name as listed on your birth or adoption certificate?
 msgstr ""
 
 #: grc/templates/birth-registration/mothers-name.html:54
@@ -2068,8 +2067,7 @@ msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:341
 msgid ""
-"You should post the following documents after you have submitted your "
-"application"
+"If you’re unable to confirm your identity online, you should post the following documents after you have submitted your application."
 msgstr ""
 
 #: grc/templates/document-checker/your-documents.html:347
@@ -4172,5 +4170,16 @@ msgstr ""
 msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
 msgstr ""
 
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "Upload your birth or adoption certificate"
+msgstr ""
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "This is where you can upload the original or certified copy of your birth or adoption certificate."
+msgstr ""
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "Please upload a scan or good quality photograph of the certificate."
+msgstr ""
 
 
