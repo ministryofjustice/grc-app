@@ -1,6 +1,8 @@
-import json
 from flask import Blueprint, jsonify
 from grc.utils.logger import LogLevel, Logger
+from typing import Any
+from flask import current_app
+import json
 
 jwks = Blueprint('jwks', __name__)
 logger = Logger()
@@ -8,15 +10,28 @@ logger = Logger()
 
 @jwks.route('/.well-known/jwks.json', methods=['GET'])
 def index():
+    public_key = load_public_key_jwk()
+
     jwks_object = {
       "keys": [
-        {
-            "kty": "RSA",
-            "e": "AQAB",
-            "use": "sig",
-            "kid": "f58a6bef-0d22-444b-b4d3-507a54e9892f",
-            "n": "qdxq6P7JvECWPI9b109T-l-O7-ThVfKwUKrsKlsfMTO8JEGYBgh0uoPQOVP_2BiGbjxs8M9A8z8Yn682cv6c46ZO_ArWzqKIDDOhP2GVMoUGqN8BPvKQNPsJYOBjFQA98eJilztwMpFgALViVp6v5-I54zJ-5xajfpzCuLT6MSubm-JaR1x1TWHmi82U6-deb7Y4iBoOqms3Pi8BvOP1xB5ykcgVhrMgMLGT9wMIJYEEHUUzkaQpSlkpPKEytgY3Yz-EzX5I--vreQFNMAXtT19VcijVCjJNqE-ETTzT8NWBuG0W6j7gG7w4-YyseSEIh-bHbSqzHi-s4AhYVPtbow",
-        }
+        public_key,
       ]
     }
+
     return jsonify(jwks_object), 200
+
+def load_public_key_jwk() -> dict[str, Any]:
+    try:
+        public_key_path = current_app.config.get('ONE_LOGIN_PUBLIC_KEY_PATH')
+
+        if not public_key_path:
+            logger.log(LogLevel.ERROR, 'Cannot find public key file')
+            return {}
+
+        with open(public_key_path, "rb") as f:
+            jwk = json.load(f)
+            return jwk
+
+    except Exception as e:
+        logger.log(LogLevel.ERROR, str(e))
+        return {}

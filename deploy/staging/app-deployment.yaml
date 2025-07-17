@@ -14,7 +14,7 @@ spec:
     spec:
       serviceAccountName: grc-preprod
       volumes:
-        - name: private-key-volume
+        - name: one-login-keys-volume
           secret:
             secretName: one-login-keys
       containers:
@@ -31,7 +31,7 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
         volumeMounts:
-          - name: private-key-volume
+          - name: one-login-keys-volume
             mountPath: /app/keys
             readOnly: true
         env:
@@ -123,6 +123,11 @@ spec:
             value: "2025-05-21T15:28:18"
           - name: ONE_LOGIN_PRIVATE_KEY_PATH
             value: "/app/keys/private_key.pem"
+          - name: ONE_LOGIN_KID
+            valueFrom:
+              secretKeyRef:
+                name: one_login_keys
+                key: kid
           - name: BASE_URL
             value: "https://preprod.gender-recognition.service.justice.gov.uk/"
           - name: REDIS_HOST

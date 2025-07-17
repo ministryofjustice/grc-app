@@ -79,6 +79,7 @@ class OneLoginTokenRequest:
         :return: Dictionary containing request parameters.
         """
         assertion = JWTHandler.build_jwt_assertion(
+            kid=self.config.kid,
             private_key=self.config.private_key,
             algorithm="RS256",
             aud=self.config.token_endpoint,

@@ -241,6 +241,7 @@ def test_get_public_key_from_did_kid_not_found(mock_get_doc, mock_get_controller
 
 
 def test_build_jwt_assertion(app, jwt_handler):
+    kid = 'f58a6bef-0d22-444b-b4d3-507a54e9892f'
     private_key = b"mock-private-key"
     algorithm = "HS256"
     aud = "client-123ABC"
@@ -259,6 +260,7 @@ def test_build_jwt_assertion(app, jwt_handler):
             mock_encode.return_value = "signed.jwt.token"
 
             token = jwt_handler.build_jwt_assertion(
+                kid=kid,
                 private_key=private_key,
                 algorithm=algorithm,
                 aud=aud,
