@@ -126,7 +126,7 @@ spec:
           - name: ONE_LOGIN_KID
             valueFrom:
               secretKeyRef:
-                name: one_login_keys
+                name: one-login-keys
                 key: kid
           - name: BASE_URL
             value: "https://preprod.gender-recognition.service.justice.gov.uk/"
