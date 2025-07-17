@@ -9,7 +9,7 @@ class TestMothersName:
                 session['reference_number'] = test_application.reference_number
             response = client.get('/birth-registration/mothers-name')
             assert response.status_code == 200
-            assert 'What is your mother’s name as listed on your birth or adoption certificate?' in response.text
+            assert "What is your first parent's name as listed on your birth or adoption certificate?" in response.text
 
     def test_mothers_name_get_not_logged_in(self, app, client, test_application):
         with app.app_context():
@@ -28,7 +28,7 @@ class TestMothersName:
             save_test_data(test_app_data)
             response = client.get('/birth-registration/mothers-name')
             assert response.status_code == 200
-            assert 'What is your mother’s name as listed on your birth or adoption certificate?' in response.text
+            assert "What is your first parent's name as listed on your birth or adoption certificate?" in response.text
             assert 'Mothers first name' in response.text
             assert 'Mothers last name' in response.text
             assert 'Mothers maiden name' in response.text

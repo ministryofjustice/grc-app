@@ -1491,10 +1491,9 @@ msgstr "Beth yw enw eich mam?"
 
 #: grc/templates/birth-registration/mothers-name.html:26
 msgid ""
-"What is your mother’s name as listed on your birth or adoption "
-"certificate?"
+"What is your first parent's name as listed on your birth or adoption certificate?"
 msgstr ""
-"Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif "
+"Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?"
 "mabwysiadu?"
 
 #: grc/templates/birth-registration/mothers-name.html:54
@@ -2299,9 +2298,8 @@ msgstr "Dogfennau i'w hanfon drwy'r post"
 
 #: grc/templates/document-checker/your-documents.html:341
 msgid ""
-"You should post the following documents after you have submitted your "
-"application"
-msgstr "Dylech bostio'r dogfennau canlynol ar ôl i chi gyflwyno'ch cais"
+"If you’re unable to confirm your identity online, you should post the following documents after you have submitted your application."
+msgstr "Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein, dylech bostio’r dogfennau canlynol ar ôl i chi gyflwyno eich cais."
 
 #: grc/templates/document-checker/your-documents.html:347
 msgid "Birth or adoption certificate"
@@ -4683,25 +4681,36 @@ msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gall
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "Do you have a photo ID?"
-msgstr "Welsh translation"
+msgstr "A oes gennych chi lun adnabod?"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
-msgstr "Welsh translation"
+msgstr "Gallwch gadarnhau eich hunaniaeth ar-lein drwy ddefnyddio llun adnabod dilys fel pasbort neu drwydded yrru cerdyn-llun. Gall hyn fod yn rhywedd a gadarnhawyd gennych neu eich rhywedd adeg eich geni."
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "You may also need to complete your online identity check by answering further security questions."
-msgstr "Welsh translation"
+msgstr "You may also need to complete your online identity check by answering further security questions."
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "Yes, I can confirm my identity online"
-msgstr "Welsh translation"
+msgstr "Gallaf, mi allaf gadarnhau fy hunaniaeth ar-lein"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "No, I cannot confirm my identity online"
-msgstr "Welsh translation"
+msgstr "Na allaf, ni allaf gadarnhau fy hunaniaeth ar-lein"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
-msgstr "Welsh translation"
+msgstr "Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein neu os nad ydych wedi cadarnhau eich hunaniaeth ar-lein o'r blaen gan ddefnyddio GOV.UK One Login, efallai y bydd eich cais yn cymryd mwy o amser i'w brosesu gan y bydd angen gwneud hyn ar ôl i ni dderbyn eich cais."
 
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "Upload your birth or adoption certificate"
+msgstr "Uwchlwythwch eich tystysgrif geni neu fabwysiadu"
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "This is where you can upload the original or certified copy of your birth or adoption certificate."
+msgstr "Dyma ble gallwch uwchlwytho’r copi gwreiddiol neu gopi ardystiedig o’ch tystysgrif geni neu fabwysiadu."
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "Please upload a scan or good quality photograph of the certificate."
+msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’r dystysgrif."
