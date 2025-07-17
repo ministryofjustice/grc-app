@@ -109,10 +109,11 @@ class JWTHandler:
         raise Exception(f"Public key with kid {kid} not found in DID document.")
 
     @staticmethod
-    def build_jwt_assertion(private_key: bytes, algorithm: str, aud: str, iss: str, sub: str, exp_length: int):
+    def build_jwt_assertion(kid: str, private_key: bytes, algorithm: str, aud: str, iss: str, sub: str, exp_length: int):
         """
         Builds and signs a JWT assertion.
 
+        :param kid: kid from active public key jwk
         :param private_key: Private key used to sign the JWT.
         :param algorithm: Signing algorithm (e.g. RS256 or ES256).
         :param aud: Audience claim.
@@ -130,7 +131,7 @@ class JWTHandler:
             "jti": str(uuid4()),
             "iat": now
         }
-        return encode(payload, private_key, algorithm=algorithm, headers={"kid": "f58a6bef-0d22-444b-b4d3-507a54e9892f"})
+        return encode(payload, private_key, algorithm=algorithm, headers={"kid": kid})
 
     @staticmethod
     def _get_controller_id_from_kid(kid):

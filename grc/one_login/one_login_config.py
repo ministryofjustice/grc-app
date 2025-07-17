@@ -30,7 +30,8 @@ class OneLoginConfig:
         self.logout_redirect_url_save_and_exit = f'{current_app.config["BASE_URL"]}save-and-return/exit-application'
         self.logout_redirect_url_confirmation = f'{current_app.config["BASE_URL"]}submit-and-pay/confirmation'
         self.logout_redirect_url_reference = f'{current_app.config["BASE_URL"]}your-reference-number'
-        self.logout_redirect_url_start = f'{current_app.config["BASE_URL"]}'
+        self.logout_redirect_url_start = current_app.config["BASE_URL"]
+        self.kid: str = current_app.config["ONE_LOGIN_KID"]
         self.scope: str = "openid phone email"
         self.claims: Dict[str, Dict[str, None]] = self.build_claims()
         self.private_key: bytes = self.load_private_key()

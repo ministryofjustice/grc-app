@@ -4,6 +4,7 @@ from flask import Flask, g
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
 from werkzeug.middleware.proxy_fix import ProxyFix
+from jwks.config import Config
 
 migrate = Migrate()
 flask_uuid = FlaskUUID()
@@ -13,6 +14,8 @@ def create_app():
 
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    app.config.from_object(Config)
 
     # Load build info from JSON file
     f = open('build-info.json')

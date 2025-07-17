@@ -13,6 +13,10 @@ spec:
         app: grc-jwks
     spec:
       serviceAccountName: grc-preprod
+      volumes:
+        - name: one-login-keys-volume
+          secret:
+            secretName: one-login-keys
       containers:
       - name: grc-jwks
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-preprod-ecr:grc-jwks-latest
@@ -26,11 +30,14 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 20
           timeoutSeconds: 10
+        volumeMounts:
+          - name: key-volume
+            mountPath: /app/keys
+            readOnly: true
         env:
           - name: FLASK_ENV
             value: staging
-          - name: SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: basic-auth
-                key: csrf
+          - name: FLASK_APP
+            value: jwks
+          - name: ONE_LOGIN_PUBLIC_KEY_PATH
+            value: "/app/keys/jwks.json"

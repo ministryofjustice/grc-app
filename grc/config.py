@@ -45,8 +45,6 @@ class Config:
     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
     BASE_URL = os.environ.get('BASE_URL', "http://localhost:3000/")
     REDIS_HOST = os.environ.get('REDIS_HOST', "redis")
-
-    #ONE LOGIN
     ONE_LOGIN_DISCOVERY_URL = os.environ.get("ONE_LOGIN_DISCOVERY_URL")
     ONE_LOGIN_CLIENT_ID = os.environ.get("ONE_LOGIN_CLIENT_ID")
     ONE_LOGIN_AUTH_REDIRECT_URI = os.environ.get("ONE_LOGIN_AUTH_REDIRECT_URI")
@@ -54,6 +52,7 @@ class Config:
     ONE_LOGIN_DID_URL = os.environ.get("ONE_LOGIN_DID_URL")
     ONE_LOGIN_DATE_TIME = os.environ.get('ONE_LOGIN_DATE_TIME')
     ONE_LOGIN_PRIVATE_KEY_PATH = os.environ.get('ONE_LOGIN_PRIVATE_KEY_PATH')
+    ONE_LOGIN_KID = os.environ.get('ONE_LOGIN_KID')
 
 class TestConfig(Config):
     TESTING = True

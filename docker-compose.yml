@@ -31,6 +31,7 @@ services:
       dockerfile: jwks.Dockerfile
     ports:
       - 3003:3003
+    env_file: .jwks.env
     command: /app/run_jwks.sh
 
   grc_app:

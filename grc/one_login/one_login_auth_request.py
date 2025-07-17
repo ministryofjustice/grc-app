@@ -64,7 +64,7 @@ class OneLoginAuthorizationRequest:
             "claims": self.config.claims
         }
 
-        return encode(request_payload, self.config.private_key, algorithm="RS256", headers={"kid": "f58a6bef-0d22-444b-b4d3-507a54e9892f"})
+        return encode(request_payload, self.config.private_key, algorithm="RS256", headers={"kid": self.config.kid})
 
     def _build_redirect_url(self, signed_jwt: str) -> str:
         """
