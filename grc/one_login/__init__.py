@@ -188,6 +188,7 @@ def callbackAuthentication():
                 return local_redirect(redirect_url)
 
             if application_data.one_login_data.identity_verified:
+                user_info_request.store_user_info_redis_mapping(sub)
                 logger.log(LogLevel.INFO, f"Application already verified identity - redirecting to proven identity page.")
                 return redirect(url_for('oneLogin.identify'))
 
