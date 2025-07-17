@@ -172,7 +172,8 @@ def download(reference_number):
         message = "An application with that reference number cannot be found"
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} attempted to download application {reference_number} which cannot be found")
     else:
-        application.status = ApplicationStatus.DOWNLOADED
+        if application.status != ApplicationStatus.COMPLETED:
+            application.status = ApplicationStatus.DOWNLOADED
         application.downloaded = datetime.now()
         application.downloadedBy = session['signedIn']
         db.session.commit()
