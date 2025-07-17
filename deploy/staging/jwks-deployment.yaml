@@ -31,7 +31,7 @@ spec:
           periodSeconds: 20
           timeoutSeconds: 10
         volumeMounts:
-          - name: key-volume
+          - name: one-login-keys-volume
             mountPath: /app/keys
             readOnly: true
         env:
