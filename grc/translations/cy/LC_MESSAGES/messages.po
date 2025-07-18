@@ -4632,7 +4632,7 @@ msgid "Start or return to an application"
 msgstr "Dechrau cais newydd neu ddychwelyd i gais"
 
 #: grc/templates/one-login/start.html
-msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login."
+msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">One Login GOV.UK</a> to start a new application or return to your application that was started with GOV.UK One Login."
 msgstr "Bydd arnoch angen cyfrif <a href=\"https://www.gov.uk/apply-gender-recognition-certificate\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> er mwyn dechrau cais newydd neu ddychwelyd i’ch cais a ddechreuwyd gyda One Login GOV.UK."
 
 #: grc/templates/one-login/start.html
