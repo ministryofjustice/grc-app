@@ -5,7 +5,7 @@
 {% import "govuk-design-system-templates/continue.html" as continue %}
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
 
-{% block title %}GOV.UK One Login Test{% endblock %}
+{% block title %}{{ _("Do you have a photo ID?") }}{% endblock %}
 
 {% block backLink %}
     {{ back_link.renderFor('oneLogin.backFromIdentity') }}
