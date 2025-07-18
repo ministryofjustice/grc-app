@@ -121,14 +121,12 @@ class ApplicationFiles:
     def create_pdf_one_login_details(self, application_data: ApplicationData) -> Tuple[BytesIO, str]:
         file_name = f"{application_data.reference_number}-one-login-details.pdf"
         return self.create_one_login_cover_sheet_pdf(application_data), file_name
-
-    def upload_pdf_admin_with_file_names_attached(self, application_data: ApplicationData) -> bool:
-        file_name = application_data.reference_number + '.pdf'
-        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
-
     def upload_pdf_one_login_details(self, application_data: ApplicationData):
         file_name = f"{application_data.reference_number}-one-login-details.pdf"
         return AwsS3Client().upload_fileobj(self.create_pdf_one_login_details(application_data)[0], file_name)
+    def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
+        file_name = application_data.reference_number + '.pdf'
+        return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
 
     @staticmethod
     def download_pdf(pdf_name: str) -> bytes:

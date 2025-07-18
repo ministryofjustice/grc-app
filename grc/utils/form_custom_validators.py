@@ -85,7 +85,7 @@ class Integer(DataRequired):
 
 
 def validate_security_code_admin(form, field):
-    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
+    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') in ('development', 'local', 'test') else False
 
     if is_test and field.data == '11111':
         return
@@ -95,7 +95,7 @@ def validate_security_code_admin(form, field):
 
 
 def validate_security_code(form, field):
-    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else False
+    is_test = True if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') in ('development', 'local', 'test') else False
 
     if is_test and field.data == '11111':
         return

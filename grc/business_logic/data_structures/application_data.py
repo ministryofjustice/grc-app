@@ -55,6 +55,15 @@ class ApplicationData:
         else:
             return ListStatus.COMPLETED
 
+    def documents_url(self) -> str:
+        s3_bucket_name = current_app.config.get('BUCKET_NAME')
+        s3_object_name = self.application_pdf_name()
+        return f"https://{s3_bucket_name}.s3.eu-west-2.amazonaws.com/{s3_object_name}"
+
+    def application_pdf_name(self) -> str:
+        reference_number = self.reference_number.upper()
+        return f"{reference_number}.pdf"
+
     @property
     def created_after_one_login(self) -> bool:
         one_login_str = current_app.config['ONE_LOGIN_DATE_TIME']

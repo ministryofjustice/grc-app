@@ -31,6 +31,7 @@ def index():
         status=ApplicationStatus.COMPLETED
     ).order_by(Application.updated.desc())
 
+    new_apps_references = [application.reference_number for application in newApplications]
     downloaded_apps_references = [application.reference_number for application in downloadedApplications]
     completed_apps_references = [application.reference_number for application in completedApplications]
 
@@ -41,6 +42,7 @@ def index():
         message=message,
         newApplications=newApplications,
         downloadedApplications=downloadedApplications,
+        new_apps_references=new_apps_references,
         downloaded_apps_references=downloaded_apps_references,
         completed_apps_references=completed_apps_references,
         completedApplications=completedApplications
@@ -179,7 +181,8 @@ def download(reference_number):
         db.session.commit()
 
         from grc.utils.application_files import ApplicationFiles
-        bytes_, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
+        pdf_stream, file_name = ApplicationFiles().create_pdf_admin_with_files_attached(application.application_data())
+        bytes_ = pdf_stream.read()
 
         logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['signedIn'])} downloaded application {reference_number}")
 
