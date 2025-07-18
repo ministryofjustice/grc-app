@@ -4182,5 +4182,8 @@ msgstr ""
 msgid "Please upload a scan or good quality photograph of the certificate."
 msgstr ""
 
+#: grc/templates/start-application/email-address.html
+msgid "Your email address has not been validated"
+msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’r dystysgrif."
 
 

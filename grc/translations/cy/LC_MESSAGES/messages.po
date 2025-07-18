@@ -4689,7 +4689,7 @@ msgstr "Gallwch gadarnhau eich hunaniaeth ar-lein drwy ddefnyddio llun adnabod d
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "You may also need to complete your online identity check by answering further security questions."
-msgstr "You may also need to complete your online identity check by answering further security questions."
+msgstr "Efallai y bydd angen i chi hefyd gwblhau eich gwiriad hunaniaeth ar-lein trwy ateb cwestiynau diogelwch pellach."
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "Yes, I can confirm my identity online"
@@ -4714,3 +4714,7 @@ msgstr "Dyma ble gallwch uwchlwytho’r copi gwreiddiol neu gopi ardystiedig o�
 #: grc/templates/upload/birth-or-adoption-certificate.html
 msgid "Please upload a scan or good quality photograph of the certificate."
 msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’r dystysgrif."
+
+#: grc/templates/start-application/email-address.html
+msgid "Your email address has not been validated"
+msgstr "Nid yw eich cyfeiriad e-bost wedi’i ddilysu"

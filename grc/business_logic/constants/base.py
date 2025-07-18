@@ -65,6 +65,7 @@ class BaseConstants:
         'Select if you plan to remain married after receiving your Gender Recognition Certificate')
     NO_EMAIL_ADDRESS_ERROR = _l('Enter your email address')
     EMAIL_ADDRESS_INVALID_ERROR = _l('Enter a valid email address')
+    EMAIL_ADDRESS_NOT_VALIDATED_ERROR = _l('Your email address has not been validated')
     NO_SECURITY_CODE = _l('Enter a security code')
     INVALID_SECURITY_CODE = _l('Enter the security code that we emailed you')
     IS_FIRST_VISIT_ERROR = _l('Select if you have already started an application')
