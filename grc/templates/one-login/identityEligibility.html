@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% import "govuk-design-system-templates/error-summary.html" as error_summary %}
+{% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
+
+{% block title %}{{ _("Do you have a photo ID?") }}{% endblock %}
+
+{% block backLink %}
+    {{ back_link.renderFor('oneLogin.backFromIdentity') }}
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ error_summary.renderFor(form) }}
+
+            <h1 class="govuk-heading-l">
+                {{ _("Do you have a photo ID?") }}
+            </h1>
+
+            <p class="govuk-body">
+                {{ _("You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth.") }}
+            </p>
+
+            <p class="govuk-body">
+                {{ _("You may also need to complete your online identity check by answering further security questions.") }}
+            </p>
+
+            <form method="POST">
+                {{ form.csrf_token }}
+
+                {% macro CannotConfirmIdentityBlock() %}
+                    <p class="govuk-hint">
+                        {{ _('If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application.') }}
+                    </p>
+                {% endmacro %}
+                {{ radios.renderFor(
+                    form,
+                    fieldName='identity_eligible',
+                    radiosOptions={
+                        'conditionalOptions': [
+                            ('NO_CONFIRM_IDENTITY', CannotConfirmIdentityBlock())
+                        ]
+                    }
+                ) }}
+
+                {{ continue.renderFor() }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

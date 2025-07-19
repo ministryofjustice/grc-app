@@ -371,7 +371,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Clicking "Back" should take us back to the Place of Birth page
@@ -396,7 +396,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Don't enter any values, click "Save and continue"
@@ -406,7 +406,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Save and continue')
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(3)
     await asserts.error(field='first_name', message="Enter your mother's first name")
     await asserts.error(field='last_name', message="Enter your mother's last name")
@@ -434,7 +434,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Check the values we entered have been remembered

@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gender-recognition-service-backchannel-logout
+  namespace: grc-uat
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-backchannel-logout-grc-uat-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+spec:
+  ingressClassName: modsec
+  tls:
+    - hosts:
+        - uat.gender-recognition.service.justice.gov.uk
+      secretName: gender-recognition-service-app-secret
+  rules:
+    - host: uat.gender-recognition.service.justice.gov.uk
+      http:
+        paths:
+          - path: /one-login/back-channel-logout
+            pathType: Exact
+            backend:
+              service:
+                name: grc-app-service
+                port:
+                  number: 3000
+          - path: /static/
+            pathType: Prefix
+            backend:
+              service:
+                name: grc-app-service
+                port:
+                  number: 3000

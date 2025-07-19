@@ -2,8 +2,13 @@
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
 {% import "govuk-design-system-templates/text-input.html" as textInput %}
 {% import "govuk-design-system-templates/continue.html" as continue %}
+{% import "govuk-design-system-templates/back_link.html" as back_link %}
 
 {% block title %}{{ _('Email address') }}{% endblock %}
+
+{% block backLink %}
+    {{ back_link.renderFor('startApplication.backFromEmail') }}
+{% endblock %}
 
 {% block content %}
     <div class="govuk-grid-row">
@@ -16,28 +21,11 @@
             </h1>
 
             <p class="govuk-body">
-                {{ _('You need to provide an email address to apply for a Gender Recognition Certificate using this service') }}.
-                {{ _('This is so we can save your progress and you can return to your application later') }}.
+                {{ _('You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later.') }}
             </p>
-            <p class="govuk-body">
-                {{ _('If this is your first time using this service, we will give you a reference number') }}.
-                {{ _('You will need this if you return to your application') }}.
-            </p>
-            <p class="govuk-body">
-                {{ _('If you are returning to your application, you will need your application reference number') }}.
-                {{ _('If you have lost or forgotten it, you can start a new application') }}.
-            </p>
-            
-            <div class="govuk-inset-text">
-                {{ _('Before you start, make sure you have read the guidance on') }}
-                <a href="https://www.gov.uk/apply-gender-recognition-certificate" target="_blank" class="govuk-link">
-                    {{ _('applying for a Gender Recognition Certificate (opens in a new tab)') }}
-                </a>.
-            </div>
-
 
             <form method="POST">
-                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
 
                 {{ textInput.renderFor(
                     form,

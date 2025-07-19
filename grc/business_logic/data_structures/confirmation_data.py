@@ -1,4 +1,4 @@
-from grc.business_logic.constants.start_application import StartApplicationConstants as c
+from grc.business_logic.constants.base import BaseConstants as c
 from grc.list_status import ListStatus
 
 
