@@ -1,0 +1,44 @@
+{% macro oneLoginDetails(application_data) %}
+
+    <div class="gds-family-cs-bold" style="font-size: 32px;margin-bottom:45px;">
+        GOV.UK One Login details: {{ application_data.reference_number }}
+    </div>
+
+    <h4 class="gds-family-cs-bold" style="font-size: 21px;">Authentication details</h4>
+
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 19px;margin-left:28px;">
+        <li>Email: {{ application_data.one_login_data.email }}</li>
+        <li>Mobile phone: {{ application_data.one_login_data.phone_number }}</li>
+    </ul>
+
+    <h4 class="gds-family-cs-bold" style="font-size: 21px;">Identity checking details</h4>
+
+    <ul class="govuk-list govuk-list--bullet" style="font-size: 19px;margin-left:28px;">
+        {% if application_data.one_login_data.identity_verified == True %}
+            <li>Identity checking result: Passed</li>
+            <li>Applicant residency: {{ application_data.one_login_data.address.address_country }}</li>
+            <li>Last Name:  {{ application_data.one_login_data.last_name }}</li>
+            <li>First Name:  {{ application_data.one_login_data.first_name }}</li>
+            <li>Middle name(s):  {{ application_data.one_login_data.middle_names }}</li>
+            <li>Date of birth:  {{ application_data.one_login_data.date_of_birth }}</li>
+            <li>Postcode:  {{ application_data.one_login_data.address.postal_code }}</li>
+        {% else %}
+            <li>Identity checking result: Failed</li>
+        {% endif %}
+    </ul>
+
+    <h4 class="gds-family-cs-bold" style="font-size: 21px;">Return codes</h4>
+
+    {% if not application_data.one_login_data.return_codes %}
+        <div style="font-size: 19px;margin-left:28px;">
+            No return codes.
+        </div>
+    {% else %}
+        <ul class="govuk-list govuk-list--bullet" style="font-size: 19px;margin-left:28px;">
+            {% for return_code in application_data.one_login_data.return_codes %}
+                    <li>{{ return_code.description }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endmacro %}
