@@ -13,6 +13,10 @@ spec:
         app: grc-app
     spec:
       serviceAccountName: grc-uat
+      volumes:
+        - name: one-login-keys-volume
+          secret:
+            secretName: one-login-keys
       containers:
       - name: grc-app
         image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-uat-ecr:grc-app-latest
@@ -26,6 +30,10 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 20
           timeoutSeconds: 10
+        volumeMounts:
+          - name: one-login-keys-volume
+            mountPath: /app/keys
+            readOnly: true
         env:
           - name: AV_API
             value: grc-clamav-service.grc-uat.svc.cluster.local
