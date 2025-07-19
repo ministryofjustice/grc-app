@@ -53,7 +53,7 @@ spec:
           - name: FLASK_APP
             value: grc
           - name: FLASK_ENV
-            value: staging
+            value: uat
           - name: GOVUK_PAY_API
             value: "https://publicapi.payments.service.gov.uk/"
           - name: GOVUK_PAY_API_KEY
@@ -100,3 +100,35 @@ spec:
               secretKeyRef:
                 name: elasticache-grc-uat
                 key: url
+          - name: ONE_LOGIN_DISCOVERY_URL
+            value: "https://oidc.integration.account.gov.uk/.well-known/openid-configuration"
+          - name: ONE_LOGIN_CLIENT_ID
+            value: "hhJNeUO_5HuSMx7UwmOEjjNLMlE"
+          - name: ONE_LOGIN_AUTH_REDIRECT_URI
+            value: "https://uat.gender-recognition.service.justice.gov.uk/one-login/auth/callback"
+          - name: ONE_LOGIN_IDENTITY_REDIRECT_URI
+            value: "https://uat.gender-recognition.service.justice.gov.uk/one-login/identity/callback"
+          - name: ONE_LOGIN_DID_URL
+            value: "https://identity.integration.account.gov.uk/.well-known/did.json"
+          - name: ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI
+            value: "https://uat.gender-recognition.service.justice.gov.uk/save-and-return/exit-application"
+          - name: ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI
+            value: "https://uat.gender-recognition.service.justice.gov.uk/submit-and-pay/confirmation"
+          - name: ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI
+            value: "https://uat.gender-recognition.service.justice.gov.uk/your-reference-number"
+          - name: ONE_LOGIN_DATE_TIME
+            value: "2025-05-21T15:28:18"
+          - name: ONE_LOGIN_PRIVATE_KEY_PATH
+            value: "/app/keys/private_key.pem"
+          - name: ONE_LOGIN_KID
+            valueFrom:
+             secretKeyRef:
+               name: one-login-keys
+               key: kid
+          - name: BASE_URL
+            value: "https://uat.gender-recognition.service.justice.gov.uk/"
+          - name: REDIS_HOST
+            value: "grc-redis-service"
+
+
+
