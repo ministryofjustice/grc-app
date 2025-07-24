@@ -4657,3 +4657,6 @@ msgstr ""
 "i ganfod pa ddatganiad sy’n briodol i’ch sefyllfa chi a phwy all "
 "weithredu fel tyst pan fyddwch yn llofnodi eich datganiad."
 
+#: grc/templates/start-application/email.html:19
+msgid "This is some new text"
+msgstr "Welsh translation"
