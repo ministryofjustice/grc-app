@@ -4114,3 +4114,6 @@ msgid ""
 "witness when you sign your declaration."
 msgstr ""
 
+#: grc/templates/start-application/email-address.html:19
+msgid "This is new text"
+msgstr ""
