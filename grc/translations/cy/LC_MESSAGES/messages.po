@@ -4680,16 +4680,16 @@ msgid "You need to provide an email address to continue your application so we c
 msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gallwn arbed eich cynnydd a gallwch adael a dychwelyd i'ch cais yn hwyrach ymlaen."
 
 #: grc/templates/start-application/identityEligibility.html
-msgid "Do you have a photo ID?"
-msgstr "A oes gennych chi lun adnabod?"
+msgid "Do you have proof of your identity?"
+msgstr "A oes gennych chi dystiolaeth o bwy ydych chi?"
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
 msgstr "Gallwch gadarnhau eich hunaniaeth ar-lein drwy ddefnyddio llun adnabod dilys fel pasbort neu drwydded yrru cerdyn-llun. Gall hyn fod yn rhywedd a gadarnhawyd gennych neu eich rhywedd adeg eich geni."
 
 #: grc/templates/start-application/identityEligibility.html
-msgid "You may also need to complete your online identity check by answering further security questions."
-msgstr "Efallai y bydd angen i chi hefyd gwblhau eich gwiriad hunaniaeth ar-lein trwy ateb cwestiynau diogelwch pellach."
+msgid "If you don’t have a photo ID, there may be other ways you can provide your identity online using this service, for example by answering security questions."
+msgstr "Os nad oes gennych chi ddogfen adnabod â llun, efallai y gallwch brofi pwy ydych chi ar-lein mewn rhyw ffordd arall gan ddefnyddio’r gwasanaeth hwn, er enghraifft drwy ateb cwestiynau diogelwch."
 
 #: grc/templates/start-application/identityEligibility.html
 msgid "Yes, I can confirm my identity online"

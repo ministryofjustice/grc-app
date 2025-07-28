@@ -5,7 +5,7 @@
 {% import "govuk-design-system-templates/continue.html" as continue %}
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
 
-{% block title %}{{ _("Do you have a photo ID?") }}{% endblock %}
+{% block title %}{{ _("Do you have proof of your identity?") }}{% endblock %}
 
 {% block backLink %}
     {{ back_link.renderFor('oneLogin.backFromIdentity') }}
@@ -17,7 +17,7 @@
             {{ error_summary.renderFor(form) }}
 
             <h1 class="govuk-heading-l">
-                {{ _("Do you have a photo ID?") }}
+                {{ _("Do you have proof of your identity?") }}
             </h1>
 
             <p class="govuk-body">
@@ -25,7 +25,7 @@
             </p>
 
             <p class="govuk-body">
-                {{ _("You may also need to complete your online identity check by answering further security questions.") }}
+                {{ _("If you don’t have a photo ID, there may be other ways you can provide your identity online using this service, for example by answering security questions.") }}
             </p>
 
             <form method="POST">

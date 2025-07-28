@@ -4147,7 +4147,7 @@ msgid "You need to provide an email address to continue your application so we c
 msgstr ""
 
 #: grc/templates/start-application/identityEligibility.html
-msgid "Do you have a photo ID?"
+msgid "Do you have proof of your identity?"
 msgstr ""
 
 #: grc/templates/start-application/identityEligibility.html
@@ -4155,7 +4155,7 @@ msgid "You can confirm your identity online using any valid photo ID such as a p
 msgstr ""
 
 #: grc/templates/start-application/identityEligibility.html
-msgid "You may also need to complete your online identity check by answering further security questions."
+msgid "If you don’t have a photo ID, there may be other ways you can provide your identity online using this service, for example by answering security questions."
 msgstr ""
 
 #: grc/templates/start-application/identityEligibility.html
