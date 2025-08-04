@@ -233,7 +233,7 @@ def callbackIdentity():
 
         application_data = DataStore.load_application_by_session_reference_number()
 
-        data = user_info.get("https://vocab.account.gov.uk/v1/returnCode")
+        data = user_info.get("https://vocab.account.gov.uk/v1/returnCode", [])
         return_codes = [code["code"] for code in data]
 
         failed_identity_check = False

@@ -129,7 +129,7 @@ def create_app(test_config=None):
     from admin.glimr import glimr
     app.register_blueprint(glimr)
 
-    # Mock API for testing
+    # GLiMR Mock API for testing
     from grc.glimr_mock_api import glimr_mock_api
     if app.config.get('FLASK_ENV', 'development') in ['development', 'local', 'test']:
         app.register_blueprint(glimr_mock_api)
