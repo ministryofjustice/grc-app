@@ -56,6 +56,6 @@ class TestMothersName:
                 session['reference_number'] = test_application.reference_number
             response = client.post('/birth-registration/mothers-name', data={})
             assert response.status_code == 200
-            assert "Enter your mother's first name" in response.text
-            assert "Enter your mother's last name" in response.text
-            assert "Enter your mother's maiden name" in response.text
+            assert "Enter your first parent's first name" in response.text
+            assert "Enter your first parent's last name" in response.text
+            assert "Enter your first parent's maiden name" in response.text

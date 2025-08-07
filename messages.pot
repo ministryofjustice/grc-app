@@ -470,27 +470,27 @@ msgid "Enter your town or city of birth"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:19
-msgid "Enter your mother's first name"
+msgid "Enter your first parent's first name"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:20
-msgid "Enter your mother's last name"
+msgid "Enter your first parent's last name"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:21
-msgid "Enter your mother's maiden name"
+msgid "Enter your first parent's maiden name"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:22
-msgid "Select if your father's name is listed on the certificate"
+msgid "Select if your second parent's name is listed on the certificate"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:23
-msgid "Enter your father's first name"
+msgid "Enter your second parent's first name"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:24
-msgid "Enter your father's last name"
+msgid "Enter your second parent's last name"
 msgstr ""
 
 #: grc/business_logic/constants/birth_and_registration.py:25
@@ -1240,17 +1240,17 @@ msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:59
 #: grc/templates/submit-and-pay/check-your-answers.html:236
-msgid "Mother's name"
+msgid "First parent's name"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:66
 #: grc/templates/submit-and-pay/check-your-answers.html:243
-msgid "Father's name listed"
+msgid "Second parent's name listed"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:74
 #: grc/templates/submit-and-pay/check-your-answers.html:251
-msgid "Father's name"
+msgid "Second parent's name"
 msgstr ""
 
 #: grc/templates/birth-registration/check-your-answers.html:82
@@ -1326,17 +1326,16 @@ msgstr ""
 
 #: grc/templates/birth-registration/fathers-name-check.html:7
 #: grc/templates/birth-registration/fathers-name-check.html:25
-msgid "Is your father's name listed on the certificate?"
+msgid "Is your second parent's name listed on the certificate?"
 msgstr ""
 
 #: grc/templates/birth-registration/fathers-name.html:7
-msgid "What is your father's name?"
+msgid "What is your second parent's name?"
 msgstr ""
 
 #: grc/templates/birth-registration/fathers-name.html:26
 msgid ""
-"What is your father's name as listed on your birth or adoption "
-"certificate?"
+"What is your second parent's name as listed on your birth or adoption certificate?"
 msgstr ""
 
 #: grc/templates/birth-registration/fathers-name.html:34

@@ -233,23 +233,23 @@
                         ({{ _('Maiden name') }}: {{ application_data.birth_registration_data.mothers_maiden_name }})
                     {% endmacro %}
                     {{ check_your_answers_row(
-                        title=_("Mother's name"),
-                        changeLinkHiddenText="your mother's name",
+                        title=_("First parent's name"),
+                        changeLinkHiddenText="your first parent's name",
                         changeLinkUrlFor='birthRegistration.mothersName',
                         value=mothersNameValue()
                     ) }}
 
                     {{ check_your_answers_row(
-                        title=_("Father's name listed"),
-                        changeLinkHiddenText="whether your father's name is listed on your birth or adoption certificate",
+                        title=_("Second parent's name listed"),
+                        changeLinkHiddenText="whether your second parent's name is listed on your birth or adoption certificate",
                         changeLinkUrlFor='birthRegistration.fathersNameCheck',
                         value=(application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted)
                     ) }}
 
                     {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
                         {{ check_your_answers_row(
-                            title=_("Father's name"),
-                            changeLinkHiddenText="your father's name",
+                            title=_("Second parent's name"),
+                            changeLinkHiddenText="your second parent's name",
                             changeLinkUrlFor='birthRegistration.fathersName',
                             value=(application_data.birth_registration_data.fathers_first_name + ' ' + application_data.birth_registration_data.fathers_last_name)
                         ) }}

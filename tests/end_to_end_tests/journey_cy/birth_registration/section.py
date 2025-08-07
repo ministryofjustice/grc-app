@@ -131,7 +131,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
@@ -142,7 +142,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
 
@@ -162,7 +162,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1('Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
 
@@ -361,7 +361,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
@@ -372,7 +372,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
 
@@ -381,7 +381,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Father's Name page
+    # ---- second parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
@@ -392,7 +392,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
     await asserts.h1("Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?")
 

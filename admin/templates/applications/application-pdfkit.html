@@ -127,16 +127,16 @@
         <li>Birth registered in UK: <strong>{{ application_data.birth_registration_data.birth_registered_in_uk_formatted }}</strong></li>
         <li>Affirmed gender: <strong>{{ application_data.personal_details_data.affirmed_gender_formatted }}</strong></li>
         {% if application_data.birth_registration_data.birth_registered_in_uk %}
-            <li>Mother's name
+            <li>First parent's name
                 <ul class="govuk-list govuk-list--bullet">
                     <li>First name: <strong>{{ application_data.birth_registration_data.mothers_first_name }}</strong></li>
                     <li>Last name: <strong>{{ application_data.birth_registration_data.mothers_last_name }}</strong></li>
                     <li>Maiden name: <strong>{{ application_data.birth_registration_data.mothers_maiden_name }}</strong></li>
                 </ul>
             </li>
-            <li>Father's name listed on birth certificate: <strong>{{ application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted }}</strong></li>
+            <li>Second parent's name listed: <strong>{{ application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted }}</strong></li>
             {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
-                <li>Father's name
+                <li>Second parent's name
                     <ul class="govuk-list govuk-list--bullet">
                         <li>First name: <strong>{{ application_data.birth_registration_data.fathers_first_name }}</strong></li>
                         <li>Last name: <strong>{{ application_data.birth_registration_data.fathers_last_name }}</strong></li>

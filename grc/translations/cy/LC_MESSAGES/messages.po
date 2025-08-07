@@ -500,28 +500,28 @@ msgid "Enter your town or city of birth"
 msgstr "Nodwch eich tref neu ddinas enedigol"
 
 #: grc/business_logic/constants/birth_and_registration.py:19
-msgid "Enter your mother's first name"
-msgstr "Nodwch enw cyntaf eich mam"
+msgid "Enter your first parent's first name"
+msgstr "Nodwch enw cyntaf eich rhiant cyntaf"
 
 #: grc/business_logic/constants/birth_and_registration.py:20
-msgid "Enter your mother's last name"
-msgstr "Nodwch gyfenw eich mam"
+msgid "Enter your first parent's last name"
+msgstr "Nodwch gyfenw eich rhiant cyntaf"
 
 #: grc/business_logic/constants/birth_and_registration.py:21
-msgid "Enter your mother's maiden name"
-msgstr "Nodwch enw cyn priodi eich mam"
+msgid "Enter your first parent's maiden name"
+msgstr "Nodwch enw morwynol eich rhiant cyntaf"
 
 #: grc/business_logic/constants/birth_and_registration.py:22
-msgid "Select if your father's name is listed on the certificate"
-msgstr "Dewiswch os yw enw eich tad wedi’i nodi ar y dystysgrif"
+msgid "Select if your second parent's name is listed on the certificate"
+msgstr "Select if your second parent's name is listed on the certificate"
 
 #: grc/business_logic/constants/birth_and_registration.py:23
-msgid "Enter your father's first name"
-msgstr "Nodwch enw cyntaf eich tad"
+msgid "Enter your second parent's first name"
+msgstr "Nodwch enw cyntaf eich ail riant"
 
 #: grc/business_logic/constants/birth_and_registration.py:24
-msgid "Enter your father's last name"
-msgstr "Nodwch gyfenw eich tad"
+msgid "Enter your second parent's last name"
+msgstr "Nodwch gyfenw eich ail riant"
 
 #: grc/business_logic/constants/birth_and_registration.py:25
 msgid "Select if you were you adopted"
@@ -1344,17 +1344,17 @@ msgstr "Tref neu ddinas geni"
 
 #: grc/templates/birth-registration/check-your-answers.html:59
 #: grc/templates/submit-and-pay/check-your-answers.html:236
-msgid "Mother's name"
-msgstr "Enw’r fam"
+msgid "First parent's name"
+msgstr "Enw’r rhiant cyntaf"
 
 #: grc/templates/birth-registration/check-your-answers.html:66
 #: grc/templates/submit-and-pay/check-your-answers.html:243
-msgid "Father's name listed"
-msgstr "Enw’r tad a restrwyd"
+msgid "Second parent's name listed"
+msgstr "Enw’r ail riant a restrwyd"
 
 #: grc/templates/birth-registration/check-your-answers.html:74
 #: grc/templates/submit-and-pay/check-your-answers.html:251
-msgid "Father's name"
+msgid "Second parent's name"
 msgstr "Enw’r tad"
 
 #: grc/templates/birth-registration/check-your-answers.html:82
@@ -1432,20 +1432,18 @@ msgstr "Blwyddyn"
 
 #: grc/templates/birth-registration/fathers-name-check.html:7
 #: grc/templates/birth-registration/fathers-name-check.html:25
-msgid "Is your father's name listed on the certificate?"
-msgstr "A yw enw eich tad wedi'i nodi ar y dystysgrif?"
+msgid "Is your second parent's name listed on the certificate?"
+msgstr "A yw enw eich ail riant wedi'i restru ar y dystysgrif?"
 
 #: grc/templates/birth-registration/fathers-name.html:7
-msgid "What is your father's name?"
+msgid "What is your second parent's name?"
 msgstr "Beth yw enw eich tad?"
 
 #: grc/templates/birth-registration/fathers-name.html:26
 msgid ""
-"What is your father's name as listed on your birth or adoption "
-"certificate?"
+"What is your second parent's name as listed on your birth or adoption certificate?"
 msgstr ""
-"Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif "
-"mabwysiadu?"
+"Beth yw enw eich ail riant fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?"
 
 #: grc/templates/birth-registration/fathers-name.html:34
 #: grc/templates/birth-registration/mothers-name.html:34
@@ -1494,7 +1492,6 @@ msgid ""
 "What is your first parent's name as listed on your birth or adoption certificate?"
 msgstr ""
 "Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?"
-"mabwysiadu?"
 
 #: grc/templates/birth-registration/mothers-name.html:54
 msgid "Maiden name (her surname at birth - include even if same as last name)"

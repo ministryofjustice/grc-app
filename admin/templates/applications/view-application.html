@@ -521,7 +521,7 @@
                     ) }}
                     {% if application_data.birth_registration_data.birth_registered_in_uk %}
                         {{ summary_list_item(
-                            title="Mother's name",
+                            title="First parent's name",
                             subtitle="First name",
                             value=(application_data.birth_registration_data.mothers_first_name),
                             rowsWithThisTitle='3'
@@ -536,13 +536,13 @@
                         ) }}
 
                         {{ summary_list_item(
-                            title="Father's name listed",
+                            title="Second parent's name listed",
                             value=(application_data.birth_registration_data.fathers_name_on_birth_certificate_formatted)
                         ) }}
 
                         {% if application_data.birth_registration_data.fathers_name_on_birth_certificate %}
                             {{ summary_list_item(
-                                title="Father's name",
+                                title="Second parent's name",
                                 subtitle="First name(s)",
                                 value=(application_data.birth_registration_data.fathers_first_name),
                                 rowsWithThisTitle='2'

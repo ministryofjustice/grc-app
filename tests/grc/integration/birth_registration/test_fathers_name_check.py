@@ -9,7 +9,7 @@ class TestFathersNameCheck:
                 session['reference_number'] = test_application.reference_number
             response = client.get('/birth-registration/fathers-name-check')
             assert response.status_code == 200
-            assert "Is your father's name listed on the certificate?" in response.text
+            assert "Is your second parent's name listed on the certificate?" in response.text
 
     def test_fathers_name_check_get_not_logged_in(self, app, client, test_application):
         with app.app_context():
@@ -51,5 +51,5 @@ class TestFathersNameCheck:
                 session['reference_number'] = test_application.reference_number
             response = client.post('/birth-registration/fathers-name-check', data={})
             assert response.status_code == 200
-            assert "Is your father's name listed on the certificate?" in response.text
-            assert "Select if your father's name is listed on the certificate" in response.text
+            assert "Is your second parent's name listed on the certificate?" in response.text
+            assert "Select if your second parent's name is listed on the certificate" in response.text
