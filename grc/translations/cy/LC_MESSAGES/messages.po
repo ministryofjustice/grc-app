@@ -4379,10 +4379,8 @@ msgid "Upload files"
 msgstr "Uwchlwytho ffeiliau"
 
 #: grc/templates/upload/_upload-files-section.html:87
-msgid "The files must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB"
-msgstr ""
-"Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG, TIF neu PDF a bod yn llai "
-"na 10MB o ran maint"
+msgid "The files must be a JPG, BMP, PNG, TIF or PDF and smaller than 10MB. The file name must not contain special characters such as: \ / : * ? “ < > |"
+msgstr "Rhaid i’r ffeiliau fod ar ffurf JPG, BMP, PNG, TIF neu PDF a bod yn llai na 10MB o ran maint. Ni ddylai enw’r ffeil gynnwys nodau arbennig fel: \ / : * ? “ < > |"
 
 #: grc/templates/upload/_upload-files-section.html:98
 msgid "Error:"
