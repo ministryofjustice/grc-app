@@ -513,7 +513,7 @@ msgstr "Nodwch enw morwynol eich rhiant cyntaf"
 
 #: grc/business_logic/constants/birth_and_registration.py:22
 msgid "Select if your second parent's name is listed on the certificate"
-msgstr "Select if your second parent's name is listed on the certificate"
+msgstr "Dewiswch os yw enw eich ail riant wedi’i restru ar y dystysgrif"
 
 #: grc/business_logic/constants/birth_and_registration.py:23
 msgid "Enter your second parent's first name"
@@ -1355,7 +1355,7 @@ msgstr "Enw’r ail riant a restrwyd"
 #: grc/templates/birth-registration/check-your-answers.html:74
 #: grc/templates/submit-and-pay/check-your-answers.html:251
 msgid "Second parent's name"
-msgstr "Enw’r tad"
+msgstr "Enw’r ail riant"
 
 #: grc/templates/birth-registration/check-your-answers.html:82
 #: grc/templates/submit-and-pay/check-your-answers.html:259
