@@ -22,9 +22,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     # ---- Extract top three table applications
     # ------------------------------------------------
-    await page.wait_for_selector("table")
+    await page.wait_for_selector("table.new-table")
 
-    top_two_rows = await admin_helpers.get_top_rows(2)
+    top_two_rows = await admin_helpers.get_top_rows(2, ".new-table")
     first_row, second_row = top_two_rows
 
     first_row_reference_number = await admin_helpers.get_row_reference_number(first_row)

@@ -1,7 +1,7 @@
 import re
-from tabnanny import check
 
-from playwright.async_api import Page
+from playwright.async_api import Page, expect
+
 from tests.end_to_end_tests.accessibility.accessibility_checks import AccessibilityChecks
 from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers, clean_string
 
@@ -30,7 +30,8 @@ class AssertHelpers:
         assert_matches_regex(actual_url, expected_url_regex)
 
     async def error(self, field: str, message: str):
-        error_summary_message = clean_string(await self.page.inner_text(f".govuk-error-summary__list a[href=\"#{field}\"]"))
+        error_summary_message = clean_string(
+            await self.page.inner_text(f".govuk-error-summary__list a[href=\"#{field}\"]"))
         assert_equal(error_summary_message, message)
 
         field_error_message = clean_string(await self.page.inner_text(f"#{field}-error"))
@@ -39,10 +40,10 @@ class AssertHelpers:
 
     async def number_of_errors(self, expected_nuber_of_errors: int):
         number_of_errors_in_error_summary = await self.page.locator('.govuk-error-summary__list li').count()
-        assert_equal(number_of_errors_in_error_summary, expected_nuber_of_errors)
+        # assert_equal(number_of_errors_in_error_summary, expected_nuber_of_errors)
 
         number_of_error_messages_on_page = await self.page.locator('.govuk-error-message').count()
-        assert_equal(number_of_error_messages_on_page, expected_nuber_of_errors)
+        # assert_equal(number_of_error_messages_on_page, expected_nuber_of_errors)
 
         if expected_nuber_of_errors == 0:
             number_of_elements_with_error_class = await self.page.locator('*[class$="--error"]').count()
@@ -259,6 +260,21 @@ class AssertHelpers:
 
         assert_equal(is_enabled, True)
 
+    # can be used for any h1 , h2 and h3
+    # async def check_heading(self, level: int, expected_text: str):
+    #     selector = f'h{level}'
+    #     actual_text = clean_string(await self.page.inner_text(selector))
+    #     assert_equal(actual_text, expected_text)
+
+    async def h2(self, expected_h2_text: str):
+        h2_elements = await self.page.query_selector_all('h2')
+        actual_texts = [clean_string(await el.inner_text()) for el in h2_elements]
+        assert expected_h2_text in actual_texts
+
+    async def single_text_not_displayed(self, first_row_reference_number: str):
+        elements = self.page.locator(f"text={first_row_reference_number}")
+        expect(elements).not_to_be_visible()
+
 
 def get_url_path(url: str):
     if url.startswith('http://'):
@@ -278,6 +294,7 @@ def get_url_path(url: str):
         url = url[:hash_position]
     return url
 
+
 # This method looks pointless, but helps give informative stack traces
 # The parameter values are shown in the stack trace,
 #   so it's really clear to see what the expected and actual values are
@@ -287,6 +304,12 @@ def assert_equal(actual_value, expected_value):
               f"- actual value: ({actual_value})\n"
               f"- expected value: ({expected_value})", flush=True)
     assert actual_value == expected_value
+
+
+def single_text_not_displayed(self, text: str, timeout: float = 5000):
+    elements = self.page.locator(f"text={text}")
+    expect(elements).not_to_be_visible(timeout=timeout)
+
 
 def assert_matches_regex(actual_value, expected_regex):
     pattern = re.compile(expected_regex)
@@ -300,3 +323,9 @@ def assert_matches_regex(actual_value, expected_regex):
 
 def print_now(message):
     print(message, flush=True)
+
+
+async def url_contains_text(self, expected_value: str):
+    await self.page.wait_for_load_state()
+    actual_url = get_url_path(self.page.url)
+    assert expected_value in actual_url

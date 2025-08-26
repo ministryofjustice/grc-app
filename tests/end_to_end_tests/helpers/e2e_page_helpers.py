@@ -14,9 +14,11 @@ class PageHelpers:
             tag_name: str = await link_or_button.evaluate('e => e.tagName')
             if tag_name.lower() == 'input':
                 link_or_button_text = await link_or_button.get_attribute('value')
+                print("link_or_button_text -", link_or_button_text)
             else:
                 link_or_button_text = await link_or_button.inner_text()
             normalised_inner_text = clean_string(link_or_button_text)
+            print("normalised_inner_text -", normalised_inner_text)
             if normalised_inner_text == link_text:
                 if found_index is None:
                     found_index = n
@@ -28,6 +30,7 @@ class PageHelpers:
             print(f"Error: Link/button with text ({link_text}) was not found")
         assert found_index is not None
         await links_and_buttons.nth(found_index).click()
+        print(f"clicked on the button/link")
 
     async def check_radio(self, field, value):
         await self.page.check(f"input[type=\"radio\"][name=\"{field}\"][value=\"{value}\"]")
@@ -92,6 +95,29 @@ class PageHelpers:
 
     async def go_to_page(self, page):
         await self.page.goto(page)
+
+    async def click_link_by_exact_href(self, href_value: str):
+        """
+        Clicks the first <a> element where the href exactly matches the provided value.
+        """
+        links = self.page.locator('a[href]')
+        total_links = await links.count()
+
+        for n in range(total_links):
+            link = links.nth(n)
+            href = await link.get_attribute('href')
+            if href == href_value:
+                await link.click()
+                return  # Exit after clicking the first match
+
+        raise Exception(f"No link found with href exactly equal to '{href_value}'.")
+
+    async def click_button_by_exact_text(self, text: str):
+        locator = self.page.locator(f'xpath=//button[normalize-space(text())="{text}"]')
+        if await locator.is_visible():
+            await locator.click()
+        else:
+            raise Exception(f"Button with exact text '{text}' is not visible.")
 
 
 # Removes multiple sequential whitespace characters from the string
