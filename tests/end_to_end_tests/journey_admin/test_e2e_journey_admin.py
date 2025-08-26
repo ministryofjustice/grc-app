@@ -26,7 +26,7 @@ async def run_script_for_browser(browser_type):
     asserts = AssertHelpers(page, helpers, TEST_URL)
     admin_helpers = AdminHelpers(page)
 
-    e2e_test_prerequisites()
+    # e2e_test_prerequisites()
 
     # Open login page
     await page.goto(TEST_URL)

@@ -19,11 +19,11 @@ class TestReferenceNumber:
         assert rf.reference_number_string(reference_number) == 'D4OV-T4GG'
 
     def test_reference_number_is_valid_public_user(self,  test_application):
-        assert rf.reference_number_is_valid(test_application.reference_number, test_application.email) is True
+        assert rf.reference_number_is_valid(test_application.reference_number) is True
 
     def test_reference_number_is_invalid_public_user(self, app, test_application):
         with app.test_request_context():
-            assert rf.reference_number_is_valid('INVALID-REF', test_application.email) is False
+            assert rf.reference_number_is_valid('INVALID-REF') is False
 
     def test_reference_number_is_valid_submitted_admin(self, app, test_submitted_application):
         with app.test_request_context():

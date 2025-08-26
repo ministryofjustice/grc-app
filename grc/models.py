@@ -44,6 +44,7 @@ class Application(db.Model):
     def application_data(self) -> ApplicationData:
         try:
             application_data: ApplicationData = jsonpickle.decode(self.user_input)
+            application_data.created = self.created
             application_data.updated = self.updated
             return application_data
         except Exception as e:

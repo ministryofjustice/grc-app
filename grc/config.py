@@ -25,6 +25,7 @@ class Config:
     GOVUK_PAY_API = os.environ.get("GOVUK_PAY_API")
     GOVUK_PAY_API_KEY = os.environ.get("GOVUK_PAY_API_KEY")
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    SESSION_PERMANENT = True
     SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
@@ -42,7 +43,15 @@ class Config:
     BASIC_AUTH_PASSWORD = os.environ.get("BASIC_AUTH_PASSWORD")
     SENTRY_URL = os.environ.get("SENTRY_URL")
     MEMORY_STORAGE_URL = os.environ.get('MEMORY_STORAGE_URL')
-
+    BASE_URL = os.environ.get('BASE_URL', "http://localhost:3000/")
+    REDIS_HOST = os.environ.get('REDIS_HOST', "redis")
+    ONE_LOGIN_DISCOVERY_URL = os.environ.get("ONE_LOGIN_DISCOVERY_URL")
+    ONE_LOGIN_CLIENT_ID = os.environ.get("ONE_LOGIN_CLIENT_ID")
+    ONE_LOGIN_AUTH_REDIRECT_URI = os.environ.get("ONE_LOGIN_AUTH_REDIRECT_URI")
+    ONE_LOGIN_DID_URL = os.environ.get("ONE_LOGIN_DID_URL")
+    ONE_LOGIN_DATE_TIME = os.environ.get('ONE_LOGIN_DATE_TIME')
+    ONE_LOGIN_PRIVATE_KEY_PATH = os.environ.get('ONE_LOGIN_PRIVATE_KEY_PATH')
+    ONE_LOGIN_KID = os.environ.get('ONE_LOGIN_KID')
 
 class TestConfig(Config):
     TESTING = True
@@ -51,3 +60,12 @@ class TestConfig(Config):
     AV_API = 'TEST CLAMAV API'
     NOTIFY_API = os.environ.get('NOTIFY_API')
     FLASK_APP = "grc"
+    ONE_LOGIN_DISCOVERY_URL = 'https://onelogin.gov.uk/.well-known/openid-configuration'
+    ONE_LOGIN_CLIENT_ID = 'client-123ABC'
+    ONE_LOGIN_AUTH_REDIRECT_URI = 'https://app.gov.uk/auth/callback'
+    ONE_LOGIN_DID_URL = 'https://onelogin.gov.uk/.well-known/did.json'
+    ONE_LOGIN_DATE_TIME = '2025-05-21T15:28:18'
+    BASE_URL = 'https://app.gov.uk/'
+    ONE_LOGIN_PRIVATE_KEY_PATH = 'grc/one_login/keys/private_key.pem'
+
+

@@ -11,7 +11,7 @@ from grc.config import TestConfig as GRCTestConfig
 from grc.models import db, SecurityCode, Application, ApplicationStatus
 from grc.utils.security_code import generate_security_code_and_expiry
 from tests.grc.helpers.data.application_data import ApplicationDataHelpers
-
+from flask_caching import Cache
 
 @pytest.fixture()
 def admin_app():
@@ -24,6 +24,14 @@ def dashboard_app():
 @pytest.fixture()
 def app():
     yield grc.create_app(GRCTestConfig)
+
+@pytest.fixture
+def cache(app):
+    cache = Cache()
+    cache.init_app(app)
+    with app.app_context():
+        cache.clear()
+    return cache
 
 
 @pytest.fixture()
