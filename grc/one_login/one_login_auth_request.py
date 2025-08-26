@@ -19,17 +19,6 @@ class OneLoginAuthorizationRequest:
         """
         self.config = config
 
-    def build_identity_redirect_url(self) -> str:
-        """
-        Builds the identity verification redirect URL for One Login.
-
-        :return: URL to redirect the user to for identity verification.
-        """
-        vtr = "Cl.Cm.P2"
-        signed_request = self._create_signed_auth_request(vtr=vtr, redirect_uri=self.config.identity_redirect_uri)
-        redirect_url = self._build_redirect_url(signed_jwt=signed_request)
-        return redirect_url
-
     def build_authentication_redirect_url(self) -> str:
         """
         Builds the authentication redirect URL for One Login.

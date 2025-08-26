@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, Response, g, flash, get_flashed_messages
 from grc.one_login.one_login_logout import OneLoginLogout
-from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin, \
-    UnidentifiedLoginRequired
+from grc.utils.decorators import UnverifiedLoginRequired, LoginRequired, Unauthorized, AfterOneLogin
 from grc.utils.redirect import local_redirect
 from grc.one_login.one_login_config import OneLoginConfig
 from grc.one_login.one_login_auth_request import OneLoginAuthorizationRequest
@@ -9,11 +8,10 @@ from grc.one_login.one_login_token_request import OneLoginTokenRequest
 from grc.one_login.one_login_token_validator import OneLoginTokenValidator
 from grc.one_login.one_login_user_info_request import OneLoginUserInfoRequest
 from grc.utils.logger import LogLevel, Logger
-from grc.one_login.forms import ReferenceCheckForm, IdentityEligibility, NewExistingApplicationForm
+from grc.one_login.forms import ReferenceCheckForm, NewExistingApplicationForm
 from grc.business_logic.data_store import DataStore
 from grc.models import Application, ApplicationStatus
 from grc.utils.strtobool import strtobool
-from flask_babel import lazy_gettext as _l
 
 logger = Logger()
 oneLogin = Blueprint('oneLogin', __name__)
@@ -71,41 +69,11 @@ def referenceNumber():
 
     return render_template('one-login/referenceNumber.html', form=form)
 
-@oneLogin.route('/one-login/identity-eligibility', methods=['GET', 'POST'])
-@AfterOneLogin
-@UnidentifiedLoginRequired
-def identityEligibility():
-    form = IdentityEligibility()
-    application = DataStore.load_application_by_session_reference_number()
-
-    if request.method == "POST" and form.validate_on_submit():
-        identity_eligible = form.identity_eligible.data
-        application.one_login_data.identity_eligible = identity_eligible
-        DataStore.save_application(application)
-        if identity_eligible == "YES_CONFIRM_IDENTITY":
-            session['identity_eligible'] = True
-            return local_redirect(url_for('oneLogin.identify'))
-        elif identity_eligible == "NO_CONFIRM_IDENTITY":
-            session['identity_eligible'] = False
-            return local_redirect(url_for('startApplication.reference'))
-
-    if request.method == "GET":
-        form.identity_eligible.data = application.one_login_data.identity_eligible
-
-    return render_template('one-login/identityEligibility.html', form=form)
-
 @oneLogin.route('/one-login/authenticate', methods=['GET'])
 def authenticate():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_authentication_redirect_url()
-    return redirect(redirect_url)
-
-@oneLogin.route('/one-login/identify', methods=['GET'])
-def identify():
-    config = OneLoginConfig.get_instance()
-    auth = OneLoginAuthorizationRequest(config)
-    redirect_url = auth.build_identity_redirect_url()
     return redirect(redirect_url)
 
 @oneLogin.route('/one-login/logout', methods=['GET'])
@@ -187,183 +155,23 @@ def callbackAuthentication():
                 logger.log(LogLevel.ERROR, "Email address does not match our records for the reference number you provided.")
                 return local_redirect(redirect_url)
 
-            if application_data.one_login_data.identity_verified:
-                user_info_request.store_user_info_redis_mapping(sub)
-                logger.log(LogLevel.INFO, f"Application already verified identity - redirecting to proven identity page.")
-                return redirect(url_for('oneLogin.identify'))
-
         else:
             application_data = DataStore.create_new_application(email_address=email)
             session['reference_number'] = application_data.reference_number
             DataStore.increment_application_sessions(application_data.reference_number)
 
-        application_data.one_login_data.sub = sub
-        application_data.one_login_data.email = email
-        application_data.one_login_data.phone_number = phone_number
         DataStore.save_application(application_data)
 
         user_info_request.store_user_info_redis_mapping(sub)
 
-        return local_redirect(url_for("oneLogin.identityEligibility"))
+        return local_redirect(url_for("startApplication.reference"))
 
     except Exception as e:
         logger.log(LogLevel.ERROR, f"Auth callback failed: {str(e)}")
         return local_redirect(url_for("oneLogin.start"))
 
-@oneLogin.route('/one-login/identity/callback', methods=['GET'])
-def callbackIdentity():
-    try:
-        if "error" in request.args:
-            logger.log(LogLevel.ERROR, f"{request.args['error']} - {request.args.get('error_description', '')}")
-            return local_redirect(url_for("oneLogin.start"))
-
-        code = request.args.get("code")
-        if not code:
-            logger.log(LogLevel.ERROR, "No code received in callback.")
-            return local_redirect(url_for("oneLogin.start"))
-
-        config = OneLoginConfig.get_instance()
-        token_request = OneLoginTokenRequest(config)
-        token_validator = OneLoginTokenValidator(config)
-        user_info_request = OneLoginUserInfoRequest(config)
-
-        access_token, id_token = token_request.fetch_tokens_identity_request(code)
-        token_validator.validate_access_id_tokens(access_token=access_token, id_token=id_token)
-        user_info = user_info_request.request_user_info(access_token)
-
-        application_data = DataStore.load_application_by_session_reference_number()
-
-        data = user_info.get("https://vocab.account.gov.uk/v1/returnCode")
-        return_codes = [code["code"] for code in data]
-
-        failed_identity_check = False
-
-        if return_codes:
-            application_data.one_login_data.set_return_codes_from_strings(return_codes)
-            failed_identity_check = any(code not in ['A', 'P'] for code in return_codes)
-
-        if failed_identity_check:
-            session['identity_eligible'] = False
-            session['identity_verified'] = False
-            application_data.one_login_data.identity_verified = False
-
-        else:
-            session['identity_verified'] = True
-            application_data.one_login_data.identity_verified = True
-
-            addresses = user_info.get("https://vocab.account.gov.uk/v1/address")
-            if addresses:
-                address = addresses[0]
-
-                building_number = address.get('buildingNumber')
-                street_name = address.get('streetName')
-                address_locality = address.get('addressLocality')
-                postal_code = address.get('postalCode')
-
-                application_data.one_login_data.address.sub_building_name = address.get('subBuildingName')
-                application_data.one_login_data.address.building_number = building_number
-                application_data.one_login_data.address.street_name = street_name
-                application_data.one_login_data.address.address_locality = address_locality
-                application_data.one_login_data.address.postal_code = postal_code
-                application_data.one_login_data.address.address_country = address.get('addressCountry')
-
-                if application_data.personal_details_data.address_line_one is None:
-                    application_data.personal_details_data.address_line_one = f"{building_number} {street_name}".strip()
-
-                if application_data.personal_details_data.address_town_city is None:
-                    application_data.personal_details_data.address_town_city = address_locality
-
-                if application_data.personal_details_data.address_postcode is None:
-                    application_data.personal_details_data.address_postcode = postal_code
-
-            driving_permits = user_info.get("https://vocab.account.gov.uk/v1/drivingPermit")
-            if driving_permits:
-                driving_permit = driving_permits[0]
-                application_data.one_login_data.driving_permit.expiry_date = driving_permit.get('expiryDate')
-                application_data.one_login_data.driving_permit.issue_number = driving_permit.get('issueNumber')
-                application_data.one_login_data.driving_permit.issued_by = driving_permit.get('issuedBy')
-                application_data.one_login_data.driving_permit.personal_number = driving_permit.get('personalNumber')
-                application_data.one_login_data.has_photo_id = True
-
-            passports = user_info.get("https://vocab.account.gov.uk/v1/passport")
-            if passports:
-                passport = passports[0]
-                application_data.one_login_data.passport.document_number = passport.get('documentNumber')
-                application_data.one_login_data.passport.icao_issuer_code = passport.get('icaoIssuerCode')
-                application_data.one_login_data.passport.expiry_date = passport.get('expiryDate')
-                application_data.one_login_data.has_photo_id = True
-
-            context_jwt = user_info.get("https://vocab.account.gov.uk/v1/coreIdentityJWT")
-            if context_jwt:
-                name, dob = user_info_request.get_names_dob_from_context_jwt(context_jwt)
-                first_name = name.get('first_name')
-                middle_name = name.get('middle_names')
-                last_name = name.get('last_name')
-
-                application_data.one_login_data.first_name = first_name
-                application_data.one_login_data.middle_names = middle_name
-                application_data.one_login_data.last_name = last_name
-                application_data.one_login_data.date_of_birth = dob
-
-                if application_data.birth_registration_data.date_of_birth is None:
-                    application_data.birth_registration_data.date_of_birth = dob
-
-                if application_data.personal_details_data.first_name is None:
-                    application_data.personal_details_data.first_name = first_name
-
-                if application_data.personal_details_data.middle_names is None:
-                    application_data.personal_details_data.middle_names = middle_name
-
-                if application_data.personal_details_data.last_name is None:
-                    application_data.personal_details_data.last_name = last_name
-
-                if application_data.personal_details_data.contact_email_address is None:
-                    application_data.personal_details_data.contact_email_address = application_data.one_login_data.email
-
-                if application_data.personal_details_data.contact_phone_number is None:
-                    application_data.personal_details_data.contact_phone_number = application_data.one_login_data.phone_number
-
-        DataStore.save_application(application_data)
-
-        return local_redirect(url_for("startApplication.reference"))
-
-    except Exception as e:
-        logger.log(LogLevel.ERROR, f"Identity callback failed: {str(e)}")
-        return local_redirect(url_for("oneLogin.identityEligibility"))
-
-@oneLogin.route('/back-from-identity', methods=['GET'])
-def backFromIdentity():
-    reference_number = session.get("reference_number")
-    if reference_number is None:
-        return local_redirect(url_for('oneLogin.start'))
-    session.pop('reference_number')
-    logout_request = OneLoginLogout(OneLoginConfig.get_instance())
-    redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
-    return local_redirect(redirect_url)
-
 @oneLogin.route('/back-from-reference', methods=['GET'])
 def backFromReference():
-    one_login_auth = session.get('one_login_auth')
-    if one_login_auth is True:
-        if session.get('reference_number'):
-            application_data = DataStore.load_application_by_session_reference_number()
-            if application_data.one_login_data.identity_verified:
-                session.pop('reference_number')
-                logout_request = OneLoginLogout(OneLoginConfig.get_instance())
-                redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
-                return local_redirect(redirect_url)
+    session.clear()
+    return local_redirect(url_for('oneLogin.start'))
 
-        return local_redirect(url_for('oneLogin.identityEligibility'))
-    else:
-        session.clear()
-        return local_redirect(url_for('oneLogin.'))
-
-def handle_onelogin_response(code: str, fetch_tokens_func, store_user_info_func):
-    config = OneLoginConfig.get_instance()
-    token_request = OneLoginTokenRequest(config)
-    token_validator = OneLoginTokenValidator(config)
-    user_info_request = OneLoginUserInfoRequest(config)
-
-    access_token, id_token = fetch_tokens_func(token_request, code)
-    token_validator.validate_access_id_tokens(access_token=access_token, id_token=id_token)
-    store_user_info_func(user_info_request, access_token, id_token)

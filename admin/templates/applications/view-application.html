@@ -154,13 +154,6 @@
                     Download attachments (ZIP file)
                 </a>
             </p>
-            <p class="govuk-body govuk-!-margin-bottom-8">
-                <a href="{{ url_for('applications.download_one_login_details', reference_number=application_data.reference_number) }}"
-                    target="_blank" class="govuk-link">
-                    Download {{ application_data.reference_number }} One Login details (PDF)
-                </a>
-            </p>
-
 
             <table class="govuk-table">
                 {{ table_caption_and_head_rows(caption="Marriage or civil partnership details") }}
@@ -674,7 +667,7 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title='Your original or a certified copy (opens in a new tab) of your full birth or adoption certificate',
-                        value=('No' if application_data.one_login_data.identity_verified else 'Yes')
+                        value=('Yes')
                     ) }}
 
                     {{ summary_list_item(

@@ -32,28 +32,17 @@ def UnverifiedLoginRequired(f):
     return decorated_function
 
 
-def UnidentifiedLoginRequired(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'reference_number' not in session or session.get('reference_number') is None:
-            return local_redirect(url_for('oneLogin.start'))
-        return f(*args, **kwargs)
-    return decorated_function
-
-
 def LoginRequired(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        reference_number = session.get('reference_number')
         one_login_auth = session.get('one_login_auth')
-        if not reference_number or (session.get('identity_eligible') is not False and session.get('identity_verified') is not True):
+        if 'reference_number' not in session or session.get('reference_number') is None:
             if one_login_auth is True:
-                return local_redirect(url_for('oneLogin.identityEligibility'))
+                return local_redirect(url_for('oneLogin.start'))
             else:
                 return local_redirect(url_for('startApplication.index'))
         return f(*args, **kwargs)
     return decorated_function
-
 
 def Unauthorized(f):
     @wraps(f)

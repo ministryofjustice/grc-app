@@ -33,12 +33,3 @@ class ReferenceCheckForm(FlaskForm):
             )
         ]
     )
-
-class IdentityEligibility(FlaskForm):
-    identity_eligible = LazyRadioField(
-        lazy_choices=[
-            ("YES_CONFIRM_IDENTITY", c.YES_CONFIRM_IDENTITY),
-            ("NO_CONFIRM_IDENTITY", c.NO_CONFIRM_IDENTITY)
-        ],
-        validators=[InputRequired()]
-    )

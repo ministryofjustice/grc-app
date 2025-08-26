@@ -25,7 +25,6 @@ class OneLoginConfig:
         """
         self.client_id: str = current_app.config['ONE_LOGIN_CLIENT_ID']
         self.auth_redirect_uri: str = current_app.config['ONE_LOGIN_AUTH_REDIRECT_URI']
-        self.identity_redirect_uri: str = current_app.config['ONE_LOGIN_IDENTITY_REDIRECT_URI']
         self.did_url: str = current_app.config['ONE_LOGIN_DID_URL']
         self.logout_redirect_url_save_and_exit = f'{current_app.config["BASE_URL"]}save-and-return/exit-application'
         self.logout_redirect_url_confirmation = f'{current_app.config["BASE_URL"]}submit-and-pay/confirmation'

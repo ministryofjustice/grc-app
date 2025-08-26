@@ -2293,11 +2293,6 @@ msgstr "cofnod mewn cofrestr gyfreithiol"
 msgid "Documents to send by post"
 msgstr "Dogfennau i'w hanfon drwy'r post"
 
-#: grc/templates/document-checker/your-documents.html:341
-msgid ""
-"If you’re unable to confirm your identity online, you should post the following documents after you have submitted your application."
-msgstr "Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein, dylech bostio’r dogfennau canlynol ar ôl i chi gyflwyno eich cais."
-
 #: grc/templates/document-checker/your-documents.html:347
 msgid "Birth or adoption certificate"
 msgstr "Tystysgrif geni neu fabwysiadu"
@@ -4627,7 +4622,7 @@ msgid "Start or return to an application"
 msgstr "Dechrau cais newydd neu ddychwelyd i gais"
 
 #: grc/templates/one-login/start.html
-msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">One Login GOV.UK</a> to start a new application or return to your application that was started with GOV.UK One Login."
+msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login."
 msgstr "Bydd arnoch angen cyfrif <a href=\"https://www.gov.uk/apply-gender-recognition-certificate\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> er mwyn dechrau cais newydd neu ddychwelyd i’ch cais a ddechreuwyd gyda One Login GOV.UK."
 
 #: grc/templates/one-login/start.html
@@ -4673,30 +4668,6 @@ msgstr "Cyfeirnod y cais"
 #: grc/templates/start-application/email-address.html
 msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
 msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gallwn arbed eich cynnydd a gallwch adael a dychwelyd i'ch cais yn hwyrach ymlaen."
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "Do you have proof of your identity?"
-msgstr "A oes gennych chi dystiolaeth o bwy ydych chi?"
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
-msgstr "Gallwch gadarnhau eich hunaniaeth ar-lein drwy ddefnyddio llun adnabod dilys fel pasbort neu drwydded yrru cerdyn-llun. Gall hyn fod yn rhywedd a gadarnhawyd gennych neu eich rhywedd adeg eich geni."
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "If you don’t have a photo ID, there may be other ways you can provide your identity online using this service, for example by answering security questions."
-msgstr "Os nad oes gennych chi ddogfen adnabod â llun, efallai y gallwch brofi pwy ydych chi ar-lein mewn rhyw ffordd arall gan ddefnyddio’r gwasanaeth hwn, er enghraifft drwy ateb cwestiynau diogelwch."
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "Yes, I can confirm my identity online"
-msgstr "Gallaf, mi allaf gadarnhau fy hunaniaeth ar-lein"
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "No, I cannot confirm my identity online"
-msgstr "Na allaf, ni allaf gadarnhau fy hunaniaeth ar-lein"
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
-msgstr "Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein neu os nad ydych wedi cadarnhau eich hunaniaeth ar-lein o'r blaen gan ddefnyddio GOV.UK One Login, efallai y bydd eich cais yn cymryd mwy o amser i'w brosesu gan y bydd angen gwneud hyn ar ôl i ni dderbyn eich cais."
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
 msgid "Upload your birth or adoption certificate"

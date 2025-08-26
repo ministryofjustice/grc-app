@@ -3,7 +3,6 @@ from typing import List
 from flask import current_app
 from grc.business_logic.data_structures.confirmation_data import ConfirmationData
 from grc.business_logic.data_structures.birth_registration_data import BirthRegistrationData
-from grc.business_logic.data_structures.one_login_data import OneLoginData
 from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
 from grc.business_logic.data_structures.partnership_details_data import PartnershipDetailsData
 from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
@@ -43,7 +42,6 @@ class ApplicationData:
         self.partnership_details_data: PartnershipDetailsData = PartnershipDetailsData()
         self.uploads_data: UploadsData = UploadsData()
         self.submit_and_pay_data: SubmitAndPayData = SubmitAndPayData()
-        self.one_login_data: OneLoginData = OneLoginData()
 
     def _upload_section_status(self, section):
         if len(section) == 0:
@@ -118,10 +116,6 @@ class ApplicationData:
     @property
     def need_overseas_documents(self) -> bool:
         return self.is_overseas_application
-
-    @property
-    def need_birth_or_adoption_certificate(self) -> bool:
-        return self.one_login_data.identity_verified
 
     @property
     def section_status_medical_reports(self) -> ListStatus:

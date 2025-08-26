@@ -1,7 +1,7 @@
 
 # syntax=docker/dockerfile:1
 
-FROM python:3.10
+FROM python:3.10-bookworm
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -12,7 +12,7 @@ RUN chmod 500 nsolid_setup_deb.sh
 RUN ./nsolid_setup_deb.sh 21
 RUN apt-get install nodejs -y
 
-RUN apt-get install -y wkhtmltopdf
+RUN apt update && apt-get install -y wkhtmltopdf
 ENV XDG_CACHE_HOME /tmp/cache
 RUN mkdir -p /tmp/cache && chmod 777 /tmp/cache
 
@@ -22,7 +22,7 @@ RUN mkdir -p /app/
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 

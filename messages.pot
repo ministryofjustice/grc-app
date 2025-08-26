@@ -2064,11 +2064,6 @@ msgstr ""
 msgid "Documents to send by post"
 msgstr ""
 
-#: grc/templates/document-checker/your-documents.html:341
-msgid ""
-"If you’re unable to confirm your identity online, you should post the following documents after you have submitted your application."
-msgstr ""
-
 #: grc/templates/document-checker/your-documents.html:347
 msgid "Birth or adoption certificate"
 msgstr ""
@@ -4143,30 +4138,6 @@ msgstr ""
 
 #: grc/templates/start-application/email-address.html
 msgid "You need to provide an email address to continue your application so we can save your progress and you can exit and return to your application later."
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "Do you have proof of your identity?"
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "You can confirm your identity online using any valid photo ID such as a passport or photocard driving license. This can be in your affirmed gender or gender at birth."
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "If you don’t have a photo ID, there may be other ways you can provide your identity online using this service, for example by answering security questions."
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "Yes, I can confirm my identity online"
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "No, I cannot confirm my identity online"
-msgstr ""
-
-#: grc/templates/start-application/identityEligibility.html
-msgid "If you are unable to confirm your identity online or have not previously confirmed your identity online using GOV.UK OneLogin, your application may take longer to process as this will need to be done once we have received your application."
 msgstr ""
 
 #: grc/templates/upload/birth-or-adoption-certificate.html

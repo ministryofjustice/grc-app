@@ -57,13 +57,7 @@ class ApplicationFiles:
             if not application_pdf:
                 application_pdf, _ = self.create_pdf_admin_with_filenames(application_data)
 
-            one_login_pdf = self.download_pdf_one_login(application_data)
-            if not one_login_pdf:
-                one_login_pdf_stream, _ = self.create_pdf_one_login_details(application_data)
-                one_login_pdf = one_login_pdf_stream.read()
-
             zipper.writestr('application.pdf', application_pdf)
-            zipper.writestr('one-login-details.pdf', one_login_pdf)
 
         zip_buffer.seek(0)
         return zip_buffer
@@ -118,12 +112,6 @@ class ApplicationFiles:
                         'overseasCertificate', 'birthOrAdoptionCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
-    def create_pdf_one_login_details(self, application_data: ApplicationData) -> Tuple[BytesIO, str]:
-        file_name = f"{application_data.reference_number}-one-login-details.pdf"
-        return self.create_one_login_cover_sheet_pdf(application_data), file_name
-    def upload_pdf_one_login_details(self, application_data: ApplicationData):
-        file_name = f"{application_data.reference_number}-one-login-details.pdf"
-        return AwsS3Client().upload_fileobj(self.create_pdf_one_login_details(application_data)[0], file_name)
     def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
         file_name = application_data.reference_number + '.pdf'
         return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
@@ -138,10 +126,6 @@ class ApplicationFiles:
     def download_pdf_admin(application_data: ApplicationData) -> bytes:
         return ApplicationFiles.download_pdf(application_data.reference_number)
 
-    @staticmethod
-    def download_pdf_one_login(application_data: ApplicationData) -> bytes:
-        return ApplicationFiles.download_pdf(f"{application_data.reference_number}-one-login-details")
-
     def delete_application_files(self, reference_number: str, application_data: ApplicationData) -> None:
         AwsS3Client().delete_object(reference_number + '.zip')
         AwsS3Client().delete_object(reference_number + '.pdf')
@@ -155,11 +139,6 @@ class ApplicationFiles:
         html_template = ('applications/download.html' if is_admin else 'applications/download_user.html')
         html = render_template(html_template, application_data=application_data)
         return PDFUtils().create_pdf_from_html(html, title='Application')
-
-    def create_one_login_cover_sheet_pdf(self, application_data: ApplicationData) -> BytesIO:
-        html_template = 'one-login/download.html'
-        html = render_template(html_template, application_data=application_data)
-        return PDFUtils().create_pdf_from_html(html, title='One Login Details')
 
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''

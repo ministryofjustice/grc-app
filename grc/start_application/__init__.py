@@ -45,7 +45,6 @@ def securityCode():
     if request.method == 'POST':
         if form.validate_on_submit():
             session['reference_number'] = session['reference_number_unverified']
-            session['identity_verified'] = True
             return local_redirect(url_for('startApplication.reference'))
         logger.log(LogLevel.WARN, f"{logger.mask_email_address(email)} entered an incorrect security code")
 
@@ -58,11 +57,6 @@ def securityCode():
         form=form,
         email=email
     )
-
-@startApplication.route('/back-to-identity', methods=['GET', 'POST'])
-@LoginRequired
-def backToIdentityEligible():
-    return local_redirect(url_for('oneLogin.identityEligibility'))
 
 @startApplication.route('/reference-number', methods=['GET'])
 @LoginRequired

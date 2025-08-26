@@ -21,15 +21,6 @@ class OneLoginTokenRequest:
         """
         self.config = config
 
-    def fetch_tokens_identity_request(self, code: str) -> Tuple[str, str]:
-        """
-        Fetches tokens for an identity verification request.
-
-        :param code: Authorization code returned from One Login.
-        :return: Tuple of (access_token, id_token).
-        """
-        return self._fetch_tokens(code=code, redirect_uri=self.config.identity_redirect_uri)
-
     def fetch_tokens_auth_request(self, code: str) -> Tuple[str, str]:
         """
         Fetches tokens for an authentication request.
