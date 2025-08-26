@@ -6,11 +6,13 @@ from tests.end_to_end_tests.helpers.e2e_admin_helpers import AdminHelpers
 from tests.end_to_end_tests.helpers.e2e_assert_helpers import AssertHelpers
 from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers
 import tests.end_to_end_tests.journey_admin.login_and_confirmation.section as section_login_and_confirmation
-import tests.end_to_end_tests.journey_admin.applications_glimr.section as section_applications_glimr
 import tests.end_to_end_tests.journey_admin.data as data
+import tests.end_to_end_tests.journey_admin.downloaded_applications.section as section_applications_downloaded
+import tests.end_to_end_tests.journey_admin.completed_applications.section as section_applications_completed
 from grc.utils.security_code import delete_all_user_codes
 
 TEST_URL = os.getenv('ADMIN_TEST_URL', 'http://grc_admin:3001')
+
 
 def e2e_test_prerequisites():
     # Require security code to be entered
@@ -39,19 +41,27 @@ async def run_script_for_browser(browser_type):
     # ------------------------------------------------
     # ---- Applications section
     # ------------------------------------------------
-    await section_applications_glimr.run_checks_on_section(page, asserts, helpers, admin_helpers)
+    # await section_applications_glimr.run_checks_on_section(page, asserts, helpers, admin_helpers)
 
+    # ------------------------------------------------
+    # ---- Downloaded Applications section
+    # ------------------------------------------------
+    # await section_applications_downloaded.run_checks_on_downloaded_section(page, asserts, helpers, admin_helpers)
 
+    # ------------------------------------------------
+    # ---- Completed Applications section
+    # ------------------------------------------------
+    await section_applications_completed.run_checks_on_completed_section(page, asserts, helpers, admin_helpers)
 
 
 async def e2e_main():
     print("")  # Blank line to improve formatting
 
     async with async_playwright() as p:
-        for browser_type in [p.chromium]: #, p.firefox, p.webkit]:
+        for browser_type in [p.chromium]:  #, p.firefox, p.webkit]:
             await run_script_for_browser(browser_type)
+
 
 def test_e2e_journey_admin(app):
     with app.app_context():
         asyncio.run(e2e_main())
-
