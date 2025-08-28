@@ -51,13 +51,13 @@ jobs:
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
           GLIMR_BASE_URL: 'http://localhost:8181/glimr/api/tdsapi'
           BASE_URL: 'http://localhost:8080/'
-          ONE_LOGIN_DISCOVERY_URL: http://localhost:3000/one_login/api/.well-known/openid-configuration
+          ONE_LOGIN_DISCOVERY_URL: http://localhost:8080/one_login/api/.well-known/openid-configuration
           ONE_LOGIN_CLIENT_ID: hhJNeUO_5HuSMx7UwmOEjjNLMlE
-          ONE_LOGIN_AUTH_REDIRECT_URI: http://localhost:3000/one-login/auth/callback
-          ONE_LOGIN_DID_URL: http://localhost:3000/one_login/api/.well-known/did.json
-          ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI: http://localhost:3000/save-and-return/exit-application
-          ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI: http://localhost:3000/submit-and-pay/confirmation
-          ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI: http://localhost:3000/your-reference-number
+          ONE_LOGIN_AUTH_REDIRECT_URI: http://localhost:8080/one-login/auth/callback
+          ONE_LOGIN_DID_URL: http://localhost:8080/one_login/api/.well-known/did.json
+          ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI: http://localhost:8080/save-and-return/exit-application
+          ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI: http://localhost:8080/submit-and-pay/confirmation
+          ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI: http://localhost:8080/your-reference-number
           ONE_LOGIN_DATE_TIME: 2025-07-18T10:20:00
           ONE_LOGIN_PRIVATE_KEY_PATH: grc/one_login/mock_api/mock_keys/mock_private_key.pem
           ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
