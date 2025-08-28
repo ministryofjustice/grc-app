@@ -44,7 +44,6 @@ class OneLoginConfig:
         self.jwks_uri: str = self.metadata['jwks_uri']
 
     @staticmethod
-    @cache.cached(timeout=3600)
     def get_discovery_metadata() -> Dict[str, Any]:
         """
         Retrieves OpenID Connect discovery metadata from configured URL.
