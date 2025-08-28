@@ -7,6 +7,7 @@ class TestMothersName:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/mothers-name')
             assert response.status_code == 200
             assert "What is your first parent's name as listed on your birth or adoption certificate?" in response.text
@@ -21,6 +22,7 @@ class TestMothersName:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.mothers_first_name = 'Mothers first name'
             test_app_data.birth_registration_data.mothers_last_name = 'Mothers last name'
@@ -37,6 +39,7 @@ class TestMothersName:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {
                 'first_name': 'Mothers first name',
                 'last_name': 'Mothers last name',
@@ -54,6 +57,7 @@ class TestMothersName:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/mothers-name', data={})
             assert response.status_code == 200
             assert "Enter your first parent's first name" in response.text

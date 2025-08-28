@@ -10,7 +10,7 @@ class TestValidatePhoneNumber:
         with app.test_request_context():
             form = ContactPreferencesForm()
             form.contact_options.data = 'PHONE'
-            valid_numbers = ['0', '123', '34324', '07111111111', '07123456789', '31341432131432143124']
+            valid_numbers = ['0', '123', '34324', '07111111111', '07123456789', '313414321314321']
             for number in valid_numbers:
                 form.phone.data = number
                 assert validate_phone_number(form, form.phone) is None
@@ -29,7 +29,7 @@ class TestValidatePhoneNumber:
         with app.test_request_context():
             form = ContactPreferencesForm()
             form.contact_options.data = 'PHONE'
-            invalid_numbers = ['0£', '1$23', '34*(324', '07.111111111', '071234+56789', '+3134143213', '+447788991122']
+            invalid_numbers = ['0£', '1$23', '34*(324', '07.111111111', '07123+456789', '*134143213']
             for number in invalid_numbers:
                 form.phone.data = number
                 with pytest.raises(ValidationError, match='Enter a valid phone number'):

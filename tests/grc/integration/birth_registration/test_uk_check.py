@@ -7,6 +7,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/uk-check')
             assert response.status_code == 200
             assert 'Was your birth registered in the UK?' in response.text
@@ -21,6 +22,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'birth_registered_in_uk': 'True'}
             response = client.post('/birth-registration/uk-check', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -32,6 +34,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.country_of_birth = 'France'
             save_test_data(test_app_data)
@@ -47,6 +50,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'birth_registered_in_uk': 'False'}
             response = client.post('/birth-registration/uk-check', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -58,6 +62,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.town_city_of_birth = 'London'
             test_app_data.birth_registration_data.mothers_first_name = 'Mothers first name'
@@ -91,6 +96,7 @@ class TestUKCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/uk-check', data={})
             assert response.status_code == 200
             assert 'Was your birth registered in the UK?' in response.text

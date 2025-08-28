@@ -6,43 +6,26 @@ class TestIndex:
         with app.app_context():
             response = client.get('/')
             assert response.status_code == 200
-            assert 'What is your email address?' in response.text
+            assert 'Start or return to an application' in response.text
 
-    def test_index_post_no_email(self, app, client):
+    def test_index_post_no_choice(self, app, client):
         with app.app_context():
-            form_data = {'email': None}
+            form_data = {'new_application': None}
             response = client.post('/', data=form_data)
             assert response.status_code == 200
-            assert 'What is your email address?' in response.text
-            assert 'Enter your email address' in response.text
+            assert 'Start or return to an application' in response.text
+            assert 'Select if you have already started an application' in response.text
 
-    def test_index_post_invalid_email(self, app, client):
+    def test_index_start_application(self, app, client):
         with app.app_context():
-            form_data = {'email': 'INVALID_EMAIL'}
-            response = client.post('/', data=form_data)
-            assert response.status_code == 200
-            assert 'What is your email address?' in response.text
-            assert 'Enter a valid email address' in response.text
-
-    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_security_code')
-    def test_index_post_valid_email(self, mock_send_security_code_email, app, client):
-        with app.app_context():
-            form_data = {'email': app.config['TEST_PUBLIC_USER']}
+            form_data = {'new_application': True}
             response = client.post('/', data=form_data)
             assert response.status_code == 302
-            assert response.location == '/security-code'
-            mock_send_security_code_email.assert_called_once_with('test.public.email@example.com')
+            assert response.location == '/one-login/authenticate'
 
-    @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_security_code')
-    def test_index_post_valid_email_clear_session(self, mock_send_security_code_email, app, client):
+    def test_index_post_valid_email(self, app, client):
         with app.app_context():
-            with client.session_transaction() as session:
-                session['session_key'] = 'test value'
-                session['email'] = 'previous email logged in session'
-            form_data = {'email': app.config['TEST_PUBLIC_USER']}
+            form_data = {'new_application': False}
             response = client.post('/', data=form_data)
             assert response.status_code == 302
-            assert response.location == '/security-code'
-            mock_send_security_code_email.assert_called_once_with('test.public.email@example.com')
-            with client.session_transaction() as session:
-                assert session['email'] == 'test.public.email@example.com'
+            assert response.location == '/your-reference-number'

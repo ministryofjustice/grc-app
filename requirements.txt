@@ -64,7 +64,7 @@ xhtml2pdf==0.2.16
 pillow==10.4.0
 PyMuPDF==1.24.11
 pyClamd==0.4.0
-cryptography==43.0.3
+cryptography==45.0.6
 aiozipstream==0.4
 smart-open==7.0.5
 pyAesCrypt==6.1.1

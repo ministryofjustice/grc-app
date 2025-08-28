@@ -30,16 +30,13 @@
             </div>
 
             <form method="POST">
-                {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
 
                 {{ radios.renderFor(
                     form,
                     fieldName='new_application',
-                    radiosOptions={
-                        'questionIsPageHeading': true
-                    }
+                    radiosOptions={}
                 ) }}
-
                 {{ continue.renderFor() }}
             </form>
         </div>

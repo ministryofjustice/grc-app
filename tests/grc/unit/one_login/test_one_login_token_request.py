@@ -5,22 +5,6 @@ from grc.one_login.one_login_token_request import OneLoginTokenRequest
 
 
 @patch.object(OneLoginTokenRequest, "_fetch_tokens")
-def test_fetch_tokens_identity_request(mock_fetch_tokens, app, token_request):
-    with app.test_request_context():
-        mock_fetch_tokens.return_value = ("mock_access_token", "mock_id_token")
-
-        code = "code"
-        tokens = token_request.fetch_tokens_identity_request(code)
-
-        mock_fetch_tokens.assert_called_once_with(
-            code="code",
-            redirect_uri="https://app.gov.uk/identity/callback"
-        )
-
-        assert tokens == ("mock_access_token", "mock_id_token")
-
-
-@patch.object(OneLoginTokenRequest, "_fetch_tokens")
 def test_fetch_tokens_auth_request(mock_fetch_tokens, app, token_request):
     with app.test_request_context():
         mock_fetch_tokens.return_value = ("mock_access_token", "mock_id_token")
@@ -147,6 +131,7 @@ def test_build_token_request_data(mock_build_jwt_assertion, app, token_request):
         result = token_request._build_token_request_data(code=code, redirect_uri=redirect_uri)
 
         mock_build_jwt_assertion.assert_called_once_with(
+            kid='3001714c-b9d5-4e43-a194-f3d599cf0908',
             private_key=b"fake-private-key",
             algorithm="RS256",
             aud="https://onelogin.gov.uk/token",

@@ -157,14 +157,6 @@
                             url_for('upload.uploadInfoPage', section_url='statutory-declarations'),
                             application_data.section_status_statutory_declarations)
                         }}
-
-                        {% if application_data.need_birth_or_adoption_certificate %}
-                            {{ taskListItem(
-                                _("Your birth or adoption certificate"),
-                                url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
-                                application_data.section_status_birth_or_adoption_certificate)
-                            }}
-                        {% endif %}
                     </ul>
                 </li>
                 <!-- /.Upload your documents -->

@@ -81,7 +81,7 @@ def test_create_signed_auth_request_encodes_jwt(mock_generate_and_store, mock_jw
         }
 
         assert kwargs["algorithm"] == "RS256"
-        assert kwargs["headers"]["kid"] == "f58a6bef-0d22-444b-b4d3-507a54e9892f"
+        assert kwargs["headers"]["kid"] == "3001714c-b9d5-4e43-a194-f3d599cf0908"
 
 
 @patch("grc.one_login.one_login_auth_request.token_urlsafe")

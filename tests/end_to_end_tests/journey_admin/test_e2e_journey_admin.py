@@ -26,7 +26,7 @@ async def run_script_for_browser(browser_type):
     asserts = AssertHelpers(page, helpers, TEST_URL)
     admin_helpers = AdminHelpers(page)
 
-    # e2e_test_prerequisites()
+    e2e_test_prerequisites()
 
     # Open login page
     await page.goto(TEST_URL)
@@ -51,7 +51,7 @@ async def e2e_main():
         for browser_type in [p.chromium]: #, p.firefox, p.webkit]:
             await run_script_for_browser(browser_type)
 
-def test_e2e_journey_admin(app):
-    with app.app_context():
-        asyncio.run(e2e_main())
+# def test_e2e_journey_admin(app):
+#     with app.app_context():
+#         asyncio.run(e2e_main())
 

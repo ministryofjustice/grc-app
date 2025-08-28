@@ -8,6 +8,7 @@ class TestDob:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/dob')
             assert response.status_code == 200
             assert 'What is the date of birth on your birth or adoption certificate?' in response.text
@@ -22,6 +23,7 @@ class TestDob:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = test_application.application_data()
             data.birth_registration_data.date_of_birth = datetime.date(1990, 8, 23)
             save_test_data(data)
@@ -35,6 +37,7 @@ class TestDob:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'day': '3', 'month': '5', 'year': '1973'}
             response = client.post('/birth-registration/dob', data=data)
 
@@ -47,6 +50,7 @@ class TestDob:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/dob', data={})
             assert response.status_code == 200
             assert 'Enter a day' in response.text
@@ -57,6 +61,7 @@ class TestDob:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'day': '48', 'month': '13', 'year': '123'}
             response = client.post('/birth-registration/dob', data=data)
             assert response.status_code == 200

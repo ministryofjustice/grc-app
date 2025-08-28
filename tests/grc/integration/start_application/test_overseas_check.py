@@ -6,6 +6,7 @@ class TestOverseasCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/overseas-check')
             assert response.status_code == 200
             assert ('Have you ever been issued a Gender Recognition Certificate (or its equivalent)'
@@ -22,6 +23,7 @@ class TestOverseasCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
 
             with app.test_request_context():
                 pre_request_data = test_application.application_data()
@@ -39,6 +41,7 @@ class TestOverseasCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
 
             pre_request_data = test_application.application_data()
             pre_request_data.confirmation_data.gender_recognition_from_approved_country = True
@@ -54,6 +57,7 @@ class TestOverseasCheck:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
 
             pre_request_data = test_application.application_data()
             pre_request_data.confirmation_data.gender_recognition_outside_uk = True

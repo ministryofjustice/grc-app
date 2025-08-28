@@ -12,6 +12,7 @@ from grc.one_login.forms import ReferenceCheckForm, NewExistingApplicationForm
 from grc.business_logic.data_store import DataStore
 from grc.models import Application, ApplicationStatus
 from grc.utils.strtobool import strtobool
+from flask_babel import lazy_gettext as _l
 
 logger = Logger()
 oneLogin = Blueprint('oneLogin', __name__)
@@ -58,7 +59,7 @@ def referenceNumber():
                 if application_data.created_after_one_login:
                     session['one_login_auth'] = True
                     logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created AFTER One Login implementation. Redirecting to One Login.")
-                    return redirect(url_for('oneLogin.authenticate'))
+                    return local_redirect(url_for('oneLogin.authenticate'))
                 else:
                     session['one_login_auth'] = False
                     logger.log(LogLevel.INFO, f"Application with reference number {str(reference)} was created BEFORE One Login implementation. Redirecting to original auth.")
@@ -74,7 +75,7 @@ def authenticate():
     config = OneLoginConfig.get_instance()
     auth = OneLoginAuthorizationRequest(config)
     redirect_url = auth.build_authentication_redirect_url()
-    return redirect(redirect_url)
+    return local_redirect(redirect_url)
 
 @oneLogin.route('/one-login/logout', methods=['GET'])
 def oneLoginSaveAndExit():

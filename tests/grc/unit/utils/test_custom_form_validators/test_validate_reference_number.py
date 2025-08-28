@@ -18,7 +18,7 @@ class TestValidateReferenceNumber:
             form = ReferenceCheckForm()
             form.has_reference.data = 'HAS_REFERENCE'
             form.reference.data = 'INVALID-REF'
-            with pytest.raises(ValidationError, match='Enter a valid reference number'):
+            with pytest.raises(ValidationError, match='Your application reference number has not been validated'):
                 validate_reference_number(form, form.reference)
 
 

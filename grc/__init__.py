@@ -171,6 +171,15 @@ def create_app(test_config=None):
             if rule.endpoint.startswith('glimr_mock_api'):
                 app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
 
+    # One Login Mock API for testing
+    from grc.one_login.mock_api import one_login_mock_api
+    if app.config.get('FLASK_ENV', 'development') in ['development', 'local', 'test']:
+        app.register_blueprint(one_login_mock_api)
+        app.logger.info('One Login Mock API registered for testing with routes:')
+        for rule in app.url_map.iter_rules():
+            if rule.endpoint.startswith('one_login_mock_api'):
+                app.logger.info(f"  {rule.rule} [{','.join(rule.methods)}]")
+
     def get_locale():
         return session.get('lang_code', 'en')
 

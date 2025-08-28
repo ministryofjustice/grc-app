@@ -27,6 +27,7 @@ class TestCheckYourAnswers:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/check-your-answers')
             assert response.status_code == 200
             assert "Check your answers: Birth registration details" in response.text
@@ -41,6 +42,7 @@ class TestCheckYourAnswers:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.first_name = 'First name'
             test_app_data.birth_registration_data.last_name = 'Last name'
@@ -66,6 +68,7 @@ class TestCheckYourAnswers:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/check-your-answers')
             assert response.status_code == 302
             assert response.location == '/task-list'

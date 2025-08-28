@@ -7,6 +7,7 @@ class TestIndex:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration')
             assert response.status_code == 200
             assert 'What name was originally registered on your birth or adoption certificate?' in response.text
@@ -21,6 +22,7 @@ class TestIndex:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = test_application.application_data()
             data.birth_registration_data.first_name = 'Test first name'
             data.birth_registration_data.middle_names = 'Test middle names'
@@ -36,6 +38,7 @@ class TestIndex:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {
                 'first_name': 'Test first name',
                 'middle_names': 'Test middle names',
@@ -53,6 +56,7 @@ class TestIndex:
     def test_index_no_first_or_last_name(self, app, client, test_application):
         with client.session_transaction() as session:
             session['reference_number'] = test_application.reference_number
+            session['identity_verified'] = True
         response = client.post('/birth-registration', data={})
         assert response.status_code == 200
         assert 'Enter your first name, as originally registered on your birth or adoption certificate' in response.text
