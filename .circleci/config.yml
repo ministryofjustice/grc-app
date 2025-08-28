@@ -12,6 +12,9 @@ references:
           POSTGRES_DB: grc-application-test
           POSTGRES_PORT: 5432
           POSTGRES_PASSWORD: password
+
+      - image: redis:latest
+
   cloud_container: &cloud_container
     docker:
       - image: 'ministryofjustice/cloud-platform-tools:1.24'
