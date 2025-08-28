@@ -61,7 +61,7 @@ jobs:
           ONE_LOGIN_DATE_TIME: 2025-07-18T10:20:00
           ONE_LOGIN_PRIVATE_KEY_PATH: grc/one_login/mock_api/mock_keys/mock_private_key.pem
           ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
-          REDIS_HOST: http://localhost
+          REDIS_HOST: redis
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
@@ -117,6 +117,16 @@ jobs:
                 name: Login to PROD ECR
                 command: |
                   aws ecr get-login-password --region $ECR_REGION_PROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PROD}.dkr.ecr.${ECR_REGION_PROD}.amazonaws.com
+      - run:
+          name: Debug Redis connectivity
+          command: |
+            apt-get update && apt-get install -y netcat dnsutils
+            echo "Trying localhost:6379..."
+            nc -zv localhost 6379 || echo "No Redis on localhost"
+            echo "Trying redis:6379..."
+            nc -zv redis 6379 || echo "No Redis on redis"
+            echo "DNS lookup for redis:"
+            nslookup redis || true
       - run:
           name: Install dependencies
           command: |
