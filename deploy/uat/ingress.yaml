@@ -7,24 +7,25 @@ metadata:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-uat-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     # 5.151.166.193/32, 94.192.178.93/32, 52.167.144.219 belong to David Scott (david.scott@wearegroup.com) who is testing in uat
-    nginx.ingress.kubernetes.io/whitelist-source-range: >-
-      194.33.196.0/24, 
-      194.33.192.0/24, 
-      51.149.249.0/29, 
-      51.149.249.32/29, 
-      51.149.250.0/24, 
-      81.153.123.31/32, 
-      90.209.17.46/32, 
-      5.151.166.193/32, 
-      94.192.178.93/32,
-      52.167.144.219/32,
-      90.209.73.29/32,
-      128.77.75.64/26
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location @custom_403 {
-        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
-      }
-      error_page 403 @custom_403;
+#    nginx.ingress.kubernetes.io/whitelist-source-range: >-
+#      194.33.196.0/24,
+#      194.33.192.0/24,
+#      51.149.249.0/29,
+#      51.149.249.32/29,
+#      51.149.250.0/24,
+#      81.153.123.31/32,
+#      90.209.17.46/32,
+#      5.151.166.193/32,
+#      94.192.178.93/32,
+#      52.167.144.219/32,
+#      90.209.73.29/32,
+#      128.77.75.64/26,
+#      86.135.149.138
+#    nginx.ingress.kubernetes.io/server-snippet: |
+#      location @custom_403 {
+#        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
+#      }
+#      error_page 403 @custom_403;
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/client-body-buffer-size: "50m"

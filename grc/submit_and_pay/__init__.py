@@ -17,11 +17,16 @@ from grc.submit_and_pay.forms import MethodCheckForm, HelpTypeForm, CheckYourAns
 from grc.utils.application_files import ApplicationFiles
 from grc.utils.decorators import LoginRequired
 from grc.utils.get_next_page import get_next_page_global, get_previous_page_global
-from grc.utils.link_builder import LinkBuilder
 from grc.utils.redirect import local_redirect
 from grc.utils.strtobool import strtobool
+from grc.utils.logger import LogLevel, Logger
+from grc.one_login.one_login_config import OneLoginConfig
+from grc.one_login.one_login_logout import OneLoginLogout
+
+logger = Logger()
 
 submitAndPay = Blueprint('submitAndPay', __name__)
+
 
 
 @submitAndPay.route('/submit-and-pay', methods=['GET', 'POST'])
@@ -100,8 +105,9 @@ def checkYourAnswers():
         if application_data.submit_and_pay_data.applying_for_help_with_fee:
             application_data.submit_and_pay_data.is_submitted = True
             DataStore.save_application(application_data)
-
-            return local_redirect(url_for('submitAndPay.confirmation'))
+            one_login_logout = OneLoginLogout(OneLoginConfig.get_instance())
+            redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
+            return local_redirect(redirect_url)
         else:
             random_uuid = str(uuid.uuid4())
             return_link = request.url_root #if os.getenv('TEST_URL', '') != '' or os.getenv('FLASK_ENV', '') == 'development' else str(request.url_root).replace('http://', 'https://')
@@ -194,7 +200,9 @@ def paymentConfirmation(id):
                 application_data.submit_and_pay_data.is_submitted = True
                 application_data.submit_and_pay_data.gov_pay_payment_details = r.text
                 DataStore.save_application(application_data)
-                return local_redirect(url_for('submitAndPay.confirmation'))
+                one_login_logout = OneLoginLogout(OneLoginConfig())
+                redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
+                return local_redirect(redirect_url)
             elif res['state']['status'] == 'failed':
                 flash(res['state']['message'], 'error')
         except BaseException as err:

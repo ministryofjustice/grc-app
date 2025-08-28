@@ -18,6 +18,7 @@ def test_notify_applicants_inactive_applications_deletes_expired_security_codes(
     with app.app_context():
         runner = app.test_cli_runner()
         result = runner.invoke(args=['jobs.delete_expired_security_codes', 'run'])
+        print(result.output)
         assert result.exit_code == 0
 
         deleted_security_codes = db.session.query(SecurityCode).filter(SecurityCode.email.in_(test_emails)).all()

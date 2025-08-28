@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grc-redis
+  template:
+    metadata:
+      labels:
+        app: grc-redis
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsNonRoot: true
+      containers:
+      - name: grc-redis
+        image: bitnami/redis:latest
+        env:
+          - name: ALLOW_EMPTY_PASSWORD
+            value: "yes"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 6379
+        securityContext:
+          allowPrivilegeEscalation: false

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 from flask import current_app
 from grc.business_logic.data_structures.confirmation_data import ConfirmationData
@@ -34,6 +34,7 @@ class ApplicationData:
     def __init__(self):
         self.reference_number: str = None
         self.email_address: str = None
+        self.created: datetime = None
         self.updated: datetime = None
         self.confirmation_data: ConfirmationData = ConfirmationData()
         self.personal_details_data: PersonalDetailsData = PersonalDetailsData()
@@ -60,6 +61,17 @@ class ApplicationData:
     def application_pdf_name(self) -> str:
         reference_number = self.reference_number.upper()
         return f"{reference_number}.pdf"
+
+    @property
+    def created_after_one_login(self) -> bool:
+        one_login_str = current_app.config['ONE_LOGIN_DATE_TIME']
+        one_login_dt = datetime.strptime(one_login_str, "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+
+        created_at = self.created
+        if created_at.tzinfo is None:
+            created_at = created_at.replace(tzinfo=timezone.utc)
+
+        return created_at > one_login_dt
 
     @property
     def reference_number_formatted(self) -> str:

@@ -1,7 +1,7 @@
 
 # syntax=docker/dockerfile:1
 
-FROM python:3.8
+FROM python:3.10-bookworm
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -13,7 +13,7 @@ RUN chmod 500 nsolid_setup_deb.sh
 RUN ./nsolid_setup_deb.sh 21
 RUN apt-get install nodejs -y
 
-RUN apt-get install -y wkhtmltopdf
+RUN apt update && apt-get install -y wkhtmltopdf
 
 # Add network connectivity debugging tools
 RUN apt-get update && apt-get install -y telnet iputils-ping net-tools curl
@@ -24,7 +24,7 @@ RUN mkdir -p /app/
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . .
 

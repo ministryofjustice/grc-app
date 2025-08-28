@@ -105,8 +105,8 @@ def validate_security_code(form, field):
 
 
 def validate_reference_number(form, field):
-    validated_email = session.get('validatedEmail')
-    if not reference_number_is_valid(field.data, validated_email):
+    validated_email = session.get('email')
+    if not reference_number_is_valid(field.data):
         email = logger.mask_email_address(validated_email) if validated_email in session else 'Unknown user'
         reference_number = f"{field.data[0: 2]}{'*' * (len(field.data) - 4)}{field.data[-2:]}"
         logger.log(LogLevel.WARN, f"{email} entered an incorrect reference number ({reference_number})")
@@ -324,7 +324,9 @@ def validate_phone_number(form, field):
     if not field.data:
         return
 
-    match = re.search(r'^[0-9]+$', field.data)
+    phone = re.sub(r'[\s\-]', '', field.data)
+
+    match = re.fullmatch(r'(\+|00)?\d{1,15}', phone)
     if match is None:
         raise LazyValidationError(c.ENTER_VALID_PHONE_NUMBER_ERROR)
 
@@ -536,4 +538,14 @@ def file_virus_scan(form, field):
             logger.log(LogLevel.ERROR, message='Error scanning uploaded file')
             raise ValidationError('Error scanning uploaded file')
         uploaded_file.stream.seek(0)
+
+def validate_email_matches_application(form, field):
+    reference_number = session.get('reference_number_unverified')
+
+    application = Application.query.filter_by(reference_number=reference_number).first()
+    if not application:
+        raise LazyValidationError(c.EMAIL_ADDRESS_NOT_VALIDATED_ERROR)
+
+    if field.data != application.email:
+        raise LazyValidationError(c.EMAIL_ADDRESS_NOT_VALIDATED_ERROR)
 

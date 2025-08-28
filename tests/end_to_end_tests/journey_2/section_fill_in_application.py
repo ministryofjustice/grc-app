@@ -10,35 +10,11 @@ async def fill_in_application(page: Page, asserts: AssertHelpers, helpers: PageH
     # ------------------------------------------------
     await asserts.url('/')
     await asserts.accessibility()
-    await asserts.h1('Email address')
+    await asserts.h1('Start or return to an application')
     await asserts.number_of_errors(0)
 
-    # Enter a valid Email Address, click Continue button, see the Security Code page
-    await helpers.fill_textbox(field='email', value=data.EMAIL_ADDRESS)
-    await helpers.click_button('Continue')
-
-    # ------------------------------------------------
-    # ---- Security Code page
-    # ------------------------------------------------
-    await asserts.url('/security-code')
-    await asserts.accessibility()
-    await asserts.h1('Enter security code')
-    await asserts.number_of_errors(0)
-
-    # Enter a valid Security Code, click Continue button
-    await helpers.fill_textbox(field='security_code', value='11111')
-    await helpers.click_button('Continue')
-
-    # ------------------------------------------------
-    # ---- Is First Visit page
-    # ------------------------------------------------
-    await asserts.url('/is-first-visit')
-    await asserts.accessibility()
-    await asserts.h1('Have you already started an application?')
-    await asserts.number_of_errors(0)
-
-    # Choose the "No" (this is my first visit) option
-    await helpers.check_radio(field='isFirstVisit', value='FIRST_VISIT')
+    # Choose the "Start a new application" option
+    await helpers.check_radio(field='new_application', value=True)
     await helpers.click_button('Continue')
 
     # ------------------------------------------------

@@ -1,0 +1,81 @@
+from flask import current_app
+import requests
+from typing import Dict, Any
+from grc import cache
+import threading
+
+class OneLoginConfig:
+    """
+    Loads and holds configuration and metadata for integrating with GOV.UK One Login.
+    Includes credentials, endpoints, keys, and requested claims.
+    """
+    _instance = None
+    _lock = threading.Lock()
+
+    @classmethod
+    def get_instance(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = OneLoginConfig()
+        return cls._instance
+
+    def __init__(self):
+        """
+        Initializes OneLoginConfig with Flask app settings and discovery metadata.
+        """
+        self.client_id: str = current_app.config['ONE_LOGIN_CLIENT_ID']
+        self.auth_redirect_uri: str = current_app.config['ONE_LOGIN_AUTH_REDIRECT_URI']
+        self.did_url: str = current_app.config['ONE_LOGIN_DID_URL']
+        self.logout_redirect_url_save_and_exit = f'{current_app.config["BASE_URL"]}save-and-return/exit-application'
+        self.logout_redirect_url_confirmation = f'{current_app.config["BASE_URL"]}submit-and-pay/confirmation'
+        self.logout_redirect_url_reference = f'{current_app.config["BASE_URL"]}your-reference-number'
+        self.logout_redirect_url_start = current_app.config["BASE_URL"]
+        self.kid: str = current_app.config["ONE_LOGIN_KID"]
+        self.scope: str = "openid phone email"
+        self.claims: Dict[str, Dict[str, None]] = self.build_claims()
+        self.private_key: bytes = self.load_private_key()
+        self.metadata: Dict[str, Any] = self.get_discovery_metadata()
+        self.issuer: str = self.metadata['issuer']
+        self.authorization_endpoint: str = self.metadata['authorization_endpoint']
+        self.user_info_endpoint: str = self.metadata['userinfo_endpoint']
+        self.token_endpoint: str = self.metadata['token_endpoint']
+        self.end_session_endpoint = self.metadata['end_session_endpoint']
+        self.registration_endpoint: str = self.metadata['registration_endpoint']
+        self.jwks_uri: str = self.metadata['jwks_uri']
+
+    @staticmethod
+    def get_discovery_metadata() -> Dict[str, Any]:
+        """
+        Retrieves OpenID Connect discovery metadata from configured URL.
+
+        :return: A dictionary containing the provider's discovery metadata.
+        """
+        url = current_app.config['ONE_LOGIN_DISCOVERY_URL']
+        return requests.get(url).json()
+
+    @staticmethod
+    def load_private_key() -> bytes:
+        """
+        Loads the One Login private key from the PEM file.
+
+        :return: Private key in bytes.
+        """
+        with open(current_app.config['ONE_LOGIN_PRIVATE_KEY_PATH'], "rb") as f:
+            return f.read()
+
+    @staticmethod
+    def build_claims() -> Dict[str, Dict[str, None]]:
+        """
+        Builds the set of claims to request from One Login.
+
+        :return: Dictionary specifying requested userinfo claims.
+        """
+        return {
+            "userinfo": {
+                "https://vocab.account.gov.uk/v1/coreIdentityJWT": None,
+                "https://vocab.account.gov.uk/v1/address": None,
+                "https://vocab.account.gov.uk/v1/returnCode": None,
+                "https://vocab.account.gov.uk/v1/passport": None,
+                "https://vocab.account.gov.uk/v1/drivingPermit": None
+            }
+        }

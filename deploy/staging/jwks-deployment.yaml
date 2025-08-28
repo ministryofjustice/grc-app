@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grc-jwks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grc-jwks
+  template:
+    metadata:
+      labels:
+        app: grc-jwks
+    spec:
+      serviceAccountName: grc-preprod
+      volumes:
+        - name: one-login-keys-volume
+          secret:
+            secretName: one-login-keys
+      containers:
+      - name: grc-jwks
+        image: 754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-preprod-ecr:grc-jwks-latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3003
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3003
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          timeoutSeconds: 10
+        volumeMounts:
+          - name: one-login-keys-volume
+            mountPath: /app/keys
+            readOnly: true
+        env:
+          - name: FLASK_ENV
+            value: staging
+          - name: FLASK_APP
+            value: jwks
+          - name: ONE_LOGIN_PUBLIC_KEY_PATH
+            value: "/app/keys/jwks.json"

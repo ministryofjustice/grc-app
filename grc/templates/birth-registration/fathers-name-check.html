@@ -4,7 +4,7 @@
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
 {% import "govuk-design-system-templates/continue.html" as continue %}
 
-{% block title %}{{ _("Is your father's name listed on the certificate?") }}{% endblock %}
+{% block title %}{{ _("Is your second parent's name listed on the certificate?") }}{% endblock %}
 
 {% block backLink %}
     {{ back_link.renderForRawURL(back) }}
@@ -22,7 +22,7 @@
                 {{ radios.renderFor(
                     form,
                     fieldName='fathers_name_on_certificate',
-                    question=_("Is your father's name listed on the certificate?"),
+                    question=_("Is your second parent's name listed on the certificate?"),
                     radiosOptions={
                         'questionIsPageHeading': true
                     }

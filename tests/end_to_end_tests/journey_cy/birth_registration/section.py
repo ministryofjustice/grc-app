@@ -113,16 +113,16 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.MOTHERS_FIRST_NAME)
@@ -131,20 +131,20 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
+    await asserts.h1("A yw enw eich ail riant wedi'i restru ar y dystysgrif?")
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
+    await asserts.h1("A yw enw eich ail riant wedi'i restru ar y dystysgrif?")
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='fathers_name_on_certificate', value='True')
@@ -155,16 +155,16 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1('Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich ail riant fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich ail riant fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.FATHERS_FIRST_NAME)
@@ -343,16 +343,16 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1('Beth yw enw eich mam fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?')
+    await asserts.h1('Beth yw enw eich rhiant cyntaf fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?')
 
     # Enter valid details, click Save and continue
     await helpers.fill_textbox(field='first_name', value=data.MOTHERS_FIRST_NAME)
@@ -361,40 +361,40 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
+    await asserts.h1("A yw enw eich ail riant wedi'i restru ar y dystysgrif?")
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1("A yw enw eich tad wedi'i nodi ar y dystysgrif?")
+    await asserts.h1("A yw enw eich ail riant wedi'i restru ar y dystysgrif?")
 
     # Enter valid details, click Save and continue
     await helpers.check_radio(field='fathers_name_on_certificate', value='True')
     await helpers.click_button('Cadw a pharhau')
 
     # ------------------------------------------------
-    # ---- Father's Name page
+    # ---- second parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1("Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?")
+    await asserts.h1("Beth yw enw eich ail riant fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?")
     await asserts.number_of_errors(0)
 
     # Change language
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
     await helpers.click_button('English')
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await helpers.click_button('Cymraeg')
-    await asserts.h1("Beth yw enw eich tad fel y nodir ar eich tystysgrif geni neu dystysgrif mabwysiadu?")
+    await asserts.h1("Beth yw enw eich ail riant fel y’i nodwyd ar eich tystysgrif geni neu fabwysiadu?")
 
     # Enter valid values, click "Save and continue"
     await helpers.fill_textbox(field='first_name', value=data.FATHERS_FIRST_NAME)

@@ -13,8 +13,8 @@ logger = Logger()
 
 
 class ApplicationFiles:
-    sections = ['medicalReports', 'genderEvidence', 'nameChange', 'marriageDocuments', 'overseasCertificate', 'statutoryDeclarations']
-    section_names = ['Medical Reports', 'Gender Evidence', 'Name Change', 'Marriage Documents', 'Overseas Certificate', 'Statutory Declarations']
+    sections = ['medicalReports', 'genderEvidence', 'nameChange', 'marriageDocuments', 'overseasCertificate', 'statutoryDeclarations', 'birthOrAdoptionCertificate']
+    section_names = ['Medical Reports', 'Gender Evidence', 'Name Change', 'Marriage Documents', 'Overseas Certificate', 'Statutory Declarations', 'Birth Or Adoption Certificates']
     section_files:  Dict[str, Callable[[UploadsData], List[EvidenceFile]]] = {
         'medicalReports': (lambda u: u.medical_reports),
         'genderEvidence': (lambda u: u.evidence_of_living_in_gender),
@@ -22,6 +22,7 @@ class ApplicationFiles:
         'marriageDocuments': (lambda u: u.partnership_documents),
         'overseasCertificate': (lambda u: u.overseas_documents),
         'statutoryDeclarations': (lambda u: u.statutory_declarations),
+        'birthOrAdoptionCertificate': (lambda u: u.birth_or_adoption_certificates)
     }
 
     def _get_files_for_section(self, section: str, application_data: ApplicationData) -> list:
@@ -57,6 +58,7 @@ class ApplicationFiles:
                 application_pdf, _ = self.create_pdf_admin_with_filenames(application_data)
 
             zipper.writestr('application.pdf', application_pdf)
+
         zip_buffer.seek(0)
         return zip_buffer
 
@@ -91,7 +93,7 @@ class ApplicationFiles:
 
     def create_pdf_public(self, application_data: ApplicationData) -> Tuple[bytes, str]:
         file_name = 'grc_' + str(application_data.email_address).replace('@', '_').replace('.', '_') + '.pdf'
-        pdfs = [self.create_application_cover_sheet_pdf(application_data, False)]
+        pdfs = [self. create_application_cover_sheet_pdf(application_data, False)]
         output_pdf_document = self._create_pdf_attach_files(application_data, pdfs, self.sections)
         return output_pdf_document.read(), file_name
 
@@ -100,14 +102,14 @@ class ApplicationFiles:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
-                        'overseasCertificate']
+                        'overseasCertificate', 'birthOrAdoptionCertificate']
         return self._create_pdf_attach_files(application_data, pdfs, all_sections), file_name
 
     def create_pdf_admin_with_filenames(self, application_data) -> Tuple[bytes, str]:
         file_name = application_data.reference_number + '.pdf'
         pdfs = [self.create_application_cover_sheet_pdf(application_data, True)]
         all_sections = ['statutoryDeclarations', 'marriageDocuments', 'nameChange', 'medicalReports', 'genderEvidence',
-                        'overseasCertificate']
+                        'overseasCertificate', 'birthOrAdoptionCertificate']
         return self._create_pdf_attach_filenames(application_data, pdfs, all_sections).read(), file_name
 
     def upload_pdf_admin_with_files_attached(self, application_data: ApplicationData) -> bool:
@@ -115,10 +117,14 @@ class ApplicationFiles:
         return AwsS3Client().upload_fileobj(self.create_pdf_admin_with_files_attached(application_data)[0], file_name)
 
     @staticmethod
-    def download_pdf_admin(application_data: ApplicationData) -> bytes:
-        file_name = application_data.reference_number + '.pdf'
+    def download_pdf(pdf_name: str) -> bytes:
+        file_name = pdf_name + '.pdf'
         pdf = AwsS3Client().download_object(file_name)
         return pdf.getvalue() if pdf else None
+
+    @staticmethod
+    def download_pdf_admin(application_data: ApplicationData) -> bytes:
+        return ApplicationFiles.download_pdf(application_data.reference_number)
 
     def delete_application_files(self, reference_number: str, application_data: ApplicationData) -> None:
         AwsS3Client().delete_object(reference_number + '.zip')

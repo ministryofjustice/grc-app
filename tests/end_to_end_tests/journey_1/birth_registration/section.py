@@ -367,11 +367,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Mother's Name page
+    # ---- First parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Clicking "Back" should take us back to the Place of Birth page
@@ -388,15 +388,15 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     # Check the values we entered have been remembered
     await asserts.field_value(field='place_of_birth', expected_value=data.BIRTH_TOWN)
 
-    # Continue to Mother's Name page
+    # Continue to First parent's name page
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Mother's Name page
+    # ---- First parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Don't enter any values, click "Save and continue"
@@ -406,11 +406,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Save and continue')
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(3)
-    await asserts.error(field='first_name', message="Enter your mother's first name")
-    await asserts.error(field='last_name', message="Enter your mother's last name")
-    await asserts.error(field='maiden_name', message="Enter your mother's maiden name")
+    await asserts.error(field='first_name', message="Enter your first parent's first name")
+    await asserts.error(field='last_name', message="Enter your first parent's last name")
+    await asserts.error(field='maiden_name', message="Enter your first parent's maiden name")
 
     # Enter valid values, click "Save and continue"
     await helpers.fill_textbox(field='first_name', value=data.MOTHERS_FIRST_NAME)
@@ -419,22 +419,22 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await asserts.number_of_errors(0)
 
-    # Clicking "Back" should take us back to the Mother's Name page
+    # Clicking "Back" should take us back to the First parent's name page
     await helpers.click_button('Back')
 
     # ------------------------------------------------
-    # ---- Mother's Name page
+    # ---- First parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/mothers-name')
     await asserts.accessibility()
-    await asserts.h1('What is your mother’s name as listed on your birth or adoption certificate?')
+    await asserts.h1("What is your first parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Check the values we entered have been remembered
@@ -442,24 +442,24 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.field_value(field='last_name', expected_value=data.MOTHERS_LAST_NAME)
     await asserts.field_value(field='maiden_name', expected_value=data.MOTHERS_MAIDEN_NAME)
 
-    # Continue to Mother's Name page
+    # Continue to First parent's name page
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await asserts.number_of_errors(0)
 
     # Don't select an option, click "Save and continue"
     await helpers.click_button('Save and continue')
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await asserts.number_of_errors(1)
-    await asserts.error(field='fathers_name_on_certificate', message="Select if your father's name is listed on the certificate")
+    await asserts.error(field='fathers_name_on_certificate', message="Select if your second parent's name is listed on the certificate")
 
     # Select the "No" option, click "Save and continue"
     # This should take us to the "Adopted" question
@@ -474,15 +474,15 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Were you adopted?')
     await asserts.number_of_errors(0)
 
-    # Clicking "Back" should take us back to the Is Father's Name On Certificate page
+    # Clicking "Back" should take us back to the Is Second parent's name On Certificate page
     await helpers.click_button('Back')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await asserts.number_of_errors(0)
 
     # Check the values we entered have been remembered
@@ -490,42 +490,42 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.not_checked(field='fathers_name_on_certificate', value='True')
 
     # Select the "Yes" option, click "Save and continue"
-    # This should take us to the "Father's Name" question
+    # This should take us to the "Second parent's name" question
     await helpers.check_radio(field='fathers_name_on_certificate', value='True')
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Father's Name page
+    # ---- Second parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
-    # Clicking "Back" should take us back to the Is Father's Name On Certificate page
+    # Clicking "Back" should take us back to the Is Second parent's name On Certificate page
     await helpers.click_button('Back')
 
     # ------------------------------------------------
-    # ---- Is Father's Name On Certificate page
+    # ---- Is Second parent's name On Certificate page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name-check')
     await asserts.accessibility()
-    await asserts.h1("Is your father's name listed on the certificate?")
+    await asserts.h1("Is your second parent's name listed on the certificate?")
     await asserts.number_of_errors(0)
 
     # Check the values we entered have been remembered
     await asserts.is_checked(field='fathers_name_on_certificate', value='True')
     await asserts.not_checked(field='fathers_name_on_certificate', value='False')
 
-    # Continue to Father's Name page
+    # Continue to Second parent's name page
     await helpers.click_button('Save and continue')
 
     # ------------------------------------------------
-    # ---- Father's Name page
+    # ---- Second parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Don't enter any values, click "Save and continue"
@@ -534,10 +534,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Save and continue')
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(2)
-    await asserts.error(field='first_name', message="Enter your father's first name")
-    await asserts.error(field='last_name', message="Enter your father's last name")
+    await asserts.error(field='first_name', message="Enter your second parent's first name")
+    await asserts.error(field='last_name', message="Enter your second parent's last name")
 
     # Enter valid values, click "Save and continue"
     await helpers.fill_textbox(field='first_name', value=data.FATHERS_FIRST_NAME)
@@ -552,15 +552,15 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Were you adopted?')
     await asserts.number_of_errors(0)
 
-    # Clicking "Back" should take us back to the Father's Name page
+    # Clicking "Back" should take us back to the Second parent's name page
     await helpers.click_button('Back')
 
     # ------------------------------------------------
-    # ---- Father's Name page
+    # ---- Second parent's name page
     # ------------------------------------------------
     await asserts.url('/birth-registration/fathers-name')
     await asserts.accessibility()
-    await asserts.h1("What is your father's name as listed on your birth or adoption certificate?")
+    await asserts.h1("What is your second parent's name as listed on your birth or adoption certificate?")
     await asserts.number_of_errors(0)
 
     # Check the values we entered have been remembered
@@ -753,9 +753,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Date of birth', expected_value=data.DATE_OF_BIRTH_FORMATTED)
     await asserts.check_your_answers_row(row_name='Birth registered in UK', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Town or city of birth', expected_value=data.BIRTH_TOWN)
-    await asserts.check_your_answers_row(row_name="Mother's name", expected_value=f"{data.MOTHERS_FIRST_NAME} {data.MOTHERS_LAST_NAME}\n(Maiden name: {data.MOTHERS_MAIDEN_NAME})")
-    await asserts.check_your_answers_row(row_name="Father's name listed", expected_value='Yes')
-    await asserts.check_your_answers_row(row_name="Father's name", expected_value=f"{data.FATHERS_FIRST_NAME} {data.FATHERS_LAST_NAME}")
+    await asserts.check_your_answers_row(row_name="First parent's name", expected_value=f"{data.MOTHERS_FIRST_NAME} {data.MOTHERS_LAST_NAME}\n(Maiden name: {data.MOTHERS_MAIDEN_NAME})")
+    await asserts.check_your_answers_row(row_name="Second parent's name listed", expected_value='Yes')
+    await asserts.check_your_answers_row(row_name="Second parent's name", expected_value=f"{data.FATHERS_FIRST_NAME} {data.FATHERS_LAST_NAME}")
     await asserts.check_your_answers_row(row_name='Adopted', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Adopted in UK', expected_value="I don't know")
     await asserts.check_your_answers_row(row_name='Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions', expected_value='No')
@@ -765,9 +765,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text='Change date of birth', expected_url='/birth-registration/dob')
     await asserts.change_links_to_url(link_text='Change whether your birth was registered in the UK', expected_url='/birth-registration/uk-check')
     await asserts.change_links_to_url(link_text='Change your town or city of birth', expected_url='/birth-registration/place-of-birth')
-    await asserts.change_links_to_url(link_text="Change your mother's name", expected_url='/birth-registration/mothers-name')
-    await asserts.change_links_to_url(link_text="Change whether your father's name is listed on your birth or adoption certificate", expected_url='/birth-registration/fathers-name-check')
-    await asserts.change_links_to_url(link_text="Change your father's name", expected_url='/birth-registration/fathers-name')
+    await asserts.change_links_to_url(link_text="Change your first parent's name", expected_url='/birth-registration/mothers-name')
+    await asserts.change_links_to_url(link_text="Change whether your second parent's name is listed on your birth or adoption certificate", expected_url='/birth-registration/fathers-name-check')
+    await asserts.change_links_to_url(link_text="Change your second parent's name", expected_url='/birth-registration/fathers-name')
     await asserts.change_links_to_url(link_text='Change whether you were adopted', expected_url='/birth-registration/adopted')
     await asserts.change_links_to_url(link_text='Change whether you were adopted in the UK', expected_url='/birth-registration/adopted-uk')
     await asserts.change_links_to_url(link_text='Change whether your birth was registered under the Forces registering service, British Consul or High Commission, or under Merchant Shipping or Civil Aviation provisions', expected_url='/birth-registration/forces')

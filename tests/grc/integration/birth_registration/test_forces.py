@@ -6,6 +6,7 @@ class TestForces:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/forces')
             assert response.status_code == 200
             assert ("Was your birth registered by a Forces registering service, or with a British Consul or High"
@@ -21,6 +22,7 @@ class TestForces:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/forces', data={'forces': 'True'})
             test_app_data = load_test_data(test_application.reference_number)
             assert response.status_code == 302
@@ -31,6 +33,7 @@ class TestForces:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/forces', data={})
             assert response.status_code == 200
             assert ("Was your birth registered by a Forces registering service, or with a British Consul or High"
