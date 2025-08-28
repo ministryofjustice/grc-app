@@ -61,6 +61,7 @@ jobs:
           ONE_LOGIN_DATE_TIME: 2025-07-18T10:20:00
           ONE_LOGIN_PRIVATE_KEY_PATH: grc/one_login/mock_api/mock_keys/mock_private_key.pem
           ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
+          REDIS_HOST: http://localhost
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
