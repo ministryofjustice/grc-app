@@ -125,7 +125,7 @@ class OneLoginTokenValidator:
             raise Exception("Missing iss in token.")
 
         if token_iss != expected_iss:
-            error_message = f"Invalid iss. Expected {expected_iss}"
+            error_message = f"Invalid iss. Expected {expected_iss} and got {token_iss}"
             logger.log(LogLevel.ERROR, error_message)
             raise Exception(error_message)
 
