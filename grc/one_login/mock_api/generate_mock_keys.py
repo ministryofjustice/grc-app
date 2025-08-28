@@ -20,10 +20,6 @@ def generate_and_write_keys():
     with open("grc/one_login/mock_api/mock_keys/mock_private_key.pem", "wb") as f:
         f.write(private_pem)
 
-    with open("grc/one_login/mock_api/mock_keys/mock_private_key.pem", "rb") as f:
-        print('private_key')
-        print(f.read())
-
     return private_pem, public_pem
 
 def create_key_pair_pem():

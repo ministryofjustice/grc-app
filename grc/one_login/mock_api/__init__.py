@@ -345,7 +345,7 @@ def create_mock_tokens(code):
         "at_hash": at_hash,
         "sub": "urn:fdc:gov.uk:2022:VtcZjnU4Sif2oyJZola3OkN0e3Jeku1cIMN38rFlhU4",
         "aud": 'hhJNeUO_5HuSMx7UwmOEjjNLMlE',
-        "iss": "http://localhost:3000/one_login/api/",
+        "iss": f"{current_app.config.get('BASE_URL', 'http://localhost:3000/')}/one_login/api/",
         "vot": "Cl.Cm",
         "exp": exp,
         "iat": iat,
