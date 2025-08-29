@@ -81,7 +81,7 @@ metadata:
   name: gender-recognition-service-smoketest
   namespace: grc-preprod
   annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-preprod-smoke
+    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-preprod-blue
     external-dns.alpha.kubernetes.io/aws-weight: "100"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/whitelist-source-range: 88.97.207.18/32
