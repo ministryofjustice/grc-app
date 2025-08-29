@@ -174,11 +174,20 @@ def callbackAuthentication():
 @oneLogin.route('/back-from-reference', methods=['GET'])
 def backFromReference():
     try:
-        session.pop('reference_number')
-        logout_request = OneLoginLogout(OneLoginConfig.get_instance())
-        redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
-        return local_redirect(redirect_url)
+        one_login_auth = session.get('one_login_auth')
+        if one_login_auth is True:
+            if session.get('reference_number'):
+                session.pop('reference_number')
+            logout_request = OneLoginLogout(OneLoginConfig.get_instance())
+            redirect_url = logout_request.logout_redirect_url_to_start_page(session.get('id_token'))
+            return local_redirect(redirect_url)
+        else:
+            session.clear()
+            return local_redirect(url_for('oneLogin.start'))
+
     except Exception as e:
         session.clear()
         logger.log(LogLevel.ERROR, str(e))
         return local_redirect(url_for('oneLogin.start'))
+
+
