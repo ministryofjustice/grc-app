@@ -6,12 +6,9 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-prod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/whitelist-source-range: >-
-      88.97.207.18/32,
-      90.209.73.29/32
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
-        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This service is currently undergoing system maintenance. Please try later<br/>\"}";
+        return 403 "<h1>There is a problem:</h1><br><h3>Go back to the previous page using the back arrow and enter valid content</h3>";
       }
       error_page 403 @custom_403;
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
