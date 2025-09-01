@@ -10,6 +10,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/adopted-uk')
             assert response.status_code == 200
             assert "Were you adopted in the United Kingdom?" in response.text
@@ -24,6 +25,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'adopted_uk': 'ADOPTED_IN_THE_UK_YES'}
             response = client.post('/birth-registration/adopted-uk', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -35,6 +37,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'adopted_uk': 'ADOPTED_IN_THE_UK_NO'}
             response = client.post('/birth-registration/adopted-uk', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -46,6 +49,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'adopted_uk': 'ADOPTED_IN_THE_UK_DO_NOT_KNOW'}
             response = client.post('/birth-registration/adopted-uk', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -57,6 +61,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.first_name = 'First name'
             test_app_data.birth_registration_data.last_name = 'Last name'
@@ -82,6 +87,7 @@ class TestAdoptedUK:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/adopted-uk', data={})
             assert response.status_code == 200
             assert "Were you adopted in the United Kingdom?" in response.text

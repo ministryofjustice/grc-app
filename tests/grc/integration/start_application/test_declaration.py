@@ -7,6 +7,7 @@ class TestDeclaration:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/declaration')
             assert response.status_code == 200
             assert 'Notifying the General Register Office' in response.text
@@ -21,6 +22,7 @@ class TestDeclaration:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
 
             pre_request_data = test_application.application_data()
             pre_request_data.confirmation_data.consent_to_GRO_contact = True
@@ -35,6 +37,7 @@ class TestDeclaration:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
 
             response = client.post('/declaration', data={'consent': True})
             after_request_data = load_test_data(test_application.reference_number)

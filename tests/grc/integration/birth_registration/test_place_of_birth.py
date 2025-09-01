@@ -7,6 +7,7 @@ class TestPlaceOfBirth:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.get('/birth-registration/place-of-birth')
             assert response.status_code == 200
             assert 'What is the town or city of birth on your birth or adoption certificate?' in response.text
@@ -21,6 +22,7 @@ class TestPlaceOfBirth:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             test_app_data = test_application.application_data()
             test_app_data.birth_registration_data.town_city_of_birth = 'London'
             save_test_data(test_app_data)
@@ -33,6 +35,7 @@ class TestPlaceOfBirth:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             data = {'place_of_birth': 'Manchester'}
             response = client.post('/birth-registration/place-of-birth', data=data)
             test_app_data = load_test_data(test_application.reference_number)
@@ -44,6 +47,7 @@ class TestPlaceOfBirth:
         with app.app_context():
             with client.session_transaction() as session:
                 session['reference_number'] = test_application.reference_number
+                session['identity_verified'] = True
             response = client.post('/birth-registration/place-of-birth', data={})
             assert response.status_code == 200
             assert 'What is the town or city of birth on your birth or adoption certificate?' in response.text

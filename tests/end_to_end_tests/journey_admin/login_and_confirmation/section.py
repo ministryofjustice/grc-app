@@ -40,7 +40,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Check your email')
     await asserts.number_of_errors(0)
 
-# Don't enter a Security Code, click Continue button, see an error message
+    # Don't enter a Security Code, click Continue button, see an error message
     await helpers.fill_textbox(field='security_code', value='')
     await helpers.click_button('Continue')
     await asserts.url('/sign-in-with-security_code')

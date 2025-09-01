@@ -26,6 +26,7 @@ instance/config.py
 .env
 .admin.env
 .dashboard.env
+.jwks.env
 *.py.txt
 .vscode/settings.json
 .unotes/*

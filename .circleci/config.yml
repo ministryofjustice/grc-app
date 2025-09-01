@@ -12,6 +12,9 @@ references:
           POSTGRES_DB: grc-application-test
           POSTGRES_PORT: 5432
           POSTGRES_PASSWORD: password
+
+      - image: redis:latest
+
   cloud_container: &cloud_container
     docker:
       - image: 'ministryofjustice/cloud-platform-tools:1.24'
@@ -26,7 +29,7 @@ jobs:
       ecr_endpoint:
         type: string
     docker:
-      - image: 'circleci/python:3.8'
+      - image: 'circleci/python:3.10'
         environment:
           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
           FLASK_ENV: test
@@ -47,6 +50,18 @@ jobs:
           GOVUK_PAY_API: 'https://publicapi.payments.service.gov.uk/'
           GOVUK_PAY_API_KEY: '${GOVUK_PAY_API_KEY}'
           GLIMR_BASE_URL: 'http://localhost:8181/glimr/api/tdsapi'
+          BASE_URL: 'http://localhost:8080/'
+          ONE_LOGIN_DISCOVERY_URL: http://localhost:8080/one_login/api/.well-known/openid-configuration
+          ONE_LOGIN_CLIENT_ID: hhJNeUO_5HuSMx7UwmOEjjNLMlE
+          ONE_LOGIN_AUTH_REDIRECT_URI: http://localhost:8080/one-login/auth/callback
+          ONE_LOGIN_DID_URL: http://localhost:8080/one_login/api/.well-known/did.json
+          ONE_LOGIN_SAVE_AND_EXIT_REDIRECT_URI: http://localhost:8080/save-and-return/exit-application
+          ONE_LOGIN_CONFIRMATION_LOGOUT_REDIRECT_URI: http://localhost:8080/submit-and-pay/confirmation
+          ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI: http://localhost:8080/your-reference-number
+          ONE_LOGIN_DATE_TIME: 2025-07-18T10:20:00
+          ONE_LOGIN_PRIVATE_KEY_PATH: grc/one_login/mock_api/mock_keys/mock_private_key.pem
+          ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
+          REDIS_HOST: localhost
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
@@ -54,6 +69,7 @@ jobs:
           POSTGRES_DB: grc-application-test
           POSTGRES_PORT: 5432
           POSTGRES_PASSWORD: password
+      - image: redis:latest
     steps:
       - checkout
       - setup_remote_docker
@@ -141,8 +157,7 @@ jobs:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
-            FLASK_APP=grc waitress-serve --call --host=0.0.0.0 --port=8080 'grc:create_app' &
-            FLASK_APP=admin waitress-serve --call --host=0.0.0.0 --port=8181 'admin:create_app' &
+            waitress-serve --call --port=8080 'grc:create_app' &
             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
             pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
@@ -187,6 +202,21 @@ jobs:
             docker build \
               -f dashboard.Dockerfile \
               -t grc-dashboard \
+              --label build.git.sha=${CIRCLE_SHA1} \
+              --label build.git.branch=${CIRCLE_BRANCH} \
+              --label build.date=${BUILD_DATE} \
+              --build-arg APP_BUILD_DATE=${BUILD_DATE} \
+              --build-arg APP_BUILD_TAG=${CIRCLE_BRANCH} \
+              --build-arg APP_GIT_COMMIT=${CIRCLE_SHA1} \
+              .
+      - run:
+          name: build jwks image
+          command: |
+            export BUILD_DATE=$(date -Is) >> $BASH_ENV
+            source $BASH_ENV
+            docker build \
+              -f jwks.Dockerfile \
+              -t grc-jwks \
               --label build.git.sha=${CIRCLE_SHA1} \
               --label build.git.branch=${CIRCLE_BRANCH} \
               --label build.date=${BUILD_DATE} \
@@ -253,6 +283,7 @@ jobs:
             sed -i -e s/:grc-app-latest/:grc-app-$CIRCLE_SHA1/ deploy/staging/app-deployment.yaml
             sed -i -e s/:grc-admin-latest/:grc-admin-$CIRCLE_SHA1/ deploy/staging/admin-deployment.yaml
             sed -i -e s/:grc-dashboard-latest/:grc-dashboard-$CIRCLE_SHA1/ deploy/staging/dashboard-deployment.yaml
+            sed -i -e s/:grc-jwks-latest/:grc-jwks-$CIRCLE_SHA1/ deploy/staging/jwks-deployment.yaml
             kubectl apply -n grc-preprod --record=false -f ./deploy/staging
 
   deploy_image_to_uat:
@@ -317,7 +348,7 @@ jobs:
         type: string
     working_directory: ~/grc-app/maintenance
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.10
     steps:
       - checkout:
           path: ~/grc-app
@@ -495,6 +526,8 @@ commands:
               docker tag grc-app "<< parameters.ecr_endpoint >>:grc-app-latest"
               docker tag grc-dashboard "<< parameters.ecr_endpoint >>:grc-dashboard-${CIRCLE_SHA1}"
               docker tag grc-dashboard "<< parameters.ecr_endpoint >>:grc-dashboard-latest"
+              docker tag grc-jwks "<< parameters.ecr_endpoint >>:grc-jwks-${CIRCLE_SHA1}"
+              docker tag grc-jwks "<< parameters.ecr_endpoint >>:grc-jwks-latest"
 
               docker push "<< parameters.ecr_endpoint >>:grc-admin-${CIRCLE_SHA1}"
               docker push "<< parameters.ecr_endpoint >>:grc-admin-latest"
@@ -502,6 +535,8 @@ commands:
               docker push "<< parameters.ecr_endpoint >>:grc-app-latest"
               docker push "<< parameters.ecr_endpoint >>:grc-dashboard-${CIRCLE_SHA1}"
               docker push "<< parameters.ecr_endpoint >>:grc-dashboard-latest"
+              docker push "<< parameters.ecr_endpoint >>:grc-jwks-${CIRCLE_SHA1}"
+              docker push "<< parameters.ecr_endpoint >>:grc-jwks-latest"
 
     tag_and_push_maintenance_image:
       description: Tag and push maintenance page image

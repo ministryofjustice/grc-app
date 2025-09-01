@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% import "govuk-design-system-templates/error-summary.html" as error_summary %}
+{% import "govuk-design-system-templates/radios.html" as radios %}
+{% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/continue.html" as continue %}
+
+{% block title %}{{ _('Start or return to an application') }}{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            {{ error_summary.renderFor(form) }}
+
+            <h1 class="govuk-heading-l">
+                {{ _('Start or return to an application') }}
+            </h1>
+
+            <p class="govuk-body">
+              {{ _("You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login.") | safe }}
+            </p>
+            <p class="govuk-body">
+                {{ _("If this is your first time using this service, we will give you a reference number. You will need this if you return to your application.") }}
+            </p>
+            <p class="govuk-body">
+                {{ _("If you are returning to your application which was not started with GOV.UK One Login, you will also need to enter your email address and security code.") }}
+            </p>
+
+            <div class="govuk-inset-text">
+                {{ _("Before you start a new application, make sure you have read the guidance on <a href='https://www.gov.uk/apply-gender-recognition-certificate' target='_blank' class='govuk-link'>applying for a Gender Recognition Certificate (opens in a new tab)</a>.") }}
+            </div>
+
+            <form method="POST">
+                {{ form.csrf_token }}
+
+                {{ radios.renderFor(
+                    form,
+                    fieldName='new_application',
+                    radiosOptions={}
+                ) }}
+                {{ continue.renderFor() }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

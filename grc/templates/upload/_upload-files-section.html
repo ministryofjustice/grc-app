@@ -84,7 +84,7 @@
                         {{ _('Upload files') }}
                     </label>
                     <div id="documents-hint" class="govuk-hint">
-                        {{ _('The files must be a JPG, BMP, PNG, TIF or PDF and be smaller than 10MB') }}
+                        {{ _('The files must be a JPG, BMP, PNG, TIF or PDF and smaller than 10MB. The file name must not contain special characters such as: \ / : * ? “ < > |') }}
                     </div>
                     {% if extra_upload_hint %}
                         <div id="extra-upload-hint">
@@ -172,7 +172,7 @@
 <div class="govuk-warning-text govuk-!-margin-bottom-4 govuk-!-padding-0">
     <span class="govuk-warning-text__icon govuk-!-margin-top-1" aria-hidden="true">!</span>
     <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">{{ _('Warning') }}</span>
+        <span class="govuk-visually-hidden">{{ _('Warning') }}</span>
         {{ _('We will only accept clear images of full pages.') }}
         {{ _('If you take a photograph, please make sure all 4 corners of each page are visible.') }}
     </strong>

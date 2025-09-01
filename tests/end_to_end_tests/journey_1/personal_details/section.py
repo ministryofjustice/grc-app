@@ -721,7 +721,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Enter an invalid phone number
     await helpers.check_checkbox(field='contact_options', value='PHONE')
-    await helpers.fill_textbox(field='phone', value='+44 123 456 7890')
+    await helpers.fill_textbox(field='phone', value='310-9320-913209-34433434')
     await helpers.uncheck_checkbox(field='contact_options', value='EMAIL')
     await helpers.click_button('Save and continue')
     await asserts.url('/personal-details/contact-preferences')
