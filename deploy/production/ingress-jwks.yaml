@@ -20,7 +20,7 @@ spec:
   tls:
   - hosts:
     - jwks.apply-gender-recognition-certificate.service.gov.uk
-    secretName: gender-recognition-jwks-secret
+    secretName: apply-gender-recognition-jwks-secret
 
   rules:
   - host: jwks.apply-gender-recognition-certificate.service.gov.uk
