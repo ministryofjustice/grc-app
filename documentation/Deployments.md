@@ -5,48 +5,23 @@ Deployments
 
 # Deployments
 
-We use [GitHub Actions](https://docs.github.com/en/actions) for our deployments.  
-Here are the [GitHub Actions pipelines for the GRC service](https://github.com/cabinetoffice/grc-app/actions).
+We use [CircleCI](https://circleci.com/?utm_term=circle%20ci&utm_campaign=sem-google-dg--emea-en-brandAuth-tCPA-auth-brand&utm_source=google&utm_medium=sem&utm_content=&hsa_acc=2021276923&hsa_cam=20616025375&hsa_grp=155812226562&hsa_ad=675839591952&hsa_src=g&hsa_tgt=kwd-358251371487&hsa_kw=circle%20ci&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gad_source=1&gad_campaignid=20616025375&gbraid=0AAAAAD2FEzwRynTxx_b1w9CqtAYxR57QC&gclid=CjwKCAjwiNXFBhBKEiwAPSaPCWje0aU7DvIIRk2W4coUWL9n0x7JCSjtd1x1WFcUFeTb9l3W9BFOlBoCs4wQAvD_BwE) for our deployments.  
+Here are the [CircleCI pipelines for the GRC service](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app).
 
 ## When are deployments run?
-* Pushing to the `master` **branch** deploys to the `sandbox` environment  
-  You can see the [sandbox deployments here](https://github.com/cabinetoffice/grc-app/actions/workflows/deploy-sandbox.yml)
-
-* Pushing a **tag** named `stage-*` deploys to the `staging` environment  
-  You can see the [staging deployments here](https://github.com/cabinetoffice/grc-app/actions/workflows/deploy-staging.yml)
-
-* Pushing a **tag** named `v*` deploys to the `production` environment  
-  You can see the [production deployments here](https://github.com/cabinetoffice/grc-app/actions/workflows/deploy-prod.yml)
+* Pushing to the `master` **branch** deploys to the `production` environment  
+  You can see the [production deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app?branch=master)
 
 
-## How to deploy to Gov.UK PaaS manually
-Normally, it shouldn't be necessary to deploy to PaaS manually.
+* Pushing a **tag** named `UAT` deploys to the `UAT` environment  
+  You can see the [UAT deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app?branch=UAT)
 
-But, there might be cases where you want to test something quickly in a PaaS environment.  
-To deploy to PaaS, follow these instructions:
 
-* Follow the instructions on the [Hosting and live databases](Hosting_and_live_databases.md) page to connect to the hosting environments
+* Pushing a **tag** named `staging` deploys to the `staging` environment  
+  You can see the [staging deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app?branch=staging)
 
-* Open a Bash terminal in the `hosting` folder
 
-* Run `./LoginToGovPaas.sh`  
-  This should log you in to Gov.UK PaaS. You will be targeting the GRC organisation and the *sandbox* space:
+* Pushing a **tag** named `RST-*` deploys to the `dev` environment  
+  You can see the [dev deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app)
 
-* Return to the root folder:  
-  `cd ..`
 
-* Run this command  
-  ```shell
-  cf target -s sandbox
-  cf push geo-gender-recognition-certificate --manifest manifest-grc.yml --strategy rolling
-  ```
-
-Alternatively, you can login directly to PaaS (Note: All users should have Single Sign On enabled):
-
-`cf login --sso`
-
-Select your desired project and target environment to continue. Once logged in, push the code:
-
-`cf push APP_NAME -f MANIFEST_NAME --strategy rolling`
-
-WHERE: `APP_NAME` is the name of the app to be pushed, e.g. `geo-gender-recognition-certificate` and `MANIFEST_NAME` is your manifest file, e.g. `manifest-sandbox.yml`
