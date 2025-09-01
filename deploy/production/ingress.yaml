@@ -55,7 +55,6 @@ spec:
                 name: maintenance-page-svc
                 port: 
                   number: 8080
-
 ---
 
 apiVersion: networking.k8s.io/v1
