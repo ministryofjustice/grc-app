@@ -6,9 +6,12 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-grc-prod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
+    nginx.ingress.kubernetes.io/whitelist-source-range: >-
+      88.97.207.18/32,
+      90.209.73.29/32
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
-        return 403 "<h1>There is a problem:</h1><br><h3>Go back to the previous page using the back arrow and enter valid content</h3>";
+        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This service is currently undergoing system maintenance. Please try later<br/>\"}";
       }
       error_page 403 @custom_403;
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
@@ -52,37 +55,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
-                port: 
-                  number: 8080
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: gender-recognition-service-smoketest
-  namespace: grc-prod
-  annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-smoketest-grc-prod-green
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/whitelist-source-range: 88.97.207.18/32, 90.209.73.29/32
-
-spec:
-  ingressClassName: modsec
-  tls:
-    - hosts:
-        - apply-gender-recognition-certificate.service.gov.uk
-      secretName: apply-gender-recognition-service-app-secret
-
-  rules:
-    - host: apply-gender-recognition-certificate.service.gov.uk
-      http:
-        paths:
-          - path: /smoketest
-            pathType: ImplementationSpecific
-            backend:
-              service:
                 name: grc-app-service
-                port:
+                port: 
                   number: 3000
