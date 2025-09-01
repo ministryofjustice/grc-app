@@ -39,9 +39,9 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-admin-service
                 port:
-                  number: 8080
+                  number: 3001
 
     - host: dashboard.apply-gender-recognition-certificate.service.gov.uk
       http:
@@ -50,6 +50,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-dashboard-service
                 port:
-                  number: 8080
+                  number: 3002
