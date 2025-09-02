@@ -133,7 +133,7 @@ async def run_checks_on_completed_section(page: Page, asserts: AssertHelpers, he
     for row_reference_number in [first_row_ref_num_completed]:
         await helpers.check_checkbox(field=row_reference_number)
         await asserts.is_checked(field=row_reference_number)
-        await helpers.click_button('submit-selected-apps-btn-completed')
+        await helpers.click_button('Delete selected applications')
         await asserts.single_text_not_displayed(row_reference_number)
 
 
