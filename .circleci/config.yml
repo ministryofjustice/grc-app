@@ -157,8 +157,8 @@ jobs:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
-            waitress-serve --call -host=0.0.0.0 --port=8080 'grc:create_app' &
-            waitress-serve --call -host=0.0.0.0 --port=8181 'admin:create_app' &
+            waitress-serve --call --port=8080 'grc:create_app' &
+            waitress-serve --call --port=8181 'admin:create_app' &
             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
             pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
