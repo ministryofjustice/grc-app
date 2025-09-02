@@ -20,9 +20,9 @@ metadata:
       52.167.144.219,
       90.209.73.29/32,
       128.77.75.64/26,
-      86.145.190.211,
-      86.135.149.138,
-      109.224.139.207
+      86.145.190.211/32,
+      86.135.149.138/32,
+      109.224.139.207/32
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
         return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
@@ -69,38 +69,6 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: maintenance-page-svc
+                name: grc-app-service
                 port:
-                  number: 8080
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: gender-recognition-service-smoketest
-  namespace: grc-preprod
-  annotations:
-    external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-smoketest-grc-preprod-green
-    external-dns.alpha.kubernetes.io/aws-weight: "100"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/whitelist-source-range: 88.97.207.18/32
-
-spec:
-    ingressClassName: modsec
-    tls:
-      - hosts:
-          - preprod.gender-recognition.service.justice.gov.uk
-        secretName: gender-recognition-service-app-secret
-
-    rules:
-      - host: preprod.gender-recognition.service.justice.gov.uk
-        http:
-          paths:
-            - path: /smoketest
-              pathType: ImplementationSpecific
-              backend:
-                service:
-                  name: grc-app-service
-                  port:
-                    number: 3000
+                  number: 3000

@@ -8,7 +8,8 @@ Software to install
 Install the following software:
 * Git
   * [Git website](https://git-scm.com/)  
-    Here's the page to [download Git for Windows](https://git-scm.com/download/win)
+     * Here's the page to [download Git for Windows](https://git-scm.com/download/win)
+     * Install using brew for Mac
 
   * You might also like to use a Git GUI such as [GitKraken](https://www.gitkraken.com/) or [Sourcetree](https://www.sourcetreeapp.com/)
 
