@@ -200,16 +200,18 @@ def paymentConfirmation(id):
                 application_data.submit_and_pay_data.is_submitted = True
                 application_data.submit_and_pay_data.gov_pay_payment_details = r.text
                 DataStore.save_application(application_data)
-                one_login_logout = OneLoginLogout(OneLoginConfig())
-                redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
-                return local_redirect(redirect_url)
+                if session['one_login_auth'] and session['id_token']:
+                    one_login_logout = OneLoginLogout(OneLoginConfig())
+                    redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
+                    return local_redirect(redirect_url)
+                else:
+                    return local_redirect(url_for('submitAndPay.confirmation'))
             elif res['state']['status'] == 'failed':
                 flash(res['state']['message'], 'error')
         except BaseException as err:
             flash(err, 'error')
     else:
         flash('Something went wrong', 'error')
-
     return local_redirect(url_for('submitAndPay.checkYourAnswers'))
 
 
