@@ -125,9 +125,20 @@ spec:
           - name: ONE_LOGIN_REFERENCE_LOGOUT_REDIRECT_URI
             value: "http://localhost:3000/your-reference-number"
           - name: ONE_LOGIN_DATE_TIME
-            value: "2025-05-21T15:28:18"
+            value: "2025-09-1T18:30:00"
           - name: ONE_LOGIN_PRIVATE_KEY_PATH
             value: "/app/keys/private_key.pem"
+          - name: BASE_URL
+            value: "http://localhost:3000/"
+          - name: REDIS_HOST
+            value: "grc-redis-service"
+          - name: ONE_LOGIN_PRIVATE_KEY_PATH
+            value: "/app/keys/private_key.pem"
+          - name: ONE_LOGIN_KID
+            valueFrom:
+              secretKeyRef:
+                name: one-login-keys
+                key: kid
           - name: BASE_URL
             value: "http://localhost:3000/"
           - name: REDIS_HOST
