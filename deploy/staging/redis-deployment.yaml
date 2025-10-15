@@ -17,7 +17,7 @@ spec:
         runAsNonRoot: true
       containers:
       - name: grc-redis
-        image: bitnami/redis:latest
+        image: bitnamisecure/redis:latest
         env:
           - name: ALLOW_EMPTY_PASSWORD
             value: "yes"
