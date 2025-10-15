@@ -567,12 +567,12 @@ workflows:
           ecr_endpoint: ${ECR_ENDPOINT_DEV}
           filters:
             branches:
-              only: /^RST-.*/
+              only: /^TPET-.*/
       - deploy_image_to_dev:
           name: build-dev
           filters:
             branches:
-              only: /^RST-.*/
+              only: /^TPET-.*/
           requires:
             - build-containers-dev
       ### STAGING ###
