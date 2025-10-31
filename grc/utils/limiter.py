@@ -11,7 +11,7 @@ def limiter(app):
         get_remote_address,
         app=app,
         meta_limits=["5 per minute"],
-        default_limits=["200 per day", "50 per hour"],
+        default_limits=["2000 per day", "50 per hour"],
         storage_uri=app.config['MEMORY_STORAGE_URL'],
         strategy="fixed-window"
     )
