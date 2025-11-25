@@ -22,7 +22,8 @@ metadata:
       128.77.75.64/26,
       86.145.190.211/32,
       86.135.149.138/32,
-      109.224.139.207/32
+      109.224.139.207/32,
+      51.141.82.46/32, 51.141.83.29/32, 51.141.89.174/32, 51.141.94.212/32, 51.141.90.252/32
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
         return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";

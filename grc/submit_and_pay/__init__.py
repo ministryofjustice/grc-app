@@ -179,12 +179,63 @@ def download():
     response.headers.set('Content-Disposition', 'attachment', filename=file_name)
     return response
 
+# --------------------------------------------------------------------------------------
+# NEW: helper to perform all post-payment success side-effects (DB, files, email)
+# --------------------------------------------------------------------------------------
+def handle_successful_submission(application_data):
+
+    #Performs all side effects after a successful payment:
+    # - mark application SUBMITTED
+    # - create & upload files (async) and mark filesCreated on success
+    # - send confirmation email
+    # - anonymise other started applications for same email
+
+    # 1) Mark DB status SUBMITTED (idempotent)
+    mark_complete(application_data.reference_number)
+    logger.log(LogLevel.INFO, f"GRC: mark_complete done. ref={application_data.reference_number}")
+    # 2) Kick off file creation/upload asynchronously
+    @copy_current_request_context
+    def create_files(reference_number, application_data_):
+        app_files_util = ApplicationFiles()
+        mark_files_flag = True
+        logger.log(LogLevel.INFO, f"GRC: create_files START. ref={reference_number}")
+        if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
+            mark_files_flag = False
+
+        if not app_files_util.upload_pdf_admin_with_files_attached(application_data_):
+            mark_files_flag = False
+
+        if mark_files_flag:
+            mark_files_created(reference_number)
+
+        logger.log(LogLevel.INFO, f"GRC: create_files END. ref={reference_number}")
+    threading.Thread(target=create_files,args=[application_data.reference_number, application_data]).start()
+
+    # 3) Send confirmation email
+    if g.lang_code == 'cy':
+        doc_template = 'documents-cy.html'
+    else:
+        doc_template = 'documents.html'
+
+    GovUkNotify().send_email_completed_application(
+        email_address=application_data.email_address,
+        documents_to_be_posted=render_template(doc_template, application_data=application_data)
+    )
+    logger.log(LogLevel.INFO, f"GRC: confirmation email sent. ref={application_data.reference_number}")
+    # 4) Anonymise other STARTED applications for this email (exclude current)
+    applications_to_anonymise = Application.query.filter(
+        Application.status == ApplicationStatus.STARTED,
+        Application.email == application_data.email_address,
+        Application.reference_number != application_data.reference_number
+    )
+    for application_to_anonymise in applications_to_anonymise:
+        anonymise_application(application_to_anonymise)
 
 @submitAndPay.route('/submit-and-pay/payment-confirmation/<uuid:id>', methods=['GET', 'POST'])
 @LoginRequired
 def paymentConfirmation(id):
     application_data = DataStore.load_application_by_session_reference_number()
-
+    ref = getattr(application_data,"reference_number","UNKNOWN")
     if application_data.submit_and_pay_data.gov_pay_uuid == str(id):
         headers = CaseInsensitiveDict()
         headers['Accept'] = 'application/json'
@@ -196,17 +247,28 @@ def paymentConfirmation(id):
                 headers=headers
             )
             res = json.loads(r.text)
+            logger.log(LogLevel.INFO, f"GRC: GOVPAY status HTTP={r.status_code} ref={ref}")
             if res['state']['status'] == 'success' and res['state']['finished'] == True:
                 application_data.submit_and_pay_data.is_submitted = True
                 application_data.submit_and_pay_data.gov_pay_payment_details = r.text
                 DataStore.save_application(application_data)
+                logger.log(LogLevel.INFO, f"GRC: set is_submitted=True ref={ref}")
+                # Use new process to complete database changes and file upload
+                handle_successful_submission(application_data)
                 if session['one_login_auth'] and session['id_token']:
-                    one_login_logout = OneLoginLogout(OneLoginConfig())
-                    redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
-                    return local_redirect(redirect_url)
+                    logger.log(LogLevel.INFO,'GRC-ONE LOGIN AUTH and ID TOKEN Matches')
+                    try:
+                        one_login_logout = OneLoginLogout(OneLoginConfig())
+                        redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
+                        return local_redirect(redirect_url)
+                    except Exception as e:
+                        logger.log(LogLevel.ERROR, f"GRC: OneLogin logout URL build ERROR ref={ref} err={e}")
+                    return local_redirect(url_for('submitAndPay.confirmation'))
                 else:
+                    logger.log(LogLevel.INFO,'GRC-ONE LOGIN AUTH and ID TOKEN NOT matching')
                     return local_redirect(url_for('submitAndPay.confirmation'))
             elif res['state']['status'] == 'failed':
+                logger.log(LogLevel.WARN, f"GRC: GOVPAY reported FAILED ref={ref}")
                 flash(res['state']['message'], 'error')
         except BaseException as err:
             flash(err, 'error')
@@ -219,44 +281,6 @@ def paymentConfirmation(id):
 @LoginRequired
 def confirmation():
     application_data = DataStore.load_application_by_session_reference_number()
-    mark_complete(application_data.reference_number)
-
-    @copy_current_request_context
-    def create_files(reference_number, application_data_):
-        app_files_util = ApplicationFiles()
-
-        mark_files_flag = True
-
-        if not app_files_util.create_and_upload_attachments(reference_number, application_data_):
-            mark_files_flag = False
-
-        if not app_files_util.upload_pdf_admin_with_files_attached(application_data_):
-            mark_files_flag = False
-
-        if mark_files_flag:
-            mark_files_created(reference_number)
-
-    threading.Thread(target=create_files, args=[application_data.reference_number, application_data]).start()
-
-    if g.lang_code == 'cy':
-        doc_template = 'documents-cy.html'
-    else:
-        doc_template = 'documents.html'
-
-    GovUkNotify().send_email_completed_application(
-        email_address=application_data.email_address,
-        documents_to_be_posted=render_template(doc_template, application_data=application_data)
-    )
-
-    applications_to_anonymise = Application.query.filter(
-        Application.status == ApplicationStatus.STARTED,
-        Application.email == application_data.email_address,
-        Application.reference_number != application_data.reference_number
-    )
-
-    for application_to_anonymise in applications_to_anonymise:
-        anonymise_application(application_to_anonymise)
-
     context = {
         'birth_cert_copy_link': c.get_send_birth_cert_copy_link(),
         'ex160_link': c.get_send_ex160_link(),
