@@ -151,7 +151,8 @@ def checkYourAnswers():
 
                 return local_redirect(res['_links']['next_url']['href'])
             except BaseException as err:
-                flash(err, 'error')
+                flash(str(err), 'error')
+                logger.log(LogLevel.ERROR, f"GRC: GOVPAY create payment error err={err}")
 
     if application_data.submit_and_pay_data.applying_for_help_with_fee:
         back_link = 'submitAndPay.helpType'
