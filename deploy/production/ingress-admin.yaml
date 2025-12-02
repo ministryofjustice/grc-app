@@ -19,6 +19,8 @@ metadata:
         return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
       }
       error_page 403 @custom_403;
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
+    nginx.ingress.kubernetes.io/ssl-ciphers: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305"
     external-dns.alpha.kubernetes.io/set-identifier: gender-recognition-service-admin-grc-prod-green
     external-dns.alpha.kubernetes.io/aws-weight: "100"
 spec:
