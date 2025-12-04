@@ -105,6 +105,10 @@ def checkYourAnswers():
         if application_data.submit_and_pay_data.applying_for_help_with_fee:
             application_data.submit_and_pay_data.is_submitted = True
             DataStore.save_application(application_data)
+            ref = getattr(application_data, "reference_number", "UNKNOWN")
+            logger.log(LogLevel.INFO, f"GRC: help_with_fee selected; is_submitted set ref={ref}")
+            # Use new process to complete database changes and file upload
+            handle_successful_submission(application_data)
             one_login_logout = OneLoginLogout(OneLoginConfig.get_instance())
             redirect_url = one_login_logout.logout_redirect_url_to_confirmation_page(session['id_token'])
             return local_redirect(redirect_url)
@@ -147,7 +151,8 @@ def checkYourAnswers():
 
                 return local_redirect(res['_links']['next_url']['href'])
             except BaseException as err:
-                flash(err, 'error')
+                flash(str(err), 'error')
+                logger.log(LogLevel.ERROR, f"GRC: GOVPAY create payment error err={err}")
 
     if application_data.submit_and_pay_data.applying_for_help_with_fee:
         back_link = 'submitAndPay.helpType'
@@ -280,7 +285,14 @@ def paymentConfirmation(id):
 @submitAndPay.route('/submit-and-pay/confirmation', methods=['GET'])
 @LoginRequired
 def confirmation():
-    application_data = DataStore.load_application_by_session_reference_number()
+    logger.log(LogLevel.INFO, f"GRC: confirmation ENTER session_exists={bool(session)}")
+    try:
+        application_data = DataStore.load_application_by_session_reference_number()
+        ref = getattr(application_data, "reference_number", "UNKNOWN")
+        logger.log(LogLevel.INFO, f"GRC: confirmation loaded app from session ref={ref}")
+    except Exception as e:
+        logger.log(LogLevel.WARN, f"GRC: confirmation could not load from session err={e}")
+        # redirect to start page / checkYourAnswers; we also log that decision
     context = {
         'birth_cert_copy_link': c.get_send_birth_cert_copy_link(),
         'ex160_link': c.get_send_ex160_link(),
