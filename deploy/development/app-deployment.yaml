@@ -52,7 +52,7 @@ spec:
                 name: rds-postgresql-instance-output
                 key: url
           - name: DEFAULT_ADMIN_USER
-            value: dts-legacy-apps-support-team@hmcts.net
+            value: asc-cloud-ready-app-support@hmcts.net
           - name: DEFAULT_ADMIN_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -72,7 +72,7 @@ spec:
           - name: LOG_LEVEL
             value: DEBUG
           - name: NOTIFY_OVERRIDE_EMAIL
-            value: dts-legacy-apps-support-team@hmcts.net
+            value: asc-cloud-ready-app-support@hmcts.net
           - name: NOTIFY_API
             valueFrom:
               secretKeyRef:
