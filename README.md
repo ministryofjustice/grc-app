@@ -12,4 +12,3 @@ Please visit the Gov.UK website to [apply for a Gender Recognition Certificate](
 
 ## I am a software developer working on the Gender Recognition Certificate service code
 Please see the [developer documentation](./documentation/README.md) for a description of how to run, deploy and backup the service.
-
