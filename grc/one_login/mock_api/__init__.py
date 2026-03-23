@@ -270,7 +270,7 @@ def userInfo():
 
         metadata = {
           "sub": "urn:fdc:gov.uk:2022:56P4CMsGh_02YOlWpd8PAOI-2sVlB2nsNU7mcLZYhYw=",
-          "email": os.environ.get('DEFAULT_ADMIN_USER', 'dts-legacy-apps-support-team@HMCTS.NET'),
+          "email": os.environ.get('DEFAULT_ADMIN_USER', 'asc-cloud-ready-app-support@hmcts.net'),
           "email_verified": True,
           "phone_number": "+441406946277",
           "phone_number_verified": True
