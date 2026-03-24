@@ -20,7 +20,7 @@ metadata:
       80.6.230.76
     nginx.ingress.kubernetes.io/server-snippet: |
       location @custom_403 {
-        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 123 4503  Monday to Friday, 9am to 5pm<br/>\"}";
+        return 403 "{\"msg\":\"<br/>Gender Recognition Panel<br/>This is a restricted page. Please contact by email or telephone if you need access<br/>GRPenquiries@justice.gov.uk<br>Telephone: 0300 303 5837  Monday to Friday, 9am to 5pm<br/>\"}";
       }
       error_page 403 @custom_403;
     #nginx.ingress.kubernetes.io/custom-http-errors: "403" |
