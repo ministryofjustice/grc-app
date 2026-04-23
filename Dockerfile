@@ -28,7 +28,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 # Compile messages
