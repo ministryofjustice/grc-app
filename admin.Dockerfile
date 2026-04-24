@@ -29,7 +29,7 @@ COPY . .
 # RUN pip install pre-commit
 # RUN pre-commit install --install-hooks
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 #RUN rm /app/grc -r
