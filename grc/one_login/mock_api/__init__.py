@@ -337,7 +337,7 @@ def create_mock_tokens(code):
 
     at_hash = compute_at_hash(access_token)
 
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     iat = int(now.timestamp())
     exp = int((now + datetime.timedelta(minutes=5)).timestamp())
 

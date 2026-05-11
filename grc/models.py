@@ -1,5 +1,7 @@
 import os
-from datetime import datetime
+#from datetime import datetime
+from datetime import datetime, timezone
+def utc_now(): return datetime.now(timezone.utc).replace(tzinfo=None)
 import enum
 import jsonpickle
 from flask_sqlalchemy import SQLAlchemy
@@ -29,7 +31,7 @@ class Application(db.Model):
         db.Enum(ApplicationStatus, name='application_status'),
         default=ApplicationStatus.STARTED
     )
-    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created = db.Column(db.DateTime, default=utc_now, nullable=False)
     updated = db.Column(db.DateTime)
     last_page = db.Column(db.String(500))
     downloaded = db.Column(db.DateTime)
@@ -57,7 +59,7 @@ class SecurityCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(StringEncryptedType(db.String, length=50, key=secret_key, engine=AesEngine, padding='pkcs5'), unique=True, nullable=False)
     email = db.Column(StringEncryptedType(db.String, length=500, key=secret_key, engine=AesEngine, padding='pkcs5'), nullable=False)
-    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created = db.Column(db.DateTime, default=utc_now, nullable=False)
 
 
 class AdminUser(db.Model):
@@ -72,7 +74,7 @@ class AdminUser(db.Model):
 
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    created = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created = db.Column(db.DateTime, default=utc_now, nullable=False)
     how_easy_to_complete_application = db.Column(db.String(20), nullable=True)
     any_questions_difficult_to_answer = db.Column(db.String(3), nullable=True)
     which_questions_difficult_to_answer = db.Column(db.String(5000), nullable=True)
