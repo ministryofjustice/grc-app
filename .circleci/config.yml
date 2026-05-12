@@ -29,7 +29,7 @@ jobs:
       ecr_endpoint:
         type: string
     docker:
-      - image: 'circleci/python:3.10'
+      - image: 'cimg/python:3.12'
         environment:
           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
           FLASK_ENV: test
@@ -117,6 +117,11 @@ jobs:
                 name: Login to PROD ECR
                 command: |
                   aws ecr get-login-password --region $ECR_REGION_PROD | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID_PROD}.dkr.ecr.${ECR_REGION_PROD}.amazonaws.com
+      - run:
+          name: Install system dependencies
+          command: |
+                sudo apt-get update
+                sudo apt-get install -y libcairo2-dev pkg-config
       - run:
           name: Install dependencies
           command: |
@@ -348,7 +353,7 @@ jobs:
         type: string
     working_directory: ~/grc-app/maintenance
     docker:
-      - image: circleci/python:3.10
+      - image: cimg/python:3.12
     steps:
       - checkout:
           path: ~/grc-app
