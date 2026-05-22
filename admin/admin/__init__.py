@@ -31,7 +31,7 @@ def index():
             ).first()
 
             if not user:
-                form.email_address.errors.append("A user with this email address was not found")
+                form.email_address.errors.append("Enter a valid email address and password")
                 session.pop('signedIn', None)
                 session.pop('email', None)
                 session.pop('userType', None)
@@ -39,7 +39,7 @@ def index():
                 return render_template('login/login.html', form=form)
 
             if not check_password_hash(user.password, form.password.data):
-                form.password.errors.append("Your password was incorrect. Please try re-entering your password")
+                form.password.errors.append("Enter a valid email address and password")
                 logger.log(LogLevel.INFO, f"{logger.mask_email_address(email_address)} entered incorrect password")
                 return render_template('login/login.html', form=form)
 

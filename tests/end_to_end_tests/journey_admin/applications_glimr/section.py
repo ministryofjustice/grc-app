@@ -1,4 +1,4 @@
-from playwright.async_api import Page
+from playwright.async_api import Page, expect
 
 from grc.start_application import reference
 from grc.utils.reference_number import reference_number_is_valid

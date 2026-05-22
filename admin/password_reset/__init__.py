@@ -42,6 +42,9 @@ def index():
 @password_reset.route('/reset-password-with-security-code', methods=['GET', 'POST'])
 def reset_password_security_code():
     form = SecurityCodeForm()
+    if 'email' not in session:
+        return local_redirect(url_for('forgot_password.index'))
+
     email_address = session['email']
 
     # 2FA link
@@ -61,8 +64,14 @@ def reset_password_security_code():
             return local_redirect(url_for('password_reset.index'))
 
     if request.method == 'GET' and request.args.get('resend') == 'true':
-        GovUkNotify().send_email_admin_login_security_code(session['email'])
-        flash('We’ve resent you a security code. This can take a few minutes to arrive.', 'email')
+        user = AdminUser.query.filter_by(email=email_address).first()
+        if user is not None:
+            #GovUkNotify().send_email_admin_login_security_code(session['email'])
+            GovUkNotify().send_email_admin_forgot_password(email_address=user.email)
+
+        else:
+            logger.log(LogLevel.WARN, f"Password reset resend requested for unknown user {logger.mask_email_address(email_address)}")
+        flash('If an account exists, we’ve resent you a security code. This can take a few minutes to arrive.', 'email')
     return render_template(
         'password_reset/password-reset-security-code.html',
         form=form
