@@ -17,7 +17,7 @@ from grc.models import db, AdminUser
 TEST_URL = os.getenv('ADMIN_TEST_URL', 'http://grc_admin:3001')
 def ensure_e2e_admin_user():
     user = AdminUser.query.filter_by(email=data.EMAIL_ADDRESS).first()
-
+    print(f"created e2e admin user: {data.EMAIL_ADDRESS}", flush=True)
     if user is None:
         user = AdminUser(email=data.EMAIL_ADDRESS)
         db.session.add(user)
@@ -26,7 +26,14 @@ def ensure_e2e_admin_user():
     user.passwordResetRequired = False
     user.userType = "ADMIN"
     db.session.commit()
-
+    print(
+        f"e2e admin user created/updated: "
+        f"email={user.email}, "
+        f"exists={user is not None}, "
+        f"userType={user.userType}, "
+        f"passwordResetRequired={user.passwordResetRequired}",
+        flush=True
+    )
 def e2e_test_prerequisites():
     ensure_e2e_admin_user()
     # Require security code to be entered
