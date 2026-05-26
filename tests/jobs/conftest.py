@@ -119,16 +119,13 @@ def test_emails(request):
 @pytest.fixture
 def expired_security_codes(app, test_emails):
     with app.app_context():
-        codes = [generate_security_code_and_expiry(email)[0] for email in test_emails]
-        print(f'codes = {codes}', flush=True)
+        security_codes = []
+        for index, email in enumerate(test_emails):
+            security_code = SecurityCode(code=f"9000{index}", email=email,created=datetime.now() - relativedelta(days=7))
+            print(f'security_codes = {security_codes}', flush=True)
 
-        security_codes = SecurityCode.query.filter(SecurityCode.code.in_(codes)).all()
-        print(f'security_codes = {security_codes}', flush=True)
-
-        if security_codes:
-            for security_code in security_codes:
-                print(f'code = {security_code.code} for user = {security_code.email}', flush=True)
-                security_code.created = datetime.now() - relativedelta(days=7)
-            db.session.commit()
+            db.session.add(security_code)
+            security_codes.append(security_code)
+        db.session.commit()
 
         yield security_codes
