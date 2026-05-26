@@ -11,7 +11,7 @@ import tests.end_to_end_tests.journey_admin.data as data
 import tests.end_to_end_tests.journey_admin.downloaded_applications.section as section_applications_downloaded
 import tests.end_to_end_tests.journey_admin.completed_applications.section as section_applications_completed
 from grc.utils.security_code import delete_all_user_codes
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from grc.models import db, AdminUser
 
 TEST_URL = os.getenv('ADMIN_TEST_URL', 'http://grc_admin:3001')
@@ -34,6 +34,16 @@ def ensure_e2e_admin_user():
         f"passwordResetRequired={user.passwordResetRequired}",
         flush=True
     )
+    lookup_user = AdminUser.query.filter_by(email=data.EMAIL_ADDRESS.lower()).first()
+
+    print(
+        f"e2e admin lookup: "
+        f"email_is_lowercase={data.EMAIL_ADDRESS == data.EMAIL_ADDRESS.lower()}, "
+        f"lowercase_lookup_found={lookup_user is not None}, "
+        f"password_matches={check_password_hash(lookup_user.password, data.PASSWORD) if lookup_user else False}",
+        flush=True
+   )
+    
 def e2e_test_prerequisites():
     ensure_e2e_admin_user()
     # Require security code to be entered
