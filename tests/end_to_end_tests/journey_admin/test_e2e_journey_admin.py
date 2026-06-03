@@ -30,8 +30,7 @@ def ensure_e2e_admin_user():
         f"e2e admin user created/updated: "
         f"email={user.email}, "
         f"exists={user is not None}, "
-        f"userType={user.userType}, "
-        f"passwordResetRequired={user.passwordResetRequired}",
+        f"userType={user.userType}, ",
         flush=True
     )
     lookup_user = AdminUser.query.filter_by(email=data.EMAIL_ADDRESS.lower()).first()
@@ -43,7 +42,7 @@ def ensure_e2e_admin_user():
         f"password_matches={check_password_hash(lookup_user.password, data.PASSWORD) if lookup_user else False}",
         flush=True
    )
-    
+
 def e2e_test_prerequisites():
     ensure_e2e_admin_user()
     # Require security code to be entered
