@@ -18,6 +18,7 @@ Getting the code running
   * `.env`
   * `.admin.env`
   * `.dashboard.env`
+  * `.jwks.env`
 
 
 * In the `.admin.env` file, edit the line `DEFAULT_ADMIN_USER=` to use your email address

@@ -1,7 +1,7 @@
 import re
 from tabnanny import check
 
-from playwright.async_api import Page
+from playwright.async_api import Page, expect
 from tests.end_to_end_tests.accessibility.accessibility_checks import AccessibilityChecks
 from tests.end_to_end_tests.helpers.e2e_page_helpers import PageHelpers, clean_string
 
@@ -259,6 +259,13 @@ class AssertHelpers:
 
         assert_equal(is_enabled, True)
 
+    async def h2(self, expected_h2_text: str, selector: str = 'h2'):
+        actual_h2_text = clean_string(await self.page.locator(selector).first.inner_text())
+        assert_equal(actual_h2_text, expected_h2_text)
+
+    async def single_text_not_displayed(self, first_row_reference_number: str):
+        elements = self.page.locator(f"text={first_row_reference_number}")
+        await expect(elements).not_to_be_visible()
 
 def get_url_path(url: str):
     if url.startswith('http://'):

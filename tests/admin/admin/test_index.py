@@ -60,7 +60,15 @@ class TestAdminIndex:
         with app.app_context():
             form_data = {'email_address': 'test.email@example.com', 'password': 'INVALID_PASSWORD'}
             response = client.post('/', data=form_data)
-            assert 'Your password was incorrect. Please try re-entering your password' in response.text
+           # assert 'Your password was incorrect. Please try re-entering your password' in response.text
+            assert 'Enter a valid email address and password' in response.text
+            assert response.status_code == 200
+
+    def test_index_post_email_unknown_user(self, app, client):
+        with app.app_context():
+            form_data = {'email_address': 'unknown.email@example.com','password': 'password'}
+            response = client.post('/', data=form_data)
+            assert 'Enter a valid email address and password' in response.text
             assert response.status_code == 200
 
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_login_security_code')

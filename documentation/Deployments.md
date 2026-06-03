@@ -21,7 +21,7 @@ Here are the [CircleCI pipelines for the GRC service](https://app.circleci.com/p
   You can see the [staging deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app?branch=staging)
 
 
-* Pushing a **tag** named `RST-*` deploys to the `dev` environment  
+* Pushing a **tag** named `TPET-*` deploys to the `dev` environment  
   You can see the [dev deployments here](https://app.circleci.com/pipelines/github/ministryofjustice/grc-app)
 
 
