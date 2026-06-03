@@ -31,7 +31,8 @@ def index():
             ).first()
 
             if not user:
-                form.email_address.errors.append("Enter a valid email address and password")
+                # If email address doesn't exist still show error on password text box to avoid giving away which email addresses are registered
+                form.password.errors.append("Enter a valid email address and password")
                 session.pop('signedIn', None)
                 session.pop('email', None)
                 session.pop('userType', None)
