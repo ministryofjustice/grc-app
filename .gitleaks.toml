@@ -3,11 +3,6 @@ title = "GRC gitleaks config"
 useDefault = true
 
 [[allowlists]]
-description = "Temporary false-positive: CircleCI test SECRET_KEY in .circleci/config.yml only"
-paths = ['''^\.circleci/config\.yml$''']
-regexes = ['''^\s*SECRET_KEY:\s*\S+\s*$''']
-
-[[allowlists]]
 description = "Temporary false-positive: GOV.UK Notify template ID constant"
 paths = ['''^grc/external_services/gov_uk_notify_templates\.py$''']
 regexes = ['''^\s*ADMIN_FORGET_PASSWORD_TEMPLATE\s*=\s*['"][^'"]+['"]\s*$''']

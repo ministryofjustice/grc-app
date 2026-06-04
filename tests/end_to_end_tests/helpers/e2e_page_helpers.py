@@ -93,6 +93,20 @@ class PageHelpers:
     async def go_to_page(self, page):
         await self.page.goto(page)
 
+    async def click_link_by_exact_href(self, href_value: str):
+        link = self.page.locator(f'a[href="{href_value}"]')
+        count = await link.count()
+
+        assert count > 0, f"No link found with href exactly equal to '{href_value}'"
+        await link.first.click()
+
+    async def click_button_by_exact_text(self, text: str):
+        locator = self.page.locator(f'xpath=//button[normalize-space(text())="{text}"]')
+        if await locator.is_visible():
+            await locator.click()
+        else:
+            raise Exception(f"Button with exact text '{text}' is not visible.")
+
 
 # Removes multiple sequential whitespace characters from the string
 def clean_string(value: str):

@@ -12,8 +12,7 @@ For example, if we detect a problem, and want to make sure no-one uses the servi
 
 
 ## What does maintenance mode look like?
-![img_1.png](img_1.png)
-
+![Maintenance Mode](images/grc-MaintenanceMode.png)
 
 ## Put service into maintenance mode?
 

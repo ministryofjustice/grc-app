@@ -7,11 +7,12 @@ class AdminHelpers:
     def __init__(self, page: Page):
         self.page = page
 
-    async def get_top_rows(self, number_of_rows: int):
+    async def get_top_rows(self, number_of_rows: int, table_selector: str = "table"):
         """
         Extracts top three rows from table
         """
-        rows = await self.page.locator("table tbody tr").all()
+        #rows = await self.page.locator("table tbody tr").all()
+        rows = await self.page.locator(f"{table_selector} tbody tr").all()
         assert len(rows) >= number_of_rows, f"Expected at least {number_of_rows} rows, but found {len(rows)}"
         return [rows[i] for i in range(number_of_rows) ]
 
@@ -32,6 +33,14 @@ class AdminHelpers:
         assert reference_number.strip(), "Reference number is empty"
 
         return unformatted_reference_number(reference_number.strip())
+
+    async def get_row_reference_number_from_link(self, row):
+        link = row.locator('a[href^="/applications/"]').first
+        href = await link.get_attribute('href')
+
+        assert href is not None, "No application link found in table row"
+
+        return href.replace('/applications/', '')
 
 def unformatted_reference_number(reference_number: str) -> str:
     """
