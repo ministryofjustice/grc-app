@@ -38,7 +38,7 @@ jobs:
           LOG_LEVEL: DEBUG
           TEST_URL: 'http://localhost:8080'
           ADMIN_TEST_URL: 'http://localhost:8181'
-          SECRET_KEY: ef987sd9fwkjefosf9we0svs9q3evsd0
+          SECRET_KEY: '${TEST_SECRET_KEY}'
           SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:password@localhost:5432/grc'
           SQLALCHEMY_TRACK_MODIFICATION: false
           DEFAULT_ADMIN_USER: asc-cloud-ready-app-support@hmcts.net
@@ -62,6 +62,7 @@ jobs:
           ONE_LOGIN_PRIVATE_KEY_PATH: grc/one_login/mock_api/mock_keys/mock_private_key.pem
           ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
           REDIS_HOST: localhost
+
       - image: 'circleci/postgres:10.4'
         environment:
           POSTGRES_HOST: localhost
@@ -162,8 +163,10 @@ jobs:
           name: Start site and run e2e
           command: |
             . venv/bin/activate
-            waitress-serve --call --port=8080 'grc:create_app' &
+            FLASK_APP=grc waitress-serve --call --port=8080 'grc:create_app' &
+            FLASK_APP=admin waitress-serve --call --port=8181 'admin:create_app' &
             pytest tests/test_ping_json.py --max-retries 5 --timeout 3 --html=reports/smoke_report.html
+            python -c "import os; print('ADMIN_E2E_EMAIL=', os.environ.get('ADMIN_E2E_EMAIL')); print('ADMIN_E2E_PASSWORD length=', len(os.environ.get('ADMIN_E2E_PASSWORD', '')))"
             pytest tests/end_to_end_tests/* -s --show-capture=all -v --html=reports/e2e_report.html
       - store_artifacts:
           path: reports/

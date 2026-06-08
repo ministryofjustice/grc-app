@@ -16,29 +16,21 @@ logger = Logger()
 def index():
     form = ForgotPasswordForm()
 
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            email_address: str = form.email_address.data
-            email_address = email_address.lower()
-            user = AdminUser.query.filter_by(
-                email=email_address
-            ).first()
+    if request.method == 'POST' and form.validate_on_submit():
+        email_address: str = form.email_address.data.lower()
+        user = AdminUser.query.filter_by(email=email_address).first()
 
-            # Email out 2FA link
-            if user is not None:
-                try:
-                    GovUkNotify().send_email_admin_forgot_password(email_address=user.email)
-                    logger.log(LogLevel.INFO, f"Password reset link sent to {email_address}")
+        if user is not None:
+            try:
+                GovUkNotify().send_email_admin_forgot_password(email_address=user.email)
+                logger.log(LogLevel.INFO, f"Password reset link sent to {logger.mask_email_address(email_address)}")
+            except Exception as e:
+                logger.log(LogLevel.ERROR, str(e))
+        else:
+            logger.log(LogLevel.WARN, f"Password reset requested for unknown user {logger.mask_email_address(email_address)}")
 
-                except Exception as e:
-                    logger.log(LogLevel.ERROR, str(e))
-
-                session['email'] = email_address
-                return local_redirect(url_for('password_reset.reset_password_security_code'))
-
-            else:
-                form.email_address.errors.append("A user with this email address was not found")
-                logger.log(LogLevel.WARN, f"Password reset requested for unknown user {email_address}")
+        session['email'] = email_address
+        return local_redirect(url_for('password_reset.reset_password_security_code'))
 
     return render_template(
         'forgot-password/forgot_password.html',

@@ -1,7 +1,7 @@
-from flask import current_app
+import os
 
 DEFAULT_TIMEOUT = 10 * 1000
 
-EMAIL_ADDRESS = "asc-cloud-ready-app-support@hmcts.net"
-PASSWORD = "123ABC"
+EMAIL_ADDRESS = os.environ["ADMIN_E2E_EMAIL"]
+PASSWORD = os.environ["ADMIN_E2E_PASSWORD"]
 
