@@ -1,6 +1,8 @@
 # New SCA scanning to replace existing tool
 name: sca.yml
 on:
+   schedule:
+    - cron: '15 2 * * *' # every day at 02:15 UTC
    push:
      branches:
        - master
