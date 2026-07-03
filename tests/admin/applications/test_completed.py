@@ -1,11 +1,12 @@
 from grc.models import Application, ApplicationStatus
 
 class TestAdminApplicationsCompleted:
-    def test_completed_marks_selected_application_as_completed(self, app, client, downloaded_application):
+    def test_completed_marks_selected_application_as_completed(self, app, client, downloaded_application, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
                 session['userType'] = 'ADMIN'
+                session['admin_session_version'] = admin.session_version
         response = client.post('/applications/completed', data={
             downloaded_application.reference_number: 'on'
         })
@@ -19,11 +20,12 @@ class TestAdminApplicationsCompleted:
         assert updated_application.completed is not None
         assert updated_application.completedBy == 'test.email@example.com'
 
-    def test_completed_with_no_selected_applications_redirects_to_downloaded(self, app, client):
+    def test_completed_with_no_selected_applications_redirects_to_downloaded(self, app, client, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
                 session['userType'] = 'ADMIN'
+                session['admin_session_version'] = admin.session_version
 
             response = client.post('/applications/completed', data={})
 

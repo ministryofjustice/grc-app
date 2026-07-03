@@ -20,14 +20,6 @@ ingress:
   #   - secretName: <CERTIFICATE-SECRET-NAME>
   #     hosts:
   #       - <DNS-PREFIX>.apps.live.cloud-platform.service.justice.gov.uk
-    
-postgresql:
-  enabled: true
-  existingSecret: container-postgres-secrets
-  postgresqlDatabase: grc-app
-  persistence:
-    enabled: false
-
 contentapi:
   replicaCount: 1
   image:

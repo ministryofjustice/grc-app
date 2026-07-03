@@ -2,6 +2,7 @@ $govuk-assets-path: "/static/assets/";
 @import "./../../node_modules/govuk-frontend/dist/govuk/all";
 @import "./related-navigation";
 @import "./patterns/interuption-card";
+@import "./cgr-utilities";
 
 html,
 body {

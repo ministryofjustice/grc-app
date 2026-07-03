@@ -12,5 +12,6 @@ def index():
     session.pop('signedIn', None)
     session.pop('emailAddress', None)
     session.pop('userType', None)
+    session.pop('admin_session_version', None)
 
     return local_redirect(url_for('admin.index'))

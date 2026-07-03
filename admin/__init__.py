@@ -2,14 +2,16 @@ import json
 import os
 from admin.config import Config, TestConfig
 from datetime import timedelta
-from flask import Flask, g, session
+from flask import Flask, g, request, session, url_for
 from flask_babel import Babel
 from flask_migrate import Migrate
 from flask_uuid import FlaskUUID
-from grc.models import db
+from grc.models import AdminUser, db
 from grc.utils import filters, limiter
+from grc.utils.csp import build_csp, csp_context, generate_nonce
 from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.custom_error_handlers import CustomErrorHandlers
+from grc.utils.redirect import local_redirect
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 migrate = Migrate()
@@ -45,26 +47,34 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     flask_uuid.init_app(app)
+    app.context_processor(csp_context)
 
     # update session timeout time
     @app.before_request
     def make_before_request():
         app.permanent_session_lifetime = timedelta(hours=3)
         g.build_info = build_info
+        generate_nonce()
+
+        if request.endpoint == 'static' or 'signedIn' not in session:
+            return
+
+        user = AdminUser.query.filter_by(email=session['signedIn']).first()
+        if user and session.get('admin_session_version') == user.session_version:
+            return
+
+        session.pop('signedIn', None)
+        session.pop('email', None)
+        session.pop('emailAddress', None)
+        session.pop('userType', None)
+        session.pop('admin_session_version', None)
+        return local_redirect(url_for('admin.index'))
 
     @app.after_request
     def add_header(response):
         response.headers['X-Frame-Options'] = 'deny'
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Content-Security-Policy'] = "default-src 'self'; " \
-                                                        "script-src 'self' 'unsafe-inline'; " \
-                                                        "script-src-elem 'self' 'unsafe-inline'; " \
-                                                        "script-src-attr 'self' 'unsafe-inline'; " \
-                                                        "style-src 'self' 'unsafe-inline'; " \
-                                                        "img-src 'self'; " \
-                                                        "font-src 'self'; " \
-                                                        "connect-src 'self'; " \
-                                                        "form-action 'self'"
+        response.headers['Content-Security-Policy'] = build_csp()
         response.headers['Cache-Control'] = 'no-cache, no-store'
         response.headers['Expires'] = '-1'
 

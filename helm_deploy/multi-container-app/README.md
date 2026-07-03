@@ -2,7 +2,7 @@
 ## Introduction
 This directory contains the necessary files required to install the MoJ Multi Container Ruby application via the Helm package manager. This application is intended to be used to demonstrate the ease of deployment on a MoJ Cloud Platform. 
 
-The default installation include all components (API server, postgres, worker, rails app) of this application. The postgresql database runs in a ephemeral docker container. When deploying to [cloud platform][cloudplatform], this can be  disabled and setup a RDS instance using the [terraform module] (https://github.com/ministryofjustice/cloud-platform-terraform-rds-instance).
+The default installation includes the application components (API server, worker, rails app). Database access is configured through the `databaseUrlSecretName` Kubernetes secret, which should point at a Cloud Platform RDS instance.
 
 ## Installing the Chart
 To install the chart:
@@ -20,8 +20,6 @@ The ```namespace-name``` here is the environment name (namespace) you've created
 
 There are a number of install switches available. Please visit the [Helm docs](https://docs.helm.sh/helm/#helm-install) for more information. 
 
-The chart has a dependency for postgres, that can be seen in the chart's requirements file: `requirements.yaml`
-
 ## Deleting the Chart
 To delete the installation from your cluster:
 ```
@@ -36,10 +34,6 @@ helm delete multi-container-demo --namespace <namespace-name>
 | `contentapiurl` | Service url of content-api component | http://content-api-service:4567/image_url.json |
 | `ingress.enabled` | Ingress for rails-app | true |
 | `ingress.hosts.host` | Ingress url for the app | REQUIRED |
-| `postgresql.enabled` | Install Postgres database in a container  | true |
-| `postgresql.existingSecret` | Name of existing kubernetes secret to use for PostgreSQL passwords | container-postgres-secrets |
-| `posgresql.postgresqlDatabase` | Name of PostgreSQL database | multi_container_demo_app |
-| `postgresql.persistence.enabled` | Enable persistence using PVC | false |
 | `contentapi.replicaCount` | Number of replica pods used. | 1 |
 | `contentapi.image.repository` | The image repository location. | `ministryofjustice/cloud-platform-multi-container-demo-app`|
 | `contentapi.image.tag` | The image tag. | `worker-1.4` |
@@ -69,19 +63,8 @@ The YAML for our chart. This contains our API version, chart description, name a
 ### values.yaml
 The default configuration values for this chart.
 
-### requirements.yaml
-The dependencies to install this chart.
-
-### charts/
-A directory containing all subcharts upon which this chart depends.
-
-
 ## Deleting the Chart
 To delete the installation from your cluster:
 ```
 helm delete multi-container-demo --namespace <namespace-name> 
 ```
-
-## Secrets
-Change the `container-postgres-secrets.yaml` file to set the password for admin user `postgres`. Refer parameters section of [postgres helm chart](https://github.com/helm/charts/tree/master/stable/postgresql) 
-

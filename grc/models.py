@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 def utc_now(): return datetime.now(timezone.utc).replace(tzinfo=None)
 import enum
 import jsonpickle
+import uuid
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_utils import StringEncryptedType
 from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
@@ -11,6 +12,10 @@ from grc.business_logic.data_structures.application_data import ApplicationData
 
 db = SQLAlchemy()
 secret_key = os.environ.get('SQLALCHEMY_KEY', '')
+
+
+def new_admin_session_version():
+    return uuid.uuid4().hex
 
 
 class ApplicationStatus(enum.Enum):
@@ -70,6 +75,7 @@ class AdminUser(db.Model):
     userType = db.Column(db.String, default="VIEWER")
     dateLastLogin = db.Column(db.String(20), nullable=True)
     code = db.Column(db.String(100), nullable=True)
+    session_version = db.Column(db.String(32), default=new_admin_session_version, nullable=False)
 
 
 class Feedback(db.Model):

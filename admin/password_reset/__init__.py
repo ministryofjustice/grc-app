@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash
 from admin.admin.forms import SecurityCodeForm
 from admin.password_reset.forms import PasswordResetForm
 from grc.external_services.gov_uk_notify import GovUkNotify
-from grc.models import db, AdminUser
+from grc.models import db, AdminUser, new_admin_session_version
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
 
@@ -27,6 +27,7 @@ def index():
             ).first()
             user.password = generate_password_hash(form.password.data)
             user.passwordResetRequired = False
+            user.session_version = new_admin_session_version()
             db.session.commit()
 
             logger.log(LogLevel.INFO, f"{logger.mask_email_address(session['email'])} reset their password")

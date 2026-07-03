@@ -17,6 +17,7 @@ from grc.utils.flask_child_form_add_custom_errors import add_error_for_child_for
 from grc.utils.pdf_utils import PDFUtils
 from grc.utils.redirect import local_redirect
 from grc.utils.logger import LogLevel, Logger
+from grc.utils.form_custom_validators import sanitise_uploaded_filename
 
 logger = Logger()
 upload = Blueprint('upload', __name__)
@@ -180,7 +181,7 @@ def uploadInfoPage(section_url: str):
                 has_password = False
                 try:
                     for document in form.documents.data:
-                        original_file_name = document.filename
+                        original_file_name = sanitise_uploaded_filename(document.filename)
                         object_name = create_aws_file_name(application_data.reference_number, section.data_section, original_file_name)
                         password_required = False
                         file_type = ''
