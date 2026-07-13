@@ -667,7 +667,7 @@
                 <tbody class="govuk-table__body">
                     {{ summary_list_item(
                         title='Your original or a certified copy (opens in a new tab) of your full birth or adoption certificate',
-                        value=('Yes')
+                        value=('No' if application_data.uploads_data.birth_or_adoption_certificates | length > 0 else 'Yes')
                     ) }}
 
                     {{ summary_list_item(

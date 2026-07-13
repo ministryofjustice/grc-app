@@ -4,6 +4,8 @@
 {% block title %}{{ _('Application submitted') }}{% endblock %}
 
 {% block content %}
+    {% set needs_to_post_birth_or_adoption_certificate = application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
+    {% set needs_to_post_documents = needs_to_post_birth_or_adoption_certificate or application_data.submit_and_pay_data.is_using_ex160_form %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
@@ -12,7 +14,11 @@
                     {{ _('Application submitted') }}
                 </h1>
                 <div class="govuk-panel__body">
-                    {{ _('You should post all remaining documents to us as soon as possible') }}
+                    {% if needs_to_post_documents %}
+                        {{ _('You should post all remaining documents to us as soon as possible') }}
+                    {% else %}
+                        {{ _('You do not need to post any documents to us unless we ask you to') }}
+                    {% endif %}
                 </div>
             </div>
 
@@ -20,13 +26,18 @@
                 {{ _('We have sent you a confirmation email.') }}
             </p>
 
-            <h2 class="govuk-heading-m">
-                {{ _('What you need to do next') }}
-            </h2>
-            <p class="govuk-body">
-                {{ _('Post your birth or adoption certificate to us as soon as possible – include your name, address and application reference number so we can match it to your application.') }}
-                {{ context.birth_cert_copy_link }}
-            </p>
+            {% if needs_to_post_documents %}
+                <h2 class="govuk-heading-m">
+                    {{ _('What you need to do next') }}
+                </h2>
+            {% endif %}
+
+            {% if needs_to_post_birth_or_adoption_certificate %}
+                <p class="govuk-body">
+                    {{ _('Post your birth or adoption certificate to us as soon as possible – include your name, address and application reference number so we can match it to your application.') }}
+                    {{ context.birth_cert_copy_link }}
+                </p>
+            {% endif %}
 
             {% if application_data.submit_and_pay_data.is_using_ex160_form %}
                 <p class="govuk-body">
@@ -34,23 +45,27 @@
                 </p>
             {% endif %}
 
-            <p class="govuk-body govuk-!-margin-bottom-2">
-                {{ _('If you are sending documents by Royal Mail (including tracked, special delivery, signed for, and Parcelforce), send to:') }}
-            </p>
-            <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-2">
-                Gender Recognition Panel<br>
-                PO Box 11230<br>
-                Leicester<br>
-                LE1 8FQ
-            </div>
-            <p class="govuk-inset-text">
-                {{ _('If you are sending documents by courier (for example, DPD, Evri, Fedex), please contact us first (details below).') }}
-            </p>
+            {% if needs_to_post_documents %}
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                    {{ _('If you are sending documents by Royal Mail (including tracked, special delivery, signed for, and Parcelforce), send to:') }}
+                </p>
+                <div class="govuk-inset-text govuk-!-margin-top-0 govuk-!-margin-bottom-2">
+                    Gender Recognition Panel<br>
+                    PO Box 11230<br>
+                    Leicester<br>
+                    LE1 8FQ
+                </div>
+                <p class="govuk-inset-text">
+                    {{ _('If you are sending documents by courier (for example, DPD, Evri, Fedex), please contact us first (details below).') }}
+                </p>
+            {% endif %}
 
-            <p class="govuk-body">
-                {{ context.copy_birth_death_marriage_link }}
-                {{ context.scotland_norther_ireland_cert_link }}
-            </p>
+            {% if needs_to_post_birth_or_adoption_certificate %}
+                <p class="govuk-body">
+                    {{ context.copy_birth_death_marriage_link }}
+                    {{ context.scotland_norther_ireland_cert_link }}
+                </p>
+            {% endif %}
 
             <div class="govuk-warning-text">
                 <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -65,7 +80,11 @@
             </h2>
 
             <p class="govuk-body">
-                {{ _('Once you’ve sent your documents, your application will be reviewed by the Gender Recognition Panel.') }}
+                {% if needs_to_post_documents %}
+                    {{ _('Once you’ve sent your documents, your application will be reviewed by the Gender Recognition Panel.') }}
+                {% else %}
+                    {{ _('Your application will be reviewed by the Gender Recognition Panel.') }}
+                {% endif %}
                 {{ _('This usually happens within 30 weeks of you applying.') }}
             </p>
             <p class="govuk-body">
