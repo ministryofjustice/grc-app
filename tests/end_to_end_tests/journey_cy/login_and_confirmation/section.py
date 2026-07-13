@@ -147,7 +147,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.h1('Eich cais')
 
     # Status of "Confirmation" section should be "COMPLETED"
-    await asserts.task_list_sections(7)
+    await asserts.task_list_sections(8)
     await asserts.task_list_section(section='Cadarnhau', expected_status="Wedi'i gwblhau")
     await asserts.task_list_section(section='Eich manylion personol', expected_status='Heb ddechrau')
     await asserts.task_list_section(section='Gwybodaeth am gofrestru eich genedigaeth', expected_status='Heb ddechrau')

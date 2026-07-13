@@ -1,11 +1,13 @@
-{% if application_data.birth_registration_data.birth_registered_in_uk %}
-    {% if application_data.birth_registration_data.adopted %}
+{% if application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
+    {% if application_data.birth_registration_data.birth_registered_in_uk %}
+        {% if application_data.birth_registration_data.adopted %}
 * your original or a certified copy (https://www.gov.uk/certifying-a-document) of your full adoption certificate
-    {% else %}
+        {% else %}
 * your original or a certified copy (https://www.gov.uk/certifying-a-document) of your full birth certificate
-    {% endif %}
-{% else %}
+        {% endif %}
+    {% else %}
 * an official confirmation of date of birth and birth gender
+    {% endif %}
 {% endif %}
 
 {% if application_data.submit_and_pay_data.is_using_ex160_form %}

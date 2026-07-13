@@ -1139,7 +1139,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
 
     # Status of "Marriage or civil partnership details" section should be "COMPLETED"
     # The "Marriage documents" section should now be visible
-    await asserts.task_list_sections(9)
+    await asserts.task_list_sections(10)
     await asserts.task_list_section(section='Confirmation', expected_status='Completed')
     await asserts.task_list_section(section='Your personal details', expected_status='Completed')
     await asserts.task_list_section(section='Your birth registration information', expected_status='Completed')
@@ -1148,4 +1148,5 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='Not started')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='Not started')
     await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Your birth or adoption certificate', expected_status='Not started')
     await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
