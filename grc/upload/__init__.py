@@ -37,7 +37,7 @@ sections = [
     UploadSection(url='marriage-documents', data_section='marriageDocuments', html_file='marriage-documents.html', file_list=(lambda u: u.partnership_documents)),
     UploadSection(url='overseas-certificate', data_section='overseasCertificate', html_file='overseas-certificate.html', file_list=(lambda u: u.overseas_documents)),
     UploadSection(url='statutory-declarations', data_section='statutoryDeclarations', html_file='statutory-declarations.html', file_list=(lambda u: u.statutory_declarations)),
-    UploadSection(url='birth-or-adoption-certificate', data_section='birthOrAdoptionCertificate',html_file='birth-or-adoption-certificate.html', file_list=(lambda u: u.birth_or_adoption_certificates))
+    UploadSection(url='birth-or-adoption-certificate', data_section='birthOrAdoptionCertificate', html_file='birth-or-adoption-certificate.html', file_list=(lambda u: u.birth_or_adoption_certificates))
 ]
 
 

@@ -431,7 +431,7 @@
                     value=(uploadedDocumentsList(application_data.uploads_data.statutory_declarations, 'statutoryDeclarations'))
                 ) }}
 
-                {% if application_data.need_birth_or_adoption_certificate %}
+                {% if application_data.uploads_data.birth_or_adoption_certificates | length > 0 %}
                     {{ summary_list_item.render(
                         title=_('Your birth or adoption certificate'),
                         changeLinkHiddenText='the documents you have uploaded as evidence of birth or adoption certificate',
@@ -473,24 +473,37 @@
             </dl>
 
 
-            <h2 class="govuk-heading-m">
-                 {{ _("Documents you'll need to post") }}
-            </h2>
-            <p class="govuk-body govuk-!-margin-bottom-2">
-                 {{ _('Based on your application the documents that will need to be posted are:') }}
-            </p>
+            {% set needs_to_post_birth_or_adoption_certificate = application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
+            {% set needs_to_post_documents = needs_to_post_birth_or_adoption_certificate or application_data.submit_and_pay_data.is_using_ex160_form %}
+            {% if needs_to_post_documents %}
+                <h2 class="govuk-heading-m">
+                     {{ _("Documents you'll need to post") }}
+                </h2>
+                <p class="govuk-body govuk-!-margin-bottom-2">
+                     {{ _('Based on your application the documents that will need to be posted are:') }}
+                </p>
 
-            <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
-                <li>
-                    {{ context.birth_cert_copy_link }}
-                </li>
+                <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+                    {% if needs_to_post_birth_or_adoption_certificate %}
+                        <li>
+                            {{ context.birth_cert_copy_link }}
+                        </li>
+                    {% endif %}
 
-                {% if application_data.submit_and_pay_data.is_using_ex160_form %}
-                    <li>
-                         {{ context.ex160_link }}
-                    </li>
-                {% endif %}
-            </ul>
+                    {% if application_data.submit_and_pay_data.is_using_ex160_form %}
+                        <li>
+                             {{ context.ex160_link }}
+                        </li>
+                    {% endif %}
+                </ul>
+            {% else %}
+                <h2 class="govuk-heading-m">
+                     {{ _("Documents you have provided") }}
+                </h2>
+                <p class="govuk-body govuk-!-margin-bottom-9">
+                     {{ _('You have uploaded your birth or adoption certificate. You do not need to post any documents to us unless we ask you to.') }}
+                </p>
+            {% endif %}
 
             <h2 class="govuk-heading-m">
                  {{ _('Download your application') }}
