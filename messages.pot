@@ -4093,6 +4093,35 @@ msgid "Start or return to an application"
 msgstr ""
 
 #: grc/templates/one-login/start.html
+msgid "Get help applying online"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "If you do not have access to the internet or do not feel confident using it, contact We Are Group."
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Telephone:"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgctxt "DIGITAL_SUPPORT"
+msgid "Monday to Friday, 9am to 5pm"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Closed on bank holidays"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Text FORM to 60777 and someone will call you back"
+msgstr ""
+
+#: grc/templates/one-login/start.html
+msgid "Find out about call charges"
+msgstr ""
+
+#: grc/templates/one-login/start.html
 msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login."
 msgstr ""
 
@@ -4154,6 +4183,4 @@ msgstr ""
 
 #: grc/templates/start-application/email-address.html
 msgid "Your email address has not been validated"
-msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’r dystysgrif."
-
-
+msgstr ""

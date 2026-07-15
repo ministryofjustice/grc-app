@@ -20,6 +20,28 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await helpers.click_button('Cymraeg')
     assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Gwneud cais am Dystysgrif Cydnabod Rhywedd'
     await asserts.h1('Dechrau cais newydd neu ddychwelyd i gais')
+    assert await page.inner_text('#digital-support-heading') == 'Cael cymorth i wneud cais ar-lein'
+    digital_support_text = await page.inner_text('#digital-support')
+    assert "Os nad oes gennych fynediad i'r rhyngrwyd neu os nad ydych yn teimlo'n hyderus yn ei ddefnyddio, cysylltwch â We Are Group." in digital_support_text
+    assert 'Rhif ffôn:' in digital_support_text
+    assert 'Monday to Friday, 9am to 5pm' in digital_support_text
+    assert 'dydd Gwener 9am i 4.30pm' not in digital_support_text
+    assert 'Ar gau ar wyliau banc' in digital_support_text
+    assert "Tecstiwch FORM i 60777 a bydd rhywun yn eich ffonio'n ôl" in digital_support_text
+    assert 'Rhagor o wybodaeth am gostau galwadau' in digital_support_text
+    assert await page.locator(
+        '#digital-support a[href="https://www.wearegroup.com/digital_support"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="mailto:support@wearegroup.com"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="tel:+443300160051"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="https://www.gov.uk/costau-galwadau"]'
+    ).count() == 1
+    assert await page.locator('#digital-support a[target="_blank"]').count() == 0
 
     # Choose the "Start a new application" option
     await helpers.check_radio(field='new_application', value=True)
