@@ -4671,7 +4671,7 @@ msgstr "Mae angen i chi ddarparu cyfeiriad e-bost i barhau â'ch cais fel y gall
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
 msgid "Upload your birth or adoption certificate"
-msgstr "Uwchlwythwch eich tystysgrif geni neu fabwysiadu"
+msgstr "Uwchlwytho eich tystysgrif geni neu fabwysiadu"
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
 msgid "This is where you can upload the original or certified copy of your birth or adoption certificate."
@@ -4684,3 +4684,39 @@ msgstr "Uwchlwythwch sgan neu lun o ansawdd da o’r dystysgrif."
 #: grc/templates/start-application/email-address.html
 msgid "Your email address has not been validated"
 msgstr "Nid yw eich cyfeiriad e-bost wedi’i ddilysu"
+
+#: grc/templates/task-list.html
+msgid "You can upload most documents online, including your birth or adoption certificate. You can also post your birth or adoption certificate to us if you cannot upload it"
+msgstr "Gallwch uwchlwytho'r rhan fwyaf o ddogfennau ar-lein, gan gynnwys eich tystysgrif geni neu fabwysiadu. Gallwch hefyd bostio'ch tystysgrif geni neu fabwysiadu atom os na allwch ei huwchlwytho"
+
+#: grc/templates/task-list.html grc/templates/submit-and-pay/check-your-answers.html
+msgid "Your birth or adoption certificate"
+msgstr "Eich tystysgrif geni neu fabwysiadu"
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "You can upload a scan or good quality photograph of your full birth or adoption certificate."
+msgstr "Gallwch uwchlwytho sgan neu lun o ansawdd da o'ch tystysgrif geni neu fabwysiadu lawn."
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "If you upload your certificate, you do not need to post it to us unless we ask you to."
+msgstr "Os byddwch yn uwchlwytho eich tystysgrif, nid oes angen i chi ei phostio atom oni bai ein bod yn gofyn i chi wneud hynny."
+
+#: grc/templates/upload/birth-or-adoption-certificate.html
+msgid "If you have an adoption certificate, upload that instead of your birth certificate."
+msgstr "Os oes gennych dystysgrif mabwysiadu, uwchlwythwch honno yn lle eich tystysgrif geni."
+
+#: grc/templates/submit-and-pay/check-your-answers.html
+msgid "Documents you have provided"
+msgstr "Dogfennau rydych wedi'u darparu"
+
+#: grc/templates/submit-and-pay/check-your-answers.html
+msgid "You have uploaded your birth or adoption certificate. You do not need to post any documents to us unless we ask you to."
+msgstr "Rydych wedi uwchlwytho eich tystysgrif geni neu fabwysiadu Nid oes angen i chi bostio unrhyw ddogfennau atom oni bai ein bod yn gofyn i chi wneud hynny."
+
+#: grc/templates/submit-and-pay/confirmation.html
+msgid "You do not need to post any documents to us unless we ask you to"
+msgstr "Nid oes angen i chi bostio unrhyw ddogfennau atom oni bai ein bod yn gofyn i chi wneud hynny"
+
+#: grc/templates/submit-and-pay/confirmation.html
+msgid "Your application will be reviewed by the Gender Recognition Panel."
+msgstr "Bydd eich cais yn cael ei adolygu gan y Panel Cydnabod Rhywedd."
