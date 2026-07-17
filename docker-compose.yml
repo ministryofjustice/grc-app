@@ -10,7 +10,7 @@ services:
     image: 'clamav/clamav:latest'
 
   grc_db:
-    image: "postgres:13.5"
+    image: "postgres:14.22"
     container_name: "grc_db"
     ports:
       - "5432:5432"
