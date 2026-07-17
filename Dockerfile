@@ -1,7 +1,7 @@
 
 # syntax=docker/dockerfile:1
 
-FROM python:3.12-bookworm
+FROM python:3.12-bookworm@sha256:4f1cc04d959e1360fb4e6957e23e5cd96d32a239d996af6d5c7ad29ee55175d0
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
