@@ -1,0 +1,53 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "automerge": false,
+  "timezone": "Europe/London",
+  "dependencyDashboard": true,
+  "labels": ["dependencies", "renovate"],
+  "prConcurrentLimit": 5,
+  "kubernetes": {
+    "managerFilePatterns": ["/(^|/)deploy/.+\\.ya?ml$/"]
+  },
+  "packageRules": [
+    {
+      "description": "Ignore internal ECR application images",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": [
+        "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-dev-ecr",
+        "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-preprod-ecr",
+        "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-uat-ecr",
+        "754256621582.dkr.ecr.eu-west-2.amazonaws.com/pet/grc-prod-ecr"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Group Docker digest updates",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "groupName": "container image digest updates"
+    },
+    {
+      "description": "Keep CircleCI Python on 3.12 unless manually changed",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["cimg/python"],
+      "allowedVersions": "/^3\\.12/"
+    },
+    {
+      "description": "Keep Dockerfile Python base images on 3.12 unless manually changed",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["python"],
+      "allowedVersions": "/^3\\.12/"
+    },
+    {
+      "description": "Require manual approval for major Docker upgrades",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
+}

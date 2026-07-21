@@ -6,7 +6,8 @@ orbs:
 references:
   app_containers: &app_containers
     docker:
-      - image: 'circleci/postgres:10.4'
+      #- image: 'circleci/postgres:10.4'
+      - image: 'cimg/postgres:14.22@sha256:e4d6572900fdb9cb1335a5d1aecff1ec06a3691578b1030d03bd252f25bafe28'
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: grc-application-test
@@ -29,7 +30,7 @@ jobs:
       ecr_endpoint:
         type: string
     docker:
-      - image: 'cimg/python:3.12'
+      - image: 'cimg/python:3.12@sha256:9c796c23c84e84a66a964acb508d39dc5433c81a47e07efd56dccbbc2427e07c'
         environment:
           DATABASE_URL: 'postgresql://postgres:password@localhost:5432/grc'
           FLASK_ENV: test
@@ -63,7 +64,8 @@ jobs:
           ONE_LOGIN_KID: 3001714c-b9d5-4e43-a194-f3d599cf0908
           REDIS_HOST: localhost
 
-      - image: 'circleci/postgres:10.4'
+      #- image: 'circleci/postgres:10.4'
+      - image: 'cimg/postgres:14.22@sha256:e4d6572900fdb9cb1335a5d1aecff1ec06a3691578b1030d03bd252f25bafe28'
         environment:
           POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
@@ -356,7 +358,7 @@ jobs:
         type: string
     working_directory: ~/grc-app/maintenance
     docker:
-      - image: cimg/python:3.12
+      - image: cimg/python:3.12@sha256:9c796c23c84e84a66a964acb508d39dc5433c81a47e07efd56dccbbc2427e07c
     steps:
       - checkout:
           path: ~/grc-app
