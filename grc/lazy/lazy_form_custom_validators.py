@@ -79,7 +79,7 @@ class LazyMultiFileAllowed(MultiFileAllowed):
 
             if isinstance(self.upload_set, Iterable):
                 if any(filename.endswith('.' + x) for x in self.upload_set):
-                    return
+                    continue
 
                 if self.lazy_message:
                     raise LazyStopValidation(self.lazy_message)

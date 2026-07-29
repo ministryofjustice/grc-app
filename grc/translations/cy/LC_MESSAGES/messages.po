@@ -4503,6 +4503,16 @@ msgstr "Dyma lle y gallwch uwchlwytho eich 2 adroddiad meddygol."
 msgid "medical reports you need (opens in new tab)"
 msgstr "yr adroddiadau meddygol sydd eu hangen arnoch (yn agor mewn tab newydd)"
 
+#: grc/templates/upload/medical-reports.html
+#: grc/templates/submit-and-pay/check-your-answers.html
+msgid "First medical report"
+msgstr "Adroddiad meddygol cyntaf"
+
+#: grc/templates/upload/medical-reports.html
+#: grc/templates/submit-and-pay/check-your-answers.html
+msgid "Second medical report"
+msgstr "Ail adroddiad meddygol"
+
 #: grc/templates/upload/medical-reports.html:32
 msgid ""
 "You must upload a scan or good quality photograph of the whole medical "

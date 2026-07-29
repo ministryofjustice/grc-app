@@ -5,7 +5,12 @@ from grc.business_logic.data_structures.confirmation_data import ConfirmationDat
 from grc.business_logic.data_structures.birth_registration_data import BirthRegistrationData
 from grc.business_logic.data_structures.personal_details_data import PersonalDetailsData
 from grc.business_logic.data_structures.partnership_details_data import PartnershipDetailsData
-from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
+from grc.business_logic.data_structures.uploads_data import (
+    UploadsData,
+    EvidenceFile,
+    MEDICAL_REPORT_SLOT_FIRST,
+    MEDICAL_REPORT_SLOT_SECOND,
+)
 from grc.business_logic.data_structures.submit_and_pay_data import SubmitAndPayData, HelpWithFeesType
 from grc.list_status import ListStatus
 
@@ -120,7 +125,18 @@ class ApplicationData:
     @property
     def section_status_medical_reports(self) -> ListStatus:
         if self.need_medical_reports:
-            return self._upload_section_status(self.uploads_data.medical_reports)
+            files = self.uploads_data.medical_reports
+            status = self._upload_section_status(files)
+            if status != ListStatus.COMPLETED:
+                return status
+
+            slots = {getattr(file, 'medical_report_slot', None) for file in files}
+            known_slots = {MEDICAL_REPORT_SLOT_FIRST, MEDICAL_REPORT_SLOT_SECOND}
+            if any(slot not in known_slots for slot in slots):
+                return ListStatus.COMPLETED
+            if MEDICAL_REPORT_SLOT_FIRST in slots and MEDICAL_REPORT_SLOT_SECOND in slots:
+                return ListStatus.COMPLETED
+            return ListStatus.IN_PROGRESS
         else:
             return ListStatus.CANNOT_START_YET
 
