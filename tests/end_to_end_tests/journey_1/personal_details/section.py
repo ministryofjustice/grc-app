@@ -694,11 +694,11 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.url('/personal-details/contact-preferences')
     await asserts.accessibility()
     await asserts.h1('How would you like to be contacted if we have any questions about your application?')
-    await asserts.number_of_errors(1)
+    await asserts.number_of_errors(2)
     await asserts.error(field='contact_options', message="Select how would you like to be contacted")
+    await asserts.error(field='email', message="Enter your email address")
 
-    # Choose "Email" and "Phone" options, but don't enter an email address or phone number
-    await helpers.check_checkbox(field='contact_options', value='EMAIL')
+    # Choose "Phone" option, but don't enter an email address or phone number
     await helpers.check_checkbox(field='contact_options', value='PHONE')
     await helpers.click_button('Save and continue')
     await asserts.url('/personal-details/contact-preferences')
@@ -709,9 +709,9 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.error(field='phone', message="Enter your phone number")
 
     # Enter an invalid email address
-    await helpers.check_checkbox(field='contact_options', value='EMAIL')
     await helpers.fill_textbox(field='email', value='inv@lid.email.@ddress')
     await helpers.uncheck_checkbox(field='contact_options', value='PHONE')
+    await helpers.check_checkbox(field='contact_options', value='POST')
     await helpers.click_button('Save and continue')
     await asserts.url('/personal-details/contact-preferences')
     await asserts.accessibility()
@@ -720,9 +720,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.error(field='email', message="Enter a valid email address")
 
     # Enter an invalid phone number
+    await helpers.fill_textbox(field='email', value=data.EMAIL_ADDRESS)
     await helpers.check_checkbox(field='contact_options', value='PHONE')
     await helpers.fill_textbox(field='phone', value='310-9320-913209-34433434')
-    await helpers.uncheck_checkbox(field='contact_options', value='EMAIL')
+    await helpers.uncheck_checkbox(field='contact_options', value='POST')
     await helpers.click_button('Save and continue')
     await asserts.url('/personal-details/contact-preferences')
     await asserts.accessibility()
