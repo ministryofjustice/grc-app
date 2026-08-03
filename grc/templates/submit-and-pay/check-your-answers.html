@@ -378,13 +378,28 @@
                 </ul>
             {% endmacro %}
 
+            {% macro medicalReportsList(files) %}
+                {% set first_files = files | selectattr('medical_report_slot', 'equalto', 'first') | list %}
+                {% set second_files = files | selectattr('medical_report_slot', 'equalto', 'second') | list %}
+                {% set legacy_files = files | rejectattr('medical_report_slot', 'equalto', 'first') | rejectattr('medical_report_slot', 'equalto', 'second') | list %}
+                {% if first_files %}
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ _('First medical report') }}</h3>
+                    {{ uploadedDocumentsList(first_files, 'medicalReports') }}
+                {% endif %}
+                {% if second_files %}
+                    <h3 class="govuk-heading-s govuk-!-margin-bottom-1">{{ _('Second medical report') }}</h3>
+                    {{ uploadedDocumentsList(second_files, 'medicalReports') }}
+                {% endif %}
+                {{ uploadedDocumentsList(legacy_files, 'medicalReports') }}
+            {% endmacro %}
+
             <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                 {% if application_data.need_medical_reports %}
                     {{ summary_list_item.render(
                         title=_('Your medical reports'),
                         changeLinkHiddenText='the documents you have uploaded for your medical reports',
                         changeLinkUrl=url_for('upload.uploadInfoPage', section_url='medical-reports'),
-                        value=(uploadedDocumentsList(application_data.uploads_data.medical_reports, 'medicalReports'))
+                        value=(medicalReportsList(application_data.uploads_data.medical_reports))
                     ) }}
                 {% endif %}
 

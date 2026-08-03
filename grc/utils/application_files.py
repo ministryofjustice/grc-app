@@ -31,27 +31,54 @@ class ApplicationFiles:
     def _get_section_name(self, section: str) -> str:
         return self.section_names[self.sections.index(section)]
 
+    def _get_file_groups_for_section(self, section: str, application_data: ApplicationData) -> list:
+        files = self._get_files_for_section(section, application_data)
+        if section != 'medicalReports':
+            return [(self._get_section_name(section), None, files)] if files else []
+
+        groups = []
+        for slot, name in [('first', 'First Medical Report'), ('second', 'Second Medical Report')]:
+            group_files = [file for file in files if getattr(file, 'medical_report_slot', None) == slot]
+            if group_files:
+                groups.append((name, slot, group_files))
+        legacy_files = [
+            file for file in files
+            if getattr(file, 'medical_report_slot', None) not in {'first', 'second'}
+        ]
+        if legacy_files:
+            groups.append(('Medical Reports', None, legacy_files))
+        return groups
+
+    @staticmethod
+    def _zip_attachment_name(application_data, section, slot, file_index, evidence_file):
+        slot_part = f'__{slot}' if slot else ''
+        return (f'{application_data.reference_number}__{section}{slot_part}__{file_index + 1}_'
+                f'{evidence_file.original_file_name}')
+
     def _create_application_zip(self, application_data: ApplicationData) -> BytesIO:
         zip_buffer = BytesIO()
         with zipfile.ZipFile(zip_buffer, 'x', zipfile.ZIP_DEFLATED, False) as zipper:
             for section in self.sections:
-                files = self._get_files_for_section(section, application_data)
-                for file_index, evidence_file in enumerate(files):
-                    data = AwsS3Client().download_object(evidence_file.aws_file_name)
-                    if data is not None:
-                        attachment_file_name = (f"{application_data.reference_number}__{section}__{(file_index + 1)}_"
-                                                f"{evidence_file.original_file_name}")
-                        zipper.writestr(attachment_file_name, data.getvalue())
-
-                    file_name, file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
-                    original_file_name, original_file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
-                    if original_file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
-                        data = AwsS3Client().download_object(f'{file_name}_original{original_file_ext}')
+                for _group_name, slot, files in self._get_file_groups_for_section(section, application_data):
+                    for file_index, evidence_file in enumerate(files):
+                        data = AwsS3Client().download_object(evidence_file.aws_file_name)
                         if data is not None:
-                            file_name, file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
-                            attachment_file_name = (f"{application_data.reference_number}__{section}__"
-                                                    f"{(file_index + 1)}_{file_name}_original{file_ext}")
+                            attachment_file_name = self._zip_attachment_name(
+                                application_data, section, slot, file_index, evidence_file
+                            )
                             zipper.writestr(attachment_file_name, data.getvalue())
+
+                        file_name, _file_ext = self.get_filename_and_extension(evidence_file.aws_file_name)
+                        original_file_name, original_file_ext = self.get_filename_and_extension(evidence_file.original_file_name)
+                        if original_file_ext.lower() in ['.jpg', '.jpeg', '.png', '.tif', '.tiff', '.bmp']:
+                            data = AwsS3Client().download_object(f'{file_name}_original{original_file_ext}')
+                            if data is not None:
+                                original_evidence_file = EvidenceFile()
+                                original_evidence_file.original_file_name = f'{original_file_name}_original{original_file_ext}'
+                                attachment_file_name = self._zip_attachment_name(
+                                    application_data, section, slot, file_index, original_evidence_file
+                                )
+                                zipper.writestr(attachment_file_name, data.getvalue())
 
             application_pdf = self.download_pdf_admin(application_data)
             if not application_pdf:
@@ -143,9 +170,8 @@ class ApplicationFiles:
     def create_attachment_names_pdf(self, all_sections: list, application_data: ApplicationData) -> BytesIO:
         attachments_html = ''
         for section in all_sections:
-            files = self._get_files_for_section(section, application_data)
-            if len(files) > 0:
-                attachments_html += f'<h3 style="font-size: 14px;">{self._get_section_name(section)}</h3>'
+            for group_name, _slot, files in self._get_file_groups_for_section(section, application_data):
+                attachments_html += f'<h3 style="font-size: 14px;">{group_name}</h3>'
                 for file_index, evidence_file in enumerate(files):
                     attachments_html += f'<p style="font-size: 12px;">Attachment {file_index + 1} of {len(files)}: {evidence_file.aws_file_name}</p>'
 
@@ -155,11 +181,19 @@ class ApplicationFiles:
 
     def attach_all_files(self, pdfs: list, all_sections: list, application_data: ApplicationData) -> None:
         for section in all_sections:
-            files = self._get_files_for_section(section, application_data)
-            for file_index, evidence_file in enumerate(files):
-                self.add_object(pdfs, section, evidence_file.aws_file_name, evidence_file.original_file_name)
+            for group_name, _slot, files in self._get_file_groups_for_section(section, application_data):
+                for evidence_file in files:
+                    self.add_object(
+                        pdfs,
+                        section,
+                        evidence_file.aws_file_name,
+                        evidence_file.original_file_name,
+                        group_name,
+                    )
 
-    def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str) -> None:
+    def add_object(self, pdfs, section: str, aws_file_name: str, original_file_name: str,
+                   section_name: str = None) -> None:
+        section_name = section_name or self._get_section_name(section)
         if '.' in aws_file_name:
             file_type = aws_file_name[aws_file_name.rindex('.') + 1:].lower()
 
@@ -172,17 +206,17 @@ class ApplicationFiles:
                             # doc.authenticate('') == 2
                             # https://pymupdf.readthedocs.io/en/latest/document.html#Document.authenticate
                             html = f'<h3 style="font-size: 14px; color: red;">Unable to add {original_file_name}. A password is required.</h3>'
-                            pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}'))
+                            pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{section_name}:{original_file_name}'))
                             logger.log(LogLevel.ERROR, f"file {aws_file_name} needs a password!")
                         else:
-                            pdfs.append(PDFUtils().add_pdf_toc(data, f'{self._get_section_name(section)}:{original_file_name}'))
+                            pdfs.append(PDFUtils().add_pdf_toc(data, f'{section_name}:{original_file_name}'))
                             logger.log(LogLevel.INFO, f"Attaching {aws_file_name}")
                     else:
-                        pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
+                        pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name, section_name))
                         logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
 
                 except Exception as e:
-                    pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
+                    pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name, section_name))
                     logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
             else:
                 try:
@@ -194,22 +228,25 @@ class ApplicationFiles:
                         #html = f'<body><div style="margin-top:20px;"><img src="{data}" style="max-width: 95%; max-height: 95%; object-fit: contain;"></div></body>'
                         html = f'<body><div class="image-div"><img src="{data}"></div></body>'
                         #html = html_template
-                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{original_file_name}', html_image_type=True))
+                        pdfs.append(PDFUtils().create_pdf_from_html(html, title=f'{section_name}:{original_file_name}', html_image_type=True))
                         print(f"Adding image {aws_file_name}", flush=True)
                     else:
-                        pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name))
+                        pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name, section_name))
                         logger.log(LogLevel.ERROR, f"Error downloading {aws_file_name}")
 
                 except Exception as e:
-                    self.create_pdf_for_attachment_error(section, original_file_name)
+                    pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name, section_name))
                     logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name} ({e})")
         else:
             logger.log(LogLevel.ERROR, f"Error attaching {aws_file_name}")
-            self.create_pdf_for_attachment_error(section, original_file_name)
+            pdfs.append(self.create_pdf_for_attachment_error(section, original_file_name, section_name))
 
-    def create_pdf_for_attachment_error(self, section: str, file_name: str) -> BytesIO:
+    def create_pdf_for_attachment_error(self, section: str, file_name: str, section_name: str = None) -> BytesIO:
         html = f'<h3 style="font-size: 14px; color: red;">WARNING: Could not attach file ({file_name})</h3>'
-        return PDFUtils().create_pdf_from_html(html, title=f'{self._get_section_name(section)}:{file_name}')
+        return PDFUtils().create_pdf_from_html(
+            html,
+            title=f'{section_name or self._get_section_name(section)}:{file_name}',
+        )
 
     def get_filename_and_extension(self, file_name: str) -> Tuple[str, str]:
         file_ext = ''

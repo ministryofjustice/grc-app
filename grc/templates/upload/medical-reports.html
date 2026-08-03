@@ -37,22 +37,171 @@
 
             {{ upload_files_section.renderPrivacyPolicyStatement() }}
 
-            {% macro extra_upload_hint() %}
-                <p class="govuk-body">
-                    {{ _('Please upload the files in page order if you can.') }}
-                </p>
-            {% endmacro %}
+            <div id="file-upload-section" class="govuk-!-margin-top-8">
+                {% if duplicate_aws_file_names %}
+                    <div class="govuk-error-summary" aria-labelledby="upload-error-summary-title" role="alert" data-module="govuk-error-summary">
+                        <h2 class="govuk-error-summary__title" id="upload-error-summary-title">
+                            {{ _('There is a problem') }}
+                        </h2>
+                        <div class="govuk-error-summary__body">
+                            <p class="govuk-list govuk-error-summary__list">
+                                {{ _('The upload failed. Please remove your files and re-upload.') }}
+                            </p>
+                        </div>
+                        <form method="POST" action="{{ url_for('upload.removeAllFilesInSection', section_url=section_url) }}#file-upload-section">
+                            <input type="hidden" name="csrf_token" value="{{ deleteAllFilesInSectionForm.get_csrf_token() }}">
+                            <button class="govuk-button govuk-button--warning govuk-!-margin-bottom-0" data-module="govuk-button">
+                                {{ _('Remove all files') }}
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
 
-            {{ upload_files_section.render(
-                form,
-                deleteform,
-                deleteAllFilesInSectionForm,
-                currently_uploaded_files=currently_uploaded_files,
-                section_url=section_url,
-                duplicate_aws_file_names=duplicate_aws_file_names,
-                extra_upload_hint=extra_upload_hint,
-                lang_code=lang_code)
-            }}
+                {% macro uploaded_file_list(files, heading='') %}
+                    {% if files %}
+                        {% if heading %}
+                            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">{{ heading }}</h3>
+                        {% endif %}
+                        <dl class="govuk-summary-list govuk-!-margin-bottom-6">
+                            {% for evidence_file in files %}
+                                <div class="govuk-summary-list__row">
+                                    <dd class="govuk-summary-list__value govuk-!-width-full" style="vertical-align: middle;">
+                                        {% if evidence_file.password_required %}
+                                            <img src="{{ url_for('static', filename='assets/images/padlock.svg') }}" style="width: 30px; vertical-align: bottom; margin-right: 2px;" alt="">
+                                        {% endif %}
+                                        {{ evidence_file.original_file_name }}
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions">
+                                        {% if not duplicate_aws_file_names %}
+                                            <form method="POST" action="{{ url_for('upload.removeFile', section_url=section_url) }}#file-upload-section">
+                                                <input type="hidden" name="csrf_token" value="{{ deleteform.get_csrf_token() }}">
+                                                <input type="hidden" name="file" value="{{ evidence_file.aws_file_name }}">
+                                                <button class="govuk-button govuk-button--warning govuk-!-margin-bottom-0" data-module="govuk-button">
+                                                    {{ _('Remove file') }}
+                                                    <span class="govuk-visually-hidden">{{ evidence_file.original_file_name }}</span>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    </dd>
+                                </div>
+                            {% endfor %}
+                        </dl>
+                    {% endif %}
+                {% endmacro %}
+
+                {% if currently_uploaded_files %}
+                    <h2 class="govuk-heading-m">{{ _('Uploaded files') }}</h2>
+                    {{ uploaded_file_list(first_medical_report_files, _('First medical report')) }}
+                    {{ uploaded_file_list(second_medical_report_files, _('Second medical report')) }}
+                    {{ uploaded_file_list(legacy_medical_report_files) }}
+
+                    {% set password_file_count = currently_uploaded_files | selectattr('password_required', 'equalto', true) | list | length %}
+                    {% if password_file_count > 0 %}
+                        <p>
+                            {{ password_file_count }}
+                            {% if password_file_count == 1 %}
+                                {{ _('file is password protected') }}
+                            {% else %}
+                                {{ _('files are password protected') }}
+                            {% endif %}.
+                            <a href="{{ url_for('upload.documentPassword', section_url=section_url) }}" class="gov-link">{{ _('Click here to manage passwords') }}</a>.
+                        </p>
+                    {% endif %}
+                {% endif %}
+
+                {% macro upload_control(field, input_id, label) %}
+                    <div class="govuk-form-group {{ 'govuk-form-group--error' if field.errors }} govuk-!-margin-bottom-6">
+                        <label for="{{ input_id }}" class="govuk-label govuk-label--m">{{ label }}</label>
+                        <div id="{{ input_id }}-hint" class="govuk-hint">
+                            {{ _('The files must be a JPG, BMP, PNG, TIF or PDF and smaller than 10MB. The file name must not contain special characters such as: \\ / : * ? “ < > |') }}
+                        </div>
+                        <div id="{{ input_id }}-page-order-hint" class="govuk-hint">
+                            {{ _('Please upload the files in page order if you can.') }}
+                        </div>
+                        {% for error in field.errors %}
+                            <p id="{{ input_id }}-error-{{ loop.index }}" class="govuk-error-message">
+                                <span class="govuk-visually-hidden">{{ _('Error:') }}</span> {{ error }}
+                            </p>
+                        {% endfor %}
+                        <input id="{{ input_id }}" type="file" name="{{ field.name }}" multiple
+                               accept=".jpg,.jpeg,.bmp,.png,.tif,.tiff,.pdf"
+                               class="govuk-file-upload {{ 'govuk-input--error' if field.errors }}"
+                               aria-describedby="{{ input_id }}-hint {{ input_id }}-page-order-hint{% for error in field.errors %} {{ input_id }}-error-{{ loop.index }}{% endfor %}"
+                               {% if field.errors %}aria-invalid="true"{% endif %}
+                               onchange="updateMedicalUploadButton('{{ lang_code }}')">
+                    </div>
+                {% endmacro %}
+
+                {% if not duplicate_aws_file_names %}
+                    <form method="POST" enctype="multipart/form-data" onsubmit="showMedicalUploadLoading()">
+                        {{ form.csrf_token }}
+
+                        {{ upload_control(form.first_medical_report, 'first_medical_report', _('First medical report')) }}
+                        {{ upload_control(form.second_medical_report, 'second_medical_report', _('Second medical report')) }}
+
+                        <img id="medical-upload-loading" src="{{ url_for('static', filename='assets/images/loading.gif') }}" width="40"
+                             height="40" style="display: none; margin-bottom: 17px;" alt="">
+                        <button id="medical-upload-submit" type="submit" name="button_clicked" value="UPLOAD_FILE" class="govuk-button" data-module="govuk-button">
+                            {{ _('Upload file') }}
+                        </button>
+
+                        {% if currently_uploaded_files %}
+                            <p class="govuk-body govuk-!-margin-top-5">
+                                {{ _('Once you have uploaded all your files, click the "Save and continue" button') }}
+                            </p>
+                        {% endif %}
+
+                        <div class="govuk-button-group">
+                            {% if currently_uploaded_files %}
+                                <button id="saveAndContinue" type="submit" name="button_clicked" value="SAVE_AND_CONTINUE" class="govuk-button" data-module="govuk-button">
+                                    {{ _('Save and continue') }}
+                                </button>
+                            {% endif %}
+                            <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
+                                {{ _('Return to task list') }}
+                            </a>
+                        </div>
+                    </form>
+                {% else %}
+                    <p class="govuk-body">
+                        <a href="{{ url_for('taskList.index') }}" class="govuk-link govuk-link--no-visited-state">
+                            {{ _('Return to task list') }}
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+
+            <script>
+                function selectedMedicalReportFileCount() {
+                    return document.getElementById('first_medical_report').files.length
+                        + document.getElementById('second_medical_report').files.length
+                }
+
+                function updateMedicalUploadButton(language='en') {
+                    let submitButtonText = 'Upload file'
+                    let uploadText = 'Upload'
+                    let singleFileText = 'file'
+                    let multiFilesText = 'files'
+
+                    if (language === 'cy') {
+                        submitButtonText = 'Uwchlwytho ffeil'
+                        uploadText = 'Uwchlwytho'
+                        singleFileText = 'ffeil'
+                        multiFilesText = 'ffeiliau'
+                    }
+
+                    const fileCount = selectedMedicalReportFileCount()
+                    document.getElementById('medical-upload-submit').innerText = fileCount > 0
+                        ? `${uploadText} ${fileCount} ${fileCount === 1 ? singleFileText : multiFilesText}`
+                        : submitButtonText
+                }
+
+                function showMedicalUploadLoading() {
+                    document.getElementById('first_medical_report').style.display = 'none'
+                    document.getElementById('second_medical_report').style.display = 'none'
+                    document.getElementById('medical-upload-loading').style.display = 'inline-block'
+                }
+            </script>
 
         </div>
     </div>
