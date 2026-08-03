@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% import "govuk-design-system-templates/error-summary.html" as error_summary %}
-{% import "upload/_upload-files-section.html" as upload_files_section %}
+{% import "upload/_upload-files-section.html" as upload_files_section with context %}
 {% import "govuk-design-system-templates/back_link.html" as back_link %}
 
 {% block title %}{{ _('Upload your medical reports') }}{% endblock %}

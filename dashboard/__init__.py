@@ -7,6 +7,7 @@ from flask_uuid import FlaskUUID
 from grc.models import db
 from grc.utils import filters, limiter
 from dashboard.config import Config
+from grc.utils.csp import build_csp, csp_context, generate_nonce
 from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.http_ip_whitelist import HttpIPWhitelist
 from grc.utils.custom_error_handlers import CustomErrorHandlers
@@ -47,26 +48,30 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     flask_uuid.init_app(app)
+    app.context_processor(csp_context)
 
     # update session timeout time
     @app.before_request
     def make_before_request():
         app.permanent_session_lifetime = timedelta(hours=3)
         g.build_info = build_info
+        generate_nonce()
 
     @app.after_request
     def add_header(response):
         response.headers['X-Frame-Options'] = 'deny'
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Content-Security-Policy'] = "default-src 'self'; " \
-                                                        "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " \
-                                                        "script-src-elem 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " \
-                                                        "script-src-attr 'self' 'unsafe-inline'; " \
-                                                        "style-src 'self' 'unsafe-inline'; " \
-                                                        "img-src 'self' blob: data:; " \
-                                                        "font-src 'self' data:; " \
-                                                        "connect-src 'self'; " \
-                                                        "form-action 'self'"
+        response.headers['Content-Security-Policy'] = build_csp(
+            script_hosts=['https://cdn.jsdelivr.net'],
+            img_hosts=['blob:', 'data:'],
+            font_hosts=['data:'],
+            # The dashboard renders charts with Observable Plot, which injects
+            # <style> elements and inline style attributes on generated SVG/figure
+            # nodes that cannot be nonced. The dashboard was not an ITHC VUL-6942
+            # target; script execution stays locked down via the nonce-based
+            # script-src while inline styles are permitted for the charting library.
+            style_hosts=["'unsafe-inline'"],
+        )
 
         return response
 

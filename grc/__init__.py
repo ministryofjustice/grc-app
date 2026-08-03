@@ -8,6 +8,7 @@ from flask_uuid import FlaskUUID
 from grc.models import db
 from grc.utils import filters, limiter
 from grc.config import Config, TestConfig
+from grc.utils.csp import build_csp, csp_context, generate_nonce
 from grc.utils.http_basic_authentication import HttpBasicAuthentication
 from grc.utils.maintenance_mode import Maintenance
 from grc.utils.custom_error_handlers import CustomErrorHandlers
@@ -67,6 +68,7 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     flask_uuid.init_app(app)
+    app.context_processor(csp_context)
 
     # Update session timeout time
     @app.before_request
@@ -74,20 +76,24 @@ def create_app(test_config=None):
         app.permanent_session_lifetime = timedelta(hours=1)
         g.build_info = build_info
         g.lang_code = get_locale()
+        generate_nonce()
 
     @app.after_request
     def add_header(response):
         response.headers['X-Frame-Options'] = 'deny'
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Content-Security-Policy'] = "default-src 'self'; " \
-                                                        "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://*.google-analytics.com; " \
-                                                        "script-src-elem 'self' 'unsafe-inline' https://*.googletagmanager.com https://*.google-analytics.com; " \
-                                                        "script-src-attr 'self' 'unsafe-inline'; " \
-                                                        "style-src 'self' 'unsafe-inline'; " \
-                                                        "img-src 'self'; " \
-                                                        "font-src 'self'; " \
-                                                        "connect-src 'self' https://*.google-analytics.com; " \
-                                                        "form-action 'self' https://card.payments.service.gov.uk https://oidc.integration.account.gov.uk/ https://signin.integration.account.gov.uk/ https://oidc.account.gov.uk/ https://signin.account.gov.uk/; "
+        response.headers['Content-Security-Policy'] = build_csp(
+            script_hosts=['https://*.googletagmanager.com', 'https://*.google-analytics.com'],
+            connect_hosts=['https://*.google-analytics.com'],
+            form_actions=[
+                "'self'",
+                'https://card.payments.service.gov.uk',
+                'https://oidc.integration.account.gov.uk/',
+                'https://signin.integration.account.gov.uk/',
+                'https://oidc.account.gov.uk/',
+                'https://signin.account.gov.uk/',
+            ],
+        )
 
         return response
 

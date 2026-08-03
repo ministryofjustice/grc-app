@@ -79,6 +79,7 @@ def index():
                     user.dateLastLogin = datetime.strftime(now_local, '%d/%m/%Y %H:%M:%S')
                     db.session.commit()
                     session['signedIn'] = email_address
+                    session['admin_session_version'] = user.session_version
                     return local_redirect(url_for('applications.index'))
 
             # Email out 2FA link
@@ -113,6 +114,7 @@ def sign_in_with_security_code():
 
             session['signedIn'] = email_address
             session['userType'] = user.userType
+            session['admin_session_version'] = user.session_version
 
             logger.log(LogLevel.INFO, f"User {logger.mask_email_address(email_address)} logged in with security code")
             return local_redirect(url_for('applications.index'))

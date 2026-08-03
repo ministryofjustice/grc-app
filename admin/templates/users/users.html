@@ -33,7 +33,7 @@
                             <td class="govuk-table__cell">{{ user.userType }}</td>
                             <td class="govuk-table__cell">{{ user.dateLastLogin }}</td>
                             <td class="govuk-table__cell">
-                                <ul class="govuk-summary-list__actions-list" style="text-align: right">
+                                <ul class="govuk-summary-list__actions-list cgr-text-align-right">
                                     {% if not user.dateLastLogin %}
                                         <li class="govuk-summary-list__actions-list-item">
                                             <a href="/users/{{ user.email }}/resend" class="govuk-link">

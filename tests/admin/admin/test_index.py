@@ -11,6 +11,22 @@ class TestAdminIndex:
             assert mock_add_admin_user.called
             assert response.status_code == 200
 
+    @patch('admin.admin.add_default_admin_user_to_database_if_there_are_no_users')
+    def test_index_uses_nonce_based_script_csp(self, mock_add_admin_user, app, client):
+        with app.app_context():
+            response = client.get('/')
+            csp = response.headers['Content-Security-Policy']
+
+            assert mock_add_admin_user.called
+            assert "script-src 'self' 'nonce-" in csp
+            assert "script-src-elem 'self' 'nonce-" in csp
+            assert "script-src-attr 'none'" in csp
+            assert "style-src 'self'" in csp
+            assert "script-src 'self' 'unsafe-inline'" not in csp
+            assert "script-src-elem 'self' 'unsafe-inline'" not in csp
+            assert "style-src 'self' 'unsafe-inline'" not in csp
+            assert b'<script nonce="' in response.data
+
     @patch('grc.models.db.session')
     @patch('grc.external_services.gov_uk_notify.GovUkNotify.send_email_admin_new_user')
     def test_index_add_default_admin_not_required(self, mock_send_email, mock_db_session, app, client):
@@ -35,10 +51,11 @@ class TestAdminIndex:
             )
             assert response.status_code == 200
 
-    def test_index_user_signed_in(self, app, client):
+    def test_index_user_signed_in(self, app, client, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/')
             assert response.status_code == 302
@@ -134,3 +151,4 @@ class TestAdminIndex:
 
             with client.session_transaction() as session:
                 assert session['signedIn'] == 'test.email@example.com'
+                assert session['admin_session_version'] == admin.session_version
