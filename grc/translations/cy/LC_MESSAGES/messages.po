@@ -4621,13 +4621,50 @@ msgstr ""
 msgid "Start or return to an application"
 msgstr "Dechrau cais newydd neu ddychwelyd i gais"
 
+#. TPET-832: WLU-approved translation.
+#: grc/templates/one-login/start.html
+msgid "Get help applying online"
+msgstr "Cael cymorth i wneud cais ar-lein"
+
+#. TPET-832: WLU-approved translation.
+#: grc/templates/one-login/start.html
+msgid "If you do not have access to the internet or do not feel confident using it, contact We Are Group."
+msgstr "Os nad oes gennych fynediad i'r rhyngrwyd neu os nad ydych yn teimlo'n hyderus yn ei ddefnyddio, cysylltwch â We Are Group."
+
+#. TPET-832: Reuses the existing approved translation for "Telephone".
+#: grc/templates/one-login/start.html
+msgid "Telephone:"
+msgstr "Rhif ffôn:"
+
+#. TPET-832: WLU clarification pending; the existing catalogue translation
+#. says Friday closes at 4.30pm, while this English string says 5pm.
+#: grc/templates/one-login/start.html
+msgctxt "DIGITAL_SUPPORT"
+msgid "Monday to Friday, 9am to 5pm"
+msgstr ""
+
+#. TPET-832: WLU-approved translation.
+#: grc/templates/one-login/start.html
+msgid "Closed on bank holidays"
+msgstr "Ar gau ar wyliau banc"
+
+#. TPET-832: WLU-approved translation. Keep FORM and 60777 unchanged.
+#: grc/templates/one-login/start.html
+msgid "Text FORM to 60777 and someone will call you back"
+msgstr "Tecstiwch FORM i 60777 a bydd rhywun yn eich ffonio'n ôl"
+
+#. TPET-832: WLU-approved translation.
+#: grc/templates/one-login/start.html
+msgid "Find out about call charges"
+msgstr "Rhagor o wybodaeth am gostau galwadau"
+
 #: grc/templates/one-login/start.html
 msgid "You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login."
 msgstr "Bydd arnoch angen cyfrif <a href=\"https://www.gov.uk/apply-gender-recognition-certificate\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> er mwyn dechrau cais newydd neu ddychwelyd i’ch cais a ddechreuwyd gyda One Login GOV.UK."
 
 #: grc/templates/one-login/start.html
 msgid "If this is your first time using this service, we will give you a reference number. You will need this if you return to your application."
-msgstr Os mai hwn yw’r tro cyntaf i chi ddefnyddio’r gwasanaeth hwn, byddwn yn rhoi cyfeirnod i chi. Byddwch angen hwn os byddwch yn dychwelyd i’ch cais."
+msgstr "Os mai hwn yw’r tro cyntaf i chi ddefnyddio’r gwasanaeth hwn, byddwn yn rhoi cyfeirnod i chi. Byddwch angen hwn os byddwch yn dychwelyd i’ch cais."
 
 #: grc/templates/one-login/start.html
 msgid "If you are returning to your application which was not started with GOV.UK One Login, you will also need to enter your email address and security code."
