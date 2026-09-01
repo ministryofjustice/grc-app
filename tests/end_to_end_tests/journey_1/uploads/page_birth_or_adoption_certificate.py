@@ -63,7 +63,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.error(field='documents', message='Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB')
     await asserts.documents_uploaded(0)
 
-    DOCUMENT_ONE_NAME = 'document_1.bmp'
+    DOCUMENT_ONE_NAME = 'document_1.png'
 
     # Upload a valid document
     await helpers.upload_file_valid(field='documents', file_name=DOCUMENT_ONE_NAME)

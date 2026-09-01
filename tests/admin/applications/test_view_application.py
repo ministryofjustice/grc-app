@@ -1,6 +1,5 @@
 from datetime import date, datetime
 
-import pytest
 from flask import render_template_string
 
 from grc.business_logic.data_store import DataStore
@@ -8,7 +7,6 @@ from grc.business_logic.data_structures.application_data import ApplicationData
 from grc.business_logic.data_structures.personal_details_data import AffirmedGender, ContactDatesAvoid
 from grc.business_logic.data_structures.partnership_details_data import CurrentlyInAPartnershipEnum
 from grc.business_logic.data_structures.uploads_data import EvidenceFile
-from grc.models import db
 
 
 def birth_or_adoption_certificate_file():
@@ -63,18 +61,12 @@ def populate_application_data_for_view(application_data):
 
 class TestAdminViewApplicationBirthOrAdoptionCertificate:
 
-    @pytest.fixture(autouse=True)
-    def _create_schema(self, app):
-        with app.app_context():
-            db.create_all()
-            yield
-            db.session.remove()
-            db.drop_all()
-
-    def test_shows_uploaded_certificate_and_no_documents_to_post(self, app, client, submitted_application_unregistered):
+    def test_shows_uploaded_certificate_and_no_documents_to_post(
+        self, app, client, admin, submitted_application_unregistered
+    ):
         with app.app_context():
             with client.session_transaction() as session:
-                session['signedIn'] = 'test.email@example.com'
+                session['signedIn'] = admin.email
 
             application_data = DataStore.load_application('ABCD1234')
             populate_application_data_for_view(application_data)
@@ -92,10 +84,12 @@ class TestAdminViewApplicationBirthOrAdoptionCertificate:
             assert 'Yes' not in documents_to_post_section.split('An EX160 form')[0]
             assert 'No' in documents_to_post_section
 
-    def test_keeps_documents_to_post_when_certificate_not_uploaded(self, app, client, submitted_application_unregistered):
+    def test_keeps_documents_to_post_when_certificate_not_uploaded(
+        self, app, client, admin, submitted_application_unregistered
+    ):
         with app.app_context():
             with client.session_transaction() as session:
-                session['signedIn'] = 'test.email@example.com'
+                session['signedIn'] = admin.email
 
             application_data = DataStore.load_application('ABCD1234')
             populate_application_data_for_view(application_data)
@@ -107,7 +101,6 @@ class TestAdminViewApplicationBirthOrAdoptionCertificate:
             assert response.status_code == 200
             documents_to_post_section = html.split('Documents to post')[1]
             assert 'Yes' in documents_to_post_section.split('An EX160 form')[0]
-
 
 class TestAdminGeneratedPdfBirthOrAdoptionCertificate:
 
