@@ -1,4 +1,4 @@
-{% if application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
+{% if application_data.needs_to_post_birth_or_adoption_certificate %}
     {% if application_data.birth_registration_data.birth_registered_in_uk %}
         {% if application_data.birth_registration_data.adopted %}
 * eich gwreiddiol neu ardystiedig o'ch (https://www.gov.uk/certifying-a-document) tystysgrif fabwysiadu llawn

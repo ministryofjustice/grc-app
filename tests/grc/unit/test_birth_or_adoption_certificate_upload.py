@@ -19,6 +19,12 @@ def birth_or_adoption_certificate_file():
     return evidence_file
 
 
+def password_protected_birth_or_adoption_certificate_file():
+    evidence_file = birth_or_adoption_certificate_file()
+    evidence_file.password_required = True
+    return evidence_file
+
+
 def populate_check_your_answers_data(application_data):
     application_data.confirmation_data.gender_recognition_outside_uk = False
     application_data.confirmation_data.consent_to_GRO_contact = True
@@ -66,6 +72,9 @@ def test_birth_or_adoption_certificate_section_is_optional_and_visible(app):
 
         assert application_data.need_birth_or_adoption_certificate is True
         assert application_data.section_status_birth_or_adoption_certificates == ListStatus.NOT_STARTED
+        assert application_data.has_usable_birth_or_adoption_certificate is False
+        assert application_data.needs_to_post_birth_or_adoption_certificate is True
+        assert application_data.needs_to_post_documents is True
 
 
 def test_birth_or_adoption_certificate_section_is_completed_when_file_uploaded(app):
@@ -74,6 +83,22 @@ def test_birth_or_adoption_certificate_section_is_completed_when_file_uploaded(a
         application_data.uploads_data.birth_or_adoption_certificates = [birth_or_adoption_certificate_file()]
 
         assert application_data.section_status_birth_or_adoption_certificates == ListStatus.COMPLETED
+        assert application_data.has_usable_birth_or_adoption_certificate is True
+        assert application_data.needs_to_post_birth_or_adoption_certificate is False
+        assert application_data.needs_to_post_documents is False
+
+
+def test_password_protected_certificate_requires_postal_fallback(app):
+    with app.app_context():
+        application_data = ApplicationData()
+        application_data.uploads_data.birth_or_adoption_certificates = [
+            password_protected_birth_or_adoption_certificate_file()
+        ]
+
+        assert application_data.section_status_birth_or_adoption_certificates == ListStatus.ERROR
+        assert application_data.has_usable_birth_or_adoption_certificate is False
+        assert application_data.needs_to_post_birth_or_adoption_certificate is True
+        assert application_data.needs_to_post_documents is True
 
 
 def test_confirmation_does_not_ask_for_posted_certificate_when_uploaded(app):
@@ -260,3 +285,52 @@ def test_applicant_pdf_keeps_certificate_in_documents_to_post_when_not_uploaded(
 
         documents_to_post_section = response.split('Documents to post')[1]
         assert 'your original or a certified copy of your full birth or adoption certificate' in documents_to_post_section
+
+
+def test_check_your_answers_treats_password_protected_evidence_as_not_supplied(app):
+    with app.test_request_context():
+        g.build_info = SimpleNamespace(git_commit='test')
+        g.lang_code = 'en'
+        application_data = ApplicationData()
+        populate_check_your_answers_data(application_data)
+        application_data.uploads_data.birth_or_adoption_certificates = [
+            password_protected_birth_or_adoption_certificate_file()
+        ]
+        application_data.submit_and_pay_data.applying_for_help_with_fee = False
+
+        response = render_template(
+            'submit-and-pay/check-your-answers.html',
+            form=CheckYourAnswers(),
+            application_data=application_data,
+            context={'birth_cert_copy_link': 'BIRTH_CERT_LINK', 'ex160_link': 'EX160_LINK'},
+            back='taskList.index'
+        )
+
+        assert 'BIRTH_CERT_LINK' in response
+        assert 'birth-certificate.pdf' not in response
+        assert 'You have uploaded your birth or adoption certificate' not in response
+
+
+def test_confirmation_treats_password_protected_evidence_as_not_supplied(app):
+    with app.test_request_context():
+        g.build_info = SimpleNamespace(git_commit='test')
+        g.lang_code = 'en'
+        application_data = ApplicationData()
+        application_data.uploads_data.birth_or_adoption_certificates = [
+            password_protected_birth_or_adoption_certificate_file()
+        ]
+
+        response = render_template(
+            'submit-and-pay/confirmation.html',
+            application_data=application_data,
+            context={
+                'birth_cert_copy_link': 'BIRTH_CERT_LINK',
+                'ex160_link': 'EX160_LINK',
+                'copy_birth_death_marriage_link': 'COPY_CERT_LINK',
+                'scotland_norther_ireland_cert_link': 'SCOTLAND_NI_LINK'
+            }
+        )
+
+        assert 'Post your birth or adoption certificate to us as soon as possible' in response
+        assert 'BIRTH_CERT_LINK' in response
+        assert 'You do not need to post any documents to us unless we ask you to' not in response

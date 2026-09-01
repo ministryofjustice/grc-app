@@ -431,7 +431,7 @@
                     value=(uploadedDocumentsList(application_data.uploads_data.statutory_declarations, 'statutoryDeclarations'))
                 ) }}
 
-                {% if application_data.uploads_data.birth_or_adoption_certificates | length > 0 %}
+                {% if application_data.has_usable_birth_or_adoption_certificate %}
                     {{ summary_list_item.render(
                         title=_('Your birth or adoption certificate'),
                         changeLinkHiddenText='the documents you have uploaded as evidence of birth or adoption certificate',
@@ -473,8 +473,8 @@
             </dl>
 
 
-            {% set needs_to_post_birth_or_adoption_certificate = application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
-            {% set needs_to_post_documents = needs_to_post_birth_or_adoption_certificate or application_data.submit_and_pay_data.is_using_ex160_form %}
+            {% set needs_to_post_birth_or_adoption_certificate = application_data.needs_to_post_birth_or_adoption_certificate %}
+            {% set needs_to_post_documents = application_data.needs_to_post_documents %}
             {% if needs_to_post_documents %}
                 <h2 class="govuk-heading-m">
                      {{ _("Documents you'll need to post") }}

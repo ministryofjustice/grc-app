@@ -4,8 +4,8 @@
 {% block title %}{{ _('Application submitted') }}{% endblock %}
 
 {% block content %}
-    {% set needs_to_post_birth_or_adoption_certificate = application_data.uploads_data.birth_or_adoption_certificates | length == 0 %}
-    {% set needs_to_post_documents = needs_to_post_birth_or_adoption_certificate or application_data.submit_and_pay_data.is_using_ex160_form %}
+    {% set needs_to_post_birth_or_adoption_certificate = application_data.needs_to_post_birth_or_adoption_certificate %}
+    {% set needs_to_post_documents = application_data.needs_to_post_documents %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 

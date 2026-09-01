@@ -178,11 +178,13 @@ def uploadInfoPage(section_url: str):
         if form.validate_on_submit():
             if form.button_clicked.data == form.UploadEnum.UPLOAD_FILE.name:
                 has_password = False
+                upload_failed = False
                 try:
                     for document in form.documents.data:
                         original_file_name = document.filename
                         object_name = create_aws_file_name(application_data.reference_number, section.data_section, original_file_name)
                         password_required = False
+                        upload_succeeded = False
                         file_type = ''
                         if '.' in original_file_name:
                             file_type = original_file_name[original_file_name.rindex('.') + 1:].lower()
@@ -197,7 +199,7 @@ def uploadInfoPage(section_url: str):
                                     password_required = True
                                     has_password = True
 
-                                AwsS3Client().upload_fileobj(document, object_name)
+                                upload_succeeded = AwsS3Client().upload_fileobj(document, object_name) is True
                             except Exception as e:
                                 logger.log(LogLevel.ERROR, f"User uploaded PDF attachment ({object_name}) which"
                                                            f" could not be opened: message = {e}")
@@ -218,23 +220,29 @@ def uploadInfoPage(section_url: str):
                                 # If an image has been resized, it will be saved as a JPG
                                 object_name = f'{original_object_name}.jpg'
 
-                            AwsS3Client().upload_fileobj(resized_document, object_name)
+                            upload_succeeded = AwsS3Client().upload_fileobj(resized_document, object_name) is True
                             logger.log(LogLevel.INFO, "Image successfully resized")
                         else:
                             logger.log(LogLevel.INFO, "Image failed to resize")
-                            AwsS3Client().upload_fileobj(document, object_name)
+                            upload_succeeded = AwsS3Client().upload_fileobj(document, object_name) is True
 
-                        new_evidence_file = EvidenceFile()
-                        new_evidence_file.original_file_name = original_file_name
-                        new_evidence_file.aws_file_name = object_name
-                        new_evidence_file.password_required = password_required
-                        files.append(new_evidence_file)
+                        if upload_succeeded:
+                            new_evidence_file = EvidenceFile()
+                            new_evidence_file.original_file_name = original_file_name
+                            new_evidence_file.aws_file_name = object_name
+                            new_evidence_file.password_required = password_required
+                            files.append(new_evidence_file)
+                        else:
+                            upload_failed = True
                 except Exception as e:
+                    upload_failed = True
                     logger.log(LogLevel.ERROR, message=f"Error uploading file: {e}")
 
                 DataStore.save_application(application_data)
 
-                if has_password:
+                if upload_failed:
+                    form.documents.errors.extend([c.UPLOAD_FAILED_ERROR, c.UPLOAD_FAILED_RETRY])
+                elif has_password:
                     return local_redirect(url_for('upload.documentPassword', section_url=section.url))
                 else:
                     return local_redirect(url_for('upload.uploadInfoPage', section_url=section.url) + '#file-upload-section')
