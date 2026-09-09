@@ -180,7 +180,7 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.number_of_errors(0)
 
     # Check the values in the summary table
-    await asserts.check_your_answers_rows(34)
+    await asserts.check_your_answers_rows(35)
     await asserts.check_your_answers_row(row_name='Have you ever been issued a Gender Recognition Certificate (or its equivalent) in another country?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you have official documentation that shows you have ever been issued a Gender Recognition Certificate (or its equivalent) in one of the allowed countries or territories?', expected_value='Yes')
     await asserts.check_your_answers_row(row_name='Do you consent to the General Register Office contacting you about your application?', expected_value='Yes')
@@ -216,6 +216,10 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.check_your_answers_row(row_name='Marriage documents', expected_value='document_1.bmp')
     await asserts.check_your_answers_row(row_name='Overseas certificate documents', expected_value='document_1.bmp')
     await asserts.check_your_answers_row(row_name='Statutory declarations', expected_value='document_1.bmp')
+    await asserts.check_your_answers_row(
+        row_name='Your birth or adoption certificate',
+        expected_value='document_1.png'
+    )
 
     await asserts.check_your_answers_row(row_name='Payment method', expected_value='Help')
     await asserts.check_your_answers_row(row_name='Help type', expected_value='Using the online service')
@@ -261,6 +265,12 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your marriage or civil partnership', expected_url='/upload/marriage-documents', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
     await asserts.change_links_to_url(link_text='Change the documents you have uploaded as evidence of your overseas certificate', expected_url='/upload/overseas-certificate', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
     await asserts.change_links_to_url(link_text='Change the statutory declarations documents you have uploaded', expected_url='/upload/statutory-declarations', back_link_should_return_to_check_page=False, save_button_should_return_to_check_page=False)
+    await asserts.change_links_to_url(
+        link_text='Change the documents you have uploaded as evidence of birth or adoption certificate',
+        expected_url='/upload/birth-or-adoption-certificate',
+        back_link_should_return_to_check_page=False,
+        save_button_should_return_to_check_page=False
+    )
 
     # Don't choose any option, click Save and continue
     await helpers.click_button('Submit application')
