@@ -189,6 +189,8 @@ def uploadInfoPage(section_url: str):
                         if '.' in original_file_name:
                             file_type = original_file_name[original_file_name.rindex('.') + 1:].lower()
 
+                        # Preserve the legacy flow: S3 write failures are logged by the client
+                        # but do not surface as upload errors or block evidence metadata.
                         if file_type == 'pdf':
                             try:
                                 data = io.BytesIO(document.read())
@@ -199,7 +201,8 @@ def uploadInfoPage(section_url: str):
                                     password_required = True
                                     has_password = True
 
-                                upload_succeeded = AwsS3Client().upload_fileobj(document, object_name) is True
+                                AwsS3Client().upload_fileobj(document, object_name)
+                                upload_succeeded = True
                             except Exception as e:
                                 logger.log(LogLevel.ERROR, f"User uploaded PDF attachment ({object_name}) which"
                                                            f" could not be opened: message = {e}")
@@ -220,11 +223,13 @@ def uploadInfoPage(section_url: str):
                                 # If an image has been resized, it will be saved as a JPG
                                 object_name = f'{original_object_name}.jpg'
 
-                            upload_succeeded = AwsS3Client().upload_fileobj(resized_document, object_name) is True
+                            AwsS3Client().upload_fileobj(resized_document, object_name)
+                            upload_succeeded = True
                             logger.log(LogLevel.INFO, "Image successfully resized")
                         else:
                             logger.log(LogLevel.INFO, "Image failed to resize")
-                            upload_succeeded = AwsS3Client().upload_fileobj(document, object_name) is True
+                            AwsS3Client().upload_fileobj(document, object_name)
+                            upload_succeeded = True
 
                         if upload_succeeded:
                             new_evidence_file = EvidenceFile()

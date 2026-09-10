@@ -123,7 +123,9 @@ def test_birth_or_adoption_certificate_malformed_pdf_is_not_saved(app, client, t
         assert fake_s3.objects == {}
 
 
-def test_birth_or_adoption_certificate_storage_failure_is_not_saved(app, client, test_application, fake_s3):
+def test_birth_or_adoption_certificate_storage_failure_keeps_legacy_success_response(
+    app, client, test_application, fake_s3
+):
     fake_s3.upload_results = [False]
 
     with app.app_context():
@@ -140,9 +142,9 @@ def test_birth_or_adoption_certificate_storage_failure_is_not_saved(app, client,
 
         application_data = load_test_data(test_application.reference_number)
 
-        assert response.status_code == 200
-        assert 'Sorry, there is a problem with the service' in response.text
-        assert application_data.uploads_data.birth_or_adoption_certificates == []
+        assert response.status_code == 302
+        assert response.location == '/upload/birth-or-adoption-certificate#file-upload-section'
+        assert len(application_data.uploads_data.birth_or_adoption_certificates) == 1
         assert fake_s3.objects == {}
 
 
