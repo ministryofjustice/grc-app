@@ -39,6 +39,8 @@ class UploadForm(FlaskForm):
     )
 
     def get_csrf_token(self):
+        if not hasattr(self, '_csrf'):
+            return ''
         return self._csrf.generate_csrf_token('csrf_token')
 
 
@@ -48,6 +50,8 @@ class DeleteForm(FlaskForm):
     )
 
     def get_csrf_token(self):
+        if not hasattr(self, '_csrf'):
+            return ''
         return self._csrf.generate_csrf_token('csrf_token')
 
 
@@ -77,9 +81,13 @@ class PasswordsForm(FlaskForm):
     files = FieldList(FormField(PasswordForm), min_entries=1)
 
     def get_csrf_token(self):
+        if not hasattr(self, '_csrf'):
+            return ''
         return self._csrf.generate_csrf_token('csrf_token')
 
 
 class DeleteAllFilesInSectionForm(FlaskForm):
     def get_csrf_token(self):
+        if not hasattr(self, '_csrf'):
+            return ''
         return self._csrf.generate_csrf_token('csrf_token')

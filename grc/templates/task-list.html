@@ -48,7 +48,7 @@
 
             <div class="govuk-inset-text govuk-!-margin-bottom-8">
                 <p class="govuk-body">
-                    {{ _('You can upload most documents online, but you will need to post us your birth or adoption certificate') }}.
+                    {{ _('You can upload most documents online, including your birth or adoption certificate. You can also post your birth or adoption certificate to us if you cannot upload it') }}.
                 </p>
 
                 <p class="govuk-body">
@@ -156,6 +156,12 @@
                             _("Statutory declarations"),
                             url_for('upload.uploadInfoPage', section_url='statutory-declarations'),
                             application_data.section_status_statutory_declarations)
+                        }}
+
+                        {{ taskListItem(
+                            _("Your birth or adoption certificate"),
+                            url_for('upload.uploadInfoPage', section_url='birth-or-adoption-certificate'),
+                            application_data.section_status_birth_or_adoption_certificates)
                         }}
                     </ul>
                 </li>

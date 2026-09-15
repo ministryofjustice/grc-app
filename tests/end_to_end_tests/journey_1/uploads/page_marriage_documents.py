@@ -131,7 +131,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.number_of_errors(0)
 
     # Status of "Marriage documents" section should be "NOT STARTED"
-    await asserts.task_list_sections(9)
+    await asserts.task_list_sections(10)
     await asserts.task_list_section(section='Confirmation', expected_status='Completed')
     await asserts.task_list_section(section='Your personal details', expected_status='Completed')
     await asserts.task_list_section(section='Your birth registration information', expected_status='Completed')
@@ -140,6 +140,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='Not started')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='Not started')
     await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Your birth or adoption certificate', expected_status='Not started')
     await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
 
     # Click "Marriage documents" to go back to the "Marriage Documents" page
@@ -180,7 +181,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.number_of_errors(0)
 
     # Status of "Marriage documents" section should be "COMPLETED"
-    await asserts.task_list_sections(9)
+    await asserts.task_list_sections(10)
     await asserts.task_list_section(section='Confirmation', expected_status='Completed')
     await asserts.task_list_section(section='Your personal details', expected_status='Completed')
     await asserts.task_list_section(section='Your birth registration information', expected_status='Completed')
@@ -189,6 +190,7 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.task_list_section(section='Marriage and civil partnership documents', expected_status='Completed')
     await asserts.task_list_section(section='Overseas certificate documents', expected_status='Not started')
     await asserts.task_list_section(section='Statutory declarations', expected_status='Not started')
+    await asserts.task_list_section(section='Your birth or adoption certificate', expected_status='Not started')
     await asserts.task_list_section(section='Submit and pay', expected_status='Cannot start yet')
 
     # Click "Marriage documents" to go back to the "Marriage Documents" page

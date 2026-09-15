@@ -84,5 +84,5 @@ async def run_checks_on_page(page: Page, asserts: AssertHelpers, helpers: PageHe
     await asserts.number_of_errors(0)
 
     # Status of "Name Change Documents page" section should be "COMPLETED"
-    await asserts.task_list_sections(9)
+    await asserts.task_list_sections(10)
     await asserts.task_list_section(section='Dogfennau newid enw', expected_status="Wedi'i gwblhau")
