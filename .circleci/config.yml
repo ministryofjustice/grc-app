@@ -72,7 +72,7 @@ jobs:
           POSTGRES_DB: grc-application-test
           POSTGRES_PORT: 5432
           POSTGRES_PASSWORD: password
-      - image: redis:latest
+      - image: redis:latest@sha256:718f745deb7dfefeac6eed7041fc7ec9476b50e61b247932682457c41adafa0e
     steps:
       - checkout
       - setup_remote_docker
