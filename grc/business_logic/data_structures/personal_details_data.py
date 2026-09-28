@@ -64,6 +64,7 @@ class PersonalDetailsData:
         self.address_postcode: str = None
 
         self.contact_email_address: str = None
+        self.contact_by_email: bool = None
         self.contact_phone_number: str = None
         self.contact_by_post: bool = None  # We take the postal address from the address fields above
 

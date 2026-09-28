@@ -187,14 +187,12 @@ def contactPreferences():
     application_data = DataStore.load_application_by_session_reference_number()
 
     if request.method == 'POST':
-        if 'EMAIL' not in form.contact_options.data:
-            form.email.data = None
         if 'PHONE' not in form.contact_options.data:
             form.phone.data = None
 
         if form.validate_on_submit():
-            application_data.personal_details_data.contact_email_address = \
-                form.email.data if 'EMAIL' in form.contact_options.data else ''
+            application_data.personal_details_data.contact_email_address = form.email.data
+            application_data.personal_details_data.contact_by_email = ('EMAIL' in form.contact_options.data)
             application_data.personal_details_data.contact_phone_number = \
                 form.phone.data if 'PHONE' in form.contact_options.data else ''
             application_data.personal_details_data.contact_by_post = ('POST' in form.contact_options.data)
@@ -204,7 +202,7 @@ def contactPreferences():
 
     if request.method == 'GET':
         form.contact_options.data = []
-        if application_data.personal_details_data.contact_email_address:
+        if application_data.personal_details_data.contact_by_email:
             form.contact_options.data.append('EMAIL')
         if application_data.personal_details_data.contact_phone_number:
             form.contact_options.data.append('PHONE')
