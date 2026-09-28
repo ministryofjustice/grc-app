@@ -1,6 +1,10 @@
 from typing import List
 
 
+MEDICAL_REPORT_SLOT_FIRST = 'first'
+MEDICAL_REPORT_SLOT_SECOND = 'second'
+
+
 class EvidenceFile:
     def __new__(cls, *args, **kwargs):
         # This method has been added to address a limitation of jsonpickle.decode
@@ -16,6 +20,7 @@ class EvidenceFile:
         self.original_file_name: str = None
         self.aws_file_name: str = None
         self.password_required: bool = False
+        self.medical_report_slot: str = None
 
 
 class UploadsData:

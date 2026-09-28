@@ -1,6 +1,7 @@
 import pytest
 from admin.tools.forms import UnlockFileForm
 from grc.upload.forms import UploadForm
+from grc.lazy.lazy_form_custom_validators import LazyMultiFileAllowed
 from grc.utils.form_custom_validators import MultiFileAllowed
 from werkzeug.datastructures import FileStorage
 from unittest.mock import MagicMock
@@ -8,6 +9,18 @@ from wtforms.validators import StopValidation
 
 
 class TestValidateMultiFileAllowed:
+    def test_lazy_multi_file_allowed_checks_files_after_valid_extension(self, app):
+        with app.test_request_context():
+            form = UploadForm()
+            form.documents.data = [
+                FileStorage(filename='valid.pdf', stream=MagicMock(), content_type='application/pdf'),
+                FileStorage(filename='invalid.exe', stream=MagicMock(), content_type='application/octet-stream'),
+            ]
+            validator = LazyMultiFileAllowed(form.upload_set, message='Invalid file')
+
+            with pytest.raises(StopValidation, match='Invalid file'):
+                validator(form, form.documents)
+
     def test_multi_file_allowed_public_file_upload_valid(self, app):
         with app.test_request_context():
             test_files_uploaded = [

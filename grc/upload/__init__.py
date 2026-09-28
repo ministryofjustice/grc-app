@@ -8,9 +8,20 @@ import uuid
 from PIL import Image
 from grc.business_logic.data_store import DataStore
 from grc.business_logic.data_structures.application_data import any_duplicate_aws_file_names
-from grc.business_logic.data_structures.uploads_data import UploadsData, EvidenceFile
+from grc.business_logic.data_structures.uploads_data import (
+    UploadsData,
+    EvidenceFile,
+    MEDICAL_REPORT_SLOT_FIRST,
+    MEDICAL_REPORT_SLOT_SECOND,
+)
 from grc.business_logic.constants.uploads import UploadsConstants as c
-from grc.upload.forms import UploadForm, DeleteForm, PasswordsForm, DeleteAllFilesInSectionForm
+from grc.upload.forms import (
+    UploadForm,
+    MedicalReportsUploadForm,
+    DeleteForm,
+    PasswordsForm,
+    DeleteAllFilesInSectionForm,
+)
 from grc.utils.decorators import LoginRequired
 from grc.external_services.aws_s3_client import AwsS3Client
 from grc.utils.flask_child_form_add_custom_errors import add_error_for_child_form
@@ -143,6 +154,87 @@ def resize_image(document):
     return False, document
 
 
+def upload_file_or_raise(s3_client, document, object_name, created_object_names):
+    if not s3_client.upload_fileobj(document, object_name):
+        raise RuntimeError(f'Could not upload {object_name}')
+    created_object_names.append(object_name)
+
+
+def store_evidence_file(s3_client, document, application_data, section, created_object_names,
+                        medical_report_slot=None):
+    original_file_name = document.filename
+    object_name = create_aws_file_name(application_data.reference_number, section.data_section, original_file_name)
+    password_required = False
+    file_type = original_file_name.rsplit('.', 1)[-1].lower() if '.' in original_file_name else ''
+
+    if file_type == 'pdf':
+        data = io.BytesIO(document.read())
+        document.seek(0)
+        try:
+            if PDFUtils().is_pdf_form(data):
+                document = PDFUtils().flatten_form_pdf_stream(data)
+            if PDFUtils().is_pdf_password_protected(data):
+                password_required = True
+            upload_file_or_raise(s3_client, document, object_name, created_object_names)
+        except Exception as error:
+            logger.log(LogLevel.ERROR, f'User uploaded PDF attachment ({object_name}) which could not be stored: {error}')
+            raise
+    elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
+        resized, resized_document = resize_image(document)
+        if resized:
+            original_object_name, file_extension = object_name.rsplit('.', 1)
+            upload_file_or_raise(
+                s3_client,
+                document,
+                f'{original_object_name}_original.{file_extension}',
+                created_object_names,
+            )
+            object_name = f'{original_object_name}.jpg'
+        upload_file_or_raise(s3_client, resized_document, object_name, created_object_names)
+    else:
+        upload_file_or_raise(s3_client, document, object_name, created_object_names)
+
+    evidence_file = EvidenceFile()
+    evidence_file.original_file_name = original_file_name
+    evidence_file.aws_file_name = object_name
+    evidence_file.password_required = password_required
+    evidence_file.medical_report_slot = medical_report_slot
+    return evidence_file
+
+
+def rollback_uploaded_files(s3_client, object_names):
+    for object_name in reversed(object_names):
+        if not s3_client.delete_object(object_name):
+            logger.log(LogLevel.ERROR, f'Could not roll back uploaded object {object_name}')
+
+
+def add_upload_failure_errors(field):
+    field.errors.extend([c.UPLOAD_FAILED_ERROR, c.UPLOAD_FAILED_RETRY])
+
+
+def medical_report_files(files, slot):
+    return [file for file in files if getattr(file, 'medical_report_slot', None) == slot]
+
+
+def legacy_medical_report_files(files):
+    return [
+        file for file in files
+        if getattr(file, 'medical_report_slot', None) not in {
+            MEDICAL_REPORT_SLOT_FIRST,
+            MEDICAL_REPORT_SLOT_SECOND,
+        }
+    ]
+
+
+def medical_reports_complete(files):
+    if legacy_medical_report_files(files):
+        return True
+    return bool(
+        medical_report_files(files, MEDICAL_REPORT_SLOT_FIRST)
+        and medical_report_files(files, MEDICAL_REPORT_SLOT_SECOND)
+    )
+
+
 def rotate_image_to_match_exif_orientation_flag(image: Image):
     try:
         exif_data = image.getexif()
@@ -169,7 +261,8 @@ def uploadInfoPage(section_url: str):
     if section is None:
         return abort(404)
 
-    form = UploadForm()
+    is_medical_reports = section.url == 'medical-reports'
+    form = MedicalReportsUploadForm() if is_medical_reports else UploadForm()
     deleteform = DeleteForm()
     deleteAllFilesInSectionForm = DeleteAllFilesInSectionForm()
     application_data = DataStore.load_application_by_session_reference_number()
@@ -177,70 +270,55 @@ def uploadInfoPage(section_url: str):
     if request.method == 'POST':
         if form.validate_on_submit():
             if form.button_clicked.data == form.UploadEnum.UPLOAD_FILE.name:
-                has_password = False
-                try:
-                    for document in form.documents.data:
-                        original_file_name = document.filename
-                        object_name = create_aws_file_name(application_data.reference_number, section.data_section, original_file_name)
-                        password_required = False
-                        file_type = ''
-                        if '.' in original_file_name:
-                            file_type = original_file_name[original_file_name.rindex('.') + 1:].lower()
-
-                        if file_type == 'pdf':
-                            try:
-                                data = io.BytesIO(document.read())
-                                if PDFUtils().is_pdf_form(data):
-                                    document = PDFUtils().flatten_form_pdf_stream(data)
-
-                                if PDFUtils().is_pdf_password_protected(data):
-                                    password_required = True
-                                    has_password = True
-
-                                AwsS3Client().upload_fileobj(document, object_name)
-                            except Exception as e:
-                                logger.log(LogLevel.ERROR, f"User uploaded PDF attachment ({object_name}) which"
-                                                           f" could not be opened: message = {e}")
-
-                        elif file_type in ['jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp']:
-                            resized, resized_document = resize_image(document)
-                            logger.log(LogLevel.INFO, "Image being resized")
-                            if resized:
-                                file_ext = ''
-                                original_object_name = object_name
-                                if '.' in original_object_name:
-                                    file_ext = original_object_name[original_object_name.rindex('.'):]
-                                    original_object_name = original_object_name[0: original_object_name.rindex('.')]
-
-                                aws_file_name = f'{original_object_name}_original{file_ext}'
-                                AwsS3Client().upload_fileobj(document, aws_file_name)
-
-                                # If an image has been resized, it will be saved as a JPG
-                                object_name = f'{original_object_name}.jpg'
-
-                            AwsS3Client().upload_fileobj(resized_document, object_name)
-                            logger.log(LogLevel.INFO, "Image successfully resized")
-                        else:
-                            logger.log(LogLevel.INFO, "Image failed to resize")
-                            AwsS3Client().upload_fileobj(document, object_name)
-
-                        new_evidence_file = EvidenceFile()
-                        new_evidence_file.original_file_name = original_file_name
-                        new_evidence_file.aws_file_name = object_name
-                        new_evidence_file.password_required = password_required
-                        files.append(new_evidence_file)
-                except Exception as e:
-                    logger.log(LogLevel.ERROR, message=f"Error uploading file: {e}")
-
-                DataStore.save_application(application_data)
-
-                if has_password:
-                    return local_redirect(url_for('upload.documentPassword', section_url=section.url))
+                uploads = []
+                if is_medical_reports:
+                    uploads.extend((document, MEDICAL_REPORT_SLOT_FIRST)
+                                   for document in form.first_medical_report.data if document.filename)
+                    uploads.extend((document, MEDICAL_REPORT_SLOT_SECOND)
+                                   for document in form.second_medical_report.data if document.filename)
                 else:
+                    uploads.extend((document, None) for document in form.documents.data if document.filename)
+
+                s3_client = AwsS3Client()
+                created_object_names = []
+                new_evidence_files = []
+                try:
+                    for document, medical_report_slot in uploads:
+                        new_evidence_files.append(store_evidence_file(
+                            s3_client,
+                            document,
+                            application_data,
+                            section,
+                            created_object_names,
+                            medical_report_slot,
+                        ))
+                    files.extend(new_evidence_files)
+                    DataStore.save_application(application_data)
+                except Exception as error:
+                    logger.log(LogLevel.ERROR, message=f'Error uploading file: {error}')
+                    for evidence_file in new_evidence_files:
+                        if evidence_file in files:
+                            files.remove(evidence_file)
+                    rollback_uploaded_files(s3_client, created_object_names)
+                    if is_medical_reports:
+                        if form.first_medical_report.data and any(file.filename for file in form.first_medical_report.data):
+                            add_upload_failure_errors(form.first_medical_report)
+                        if form.second_medical_report.data and any(file.filename for file in form.second_medical_report.data):
+                            add_upload_failure_errors(form.second_medical_report)
+                    else:
+                        add_upload_failure_errors(form.documents)
+                else:
+                    if any(file.password_required for file in new_evidence_files):
+                        return local_redirect(url_for('upload.documentPassword', section_url=section.url))
                     return local_redirect(url_for('upload.uploadInfoPage', section_url=section.url) + '#file-upload-section')
 
             elif form.button_clicked.data == form.UploadEnum.SAVE_AND_CONTINUE.name:
-                if len(files) > 0:
+                if is_medical_reports and not medical_reports_complete(files):
+                    if not medical_report_files(files, MEDICAL_REPORT_SLOT_FIRST):
+                        form.first_medical_report.errors.append(c.FILE_TYPE_PUBLIC_ERROR)
+                    if not medical_report_files(files, MEDICAL_REPORT_SLOT_SECOND):
+                        form.second_medical_report.errors.append(c.FILE_TYPE_PUBLIC_ERROR)
+                elif len(files) > 0:
                     return local_redirect(url_for('taskList.index'))
                 else:
                     form.documents.errors.append(c.FILE_TYPE_PUBLIC_ERROR)
@@ -253,6 +331,9 @@ def uploadInfoPage(section_url: str):
         section_url=section.url,
         currently_uploaded_files=files,
         duplicate_aws_file_names=any_duplicate_aws_file_names(files),
+        first_medical_report_files=medical_report_files(files, MEDICAL_REPORT_SLOT_FIRST),
+        second_medical_report_files=medical_report_files(files, MEDICAL_REPORT_SLOT_SECOND),
+        legacy_medical_report_files=legacy_medical_report_files(files),
         date_now=datetime.datetime.now(),
         date_two_years_ago=(datetime.datetime.now() - relativedelta(years=2)),
         lang_code=g.lang_code

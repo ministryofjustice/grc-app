@@ -6,10 +6,10 @@ from grc.lazy.lazy_fields import LazyRadioField
 from grc.lazy.lazy_form_custom_validators import LazyDataRequired, LazyMultiFileAllowed
 from grc.utils.form_custom_validators import validate_multiple_files_size_limit, file_virus_scan, StrictRequiredIf
 from wtforms import MultipleFileField, HiddenField, PasswordField, SubmitField, FormField, FieldList
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, StopValidation
 
 
-class UploadForm(FlaskForm):
+class BaseUploadForm(FlaskForm):
 
     class UploadEnum(enum.Enum):
         UPLOAD_FILE = enum.auto()
@@ -26,20 +26,56 @@ class UploadForm(FlaskForm):
         validators=[LazyDataRequired(lazy_message=c.UPLOAD_OR_SAVE_ERROR)]
     )
 
+    def get_csrf_token(self):
+        return self._csrf.generate_csrf_token('csrf_token')
+
+
+class UploadForm(BaseUploadForm):
     documents = MultipleFileField(
         validators=[
-            StrictRequiredIf('button_clicked', UploadEnum.UPLOAD_FILE.name,
+            StrictRequiredIf('button_clicked', BaseUploadForm.UploadEnum.UPLOAD_FILE.name,
                              message=c.FILE_TYPE_PUBLIC_ERROR,
                              validators=[
-                                 LazyMultiFileAllowed(upload_set, lazy_message=c.FILE_TYPE_PUBLIC_ERROR),
+                                 LazyMultiFileAllowed(BaseUploadForm.upload_set, lazy_message=c.FILE_TYPE_PUBLIC_ERROR),
                                  validate_multiple_files_size_limit,
                                  file_virus_scan
                              ]),
         ]
     )
 
-    def get_csrf_token(self):
-        return self._csrf.generate_csrf_token('csrf_token')
+
+def optional_multiple_files(_form, field):
+    if not any(getattr(file, 'filename', '') for file in (field.data or [])):
+        field.errors[:] = []
+        raise StopValidation()
+
+
+def medical_report_validators():
+    return [
+        optional_multiple_files,
+        LazyMultiFileAllowed(BaseUploadForm.upload_set, lazy_message=c.FILE_TYPE_PUBLIC_ERROR),
+        validate_multiple_files_size_limit,
+        file_virus_scan,
+    ]
+
+
+class MedicalReportsUploadForm(BaseUploadForm):
+    first_medical_report = MultipleFileField(validators=medical_report_validators())
+    second_medical_report = MultipleFileField(validators=medical_report_validators())
+
+    @staticmethod
+    def _has_files(field):
+        return any(getattr(file, 'filename', '') for file in (field.data or []))
+
+    def validate(self, extra_validators=None):
+        is_valid = super().validate(extra_validators)
+        if self.button_clicked.data == self.UploadEnum.UPLOAD_FILE.name and not (
+            self._has_files(self.first_medical_report) or self._has_files(self.second_medical_report)
+        ):
+            if not self.first_medical_report.errors:
+                self.first_medical_report.errors.append(c.FILE_TYPE_PUBLIC_ERROR)
+            return False
+        return is_valid
 
 
 class DeleteForm(FlaskForm):

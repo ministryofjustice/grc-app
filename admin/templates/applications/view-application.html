@@ -594,12 +594,27 @@
                         {% endfor %}
                     </ol>
                 {% endmacro %}
+
+                {% macro medicalReportsList(files) %}
+                    {% set first_files = files | selectattr('medical_report_slot', 'equalto', 'first') | list %}
+                    {% set second_files = files | selectattr('medical_report_slot', 'equalto', 'second') | list %}
+                    {% set legacy_files = files | rejectattr('medical_report_slot', 'equalto', 'first') | rejectattr('medical_report_slot', 'equalto', 'second') | list %}
+                    {% if first_files %}
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">First medical report</h3>
+                        {{ uploadedDocumentsList(first_files) }}
+                    {% endif %}
+                    {% if second_files %}
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-1">Second medical report</h3>
+                        {{ uploadedDocumentsList(second_files) }}
+                    {% endif %}
+                    {{ uploadedDocumentsList(legacy_files) }}
+                {% endmacro %}
             
                 <tbody class="govuk-table__body">
                     {% if application_data.need_medical_reports %}
                         {{ summary_list_item(
                             title='Your medical reports',
-                            value=(uploadedDocumentsList(application_data.uploads_data.medical_reports)),
+                            value=(medicalReportsList(application_data.uploads_data.medical_reports)),
                             noCopyButton=True
                         ) }}
                     {% endif %}
@@ -641,14 +656,6 @@
                         value=(uploadedDocumentsList(application_data.uploads_data.statutory_declarations)),
                         noCopyButton=True
                     ) }}
-
-                    {% if application_data.need_medical_reports %}
-                        {{ summary_list_item(
-                            title='Your medical reports',
-                            value=(uploadedDocumentsList(application_data.uploads_data.medical_reports)),
-                            noCopyButton=True
-                        ) }}
-                    {% endif %}
 
                     {% if application_data.need_birth_or_adoption_certificate %}
                         {{ summary_list_item(
