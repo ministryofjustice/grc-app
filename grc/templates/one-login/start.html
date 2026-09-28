@@ -15,6 +15,30 @@
                 {{ _('Start or return to an application') }}
             </h1>
 
+            <section id="digital-support" aria-labelledby="digital-support-heading">
+                <h2 class="govuk-heading-m" id="digital-support-heading">
+                    {{ _('Get help applying online') }}
+                </h2>
+
+                <p class="govuk-body">
+                    {{ _('If you do not have access to the internet or do not feel confident using it, contact We Are Group.') }}
+                </p>
+
+                <p class="govuk-body">
+                    <a href="https://www.wearegroup.com/digital_support" class="govuk-link">We Are Group</a><br>
+                    <a href="mailto:support@wearegroup.com" class="govuk-link">support@wearegroup.com</a><br>
+                    {{ _('Telephone:') }} <a href="tel:+443300160051" class="govuk-link">03300 160 051</a><br>
+                    {{ pgettext('DIGITAL_SUPPORT', 'Monday to Friday, 9am to 5pm') }}<br>
+                    {{ _('Closed on bank holidays') }}<br>
+                    {{ _('Text FORM to 60777 and someone will call you back') }}<br>
+                    {% if g.lang_code == 'cy' %}
+                        <a href="https://www.gov.uk/costau-galwadau" class="govuk-link">{{ _('Find out about call charges') }}</a>
+                    {% else %}
+                        <a href="https://www.gov.uk/call-charges" class="govuk-link">{{ _('Find out about call charges') }}</a>
+                    {% endif %}
+                </p>
+            </section>
+
             <p class="govuk-body">
               {{ _("You’ll need a <a href=\"https://www.gov.uk/using-your-gov-uk-one-login/services\" target=\"_blank\" class=\"govuk-link\">GOV.UK One Login</a> to start a new application or return to your application that was started with GOV.UK One Login.") | safe }}
             </p>

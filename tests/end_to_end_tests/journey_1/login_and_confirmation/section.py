@@ -13,6 +13,20 @@ async def run_checks_on_section(page: Page, asserts: AssertHelpers, helpers: Pag
     assert await page.inner_text('a.govuk-header__link.govuk-header__service-name') == 'Apply for a Gender Recognition Certificate'
     await asserts.h1('Start or return to an application')
     await asserts.number_of_errors(0)
+    assert await page.inner_text('#digital-support-heading') == 'Get help applying online'
+    assert await page.locator(
+        '#digital-support a[href="https://www.wearegroup.com/digital_support"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="mailto:support@wearegroup.com"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="tel:+443300160051"]'
+    ).count() == 1
+    assert await page.locator(
+        '#digital-support a[href="https://www.gov.uk/call-charges"]'
+    ).count() == 1
+    assert await page.locator('#digital-support a[target="_blank"]').count() == 0
 
     # Select no options, see error message
     await helpers.click_button('Continue')
