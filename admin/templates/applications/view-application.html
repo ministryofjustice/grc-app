@@ -22,7 +22,7 @@
                 {{ application_data.personal_details_data.title }}
                 {{ application_data.personal_details_data.first_name }}
                 {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
+                <span class="cgr-underline">{{ application_data.personal_details_data.last_name }}</span>
             </li>
         </ol>
     </div>
@@ -59,16 +59,15 @@
                 {{ subtitle }}
             </th>
         {% endif %}
-        <td class="govuk-table__cell govuk-!-font-weight-bold"
-            style="{{ 'white-space: nowrap' if noWrap }}">
+        <td class="govuk-table__cell govuk-!-font-weight-bold {{ 'cgr-whitespace-nowrap' if noWrap }}">
             {{ value }}
         </td>
         <td class="govuk-table__cell">
             {% if not noCopyButton %}
                 {# Note: the following line should all be on one line to allow copy/paste to work without copying line breaks #}
-                <div style="display: none" id="value-{{ id }}">{% if alternativeCopyValue %}{{ alternativeCopyValue }}{% else %}{{ value }}{% endif %}</div>
+                <div class="cgr-display-none" id="value-{{ id }}">{% if alternativeCopyValue %}{{ alternativeCopyValue }}{% else %}{{ value }}{% endif %}</div>
                 <button class="govuk-button govuk-button--secondary copyToClipboardButton" data-module="govuk-button"
-                        id="button-{{ id }}" aria-describedby="row-header-{{ id }} button-{{ id }}" onclick="copyToClipboard('{{ id }}')">
+                        id="button-{{ id }}" aria-describedby="row-header-{{ id }} button-{{ id }}" data-copy-id="{{ id }}">
                     <span id="button-text-{{ id }}">
                         Copy
                     </span>
@@ -84,7 +83,7 @@
 {% endmacro %}
 
 {% block content %}
-    <script>
+    <script nonce="{{ csp_nonce }}">
         function copyToClipboard(id) {
             var valueElement = document.getElementById('value-' + id);
             var buttonTextElement = document.getElementById('button-text-' + id);
@@ -99,33 +98,12 @@
                 });
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            document.querySelectorAll(".copyToClipboardButton").forEach(el => el.style.display = 'block');
+            document.querySelectorAll(".copyToClipboardButton").forEach((el) => {
+                el.style.display = 'block';
+                el.addEventListener('click', () => copyToClipboard(el.dataset.copyId));
+            });
         }
     </script>
-    <style>
-        .copyToClipboardButton {
-            /* display: none; */
-        }
-
-        table.govuk-table {
-            width: 100%;
-            table-layout: fixed;
-            display: table;
-        }
-
-        table.govuk-table tbody.govuk-table__body tr.govuk-table__row th:nth-child(1) {
-            width: calc(65% - 45px);
-        }
-
-        table.govuk-table tbody.govuk-table__body tr.govuk-table__row td:nth-child(2) {
-            width: calc(35% - 45px);
-        }
-
-        table.govuk-table tbody.govuk-table__body tr.govuk-table__row td:last-child {
-            width: 90px;
-            text-align: right;
-        }
-    </style>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
@@ -134,9 +112,9 @@
                 {{ application_data.personal_details_data.title }}
                 {{ application_data.personal_details_data.first_name }}
                 {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
+                <span class="cgr-underline">{{ application_data.personal_details_data.last_name }}</span>
 
-                <span class="govuk-caption-l" style="margin-top: 15px;">
+                <span class="govuk-caption-l cgr-margin-top-15">
                     {{ application_data.application_certificate_type }}: {{ application_data.reference_number }}
                 </span>
             </h1>
@@ -210,7 +188,7 @@
                             ) }}
                             {% macro partnerPostalAddressValue() %}
                                 {# WARNING: The next line should all be on one line to ensure the line breaks appear correctly! #}
-                                <span style="white-space: pre-line;">{{ application_data.partnership_details_data.partner_postal_address }}</span>
+                                <span class="cgr-whitespace-pre-line">{{ application_data.partnership_details_data.partner_postal_address }}</span>
                             {% endmacro %}
                             {{ summary_list_item(
                                 title='Partner postal address',
@@ -426,7 +404,7 @@
                         {% if application_data.personal_details_data.contact_dates_should_avoid %}
                             {% macro unavailabilityDates() %}
                                 {# Note: The following <span> should all be on one line, to allow the line breaks to work correctly #}
-                                <span style="white-space: pre-line;">{{ application_data.personal_details_data.contact_dates_to_avoid }}</span>
+                                <span class="cgr-whitespace-pre-line">{{ application_data.personal_details_data.contact_dates_to_avoid }}</span>
                             {% endmacro %}
                             {{ summary_list_item(
                                 title="Unavailability dates",
@@ -444,11 +422,11 @@
                         {% macro unavailabilityDateOrDateRanges() %}
                             {% if application_data.personal_details_data.contact_date_to_avoid %}
                                 {# Note: The following <span> should all be on one line, to allow the line breaks to work correctly #}
-                                <span style="white-space: pre-line;">{{ application_data.personal_details_data.contact_date_to_avoid_formatted_DD_MM_YYYY }}</span>
+                                <span class="cgr-whitespace-pre-line">{{ application_data.personal_details_data.contact_date_to_avoid_formatted_DD_MM_YYYY }}</span>
                             {% endif %}
                             {% if application_data.personal_details_data.contact_date_ranges_to_avoid %}
                                 {% for from_date, to_date in application_data.personal_details_data.contact_date_ranges_to_avoid_formatted_DD_MM_YYYY %}
-                                    <span style="white-space: pre-line;">From {{ from_date }} to {{ to_date }}</span>
+                                    <span class="cgr-whitespace-pre-line">From {{ from_date }} to {{ to_date }}</span>
                                 {% endfor %}
                             {% endif %}
                         {% endmacro %}
@@ -583,7 +561,7 @@
                 {{ table_caption_and_head_rows(caption="Uploaded documents") }}
                 
                 {% macro uploadedDocumentsList(files) %}
-                    <ol class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0" style="list-style-type: auto;">
+                    <ol class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0 cgr-list-style-auto">
                         {% for file in files %}
                             <li>
                                 <a href="{{ request.host_url[:-1] + url_for('applications.downloadfile', file_name=file.aws_file_name) }}"

@@ -1,8 +1,7 @@
 import email_validator
 from .lazy_errors import LazyValidationError, LazyStopValidation
-from collections.abc import Iterable
 from flask_babel import LazyString
-from grc.utils.form_custom_validators import MultiFileAllowed, Integer
+from grc.utils.form_custom_validators import MultiFileAllowed, Integer, allowed_extensions, upload_file_allowed
 from werkzeug.datastructures import FileStorage
 from wtforms.validators import DataRequired, ValidationError, StopValidation, Email
 
@@ -75,11 +74,11 @@ class LazyMultiFileAllowed(MultiFileAllowed):
             return
 
         for data in field.data:
-            filename = data.filename.lower()
+            extensions = allowed_extensions(self.upload_set)
 
-            if isinstance(self.upload_set, Iterable):
-                if any(filename.endswith('.' + x) for x in self.upload_set):
-                    return
+            if extensions is not None:
+                if upload_file_allowed(data, self.upload_set):
+                    continue
 
                 if self.lazy_message:
                     raise LazyStopValidation(self.lazy_message)
@@ -88,7 +87,7 @@ class LazyMultiFileAllowed(MultiFileAllowed):
                     'File does not have an approved extension: {extensions}'
                 ).format(extensions=', '.join(self.upload_set)))
 
-            if not self.upload_set.file_allowed(field.data, filename):
+            if not upload_file_allowed(data, self.upload_set):
 
                 if self.lazy_message:
                     raise LazyStopValidation(self.lazy_message)

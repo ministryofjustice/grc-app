@@ -24,7 +24,7 @@
                     Search by reference number
                 </h2>
 
-                <div style="display: flex; align-items: baseline; flex-wrap: wrap">
+                <div class="cgr-flex-baseline-wrap">
                     <label class="govuk-label govuk-!-margin-right-2" for="reference_number">
                         Reference number
                     </label>
@@ -35,8 +35,8 @@
                         Go
                     </button>
                 </div>
-                <p class="govuk-body" style="margin-top: 20px;">
-                    <a href="/applications/search" class="govuk-link" style="color: #ccc;">Advanced search</a>
+                <p class="govuk-body cgr-margin-top-20">
+                    <a href="/applications/search" class="govuk-link cgr-muted-link">Advanced search</a>
                 </p>
             </form>
 
@@ -47,17 +47,17 @@
             <div class="govuk-tabs" data-module="govuk-tabs">
                 <ul class="govuk-tabs__list" role="tablist">
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected" role="presentation">
-                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" onclick="tabClicked(this.id, {{ new_apps_references }})">
+                        <a class="govuk-tabs__tab" href="#new" id="tab_new" role="tab" aria-controls="new" aria-selected="true" tabindex="0" data-tab-applications='{{ new_apps_references | tojson }}'>
                             New applications
                         </a>
                     </li>
                     <li class="govuk-tabs__list-item" role="presentation">
-                        <a class="govuk-tabs__tab" href="#downloaded" id="tab_downloaded" role="tab" aria-controls="downloaded" aria-selected="false" tabindex="-1" onclick="tabClicked(this.id, {{ downloaded_apps_references }})">
+                        <a class="govuk-tabs__tab" href="#downloaded" id="tab_downloaded" role="tab" aria-controls="downloaded" aria-selected="false" tabindex="-1" data-tab-applications='{{ downloaded_apps_references | tojson }}'>
                             Downloaded applications
                         </a>
                     </li>
                     <li class="govuk-tabs__list-item" role="presentation">
-                        <a class="govuk-tabs__tab" href="#completed" id="tab_complete" role="tab" aria-controls="completed" aria-selected="false" tabindex="-1" onclick="tabClicked(this.id, {{ completed_apps_references }})">
+                        <a class="govuk-tabs__tab" href="#completed" id="tab_complete" role="tab" aria-controls="completed" aria-selected="false" tabindex="-1" data-tab-applications='{{ completed_apps_references | tojson }}'>
                             Completed applications
                         </a>
                     </li>
@@ -92,7 +92,7 @@
                                             {{ application_data.personal_details_data.title }}
                                             {{ application_data.personal_details_data.first_name }}
                                             {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                                            <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
+                                            <span class="cgr-underline">{{ application_data.personal_details_data.last_name }}</span>
                                         </td>
                                         <td class="govuk-table__cell">
                                             {{ application.updated | format_date }}
@@ -121,7 +121,7 @@
                                                                     Registered new case
                                                                 </label>
                                                             {% else %}
-                                                                <input class="govuk-checkboxes__input checkbox-unregistered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
+                                                                <input class="govuk-checkboxes__input checkbox-unregistered" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" data-select-application="{{ application.reference_number }}">
                                                                 <label class="govuk-label govuk-checkboxes__label" id="label-{{ application.reference_number }}" name="label-{{ application.reference_number }}" for="{{ application.reference_number }}">
                                                                     Register new case
                                                                 </label>
@@ -135,7 +135,7 @@
                                     {% else %}
                                     <tr class="govuk-table__row">
                                         <td colspan="5" class="govuk-table__cell">
-                                            <p class="govuk-body" style="margin: 10px 0; color: #ccc;">
+                                            <p class="govuk-body cgr-muted-status">
                                                 Valid data not found for application {{ application.reference_number }} - {{ application.email }}
                                                 <!--- {{ application.user_input | safe }} -->
                                             </p>
@@ -144,18 +144,18 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr class="govuk-table__row">
-                                    <td colspan="4" class="govuk-table__cell" style="text-align: right">
-                                        <img id="spinner" class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" src="{{ url_for('static', filename='assets/images/spinner.gif') }}" style="display:none;" width="30" height="30" alt="Loading spinner image.">
+                                    <td colspan="4" class="govuk-table__cell cgr-text-align-right">
+                                        <img id="spinner" class="govuk-!-margin-bottom-0 govuk-!-margin-right-2" src="{{ url_for('static', filename='assets/images/spinner.gif') }}" class="cgr-display-none" width="30" height="30" alt="Loading spinner image.">
                                         <button id="submit-selected-apps-btn-new" disabled="disabled" 
                                                 class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" 
                                                 data-module="govuk-button"
-                                                onclick="submitNewCaseRegistration()">
+                                                data-submit-new-case-registration>
                                             Apply new case registration
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ new_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-select-all-applications='{{ new_apps_references | tojson }}'>
                                             Select all for new case registration
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ new_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-clear-all-applications='{{ new_apps_references | tojson }}'>
                                             Clear all for new case registration
                                         </button>
                                     </td>
@@ -193,7 +193,7 @@
                                             {{ application_data.personal_details_data.title }}
                                             {{ application_data.personal_details_data.first_name }}
                                             {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                                            <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
+                                            <span class="cgr-underline">{{ application_data.personal_details_data.last_name }}</span>
                                         </th>
                                         <td class="govuk-table__cell">
                                             {{ application.updated | format_date }}
@@ -223,7 +223,7 @@
                                                     <li>
                                                         <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                                                             <div class="govuk-checkboxes__item">
-                                                                <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
+                                                                <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" data-select-application="{{ application.reference_number }}">
                                                                 <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
                                                                     Application completed
                                                                 </label>
@@ -237,7 +237,7 @@
                                     {% else %}
                                     <tr class="govuk-table__row">
                                         <td colspan="5" class="govuk-table__cell">
-                                            <p class="govuk-body" style="margin: 10px 0; color: #ccc;">
+                                            <p class="govuk-body cgr-muted-status">
                                                 Valid data not found for application {{ application.reference_number }} - {{ application.email }}
                                                 <!--- {{ application.user_input | safe }} -->
                                             </p>
@@ -246,14 +246,14 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr class="govuk-table__row">
-                                    <td colspan="5" class="govuk-table__cell" style="text-align: right">
-                                        <button id="submit-selected-apps-btn-downloaded" disabled="disabled" class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" data-module="govuk-button" onclick="submitBulkMarkAsComplete('{{ url_for('applications.completed') }}')">
+                                    <td colspan="5" class="govuk-table__cell cgr-text-align-right">
+                                        <button id="submit-selected-apps-btn-downloaded" disabled="disabled" class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" data-module="govuk-button" data-submit-bulk-url="{{ url_for('applications.completed') }}">
                                             Apply applications completed
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ downloaded_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-select-all-applications='{{ downloaded_apps_references | tojson }}'>
                                             Select all as completed
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ downloaded_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-clear-all-applications='{{ downloaded_apps_references | tojson }}'>
                                             Clear all as completed
                                         </button>
                                     </td>
@@ -292,7 +292,7 @@
                                             {{ application_data.personal_details_data.title }}
                                             {{ application_data.personal_details_data.first_name }}
                                             {{ application_data.personal_details_data.middle_names_or_empty_string }}
-                                            <span style="text-decoration: underline;">{{ application_data.personal_details_data.last_name }}</span>
+                                            <span class="cgr-underline">{{ application_data.personal_details_data.last_name }}</span>
                                         </th>
                                         <td class="govuk-table__cell">
                                             {{ application.updated | format_date }}
@@ -321,7 +321,7 @@
                                                 <li>
                                                     <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                                                         <div class="govuk-checkboxes__item">
-                                                            <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" onclick="selectOrDeselectApplication('{{ application.reference_number }}')">
+                                                            <input class="govuk-checkboxes__input" id="{{ application.reference_number }}" name="{{ application.reference_number }}" type="checkbox" data-select-application="{{ application.reference_number }}">
                                                             <label class="govuk-label govuk-checkboxes__label" for="{{ application.reference_number }}">
                                                                 Delete
                                                             </label>
@@ -334,7 +334,7 @@
                                     {% else %}
                                     <tr class="govuk-table__row">
                                         <td colspan="5" class="govuk-table__cell">
-                                            <p class="govuk-body" style="margin: 10px 0; color: #ccc;">
+                                            <p class="govuk-body cgr-muted-status">
                                                 Valid data not found for application {{ application.reference_number }} - {{ application.email }}
                                                 <!--- {{ application.user_input | safe }} -->
                                             </p>
@@ -343,14 +343,14 @@
                                     {% endif %}
                                 {% endfor %}
                                 <tr class="govuk-table__row">
-                                    <td colspan="5" class="govuk-table__cell" style="text-align: right">
-                                        <button id="submit-selected-apps-btn-completed" disabled="disabled" class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" data-module="govuk-button" onclick="submitBulkMarkAsComplete('{{ url_for('applications.delete') }}')">
+                                    <td colspan="5" class="govuk-table__cell cgr-text-align-right">
+                                        <button id="submit-selected-apps-btn-completed" disabled="disabled" class="govuk-button govuk-!-margin-bottom-0 govuk-button--disabled" data-module="govuk-button" data-submit-bulk-url="{{ url_for('applications.delete') }}">
                                             Delete selected applications
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="selectAllApplications({{ completed_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-select-all-applications='{{ completed_apps_references | tojson }}'>
                                             Select all applications
                                         </button>
-                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" onclick="clearAllApplications({{ completed_apps_references }})">
+                                        <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary" data-module="govuk-button" data-clear-all-applications='{{ completed_apps_references | tojson }}'>
                                             Deselect all applications
                                         </button>
                                     </td>

@@ -30,9 +30,9 @@
                 {% for evidence_file in currently_uploaded_files %}
 
                     <div class="govuk-summary-list__row">
-                        <dd class="govuk-summary-list__value govuk-!-width-full" style="vertical-align: middle;">
+                        <dd class="govuk-summary-list__value govuk-!-width-full cgr-align-middle">
                             {% if evidence_file.password_required %}
-                            <img src="{{ url_for('static', filename='assets/images/padlock.svg') }}" style="width: 30px; vertical-align: bottom; margin-right: 2px;">
+                            <img src="{{ url_for('static', filename='assets/images/padlock.svg') }}" class="cgr-padlock-icon">
                             {% endif %}
 
                             {# <a href="{{ url_for('upload.download', section_url=section_url) }}?file={{ evidence_file.aws_file_name }}" target="_blank" class="govuk-link"> #}
@@ -75,8 +75,7 @@
         {% endif %}
 
         {% if not duplicate_aws_file_names %}
-            <form method="POST" enctype="multipart/form-data"
-                  onsubmit="document.getElementById('documents').style.display = 'none'; document.getElementById('loading').style.display = 'inline-block';">
+            <form method="POST" enctype="multipart/form-data" data-upload-form>
                 <input type="hidden" name="csrf_token" value="{{ form.get_csrf_token() }}">
 
                 <div class="govuk-form-group {{ 'govuk-form-group--error' if form.errors }} govuk-!-margin-bottom-2">
@@ -102,12 +101,12 @@
                     {% endif %}
 
                     <img id="loading" src="{{ url_for('static', filename='assets/images/loading.gif') }}" width="40"
-                         height="40" style="display: none; margin-bottom: 17px;" alt="">
+                         height="40" class="cgr-hidden-loading" alt="">
                     <input id="documents" type="file" name="documents" multiple
                            accept=".jpg,.jpeg,.bmp,.png,.tif,.tiff,.pdf"
                            class="govuk-file-upload govuk-!-margin-bottom-4 {{ 'govuk-input--error' if form.documents.errors }}"
                            aria-describedby="documents-hint{{ (' ' + 'extra-upload-hint') if extra_upload_hint else '' }}"
-                           onchange="checkFile(event, '{{ lang_code }}')">
+                           data-upload-language="{{ lang_code }}">
                 </div>
                 <button id="submit" type="submit" name="button_clicked" value="UPLOAD_FILE" class="govuk-button" data-module="govuk-button">
                     {{ _('Upload file') }}
@@ -138,8 +137,8 @@
             </p>
         {% endif %}
 
-        <script>
-        async function checkFile(event, language='en') {
+        <script nonce="{{ csp_nonce }}">
+        function updateUploadButton(event, language='en') {
             let submitButtonText = 'Upload file'
             let uploadText = 'Upload'
             let singleFileText = 'file'
@@ -157,6 +156,17 @@
                 document.getElementById('submit').innerText = `${uploadText} ${event.target.files.length} ${event.target.files.length == 1 ? singleFileText : multiFilesText}`
             }
         }
+
+        document.querySelectorAll('[data-upload-form]').forEach((form) => {
+            form.addEventListener('submit', () => {
+                document.getElementById('documents').style.display = 'none'
+                document.getElementById('loading').style.display = 'inline-block'
+            })
+        })
+
+        document.querySelectorAll('[data-upload-language]').forEach((input) => {
+            input.addEventListener('change', (event) => updateUploadButton(event, input.dataset.uploadLanguage))
+        })
         </script>
     </div>
 {% endmacro %}

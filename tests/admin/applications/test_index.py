@@ -1,18 +1,20 @@
 class TestAdminElements:
 
-    def test_homepage_elements(self, app, client):
+    def test_homepage_elements(self, app, client, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications')
             html = response.data.decode()
             assert 'Download GRC applications' in html
 
-    def test_new_applications_present_unregistered(self, app, client, submitted_application_unregistered):
+    def test_new_applications_present_unregistered(self, app, client, submitted_application_unregistered, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications#new')
             html = response.data.decode()
@@ -26,10 +28,11 @@ class TestAdminElements:
             assert 'ABCD1234' in html
             assert '01/01/2024 09:00' in html
 
-    def test_new_applications_present_registered(self, app, client, submitted_application_registered):
+    def test_new_applications_present_registered(self, app, client, submitted_application_registered, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications#new')
             html = response.data.decode()
@@ -43,10 +46,11 @@ class TestAdminElements:
             assert 'ABCD1234' in html
             assert '01/01/2024 09:00' in html
 
-    def test_downloaded_applications_present(self, app, client, downloaded_application):
+    def test_downloaded_applications_present(self, app, client, downloaded_application, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications#downloaded')
             html = response.data.decode()
@@ -60,10 +64,11 @@ class TestAdminElements:
             assert 'EFGH5678' in html
             assert '01/01/2024 09:00' in html
 
-    def test_completed_applications_present(self, app, client, completed_application):
+    def test_completed_applications_present(self, app, client, completed_application, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications#completed')
             html = response.data.decode()
@@ -77,10 +82,11 @@ class TestAdminElements:
             assert 'IJKL9012' in html
             assert '01/01/2024 09:00' in html
 
-    def test_invalid_applications_present(self, app, client, invalid_submitted_application):
+    def test_invalid_applications_present(self, app, client, invalid_submitted_application, admin):
         with app.app_context():
             with client.session_transaction() as session:
                 session['signedIn'] = 'test.email@example.com'
+                session['admin_session_version'] = admin.session_version
 
             response = client.get('/applications#new')
             html = response.data.decode()
@@ -89,4 +95,3 @@ class TestAdminElements:
             assert 'Applicant name' in html
             assert 'Submitted' in html
             assert 'Valid data not found for application MNOP3456 - test.email2@example.com' in html
-

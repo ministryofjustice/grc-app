@@ -3,6 +3,18 @@ let applicationError = false;
 let applicationsChecked = [];
 let submitButton = document.getElementById('submit-selected-apps-btn-new');
 
+function parseJsonDataset(value) {
+    if (!value) {
+        return [];
+    }
+
+    try {
+        return JSON.parse(value);
+    } catch (e) {
+        return [];
+    }
+}
+
 window.onload = function() {
     const urlAnchor = window.location.hash;
     if (urlAnchor) {
@@ -128,6 +140,30 @@ function selectOrDeselectApplication(application) {
     }
 }
 
+document.querySelectorAll('[data-tab-applications]').forEach((tab) => {
+    tab.addEventListener('click', () => tabClicked(tab.id, parseJsonDataset(tab.dataset.tabApplications)));
+});
+
+document.querySelectorAll('[data-select-application]').forEach((checkbox) => {
+    checkbox.addEventListener('click', () => selectOrDeselectApplication(checkbox.dataset.selectApplication));
+});
+
+document.querySelectorAll('[data-submit-new-case-registration]').forEach((button) => {
+    button.addEventListener('click', submitNewCaseRegistration);
+});
+
+document.querySelectorAll('[data-submit-bulk-url]').forEach((button) => {
+    button.addEventListener('click', () => submitBulkMarkAsComplete(button.dataset.submitBulkUrl));
+});
+
+document.querySelectorAll('[data-select-all-applications]').forEach((button) => {
+    button.addEventListener('click', () => selectAllApplications(parseJsonDataset(button.dataset.selectAllApplications)));
+});
+
+document.querySelectorAll('[data-clear-all-applications]').forEach((button) => {
+    button.addEventListener('click', () => clearAllApplications(parseJsonDataset(button.dataset.clearAllApplications)));
+});
+
 /**
 Sets case to be registered and therefore removed from applicationsChecked, disabled, and text changed to registered.
 
@@ -230,4 +266,3 @@ async function submitNewCaseRegistration() {
         setLoadingFalse(spinner);
     }
 }
-

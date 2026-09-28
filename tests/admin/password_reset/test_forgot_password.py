@@ -143,6 +143,7 @@ class TestForgotPassword:
 
     def test_password_reset_post_valid_password_updates_password(self, app, client, admin):
         with app.app_context():
+            original_session_version = admin.session_version
             with client.session_transaction() as session:
                 session['email'] = 'test.email@example.com'
 
@@ -156,6 +157,27 @@ class TestForgotPassword:
             assert 'Your password has been reset' in response.text
             assert user.passwordResetRequired is False
             assert check_password_hash(user.password, 'New-password-123')
+            assert user.session_version != original_session_version
+
+    def test_password_reset_invalidates_existing_admin_session(self, app, client, admin):
+        with app.app_context():
+            stale_client = app.test_client()
+            with stale_client.session_transaction() as session:
+                session['signedIn'] = 'test.email@example.com'
+                session['userType'] = 'ADMIN'
+                session['admin_session_version'] = admin.session_version
+
+            with client.session_transaction() as session:
+                session['email'] = 'test.email@example.com'
+
+            client.post('/password_reset', data={
+                'password': 'New-password-123',
+                'confirmPassword': 'New-password-123'
+            })
+
+            response = stale_client.get('/applications')
+            assert response.status_code == 302
+            assert response.location == '/'
 
     def test_password_reset_post_passwords_do_not_match(self, app, client, admin):
         with app.app_context():

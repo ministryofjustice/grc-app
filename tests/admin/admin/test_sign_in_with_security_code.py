@@ -37,6 +37,7 @@ class TestAdminSignInWithSecurityCode:
             with client.session_transaction() as session:
                 assert session['signedIn'] == 'test.email@example.com'
                 assert session['userType'] == 'ADMIN'
+                assert session['admin_session_version'] == admin.session_version
 
     def test_sign_in_with_security_code_post_invalid_code(self, app, client, admin, security_code):
         with app.app_context():

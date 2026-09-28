@@ -1,6 +1,7 @@
 import os
 import re
 import pathlib
+from collections.abc import Iterable
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
 from flask import session, current_app
@@ -16,6 +17,79 @@ from grc.utils.reference_number import reference_number_is_valid
 from grc.utils.logger import LogLevel, Logger
 
 logger = Logger()
+
+
+FILE_SIGNATURES = {
+    'pdf': (b'%PDF-',),
+    'jpg': (b'\xff\xd8\xff',),
+    'jpeg': (b'\xff\xd8\xff',),
+    'png': (b'\x89PNG\r\n\x1a\n',),
+    'bmp': (b'BM',),
+    'tif': (b'II*\x00', b'MM\x00*'),
+    'tiff': (b'II*\x00', b'MM\x00*'),
+}
+
+
+def allowed_extensions(upload_set):
+    if isinstance(upload_set, str):
+        return {upload_set.lower()}
+
+    if isinstance(upload_set, Iterable):
+        return {extension.lower() for extension in upload_set}
+
+    return None
+
+
+def file_extension(filename):
+    return pathlib.Path(filename.lower()).suffix[1:]
+
+
+def has_safe_filename(filename):
+    if not filename:
+        return False
+
+    filename = pathlib.PurePath(filename).name
+    if filename.count('.') != 1:
+        return False
+
+    name, extension = filename.rsplit('.', 1)
+    return bool(re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9 _-]{0,199}', name)) and \
+        bool(re.fullmatch(r'[A-Za-z0-9]{1,10}', extension))
+
+
+def sanitise_uploaded_filename(filename):
+    filename = pathlib.PurePath(filename or '').name
+    if '.' in filename:
+        name, extension = filename.rsplit('.', 1)
+    else:
+        name, extension = filename, ''
+
+    safe_name = re.sub(r'[^A-Za-z0-9 _-]+', '_', name).strip(' _-')[:200] or 'uploaded-file'
+    safe_extension = re.sub(r'[^A-Za-z0-9]+', '', extension).lower()[:10]
+    return f'{safe_name}.{safe_extension}' if safe_extension else safe_name
+
+
+def matches_file_signature(file_storage, extension):
+    signatures = FILE_SIGNATURES.get(extension)
+    if not signatures:
+        return False
+
+    stream = file_storage.stream
+    stream.seek(0)
+    header = stream.read(max(len(signature) for signature in signatures))
+    stream.seek(0)
+    return isinstance(header, bytes) and any(header.startswith(signature) for signature in signatures)
+
+
+def upload_file_allowed(file_storage, upload_set):
+    filename = file_storage.filename or ''
+    extensions = allowed_extensions(upload_set)
+    extension = file_extension(filename)
+
+    if extensions is None:
+        return upload_set.file_allowed(file_storage, filename.lower())
+
+    return extension in extensions and has_safe_filename(filename) and matches_file_signature(file_storage, extension)
 
 
 class StrictRequiredIf(DataRequired):
@@ -447,9 +521,7 @@ class SingleFileAllowed:
         if not field.data and not isinstance(field.data, FileStorage):
             return
 
-        filename = field.data.filename.lower()
-
-        if pathlib.Path(filename).suffix[1:] in self.upload_set:
+        if upload_file_allowed(field.data, self.upload_set):
             return
 
         raise StopValidation(self.message or field.gettext(
@@ -467,8 +539,7 @@ class MultiFileAllowed:
             return
 
         for data in field.data:
-            filename = data.filename.lower()
-            if pathlib.Path(filename).suffix[1:] in self.upload_set:
+            if upload_file_allowed(data, self.upload_set):
                 continue
 
             raise StopValidation(self.message or field.gettext(
@@ -548,4 +619,3 @@ def validate_email_matches_application(form, field):
 
     if field.data != application.email:
         raise LazyValidationError(c.EMAIL_ADDRESS_NOT_VALIDATED_ERROR)
-
