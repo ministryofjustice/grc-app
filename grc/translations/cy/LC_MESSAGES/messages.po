@@ -4709,10 +4709,9 @@ msgstr "Os byddwch yn uwchlwytho eich tystysgrif, nid oes angen i chi ei phostio
 msgid "If you have an adoption certificate, upload that instead of your birth certificate."
 msgstr "Os oes gennych dystysgrif mabwysiadu, uwchlwythwch honno yn lle eich tystysgrif geni."
 
-#. TPET-918: Welsh translation pending; English fallback is intentional.
 #: grc/templates/document-checker/your-documents.html
 msgid "If you cannot upload your certificate, post it after you submit your application."
-msgstr ""
+msgstr "Os na allwch uwchlwytho eich tystysgrif, postiwch hi ar ôl cyflwyno eich cais."
 
 #: grc/templates/submit-and-pay/check-your-answers.html
 msgid "Documents you have provided"

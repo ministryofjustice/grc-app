@@ -1,7 +1,7 @@
 """Service-free checker routes; the runner supplies synthetic config before collection.
 
-Compile the candidate Welsh catalogue before starting pytest. C3 and C7 deliberately
-remain English pending WLU approval; these tests do not claim a fully Welsh journey.
+Compile the candidate Welsh catalogue before starting pytest. C3 and C7 use the
+approved Welsh wording, retaining the existing new-tab warning in the C3 link.
 """
 
 from copy import deepcopy
@@ -123,15 +123,14 @@ RELATIONSHIP_CASES = [
 
 CERTIFY_URL = 'https://www.gov.uk/certifying-a-document'
 ORDER_URL = 'https://www.gov.uk/order-copy-birth-death-marriage-certificate'
-CERTIFY_TEXT = 'certified copy (opens in a new tab)'
-# Freeze the ENTIRE C3 helper in English, including its link warning, for both locales.
-SOURCE_QUALITY = (
-    'Use the original or a certified copy (opens in a new tab) '
-    'of your full birth or adoption certificate.'
-)
 POSTAL_FALLBACK = 'If you cannot upload your certificate, post it after you submit your application.'
 COPY = {
     'en': {
+        'certify_link': 'certified copy (opens in a new tab)',
+        'source_quality': (
+            'Use the original or a certified copy (opens in a new tab) '
+            'of your full birth or adoption certificate.'),
+        'postal_fallback': POSTAL_FALLBACK,
         'upload': 'Documents to upload',
         'certificate': 'Birth or adoption certificate',
         'translation': 'If any of your documents are not in English',
@@ -151,6 +150,12 @@ COPY = {
         'email_errors': ('Enter your email address', 'Enter a valid email address'),
     },
     'cy': {
+        'certify_link': 'neu ardystiedig (yn agor mewn tab newydd)',
+        'source_quality': (
+            'Defnyddiwch gopi gwreiddiol neu ardystiedig (yn agor mewn tab newydd) '
+            "o'ch tystysgrif geni neu fabwysiadu llawn."),
+        'postal_fallback': (
+            'Os na allwch uwchlwytho eich tystysgrif, postiwch hi ar ôl cyflwyno eich cais.'),
         'upload': "Dogfennau i'w llwytho",
         'certificate': 'Tystysgrif geni neu fabwysiadu',
         'translation': "Os nad yw unrhyw un o'ch dogfennau yn Saesneg",
@@ -293,12 +298,11 @@ def _assert_certificate(main, locale):
                'You should post the following documents after you have submitted your application'
                for node in main.iter('p'))
     body = _one(_elements(certificate, 'div', 'govuk-details__text'))
-    # C7 intentionally falls back to English on CY; C1/C4-C6 above remain approved Welsh.
     assert [_text(node) for node in body.findall('p')] == [
-        SOURCE_QUALITY, *copy['guidance'], POSTAL_FALLBACK, copy['order']]
+        copy['source_quality'], *copy['guidance'], copy['postal_fallback'], copy['order']]
     links = list(body.iter('a'))
     assert [(link.get('href'), _text(link), link.get('target')) for link in links] == [
-        (CERTIFY_URL, CERTIFY_TEXT, '_blank'), (ORDER_URL, copy['order_link'], '_blank')]
+        (CERTIFY_URL, copy['certify_link'], '_blank'), (ORDER_URL, copy['order_link'], '_blank')]
     assert links[0].get('rel') == 'external'
     # C9 was not selected: keep the existing translation requirement unchanged.
     assert copy['originals'] in [_text(node) for node in parent.findall('p')]
@@ -594,24 +598,24 @@ def test_checker_has_no_application_dependency(client, seed_checker_state, local
 
 @pytest.mark.parametrize('locale', ['en', 'cy'])
 def test_helper_language_and_links(app, locale):
-    """CK09: explicit English-first C3, with unchanged localized certificate-order helper."""
+    """CK09: approved localized C3/C7, with unchanged certificate-order helper."""
     if locale == 'cy':
         catalogue_path = Path(app.root_path) / 'translations/cy/LC_MESSAGES/messages.po'
         with catalogue_path.open(encoding='utf-8') as source:
-            fallback = read_po(source, locale='cy')[POSTAL_FALLBACK]
-        assert fallback is not None
-        assert fallback.string == ''
-        assert not fallback.fuzzy
+            approved = read_po(source, locale='cy')[POSTAL_FALLBACK]
+        assert approved is not None
+        assert approved.string == COPY['cy']['postal_fallback']
+        assert not approved.fuzzy
     with app.test_request_context(base_url=ORIGIN):
         session['lang_code'] = locale
         assert app.preprocess_request() is None
         assert g.lang_code == locale
         certify = _HTML(str(DocumentCheckerConstants.get_birth_cert_copy_link())).root
         order = _HTML(str(DocumentCheckerConstants.get_birth_cert_uk_link())).root
-    assert _text(certify) == SOURCE_QUALITY
+    assert _text(certify) == COPY[locale]['source_quality']
     assert _text(order) == COPY[locale]['order']
     link = _one(list(certify.iter('a')))
-    assert _text(link) == CERTIFY_TEXT
+    assert _text(link) == COPY[locale]['certify_link']
     assert link.attrib == {'href': CERTIFY_URL, 'rel': 'external', 'target': '_blank', 'class': 'govuk-link'}
     link = _one(list(order.iter('a')))
     assert _text(link) == COPY[locale]['order_link']
