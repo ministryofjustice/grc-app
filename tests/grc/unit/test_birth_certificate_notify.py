@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 from types import SimpleNamespace
 from unittest.mock import Mock
+from uuid import UUID
 
 import pytest
 from flask import Flask, g, render_template, session
@@ -60,10 +61,11 @@ BULLETS = {
 }
 
 # Current source IDs are frozen: no candidate clones or selector changes are approved.
+# These public template identifiers are UUIDs, not authentication credentials.
 ADMIN_IDS = {
-    'ADMIN_LOGIN_SECURITY_CODE_TEMPLATE': 'fde1def2-bf10-45d2-8c38-2837a0a79399',
-    'ADMIN_FORGET_PASSWORD_TEMPLATE': 'fadf94d8-7d65-4eed-b52a-5f5b81aa32be',
-    'ADMIN_NEW_USER_TEMPLATE': '0ff48a4c-601e-4cc1-b6c6-30bac012c259',
+    'ADMIN_LOGIN_SECURITY_CODE_TEMPLATE': str(UUID('fde1def2-bf10-45d2-8c38-2837a0a79399')),
+    'ADMIN_FORGET_PASSWORD_TEMPLATE': str(UUID('fadf94d8-7d65-4eed-b52a-5f5b81aa32be')),
+    'ADMIN_NEW_USER_TEMPLATE': str(UUID('0ff48a4c-601e-4cc1-b6c6-30bac012c259')),
 }
 TEMPLATE_IDS = {
     'en': {
