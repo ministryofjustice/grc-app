@@ -18,7 +18,7 @@ Thank you for checking which documents you need for your Gender Recognition Cert
 
 Based on your answers, these are the documents you need for your application.
 
-Some documents will be uploaded during the application process, while others need to be posted to us after you submit an application.
+You can upload most documents online, including your birth or adoption certificate. You can also post your birth or adoption certificate to us if you cannot upload it.
 
 
 ((need_to_send_name_change_documents??# Copies of all change of name documents))
@@ -194,7 +194,15 @@ https://www.gov.uk/government/publications/gender-recognition-certificate-list-o
 
 # Birth or adoption certificate
 
-Send an original or certified copy of your full birth or adoption certificate.
+Use the original or a certified copy of your full birth or adoption certificate.
+
+You can upload a scan or good quality photograph of your full birth or adoption certificate.
+
+If you upload your certificate, you do not need to post it to us unless we ask you to.
+
+If you have an adoption certificate, upload that instead of your birth certificate.
+
+If you cannot upload your certificate, post it after you submit your application.
 
 You can order a birth certificate if your birth was registered in the UK. See the following link for guidance about this:
 https://www.gov.uk/order-copy-birth-death-marriage-certificate

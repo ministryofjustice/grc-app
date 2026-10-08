@@ -4686,6 +4686,7 @@ msgid "Your email address has not been validated"
 msgstr "Nid yw eich cyfeiriad e-bost wedi’i ddilysu"
 
 #: grc/templates/task-list.html
+#: grc/templates/document-checker/your-documents.html
 msgid "You can upload most documents online, including your birth or adoption certificate. You can also post your birth or adoption certificate to us if you cannot upload it"
 msgstr "Gallwch uwchlwytho'r rhan fwyaf o ddogfennau ar-lein, gan gynnwys eich tystysgrif geni neu fabwysiadu. Gallwch hefyd bostio'ch tystysgrif geni neu fabwysiadu atom os na allwch ei huwchlwytho"
 
@@ -4694,16 +4695,23 @@ msgid "Your birth or adoption certificate"
 msgstr "Eich tystysgrif geni neu fabwysiadu"
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
+#: grc/templates/document-checker/your-documents.html
 msgid "You can upload a scan or good quality photograph of your full birth or adoption certificate."
 msgstr "Gallwch uwchlwytho sgan neu lun o ansawdd da o'ch tystysgrif geni neu fabwysiadu lawn."
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
+#: grc/templates/document-checker/your-documents.html
 msgid "If you upload your certificate, you do not need to post it to us unless we ask you to."
 msgstr "Os byddwch yn uwchlwytho eich tystysgrif, nid oes angen i chi ei phostio atom oni bai ein bod yn gofyn i chi wneud hynny."
 
 #: grc/templates/upload/birth-or-adoption-certificate.html
+#: grc/templates/document-checker/your-documents.html
 msgid "If you have an adoption certificate, upload that instead of your birth certificate."
 msgstr "Os oes gennych dystysgrif mabwysiadu, uwchlwythwch honno yn lle eich tystysgrif geni."
+
+#: grc/templates/document-checker/your-documents.html
+msgid "If you cannot upload your certificate, post it after you submit your application."
+msgstr "Os na allwch uwchlwytho eich tystysgrif, postiwch hi ar ôl cyflwyno eich cais."
 
 #: grc/templates/submit-and-pay/check-your-answers.html
 msgid "Documents you have provided"
