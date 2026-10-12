@@ -34,11 +34,11 @@ class DocumentCheckerConstants(BaseConstants):
     def get_birth_cert_copy_link() -> str:
         is_welsh = g.lang_code and g.lang_code == 'cy'
         if is_welsh:
-            before_link_text = 'Anfonwch gopi gwreiddiol '
+            before_link_text = 'Defnyddiwch gopi gwreiddiol '
             link_text = 'neu ardystiedig (yn agor mewn tab newydd)'
-            after_link_text = " o\'ch tystysgrif geni llawn neu dystysgrif mabwysiadu."
+            after_link_text = " o'ch tystysgrif geni neu fabwysiadu llawn."
         else:
-            before_link_text = 'Send an original or '
+            before_link_text = 'Use the original or a '
             link_text = 'certified copy (opens in a new tab)'
             after_link_text = ' of your full birth or adoption certificate.'
         anchor = '<a href="https://www.gov.uk/certifying-a-document" rel="external" target="_blank" class="govuk-link">'
@@ -57,4 +57,3 @@ class DocumentCheckerConstants(BaseConstants):
             after_link_text = ' if you do not have it available.'
         anchor = '<a href="https://www.gov.uk/order-copy-birth-death-marriage-certificate" target="_blank" class="govuk-link">'
         return LinkBuilder(anchor, link_text, before_link_text, after_link_text).get_link_with_text_safe()
-

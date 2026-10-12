@@ -18,7 +18,7 @@ Diolch i chi am wirio pa ddogfennau sydd eu hangen arnoch ar gyfer eich cais am 
 
 Yn seiliedig ar eich atebion, dyma'r dogfennau sydd eu hangen arnoch ar gyfer eich cais.
 
-Bydd gofyn i chi uwchlwytho rhai dogfennau yn ystod y broses gwneud cais, a bydd angen i chi bostio eraill atom ar ôl i chi gyflwyno’ch cais.
+Gallwch uwchlwytho'r rhan fwyaf o ddogfennau ar-lein, gan gynnwys eich tystysgrif geni neu fabwysiadu. Gallwch hefyd bostio'ch tystysgrif geni neu  fabwysiadu atom os na allwch ei huwchlwytho.
 
 ((need_to_send_name_change_documents??# Copïau o'r holl ddogfennau newid enw))
 
@@ -189,7 +189,15 @@ https://www.gov.uk/government/publications/gender-recognition-certificate-list-o
 
 # Tystysgrif geni neu fabwysiadu
 
-Os nad ydych yn gallu cadarnhau eich hunaniaeth ar-lein, bydd angen i chi anfon copi gwreiddiol neu gopi ardystiedig o’ch tystysgrif geni neu fabwysiadu llawn.
+Defnyddiwch gopi gwreiddiol neu ardystiedig o'ch tystysgrif geni neu fabwysiadu llawn.
+
+Gallwch uwchlwytho sgan neu lun o ansawdd da o'ch tystysgrif geni neu fabwysiadu lawn.
+
+Os byddwch yn uwchlwytho eich tystysgrif, nid oes angen i chi ei phostio atom oni bai ein bod yn gofyn i chi wneud hynny.
+
+Os oes gennych dystysgrif mabwysiadu, uwchlwythwch honno yn lle eich tystysgrif geni.
+
+Os na allwch uwchlwytho eich tystysgrif, postiwch hi ar ôl cyflwyno eich cais.
 
 Gallwch archebu tystysgrif geni os cofrestrwyd eich genedigaeth yn y DU.
 
