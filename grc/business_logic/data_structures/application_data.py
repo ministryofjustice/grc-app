@@ -118,6 +118,25 @@ class ApplicationData:
         return self.is_overseas_application
 
     @property
+    def need_birth_or_adoption_certificate(self) -> bool:
+        return True
+
+    @property
+    def has_usable_birth_or_adoption_certificate(self) -> bool:
+        return self.section_status_birth_or_adoption_certificates == ListStatus.COMPLETED
+
+    @property
+    def needs_to_post_birth_or_adoption_certificate(self) -> bool:
+        return not self.has_usable_birth_or_adoption_certificate
+
+    @property
+    def needs_to_post_documents(self) -> bool:
+        return (
+            self.needs_to_post_birth_or_adoption_certificate
+            or self.submit_and_pay_data.is_using_ex160_form
+        )
+
+    @property
     def section_status_medical_reports(self) -> ListStatus:
         if self.need_medical_reports:
             return self._upload_section_status(self.uploads_data.medical_reports)
@@ -155,6 +174,10 @@ class ApplicationData:
     @property
     def section_status_statutory_declarations(self) -> ListStatus:
         return self._upload_section_status(self.uploads_data.statutory_declarations)
+
+    @property
+    def section_status_birth_or_adoption_certificates(self) -> ListStatus:
+        return self._upload_section_status(self.uploads_data.birth_or_adoption_certificates)
 
     @property
     def section_status_submit_and_pay_data(self) -> ListStatus:

@@ -9,3 +9,5 @@ class UploadsConstants:
     # Errors
     UPLOAD_OR_SAVE_ERROR = _l("Click on either the 'Upload file' button or 'Save and continue' button")
     FILE_TYPE_PUBLIC_ERROR = _l('Select a JPG, BMP, PNG, TIF or PDF file smaller than 10MB')
+    UPLOAD_FAILED_ERROR = _l('Sorry, there is a problem with the service')
+    UPLOAD_FAILED_RETRY = _l('Please try again later.')
