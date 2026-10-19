@@ -314,8 +314,10 @@ class ContactPreferencesForm(FlaskForm):
     )
 
     email = EmailField(
-        validators=[StrictRequiredIf('contact_options', 'EMAIL', message=c.NO_EMAIL_ADDRESS_ERROR,
-                                     validators=[LazyEmail(lazy_message=c.EMAIL_ADDRESS_INVALID_ERROR)])]
+        validators=[
+            LazyDataRequired(lazy_message=c.NO_EMAIL_ADDRESS_ERROR),
+            LazyEmail(lazy_message=c.EMAIL_ADDRESS_INVALID_ERROR)
+        ]
     )
 
     phone = TelField(

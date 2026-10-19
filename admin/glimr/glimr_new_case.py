@@ -108,7 +108,7 @@ class GlimrNewCase:
         return str(self.personal_details.title) + " " + str(self.personal_details.last_name)
 
     def get_contact_preference(self) -> Optional[str]:
-        if self.personal_details.contact_email_address:
+        if self.personal_details.contact_by_email:
             return 'Email'
         if self.personal_details.contact_phone_number:
             return 'Phone Call'
