@@ -3,14 +3,14 @@ version: "3.8"
 services:
 
   redis:
-    image: redis:latest
+    image: redis:latest@sha256:97ec88159e6d7cfb5ddef9015386087d58a912de80112f06ebdfa78fa5989901
     container_name: redis
 
   grc_clamav:
-    image: 'clamav/clamav:latest'
+    image: 'clamav/clamav:latest@sha256:e19130cdebaeacc71fa46eab3ed6f69941f2f22aa5e08d55e9197f8edf43ce5e'
 
   grc_db:
-    image: "postgres:14.22"
+    image: "postgres:14.22@sha256:eba8ddbdd837ecfbb6ca8a26d8deec68a2f9b076660102ae641dba0f371c099b"
     container_name: "grc_db"
     ports:
       - "5432:5432"
