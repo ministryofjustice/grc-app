@@ -1,0 +1,59 @@
+--- a/.github/dependencies.json
++++ b/.github/dependencies.json
+@@ -1,5 +1,5 @@
+ {
+-  "brotli": "1.2.0",
++  "brotli": "1.2.1",
+   "bzip2": "1.0.8",
+   "freetype": "2.14.3",
+   "fribidi": "1.0.17",
+--- a/.github/workflows/wheels-dependencies.sh
++++ b/.github/workflows/wheels-dependencies.sh
+@@ -210,1 +210,3 @@
+-    local out_dir=$(fetch_unpack https://github.com/AOMediaCodec/libavif/archive/refs/tags/v$LIBAVIF_VERSION.tar.gz libavif-$LIBAVIF_VERSION.tar.gz)
++    local out_dir=$(fetch_unpack https://github.com/AOMediaCodec/libavif/archive/refs/tags/v$LIBAVIF_VERSION.tar.gz libavif-$LIBAVIF_VERSION.tar.gz)
++    mkdir -p "$out_dir/ext/dav1d"
++    cp -a "$PROJECTDIR/cgr-native/dav1d/." "$out_dir/ext/dav1d/"
+@@ -227,1 +229,4 @@
+-            -DCMAKE_BUILD_TYPE=MinSizeRel \
++            -DCMAKE_BUILD_TYPE=MinSizeRel \
++            -DFETCHCONTENT_SOURCE_DIR_LIBAOM="$PROJECTDIR/cgr-native/aom" \
++            -DFETCHCONTENT_SOURCE_DIR_LIBYUV="$PROJECTDIR/cgr-native/libyuv" \
++            -DFETCHCONTENT_SOURCE_DIR_LIBWEBP="$PROJECTDIR/cgr-native/libwebp" \
+@@ -251,6 +256,6 @@
+ function build {
+     build_xz
+-    if [ -z "$IS_ALPINE" ] && [ -z "$SANITIZER" ] && [ -z "$IS_MACOS" ]; then
++    if command -v yum >/dev/null && [ -z "$IS_ALPINE" ] && [ -z "$SANITIZER" ] && [ -z "$IS_MACOS" ]; then
+         yum remove -y zlib-devel
+     fi
+     if [[ -n "$IS_MACOS" ]]; then
+@@ -306,14 +311,14 @@
+-    build_lcms2
+-    build_openjpeg
+-
+-    webp_cflags="-O3 -DNDEBUG"
+-    if [[ -n "$IS_MACOS" ]]; then
+-        webp_cflags="$webp_cflags -Wl,-headerpad_max_install_names"
+-    fi
+-    webp_ldflags=""
+-    if [[ -n "$IOS_SDK" ]]; then
+-        webp_ldflags="$webp_ldflags -llzma -lz"
+-    fi
+-    CFLAGS="$CFLAGS $webp_cflags" LDFLAGS="$LDFLAGS $webp_ldflags" build_simple libwebp $LIBWEBP_VERSION \
+-        https://storage.googleapis.com/downloads.webmproject.org/releases/webp tar.gz \
+-        --enable-libwebpmux --enable-libwebpdemux
++    webp_cflags="-O3 -DNDEBUG"
++    if [[ -n "$IS_MACOS" ]]; then
++        webp_cflags="$webp_cflags -Wl,-headerpad_max_install_names"
++    fi
++    webp_ldflags=""
++    if [[ -n "$IOS_SDK" ]]; then
++        webp_ldflags="$webp_ldflags -llzma -lz"
++    fi
++    CFLAGS="$CFLAGS $webp_cflags" LDFLAGS="$LDFLAGS $webp_ldflags" build_simple libwebp $LIBWEBP_VERSION \
++        https://storage.googleapis.com/downloads.webmproject.org/releases/webp tar.gz \
++        --enable-libwebpmux --enable-libwebpdemux
++
++    build_lcms2
++    build_openjpeg
