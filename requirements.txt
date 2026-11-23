@@ -4,7 +4,7 @@ Babel==2.14.0
 blinker==1.8.2
 boto3==1.35.44
 botocore==1.35.44
-certifi==2024.8.30
+certifi==2026.10.23
 charset-normalizer==3.4.0
 click==8.1.7
 coverage==7.6.1
@@ -42,7 +42,7 @@ psycopg2-binary==2.9.10
 psycopg2
 py==1.11.0
 py-healthcheck==1.10.1
-PyJWT==2.9.0
+PyJWT==2.15.1
 pyparsing==3.1.4
 pyScss==1.4.0
 pytest==8.3.3
